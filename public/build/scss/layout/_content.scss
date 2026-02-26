@@ -1,0 +1,97 @@
+
+/*============================
+  40.content
+============================*/
+
+@use "../variables" as *;
+@use "../utils/mixins" as *;
+
+.page-wrapper {
+    @include transition(all 0.5s ease);
+    margin: 0 0 0 276px ;
+    padding: 56px 0 0;
+    position: relative;
+    left: 0;
+    @include transition(all 0.2s ease);
+    @include respond-below(lg) {
+        margin: 0;
+        padding: 56px 0 0 ;
+    }
+    .content {
+        padding: 24px;
+        padding-bottom: 0;
+        min-height: calc(100vh - 105px);
+        @include respond-below(lg) {
+            padding: 15px;
+            padding-bottom: 0;
+        }
+        &.content-two {
+            padding-bottom: 24px;
+            @include respond-below(md) {
+                padding-bottom: 15px;
+            }
+        }
+    }
+}
+.page-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    .breadcrumb {
+        margin-bottom: 0;
+    }
+    @include respond-below(sm) {
+        flex-direction: column;
+        align-items: self-start;
+    }
+    .page-title {
+        margin-bottom: 10px;
+        color: $gray-900;
+        font-size: 18px;
+        @include respond-below(lg) {
+            font-size: $font-size-base;
+        }
+    }
+    h3{
+        font-weight: $font-weight-bold;
+        color: $gray-900;
+        font-size: 18px;
+        @include respond-below(lg) {
+            font-size: $font-size-base;
+        }
+    }
+    h4 {
+        font-weight: $font-weight-semibold;
+        color: $gray-900;
+        font-size: 18px;
+        margin-bottom: 5px;
+        @include respond-below(lg) {
+            font-size: 18px;
+        }
+    }
+    h6 {
+        font-size: $font-size-base;
+        color: $gray-700;
+        font-weight: $font-weight-normal;
+        @include respond-below(lg) {
+            font-size: 12px;
+        }
+        @include respond-below(sm) {
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+    }
+}
+p {
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

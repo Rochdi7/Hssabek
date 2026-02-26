@@ -1,0 +1,21 @@
+@use "../variables" as *;
+
+.pricing-content{    
+    .price-hdr{  
+        &::before{
+            content: "";
+            width: 50%;
+            height: 1px;
+            background: $gray-100;
+        }      
+        margin: 0 0 14px 0;
+        display: flex;
+        align-items: center;
+        &::after{
+            content: "";
+            width: 50%;
+            height: 1px;
+            background: $gray-200;
+        }        
+    }
+}

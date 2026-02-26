@@ -1,0 +1,88 @@
+@use "../variables" as *;
+@use "../utils/mixins" as *;
+
+.welcome-wrap {
+    padding: 40px;
+    @include respond-below(md) {
+        padding: 20px;
+    }
+}
+#total_sales {
+    overflow: hidden;
+    min-height: 175px !important;
+    max-height: 175px; 
+}
+
+// customer dashboard
+.recent-activities-two{
+    @include respond-above(xl){
+        min-height: 278px;
+    }
+}
+.recent-activities{
+    max-height: 315px;
+    overflow-y: scroll;
+    .recent-activities-flow{
+        padding-left: 14px;
+        position: relative;
+        z-index: 0;
+        &::before{
+            content: "";
+            width: 1px;
+            height: 120%;
+            border-left: 1px dashed $border-color;
+            position: absolute;
+            left: -10px;
+            top: 62%;
+            z-index: -1;
+        }
+    }
+}
+.recent-invoice-table{
+    .table{
+        td{
+            padding: 6px 16px;
+        }
+    }
+}
+
+// super admin dashboard
+.btn-blue{
+    background-color: #2DA7FF;
+    color: $white;
+    &:hover{
+        background-color: $white;
+        color: #2DA7FF;
+    }
+}
+.btn-outline-blue{
+    background-color: $white;
+    border: 1px solid #2DA7FF;
+    color: #2DA7FF;
+    &:hover{
+        background-color: #2DA7FF;
+        color: $white;
+    }
+}
+.dashboard-bg-2{
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    right: 16px;
+}
+.no-paginaion{
+    .dataTables_paginate, .dataTables_length,.paging_simple_numbers{
+        display: none;
+    }
+}
+.no-filter{
+    .dataTables_filter{
+      display: none;
+    }
+}
+.input-icon-end .form-control.yearpicker{
+    max-width: 80px;
+}
+.apexcharts-legend{
+    display: none;
+}

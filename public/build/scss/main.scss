@@ -1,0 +1,147 @@
+/*---------------------------------------------------------------------------------
+
+    Template Name: Kanakku
+    Version      : 1.0
+    Author: Dreams Technologies
+    Author URI: https://themeforest.net/user/dreamstechnologies
+
+-----------------------------------------------------------------------------------
+
+/*============================
+[Table of CSS]
+
+1.variables
+2.mixins
+3.base
+4.background
+5.accordion
+6.alerts
+7.avatar
+8.badge
+9.boostrap
+10.border
+11.breadcrumb
+12.button
+13.calendar
+14.call
+15.cards
+16.chart
+17.dropdown
+18.file-manager
+19.file-upload
+20.font
+21.form-wizard
+22.forms
+23.grid
+24.icons
+25.incoming-call
+26.navs-tabs
+27.notes
+28.pagination
+29.popovers
+30.popup
+31.progress
+32.ribbon
+33.sweetalert
+34.tables
+35.timeline
+36.todo
+37.tooltips
+38.typography
+39.common
+40.content
+41.header
+42.notification
+43.sidebar
+
+============================*/
+
+// Utills
+@forward "utils/mixins";
+
+// Variables
+@forward "variables";
+
+// Components
+@forward "components/accordions";
+@forward "components/avatar";
+@forward "components/alert";
+@forward "components/badge";
+@forward "components/breadcrumb";
+@forward "components/buttons";
+@forward "components/bootstrap";
+@forward "components/background";
+@forward "components/card";
+@forward "components/dropdown";
+@forward "components/forms";
+@forward "components/modal";
+@forward "components/nav";
+@forward "components/pagination";
+@forward "components/reboot";
+@forward "components/popover";
+@forward "components/tables";
+@forward "components/tooltip";
+@forward "components/utilities";
+@forward "components/progress";
+@forward "components/chat";
+@forward "components/email";
+@forward "components/preloader";
+@forward "components/widgets";
+@forward "components/print";
+@forward "components/incoming-call";
+@forward "components/call";
+@forward "components/file-manager";
+@forward "components/notes";
+
+// Layout
+@forward "layout/common";
+@forward "layout/content";
+@forward "layout/header";
+@forward "layout/sidebar";
+@forward "layout/notification";
+@forward "layout/theme";
+@forward "layout/theme-settings";
+
+// Pages
+@forward "pages/ui-pages";
+@forward "pages/product";
+@forward "pages/login";
+@forward "pages/dashboard";
+@forward "pages/blogs";
+@forward "pages/membership-plans";
+@forward "pages/other-invoice";
+@forward "pages/purchase";
+@forward "pages/settings";
+@forward "pages/invoices";
+@forward "pages/customer";
+@forward "pages/report";
+@forward "pages/pricing";
+@forward "pages/components-demo";
+@forward "pages/stocks";
+
+// Plugins
+@forward "plugins/apexcharts";
+@forward "plugins/calendar";
+@forward "plugins/choice";
+@forward "plugins/gridjs";
+@forward "plugins/swiper";
+@forward "plugins/daterange";
+@forward "plugins/flatpickr";
+@forward "plugins/dragula";
+@forward "plugins/dropzone";
+@forward "plugins/form-wizard";
+@forward "plugins/maps";
+@forward "plugins/quill-editor";
+@forward "plugins/select2";
+@forward "plugins/simplebar";
+@forward "plugins/leaflet-maps";
+@forward "plugins/sweetalert2";
+@forward "plugins/rangeslider";
+@forward "plugins/datatables";
+@forward "plugins/rangepicker-plugin";
+
+
+
+
+
+

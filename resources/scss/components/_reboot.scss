@@ -1,0 +1,208 @@
+//
+// reboot.scss
+//
+
+@use "../variables" as *;
+@use "../utils/mixins" as *;
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: $font-family-base;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $body-color;
+    background-color: $white;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: $primary;
+    color: $white;
+}
+
+button,
+a {
+    outline: none !important;
+}
+a {
+    text-decoration: none;
+    color: $gray-900;
+    &:hover {
+        color: $primary;
+    }
+}
+// Forms
+
+label {
+    font-weight: $font-weight-medium;
+}
+
+b,
+strong {
+    font-weight: $font-weight-semibold;
+}
+
+// border style
+.border-dashed {
+    border-style: dashed;
+}
+
+h1,
+.h1 {
+    font-size: 35px;
+    font-weight: $font-weight-bold;
+    color: $heading-color;
+    @include respond-below(lg) {
+        font-size: 30px;
+    }
+    @include respond-below(md) {
+        font-size: 28px;
+    }
+}
+h2,
+.h2 {
+    font-size: 30px;
+    font-weight: $font-weight-bold;
+    color: $heading-color;
+    @include respond-below(lg) {
+        font-size: 28px;
+    }
+    @include respond-below(md) {
+        font-size: 26px;
+    }
+}
+h3,
+.h3 {
+    font-size: 28px;
+    font-weight: $font-weight-bold;
+    color: $heading-color;
+    @include respond-below(lg) {
+        font-size: 26px;
+    }
+    @include respond-below(md) {
+        font-size: 24px;
+    }
+}
+h4,
+.h4 {
+    font-size: 24px;
+    font-weight: $font-weight-bold;
+    color: $heading-color;
+    @include respond-below(lg) {
+        font-size: 22px;
+    }
+    @include respond-below(md) {
+        font-size: 20px;
+    }
+}
+h5,
+.h5 {
+    font-size: 20px;
+    font-weight: $font-weight-bold;
+    color: $heading-color;
+    @include respond-below(md) {
+        font-size: 18px;
+    }
+}
+h6,
+.h6 {
+    font-size: 18px;
+    font-weight: $font-weight-bold;
+    color: $heading-color;
+    @include respond-below(md) {
+        font-size: 16px;
+    }
+}
+.display-1 {
+    font-size: 80px;
+    font-weight: $font-weight-bold;
+    @include respond-below(lg) {
+        font-size: 60px;
+    }
+    @include respond-below(md) {
+        font-size: 30px;
+    }
+}
+.display-2 {
+    font-size: 72px;
+    font-weight: $font-weight-bold;
+    @include respond-below(lg) {
+        font-size: 54px;
+    }
+    @include respond-below(md) {
+        font-size: 28px;
+    }
+}
+.display-3 {
+    font-size: 64px;
+    font-weight: $font-weight-bold;
+    @include respond-below(lg) {
+        font-size: 44px;
+    }
+    @include respond-below(md) {
+        font-size: 24px;
+    }
+}
+.display-4 {
+    font-size: 56px;
+    font-weight: $font-weight-bold;
+    @include respond-below(lg) {
+        font-size: 40px;
+    }
+    @include respond-below(md) {
+        font-size: 22px;
+    }
+}
+.display-5 {
+    font-size: 48px;
+    font-weight: $font-weight-bold;
+    @include respond-below(lg) {
+        font-size: 32px;
+    }
+    @include respond-below(md) {
+        font-size: 20px;
+    }
+}
+.display-6 {
+    font-size: 40px;
+    font-weight: $font-weight-bold;
+    @include respond-below(lg) {
+        font-size: 28px;
+    }
+    @include respond-below(md) {
+        font-size: 18px;
+    }
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+// Page Head
+@include respond-above(md) {
+    .page-title-head {
+        height: 85px;
+    }
+}
+
+@include respond-below(md) {
+    .page-title-head {
+        padding: 1.25rem 0;
+    }
+}
+
+// Custom Link
+.link-reset {
+    color: inherit;
+    transition: all 0.25s ease-in-out;
+
+    &:hover {
+        color: $primary;
+    }
+}

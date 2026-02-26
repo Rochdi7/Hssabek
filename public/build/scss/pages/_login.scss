@@ -1,0 +1,201 @@
+@use "../variables" as *;
+@use "../utils/mixins" as *;
+
+.account-page {
+    background: $white;
+}
+.login-wrapper {
+    width: 100%;
+    overflow: hidden;
+    height: 100vh;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    &.basic-type {
+        overflow: auto;
+        height: 100%;
+        justify-content: center;
+        &::before {
+            display: none;
+        }
+        .login-content {
+            overflow: unset;
+            height: 100%;
+        }
+    }
+    &.account-bg {
+        @include respond-below(lg) {
+            background-image: none;
+        }
+        .login-content {
+            background: linear-gradient(180deg, #FF7B3D 0%, #5C260C 100%);
+            backdrop-filter: blur(10px);
+            margin-left: auto;
+        }
+    }
+    .btn-outline-light  {
+        &:hover {
+            background-color: $white !important;
+        }
+    }   
+}
+.hover-a {
+    position: relative;
+    color: $primary;
+    &:after {
+        content:"";
+        height: 2px;
+        width: 100%;
+        background: $primary;
+        @include transform(scale(0));
+        @include transition(all 0.3s ease);
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+    }
+    &:hover:after {
+        @include transform(scale(1));
+    }
+    &:hover {
+        color: $primary;
+    }
+}
+.login-or {
+    text-align: center;
+    font-size: 15px;
+    color: $gray-700;
+    font-weight: $font-weight-medium;
+    margin: 5px 0;
+    padding: 10px 0;
+    position: relative;
+	&::after {
+		width: 100%;
+		content: "";
+		border-top: 1px solid $border-color;
+		position: absolute;
+		top: 50%;
+		right: 0;
+	}
+	&::before {
+		width: 100%;
+		content: "";
+		border-top: 1px solid $border-color;
+		position: absolute;
+		top: 50%;
+		left: 0;
+	}
+	.span-or {
+		background-color: $white;
+		padding: 0 10px;
+		z-index: 9;
+		position: relative;
+	}
+}
+.authentication-card {
+    padding: 40px;
+}
+.authen-overlay-item {
+    background: #FFF7F340;
+    border-radius: 15px;
+    padding: 40px;
+    position: relative;
+    backdrop-filter: blur(26px);
+}
+.authen-overlay-img {
+    max-width: 400px;
+}
+.border.border-dark-2 {
+    border: 2px solid #E8E8E9 !important;
+    border-radius: 8px !important;
+    height: 70px;
+    width: 70px;
+}
+.error-images img {
+    max-width: 500px;
+}
+
+.password-strength span{
+	width: 100%;
+    height: 5px;
+    background: #e3e3e3;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+.poor-active span.active#poor,
+.poor-active span.active#poors {
+  background: $danger;
+}
+.avg-active span.active#poor,
+.avg-active span.active#weak,
+.avg-active span.active#poors,
+.avg-active span.active#weaks {
+  background: $warning;
+}
+.strong-active span.active#poor,
+.strong-active span.active#weak,
+.strong-active span.active#strong,
+.strong-active span.active#poors,
+.strong-active span.active#weaks,
+.strong-active span.active#strongs {
+  background: $info;
+}
+.heavy-active span.active#poor,
+.heavy-active span.active#weak,
+.heavy-active span.active#strong,
+.heavy-active span.active#heavy,
+.heavy-active span.active#poors,
+.heavy-active span.active#weaks,
+.heavy-active span.active#strongs,
+.heavy-active span.active#heavys {
+  background: $success;
+}
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+.under-maintenance{
+  position: relative;
+}
+.maintenance-overlay-image{
+  .overlay-image-bottom{
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+  }
+  .overlay-image-top{
+    position: absolute;
+    top: -80px;
+    right: 2%;
+    z-index: -1;
+  }
+}
+.coming-soon{
+  .comming-soon-pg{
+    .counts-card{
+      width: 50px;
+      height: 50px;
+    }
+    
+  }
+}
+.auth-bg {
+    background-image: url(../img/auth/auth-bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.otp-input {
+	input{
+		border: 1px solid $border-color;
+        width: 60px;
+        height: 60px;
+		&.active{
+			border-color: $primary;
+		}
+	}
+}
+.coming-soon {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 67%, rgba(117, 57, 255, 0.2) 100%);
+}

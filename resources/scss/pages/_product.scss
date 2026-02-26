@@ -1,0 +1,83 @@
+@use "../variables" as *;
+@use "../utils/mixins" as *;
+
+.num-count {
+    width: 14px;
+    height: 14px;
+    @include rounded(50%);
+}
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+}
+.tag-close {
+    cursor: pointer;
+    color: $gray-500;
+    &:hover {
+        color: $danger;
+    }
+}
+.filter-info {
+    display: none;
+    &.show {
+        display: flex;
+    }
+}
+.report-icon {
+    transform: rotate(45deg);
+    i {
+            transform: rotate(-45deg);
+    }
+}
+.offcanvas {
+    &.offcanvas-offset {
+        .dropdown .dropdown-toggle {
+            color: $gray-900;
+            &::after {
+                position: absolute;
+                right: 10px;
+            }
+        }
+        .btn-close.custom-btn-close {
+            width: 16px;
+            height: 16px;
+            @include rounded(50%);
+            background-color: $danger;
+            font-size: 8px;
+            color: $white;
+            margin: 0 0 0 auto;
+            padding: 0;
+            background-image: none;
+            opacity: 1;
+            &:hover {
+                background-color: $danger;
+                color: $white !important;
+            }
+        }
+        .offcanvas-body {
+            background: transparent;
+            padding-bottom: 72px;
+        }        
+        .offcanvas-footer {
+            padding: 20px;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            background: $white;
+            z-index: 999;
+            @include rounded(0 0 10px 10px);
+        }
+    }
+}
+.dropdown-menu {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
+    }
+}
+.form-control[readonly] {
+    background: $gray-100;
+}

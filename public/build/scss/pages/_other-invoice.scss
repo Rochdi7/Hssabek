@@ -1,0 +1,42 @@
+@use "../variables" as *;
+
+.invoice-wrapper {
+    padding: 40px;
+    .invoice-tables {
+        thead {
+            tr{
+                th{
+                    padding: 10px 16px;
+                }
+            }
+        }  
+        .border-bottom-transparent {
+            border-bottom: transparent;
+        }
+    }
+    .invoice-info {
+        max-width: 550px;
+    }
+    .activity-feed .feed-item {
+        border-left: 2px solid $primary;
+        line-height: 0.7;
+        padding-bottom: 8px;
+        &::after{
+            display: none;
+        }
+        &::before{
+            left: -6px;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #fff;
+            background: $primary;
+        }
+    }
+    .ribbon-tittle {
+        background: $primary;
+        clip-path: polygon(100% 100%, 0% 100%, 0 0, 80% 0);
+        .ribbon-text{
+            padding: 20px 0 20px 18px;
+        }
+    }
+}

@@ -1,0 +1,238 @@
+/* Marketing Area Style
+============================================*/
+/* Marketing Dashboard CSS */
+.create-campaigns-tabs {
+    max-width: 960px;
+    margin: auto;
+    margin-bottom: 60px;
+    
+    .tab {
+        button {
+            position: relative;
+            padding: 0;
+            padding-bottom: 5px;
+            letter-spacing: 2px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 0;
+                height: 2px;
+                background-color: $primary;
+                transition: $transition;
+            }
+        }
+        &.active {
+            button {
+                color: $primary !important;
+
+                &::before {
+                    width: 100%;
+                    right: auto;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+.custom-radio {
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    input[type="radio"] {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #e2e4e7;
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        &:checked + .radio-content:after {
+            content: "";
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            background: $primary;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 100%;
+            border: 3px solid $white;
+            box-shadow: 0px 0px 0px 2px $primary;
+          }
+          &:checked + .radio-content {
+            border: 2px dashed $primary;
+            background: #ECEEF2;
+            transition: ease-in 0.3s;
+        }
+        &:focus {
+            box-shadow: none;
+        }
+    }
+    .radio-content {
+        border: 2px dashed #e2e4e7;
+        border-radius: 10px;
+        position: relative;
+        padding: 18px;
+        padding-left: 55px;
+    }
+    &.style-two {
+        input[type="radio"] {
+            left: 0;
+            width: 30px;
+            height: 30px;
+            margin-top: -9px;
+            &:checked + .radio-content:after {
+                left: 0;
+                width: 30px;
+                height: 30px;
+            }
+            &:checked + .radio-content {
+                border: none;
+                background-color: transparent;
+            }
+        }
+        .radio-content {
+            padding: 0;
+            border: none;
+            padding-left: 45px;
+        }
+    }
+}
+
+.form-check {
+    position: relative;
+
+    &.style {
+        .form-check-label {
+            padding: 0 0 0 40px;
+            color: #000;
+        }
+        .form-check-input {
+            width: 30px;
+            height: 30px;
+            border: 0;
+            background-color: #ECEEF2;
+            margin: 0;
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+        .label-description {
+            padding-left: 40px;
+        }
+        .form-check-input:checked {
+            background-color: $primary;
+        }
+        &.after-check {
+            .form-check-input {
+                width: 20px;
+                height: 20px;
+                border: 0;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border: 2px dashed #ECEEF2;
+                    z-index: 1;
+                    border-radius: 6px;
+                }
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: $white;
+                    z-index: -1;
+                    border-radius: 6px;
+                }
+            }
+            .form-check-input:checked {
+                background-color: $primary;
+
+                &::before {
+                    border-color: #5DA8FF;
+                }
+                &::after {
+                    background-color: #ECEEF2;
+                }
+            }
+        }
+    }
+}
+
+.tab-content-wrap {
+    .tab-contents {
+        display: none;
+        &.active {
+            display: block;
+        }
+        &.back-none {
+            position: relative;
+
+            &::before {
+                content: "";
+                position: absolute;
+                bottom: -88px;
+                left: -560px;
+                right: 0;
+                margin: auto;
+                width: 625px;
+                height: 50px;
+                background-color: #f6f7f9;
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    .create-campaigns-tabs {
+        margin-bottom: 30px;
+    }
+}
+ 
+
+// RTL
+[dir="rtl"] {
+    .form-check {
+        position: relative;
+    
+        &.style {
+            .form-check-label {
+                padding: 0 40px 0 0;
+            }
+            .form-check-input {
+                left: auto;
+                right: 0; 
+            }
+            .label-description {
+                padding-left: 0;
+                padding-right: 40px;
+            }
+        }
+    }
+}
+
+// dark
+.dark {
+    .form-check {
+        &.style {
+            .form-check-label {
+                color: #fff;
+            }
+            .form-check-input {
+                background-color: #2f2f2f;
+            }
+        }
+    }
+}

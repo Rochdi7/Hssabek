@@ -1,0 +1,1056 @@
+.with-horizontal-navbar {
+  .header-area {
+    position: fixed;
+    left: 0;
+    right: 0;
+    border-radius: 0 0 7px 7px !important;
+
+    &::before {
+      left: 0;
+      right: 0;
+      top: 75px;
+      content: "";
+      height: 1px;
+      position: absolute;
+      background: $border-color;
+    }
+    .container-fluid {
+      max-width: 1295px;
+    }
+
+    .logo-box {
+      display: block !important;
+    }
+  }
+}
+
+.horizontal-navbar-area {
+  max-width: 1295px;
+  margin: {
+    top: 13px;
+    left: auto;
+    right: auto;
+  }
+  padding: {
+    bottom: 0;
+    top: 13px;
+  }
+  display: none;
+
+  .accordion {
+    gap: 6px;
+
+    .accordion-item {
+      background-color: transparent;
+      color: $secondary;
+      white-space: nowrap;
+      position: relative;
+
+      .accordion-button {
+        display: flex;
+        align-items: center;
+        color: $secondary;
+        font-size: 14px;
+        background-color: transparent;
+        padding: {
+          bottom: 9px;
+          right: 33px;
+          left: 14px;
+          top: 9px;
+        }
+        i {
+          transition: $transition;
+          color: $body-color;
+          margin-right: 7px;
+          font-size: 22px;
+          line-height: 1;
+        }
+        .trezo-badge {
+          padding: 0;
+          width: 20px;
+          height: 20px;
+          font-size: 11px;
+          line-height: 20px;
+          color: $danger;
+          background-color: #fff5ed;
+          margin: {
+            left: 11px;
+            right: 0;
+          }
+          &.style-two {
+            color: #00b69b;
+            background: rgba(0, 182, 155, 0.07);
+          }
+          &.style-three {
+            color: #ee368c;
+            background: rgba(238, 54, 140, 0.1);
+          }
+        }
+        &::after {
+          display: none;
+        }
+        &::before {
+          top: 50%;
+          right: 8px;
+          margin-top: 1px;
+          content: "\ea4e";
+          position: absolute;
+          color: $body-color;
+          transform: translateY(-50%);
+          transition: $transition;
+          font: {
+            size: 19px;
+            family: remixicon;
+          }
+        }
+        &:hover {
+          color: $secondary;
+          background-color: #f6f7f9;
+
+          i {
+            color: $secondary;
+          }
+          &::before {
+            color: $secondary;
+          }
+        }
+      }
+      &:has(.active) .accordion-button {
+        color: $secondary;
+        background-color: #f6f7f9;
+
+        i {
+          color: $secondary;
+        }
+        &::before {
+          color: $secondary;
+        }
+      }
+      .accordion-body {
+        left: 0;
+        top: 100%;
+        opacity: 0;
+        z-index: 1;
+        width: 270px;
+        padding: 12px 0;
+        margin-top: 13px;
+        position: absolute;
+        visibility: hidden;
+        transition: $transition;
+        background-color: $white;
+        box-shadow: 0 0.25rem 1.125rem 0 rgba(47, 43, 61, 0.1);
+
+        .accordion-button {
+          color: $body-color;
+          font-size: 14px;
+          background-color: transparent;
+          padding: {
+            bottom: 10px;
+            right: 10px;
+            left: 31px;
+            top: 10px;
+          }
+          &::after {
+            top: 50%;
+            left: 13px;
+            width: 10px;
+            content: "";
+            height: 10px;
+            transition: 0.3s;
+            border-radius: 50%;
+            position: absolute;
+            display: inline-block;
+            transform: translateY(-50%);
+            background: unset !important;
+            border: 1px solid $body-color;
+          }
+          i {
+            margin-right: 0;
+          }
+          &:hover,
+          &.active {
+            background-color: #ecf0ff;
+            color: $primary;
+
+            i {
+              color: $primary;
+            }
+            &::after {
+              border-color: $primary;
+            }
+            &::before {
+              color: $primary;
+            }
+          }
+          .trezo-badge {
+            top: 50%;
+            padding: 0;
+            right: 34px;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            line-height: 20px;
+            position: absolute;
+            color: $danger;
+            transform: translateY(-50%);
+            background-color: #fff5ed;
+
+            &.style-two {
+              color: #00b69b;
+              background: rgba(0, 182, 155, 0.07);
+            }
+            &.style-three {
+              color: #ee368c;
+              background: rgba(238, 54, 140, 0.1);
+            }
+          }
+          &.with-icon {
+            display: flex !important;
+            align-items: center;
+            padding-left: 12px;
+            gap: 7px;
+
+            i {
+              font-size: 21px;
+            }
+            &::after {
+              display: none;
+            }
+          }
+        }
+        .sidebar-sub-menu {
+          .sidemenu-item {
+            position: relative;
+            padding: {
+              left: 12px;
+              right: 12px;
+            }
+            .sidemenu-link {
+              color: $body-color;
+              font-size: 14px;
+              text-decoration: none;
+              border-radius: 5px;
+              padding: {
+                bottom: 10px;
+                right: 12px;
+                left: 31px;
+                top: 10px;
+              }
+              &::after {
+                top: 50%;
+                left: 13px;
+                width: 10px;
+                content: "";
+                height: 10px;
+                transition: 0.3s;
+                border-radius: 50%;
+                position: absolute;
+                transform: translateY(-50%);
+                border: 1px solid $body-color;
+              }
+              &:hover,
+              &.active {
+                background-color: #ecf0ff;
+                color: $primary;
+
+                &::after {
+                  border-color: $primary;
+                }
+              }
+              .trezo-badge {
+                top: -1px;
+                padding: 2px 6px;
+                margin-left: 10px;
+                border-radius: 3px;
+                line-height: initial;
+                color: $danger;
+                background-color: #ffe8d4;
+                font: {
+                  size: 10px;
+                  weight: normal;
+                }
+                &::before {
+                  top: 50%;
+                  left: -3px;
+                  width: 6px;
+                  height: 6px;
+                  content: "";
+                  position: absolute;
+                  background: #ffe8d4;
+                  transform: translateY(-50%) rotate(45deg);
+                }
+                &.style-two {
+                  color: $success;
+                  background-color: #d8ffc8;
+
+                  &::before {
+                    background: #d8ffc8;
+                  }
+                }
+                &.style-three {
+                  color: $primary-div;
+                  background-color: #eae0f3;
+
+                  &::before {
+                    background: #eae0f3;
+                  }
+                }
+              }
+              &.with-icon {
+                display: flex !important;
+                align-items: center;
+                padding-left: 12px;
+                gap: 7px;
+
+                i {
+                  font-size: 21px;
+                }
+                &::after {
+                  display: none;
+                }
+              }
+            }
+            .accordion-body {
+              top: 0;
+              left: 100%;
+              opacity: 0;
+              margin-top: 0;
+              visibility: hidden;
+
+              .sidebar-sub-menu {
+                .sidemenu-item {
+                  .accordion-body {
+                    opacity: 0;
+                    // left: -100%;
+                    visibility: hidden;
+
+                    .sidebar-sub-menu {
+                      .sidemenu-item {
+                        .accordion-body {
+                          opacity: 0;
+                          // left: 100%;
+                          visibility: hidden;
+                        }
+                        &:hover {
+                          .accordion-body {
+                            opacity: 1;
+                            visibility: visible;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  &:hover {
+                    .accordion-body {
+                      opacity: 1;
+                      visibility: visible;
+                    }
+                  }
+                }
+              }
+            }
+            &:hover {
+              .accordion-body {
+                opacity: 1;
+                visibility: visible;
+              }
+            }
+          }
+        }
+      }
+      &.megamenu {
+        position: inherit;
+
+        .accordion-body {
+          width: auto;
+          right: 0;
+          padding: {
+            left: 12px;
+            right: 12px;
+          }
+          .sidebar-sub-menu {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: {
+              left: -5px;
+              right: -5px;
+            }
+            .sidemenu-item {
+              flex: 0 0 auto;
+              width: 25%;
+              padding: {
+                left: 5px;
+                right: 5px;
+              }
+            }
+          }
+        }
+      }
+      &:hover {
+        .accordion-body {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      &:last-child {
+        .accordion-body {
+          left: auto;
+          right: 0;
+
+          .sidebar-sub-menu {
+            .sidemenu-item {
+              .accordion-body {
+                left: -100%;
+
+                .sidebar-sub-menu {
+                  .sidemenu-item {
+                    .accordion-body {
+                      left: 100%;
+
+                      .sidebar-sub-menu {
+                        .sidemenu-item {
+                          .accordion-body {
+                            left: 100%;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// dark
+.dark {
+  .with-horizontal-navbar {
+    .header-area {
+      &::before {
+        background: #172036;
+      }
+      .logo {
+        display: none;
+
+        &.white-logo {
+          display: block;
+        }
+      }
+    }
+  }
+  .horizontal-navbar-area {
+    .accordion {
+      .accordion-item {
+        color: $white;
+
+        > .accordion-button {
+          color: $white;
+
+          .title {
+            color: $white;
+          }
+          .trezo-badge {
+            background-color: rgba(255, 255, 255, 0.08);
+
+            &.style-two {
+              background-color: rgba(255, 255, 255, 0.08);
+            }
+            &.style-three {
+              background-color: rgba(255, 255, 255, 0.08);
+            }
+          }
+          &:hover {
+            color: $white;
+            background-color: #15203c;
+
+            i {
+              color: $white;
+            }
+            &::before {
+              color: $white;
+            }
+          }
+        }
+        &:has(.active) .accordion-button {
+          color: $white;
+          background-color: #15203c;
+
+          i {
+            color: $white;
+          }
+          &::before {
+            color: $white;
+          }
+        }
+        .accordion-body {
+          background-color: #0c1427;
+
+          .accordion-button {
+            &:hover,
+            &.active {
+              background-color: #15203c;
+            }
+            .trezo-badge {
+              background-color: rgba(255, 255, 255, 0.08);
+
+              &.style-two {
+                background-color: rgba(255, 255, 255, 0.08);
+              }
+              &.style-three {
+                background-color: rgba(255, 255, 255, 0.08);
+              }
+            }
+          }
+          .sidebar-sub-menu {
+            .sidemenu-item {
+              .sidemenu-link {
+                color: #8695aa;
+
+                &::after {
+                  border-color: #8695aa;
+                }
+
+                &:hover,
+                &.active {
+                  background-color: #15203c;
+                  color: $primary;
+
+                  &::after {
+                    border-color: $primary;
+                  }
+                }
+                .trezo-badge {
+                  background: rgba(255, 255, 255, 0.08);
+
+                  &::before {
+                    background: rgba(255, 255, 255, 0.08);
+                  }
+                  &.style-two {
+                    background: rgba(255, 255, 255, 0.08);
+
+                    &::before {
+                      background: rgba(255, 255, 255, 0.08);
+                    }
+                  }
+                  &.style-three {
+                    background: rgba(255, 255, 255, 0.08);
+
+                    &::before {
+                      background: rgba(255, 255, 255, 0.08);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.with-horizontal-navbar {
+  .dark {
+    &.header-area {
+      &::before {
+        background: #172036;
+      }
+      .logo {
+        display: none;
+
+        &.white-logo {
+          display: block;
+        }
+      }
+    }
+  }
+}
+// End dark
+
+// RTL
+[dir="rtl"] {
+  .horizontal-navbar-area {
+    .accordion {
+      .accordion-item {
+        .accordion-button {
+          padding: {
+            right: 14px;
+            left: 33px;
+          }
+          i {
+            margin: {
+              right: 0;
+              left: 7px;
+            }
+          }
+          .trezo-badge {
+            margin: {
+              left: 0;
+              right: 11px;
+            }
+          }
+          &::before {
+            right: auto;
+            left: 8px;
+          }
+        }
+        .accordion-body {
+          left: auto;
+          right: 0;
+
+          .accordion-button {
+            padding: {
+              right: 31px;
+              left: 10px;
+            }
+            &::after {
+              left: auto;
+              right: 13px;
+            }
+            i {
+              margin-left: 0;
+            }
+            .trezo-badge {
+              right: auto;
+              left: 34px;
+            }
+            &.with-icon {
+              padding: {
+                left: 0;
+                right: 12px;
+              }
+            }
+          }
+          .sidebar-sub-menu {
+            .sidemenu-item {
+              .sidemenu-link {
+                padding: {
+                  right: 31px;
+                  left: 12px;
+                }
+                &::after {
+                  left: auto;
+                  right: 13px;
+                }
+                .trezo-badge {
+                  margin: {
+                    left: 0;
+                    right: 5px;
+                  }
+                  &::before {
+                    left: auto;
+                    right: -3px;
+                  }
+                }
+                &.with-icon {
+                  padding: {
+                    left: 0;
+                    right: 12px;
+                  }
+                }
+              }
+              .accordion-body {
+                left: auto;
+                right: 100%;
+
+                // .sidebar-sub-menu {
+                //     .sidemenu-item {
+                //         .accordion-body {
+                //             left: auto;
+                //             right: -100%;
+
+                //             .sidebar-sub-menu {
+                //                 .sidemenu-item {
+                //                     .accordion-body {
+                //                         left: auto;
+                //                         right: 100%;
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //     }
+                // }
+              }
+            }
+          }
+        }
+        &.megamenu {
+          .accordion-body {
+            left: 0;
+          }
+        }
+        &:last-child {
+          .accordion-body {
+            left: 0;
+            right: auto;
+
+            .sidebar-sub-menu {
+              .sidemenu-item {
+                .accordion-body {
+                  left: auto;
+                  right: -100%;
+
+                  .sidebar-sub-menu {
+                    .sidemenu-item {
+                      .accordion-body {
+                        left: auto;
+                        right: 100%;
+
+                        .sidebar-sub-menu {
+                          .sidemenu-item {
+                            .accordion-body {
+                              left: auto;
+                              right: 100%;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// End RTL
+
+.main-wrapper-content {
+  &.with-horizontal-navbar {
+    .horizontal-navbar-area {
+      display: block;
+    }
+    .main-content {
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 162px;
+      max-width: 1340px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+}
+
+/* Max width 575px */
+@media only screen and (max-width: 575px) {
+  .main-wrapper-content {
+    &.with-horizontal-navbar {
+      .main-content {
+        padding-top: 140px;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+  }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+  .horizontal-navbar-area {
+    display: none;
+  }
+  .main-wrapper-content {
+    &.with-horizontal-navbar {
+      .horizontal-navbar-area {
+        display: none;
+      }
+      .header-area {
+        &::before {
+          display: none;
+        }
+        .logo-box {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+
+/* Min width 576px to Max width 767px */
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .main-wrapper-content {
+    &.with-horizontal-navbar {
+      .main-content {
+        padding-top: 95px;
+      }
+    }
+  }
+}
+
+/* Min width 768px to Max width 991px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .horizontal-navbar-area {
+    display: none;
+  }
+
+  .main-wrapper-content {
+    &.with-horizontal-navbar {
+      .horizontal-navbar-area {
+        display: none;
+      }
+      .header-area {
+        &::before {
+          display: none;
+        }
+        .logo-box {
+          display: none !important;
+        }
+      }
+      &.with-horizontal-navbar {
+        .main-content {
+          padding-top: 95px;
+        }
+      }
+    }
+  }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .main-wrapper-content {
+    &.with-horizontal-navbar {
+      .left-header-content {
+        ul {
+          li {
+            .src-form {
+              .form-control {
+                width: 215px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .horizontal-navbar-area {
+    max-width: 100%;
+
+    .accordion {
+      .accordion-item {
+        .accordion-body {
+          width: 250px;
+        }
+        &:last-child,
+        &:nth-last-child(2) {
+          .accordion-body {
+            left: auto;
+            right: 0;
+
+            .sidebar-sub-menu {
+              .sidemenu-item {
+                .accordion-body {
+                  left: -100%;
+
+                  .sidebar-sub-menu {
+                    .sidemenu-item {
+                      .accordion-body {
+                        left: -100%;
+
+                        .sidebar-sub-menu {
+                          .sidemenu-item {
+                            .accordion-body {
+                              left: 100%;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // RTL
+  [dir="rtl"] {
+    .horizontal-navbar-area {
+      .accordion {
+        .accordion-item {
+          &:last-child,
+          &:nth-last-child(2) {
+            .accordion-body {
+              left: 0;
+              right: auto;
+
+              .sidebar-sub-menu {
+                .sidemenu-item {
+                  .accordion-body {
+                    left: auto;
+                    right: -100%;
+
+                    .sidebar-sub-menu {
+                      .sidemenu-item {
+                        .accordion-body {
+                          left: auto;
+                          right: -100%;
+
+                          .sidebar-sub-menu {
+                            .sidemenu-item {
+                              .accordion-body {
+                                left: auto;
+                                right: 100%;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Min width 992px */
+@media only screen and (min-width: 992px) {
+  .with-horizontal-navbar {
+    .header-area {
+      .hbm {
+        display: none;
+      }
+      .logo {
+        &.white-logo {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .main-wrapper-content {
+    &.with-horizontal-navbar {
+      .sidebar-area {
+        display: none;
+      }
+    }
+  }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+  .horizontal-navbar-area {
+    max-width: 100%;
+
+    .accordion {
+      .accordion-item {
+        .accordion-body {
+          width: 250px;
+        }
+        &:last-child,
+        &:nth-last-child(2) {
+          .accordion-body {
+            left: auto;
+            right: 0;
+
+            .sidebar-sub-menu {
+              .sidemenu-item {
+                .accordion-body {
+                  left: -100%;
+
+                  .sidebar-sub-menu {
+                    .sidemenu-item {
+                      .accordion-body {
+                        left: -100%;
+
+                        .sidebar-sub-menu {
+                          .sidemenu-item {
+                            .accordion-body {
+                              left: 100%;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // RTL
+  [dir="rtl"] {
+    .horizontal-navbar-area {
+      .accordion {
+        .accordion-item {
+          &:last-child,
+          &:nth-last-child(2) {
+            .accordion-body {
+              left: 0;
+              right: auto;
+
+              .sidebar-sub-menu {
+                .sidemenu-item {
+                  .accordion-body {
+                    left: auto;
+                    right: -100%;
+
+                    .sidebar-sub-menu {
+                      .sidemenu-item {
+                        .accordion-body {
+                          left: auto;
+                          right: -100%;
+
+                          .sidebar-sub-menu {
+                            .sidemenu-item {
+                              .accordion-body {
+                                left: auto;
+                                right: 100%;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Min width 1600px */
+@media only screen and (min-width: 1600px) {
+  .with-horizontal-navbar {
+    .header-area {
+      .container-fluid {
+        max-width: 1545px;
+      }
+    }
+  }
+
+  .horizontal-navbar-area {
+    max-width: 1545px;
+  }
+
+  .main-wrapper-content {
+    &.with-horizontal-navbar {
+      .main-content {
+        max-width: 1596px;
+      }
+    }
+  }
+}

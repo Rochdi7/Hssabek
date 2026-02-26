@@ -1,0 +1,146 @@
+@use "../variables" as *;
+@use "../utils/mixins" as *;
+
+.h-60{
+    height: 60px;
+}
+.invoice-logo{
+    img{
+        height: 47px;
+        
+    }
+}
+.ribbon-hotel{
+    background-color: #7539FF;
+    clip-path: polygon(100% 100%, 8% 100%, 0% 0%, 100% 0%);
+    padding: 48px;
+    text-align: center;
+    border-start-end-radius: 4px;
+    border-end-end-radius: 4px;
+    @include respond-below(sm){
+        padding: 28px;
+    }
+}
+.invoice-table{
+    tbody tr td{
+        border: 1px solid $border-color;
+    }
+    tbody tr:last-child{
+        border-bottom: 1px solid $border-color;
+    }
+}
+.invoice-table2{
+    th{
+        border: 10px solid white !important;
+        padding: 8px !important;
+      }
+    border-collapse: collapse;
+    tbody tr th,tbody tr td{
+        border-collapse: collapse;
+        border: 10px solid white !important;
+        
+    }
+    .thead-2{
+        tr th{
+            background:black;
+            color:white !important;
+            text-align: center;
+        }
+        
+    }
+    .tbody-2{
+        td{
+            color: $gray-900;
+        }
+        .odd td{
+            background: $light;
+        }
+    }
+    .thead-3 th{
+            border-top: 1px solid !important;
+            border-bottom: 1px solid !important;
+      
+    }
+    .tbody-3 tr td{
+        border: 0 !important;
+        padding: 10px 5px;
+    }
+}
+p {
+	margin-bottom:20px;
+    line-height: 20px;
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+.receipt-page{
+    p{
+        font-size: 10px;
+    }
+    .card{
+        width: 340px;
+        .retail-receipt{
+            display: flex;
+            align-items: center;
+        }
+        .retail-receipt::before,
+        .retail-receipt::after {
+            content: "";
+            flex: 1; 
+            height: 1px;
+            border-bottom: 1px dashed $gray-100; 
+        }
+        .retail-receipt::before{
+            margin-right:15px
+        }
+        .retail-receipt::after{
+            margin-left:15px
+        }
+        .receipt-header thead tr th{
+            content: "";
+            flex: 1; 
+            height: 1px;
+            border-top: 1px dashed $gray-100 !important; 
+            border-bottom: 1px dashed $gray-100 !important; 
+            margin-bottom: 10px;
+        }
+    }
+.border-dashed{
+    border-bottom:1px dashed $gray-100;
+}
+}
+
+
+.table-info {
+    .dataTables_filter{
+        display: none;
+    }
+}
+.customer-details-bg{
+    position: absolute;
+    width: 100%;
+    height: 500px;
+    max-width: 500px;
+    top: -131px;
+    right: 32px;
+    opacity: 0.5;
+    @include respond-below (sm){
+        display: none;
+    }
+}
+.action-item > a{
+    width: 20px;
+    height: 20px;
+    border: 1px solid #dfdfdf;
+    border-radius: 50%;
+    color: var(--gray-500);
+    background: var(--white);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+

@@ -1,0 +1,2621 @@
+================================================================================
+  FACTURATION SaaS — COMPLETE PRODUCTION ARCHITECTURE
+  Version: 2.0 FINAL | Date: 2026-02-25
+  Stack: Laravel 11 + Inertia/React (or Blade) + Multi-tenant
+================================================================================
+
+TABLE OF CONTENTS
+─────────────────
+  0) Tech Stack & Packages
+  1) Project Structure (Folders)
+  2) DATABASE SCHEMA
+     A) Multi-tenant Core
+     B) Settings & Config
+     C) CRM — Customers & Contacts
+     D) Product Catalog
+     E) Inventory / Stock (multi-warehouse)
+     F) Taxes & Currencies
+     G) Sales (Quotes / Invoices / Credit Notes / Delivery Challans)
+     H) Client Payments
+     I) Purchases (Suppliers / PO / GR / Vendor Bills / Debit Notes)
+     J) Finance & Accounts
+     K) Documents / Emails / Audit
+     L) Roles & Permissions (Spatie)
+     M) Plans & Subscriptions (SaaS Billing)
+     N) Templates Marketplace
+     O) PRO Features (Numbering / Recurring / Reminders / Branches / Invitations)
+  3) Routing (Backoffice Multi-tenant)
+  4) Middleware & Multi-tenancy
+  5) Business Logic & Services
+  6) Policies & Authorization
+  7) Seeds & Defaults
+  8) Media Library (Spatie)
+  9) Copilot-ready Prompts
+
+================================================================================
+  0) TECH STACK & PACKAGES
+================================================================================
+
+Framework:      Laravel 11 (PHP 8.2+)
+Auth:           laravel/sanctum (API) + session (web)
+Roles:          spatie/laravel-permission (multi-tenant)
+Media:          spatie/laravel-medialibrary (images/files)
+PDF:            barryvdh/laravel-dompdf ou spatie/browsershot
+Search:         laravel/scout + meilisearch (optionnel)
+Queue:          Laravel Horizon + Redis
+Cache:          Redis
+DB:             MySQL 8 / PostgreSQL 15
+Storage:        S3-compatible (DigitalOcean Spaces / AWS S3)
+
+================================================================================
+  1) PROJECT STRUCTURE (FOLDERS)
+================================================================================
+
+app/
+├── Models/
+│   ├── Tenancy/
+│   │   ├── Tenant.php
+│   │   ├── TenantDomain.php
+│   │   ├── TenantSetting.php
+│   │   └── Integration.php
+│   ├── Auth/
+│   │   └── User.php
+│   ├── CRM/
+│   │   ├── Customer.php
+│   │   ├── CustomerAddress.php
+│   │   └── CustomerContact.php
+│   ├── Catalog/
+│   │   ├── Product.php
+│   │   ├── ProductCategory.php
+│   │   ├── Unit.php
+│   │   ├── TaxCategory.php
+│   │   ├── TaxGroup.php
+│   │   └── TaxGroupRate.php
+│   ├── Inventory/
+│   │   ├── Warehouse.php
+│   │   ├── ProductStock.php
+│   │   ├── StockMovement.php
+│   │   ├── StockTransfer.php
+│   │   └── StockTransferItem.php
+│   ├── Sales/
+│   │   ├── Quote.php
+│   │   ├── QuoteItem.php
+│   │   ├── QuoteCharge.php
+│   │   ├── Invoice.php
+│   │   ├── InvoiceItem.php
+│   │   ├── InvoiceCharge.php
+│   │   ├── CreditNote.php
+│   │   ├── CreditNoteItem.php
+│   │   ├── CreditNoteApplication.php
+│   │   ├── DeliveryChallan.php
+│   │   ├── DeliveryChallanItem.php
+│   │   └── DeliveryChallanCharge.php
+│   ├── Payments/
+│   │   ├── PaymentMethod.php
+│   │   ├── Payment.php
+│   │   ├── PaymentAllocation.php
+│   │   └── Refund.php
+│   ├── Purchases/
+│   │   ├── Supplier.php
+│   │   ├── PurchaseOrder.php
+│   │   ├── PurchaseOrderItem.php
+│   │   ├── GoodsReceipt.php
+│   │   ├── GoodsReceiptItem.php
+│   │   ├── VendorBill.php
+│   │   ├── DebitNote.php
+│   │   ├── DebitNoteItem.php
+│   │   ├── DebitNoteApplication.php
+│   │   ├── SupplierPaymentMethod.php
+│   │   ├── SupplierPayment.php
+│   │   └── SupplierPaymentAllocation.php
+│   ├── Finance/
+│   │   ├── BankAccount.php
+│   │   ├── MoneyTransfer.php
+│   │   ├── FinanceCategory.php
+│   │   ├── Expense.php
+│   │   ├── Income.php
+│   │   ├── Loan.php
+│   │   └── LoanInstallment.php
+│   ├── System/
+│   │   ├── Document.php
+│   │   ├── EmailLog.php
+│   │   ├── ActivityLog.php
+│   │   ├── NotificationLog.php
+│   │   └── LoginLog.php
+│   ├── Templates/
+│   │   ├── TemplateCatalog.php
+│   │   ├── TenantTemplate.php
+│   │   ├── TenantTemplatePreference.php
+│   │   └── TemplatePurchase.php
+│   ├── Billing/
+│   │   ├── Plan.php
+│   │   ├── Subscription.php
+│   │   └── SubscriptionInvoice.php
+│   └── Pro/
+│       ├── DocumentNumberSequence.php
+│       ├── RecurringInvoice.php
+│       ├── InvoiceReminder.php
+│       ├── Branch.php
+│       └── UserInvitation.php
+│
+├── Http/
+│   ├── Middleware/
+│   │   ├── IdentifyTenant.php
+│   │   ├── EnsureTenantActive.php
+│   │   ├── SetTenantContext.php
+│   │   └── RequirePermission.php
+│   │
+│   └── Controllers/
+│       └── Backoffice/
+│           ├── Auth/
+│           │   ├── LoginController.php
+│           │   └── LogoutController.php
+│           ├── DashboardController.php
+│           ├── Settings/
+│           │   ├── AccountSettingsController.php
+│           │   ├── CompanySettingsController.php
+│           │   ├── LocalizationSettingsController.php
+│           │   ├── InvoiceSettingsController.php
+│           │   ├── NotificationSettingsController.php
+│           │   ├── SignatureController.php
+│           │   ├── IntegrationController.php
+│           │   ├── ModuleSettingsController.php
+│           │   └── TemplatesController.php
+│           ├── Access/
+│           │   ├── RolesController.php
+│           │   └── PermissionsController.php
+│           ├── CRM/
+│           │   └── CustomerController.php
+│           ├── Catalog/
+│           │   ├── ProductController.php
+│           │   ├── CategoryController.php
+│           │   ├── UnitController.php
+│           │   └── TaxCategoryController.php
+│           ├── Inventory/
+│           │   ├── WarehouseController.php
+│           │   ├── StockController.php
+│           │   ├── MovementController.php
+│           │   └── TransferController.php
+│           ├── Sales/
+│           │   ├── QuoteController.php
+│           │   ├── InvoiceController.php
+│           │   ├── CreditNoteController.php
+│           │   ├── DeliveryChallanController.php
+│           │   └── PaymentController.php
+│           ├── Purchases/
+│           │   ├── SupplierController.php
+│           │   ├── PurchaseOrderController.php
+│           │   ├── GoodsReceiptController.php
+│           │   ├── VendorBillController.php
+│           │   ├── DebitNoteController.php
+│           │   └── SupplierPaymentController.php
+│           ├── Finance/
+│           │   ├── BankAccountController.php
+│           │   ├── MoneyTransferController.php
+│           │   ├── ExpenseController.php
+│           │   ├── IncomeController.php
+│           │   └── LoanController.php
+│           └── Reports/
+│               ├── SalesReportController.php
+│               ├── PurchaseReportController.php
+│               ├── InventoryReportController.php
+│               ├── FinanceReportController.php
+│               └── LoanReportController.php
+│
+│       └── SuperAdmin/
+│           ├── DashboardController.php
+│           ├── TenantManagementController.php
+│           ├── TemplateCatalogController.php
+│           ├── TenantTemplateController.php
+│           ├── PlanController.php
+│           ├── SubscriptionController.php
+│           └── GlobalSettingsController.php
+│
+├── Services/
+│   ├── Tenancy/
+│   │   ├── TenantResolver.php
+│   │   └── TenantContext.php
+│   ├── Numbering/
+│   │   └── DocumentNumberService.php
+│   ├── Settings/
+│   │   └── TenantSettingsService.php
+│   ├── Templates/
+│   │   ├── TemplateAccessService.php
+│   │   ├── TemplateRenderService.php
+│   │   ├── TemplateAssignmentService.php
+│   │   └── TemplatePurchaseService.php
+│   ├── Inventory/
+│   │   ├── StockService.php
+│   │   ├── StockMovementService.php
+│   │   └── StockTransferService.php
+│   ├── Sales/
+│   │   ├── QuoteCalculator.php
+│   │   ├── InvoiceCalculator.php
+│   │   ├── CreditNoteService.php
+│   │   ├── DeliveryChallanService.php
+│   │   └── PaymentAllocationService.php
+│   ├── Purchases/
+│   │   ├── PurchaseOrderService.php
+│   │   ├── GoodsReceiptService.php
+│   │   ├── VendorBillService.php
+│   │   ├── DebitNoteService.php
+│   │   └── SupplierPaymentService.php
+│   ├── Finance/
+│   │   ├── BankBalanceService.php
+│   │   ├── IncomeExpenseService.php
+│   │   └── LoanService.php
+│   ├── Audit/
+│   │   └── ActivityLogger.php
+│   └── Notifications/
+│       ├── NotificationDispatcher.php
+│       └── Channels/
+│           ├── EmailChannel.php
+│           ├── SmsChannel.php
+│           ├── InAppChannel.php
+│           └── WhatsappChannel.php
+│
+├── Policies/
+│   ├── TenantPolicy.php
+│   ├── CustomerPolicy.php
+│   ├── ProductPolicy.php
+│   ├── QuotePolicy.php
+│   ├── InvoicePolicy.php
+│   ├── CreditNotePolicy.php
+│   ├── DeliveryChallanPolicy.php
+│   ├── PaymentPolicy.php
+│   ├── SupplierPolicy.php
+│   ├── PurchaseOrderPolicy.php
+│   ├── VendorBillPolicy.php
+│   ├── DebitNotePolicy.php
+│   ├── ExpensePolicy.php
+│   ├── IncomePolicy.php
+│   ├── BankAccountPolicy.php
+│   ├── LoanPolicy.php
+│   ├── LoanInstallmentPolicy.php
+│   ├── RolePolicy.php
+│   └── TemplatePolicy.php
+│
+├── Scopes/
+│   └── TenantScope.php
+│
+└── Enums/
+    ├── TenantStatus.php
+    ├── UserStatus.php
+    ├── CustomerType.php
+    ├── CompanyLegalStatus.php        ← NEW (backed string enum)
+    ├── DocumentStatus.php
+    ├── PaymentStatus.php
+    ├── MovementType.php
+    └── ...
+
+database/
+├── migrations/
+│   ├── 0001_create_tenants_table.php
+│   ├── 0002_create_tenant_domains_table.php
+│   ├── 0003_create_users_table.php
+│   ├── 0004_create_tenant_settings_table.php
+│   ├── ... (one per table, ordered by dependency)
+│   └── 9999_create_pro_tables.php
+├── seeders/
+│   ├── DatabaseSeeder.php
+│   ├── PlanSeeder.php
+│   ├── PermissionSeeder.php
+│   ├── RoleSeeder.php
+│   ├── CurrencySeeder.php
+│   ├── TemplateCatalogSeeder.php
+│   └── DemoTenantSeeder.php
+└── factories/ (for testing)
+
+routes/
+├── backoffice.php     (tenant-scoped backoffice routes)
+├── api.php            (API routes, Sanctum)
+├── web.php            (landing page, public)
+└── superadmin.php     (SaaS admin panel)
+
+
+================================================================================
+  2) DATABASE SCHEMA — COMPLETE
+================================================================================
+
+────────────────────────────────────────
+  A) MULTI-TENANT CORE
+────────────────────────────────────────
+
+┌─ tenants ──────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  name                  string                                  │
+│  slug                  string, unique                          │
+│  status                enum: active | suspended | cancelled    │
+│  timezone              string, default "Africa/Casablanca"     │
+│  default_currency      char(3), default "MAD"                  │
+│  has_free_trial        bool, default false                     │
+│  trial_ends_at         datetime, nullable                      │
+│  created_at / updated_at                                       │
+│                                                                │
+│  ⚠ Numbering columns REMOVED — use document_number_sequences  │
+│    (see section O) for flexible, resettable numbering.         │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ tenant_domains ───────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, FK → tenants, index               │
+│  domain                string, unique                          │
+│  is_primary            bool, default false                     │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ users ────────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, FK → tenants, nullable            │
+│                        (NULL = Super Admin SaaS)               │
+│  name                  string                                  │
+│  email                 string, unique                          │
+│  email_verified_at     datetime, nullable                      │
+│  password              string                                  │
+│  avatar_url            string, nullable                        │
+│  status                enum: active | blocked                  │
+│  last_login_at         datetime, nullable                      │
+│  last_login_ip         string, nullable                        │
+│  remember_token        string, nullable                        │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  B) SETTINGS & CONFIG
+────────────────────────────────────────
+
+┌─ tenant_settings ──────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, unique, FK → tenants              │
+│  account_settings      json                                    │
+│  company_settings      json                                    │
+│  localization_settings json                                    │
+│  invoice_settings      json                                    │
+│  notification_settings json                                    │
+│  signature_settings    json                                    │
+│  integration_settings  json                                    │
+│  modules_settings      json                                    │
+│  updated_at                                                    │
+│                                                                │
+│  JSON examples:                                                │
+│  company_settings = {                                          │
+│    "name", "legal_name", "tax_id", "email", "phone",          │
+│    "website", "address", "city", "region",                     │
+│    "postal_code", "country",                                   │
+│    "legal_status": "sarl",                                     │
+│      ↑ backed by App\Enums\CompanyLegalStatus enum             │
+│      values: sarl | sa | branch | subsidiary                  │
+│              | sole_proprietorship                              │
+│    "legal_status_details_snapshot": {                           │
+│      "label": "SARL",                                          │
+│      "description": "La forme la plus courante...",            │
+│      "partners_or_shareholders": "1 à 50 associés",           │
+│      "min_capital_mad": 1,                                     │
+│      "notes": "Capital minimum symbolique; adaptée aux PME."  │
+│    }                                                           │
+│  }                                                             │
+│  invoice_settings = {                                          │
+│    "default_payment_terms_days": 30,                           │
+│    "default_notes": "...",                                     │
+│    "default_terms": "...",                                     │
+│    "show_tax": true,                                           │
+│    "round_off_enabled": true,                                  │
+│    "auto_stock_deduct_on": "invoice_sent"                      │
+│  }                                                             │
+│  modules_settings = {                                          │
+│    "purchases_enabled": true,                                  │
+│    "inventory_enabled": true,                                  │
+│    "multi_warehouse": false,                                   │
+│    "delivery_challans_enabled": true                            │
+│  }                                                             │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ signatures ───────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string                                  │
+│  is_default            bool, default false                     │
+│  status                enum: active | inactive                 │
+│  created_at / updated_at                                       │
+│  (image via Media Library, collection: "signature_image")      │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ integrations ─────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  provider              enum: gmail | google_calendar | stripe  │
+│                              | whatsapp | other                │
+│  status                enum: connected | disconnected | error  │
+│  credentials           json, nullable (encrypted)              │
+│  settings              json, nullable                          │
+│  last_synced_at        datetime, nullable                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  C) CRM — CUSTOMERS & CONTACTS
+────────────────────────────────────────
+
+┌─ customers ────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  type                  enum: individual | company              │
+│  name                  string                                  │
+│  email                 string, nullable                        │
+│  phone                 string, nullable                        │
+│  tax_id                string, nullable                        │
+│  currency              char(3), nullable                       │
+│  payment_terms_days    int, default 0                          │
+│  notes                 text, nullable                          │
+│  status                enum: active | inactive                 │
+│  created_at / updated_at                                       │
+│  Index: (tenant_id, status)                                    │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ customer_addresses ───────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers, index             │
+│  type                  enum: billing | shipping                │
+│  line1                 string                                  │
+│  line2                 string, nullable                        │
+│  city                  string                                  │
+│  region                string, nullable                        │
+│  postal_code           string, nullable                        │
+│  country               string, default "MA"                    │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ customer_contacts ────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers, index             │
+│  name                  string                                  │
+│  email                 string, nullable                        │
+│  phone                 string, nullable                        │
+│  position              string, nullable                        │
+│  is_primary            bool, default false                     │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  D) PRODUCT CATALOG
+────────────────────────────────────────
+
+┌─ product_categories ───────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string                                  │
+│  slug                  string                                  │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+│  Unique: (tenant_id, slug)                                     │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ units ────────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string                                  │
+│  short_name            string                                  │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ products ─────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  item_type             enum: product | service                 │
+│  name                  string                                  │
+│  code                  string                                  │
+│  sku                   string, nullable                        │
+│  slug                  string, nullable                        │
+│  category_id           uuid, FK → product_categories, nullable │
+│  unit_id               uuid, FK → units, nullable              │
+│  description           text, nullable                          │
+│                                                                │
+│  — Prices —                                                    │
+│  selling_price         decimal(12,2)                           │
+│  purchase_price        decimal(12,2), default 0                │
+│  currency              char(3), nullable                       │
+│                                                                │
+│  — Inventory —                                                 │
+│  track_inventory       bool, default false                     │
+│  quantity              decimal(14,3), default 0  (MVP single)  │
+│  alert_quantity        decimal(14,3), nullable                 │
+│  barcode               string, nullable                        │
+│                                                                │
+│  — Discount / Tax —                                            │
+│  discount_type         enum: none | percentage | fixed, null.  │
+│  discount_value        decimal(12,4), default 0                │
+│  tax_category_id       uuid, FK → tax_categories, nullable     │
+│                                                                │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+│  Index: (tenant_id, is_active)                                 │
+│  Index: (tenant_id, code)                                      │
+│  (product image via Media Library, collection: "product_image")│
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  E) INVENTORY / STOCK (MULTI-WAREHOUSE)
+────────────────────────────────────────
+
+┌─ warehouses ───────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string                                  │
+│  code                  string, nullable                        │
+│  address               text, nullable                          │
+│  is_default            bool, default false                     │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ product_stocks ───────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  warehouse_id          uuid, FK → warehouses, index            │
+│  product_id            uuid, FK → products, index              │
+│  quantity_on_hand      decimal(14,3), default 0                │
+│  quantity_reserved     decimal(14,3), default 0                │
+│  reorder_point         decimal(14,3), nullable                 │
+│  reorder_quantity      decimal(14,3), nullable                 │
+│  updated_at                                                    │
+│  Unique: (tenant_id, warehouse_id, product_id)                 │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ stock_movements ──────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  warehouse_id          uuid, FK → warehouses, index            │
+│  product_id            uuid, FK → products, index              │
+│  movement_type         enum:                                   │
+│                          stock_in | stock_out                  │
+│                          adjustment_in | adjustment_out        │
+│                          transfer_in | transfer_out            │
+│                          return_in | return_out                │
+│                          reserve | unreserve                   │
+│                          purchase_in | sale_out                │
+│  quantity              decimal(14,3)                           │
+│  unit_cost             decimal(12,2), nullable                 │
+│  currency              char(3), nullable                       │
+│  reference_type        string, nullable (morph)                │
+│  reference_id          uuid, nullable (morph)                  │
+│  note                  text, nullable                          │
+│  moved_at              datetime                                │
+│  created_by            uuid, FK → users, nullable              │
+│  created_at                                                    │
+│  Index: (tenant_id, product_id, moved_at)                      │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ stock_transfers ──────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  from_warehouse_id     uuid, FK → warehouses                   │
+│  to_warehouse_id       uuid, FK → warehouses                   │
+│  number                string, unique per tenant, nullable     │
+│  status                enum: draft | in_transit | received     │
+│                              | cancelled                       │
+│  shipped_at            datetime, nullable                      │
+│  received_at           datetime, nullable                      │
+│  notes                 text, nullable                          │
+│  created_by            uuid, FK → users, nullable              │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ stock_transfer_items ─────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  stock_transfer_id     uuid, FK → stock_transfers              │
+│  product_id            uuid, FK → products                     │
+│  quantity              decimal(14,3)                           │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  F) TAXES & CURRENCIES
+────────────────────────────────────────
+
+┌─ tax_categories ───────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string (TVA 20%, Exonéré…)              │
+│  rate                  decimal(6,4)                            │
+│  type                  enum: percentage | fixed                │
+│  is_default            bool, default false                     │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ tax_groups (PRO — compound taxes) ────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string (GST, VAT Group…)                │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ tax_group_rates ──────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  tax_group_id          uuid, FK → tax_groups                   │
+│  name                  string (CGST, SGST…)                    │
+│  rate                  decimal(6,4)                            │
+│  position              int, default 1                          │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ currencies (global, not tenant-scoped) ───────────────────────┐
+│  code                  char(3), PK (MAD, USD, EUR…)            │
+│  name                  string                                  │
+│  symbol                string, nullable                        │
+│  precision             tinyint, default 2                      │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ exchange_rates ───────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  base_currency         char(3), FK → currencies                │
+│  quote_currency        char(3), FK → currencies                │
+│  rate                  decimal(18,8)                           │
+│  date                  date                                    │
+│  Unique: (tenant_id, base_currency, quote_currency, date)      │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  G) SALES
+────────────────────────────────────────
+
+┌─ quotes ───────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers, index             │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | sent | accepted           │
+│                              | rejected | expired | cancelled  │
+│  issue_date            date                                    │
+│  due_date              date, nullable                          │
+│  expiry_date           date, nullable                          │
+│  currency              char(3)                                 │
+│  enable_tax            bool, default true                      │
+│  bill_from_snapshot    json, nullable                          │
+│  bill_to_snapshot      json, nullable                          │
+│  subtotal              decimal(12,2)                           │
+│  discount_total        decimal(12,2), default 0                │
+│  tax_total             decimal(12,2), default 0                │
+│  round_off             decimal(12,2), default 0                │
+│  total                 decimal(12,2)                           │
+│  total_in_words        string, nullable                        │
+│  notes                 text, nullable                          │
+│  terms                 text, nullable                          │
+│  bank_details_snapshot json, nullable                          │
+│  sent_at               datetime, nullable                      │
+│  accepted_at           datetime, nullable                      │
+│  created_at / updated_at                                       │
+│  Index: (tenant_id, status, issue_date)                        │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ quote_items ──────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  quote_id              uuid, FK → quotes                       │
+│  product_id            uuid, FK → products, nullable           │
+│  label                 string                                  │
+│  description           text, nullable                          │
+│  quantity              decimal(12,3), default 1                │
+│  unit_id               uuid, FK → units, nullable              │
+│  unit_price            decimal(12,2)                           │
+│  discount_type         enum: none | percentage | fixed         │
+│  discount_value        decimal(12,4), default 0                │
+│  tax_rate              decimal(6,4), default 0                 │
+│  tax_group_id          uuid, FK → tax_groups, nullable         │
+│  line_subtotal         decimal(12,2)                           │
+│  line_tax              decimal(12,2)                           │
+│  line_total            decimal(12,2)                           │
+│  position              int, default 1                          │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ quote_charges (additional charges) ───────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  quote_id              uuid, FK → quotes                       │
+│  label                 string                                  │
+│  amount                decimal(12,2)                           │
+│  tax_rate              decimal(6,4), default 0                 │
+│  position              int, default 1                          │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ invoices ─────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers, index             │
+│  quote_id              uuid, FK → quotes, nullable             │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | sent | partial            │
+│                              | paid | overdue | void           │
+│  issue_date            date                                    │
+│  due_date              date, nullable                          │
+│  currency              char(3)                                 │
+│  enable_tax            bool, default true                      │
+│  bill_from_snapshot    json, nullable                          │
+│  bill_to_snapshot      json, nullable                          │
+│  subtotal              decimal(12,2)                           │
+│  discount_total        decimal(12,2), default 0                │
+│  tax_total             decimal(12,2), default 0                │
+│  round_off             decimal(12,2), default 0                │
+│  total                 decimal(12,2)                           │
+│  amount_paid           decimal(12,2), default 0                │
+│  amount_due            decimal(12,2)                           │
+│  total_in_words        string, nullable                        │
+│  notes                 text, nullable                          │
+│  terms                 text, nullable                          │
+│  bank_details_snapshot json, nullable                          │
+│  sent_at               datetime, nullable                      │
+│  paid_at               datetime, nullable                      │
+│  created_at / updated_at                                       │
+│  Index: (tenant_id, status, due_date)                          │
+│  Index: (tenant_id, customer_id)                               │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ invoice_items ────────────────────────────────────────────────┐
+│  (same structure as quote_items, FK → invoices)                │
+│  id, tenant_id, invoice_id, product_id, label, description,   │
+│  quantity, unit_id, unit_price, discount_type, discount_value, │
+│  tax_rate, tax_group_id, line_subtotal, line_tax, line_total,  │
+│  position                                                      │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ invoice_charges ──────────────────────────────────────────────┐
+│  (same structure as quote_charges, FK → invoices)              │
+│  id, tenant_id, invoice_id, label, amount, tax_rate, position  │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ credit_notes ─────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers, index             │
+│  invoice_id            uuid, FK → invoices, nullable           │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | issued | applied | void   │
+│  issue_date            date                                    │
+│  currency              char(3)                                 │
+│  enable_tax            bool, default true                      │
+│  subtotal              decimal(12,2)                           │
+│  tax_total             decimal(12,2), default 0                │
+│  round_off             decimal(12,2), default 0                │
+│  total                 decimal(12,2)                           │
+│  notes                 text, nullable                          │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ credit_note_items ────────────────────────────────────────────┐
+│  id, tenant_id, credit_note_id, label, description,            │
+│  quantity (decimal 12,3), unit_price (decimal 12,2),           │
+│  tax_rate (decimal 6,4), line_total (decimal 12,2),            │
+│  position (int)                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ credit_note_applications ─────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  credit_note_id        uuid, FK → credit_notes                 │
+│  invoice_id            uuid, FK → invoices                     │
+│  amount_applied        decimal(12,2)                           │
+│  applied_at            datetime                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ delivery_challans ────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers, index             │
+│  quote_id              uuid, FK → quotes, nullable             │
+│  invoice_id            uuid, FK → invoices, nullable           │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | issued | delivered        │
+│                              | cancelled                       │
+│  challan_date          date                                    │
+│  due_date              date, nullable                          │
+│  currency              char(3)                                 │
+│  enable_tax            bool, default true                      │
+│  bill_from_snapshot    json, nullable                          │
+│  bill_to_snapshot      json, nullable                          │
+│  subtotal              decimal(12,2)                           │
+│  discount_total        decimal(12,2), default 0                │
+│  tax_total             decimal(12,2), default 0                │
+│  round_off             decimal(12,2), default 0                │
+│  total                 decimal(12,2)                           │
+│  total_in_words        string, nullable                        │
+│  notes                 text, nullable                          │
+│  terms                 text, nullable                          │
+│  bank_details_snapshot json, nullable                          │
+│  issued_at             datetime, nullable                      │
+│  delivered_at          datetime, nullable                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ delivery_challan_items ───────────────────────────────────────┐
+│  (same as quote_items, FK → delivery_challans)                 │
+│  + tax_group_id (uuid, nullable)                               │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ delivery_challan_charges ─────────────────────────────────────┐
+│  (same as quote_charges, FK → delivery_challans)               │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  H) CLIENT PAYMENTS
+────────────────────────────────────────
+
+┌─ payment_methods ──────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string (Cash, Virement, Carte…)         │
+│  provider              enum: manual | stripe | paypal | other  │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ payments ─────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers, index             │
+│  payment_method_id     uuid, FK → payment_methods, nullable    │
+│  currency              char(3)                                 │
+│  amount                decimal(12,2)                           │
+│  status                enum: pending | succeeded | failed      │
+│                              | refunded | cancelled            │
+│  payment_date          date, nullable                          │
+│  paid_at               datetime, nullable                      │
+│  reference_number      string, nullable                        │
+│  provider_payment_id   string, nullable (Stripe/PayPal ID)     │
+│  notes                 text, nullable                          │
+│  created_at / updated_at                                       │
+│  (attachment via Media Library)                                 │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ payment_allocations ──────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  payment_id            uuid, FK → payments                     │
+│  invoice_id            uuid, FK → invoices                     │
+│  amount_applied        decimal(12,2)                           │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ refunds ──────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  payment_id            uuid, FK → payments                     │
+│  amount                decimal(12,2)                           │
+│  status                enum: pending | succeeded | failed      │
+│  provider_refund_id    string, nullable                        │
+│  refunded_at           datetime, nullable                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  I) PURCHASES
+────────────────────────────────────────
+
+┌─ suppliers ────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string                                  │
+│  email                 string, nullable                        │
+│  phone                 string, nullable                        │
+│  tax_id                string, nullable                        │
+│  currency              char(3), nullable                       │
+│  payment_terms_days    int, default 0                          │
+│  notes                 text, nullable                          │
+│  status                enum: active | inactive                 │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ purchase_orders ──────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  supplier_id           uuid, FK → suppliers, index             │
+│  warehouse_id          uuid, FK → warehouses, index            │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | sent | confirmed          │
+│                              | partially_received | received   │
+│                              | cancelled                       │
+│  order_date            date                                    │
+│  expected_date         date, nullable                          │
+│  currency              char(3)                                 │
+│  subtotal              decimal(12,2)                           │
+│  discount_total        decimal(12,2), default 0                │
+│  tax_total             decimal(12,2), default 0                │
+│  round_off             decimal(12,2), default 0                │
+│  total                 decimal(12,2)                           │
+│  notes                 text, nullable                          │
+│  terms                 text, nullable                          │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ purchase_order_items ─────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  purchase_order_id     uuid, FK → purchase_orders              │
+│  product_id            uuid, FK → products, nullable           │
+│  label                 string                                  │
+│  description           text, nullable                          │
+│  quantity              decimal(14,3), default 1                │
+│  unit_cost             decimal(12,2)                           │
+│  discount_type         enum: none | percentage | fixed         │
+│  discount_value        decimal(12,4), default 0                │
+│  tax_rate              decimal(6,4), default 0                 │
+│  tax_group_id          uuid, nullable                          │
+│  line_subtotal         decimal(12,2)                           │
+│  line_tax              decimal(12,2)                           │
+│  line_total            decimal(12,2)                           │
+│  received_quantity     decimal(14,3), default 0                │
+│  position              int, default 1                          │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ goods_receipts ───────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  purchase_order_id     uuid, FK → purchase_orders, nullable    │
+│  warehouse_id          uuid, FK → warehouses                   │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | received | cancelled      │
+│  received_at           datetime                                │
+│  notes                 text, nullable                          │
+│  created_by            uuid, FK → users, nullable              │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ goods_receipt_items ──────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  goods_receipt_id      uuid, FK → goods_receipts               │
+│  purchase_order_item_id uuid, nullable                         │
+│  product_id            uuid, FK → products                     │
+│  quantity              decimal(14,3)                           │
+│  unit_cost             decimal(12,2)                           │
+│  tax_rate              decimal(6,4), default 0                 │
+│  tax_group_id          uuid, nullable                          │
+│  line_total            decimal(12,2)                           │
+│  position              int, default 1                          │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ vendor_bills ─────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  supplier_id           uuid, FK → suppliers                    │
+│  purchase_order_id     uuid, nullable                          │
+│  goods_receipt_id      uuid, nullable                          │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | posted | paid | void      │
+│  issue_date            date                                    │
+│  due_date              date, nullable                          │
+│  currency              char(3)                                 │
+│  subtotal              decimal(12,2)                           │
+│  tax_total             decimal(12,2), default 0                │
+│  round_off             decimal(12,2), default 0                │
+│  total                 decimal(12,2)                           │
+│  amount_paid           decimal(12,2), default 0                │
+│  amount_due            decimal(12,2)                           │
+│  notes                 text, nullable                          │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ debit_notes ──────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  supplier_id           uuid, FK → suppliers                    │
+│  purchase_order_id     uuid, nullable                          │
+│  vendor_bill_id        uuid, nullable                          │
+│  number                string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  status                enum: draft | issued | applied | void   │
+│  debit_note_date       date                                    │
+│  due_date              date, nullable                          │
+│  currency              char(3)                                 │
+│  enable_tax            bool, default true                      │
+│  bill_from_snapshot    json, nullable                          │
+│  bill_to_snapshot      json, nullable                          │
+│  subtotal              decimal(12,2)                           │
+│  discount_total        decimal(12,2), default 0                │
+│  tax_total             decimal(12,2), default 0                │
+│  round_off             decimal(12,2), default 0                │
+│  total                 decimal(12,2)                           │
+│  total_in_words        string, nullable                        │
+│  notes                 text, nullable                          │
+│  terms                 text, nullable                          │
+│  bank_details_snapshot json, nullable                          │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ debit_note_items ─────────────────────────────────────────────┐
+│  id, tenant_id, debit_note_id, product_id(nullable),           │
+│  label, description, quantity, unit_id(nullable), unit_cost,   │
+│  discount_type, discount_value, tax_rate, tax_group_id(null.), │
+│  line_total, position                                          │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ debit_note_applications ──────────────────────────────────────┐
+│  id, tenant_id, debit_note_id, vendor_bill_id,                 │
+│  amount_applied (decimal 12,2), applied_at (datetime)          │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ supplier_payment_methods ─────────────────────────────────────┐
+│  id, tenant_id, name, provider(enum), is_active                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ supplier_payments ────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  supplier_id           uuid, FK → suppliers                    │
+│  vendor_bill_id        uuid, nullable                          │
+│  currency              char(3)                                 │
+│  amount                decimal(12,2)                           │
+│  status                enum: pending | succeeded | failed      │
+│                              | refunded | cancelled            │
+│  payment_date          date, nullable                          │
+│  paid_at               datetime, nullable                      │
+│  reference_number      string, nullable                        │
+│  payment_method_id     uuid, nullable                          │
+│  notes                 text, nullable                          │
+│  created_at / updated_at                                       │
+│  (attachment via Media Library)                                 │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ supplier_payment_allocations ─────────────────────────────────┐
+│  id, tenant_id, supplier_payment_id, vendor_bill_id,           │
+│  amount_applied (decimal 12,2)                                 │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  J) FINANCE & ACCOUNTS
+────────────────────────────────────────
+
+┌─ bank_accounts ────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  account_holder_name   string                                  │
+│  account_number        string                                  │
+│  bank_name             string                                  │
+│  ifsc_code             string, nullable (or iban/swift)         │
+│  branch                string, nullable                        │
+│  account_type          enum: current | savings | business      │
+│                              | other                           │
+│  currency              char(3)                                 │
+│  opening_balance       decimal(12,2), default 0                │
+│  current_balance       decimal(12,2), default 0                │
+│  notes                 text, nullable                          │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ money_transfers ──────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  from_bank_account_id  uuid, FK → bank_accounts                │
+│  to_bank_account_id    uuid, FK → bank_accounts                │
+│  reference_number      string, nullable                        │
+│  transfer_date         date                                    │
+│  amount                decimal(12,2)                           │
+│  notes                 text, nullable                          │
+│  status                enum: pending | completed | cancelled   │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ finance_categories ───────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  type                  enum: expense | income                  │
+│  name                  string                                  │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ expenses ─────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  expense_number        string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  amount                decimal(12,2)                           │
+│  currency              char(3)                                 │
+│  expense_date          date                                    │
+│  payment_mode          enum: cash | bank_transfer | card       │
+│                              | cheque | other                  │
+│  payment_status        enum: unpaid | paid | partial           │
+│  bank_account_id       uuid, FK → bank_accounts, nullable      │
+│  supplier_id           uuid, FK → suppliers, nullable          │
+│  category_id           uuid, FK → finance_categories, nullable │
+│  description           text, nullable                          │
+│  created_at / updated_at                                       │
+│  (attachment via Media Library)                                 │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ incomes ──────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  income_number         string, unique per tenant               │
+│  reference_number      string, nullable                        │
+│  amount                decimal(12,2)                           │
+│  currency              char(3)                                 │
+│  income_date           date                                    │
+│  payment_mode          enum: cash | bank_transfer | card       │
+│                              | cheque | other                  │
+│  bank_account_id       uuid, FK → bank_accounts, nullable      │
+│  customer_id           uuid, FK → customers, nullable          │
+│  category_id           uuid, FK → finance_categories, nullable │
+│  description           text, nullable                          │
+│  created_at / updated_at                                       │
+│  (attachment via Media Library)                                 │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  LOANS & CREDIT MANAGEMENT
+────────────────────────────────────────
+
+  Manage bank loans, personal loans, or financial liabilities
+  for each tenant company.
+
+┌─ loans ────────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, FK → tenants, index               │
+│  lender_type           enum: bank | personal | other           │
+│  lender_name           string                                  │
+│  reference_number      string, nullable                        │
+│  principal_amount      decimal(14,2)                           │
+│  interest_rate         decimal(6,3), nullable (percentage)     │
+│  interest_type         enum: fixed | reducing, default fixed   │
+│  total_amount          decimal(14,2)                           │
+│  remaining_balance     decimal(14,2)                           │
+│  currency              char(3)                                 │
+│  start_date            date                                    │
+│  end_date              date, nullable                          │
+│  payment_frequency     enum: monthly | quarterly | yearly      │
+│  status                enum: active | closed | defaulted       │
+│  notes                 text, nullable                          │
+│  created_by            uuid, FK → users, nullable              │
+│  created_at / updated_at                                       │
+│                                                                │
+│  ⚠ total_amount = principal + interest over loan lifetime      │
+│  ⚠ remaining_balance decreases as installments are paid        │
+│                                                                │
+│  Index: (tenant_id, status)                                    │
+│  Index: (tenant_id, lender_name)                               │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ loan_installments ────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, FK → tenants, index               │
+│  loan_id               uuid, FK → loans, index                 │
+│  installment_number    int                                     │
+│  due_date              date                                    │
+│  principal_amount      decimal(14,2)                           │
+│  interest_amount       decimal(14,2)                           │
+│  total_amount          decimal(14,2)                           │
+│  paid_amount           decimal(14,2), default 0                │
+│  remaining_amount      decimal(14,2)                           │
+│  status                enum: pending | partial | paid          │
+│                              | overdue                         │
+│  paid_at               datetime, nullable                      │
+│  created_at / updated_at                                       │
+│                                                                │
+│  ⚠ remaining_amount = total_amount - paid_amount               │
+│  ⚠ When paid_amount >= total_amount → status = paid            │
+│                                                                │
+│  Index: (tenant_id, status)                                    │
+│  Index: (loan_id, due_date)                                    │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  K) DOCUMENTS / EMAILS / AUDIT
+────────────────────────────────────────
+
+┌─ documents ────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  type                  enum: quote_pdf | invoice_pdf           │
+│                              | credit_note_pdf                 │
+│                              | delivery_challan_pdf            │
+│                              | debit_note_pdf                  │
+│                              | purchase_order_pdf              │
+│                              | vendor_bill_pdf                 │
+│  entity_id             uuid (polymorphic)                      │
+│  path                  string (S3 key / storage path)          │
+│  hash                  string, nullable (integrity check)      │
+│  generated_at          datetime                                │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ email_logs ───────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  to                    string                                  │
+│  subject               string                                  │
+│  type                  enum: quote | invoice | reminder        │
+│                              | delivery_challan | debit_note   │
+│                              | vendor_bill | payment_receipt   │
+│  entity_id             uuid                                    │
+│  status                enum: queued | sent | failed            │
+│  error                 text, nullable                          │
+│  sent_at               datetime, nullable                      │
+│  created_at                                                    │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ activity_logs ────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  user_id               uuid, FK → users, nullable              │
+│  action                string (invoice.sent, payment.created…) │
+│  subject_type          string (morph)                          │
+│  subject_id            uuid (morph)                            │
+│  properties            json, nullable (old/new values)         │
+│  ip                    string, nullable                        │
+│  user_agent            text, nullable                          │
+│  created_at                                                    │
+│  Index: (tenant_id, subject_type, subject_id)                  │
+│  Index: (tenant_id, user_id, created_at)                       │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  L) ROLES & PERMISSIONS (SPATIE MULTI-TENANT)
+────────────────────────────────────────
+
+┌─ roles (Spatie + tenant_id) ───────────────────────────────────┐
+│  id                    bigint/uuid (per config)                │
+│  tenant_id             uuid, nullable                          │
+│                        (NULL = global super admin role)         │
+│  name                  string                                  │
+│  guard_name            string (e.g. "web" or "backoffice")     │
+│  created_at / updated_at                                       │
+│  Unique: (tenant_id, name, guard_name)                         │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ permissions (Spatie + tenant_id) ─────────────────────────────┐
+│  id                    bigint/uuid                             │
+│  tenant_id             uuid, nullable                          │
+│  name                  string                                  │
+│                        Convention: {group}.{module}.{action}   │
+│  guard_name            string                                  │
+│  created_at / updated_at                                       │
+│  Unique: (tenant_id, name, guard_name)                         │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ model_has_roles ──────────────────────────────────────────────┐
+│  Standard Spatie pivot table                                   │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ model_has_permissions ────────────────────────────────────────┐
+│  Standard Spatie pivot table                                   │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ role_has_permissions ─────────────────────────────────────────┐
+│  Standard Spatie pivot table                                   │
+└────────────────────────────────────────────────────────────────┘
+
+Permission naming convention:
+  sales.invoices.view / create / edit / delete
+  sales.quotes.view / create / edit / delete
+  sales.credit_notes.*
+  sales.delivery_challans.*
+  crm.customers.*
+  inventory.products.*
+  inventory.stock_movements.view
+  purchases.purchase_orders.*
+  purchases.vendor_bills.*
+  purchases.debit_notes.*
+  finance.expenses.*
+  finance.incomes.*
+  finance.bank_accounts.*
+  finance.loans.view / create / edit / delete
+  reports.sales.view
+  reports.purchases.view
+  reports.inventory.view
+  reports.finance.view
+  reports.loans.view
+  settings.account.view / edit
+  settings.company.view / edit
+  settings.localization.view / edit
+  settings.templates.view / manage
+  settings.notifications.view / edit
+  access.roles.view / create / edit / delete
+
+────────────────────────────────────────
+  M) PLANS & SUBSCRIPTIONS (SaaS BILLING)
+────────────────────────────────────────
+
+┌─ plans ────────────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  name                  string                                  │
+│  code                  string, unique                          │
+│  interval              enum: month | year | lifetime           │
+│  price                 decimal(12,2)                           │
+│  currency              char(3)                                 │
+│  trial_days            int, default 0                          │
+│  is_active             bool, default true                      │
+│  features              json (max_users, max_products,          │
+│                         templates_included[], modules[])       │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ subscriptions ────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, FK → tenants                      │
+│  plan_id               uuid, FK → plans                        │
+│  status                enum: trialing | active | past_due      │
+│                              | cancelled                       │
+│  quantity              int, default 1                          │
+│  current_period_start  datetime, nullable                      │
+│  current_period_end    datetime, nullable (null = lifetime)    │
+│  cancel_at_period_end  bool, default false                     │
+│  cancelled_at          datetime, nullable                      │
+│  provider              enum: stripe | manual                   │
+│  provider_subscription_id  string, nullable                    │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ subscription_invoices ────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid                                    │
+│  subscription_id       uuid, FK → subscriptions                │
+│  amount                decimal(12,2)                           │
+│  currency              char(3)                                 │
+│  status                enum: pending | paid | failed           │
+│  paid_at               datetime, nullable                      │
+│  provider_invoice_id   string, nullable                        │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+────────────────────────────────────────
+  N) TEMPLATES MARKETPLACE (SUPER ADMIN CONTROLLED)
+────────────────────────────────────────
+
+  BUSINESS MODEL:
+  ───────────────
+  • YOU (Super Admin) create & own all templates
+  • Templates are PRODUCTS you sell to tenant companies
+  • Each template has a unique ID — Super Admin assigns/revokes per company
+  • Free templates come with every plan (basic set)
+  • Premium templates require purchase OR Super Admin manual activation
+  • Super Admin can grant, revoke, extend, expire any template for any tenant
+
+  FLOW:
+  ─────
+  1. Super Admin creates template in template_catalog (global)
+  2. Template is visible to ALL tenants (preview + locked state)
+  3. Tenant wants premium template → 2 paths:
+     a) SELF-PURCHASE: Tenant pays via Stripe → template_purchases created
+        → auto-creates tenant_templates (status=active, source=purchase)
+     b) SUPER ADMIN GRANTS: Super Admin goes to admin panel →
+        selects tenant → selects template → assigns it manually
+        → creates tenant_templates (status=active, source=manual)
+  4. Super Admin can also BULK ASSIGN templates (e.g. all Pro plan tenants)
+  5. Tenant admin picks default template per document_type in preferences
+
+┌─ template_catalog (global, Super Admin managed) ───────────────┐
+│  id                    uuid, PK                                │
+│  code                  string, unique (inv_modern_01)           │
+│  name                  string                                  │
+│  slug                  string, unique (for URL/display)        │
+│  document_type         enum: invoice | quote | delivery_challan│
+│                              | credit_note | debit_note        │
+│                              | purchase_order | vendor_bill    │
+│                              | receipt                         │
+│  category              string, nullable (modern, classic,      │
+│                         minimal, professional…)                 │
+│  description           text, nullable                          │
+│  features              json, nullable                          │
+│                        { "color_scheme": "blue",               │
+│                          "has_watermark": false,                │
+│                          "supports_rtl": true,                  │
+│                          "columns": ["qty","desc","price"] }   │
+│  engine                enum: blade | html | mjml               │
+│  view_path             string (templates/invoice/modern_01)    │
+│  css_path              string, nullable (custom CSS per tpl)   │
+│  version               string, default "1.0.0"                 │
+│  price                 decimal(12,2), default 0                │
+│  currency              char(3), default "MAD"                  │
+│  is_free               bool, default false                     │
+│  is_featured           bool, default false (homepage highlight) │
+│  is_active             bool, default true                      │
+│  sort_order            int, default 0 (display ordering)       │
+│  created_by            uuid, FK → users (Super Admin who made) │
+│  created_at / updated_at                                       │
+│                                                                │
+│  Media Library collections:                                    │
+│    "template_preview"     → main preview image                 │
+│    "template_screenshots" → multiple gallery screenshots       │
+│  Index: (document_type, is_active)                             │
+│  Index: (is_free, is_active)                                   │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ tenant_templates (Super Admin assigns per company) ───────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, FK → tenants, index               │
+│  template_id           uuid, FK → template_catalog, index      │
+│  status                enum: active | inactive | locked        │
+│                                                                │
+│                        active   = tenant can use it NOW        │
+│                        inactive = was active, disabled by admin │
+│                        locked   = visible but NOT usable       │
+│                                   (shows "Buy" or "Contact")   │
+│                                                                │
+│  activated_at          datetime, nullable                      │
+│  deactivated_at        datetime, nullable                      │
+│  expires_at            datetime, nullable                      │
+│                        (null = lifetime access / no expiry)    │
+│  activated_by          uuid, FK → users, nullable              │
+│                        (who activated: Super Admin or system)  │
+│  source                enum: manual | plan | purchase | promo  │
+│                              | gift | bulk_assign              │
+│                                                                │
+│                        manual      = Super Admin granted it    │
+│                        plan        = included in tenant's plan │
+│                        purchase    = tenant bought it          │
+│                        promo       = promotional/coupon grant  │
+│                        gift        = gifted by Super Admin     │
+│                        bulk_assign = mass-assigned to group    │
+│                                                                │
+│  notes                 text, nullable                          │
+│                        (Super Admin can add note: "granted     │
+│                         for loyalty", "expires after trial")   │
+│  created_at / updated_at                                       │
+│  Unique: (tenant_id, template_id)                              │
+│  Index: (status)                                               │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ tenant_template_preferences ──────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, unique, FK → tenants              │
+│  defaults              json                                    │
+│                        { "invoice": "inv_modern_01",           │
+│                          "quote": "qt_classic_01",             │
+│                          "delivery_challan": "dc_minimal_01",  │
+│                          "credit_note": "cn_classic_01",       │
+│                          "purchase_order": "po_classic_01" }   │
+│  updated_at                                                    │
+│                                                                │
+│  ⚠ Can only set a template as default if                      │
+│    tenant_templates.status = active for that template          │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ template_purchases (payment tracking) ────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, FK → tenants, index               │
+│  template_id           uuid, FK → template_catalog, index      │
+│  amount                decimal(12,2)                           │
+│  currency              char(3)                                 │
+│  status                enum: pending | paid | refunded         │
+│                              | cancelled                       │
+│  payment_provider      enum: stripe | manual                   │
+│  provider_payment_id   string, nullable (Stripe charge ID)     │
+│  approved_by           uuid, FK → users, nullable              │
+│                        (Super Admin who confirmed manual pay)  │
+│  paid_at               datetime, nullable                      │
+│  refunded_at           datetime, nullable                      │
+│  created_at / updated_at                                       │
+│  Index: (tenant_id, status)                                    │
+└────────────────────────────────────────────────────────────────┘
+
+  SUPER ADMIN PANEL — TEMPLATE MANAGEMENT
+  ────────────────────────────────────────
+
+  Routes (superadmin.php):
+    GET    /admin/templates                     → list all templates (catalog)
+    POST   /admin/templates                     → create new template
+    PUT    /admin/templates/{template}           → edit template (price, name…)
+    DELETE /admin/templates/{template}           → soft-delete / deactivate
+    GET    /admin/templates/{template}/tenants   → see which tenants have it
+    POST   /admin/templates/{template}/assign    → assign to specific tenant(s)
+    POST   /admin/templates/{template}/revoke    → revoke from tenant(s)
+    POST   /admin/templates/bulk-assign          → assign to all tenants of a plan
+    GET    /admin/tenants/{tenant}/templates     → see tenant's template access
+    POST   /admin/tenants/{tenant}/templates/{template}/grant   → grant single
+    POST   /admin/tenants/{tenant}/templates/{template}/revoke  → revoke single
+    POST   /admin/tenants/{tenant}/templates/{template}/extend  → change expiry
+
+  Controllers:
+    App\Http\Controllers\SuperAdmin\TemplateCatalogController.php
+    App\Http\Controllers\SuperAdmin\TenantTemplateController.php
+
+  Services:
+    TemplateAssignmentService::assign($tenantId, $templateId, $source, $expiresAt, $notes)
+      → creates/updates tenant_templates row
+      → sets status = active, activated_at = now(), activated_by = auth()->id()
+
+    TemplateAssignmentService::revoke($tenantId, $templateId)
+      → sets status = locked, deactivated_at = now()
+      → if tenant had it as default → removes from preferences
+
+    TemplateAssignmentService::bulkAssign($templateId, $planCode, $source)
+      → finds all tenants on that plan
+      → assigns template to each one
+
+    TemplateAssignmentService::checkExpiry() [Cron daily]
+      → finds tenant_templates where expires_at <= now() AND status = active
+      → sets status = locked, deactivated_at = now()
+
+  TENANT BACKOFFICE — TEMPLATE VIEW (what company sees)
+  ─────────────────────────────────────────────────────
+
+  Template Gallery page:
+    Shows ALL templates from template_catalog (is_active = true)
+    For each template:
+      ┌────────────────────────────────────────────────┐
+      │  [Preview Image]                                │
+      │  Name: Modern Invoice Blue                      │
+      │  Type: Invoice                                  │
+      │  Category: Modern                               │
+      │                                                 │
+      │  Status:                                        │
+      │    ✅ ACTIVE  (if tenant_templates.status=active)│
+      │    🔒 LOCKED  (if locked or no tenant_templates) │
+      │    ⭐ FREE    (if is_free=true)                  │
+      │                                                 │
+      │  Actions:                                       │
+      │    [Preview PDF]  → renders sample PDF           │
+      │    [Set as Default] → only if ACTIVE             │
+      │    [Buy — 99 MAD]  → only if LOCKED + has price  │
+      │    [Contact Us]    → if LOCKED + no self-buy     │
+      └────────────────────────────────────────────────┘
+
+  TemplateAccessService (updated):
+    canUseTemplate(Tenant $t, TemplateCatalog $tpl): bool
+      1. if $tpl->is_free → true
+      2. check tenant_templates where tenant_id = $t->id
+         AND template_id = $tpl->id AND status = 'active'
+         AND (expires_at IS NULL OR expires_at > now())
+      3. if auth user is Super Admin → true
+      4. else → false (locked)
+
+────────────────────────────────────────
+  O) PRO FEATURES
+────────────────────────────────────────
+
+┌─ document_number_sequences ────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  key                   string (invoice, quote, expense…)       │
+│  prefix                string (INV-, QT-, EXP-…)              │
+│  next_number           bigint                                  │
+│  format                json, nullable                          │
+│                        { "padding": 5, "year": true,           │
+│                          "separator": "-" }                    │
+│                        → INV-2026-00001                        │
+│  reset_policy          enum: never | yearly | monthly          │
+│  updated_at                                                    │
+│  Unique: (tenant_id, key)                                      │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ recurring_invoices ───────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  customer_id           uuid, FK → customers                    │
+│  template_invoice_id   uuid (or snapshot json)                 │
+│  interval              enum: week | month | year               │
+│  every                 int, default 1                          │
+│  next_run_at           datetime                                │
+│  end_at                datetime, nullable                      │
+│  status                enum: active | paused | cancelled       │
+│  last_generated_at     datetime, nullable                      │
+│  total_generated       int, default 0                          │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ invoice_reminders ────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  invoice_id            uuid, FK → invoices                     │
+│  type                  enum: before_due | on_due | after_due   │
+│  scheduled_at          datetime                                │
+│  channel               enum: email | sms | whatsapp | in_app   │
+│  status                enum: queued | sent | failed            │
+│  sent_at               datetime, nullable                      │
+│  error                 text, nullable                          │
+│  created_at                                                    │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ notification_logs (multi-channel) ────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  channel               enum: email | sms | whatsapp | in_app   │
+│  type                  string (invoice_due, system_update…)    │
+│  to                    string, nullable                        │
+│  subject               string, nullable                        │
+│  payload               json, nullable                          │
+│  status                enum: queued | sent | failed            │
+│  error                 text, nullable                          │
+│  sent_at               datetime, nullable                      │
+│  created_at                                                    │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ branches (multi-site) ────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  name                  string                                  │
+│  code                  string, nullable                        │
+│  email                 string, nullable                        │
+│  phone                 string, nullable                        │
+│  tax_id                string, nullable                        │
+│  address_snapshot      json, nullable                          │
+│  is_default            bool, default false                     │
+│  is_active             bool, default true                      │
+│  created_at / updated_at                                       │
+│  (logos via Media Library: "branch_logo")                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ user_invitations ─────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  email                 string                                  │
+│  role_id               uuid/bigint, FK → roles                 │
+│  token                 string, unique                          │
+│  expires_at            datetime                                │
+│  accepted_at           datetime, nullable                      │
+│  created_by            uuid, FK → users, nullable              │
+│  created_at / updated_at                                       │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ login_logs ───────────────────────────────────────────────────┐
+│  id                    uuid, PK                                │
+│  tenant_id             uuid, index                             │
+│  user_id               uuid, FK → users, nullable              │
+│  ip                    string, nullable                        │
+│  user_agent            text, nullable                          │
+│  status                enum: success | failed                  │
+│  logged_in_at          datetime                                │
+│  created_at                                                    │
+└────────────────────────────────────────────────────────────────┘
+
+
+================================================================================
+  3) ROUTING (BACKOFFICE MULTI-TENANT)
+================================================================================
+
+URL Resolution:
+  - Subdomain mode:  {tenant}.app.com
+  - Custom domain:   company.com  (via tenant_domains table)
+  → Middleware IdentifyTenant resolves tenant from host.
+
+routes/backoffice.php
+─────────────────────
+
+Route::prefix('backoffice')
+  ->middleware(['web', 'identifyTenant', 'tenantActive', 'setTenantContext'])
+  ->group(function () {
+
+    // ── Auth (guest) ──────────────────────────────────────
+    Route::middleware('guest')->group(function () {
+      Route::get('login', [LoginController::class, 'showForm']);
+      Route::post('login', [LoginController::class, 'login']);
+    });
+    Route::post('logout', [LogoutController::class, 'logout'])->middleware('auth');
+
+    // ── Protected (auth) ──────────────────────────────────
+    Route::middleware('auth')->group(function () {
+
+      // Dashboard
+      Route::get('/', [DashboardController::class, 'index'])->name('bo.dashboard');
+
+      // ── Settings ──────────────────────────────────────
+      Route::prefix('settings')->group(function () {
+        Route::get('account',  ...)->middleware('permission:settings.account.view');
+        Route::post('account', ...)->middleware('permission:settings.account.edit');
+        Route::get('company',  ...)->middleware('permission:settings.company.view');
+        Route::post('company', ...)->middleware('permission:settings.company.edit');
+        Route::get('localization',  ...)->middleware('permission:settings.localization.view');
+        Route::post('localization', ...)->middleware('permission:settings.localization.edit');
+        Route::get('invoices',  ...)->middleware('permission:settings.invoices.view');
+        Route::post('invoices', ...)->middleware('permission:settings.invoices.edit');
+        Route::get('notifications',  ...)->middleware('permission:settings.notifications.view');
+        Route::post('notifications', ...)->middleware('permission:settings.notifications.edit');
+        Route::get('templates',  ...)->middleware('permission:settings.templates.view');
+        Route::post('templates/{template}/activate', ...)->middleware('permission:settings.templates.manage');
+        Route::post('templates/defaults', ...)->middleware('permission:settings.templates.manage');
+      });
+
+      // ── Access Control ────────────────────────────────
+      Route::prefix('access')->group(function () {
+        Route::get('roles',          ...)->middleware('permission:access.roles.view');
+        Route::post('roles',         ...)->middleware('permission:access.roles.create');
+        Route::put('roles/{role}',   ...)->middleware('permission:access.roles.edit');
+        Route::delete('roles/{role}', ..)->middleware('permission:access.roles.delete');
+      });
+
+      // ── CRM ───────────────────────────────────────────
+      Route::resource('customers', CustomerController::class);
+
+      // ── Catalog ───────────────────────────────────────
+      Route::resource('products', ProductController::class);
+      Route::resource('product-categories', CategoryController::class);
+      Route::resource('units', UnitController::class);
+      Route::resource('tax-categories', TaxCategoryController::class);
+
+      // ── Inventory ─────────────────────────────────────
+      Route::resource('warehouses', WarehouseController::class);
+      Route::post('products/{product}/stock-in',  [StockController::class, 'stockIn']);
+      Route::post('products/{product}/stock-out', [StockController::class, 'stockOut']);
+      Route::get('products/{product}/inventory-history', [MovementController::class, 'productHistory']);
+      Route::resource('stock-transfers', TransferController::class);
+
+      // ── Sales ─────────────────────────────────────────
+      Route::resource('quotes', QuoteController::class);
+      Route::post('quotes/{quote}/send', [QuoteController::class, 'send']);
+      Route::post('quotes/{quote}/convert-to-invoice', [QuoteController::class, 'convertToInvoice']);
+
+      Route::resource('invoices', InvoiceController::class);
+      Route::post('invoices/{invoice}/send', [InvoiceController::class, 'send']);
+      Route::post('invoices/{invoice}/record-payment', [PaymentController::class, 'store']);
+
+      Route::resource('credit-notes', CreditNoteController::class);
+      Route::post('credit-notes/{creditNote}/apply', [CreditNoteController::class, 'apply']);
+
+      Route::resource('delivery-challans', DeliveryChallanController::class);
+
+      Route::resource('payments', PaymentController::class)->only(['index', 'show', 'destroy']);
+
+      // ── Purchases ─────────────────────────────────────
+      Route::resource('suppliers', SupplierController::class);
+      Route::resource('purchase-orders', PurchaseOrderController::class);
+      Route::post('purchase-orders/{po}/send', [PurchaseOrderController::class, 'send']);
+
+      Route::resource('goods-receipts', GoodsReceiptController::class);
+      Route::resource('vendor-bills', VendorBillController::class);
+      Route::resource('debit-notes', DebitNoteController::class);
+      Route::resource('supplier-payments', SupplierPaymentController::class);
+
+      // ── Finance ───────────────────────────────────────
+      Route::resource('bank-accounts', BankAccountController::class);
+      Route::resource('money-transfers', MoneyTransferController::class);
+      Route::resource('expenses', ExpenseController::class);
+      Route::resource('incomes', IncomeController::class);
+
+      // ── Loans & Credit ────────────────────────────────
+      Route::resource('loans', LoanController::class);
+      Route::post('loans/{loan}/installments/{installment}/pay',
+                  [LoanController::class, 'payInstallment'])
+                  ->middleware('permission:finance.loans.edit');
+
+      // ── Reports ───────────────────────────────────────
+      Route::prefix('reports')->middleware('permission:reports.*.view')->group(function () {
+        Route::get('sales',     [SalesReportController::class, 'index']);
+        Route::get('purchases', [PurchaseReportController::class, 'index']);
+        Route::get('inventory', [InventoryReportController::class, 'index']);
+        Route::get('finance',   [FinanceReportController::class, 'index']);
+        Route::get('loans',     [LoanReportController::class, 'index']);
+      });
+
+    }); // end auth
+});
+
+
+================================================================================
+  4) MIDDLEWARE & MULTI-TENANCY
+================================================================================
+
+4.1 IdentifyTenant
+─────────────────
+  - Reads request()->getHost()
+  - Looks up tenant_domains.domain = host
+  - Falls back to subdomain parsing: {slug}.app.com
+  - Stores: TenantContext::set($tenant)
+  - Abort 404 if tenant not found
+
+4.2 EnsureTenantActive
+──────────────────────
+  - Checks tenant.status === 'active'
+  - If suspended/cancelled → redirect to suspension page
+  - Checks trial expiry if has_free_trial
+
+4.3 SetTenantContext
+────────────────────
+  - Binds: app()->instance('tenant', $tenant)
+  - Sets runtime timezone: config(['app.timezone' => $tenant->timezone])
+  - Sets default currency helper
+  - Boots TenantScope on all scoped models
+
+4.4 Global Scope (TenantScope)
+──────────────────────────────
+  Every tenant-scoped Model:
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new TenantScope);
+        static::creating(fn($model) => $model->tenant_id = tenant()->id);
+    }
+
+  TenantScope applies: ->where('tenant_id', tenant()->id)
+
+  ⚠ Bypass for Super Admin:
+    if (auth()->user()?->tenant_id === null) → withoutGlobalScope(TenantScope)
+
+
+================================================================================
+  5) BUSINESS LOGIC & SERVICES
+================================================================================
+
+5.1 Document Numbering (DocumentNumberService)
+───────────────────────────────────────────────
+  - Reads document_number_sequences for tenant + key
+  - Generates: prefix + formatted_number (with padding, year, separator)
+  - Atomic increment (DB lock / optimistic locking)
+  - Handles yearly/monthly reset
+
+5.2 Calculators (QuoteCalculator / InvoiceCalculator)
+─────────────────────────────────────────────────────
+  Central recalculation to avoid bugs:
+
+    line_subtotal = quantity × unit_price
+    line_discount = apply discount_type/discount_value
+    line_subtotal = line_subtotal - line_discount
+    line_tax      = line_subtotal × tax_rate (or tax_group sum)
+    line_total    = line_subtotal + line_tax
+
+    Document totals:
+      subtotal       = Σ line_subtotal
+      discount_total = Σ line_discount
+      tax_total      = Σ line_tax + charges_tax
+      round_off      = rounding adjustment (if enabled)
+      total          = subtotal - discount_total + tax_total + charges + round_off
+
+    total_in_words (optional, via helper)
+
+5.3 Snapshots (bill_from / bill_to / bank_details)
+───────────────────────────────────────────────────
+  When document status changes to "sent" or "issued":
+    bill_from_snapshot  = company_settings (name, address, tax_id, phone, email)
+    bill_to_snapshot    = customer (name, address, tax_id, phone, email)
+    bank_details_snapshot = default bank account details
+
+5.4 StockService (single source of truth)
+─────────────────────────────────────────
+  StockService::applyMovement($tenant, $warehouse, $product, $type, $qty, $unitCost, $refType, $refId)
+    1. Creates stock_movements record
+    2. Updates product_stocks (quantity_on_hand / quantity_reserved)
+    3. Prevents negative stock (if configured)
+    4. Checks reorder alerts
+
+  Automatic triggers:
+    GoodsReceipt received     → purchase_in
+    Invoice sent/paid         → sale_out (configurable in invoice_settings)
+    DeliveryChallan delivered  → stock_out
+    CreditNote issued         → return_in
+    DebitNote issued           → return_out
+    StockTransfer shipped     → transfer_out (from) + transfer_in (to)
+
+5.5 Payment Allocation (PaymentAllocationService)
+─────────────────────────────────────────────────
+  - Allocates payment across multiple invoices
+  - Updates invoice.amount_paid and invoice.amount_due
+  - Auto-transitions invoice status: partial → paid
+  - Same logic for supplier_payments → vendor_bills
+
+5.6 Template Services (Super Admin Controlled)
+───────────────────────────────────────────────
+
+  TemplateAccessService::canUseTemplate(Tenant, TemplateCatalog): bool
+    1. If template is_free = true → always allowed
+    2. Check tenant_templates: status=active AND (expires_at IS NULL OR > now())
+    3. If current user is Super Admin (tenant_id NULL) → allowed
+    4. Else → denied (template shows as 🔒 locked)
+
+  TemplateAssignmentService (Super Admin operations):
+    ::assign($tenantId, $templateId, $source, $expiresAt, $notes)
+      → upserts tenant_templates: status=active, activated_by=superadmin
+    ::revoke($tenantId, $templateId)
+      → sets status=locked, clears from tenant_template_preferences if default
+    ::bulkAssign($templateId, $planCode, $source)
+      → finds all tenants on plan → assigns template to each
+    ::checkExpiry()  [Daily Cron]
+      → expires_at <= now() → auto-lock, notify tenant
+
+  TemplatePurchaseService (Tenant self-purchase):
+    ::initiatePurchase($tenantId, $templateId)
+      → creates template_purchases (status=pending)
+      → redirects to Stripe Checkout
+    ::confirmPurchase($purchaseId)
+      → sets template_purchases.status=paid
+      → calls TemplateAssignmentService::assign(source=purchase)
+    ::refund($purchaseId)
+      → sets status=refunded, revokes template access
+
+5.7 LoanService (Loans & Credit Management)
+────────────────────────────────────────────
+
+  LoanService — central service for all loan operations.
+
+  ::createLoan($tenant, array $data): Loan
+    → validates lender_type, principal, interest_rate, frequency
+    → calculates total_amount based on interest_type (fixed/reducing)
+    → sets remaining_balance = total_amount
+    → sets status = active
+    → calls generateInstallmentSchedule()
+
+  ::generateInstallmentSchedule(Loan $loan): Collection
+    → based on payment_frequency (monthly/quarterly/yearly)
+    → for fixed interest:
+        each installment.interest_amount = (principal × rate / 100) / nb_installments
+        each installment.principal_amount = principal / nb_installments
+    → for reducing interest:
+        each installment.interest_amount = remaining_principal × (rate / 100 / periods_per_year)
+        each installment.principal_amount = fixed principal portion
+    → installment.total_amount = principal_amount + interest_amount
+    → installment.remaining_amount = total_amount
+    → installment.status = pending
+    → bulk inserts all loan_installments
+
+  ::applyPaymentToInstallment(LoanInstallment $inst, decimal $amount): void
+    → inst.paid_amount += $amount
+    → inst.remaining_amount = inst.total_amount - inst.paid_amount
+    → if paid_amount >= total_amount → inst.status = paid, inst.paid_at = now()
+    → elseif paid_amount > 0 → inst.status = partial
+    → calls recalculateRemainingBalance(inst.loan)
+
+  ::recalculateRemainingBalance(Loan $loan): void
+    → loan.remaining_balance = Σ loan_installments.remaining_amount
+    → if remaining_balance <= 0 → closeLoanWhenFullyPaid($loan)
+
+  ::closeLoanWhenFullyPaid(Loan $loan): void
+    → loan.status = closed
+    → log activity: "Loan {reference} fully paid"
+
+  Scheduled (Daily Cron):
+  ::markOverdueInstallments(): void
+    → loan_installments WHERE status IN (pending, partial)
+      AND due_date < today
+    → set status = overdue
+    → optional: send notification to tenant
+
+  LoanReportController (reports/loans):
+    → total liabilities (Σ loans.total_amount WHERE status = active)
+    → total remaining balance (Σ loans.remaining_balance WHERE status = active)
+    → overdue installments count & total amount
+    → upcoming payments (next 30 days)
+
+  TemplateRenderService::render($documentType, $entity)
+    1. Resolve default template code from tenant_template_preferences
+    2. Load template_catalog by code
+    3. Verify access via TemplateAccessService
+    4. If denied → fallback to free default template
+    5. Render Blade/HTML view with entity data
+    6. Generate PDF via DomPDF/Browsershot
+    7. Store generated PDF in documents table
+
+5.7 Recurring Invoices (Scheduler)
+──────────────────────────────────
+  - Cron job (daily): checks recurring_invoices where next_run_at <= now()
+  - Generates new invoice from template
+  - Updates next_run_at based on interval + every
+  - Increments total_generated
+  - Sends notification if configured
+
+5.8 Invoice Reminders (Scheduler)
+─────────────────────────────────
+  - Cron job: checks invoice_reminders where scheduled_at <= now() and status = queued
+  - Dispatches via configured channel (email/sms/whatsapp/in_app)
+  - Updates status and logs to notification_logs
+
+
+================================================================================
+  6) POLICIES & AUTHORIZATION
+================================================================================
+
+Every resource has a Policy that checks:
+  1. Tenant ownership (tenant_id match)
+  2. Spatie permission check
+  3. Super admin bypass
+
+Policy mapping:
+  InvoicePolicy@view     → permission: sales.invoices.view
+  InvoicePolicy@create   → permission: sales.invoices.create
+  InvoicePolicy@update   → permission: sales.invoices.edit
+  InvoicePolicy@delete   → permission: sales.invoices.delete
+
+  QuotePolicy@*          → permission: sales.quotes.*
+  CreditNotePolicy@*     → permission: sales.credit_notes.*
+  DeliveryChallanPolicy@* → permission: sales.delivery_challans.*
+  CustomerPolicy@*       → permission: crm.customers.*
+  ProductPolicy@*        → permission: inventory.products.*
+  SupplierPolicy@*       → permission: purchases.suppliers.*
+  PurchaseOrderPolicy@*  → permission: purchases.purchase_orders.*
+  VendorBillPolicy@*     → permission: purchases.vendor_bills.*
+  DebitNotePolicy@*      → permission: purchases.debit_notes.*
+  ExpensePolicy@*        → permission: finance.expenses.*
+  IncomePolicy@*         → permission: finance.incomes.*
+  BankAccountPolicy@*    → permission: finance.bank_accounts.*
+  RolePolicy@*           → permission: access.roles.*
+  TemplatePolicy@*       → permission: settings.templates.*
+
+Role types:
+  ┌──────────────────┬──────────────────┬────────────────────────────────┐
+  │ Role             │ tenant_id        │ Capabilities                   │
+  ├──────────────────┼──────────────────┼────────────────────────────────┤
+  │ super_admin      │ NULL (global)    │ All permissions, all tenants   │
+  │ admin            │ per tenant       │ All within own tenant          │
+  │ manager          │ per tenant       │ CRUD on most modules           │
+  │ accountant       │ per tenant       │ Finance, invoices, reports     │
+  │ receptionist     │ per tenant       │ View/create sales & customers  │
+  │ viewer           │ per tenant       │ View only, no create/edit      │
+  └──────────────────┴──────────────────┴────────────────────────────────┘
+
+
+================================================================================
+  7) SEEDS & DEFAULTS
+================================================================================
+
+7.1 PlanSeeder
+──────────────
+  - Plan: "Starter"   → month, 99 MAD, trial_days: 14
+  - Plan: "Pro"        → month, 199 MAD
+  - Plan: "Enterprise" → year, 1999 MAD
+  - Plan: "Lifetime"   → lifetime, 4999 MAD
+
+7.2 PermissionSeeder (global, tenant_id = NULL)
+───────────────────────────────────────────────
+  Generate all permissions from convention:
+    groups = [sales, crm, inventory, purchases, finance, reports, settings, access]
+    modules per group (e.g. sales → invoices, quotes, credit_notes, delivery_challans)
+    actions = [view, create, edit, delete]
+
+7.3 RoleSeeder
+──────────────
+  Global:
+    super_admin (tenant_id = NULL) → all permissions
+
+  Per-tenant (created when tenant is created):
+    admin        → all permissions except SaaS-level billing
+    manager      → all CRUD except settings & access
+    accountant   → finance.*, sales.invoices.*, reports.*
+    receptionist → sales.*.view, sales.*.create, crm.customers.view/create
+    viewer       → *.view only
+
+7.4 CurrencySeeder
+──────────────────
+  MAD, USD, EUR, GBP, CAD, AED, SAR… (ISO 4217 subset)
+
+7.5 TemplateCatalogSeeder
+─────────────────────────
+  Seed default free templates for each document_type:
+    inv_classic_01 (free), inv_modern_01 (paid), qt_classic_01 (free), etc.
+
+7.6 DemoTenantSeeder (dev only)
+──────────────────────────────
+  Creates a demo tenant with sample data for development/testing.
+  ⚠ Must seed legal_status in company_settings (see section 10 below).
+
+
+================================================================================
+  8) MEDIA LIBRARY (SPATIE — NO IMAGES IN DB)
+================================================================================
+
+Collections:
+  ┌──────────────────────┬────────────────────────────────────────┐
+  │ Model                │ Collection Name(s)                     │
+  ├──────────────────────┼────────────────────────────────────────┤
+  │ Tenant               │ logo, dark_logo, mini_logo,            │
+  │                      │ favicon, apple_icon                    │
+  │ Product              │ product_image                          │
+  │ Signature            │ signature_image                        │
+  │ Expense              │ attachment                             │
+  │ Income               │ attachment                             │
+  │ Payment              │ attachment                             │
+  │ SupplierPayment      │ attachment                             │
+  │ TemplateCatalog      │ template_preview                       │
+  │ Branch               │ branch_logo                            │
+  │ User                 │ avatar                                 │
+  └──────────────────────┴────────────────────────────────────────┘
+
+All images are stored on S3/disk, referenced via Spatie Media Library.
+Never store binary data in database columns.
+
+
+================================================================================
+  9) COPILOT-READY PROMPTS
+================================================================================
+
+PROMPT 1 — Full Architecture Setup:
+
+  Build a Laravel 11 multi-tenant SaaS (Facturation) where tenant is resolved
+  by domain/subdomain via IdentifyTenant middleware. All tenant-scoped models
+  use tenant_id (uuid) and a global TenantScope. Super admin users have
+  tenant_id = NULL and can manage all tenants.
+
+  Use spatie/laravel-permission with tenant-scoped roles (roles.tenant_id
+  nullable) and global permissions with naming convention:
+  {group}.{module}.{action} e.g. sales.invoices.create/edit/delete/view.
+
+  Use spatie/laravel-medialibrary for all file uploads (logos, product images,
+  signatures, attachments, template previews). No binary data in DB.
+
+  Implement document numbering via document_number_sequences table with
+  prefix, padding, year inclusion, and yearly/monthly reset support.
+
+  All financial documents (quotes, invoices, credit_notes, delivery_challans,
+  debit_notes, purchase_orders) share a similar structure with:
+  bill_from_snapshot, bill_to_snapshot, bank_details_snapshot (json),
+  line items with quantity/price/discount/tax calculations,
+  and additional charges.
+
+PROMPT 2 — Roles & Permissions UI:
+
+  Create a Roles & Permissions management page for a multi-tenant SaaS.
+  Display permissions grouped by sections (Inventory, Sales, Purchases,
+  Finance & Accounts, Reports, Settings, Access Control).
+  Each section contains module rows. Each module shows checkboxes for
+  Create, Edit, Delete, View, and an "Allow All" toggle.
+  Allow All = enable all 4 actions for that module (UI-only, not stored).
+  In DB, only store view/create/edit/delete per module.
+  Roles are scoped per tenant (roles.tenant_id). Super admin role has
+  tenant_id = NULL. Company admin cannot see/modify other tenants' roles.
+
+PROMPT 3 — Template Marketplace (Super Admin Controlled):
+
+  Implement a template marketplace where WE (Super Admin) own & sell templates.
+  template_catalog is global — Super Admin creates templates with unique IDs,
+  sets price, document_type, preview images, view_path, is_free flag.
+  
+  Super Admin can ASSIGN or REVOKE any template for any company (tenant):
+  - tenant_templates tracks activation per tenant with status (active/locked/
+    inactive), source (manual/plan/purchase/promo/gift/bulk_assign),
+    activated_by (Super Admin user ID), expires_at (nullable for lifetime).
+  - Super Admin panel has routes to: assign single, revoke, bulk-assign
+    to all tenants on a plan, extend expiry, view which tenants have which.
+  
+  Tenants can also SELF-PURCHASE via Stripe:
+  - template_purchases tracks payment (pending/paid/refunded/cancelled).
+  - On successful payment, auto-activate via TemplateAssignmentService.
+  
+  tenant_template_preferences stores default template code per document_type.
+  A tenant can only set a template as default if its status = active.
+  
+  TemplateAccessService checks access before rendering:
+    1. is_free → allowed, 2. tenant_templates active + not expired → allowed,
+    3. super admin → allowed, 4. else → locked.
+  
+  TemplateRenderService resolves default, verifies access, falls back to
+  free template if locked, renders Blade view, generates PDF.
+  
+  Daily cron checks expires_at and auto-locks expired templates.
+
+================================================================================
+  TABLE COUNT SUMMARY
+================================================================================
+
+  Core:         tenants, tenant_domains, users                         = 3
+  Settings:     tenant_settings, signatures, integrations              = 3
+  CRM:          customers, customer_addresses, customer_contacts       = 3
+  Catalog:      product_categories, units, products                    = 3
+  Inventory:    warehouses, product_stocks, stock_movements,
+                stock_transfers, stock_transfer_items                   = 5
+  Taxes:        tax_categories, tax_groups, tax_group_rates,
+                currencies, exchange_rates                              = 5
+  Sales:        quotes, quote_items, quote_charges,
+                invoices, invoice_items, invoice_charges,
+                credit_notes, credit_note_items, credit_note_applications,
+                delivery_challans, delivery_challan_items,
+                delivery_challan_charges                                = 12
+  Payments:     payment_methods, payments, payment_allocations, refunds = 4
+  Purchases:    suppliers, purchase_orders, purchase_order_items,
+                goods_receipts, goods_receipt_items,
+                vendor_bills, debit_notes, debit_note_items,
+                debit_note_applications,
+                supplier_payment_methods, supplier_payments,
+                supplier_payment_allocations                            = 12
+  Finance:      bank_accounts, money_transfers, finance_categories,
+                expenses, incomes, loans, loan_installments            = 7
+  System:       documents, email_logs, activity_logs                   = 3
+  Roles:        roles, permissions, model_has_roles,
+                model_has_permissions, role_has_permissions             = 5
+  Billing:      plans, subscriptions, subscription_invoices            = 3
+  Templates:    template_catalog, tenant_templates,
+                tenant_template_preferences, template_purchases        = 4
+                (Super Admin controlled — assign/revoke per company)
+  PRO:          document_number_sequences, recurring_invoices,
+                invoice_reminders, notification_logs,
+                branches, user_invitations, login_logs                 = 7
+  ─────────────────────────────────────────────────────────────────────
+  TOTAL:                                                                79 tables
+
+================================================================================
+  10) COMPANY LEGAL STATUS FEATURE
+  Stores tenant legal form in tenant_settings.company_settings JSON
+================================================================================
+
+────────────────────────────────────────
+  10.1) ENUM — app/Enums/CompanyLegalStatus.php
+────────────────────────────────────────
+
+  <?php
+
+  declare(strict_types=1);
+
+  namespace App\Enums;
+
+  enum CompanyLegalStatus: string
+  {
+      case SARL               = 'sarl';
+      case SA                 = 'sa';
+      case BRANCH             = 'branch';
+      case SUBSIDIARY         = 'subsidiary';
+      case SOLE_PROPRIETORSHIP = 'sole_proprietorship';
+
+      /**
+       * Metadata for each legal form (French).
+       *
+       * @return array{label: string, description: string,
+       *               partners_or_shareholders: string,
+       *               min_capital_mad: int|null, notes: string}
+       */
+      public function details(): array
+      {
+          return match ($this) {
+              self::SARL => [
+                  'label'                    => 'SARL',
+                  'description'              => 'La forme la plus courante, idéale pour les PME.',
+                  'partners_or_shareholders' => '1 à 50 associés',
+                  'min_capital_mad'          => 1,
+                  'notes'                    => 'Capital minimum symbolique; adaptée aux PME.',
+              ],
+              self::SA => [
+                  'label'                    => 'SA',
+                  'description'              => 'Adaptée aux grandes entreprises nécessitant des investissements importants.',
+                  'partners_or_shareholders' => 'Au moins 5 actionnaires',
+                  'min_capital_mad'          => 300_000,
+                  'notes'                    => 'Convient aux projets de grande envergure.',
+              ],
+              self::BRANCH => [
+                  'label'                    => 'Succursale',
+                  'description'              => 'Établissement rattaché directement à une société étrangère (pas une entité indépendante).',
+                  'partners_or_shareholders' => 'Dépend de la société mère',
+                  'min_capital_mad'          => null,
+                  'notes'                    => 'Structure directement attachée à la maison mère.',
+              ],
+              self::SUBSIDIARY => [
+                  'label'                    => 'Filiale',
+                  'description'              => 'Société indépendante contrôlée par une société étrangère.',
+                  'partners_or_shareholders' => 'Selon la structure de la filiale',
+                  'min_capital_mad'          => null,
+                  'notes'                    => 'Entité indépendante, gouvernance propre.',
+              ],
+              self::SOLE_PROPRIETORSHIP => [
+                  'label'                    => 'Entrepreneur individuel',
+                  'description'              => 'Forme simplifiée pour une activité portée par une seule personne.',
+                  'partners_or_shareholders' => '1 seul propriétaire',
+                  'min_capital_mad'          => null,
+                  'notes'                    => 'Idéal pour démarrer rapidement avec une structure simple.',
+              ],
+          };
+      }
+
+      /**
+       * All cases formatted for frontend <select> options.
+       */
+      public static function toSelectOptions(): array
+      {
+          return array_map(
+              fn (self $s) => ['value' => $s->value, ...$s->details()],
+              self::cases(),
+          );
+      }
+  }
+
+────────────────────────────────────────
+  10.2) CONTROLLER — app/Http/Controllers/Backoffice/Settings/CompanySettingsController.php
+────────────────────────────────────────
+
+  <?php
+
+  declare(strict_types=1);
+
+  namespace App\Http\Controllers\Backoffice\Settings;
+
+  use App\Enums\CompanyLegalStatus;
+  use App\Http\Controllers\Controller;
+  use App\Models\Tenancy\TenantSetting;
+  use Illuminate\Http\Request;
+  use Illuminate\Validation\Rule;
+  use Inertia\Inertia;
+
+  class CompanySettingsController extends Controller
+  {
+      // ─── SHOW ────────────────────────────────────────────
+      public function show(Request $request)
+      {
+          $tenant  = $request->user()->tenant;
+          $setting = TenantSetting::where('tenant_id', $tenant->id)->firstOrFail();
+
+          return Inertia::render('Settings/CompanySettings', [
+              'companySettings'    => $setting->company_settings ?? [],
+              'legalStatusOptions' => CompanyLegalStatus::toSelectOptions(),
+          ]);
+      }
+
+      // ─── UPDATE ──────────────────────────────────────────
+      public function update(Request $request)
+      {
+          $tenant  = $request->user()->tenant;
+          $setting = TenantSetting::where('tenant_id', $tenant->id)->firstOrFail();
+
+          $validated = $request->validate([
+              'name'         => ['required', 'string', 'max:255'],
+              'legal_name'   => ['nullable', 'string', 'max:255'],
+              'tax_id'       => ['nullable', 'string', 'max:50'],
+              'email'        => ['nullable', 'email', 'max:255'],
+              'phone'        => ['nullable', 'string', 'max:30'],
+              'website'      => ['nullable', 'url', 'max:255'],
+              'address'      => ['nullable', 'string', 'max:500'],
+              'city'         => ['nullable', 'string', 'max:100'],
+              'region'       => ['nullable', 'string', 'max:100'],
+              'postal_code'  => ['nullable', 'string', 'max:20'],
+              'country'      => ['nullable', 'string', 'max:5'],
+              'legal_status' => ['required', Rule::enum(CompanyLegalStatus::class)],
+          ]);
+
+          // Build snapshot from the selected enum
+          $legalEnum = CompanyLegalStatus::from($validated['legal_status']);
+
+          $companySettings = array_merge(
+              $setting->company_settings ?? [],
+              $validated,
+              [
+                  'legal_status'                  => $legalEnum->value,
+                  'legal_status_details_snapshot'  => $legalEnum->details(),
+              ],
+          );
+
+          $setting->update(['company_settings' => $companySettings]);
+
+          return back()->with('success', 'Paramètres de l\'entreprise mis à jour.');
+      }
+  }
+
+  Notes:
+    • TenantSetting::where('tenant_id', ...) ensures tenant isolation.
+    • Rule::enum(CompanyLegalStatus::class) validates the value is one of
+      sarl | sa | branch | subsidiary | sole_proprietorship.
+    • The snapshot is written at save-time so historical documents retain
+      the details even if the enum changes in a future release.
+
+────────────────────────────────────────
+  10.3) INERTIA / REACT UI — resources/js/Pages/Settings/CompanySettings.jsx
+────────────────────────────────────────
+
+  /**
+   * CompanySettings.jsx — Inertia page
+   *
+   * Props (from controller):
+   *   companySettings    : object  (current JSON from tenant_settings)
+   *   legalStatusOptions : array   (from CompanyLegalStatus::toSelectOptions())
+   *
+   * Behaviour:
+   *   – <select> bound to legal_status
+   *   – On change → display a details card underneath
+   *   – On submit → Inertia.post to update route
+   */
+
+  import { useForm, usePage } from '@inertiajs/react';
+  import { useState, useMemo } from 'react';
+  import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+
+  export default function CompanySettings() {
+      const { companySettings, legalStatusOptions } = usePage().props;
+
+      const form = useForm({
+          name:         companySettings.name         ?? '',
+          legal_name:   companySettings.legal_name   ?? '',
+          tax_id:       companySettings.tax_id       ?? '',
+          email:        companySettings.email        ?? '',
+          phone:        companySettings.phone        ?? '',
+          website:      companySettings.website      ?? '',
+          address:      companySettings.address      ?? '',
+          city:         companySettings.city         ?? '',
+          region:       companySettings.region       ?? '',
+          postal_code:  companySettings.postal_code  ?? '',
+          country:      companySettings.country      ?? 'MA',
+          legal_status: companySettings.legal_status ?? 'sarl',
+      });
+
+      // Find details for the currently selected status
+      const selectedDetails = useMemo(
+          () => legalStatusOptions.find(o => o.value === form.data.legal_status),
+          [form.data.legal_status, legalStatusOptions],
+      );
+
+      function handleSubmit(e) {
+          e.preventDefault();
+          form.post(route('bo.settings.company.update'), {
+              preserveScroll: true,
+          });
+      }
+
+      return (
+          <AuthenticatedLayout>
+              <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+                  {/* … other company fields (name, tax_id, address…) … */}
+
+                  {/* ── Legal Status Select ──────────────── */}
+                  <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                          Forme juridique
+                      </label>
+                      <select
+                          value={form.data.legal_status}
+                          onChange={e => form.setData('legal_status', e.target.value)}
+                          className="mt-1 block w-full rounded-md border-gray-300
+                                     shadow-sm focus:border-indigo-500
+                                     focus:ring-indigo-500 sm:text-sm"
+                      >
+                          {legalStatusOptions.map(opt => (
+                              <option key={opt.value} value={opt.value}>
+                                  {opt.label}
+                              </option>
+                          ))}
+                      </select>
+                      {form.errors.legal_status && (
+                          <p className="mt-1 text-sm text-red-600">
+                              {form.errors.legal_status}
+                          </p>
+                      )}
+                  </div>
+
+                  {/* ── Details Panel (French) ───────────── */}
+                  {selectedDetails && (
+                      <div className="rounded-lg border border-indigo-200
+                                      bg-indigo-50 p-4 space-y-2">
+                          <h3 className="font-semibold text-indigo-900">
+                              {selectedDetails.label}
+                          </h3>
+                          <p className="text-sm text-gray-700">
+                              {selectedDetails.description}
+                          </p>
+                          <ul className="text-sm text-gray-600 list-disc pl-5">
+                              <li>
+                                  <strong>Associés / Actionnaires :</strong>{' '}
+                                  {selectedDetails.partners_or_shareholders}
+                              </li>
+                              {selectedDetails.min_capital_mad !== null && (
+                                  <li>
+                                      <strong>Capital minimum :</strong>{' '}
+                                      {new Intl.NumberFormat('fr-MA', {
+                                          style: 'currency',
+                                          currency: 'MAD',
+                                          maximumFractionDigits: 0,
+                                      }).format(selectedDetails.min_capital_mad)}
+                                  </li>
+                              )}
+                              {selectedDetails.notes && (
+                                  <li>
+                                      <strong>Remarques :</strong>{' '}
+                                      {selectedDetails.notes}
+                                  </li>
+                              )}
+                          </ul>
+                      </div>
+                  )}
+
+                  <button
+                      type="submit"
+                      disabled={form.processing}
+                      className="inline-flex items-center rounded-md bg-indigo-600
+                                 px-4 py-2 text-sm font-medium text-white
+                                 hover:bg-indigo-700 disabled:opacity-50"
+                  >
+                      {form.processing ? 'Enregistrement…' : 'Enregistrer'}
+                  </button>
+              </form>
+          </AuthenticatedLayout>
+      );
+  }
+
+────────────────────────────────────────
+  10.4) SEED DEFAULT — database/seeders/DemoTenantSeeder.php (snippet)
+────────────────────────────────────────
+
+  // Inside DemoTenantSeeder::run()
+
+  use App\Enums\CompanyLegalStatus;
+
+  $defaultLegal = CompanyLegalStatus::SARL;
+
+  TenantSetting::create([
+      'id'        => Str::uuid(),
+      'tenant_id' => $tenant->id,
+      'company_settings' => [
+          'name'         => 'Demo SARL',
+          'legal_name'   => 'Demo SARL SARL AU',
+          'tax_id'       => '00000000',
+          'email'        => 'contact@demo.ma',
+          'phone'        => '+212600000000',
+          'website'      => 'https://demo.ma',
+          'address'      => '123 Rue Mohammed V',
+          'city'         => 'Casablanca',
+          'region'       => 'Casablanca-Settat',
+          'postal_code'  => '20000',
+          'country'      => 'MA',
+          'legal_status'                 => $defaultLegal->value,       // "sarl"
+          'legal_status_details_snapshot' => $defaultLegal->details(),   // full array
+      ],
+      // … other JSON columns (account_settings, invoice_settings, etc.)
+  ]);
+
+────────────────────────────────────────
+  10.5) TenantSettingsService DEFAULT INIT (snippet)
+────────────────────────────────────────
+
+  // In App\Services\Settings\TenantSettingsService
+  // Called when a NEW tenant registers (onboarding flow)
+
+  use App\Enums\CompanyLegalStatus;
+
+  public function initializeDefaults(Tenant $tenant): TenantSetting
+  {
+      $defaultLegal = CompanyLegalStatus::SARL;
+
+      return TenantSetting::create([
+          'id'        => Str::uuid(),
+          'tenant_id' => $tenant->id,
+          'company_settings' => [
+              'name'                          => $tenant->name,
+              'country'                       => 'MA',
+              'legal_status'                  => $defaultLegal->value,
+              'legal_status_details_snapshot'  => $defaultLegal->details(),
+          ],
+          'localization_settings' => [
+              'timezone'    => 'Africa/Casablanca',
+              'currency'    => 'MAD',
+              'app_locale'  => 'fr',
+              'date_format' => 'DD/MM/YYYY',
+          ],
+          'invoice_settings' => [
+              'default_payment_terms_days' => 30,
+              'show_tax'                   => true,
+              'round_off_enabled'          => true,
+          ],
+          'modules_settings' => [
+              'purchases_enabled'          => true,
+              'inventory_enabled'          => true,
+              'multi_warehouse'            => false,
+              'delivery_challans_enabled'  => true,
+          ],
+      ]);
+  }
+
+────────────────────────────────────────
+  10.6) ROUTING (already exists in backoffice.php — no changes needed)
+────────────────────────────────────────
+
+  Routes already defined in section 3:
+    Route::get('settings/company',  [CompanySettingsController::class, 'show'])
+          ->middleware('permission:settings.company.view');
+    Route::post('settings/company', [CompanySettingsController::class, 'update'])
+          ->middleware('permission:settings.company.edit');
+
+  No new routes required. The legal_status field is part of the existing
+  company settings form — simply an additional field on the same page.
+
+────────────────────────────────────────
+  10.7) SUMMARY
+────────────────────────────────────────
+
+  ┌────────────────────────────────────────────────────────────────────┐
+  │  Feature: Company Legal Status (Forme juridique)                   │
+  ├────────────────────────────────────────────────────────────────────┤
+  │  Storage:   tenant_settings.company_settings (JSON)                │
+  │  Keys:      legal_status (string), legal_status_details_snapshot   │
+  │  Enum:      App\Enums\CompanyLegalStatus (backed string)          │
+  │  Values:    sarl | sa | branch | subsidiary                       │
+  │             | sole_proprietorship                                  │
+  │  Default:   sarl (set in seeder + onboarding init)                 │
+  │  Validation: Rule::enum(CompanyLegalStatus::class)                 │
+  │  Snapshot:  Written at save-time from enum->details()              │
+  │  UI:        Inertia/React <select> + detail card (French)          │
+  │  No new tables, no new routes, fully tenant-scoped.                │
+  └────────────────────────────────────────────────────────────────────┘
+
+
+================================================================================
+  END OF ARCHITECTURE — READY FOR IMPLEMENTATION
+================================================================================

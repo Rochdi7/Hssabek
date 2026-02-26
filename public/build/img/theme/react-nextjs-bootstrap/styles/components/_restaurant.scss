@@ -1,0 +1,330 @@
+/* Restaurant Area Style
+============================================*/
+.welcome-restaurant {
+  padding: 60px 30px;
+  padding-bottom: 57px;
+  
+    h2 {
+        color: $white;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 125%;
+        letter-spacing: -0.5px;
+        max-width: 326px;
+        margin-bottom: 30px;
+    }
+    .dish-wrap {
+        position: absolute;
+        top: 50%;
+        right: 38px;
+        transform: translateY(-50%);
+
+        .dish-img {
+            animation: rotateAndReverse 4s linear infinite;
+        }
+        .dish-shape {
+            position: absolute;
+            top: 0;
+            right: 30px;
+        }
+        .dish-shape1 {
+            position: absolute;
+            top: -10px;
+            left: -15px;
+        }
+        .dish-shape2 {
+            position: absolute;
+            bottom: -10px;
+            right: -15px;
+        }
+    }
+}
+@keyframes rotateAndReverse {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(0deg); }
+}
+.revenue-card {
+    padding: 22px 24px;
+    h2 {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 125%;
+        letter-spacing: -0.5px;
+        margin-bottom: 0;
+    }
+}
+
+
+/* Max width 767px */
+@media only screen and (max-width : 767px) {
+
+    .welcome-restaurant {
+        padding: 20px;
+        h2 {
+            font-size: 20px;
+            max-width: 200px;
+            margin-bottom: 15px;
+        }
+    }
+
+}
+
+@media only screen and (max-width : 520px) {
+    .dish-wrap {
+        display: none;
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width : 768px) and (max-width : 991px) {
+
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width : 992px) and (max-width : 1199px)  {
+
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width : 1200px) and (max-width : 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width : 1400px) and (max-width : 1799px) {
+
+}
+
+@media only screen and (max-width : 1199px) {
+
+}
+
+// dark
+.dark {
+    .welcome-restaurant {
+        background-color: $rating-color !important;
+    }
+}
+
+[dir="rtl"] {
+    .welcome-restaurant {
+        .dish-wrap {
+            right: auto;
+            left: 38px;
+        }
+    }
+}
+
+
+// Dish Details
+.dish-details-images-card {
+    padding: 13px;
+    margin-bottom: 15px;
+    border-radius: 7px;
+}
+.dish-details-card {
+    padding: 25px;
+    border-radius: 7px;
+
+    .trezo-card-content {
+        .text-xs {
+            font-size: 12px;
+        }
+        h3 {
+            font-size: 24px;
+            margin: {
+                top: 10px;
+                bottom: 10px;
+            };
+        }
+        .price {
+            font-size: 16px;
+            color: #EC1F00;
+        }
+        .ratings {
+            font-size: 15px;
+            color: #FE7A36;
+
+            i {
+                margin-right: 2px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+            span {
+                &.text-xs {
+                    font-size: 12px;
+                    margin-left: 2px;
+                }
+            }
+        }
+        .border-top {
+            border-color: $border-color !important;
+            margin: {
+                top: 25px;
+                bottom: 25px;
+            };
+        }
+        h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        .nutrition-values {
+            margin: {
+                bottom: 25px;
+                top: 15px;
+            };
+            .item {
+                padding: 10px 20px;
+                border: 1px solid $border-color;
+            }
+            .col-md-6 {
+                &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5), &:nth-child(6) {
+                    .item {
+                        border-bottom-width: 0;
+                    }
+                }
+                &:nth-child(1), &:nth-child(3), &:nth-child(5), &:nth-child(7), &:nth-child(9), &:nth-child(11) {
+                    .item {
+                        border-right-width: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// dark
+.dark {
+    .dish-details-card {
+        .trezo-card-content {
+            .ratings {
+                i {
+                    color: #FE7A36;
+                }
+            }
+            .border-top {
+                border-color: #333 !important;
+            }
+            .nutrition-values {
+                .item { 
+                    border: 1px solid #333;
+                }
+            }
+        }
+    }
+}
+
+
+/* Max width 767px */
+@media only screen and (max-width : 767px) {
+
+    .dish-details-card {
+        height: auto;
+
+        .trezo-card-content {
+            h3 {
+                font-size: 20px;
+                margin: {
+                    top: 8px;
+                    bottom: 8px;
+                };
+            }
+            .price {
+                font-size: 14px;
+            }
+            .ratings {
+                margin-top: 12px;
+            }
+            .border-top {
+                margin: {
+                    top: 17px;
+                    bottom: 17px;
+                };
+            }
+            h4 {
+                font-size: 16px;
+            }
+            .mb-25 {
+                margin-bottom: 17px !important;
+            }
+            .nutrition-values {
+                margin: {
+                    bottom: 17px;
+                    top: 15px;
+                };
+                .item {
+                    padding: 10px 15px;
+                }
+                .col-md-6 {
+                    &:nth-child(7) {
+                        .item {
+                            border-bottom-width: 0;
+                        }
+                    }
+                    &:nth-child(1), &:nth-child(3), &:nth-child(5), &:nth-child(7), &:nth-child(9), &:nth-child(11) {
+                        .item {
+                            border-right-width: 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+/* Min width 576px to Max width 767px */
+@media only screen and (min-width : 576px) and (max-width : 767px) {
+
+    .dish-details-card {
+        .trezo-card-content {
+            .border-top {
+                margin: {
+                    top: 20px;
+                    bottom: 20px;
+                };
+            }
+            .mb-25 {
+                margin-bottom: 20px !important;
+            }
+            .nutrition-values {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+}
+
+/* Min width 768px to Max width 991px */
+@media only screen and (min-width : 768px) and (max-width : 991px) {
+
+    .dish-details-card {
+        height: auto; 
+    
+        .trezo-card-content {
+            h3 {
+                font-size: 22px;
+            }
+            .price {
+                font-size: 15px;
+            }
+            h4 {
+                font-size: 17px;
+            }
+        }
+    }
+
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width : 992px) and (max-width : 1199px) {}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+
+/* Min width 1600px */
+@media only screen and (min-width: 1600px) {}

@@ -1,0 +1,25 @@
+//
+// dropzone.scss
+//
+
+@use "../variables" as *;
+
+.dropzone {
+    border: 2px dashed $border-color;
+    background: $light;
+    border-radius: 8px;
+    cursor: pointer;
+    min-height: 150px;
+    padding: 20px;
+
+    .dz-message {
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    &.dz-started {
+        .dz-message {
+            display: none;
+        }
+    }
+}

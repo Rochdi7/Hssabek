@@ -1,0 +1,82 @@
+
+/*============================
+  39.common
+============================*/
+
+@use "../variables" as *;
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 50px !important;
+}
+::-webkit-scrollbar-track {
+    background: $light;
+}
+::-webkit-scrollbar-thumb {
+    background: $gray-200;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: $gray-200;
+}
+.swal2-header{
+    .swal2-title{
+        font-size: 18px;
+    }
+}
+.checkboxs {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-left: 25px;
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+}
+.checkboxs input ~ .checkmarks {
+    border: 1px solid $border-color;
+    border-radius: 2px;
+}
+.checkboxs input:checked ~ .checkmarks {
+    background-color: $primary;
+    border-color: $primary;
+    &:after {
+        display: block;
+    }
+}
+.checkboxs .checkmarks {
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    &::after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        content: "\f00c";
+        font-family: 'Font Awesome 5 Free';
+        color: $white;
+        font-weight: $font-weight-semibold;
+        font-size: 10px;
+    }
+}
+
+.input-groupicon.calender-input {
+    position: relative;
+    i {
+        position: absolute;
+        top: 12px;
+        right: 10px;
+        width: 14px;
+        height: 14px;
+    }
+}

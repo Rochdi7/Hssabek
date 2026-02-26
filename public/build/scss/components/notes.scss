@@ -1,0 +1,31 @@
+/*============================
+  14.call
+============================*/
+
+@use "../variables" as *;
+@use "../utils/mixins" as *;
+
+
+.nav-control {
+    display: flex;
+    align-items: center;
+    button {
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        background: $white;
+        color: $gray-700;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+            background: $dark;
+            color: $white;
+        }
+        &.owl-prev {
+            margin-right: 8px;
+        }
+    }
+}

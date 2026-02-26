@@ -1,0 +1,26 @@
+//
+// print.scss
+//
+
+@use "../variables" as *;
+
+// Used invoice page
+@media print {
+    .sidebar,
+    .page-title-head,
+    .navbar-header,
+    .footer {
+        display: none !important;
+    }
+    .card-body,
+    .page-content,
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 0;
+    }
+}

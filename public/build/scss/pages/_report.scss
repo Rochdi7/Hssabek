@@ -1,0 +1,68 @@
+@use "../variables" as *;
+
+.card {
+    &.highlights-primary{
+        border-color: transparent;
+        border-block-start: 3px solid $primary;
+    }
+    &.highlights-success{
+        border-color: transparent;
+        border-block-start: 3px solid $success;
+    }
+    &.highlights-warning{
+        border-color: transparent;
+        border-block-start: 3px solid $warning;
+    }
+    &.highlights-danger{
+        border-color: transparent;
+        border-block-start: 3px solid $danger;
+    }
+}
+.supplier-report-01 {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.supplier-report-02 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.low-stok-img{
+    width: 45px;
+}
+.reportrange-picker {
+    padding: 0.375rem 0.625rem;
+    font-size: 13px;
+    font-weight: $font-weight-normal;
+    border-radius: 5px;
+    border: 1px solid $border-color;
+}
+
+#time-chart02, #time-chart03, #time-chart04{
+    max-width: 65px !important;
+    min-height: 70px !important;
+}
+.custom-border {
+    border-bottom: 3px dashed !important;
+}
+.border-bottom.border-success {
+    border-color: #27AE60 !important;
+}
+.border-bottom.border-primary {
+    border-color: #7539FF !important;
+}
+.border-bottom.border-warning {
+    border-color: #E2B93B !important;
+}
+.border-bottom.border-danger {
+    border-color: #EF1E1E !important;
+}
+table{
+    th{
+        .form-check-input{
+            width: 17.5px;
+            height: 17.5px;
+        }
+    }
+}

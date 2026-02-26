@@ -1,0 +1,85 @@
+//
+// variables-custom.scss
+//
+
+$logo-lg-height:                    var(--#{$prefix}logo-lg-height);
+$logo-sm-height:                    var(--#{$prefix}logo-sm-height);
+
+// Left Sidebar
+$sidenav-width:                     var(--#{$prefix}sidenav-width);
+$sidenav-width-md:                  var(--#{$prefix}sidenav-width-md);
+$sidenav-width-sm:                  var(--#{$prefix}sidenav-width-sm);
+
+$menu-item-icon-size:               var(--#{$prefix}menu-item-icon-size);
+$menu-item-font-size:               var(--#{$prefix}menu-item-font-size);
+$menu-link-item-gap:                var(--#{$prefix}menu-link-item-gap);
+$menu-item-padding-x:               var(--#{$prefix}menu-item-padding-x);
+$menu-item-padding-y:               var(--#{$prefix}menu-item-padding-y);
+
+// Menu
+$menu-bg:                           var(--#{$prefix}menu-bg);
+$menu-item-color:                   var(--#{$prefix}menu-item-color);
+$menu-item-hover-color:             var(--#{$prefix}menu-item-hover-color);
+$menu-item-hover-bg:                var(--#{$prefix}menu-item-hover-bg);
+$menu-item-heading:                 var(--#{$prefix}menu-item-heading);
+$menu-item-active-color:            var(--#{$prefix}menu-item-active-color);
+$menu-item-active-bg:               var(--#{$prefix}menu-item-active-bg);
+$menu-title-color:                  var(--#{$prefix}menu-title-color);
+$menu-border:                       var(--#{$prefix}menu-border);
+
+// Topbar
+$topbar-height:                     var(--#{$prefix}topbar-height);
+$topbar-bg:                         var(--#{$prefix}topbar-bg);
+$topbar-item-color:                 var(--#{$prefix}topbar-item-color);
+$topbar-item-hover-color:           var(--#{$prefix}topbar-item-hover-color);
+$topbar-item-hover-bg:              var(--#{$prefix}topbar-item-hover-bg);
+$topbar-search-bg:                  var(--#{$prefix}topbar-search-bg);
+$topbar-search-color:               var(--#{$prefix}topbar-search-color);
+$topbar-placeholder-color:          var(--#{$prefix}topbar-placeholder-color);
+$topbar-search-icon:                var(--#{$prefix}topbar-search-icon);
+$topbar-search-border:              var(--#{$prefix}topbar-search-border);
+$topbar-border:                     var(--#{$prefix}topbar-border);
+$topbar-breadcrumb-color:           var(--#{$prefix}topbar-breadcrumb-color);
+$topbar-breadcrumb-hover-color:     var(--#{$prefix}topbar-breadcrumb-hover-color);
+
+//$primary:                           var(--#{$prefix}primary);
+
+$font-family-primary:				"Instrument Sans", sans-serif;
+$font-awesome:						"Fontawesome";
+
+$text-color: $gray-500;
+
+
+
+// Font Size
+$font-size-8: 8px;
+$font-size-9: 9px;
+$font-size-10: 10px;
+$font-size-11: 11px;
+$font-size-12: 12px;
+$font-size-13: 13px;
+$font-size-14: 14px;
+$font-size-15: 15px;
+$font-size-16: 16px;
+$font-size-17: 17px;
+$font-size-18: 18px;
+$font-size-20: 20px;
+$font-size-22: 22px;
+$font-size-24: 24px;
+$font-size-26: 26px;
+$font-size-28: 28px;
+$font-size-30: 30px;
+$font-size-32: 32px;
+$font-size-34: 34px;
+$font-size-36: 36px;
+$font-size-38: 38px;
+$font-size-40: 40px;
+$font-size-42: 42px;
+$font-size-44: 44px;
+$font-size-46: 46px;
+$font-size-48: 48px;
+$font-size-50: 50px;
+$font-size-54: 54px;
+$font-size-56: 56px;
+$font-size-60: 60px;
+$font-size-64: 64px;

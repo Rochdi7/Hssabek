@@ -1,0 +1,121 @@
+@use "../variables" as *;
+
+.top-content{
+    padding-bottom: 24px;
+    border-bottom: 1px solid $border-color;
+    .purchase-top-content{
+        .logo-image{
+            padding: 21px 47px;
+            border: 1px solid $border-color;
+            background-color: $light;
+            display: flex;
+            justify-content: center;
+            border-radius: $border-radius-sm;
+        }
+    }
+}
+.bill-content{
+    margin-top: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid $border-color;
+    .card{
+        box-shadow: none;
+    }
+}
+.items-details{
+    margin-top: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid $border-color;
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination{
+        display: none;
+    }
+    .dataTables_filter{
+        margin-bottom: 0;
+        display: none;
+    }
+    .dataTables_length{
+        display: none;
+    }
+    .no-pagination{
+        .dataTables_length{
+            display: none;
+        }
+    }
+    div.dataTables_wrapper div.dataTables_filter input{
+        display: none;
+    }
+    table.table.dataTable > thead > tr th{
+        background-color: $dark;
+        color: $white;
+    }
+    .table-responsive{
+        border-radius: 10px;
+    }
+    .table>tbody{
+        border-radius: 10px;
+    }
+}
+.extra-info{
+    margin-top: 24px;
+}
+.singnature-upload{
+    padding: 16px;
+    border-radius: 5px;
+    text-decoration: dotted;
+    border: 1px solid $border-color;
+}
+.supplier-details{
+    padding: 20px;
+    background-color: $light;
+}
+.invoice-report .invoice-report-badge::after {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 5px;
+    height: 40px;
+    gap: 0px;
+    border-radius: 0px 5px 5px 0px;
+    opacity: 0px;
+    background-color: $primary;
+}
+.invoice-report .invoice-report-badge-success::after {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 5px;
+    height: 40px;
+    gap: 0px;
+    border-radius: 0px 5px 5px 0px;
+    opacity: 0px;
+    background-color: $success;
+}
+.invoice-report .invoice-report-badge-warning::after {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 5px;
+    height: 40px;
+    gap: 0px;
+    border-radius: 0px 5px 5px 0px;
+    opacity: 0px;
+    background-color: $warning;
+}
+.invoice-report .invoice-report-badge-danger::after {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 5px;
+    height: 40px;
+    gap: 0px;
+    border-radius: 0px 5px 5px 0px;
+    opacity: 0px;
+    background-color: $danger;
+}
+.custom-icons{
+    line-height: 0;
+}

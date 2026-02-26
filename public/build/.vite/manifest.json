@@ -1,0 +1,49 @@
+{
+  "resources/css/style.css": {
+    "file": "css/style.min.css",
+    "src": "resources/css/style.css",
+    "isEntry": true,
+    "name": "style",
+    "names": [
+      "style.css"
+    ]
+  },
+  "resources/img/auth/auth-bg.png": {
+    "file": "icons/auth-bg.png",
+    "src": "resources/img/auth/auth-bg.png"
+  },
+  "resources/img/bg/card-bg-02.png": {
+    "file": "icons/card-bg-02.png",
+    "src": "resources/img/bg/card-bg-02.png"
+  },
+  "resources/img/theme/bg-01.jpg": {
+    "file": "icons/bg-01.jpg",
+    "src": "resources/img/theme/bg-01.jpg"
+  },
+  "resources/img/theme/bg-02.jpg": {
+    "file": "icons/bg-02.jpg",
+    "src": "resources/img/theme/bg-02.jpg"
+  },
+  "resources/img/theme/bg-03.jpg": {
+    "file": "icons/bg-03.jpg",
+    "src": "resources/img/theme/bg-03.jpg"
+  },
+  "resources/img/theme/bg-04.jpg": {
+    "file": "icons/bg-04.jpg",
+    "src": "resources/img/theme/bg-04.jpg"
+  },
+  "resources/img/theme/bg-05.jpg": {
+    "file": "icons/bg-05.jpg",
+    "src": "resources/img/theme/bg-05.jpg"
+  },
+  "resources/img/theme/bg-06.jpg": {
+    "file": "icons/bg-06.jpg",
+    "src": "resources/img/theme/bg-06.jpg"
+  },
+  "resources/js/script.js": {
+    "file": "js/script.js",
+    "name": "script",
+    "src": "resources/js/script.js",
+    "isEntry": true
+  }
+}
