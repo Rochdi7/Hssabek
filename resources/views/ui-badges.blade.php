@@ -1,10 +1,10 @@
 <?php $page = 'ui-badges'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
-    
+            Start Page Content
+        ========================= -->
+
     <div class="page-wrapper">
 
         <!-- Start Content -->
@@ -19,15 +19,15 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">Badges</li>
                     </ol>
                 </div>
             </div>
             <!-- End Page Header -->
-            
+
             <!-- start row -->
             <div class="row">
 
@@ -37,7 +37,8 @@
                             <h5 class="card-title">Default Badges</h5>
                         </div><!-- end card header -->
                         <div class="card-body">
-                            <p class="text-xl mb-3">Use the <span class="text-secondary">badge</span> class to show a default badge.</p>
+                            <p class="text-xl mb-3">Use the <span class="text-secondary">badge</span> class to show a
+                                default badge.</p>
                             <div class="d-flex flex-wrap gap-2">
                                 <span class="badge bg-primary">Primary</span>
                                 <span class="badge bg-secondary">Secondary</span>
@@ -72,7 +73,7 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -100,7 +101,8 @@
                             <h5 class="card-title">Soft Rounded Badges</h5>
                         </div><!-- end card header -->
                         <div class="card-body">
-                            <p class="text-xl mb-3">Use the <code>rounded-pill  badge-soft-</code> to create a soft badge more rounded</p>
+                            <p class="text-xl mb-3">Use the <code>rounded-pill badge-soft-</code> to create a soft badge
+                                more rounded</p>
                             <div class="d-flex flex-wrap gap-2">
                                 <span class="badge rounded-pill badge-soft-primary">Primary</span>
                                 <span class="badge rounded-pill badge-soft-secondary">Secondary</span>
@@ -121,7 +123,8 @@
                             <h5 class="card-title">Outline Badges</h5>
                         </div><!-- end card header -->
                         <div class="card-body">
-                            <p class="text-xl mb-3">Use the <code>badge-outline-</code> to create a badge with the outline.</p>
+                            <p class="text-xl mb-3">Use the <code>badge-outline-</code> to create a badge with the outline.
+                            </p>
                             <div class="d-flex flex-wrap gap-2">
                                 <span class="badge badge-outline-primary">Primary</span>
                                 <span class="badge badge-outline-secondary">Secondary</span>
@@ -135,14 +138,15 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Outline Rounded Badges</h5>
                         </div><!-- end card header -->
                         <div class="card-body">
-                            <p class="text-xl mb-3">Use the <code>rounded-pill badge-outline-</code> class to create a outline pill badge.</p>
+                            <p class="text-xl mb-3">Use the <code>rounded-pill badge-outline-</code> class to create a
+                                outline pill badge.</p>
                             <div class="d-flex flex-wrap gap-2">
                                 <span class="badge rounded-pill badge-outline-primary">Primary</span>
                                 <span class="badge rounded-pill badge-outline-secondary">Secondary</span>
@@ -156,14 +160,15 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Soft Border Badges</h5>
                         </div><!-- end card header -->
                         <div class="card-body">
-                            <p class="text-xl mb-3">Use the <code>badge-border</code> and <code>badge-soft-</code> with below mentioned modifier classes to make badges with border & soft backgorund.</p>
+                            <p class="text-xl mb-3">Use the <code>badge-border</code> and <code>badge-soft-</code> with
+                                below mentioned modifier classes to make badges with border & soft backgorund.</p>
                             <div class="d-flex flex-wrap gap-2">
                                 <span class="badge badge-soft-primary border border-primary">Primary</span>
                                 <span class="badge badge-soft-secondary border border-secondary">Secondary</span>
@@ -177,28 +182,31 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Soft Border Rounded Badges</h5>
                         </div><!-- end card header -->
                         <div class="card-body">
-                            <p class="text-xl mb-3">Use the <code>badge-border</code> and <code>badge-soft-</code> with below mentioned modifier classes to make badges with border & soft backgorund.</p>
+                            <p class="text-xl mb-3">Use the <code>badge-border</code> and <code>badge-soft-</code> with
+                                below mentioned modifier classes to make badges with border & soft backgorund.</p>
                             <div class="d-flex flex-wrap gap-2">
                                 <span class="badge rounded-pill badge-soft-primary border border-primary">Primary</span>
-                                <span class="badge rounded-pill badge-soft-secondary border border-secondary">Secondary</span>
+                                <span
+                                    class="badge rounded-pill badge-soft-secondary border border-secondary">Secondary</span>
                                 <span class="badge rounded-pill badge-soft-success border border-success">Success</span>
                                 <span class="badge rounded-pill badge-soft-danger border border-danger">Danger</span>
                                 <span class="badge rounded-pill badge-soft-warning border border-warning">Warning</span>
                                 <span class="badge rounded-pill badge-soft-info border border-info">Info</span>
-                                <span class="badge rounded-pill badge-soft-light border border-light text-dark">Light</span>
+                                <span
+                                    class="badge rounded-pill badge-soft-light border border-light text-dark">Light</span>
                                 <span class="badge rounded-pill badge-soft-dark border border-dark">Dark</span>
                             </div>
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -218,7 +226,7 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -247,20 +255,23 @@
                         <div class="card-body d-flex flex-wrap gap-4">
                             <button type="button" class="btn btn-primary btn-md position-relative">
                                 Inbox
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
                                     99+
                                     <span class="visually-hidden">unread messages</span>
                                 </span>
                             </button>
                             <button type="button" class="btn btn-primary btn-md position-relative">
                                 Profile
-                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
                                     <span class="visually-hidden">New alerts</span>
                                 </span>
                             </button>
                             <button type="button" class="btn btn-primary btn-md btn-icon position-relative">
                                 <i class="ti ti-chevron-left"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
                                     <span class="visually-hidden">New alerts</span>
                                 </span>
                             </button>
@@ -269,13 +280,14 @@
                             </button>
                             <button type="button" class="btn btn-light rounded-circle btn-md btn-icon position-relative">
                                 <i class="ti ti-baseline-density-medium text-dark"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
                                     <span class="visually-hidden">New alerts</span>
                                 </span>
                             </button>
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Buttons With Badges </h5>
@@ -302,7 +314,7 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -326,14 +338,19 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

@@ -1,9 +1,9 @@
 <?php $page = 'chart-js'; ?>
-@extends('layout.mainlayout')
-@section('content')    
+@extends('backoffice.layout.mainlayout')
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper cardhead">
         <div class="content">
@@ -207,12 +207,12 @@
 
         </div>
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

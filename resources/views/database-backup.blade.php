@@ -1,18 +1,18 @@
 <?php $page = 'database-backup'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
-    <div class="page-wrapper">	
+    <div class="page-wrapper">
         <div class="content">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <div class="row">
                         <!-- Start settings sidebar -->
-                        @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @component('backoffice.components.settings-sidebar')
+                        @endcomponent
                         <!-- End settings sidebar -->
                         <div class="col-xl-9 col-lg-8">
                             <div>
@@ -26,16 +26,20 @@
                                             <span class="input-icon-addon">
                                                 <i class="isax isax-search-normal"></i>
                                             </span>
-                                            <input type="text" class="form-control form-control-sm bg-white" placeholder="Search">
-                                    
+                                            <input type="text" class="form-control form-control-sm bg-white"
+                                                placeholder="Search">
+
                                         </div>
                                     </div>
                                     <div class="col-md-7 text-end mb-3">
-                                        <a href="javascript:void(0);" class="btn btn-primary d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#generate_modal"><i class="isax isax-folder-connection5 me-1"></i>Generate Backup</a>
+                                        <a href="javascript:void(0);"
+                                            class="btn btn-primary d-inline-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#generate_modal"><i
+                                                class="isax isax-folder-connection5 me-1"></i>Generate Backup</a>
                                     </div>
                                 </div>
                                 <!-- /Table Search -->
-                                    <!-- Table List -->
+                                <!-- Table List -->
                                 <div class="table-responsive table-nowrap">
                                     <table class="table border">
                                         <thead class="table-light">
@@ -59,7 +63,10 @@
                                                     </a>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="dropdown-item d-flex align-items-center"
+                                                                data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                    class="isax isax-trash me-2"></i>Delete</a>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -77,7 +84,10 @@
                                                     </a>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="dropdown-item d-flex align-items-center"
+                                                                data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                    class="isax isax-trash me-2"></i>Delete</a>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -95,7 +105,10 @@
                                                     </a>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="dropdown-item d-flex align-items-center"
+                                                                data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                    class="isax isax-trash me-2"></i>Delete</a>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -113,7 +126,10 @@
                                                     </a>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="dropdown-item d-flex align-items-center"
+                                                                data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                    class="isax isax-trash me-2"></i>Delete</a>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -130,13 +146,14 @@
         </div>
         <!-- Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- /Footer-->
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

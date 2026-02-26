@@ -1,9 +1,9 @@
 <?php $page = 'category'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,8 @@
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div>
-                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_modal"><i class="isax isax-add-circle5 me-1"></i>New Category</a>
+                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#add_modal"><i class="isax isax-add-circle5 me-1"></i>New Category</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +30,8 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
                     </div>
@@ -62,8 +64,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-01.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-01.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Smartphones</a></h6>
@@ -82,10 +86,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -98,8 +106,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-02.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-02.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Laptops</a></h6>
@@ -118,10 +128,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -134,8 +148,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-03.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-03.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Headphones</a></h6>
@@ -154,10 +170,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -170,11 +190,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-04.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-04.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Men's Apparel</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Men's Apparel</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -190,10 +213,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -206,8 +233,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-05.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-05.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Footwear</a></h6>
@@ -226,10 +255,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -242,8 +275,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-06.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-06.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Kitchen</a></h6>
@@ -262,10 +297,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -278,8 +317,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-07.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-07.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Cleaning</a></h6>
@@ -298,10 +339,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -314,8 +359,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-08.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-08.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Haircare</a></h6>
@@ -334,10 +381,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -350,11 +401,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-09.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-09.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Men’s Apparel</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Men’s Apparel</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -370,10 +424,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -386,8 +444,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-10.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-10.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Skincare</a></h6>
@@ -406,10 +466,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -422,11 +486,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-11.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-11.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Bikes & Accessories</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Bikes &
+                                                Accessories</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -442,10 +509,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -458,11 +529,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-12.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-12.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Televisions</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Televisions</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -478,10 +552,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -494,11 +572,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-13.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-13.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Luxury Handbags</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Luxury Handbags</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -514,10 +595,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -530,11 +615,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-14.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-14.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dairy Alternatives</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dairy
+                                                Alternatives</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -550,10 +638,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -567,13 +659,13 @@
         <!-- End Content -->
 
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

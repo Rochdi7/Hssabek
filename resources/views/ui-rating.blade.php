@@ -1,9 +1,9 @@
 <?php $page = 'ui-rating'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper cardhead">
         <div class="content">
@@ -29,7 +29,8 @@
                         </div>
                         <div class="card-body">
                             <div class="d-flex flex-wrap align-items-center justify-content-between">
-                                <p class="fs-14 mb-0 fw-semibold">Show Some <span class="text-danger">&#10084;</span> with rating :</p>
+                                <p class="fs-14 mb-0 fw-semibold">Show Some <span class="text-danger">&#10084;</span> with
+                                    rating :</p>
                                 <div id="rater-basic"></div>
                             </div>
                         </div>
@@ -139,7 +140,8 @@
                                 <p class="fs-14 mb-0 fw-semibold">Thank You so much for your support :</p>
                                 <div class="d-flex flex-wrap align-items-center">
                                     <div id="rater-reset"></div>
-                                    <button class="btn btn-icon btn-sm btn-danger-light ms-3" id="rater-reset-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Reset">
+                                    <button class="btn btn-icon btn-sm btn-danger-light ms-3" id="rater-reset-button"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Reset">
                                         <i class="ti ti-rotate"></i>
                                     </button>
                                 </div>
@@ -156,7 +158,11 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-title mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-title mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved
+            </p>
             <p class="text-title">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -164,6 +170,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

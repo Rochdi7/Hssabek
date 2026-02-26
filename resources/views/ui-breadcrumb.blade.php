@@ -1,9 +1,9 @@
 <?php $page = 'ui-breadcrumb'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,9 +19,9 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">Breadcrumb</li>
                     </ol>
                 </div>
@@ -69,20 +69,23 @@
                         <div class="card-body">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb p-2 mb-0">
-                                    <li class="breadcrumb-item active" aria-current="page"><i class="ti ti-smart-home fs-16 me-1"></i>Home</li>
+                                    <li class="breadcrumb-item active" aria-current="page"><i
+                                            class="ti ti-smart-home fs-16 me-1"></i>Home</li>
                                 </ol>
                             </nav>
 
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb p-2 mb-0">
-                                    <li class="breadcrumb-item"><a href="#"><i class="ti ti-smart-home fs-16 me-1"></i>Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#"><i
+                                                class="ti ti-smart-home fs-16 me-1"></i>Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Library</li>
                                 </ol>
                             </nav>
 
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb p-2 mb-0">
-                                    <li class="breadcrumb-item"><a href="#"><i class="ti ti-smart-home fs-16 me-1"></i>Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#"><i
+                                                class="ti ti-smart-home fs-16 me-1"></i>Home</a></li>
                                     <li class="breadcrumb-item"><a href="#">Library</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Data</li>
                                 </ol>
@@ -92,7 +95,7 @@
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-            
+
             <!-- start row -->
             <div class="row">
 
@@ -159,19 +162,24 @@
 
             </div>
 
-        </div> 
+        </div>
         <!-- End container -->
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

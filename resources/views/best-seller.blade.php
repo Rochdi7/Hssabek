@@ -1,9 +1,9 @@
 <?php $page = 'best-seller'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,8 @@
                 </div>
                 <div class="my-xl-auto">
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -43,16 +44,19 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <p class="mb-1 text-truncate">Total Sales</p>
-                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">$8,500,00 <span class="badge badge-soft-success badge-xs">+5.62% <i class="isax isax-arrow-up-15 ms-1"></i></span></h6>
+                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">
+                                            $8,500,00 <span class="badge badge-soft-success badge-xs">+5.62% <i
+                                                    class="isax isax-arrow-up-15 ms-1"></i></span></h6>
                                     </div>
                                     <div>
-                                        <span class="badge badge-soft-primary border p-2 border-primary rounded-circle d-inline-flex align-items-center justify-content-center">
+                                        <span
+                                            class="badge badge-soft-primary border p-2 border-primary rounded-circle d-inline-flex align-items-center justify-content-center">
                                             <i class="isax isax-dollar-circle fs-16"></i>
                                         </span>
                                     </div>
                                 </div>
                                 <span class="position-absolute end-0 bottom-0">
-                                    <img src="{{URL::asset('build/img/bg/card-overlay-13.svg')}}" alt="User Img">
+                                    <img src="{{ URL::asset('build/img/bg/card-overlay-13.svg') }}" alt="User Img">
                                 </span>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -63,16 +67,19 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <p class="mb-1 text-truncate">Highest Selling Product</p>
-                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">Earbuds <span class="badge badge-soft-success badge-xs">+11.4% <i class="isax isax-arrow-up-15 ms-1"></i></span></h6>
+                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">Earbuds
+                                            <span class="badge badge-soft-success badge-xs">+11.4% <i
+                                                    class="isax isax-arrow-up-15 ms-1"></i></span></h6>
                                     </div>
                                     <div>
-                                        <span class="badge badge-soft-success border border-success rounded-circle p-2 d-inline-flex align-items-center justify-content-center">
+                                        <span
+                                            class="badge badge-soft-success border border-success rounded-circle p-2 d-inline-flex align-items-center justify-content-center">
                                             <i class="isax isax-bag-2 fs-16"></i>
                                         </span>
                                     </div>
                                 </div>
                                 <span class="position-absolute end-0 bottom-0">
-                                    <img src="{{URL::asset('build/img/bg/card-overlay-14.svg')}}" alt="User Img">
+                                    <img src="{{ URL::asset('build/img/bg/card-overlay-14.svg') }}" alt="User Img">
                                 </span>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -83,16 +90,19 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <p class="mb-1 text-truncate">Average Sales</p>
-                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">$12,500 <span class="badge badge-soft-success badge-xs">+8.52% <i class="isax isax-arrow-up-15 ms-1"></i></span></h6>
+                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">$12,500
+                                            <span class="badge badge-soft-success badge-xs">+8.52% <i
+                                                    class="isax isax-arrow-up-15 ms-1"></i></span></h6>
                                     </div>
                                     <div>
-                                        <span class="badge badge-soft-warning border border-warning rounded-circle p-2 d-inline-flex align-items-center justify-content-center">
+                                        <span
+                                            class="badge badge-soft-warning border border-warning rounded-circle p-2 d-inline-flex align-items-center justify-content-center">
                                             <i class="isax isax-dollar-circle fs-16"></i>
                                         </span>
                                     </div>
                                 </div>
                                 <span class="position-absolute end-0 bottom-0">
-                                    <img src="{{URL::asset('build/img/bg/card-overlay-15.svg')}}" alt="User Img">
+                                    <img src="{{ URL::asset('build/img/bg/card-overlay-15.svg') }}" alt="User Img">
                                 </span>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -103,16 +113,19 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <p class="mb-1 text-truncate">Accessories</p>
-                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">$15,000 <span class="badge badge-soft-success badge-xs">+7.45% <i class="isax isax-arrow-up-15 ms-1"></i></span></h6>
+                                        <h6 class="fs-16 fw-semibold mb-0 d-inline-flex flex-wrap gap-2 flex-column">$15,000
+                                            <span class="badge badge-soft-success badge-xs">+7.45% <i
+                                                    class="isax isax-arrow-up-15 ms-1"></i></span></h6>
                                     </div>
                                     <div>
-                                        <span class="badge badge-soft-danger border border-danger rounded-circle p-2 d-inline-flex align-items-center justify-content-center">
+                                        <span
+                                            class="badge badge-soft-danger border border-danger rounded-circle p-2 d-inline-flex align-items-center justify-content-center">
                                             <i class="isax isax-dollar-circle fs-16"></i>
                                         </span>
                                     </div>
                                 </div>
                                 <span class="position-absolute end-0 bottom-0">
-                                    <img src="{{URL::asset('build/img/bg/card-overlay-16.svg')}}" alt="User Img">
+                                    <img src="{{ URL::asset('build/img/bg/card-overlay-16.svg') }}" alt="User Img">
                                 </span>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -128,19 +141,24 @@
                     <div class="d-flex align-items-center gap-2 flex-wrap">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
                         <div id="reportrange" class="reportrange-picker d-flex align-items-center">
-                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
+                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span
+                                class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu">
@@ -194,7 +212,9 @@
                 <!-- Filter Info -->
                 <div class="align-items-center gap-2 flex-wrap filter-info mt-3">
                     <h6 class="fs-13 fw-semibold">Filters</h6>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">5</span>Product Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">5</span>Product
+                        Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
                     <a href="#" class="link-danger fw-medium text-decoration-underline ms-md-1">Clear All</a>
                 </div>
                 <!-- /Filter Info -->
@@ -232,11 +252,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-01.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-01.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple iPhone 15</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple iPhone 15</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -259,11 +282,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-02.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-02.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dell XPS 13 9310</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dell XPS 13
+                                                9310</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -286,11 +312,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-03.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-03.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Bose QuietComfort 45</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Bose QuietComfort
+                                                45</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -313,11 +342,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-04.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-04.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Nike Dri-FIT T-shirt</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Nike Dri-FIT
+                                                T-shirt</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -340,11 +372,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-05.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-05.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Adidas Ultraboost 22 Running Shoe</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Adidas Ultraboost
+                                                22 Running Shoe</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -367,11 +402,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-06.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-06.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Samsung French Door Refrigerator</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Samsung French Door
+                                                Refrigerator</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -394,11 +432,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-07.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-07.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson V15 Detect  Vacuum Cleaner</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson V15 Detect
+                                                Vacuum Cleaner</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -421,11 +462,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-08.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-08.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">HP Spectre x360 14</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">HP Spectre x360
+                                                14</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -448,11 +492,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-09.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-09.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson Supersonic Hair Dryer</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson Supersonic
+                                                Hair Dryer</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -475,11 +522,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-10.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-10.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple AirPods Pro</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple AirPods
+                                                Pro</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -502,11 +552,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-11.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-11.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Levi’s 501 Original Fit Jeans</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Levi’s 501 Original
+                                                Fit Jeans</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -529,11 +582,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-12.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-12.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">CeraVe Hydrating Facial Cleanser</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">CeraVe Hydrating
+                                                Facial Cleanser</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -556,11 +612,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-13.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-13.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Giro Synthe MIPS Helmet</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Giro Synthe MIPS
+                                                Helmet</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -583,11 +642,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-14.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-14.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">OnePlus 11 5G</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">OnePlus 11 5G</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -609,7 +671,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -617,15 +680,16 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Start Filter -->
     <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="offcanvas-body pt-3">
@@ -633,7 +697,9 @@
                 <div class="mb-3">
                     <label class="form-label">Product</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -650,42 +716,60 @@
                                     <label class="d-inline-flex align-items-center text-gray-9">
                                         <input class="form-check-input select-all m-0 me-2" type="checkbox"> Select All
                                     </label>
-                                    <a href="javascript:void(0);" class="link-danger fw-medium text-decoration-underline">Reset</a>
+                                    <a href="javascript:void(0);"
+                                        class="link-danger fw-medium text-decoration-underline">Reset</a>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-01.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Apple iPhone 15
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-01.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Apple iPhone 15
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-02.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Dell XPS 13 9310
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-02.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Dell XPS 13
+                                        9310
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-03.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Bose QuietComfort 45
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-03.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Bose
+                                        QuietComfort 45
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-04.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Nike Dri-FIT T-shirt
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-04.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Nike Dri-FIT
+                                        T-shirt
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-05.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Adidas Ultraboost 22 Running Shoe
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-05.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Adidas
+                                        Ultraboost 22 Running Shoe
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-06.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Samsung French Door Refrigerator
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-06.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Samsung French
+                                        Door Refrigerator
                                     </label>
                                 </li>
                             </ul>
@@ -703,7 +787,9 @@
                 <div class="mb-3">
                     <label class="form-label">Category</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -720,7 +806,8 @@
                                     <label class="d-inline-flex align-items-center text-gray-9">
                                         <input class="form-check-input select-all m-0 me-2" type="checkbox"> Select All
                                     </label>
-                                    <a href="javascript:void(0);" class="link-danger fw-medium text-decoration-underline">Reset</a>
+                                    <a href="javascript:void(0);"
+                                        class="link-danger fw-medium text-decoration-underline">Reset</a>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
@@ -786,7 +873,9 @@
                 <div class="mb-3">
                     <label class="form-label">Price</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -803,7 +892,8 @@
                             <a href="#" class="btn btn-outline-white w-100">Reset</a>
                         </div>
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div>
                     </div>
                 </div>

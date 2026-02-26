@@ -1,5 +1,5 @@
 <?php $page = 'flight-booking-invoice'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- Start Content -->
 
@@ -8,17 +8,17 @@
         <div class="col-lg-10 mx-auto">
             <div class="invoice-wrapper">
                 <div class="mb-3">
-                    <h6><a href="{{url('invoice-templates')}}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
+                    <h6><a href="{{ url('invoice-templates') }}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
                 </div>
                 <div class="pb-3 mb-3 border-bottom">
                     <div class="d-flex align-items-center justify-content-between bg-light flex-wrap p-3 rounded">
                         <div>
                             <h6 class="mb-2">Dreams Flights</h6>
                             <p>Original For Recipient</p>
-                            
+
                         </div>
                         <div class="text-end">
-                            <img src="{{URL::asset('build/img/invoice-logo.svg')}}" alt="User Img">
+                            <img src="{{ URL::asset('build/img/invoice-logo.svg') }}" alt="User Img">
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <p class="text-dark mb-0"> +45 5421 2154</p>
                     </div>
                 </div>
-                
+
                 <!-- start row -->
                 <div class="row mb-3 ">
                     <div class="col-md-6">
@@ -155,13 +155,18 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="border-bottom-transparent"></td>
-                                    <td colspan="2" class="text-dark text-end fw-medium border-bottom-transparent">IGST 18.0%</td>
+                                    <td colspan="2" class="text-dark text-end fw-medium border-bottom-transparent">IGST
+                                        18.0%</td>
                                     <td class="text-dark text-end fw-medium border-bottom-transparent">$165.00</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="text-dark border-0 bg-light">Total Items / Qty : 2 / 2.00</td>
-                                    <td colspan="2" class="text-dark bg-light border-0 text-end fw-medium "><h6 class="fs-16">Total</h6></td>
-                                    <td class="text-dark bg-light text-end border-0 fw-medium "><h6 class="fs-16">$944.00</h6></td>
+                                    <td colspan="2" class="text-dark bg-light border-0 text-end fw-medium ">
+                                        <h6 class="fs-16">Total</h6>
+                                    </td>
+                                    <td class="text-dark bg-light text-end border-0 fw-medium ">
+                                        <h6 class="fs-16">$944.00</h6>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="border-bottom-transparent">
@@ -170,8 +175,12 @@
                                             <span class="text-dark mb-1">Nine Hundred and Fourty Four Dollars Only.</span>
                                         </div>
                                     </td>
-                                    <td colspan="2" class="text-dark text-end border-bottom-transparent fw-medium"><h6>Amount Payable</h6></td>
-                                    <td class="text-dark border-bottom-transparent text-end fw-medium"><h6>$944.00</h6></td>
+                                    <td colspan="2" class="text-dark text-end border-bottom-transparent fw-medium">
+                                        <h6>Amount Payable</h6>
+                                    </td>
+                                    <td class="text-dark border-bottom-transparent text-end fw-medium">
+                                        <h6>$944.00</h6>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -183,19 +192,20 @@
                     <div class="mb-3">
                         <h6 class="mb-2">Payment Info:</h6>
                         <div>
-                            <p class="mb-1">Debit Card :  <span class="text-dark">465 *************645</span></p>
-                            <p class="mb-1">Amount :  <span class="text-dark">$1,815</span></p>
+                            <p class="mb-1">Debit Card : <span class="text-dark">465 *************645</span></p>
+                            <p class="mb-1">Amount : <span class="text-dark">$1,815</span></p>
                         </div>
                     </div>
                     <div class="text-center mb-3">
                         <p class="mb-1">For Dreamguys</p>
-                        <span><img src="{{URL::asset('build/img/icons/sign-01.png')}}" alt="User Img"></span>
+                        <span><img src="{{ URL::asset('build/img/icons/sign-01.png') }}" alt="User Img"></span>
                     </div>
                 </div>
                 <div class="border-bottom mb-3 p-3">
                     <h6 class="mb-2">Terms &amp; Conditions : </h6>
                     <p class="mb-1">1. Goods Once sold cannot be taken back or exchanged.</p>
-                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.</p>
+                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.
+                    </p>
                 </div>
                 <div class="border-bottom text-center pb-3">
                     <p>Thanks for your Business</p>

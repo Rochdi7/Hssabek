@@ -1,9 +1,9 @@
 <?php $page = 'form-checkbox-radios'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,14 +19,14 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">Checks & Radios</li>
                     </ol>
                 </div>
             </div>
-            
+
 
 
             <div class="row">
@@ -38,7 +38,9 @@
 
                         <div class="card-body">
                             <p class="text-muted">
-                                Each checkbox and radio <code>&lt;input&gt;</code> and <code>&lt;label&gt;</code> pairing is wrapped in a <code>&lt;div&gt;</code> to create our custom control. Structurally, this is the same approach as our default <code>.form-check</code>.
+                                Each checkbox and radio <code>&lt;input&gt;</code> and <code>&lt;label&gt;</code> pairing is
+                                wrapped in a <code>&lt;div&gt;</code> to create our custom control. Structurally, this is
+                                the same approach as our default <code>.form-check</code>.
                             </p>
                             <div class="mt-3">
                                 <div class="form-check mb-1">
@@ -107,12 +109,13 @@
                                 <input type="checkbox" class="form-check-input" id="customCheckcolor7" checked>
                                 <label class="form-check-label" for="customCheckcolor7">Dark Checkbox</label>
                             </div>
-                            
+
                             <h6 class="fs-15 mt-3">Without Labels</h6>
                             <div>
-                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value=""
+                                    aria-label="...">
                             </div>
-                            
+
                             <h6 class="fs-15 mt-3">Checkbox toggle buttons</h6>
                             <div class="mb-3">
                                 <input type="checkbox" class="btn-check" id="btn-check">
@@ -134,7 +137,7 @@
                                 <input type="checkbox" class="btn-check" id="btn-check-6" disabled>
                                 <label class="btn" for="btn-check-6">Disabled</label>
                             </div>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
@@ -147,7 +150,9 @@
 
                         <div class="card-body">
                             <p class="text-muted">
-                                Each checkbox and radio <code>&lt;input&gt;</code> and <code>&lt;label&gt;</code> pairing is wrapped in a <code>&lt;div&gt;</code> to create our custom control. Structurally, this is the same approach as our default <code>.form-check</code>.
+                                Each checkbox and radio <code>&lt;input&gt;</code> and <code>&lt;label&gt;</code> pairing is
+                                wrapped in a <code>&lt;div&gt;</code> to create our custom control. Structurally, this is
+                                the same approach as our default <code>.form-check</code>.
                             </p>
 
                             <div class="mt-3">
@@ -157,7 +162,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" id="customRadio2" name="customRadio" class="form-check-input">
-                                    <label class="form-check-label" for="customRadio2">Or toggle this other custom radio</label>
+                                    <label class="form-check-label" for="customRadio2">Or toggle this other custom
+                                        radio</label>
                                 </div>
                             </div>
 
@@ -165,12 +171,15 @@
 
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
+                                    <input type="radio" id="customRadio3" name="customRadio1"
+                                        class="form-check-input">
                                     <label class="form-check-label" for="customRadio3">Toggle this custom radio</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
-                                    <label class="form-check-label" for="customRadio4">Or toggle this other custom radio</label>
+                                    <input type="radio" id="customRadio4" name="customRadio1"
+                                        class="form-check-input">
+                                    <label class="form-check-label" for="customRadio4">Or toggle this other custom
+                                        radio</label>
                                 </div>
                             </div>
 
@@ -178,51 +187,62 @@
 
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="customRadio5" name="customRadio2" class="form-check-input" disabled>
+                                    <input type="radio" id="customRadio5" name="customRadio2" class="form-check-input"
+                                        disabled>
                                     <label class="form-check-label" for="customRadio5">Toggle this custom radio</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="customRadio6" name="customRadio2" class="form-check-input" checked disabled>
-                                    <label class="form-check-label" for="customRadio6">Or toggle this other custom radio</label>
+                                    <input type="radio" id="customRadio6" name="customRadio2" class="form-check-input"
+                                        checked disabled>
+                                    <label class="form-check-label" for="customRadio6">Or toggle this other custom
+                                        radio</label>
                                 </div>
                             </div>
 
                             <h6 class="fs-15 mt-3">Colors</h6>
 
                             <div class="form-check mb-2">
-                                <input type="radio" id="customRadiocolor1" name="customRadiocolor1" class="form-check-input" checked>
+                                <input type="radio" id="customRadiocolor1" name="customRadiocolor1"
+                                    class="form-check-input" checked>
                                 <label class="form-check-label" for="customRadiocolor1">Default Radio</label>
                             </div>
                             <div class="form-check form-radio-success mb-2">
-                                <input type="radio" id="customRadiocolor2" name="customRadiocolor2" class="form-check-input" checked>
+                                <input type="radio" id="customRadiocolor2" name="customRadiocolor2"
+                                    class="form-check-input" checked>
                                 <label class="form-check-label" for="customRadiocolor2">Success Radio</label>
                             </div>
                             <div class="form-check form-radio-info mb-2">
-                                <input type="radio" id="customRadiocolor3" name="customRadiocolor3" class="form-check-input" checked>
+                                <input type="radio" id="customRadiocolor3" name="customRadiocolor3"
+                                    class="form-check-input" checked>
                                 <label class="form-check-label" for="customRadiocolor3">Info Radio</label>
                             </div>
                             <div class="form-check form-radio-secondary mb-2">
-                                <input type="radio" id="customRadiocolor6" name="customRadiocolor6" class="form-check-input" checked>
+                                <input type="radio" id="customRadiocolor6" name="customRadiocolor6"
+                                    class="form-check-input" checked>
                                 <label class="form-check-label" for="customRadiocolor6">Secondary Radio</label>
                             </div>
                             <div class="form-check form-radio-warning mb-2">
-                                <input type="radio" id="customRadiocolor4" name="customRadiocolor4" class="form-check-input" checked>
+                                <input type="radio" id="customRadiocolor4" name="customRadiocolor4"
+                                    class="form-check-input" checked>
                                 <label class="form-check-label" for="customRadiocolor4">Warning Radio</label>
                             </div>
                             <div class="form-check form-radio-danger mb-2">
-                                <input type="radio" id="customRadiocolor5" name="customRadiocolor5" class="form-check-input" checked>
+                                <input type="radio" id="customRadiocolor5" name="customRadiocolor5"
+                                    class="form-check-input" checked>
                                 <label class="form-check-label" for="customRadiocolor5">Danger Radio</label>
                             </div>
                             <div class="form-check form-radio-dark">
-                                <input type="radio" id="customRadiocolor7" name="customRadiocolor7" class="form-check-input" checked>
+                                <input type="radio" id="customRadiocolor7" name="customRadiocolor7"
+                                    class="form-check-input" checked>
                                 <label class="form-check-label" for="customRadiocolor7">Dark Radio</label>
                             </div>
-                            
+
                             <h6 class="fs-15 mt-3">Without Labels</h6>
                             <div>
-                                <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
+                                <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1"
+                                    value="" aria-label="...">
                             </div>
-                            
+
                             <h6 class="fs-15 mt-3">Radio toggle buttons</h6>
                             <div class="mb-3">
                                 <input type="radio" class="btn-check" name="options" id="option1" checked>
@@ -250,7 +270,7 @@
                                 <input type="radio" class="btn-check" name="options-base" id="option8">
                                 <label class="btn" for="option8">Radio</label>
                             </div>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
@@ -271,21 +291,23 @@
                                 </label>
                             </div>
                             <div class="form-check form-check-reverse mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck2" disabled>
+                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck2"
+                                    disabled>
                                 <label class="form-check-label" for="reverseCheck2">
-                                Disabled reverse checkbox
+                                    Disabled reverse checkbox
                                 </label>
                             </div>
 
                             <div class="form-check form-switch form-check-reverse">
                                 <input class="form-check-input" type="checkbox" id="switchCheckReverse">
-                                <label class="form-check-label" for="switchCheckReverse">Reverse switch checkbox input</label>
+                                <label class="form-check-label" for="switchCheckReverse">Reverse switch checkbox
+                                    input</label>
                             </div>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -294,34 +316,41 @@
                         <div class="card-body">
                             <div class="form-check form-switch mb-2">
                                 <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                                <label class="form-check-label" for="switchCheckDefault">Default switch checkbox input</label>
+                                <label class="form-check-label" for="switchCheckDefault">Default switch checkbox
+                                    input</label>
                             </div>
                             <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" checked>
-                                <label class="form-check-label" for="switchCheckChecked">Checked switch checkbox input</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked"
+                                    checked>
+                                <label class="form-check-label" for="switchCheckChecked">Checked switch checkbox
+                                    input</label>
                             </div>
                             <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDisabled" disabled>
-                                <label class="form-check-label" for="switchCheckDisabled">Disabled switch checkbox input</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDisabled"
+                                    disabled>
+                                <label class="form-check-label" for="switchCheckDisabled">Disabled switch checkbox
+                                    input</label>
                             </div>
                             <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckCheckedDisabled" checked disabled>
-                                <label class="form-check-label" for="switchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="switchCheckCheckedDisabled" checked disabled>
+                                <label class="form-check-label" for="switchCheckCheckedDisabled">Disabled checked switch
+                                    checkbox input</label>
                             </div>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-            
+
         </div> <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

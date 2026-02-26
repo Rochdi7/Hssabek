@@ -1,9 +1,9 @@
 <?php $page = 'form-editors'; ?>
-@extends('layout.mainlayout')
-@section('content') 
+@extends('backoffice.layout.mainlayout')
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,15 +19,15 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                        
+
                         <li class="breadcrumb-item active">Editors</li>
                     </ol>
                 </div>
             </div>
             <!-- End Page Header -->
-            
+
 
             <div class="card">
                 <div class="card-header">
@@ -89,11 +89,11 @@
 
         </div> <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

@@ -1,9 +1,9 @@
 <?php $page = 'cash-flow'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,8 @@
                 </div>
                 <div class="my-xl-auto">
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -45,10 +46,13 @@
                                         <h6 class="fs-16 fw-semibold me-2 mb-1">$5,000,000</h6>
                                         <p class="mb-1 text-truncate">Opening Cash Balance</p>
                                         <p class="fs-13 mb-0 text-truncate">
-                                            <span class="text-success"><i class="isax isax-send text-success me-1"></i>5.62%</span> from last month
+                                            <span class="text-success"><i
+                                                    class="isax isax-send text-success me-1"></i>5.62%</span> from last
+                                            month
                                         </p>
                                     </div>
-                                    <span class="p-2 bg-primary d-flex align-items-center justify-content-center rounded text-white">
+                                    <span
+                                        class="p-2 bg-primary d-flex align-items-center justify-content-center rounded text-white">
                                         <i class="isax isax-dollar-circle fs-24"></i>
                                     </span>
                                 </div>
@@ -63,10 +67,13 @@
                                         <h6 class="fs-16 fw-semibold mb-1">$7,500,000</h6>
                                         <p class="mb-1 text-truncate">Closing Cash Balance</p>
                                         <p class="fs-13 mb-0 text-truncate">
-                                            <span class="text-success"><i class="isax isax-send text-success me-1"></i>11.42%</span> from last month
+                                            <span class="text-success"><i
+                                                    class="isax isax-send text-success me-1"></i>11.42%</span> from last
+                                            month
                                         </p>
                                     </div>
-                                    <span class="p-2 bg-success d-flex align-items-center justify-content-center rounded text-white">
+                                    <span
+                                        class="p-2 bg-success d-flex align-items-center justify-content-center rounded text-white">
                                         <i class="isax isax-money-2 fs-24"></i>
                                     </span>
                                 </div>
@@ -81,10 +88,13 @@
                                         <h6 class="fs-16 fw-semibold mb-1">+$2,500,000</h6>
                                         <p class="mb-1 text-truncate"> Net Cash Flow</p>
                                         <p class="fs-13 mb-0 text-truncate">
-                                            <span class="text-success"><i class="isax isax-send text-success me-1"></i>8.12%</span> from last month
+                                            <span class="text-success"><i
+                                                    class="isax isax-send text-success me-1"></i>8.12%</span> from last
+                                            month
                                         </p>
                                     </div>
-                                    <span class="p-2 bg-warning d-flex align-items-center justify-content-center rounded text-white">
+                                    <span
+                                        class="p-2 bg-warning d-flex align-items-center justify-content-center rounded text-white">
                                         <i class="isax isax-wallet-3 fs-24"></i>
                                     </span>
                                 </div>
@@ -99,10 +109,13 @@
                                         <h6 class="fs-16 fw-semibold me-2 mb-1">60%</h6>
                                         <p class="mb-1 text-truncate">Cash Inflows</p>
                                         <p class="fs-13 mb-0 text-truncate">
-                                            <span class="text-success"><i class="isax isax-send text-success me-1"></i>7.45%</span> from last month
+                                            <span class="text-success"><i
+                                                    class="isax isax-send text-success me-1"></i>7.45%</span> from last
+                                            month
                                         </p>
                                     </div>
-                                    <span class="p-2 bg-danger d-flex align-items-center justify-content-center rounded text-white">
+                                    <span
+                                        class="p-2 bg-danger d-flex align-items-center justify-content-center rounded text-white">
                                         <i class="isax isax-wallet-money fs-24"></i>
                                     </span>
                                 </div>
@@ -121,19 +134,24 @@
                     <div class="d-flex align-items-center gap-2 flex-wrap">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
                         <div id="reportrange" class="reportrange-picker d-flex align-items-center">
-                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
+                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span
+                                class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu">
@@ -180,11 +198,13 @@
                 <!-- Filter Info -->
                 <div class="align-items-center gap-2 flex-wrap filter-info mt-3">
                     <h6 class="fs-13 fw-semibold">Filters</h6>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">6</span>Account Holders Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">6</span>Account
+                        Holders Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
                     <a href="#" class="link-danger fw-medium text-decoration-underline ms-md-1">Clear All</a>
                 </div>
                 <!-- /Filter Info -->
-                    
+
             </div>
             <!-- Table Search End -->
 
@@ -203,8 +223,10 @@
                             <th>Description</th>
                             <th>Credit</th>
                             <th>Debit</th>
-                            <th><span class="d-flex align-items-center">Account Balance<i class="isax isax-info-circle5 ms-1"></i></span></th>
-                            <th><span class="d-flex align-items-center">Total Balance<i class="isax isax-info-circle5 ms-1"></i></span></th>
+                            <th><span class="d-flex align-items-center">Account Balance<i
+                                        class="isax isax-info-circle5 ms-1"></i></span></th>
+                            <th><span class="d-flex align-items-center">Total Balance<i
+                                        class="isax isax-info-circle5 ms-1"></i></span></th>
                             <th>Payment Mode</th>
                         </tr>
                     </thead>
@@ -414,7 +436,8 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -422,15 +445,16 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Start Filter -->
     <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="offcanvas-body pt-3">
@@ -439,7 +463,8 @@
                 <div class="mb-3">
                     <label class="form-label">Date Range</label>
                     <div class="input-group position-relative">
-                        <input type="text" class="form-control date-range bookingrange rounded-end h-auto py-1 bg-white">
+                        <input type="text"
+                            class="form-control date-range bookingrange rounded-end h-auto py-1 bg-white">
                         <span class="input-icon-addon fs-16 text-gray-9">
                             <i class="isax isax-calendar-2"></i>
                         </span>
@@ -448,7 +473,9 @@
                 <div class="mb-3">
                     <label class="form-label">Amount</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -463,7 +490,9 @@
                 <div class="mb-3">
                     <label class="form-label">Payment Mode</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -480,7 +509,8 @@
                                     <label class="d-inline-flex align-items-center text-gray-9">
                                         <input class="form-check-input select-all m-0 me-2" type="checkbox"> Select All
                                     </label>
-                                    <a href="javascript:void(0);" class="link-danger fw-medium text-decoration-underline">Reset</a>
+                                    <a href="javascript:void(0);"
+                                        class="link-danger fw-medium text-decoration-underline">Reset</a>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
@@ -525,7 +555,8 @@
                             <a href="#" class="btn btn-outline-white w-100">Reset</a>
                         </div>
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div>
                     </div>
                 </div>

@@ -1,29 +1,31 @@
 <?php $page = 'movie-ticket-booking-invoice'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
-
     <!-- Start Content -->
     <div class="content p-4">
         <!-- start row -->
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div>
-                    <div class="d-flex align-items-center justify-content-between border-bottom flex-wrap row-gap-3 mb-3 pb-3">
-                        
+                    <div
+                        class="d-flex align-items-center justify-content-between border-bottom flex-wrap row-gap-3 mb-3 pb-3">
+
                         <div>
                             <h5 class="mb-2">TAX INVOICE</h5>
                             <span class="mb-2">
-                                <img src="{{URL::asset('build/img/icons/cineplex.svg')}}" alt="icon">
+                                <img src="{{ URL::asset('build/img/icons/cineplex.svg') }}" alt="icon">
                             </span>
                             <div>
                                 <h6 class="mb-1">Dreamstechnologies Cineplex</h6>
-                                <div> 
-                                    <p class="mb-1">Address : <span class="text-dark">15 Hodges Mews, High Wycombe HP12 3JL, United Kingdom.</span></p>
+                                <div>
+                                    <p class="mb-1">Address : <span class="text-dark">15 Hodges Mews, High Wycombe HP12
+                                            3JL, United Kingdom.</span></p>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="mb-1"><img src="{{URL::asset('build/img/invoice-logo.svg')}}" alt=""></div>
+                            <div class="mb-1"><img src="{{ URL::asset('build/img/invoice-logo.svg') }}" alt="">
+                            </div>
                             <p class="mb-1 text-end">Original For Recipient</p>
                             <p class="mb-1 text-end">Invoice No: <span class="text-dark">INV 00001</span></p>
                             <p class="mb-1 text-end">Date: <span class="text-dark">05/12/2024</span></p>
@@ -38,8 +40,9 @@
                                     <div class="mb-3">
                                         <h6 class="fs-16 text-gray mb-2">Purcheser Info:</h6>
                                         <div>
-                                            <p class="mb-0 fs-13 text-dark">Walter Roberson <br>299 Star Trek Drive, Panama City, Florida, 32405, USA </p>
-                                        </div> 
+                                            <p class="mb-0 fs-13 text-dark">Walter Roberson <br>299 Star Trek Drive, Panama
+                                                City, Florida, 32405, USA </p>
+                                        </div>
                                     </div>
                                 </div> <!-- end col -->
                             </div>
@@ -107,9 +110,13 @@
                                     <td class="text-dark text-end fw-medium border-0">$165.00</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" class="text-dark border-0" >Total Items / Qty : 3 / 3.00</td>
-                                    <td class="text-dark fw-medium border-0"><h6>Total</h6></td>
-                                    <td class="text-dark text-end fw-medium border-0"><h6>$1,815.00</h6></td>
+                                    <td colspan="3" class="text-dark border-0">Total Items / Qty : 3 / 3.00</td>
+                                    <td class="text-dark fw-medium border-0">
+                                        <h6>Total</h6>
+                                    </td>
+                                    <td class="text-dark text-end fw-medium border-0">
+                                        <h6>$1,815.00</h6>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -122,16 +129,17 @@
                         <div class="mb-3">
                             <h6 class="mb-2">Bank Details</h6>
                             <div>
-                                <p class="mb-1">Bank Name :  <span class="text-dark">YES Bank</span></p>
-                                <p class="mb-1">Account # :  <span class="text-dark">6677889944551</span></p>
-                                <p class="mb-1">IFSC :  <span class="text-dark">YESBBIN4567</span></p>
-                                <p class="mb-0">BRANCH :  <span class="text-dark">RS Puram</span></p>
+                                <p class="mb-1">Bank Name : <span class="text-dark">YES Bank</span></p>
+                                <p class="mb-1">Account # : <span class="text-dark">6677889944551</span></p>
+                                <p class="mb-1">IFSC : <span class="text-dark">YESBBIN4567</span></p>
+                                <p class="mb-0">BRANCH : <span class="text-dark">RS Puram</span></p>
                             </div>
                         </div>
                         <div class="mb-3">
                             <h6 class="mb-2">Terms & Conditions : </h6>
-                        <p class="mb-1">1. Goods Once sold cannot be taken back or exchanged.</p>
-                        <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.</p>
+                            <p class="mb-1">1. Goods Once sold cannot be taken back or exchanged.</p>
+                            <p>2. We are not the manufactures, company will stand for warrenty as per their terms and
+                                conditions.</p>
                         </div>
                     </div>
                     <div class="border-bottom text-center text-white bg-primary p-2">
@@ -143,5 +151,4 @@
         <!-- end row -->
     </div>
     <!-- End Content -->
-
 @endsection

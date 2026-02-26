@@ -1,9 +1,9 @@
 <?php $page = 'chart-c3'; ?>
-@extends('layout.mainlayout')
-@section('content')  
+@extends('backoffice.layout.mainlayout')
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper cardhead">
         <div class="content">
@@ -130,11 +130,11 @@
             <!-- End Row -->
         </div>
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

@@ -1,9 +1,9 @@
 <?php $page = 'ui-typography'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,15 +19,15 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">Typography</li>
                     </ol>
                 </div>
             </div>
             <!-- End Page Header -->
-            
+
             <!-- start row -->
             <div class="row">
 
@@ -38,7 +38,8 @@
                             <h5 class="card-title">Headings Tags</h5>
                         </div>
                         <div class="card-body">
-                            <p>All HTML headings, <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>, are available.</p>
+                            <p>All HTML headings, <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>, are available.
+                            </p>
                             <h1 class="mb-3">h1. Bootstrap heading</h1>
                             <h2 class="mb-3">h2. Bootstrap heading</h2>
                             <h3 class="mb-3">h3. Bootstrap heading</h3>
@@ -57,7 +58,7 @@
                             <h5 class="card-title">Heading Class Names</h5>
                         </div>
                         <div class="card-body">
-                        <p><code>.h1</code> through <code>.h6</code> classes are also available.</p>
+                            <p><code>.h1</code> through <code>.h6</code> classes are also available.</p>
                             <p class="h1 mb-3">h1. Bootstrap heading</p>
                             <p class="h2 mb-3">h2. Bootstrap heading</p>
                             <p class="h3 mb-3">h3. Bootstrap heading</p>
@@ -79,7 +80,9 @@
                         </div>
 
                         <div class="card-body">
-                            <p>Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.</p>
+                            <p>Traditional heading elements are designed to work best in the meat of your page content. When
+                                you need a heading to stand out, consider using a display heading—a larger, slightly more
+                                opinionated heading style.</p>
 
                             <h1 class="display-1">Display 1</h1>
 
@@ -120,7 +123,8 @@
                             <p><u>This line of text will render as underlined</u></p>
                             <p><small>This line of text is meant to be treated as fine print.</small></p>
                             <p><strong>This line rendered as bold text.</strong></p>
-                            <p><em>This line rendered as italicized text.</em></p> Nulla <abbr title="attribute">attr</abbr> vitae elit libero, a pharetra augue.
+                            <p><em>This line rendered as italicized text.</em></p> Nulla <abbr title="attribute">attr</abbr>
+                            vitae elit libero, a pharetra augue.
 
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -272,7 +276,8 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted"><strong>This only applies to immediate children list items</strong>, meaning you will need to add the class for any nested lists as well.</p>
+                            <p class="text-muted"><strong>This only applies to immediate children list items</strong>,
+                                meaning you will need to add the class for any nested lists as well.</p>
                             <ul class="list-unstyled">
                                 <li>
                                     Lorem ipsum dolor sit amet
@@ -294,7 +299,8 @@
                             </ul>
 
                             <h5>Inline</h5>
-                            <p class="text-muted m-b-15">Place all list items on a single line with <code>display: inline-block;</code> and some light padding.
+                            <p class="text-muted m-b-15">Place all list items on a single line with <code>display:
+                                    inline-block;</code> and some light padding.
                             </p>
 
                             <ul class="list-inline">
@@ -368,7 +374,8 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Remove a list's bullets and apply some light margin with a combination of two classes, .list-inline and .list-inline-item.</p>
+                            <p class="text-muted">Remove a list's bullets and apply some light margin with a combination of
+                                two classes, .list-inline and .list-inline-item.</p>
 
                             <ul class="list-inline">
                                 <li class="list-inline-item">This is a list item.</li>
@@ -392,26 +399,34 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">For quoting blocks of content from another source within your document. Wrap <code>&lt;blockquote class="blockquote"&gt;</code> around any <abbr title="PacesText Markup Language">HTML</abbr> as the quote.</p>
+                            <p class="text-muted">For quoting blocks of content from another source within your document.
+                                Wrap <code>&lt;blockquote class="blockquote"&gt;</code> around any <abbr
+                                    title="PacesText Markup Language">HTML</abbr> as the quote.</p>
 
                             <blockquote class="blockquote">
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                                    erat a ante.</p>
                             </blockquote>
-                            <figcaption class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></figcaption>
+                            <figcaption class="blockquote-footer">Someone famous in <cite title="Source Title">Source
+                                    Title</cite></figcaption>
 
                             <p class="text-muted m-b-15">
                                 Use text utilities as needed to change the alignment of your blockquote.
                             </p>
 
                             <blockquote class="blockquote text-center">
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                                    erat a ante.</p>
                             </blockquote>
-                            <figcaption class="blockquote-footer text-center">Someone famous in <cite title="Source Title">Source Title</cite></figcaption>
+                            <figcaption class="blockquote-footer text-center">Someone famous in <cite
+                                    title="Source Title">Source Title</cite></figcaption>
 
                             <blockquote class="blockquote text-end">
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                                    erat a ante.</p>
                             </blockquote>
-                            <figcaption class="blockquote-footer text-end">Someone famous in <cite title="Source Title">Source Title</cite></figcaption>
+                            <figcaption class="blockquote-footer text-end">Someone famous in <cite
+                                    title="Source Title">Source Title</cite></figcaption>
 
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -443,13 +458,15 @@
                                 <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
 
                                 <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
-                                <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+                                <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
+                                    nibh, ut fermentum massa justo sit amet risus.</dd>
 
                                 <dt class="col-sm-3">Nesting</dt>
                                 <dd class="col-sm-9">
                                     <dl class="row mb-0">
                                         <dt class="col-sm-4">Nested definition list</dt>
-                                        <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
+                                        <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit
+                                            nunc.</dd>
                                     </dl>
                                 </dd>
                             </dl>
@@ -460,12 +477,17 @@
             </div>
             <!-- end row -->
 
-        </div> 
+        </div>
         <!-- End container -->
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -473,6 +495,6 @@
     </div>
 
     <!-- ========================
-    End Page Content
-    ========================= -->
+        End Page Content
+        ========================= -->
 @endsection

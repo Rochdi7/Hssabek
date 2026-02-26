@@ -1,9 +1,9 @@
 <?php $page = 'calendar'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,21 +17,27 @@
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap table-header">
                     <div class="me-2 mb-2">
                         <div class="dropdown py-1">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
                                 <i class="ti ti-file-export me-1"></i>Export
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end p-3">
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+                                    <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                            class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
+                                    <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                            class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="mb-2">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#add_event" class="btn btn-lg py-1 h-auto btn-primary d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Create</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#add_event"
+                            class="btn btn-lg py-1 h-auto btn-primary d-flex align-items-center"><i
+                                class="ti ti-circle-plus me-2"></i>Create</a>
                     </div>
                 </div>
             </div>
@@ -47,13 +53,13 @@
 
         </div>
         <!-- End content -->
-         
-        @component('components.footer')
+
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

@@ -1,9 +1,9 @@
 <?php $page = 'api-keys'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -16,7 +16,9 @@
                     <div class="mb-3 border-bottom pb-3 d-flex align-items-center justify-content-between">
                         <h6 class="mb-0">API Key</h6>
                         <div class="d-flex align-items-center flex-wrap gap-2">
-                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_key" class="btn btn-primary d-flex align-items-center"><i class="isax isax-add-circle5 me-2"></i>New Key</a>
+                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_key"
+                                class="btn btn-primary d-flex align-items-center"><i
+                                    class="isax isax-add-circle5 me-2"></i>New Key</a>
                         </div>
                     </div>
                     <div class="table-responsive table-nowrap no-filter no-pagination">
@@ -50,10 +52,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -73,10 +80,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -96,10 +108,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -119,10 +136,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -142,10 +164,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -165,10 +192,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -188,10 +220,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -211,10 +248,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_key"><i class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_key"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_key"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -231,7 +273,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -239,6 +282,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

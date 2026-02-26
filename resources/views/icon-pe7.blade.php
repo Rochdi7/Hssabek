@@ -1,9 +1,9 @@
 <?php $page = 'icon-pe7'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper cardhead">
 
@@ -40,24 +40,30 @@
                                     <li><i class="pe-7s-car" data-bs-toggle="tooltip" title="pe-7s-car"></i></li>
                                     <li><i class="pe-7s-diamond" data-bs-toggle="tooltip" title="pe-7s-diamond"></i>
                                     </li>
-                                    <li><i class="pe-7s-door-lock" data-bs-toggle="tooltip" title="pe-7s-door-lock"></i></li>
-                                    <li><i class="pe-7s-eyedropper" data-bs-toggle="tooltip" title="pe-7s-eyedropper"></i></li>
+                                    <li><i class="pe-7s-door-lock" data-bs-toggle="tooltip" title="pe-7s-door-lock"></i>
+                                    </li>
+                                    <li><i class="pe-7s-eyedropper" data-bs-toggle="tooltip" title="pe-7s-eyedropper"></i>
+                                    </li>
                                     <li><i class="pe-7s-female" data-bs-toggle="tooltip" title="pe-7s-female"></i>
                                     </li>
                                     <li><i class="pe-7s-gym" data-bs-toggle="tooltip" title="pe-7s-gym"></i></li>
                                     <li><i class="pe-7s-hammer" data-bs-toggle="tooltip" title="pe-7s-hammer"></i>
                                     </li>
-                                    <li><i class="pe-7s-headphones" data-bs-toggle="tooltip" title="pe-7s-headphones"></i></li>
+                                    <li><i class="pe-7s-headphones" data-bs-toggle="tooltip" title="pe-7s-headphones"></i>
+                                    </li>
                                     <li><i class="pe-7s-helm" data-bs-toggle="tooltip" title="pe-7s-helm"></i></li>
-                                    <li><i class="pe-7s-hourglass" data-bs-toggle="tooltip" title="pe-7s-hourglass"></i></li>
+                                    <li><i class="pe-7s-hourglass" data-bs-toggle="tooltip" title="pe-7s-hourglass"></i>
+                                    </li>
                                     <li><i class="pe-7s-leaf" data-bs-toggle="tooltip" title="pe-7s-leaf"></i></li>
-                                    <li><i class="pe-7s-magic-wand" data-bs-toggle="tooltip" title="pe-7s-magic-wand"></i></li>
+                                    <li><i class="pe-7s-magic-wand" data-bs-toggle="tooltip" title="pe-7s-magic-wand"></i>
+                                    </li>
                                     <li><i class="pe-7s-male" data-bs-toggle="tooltip" title="pe-7s-male"></i></li>
                                     <li><i class="pe-7s-map-2" data-bs-toggle="tooltip" title="pe-7s-map-2"></i>
                                     </li>
                                     <li><i class="pe-7s-next-2" data-bs-toggle="tooltip" title="pe-7s-next-2"></i>
                                     </li>
-                                    <li><i class="pe-7s-paint-bucket" data-bs-toggle="tooltip" title="pe-7s-paint-bucket"></i></li>
+                                    <li><i class="pe-7s-paint-bucket" data-bs-toggle="tooltip"
+                                            title="pe-7s-paint-bucket"></i></li>
                                     <li><i class="pe-7s-pendrive" data-bs-toggle="tooltip" title="pe-7s-pendrive"></i></li>
                                     <li><i class="pe-7s-photo" data-bs-toggle="tooltip" title="pe-7s-photo"></i>
                                     </li>
@@ -65,7 +71,8 @@
                                     </li>
                                     <li><i class="pe-7s-plugin" data-bs-toggle="tooltip" title="pe-7s-plugin"></i>
                                     </li>
-                                    <li><i class="pe-7s-refresh-2" data-bs-toggle="tooltip" title="pe-7s-refresh-2"></i></li>
+                                    <li><i class="pe-7s-refresh-2" data-bs-toggle="tooltip" title="pe-7s-refresh-2"></i>
+                                    </li>
                                     <li><i class="pe-7s-rocket" data-bs-toggle="tooltip" title="pe-7s-rocket"></i>
                                     </li>
                                     <li><i class="pe-7s-settings" data-bs-toggle="tooltip" title="pe-7s-settings"></i></li>
@@ -77,35 +84,51 @@
                                     <li><i class="pe-7s-vector" data-bs-toggle="tooltip" title="pe-7s-vector"></i>
                                     </li>
                                     <li><i class="pe-7s-wine" data-bs-toggle="tooltip" title="pe-7s-wine"></i></li>
-                                    <li><i class="pe-7s-cloud-upload" data-bs-toggle="tooltip" title="pe-7s-cloud-upload"></i></li>
+                                    <li><i class="pe-7s-cloud-upload" data-bs-toggle="tooltip"
+                                            title="pe-7s-cloud-upload"></i></li>
                                     <li><i class="pe-7s-cash" data-bs-toggle="tooltip" title="pe-7s-cash"></i></li>
                                     <li><i class="pe-7s-close" data-bs-toggle="tooltip" title="pe-7s-close"></i>
                                     </li>
-                                    <li><i class="pe-7s-bluetooth" data-bs-toggle="tooltip" title="pe-7s-bluetooth"></i></li>
-                                    <li><i class="pe-7s-cloud-download" data-bs-toggle="tooltip" title="pe-7s-cloud-download"></i></li>
+                                    <li><i class="pe-7s-bluetooth" data-bs-toggle="tooltip" title="pe-7s-bluetooth"></i>
+                                    </li>
+                                    <li><i class="pe-7s-cloud-download" data-bs-toggle="tooltip"
+                                            title="pe-7s-cloud-download"></i></li>
                                     <li><i class="pe-7s-way" data-bs-toggle="tooltip" title="pe-7s-way"></i></li>
-                                    <li><i class="pe-7s-close-circle" data-bs-toggle="tooltip" title="pe-7s-close-circle"></i></li>
+                                    <li><i class="pe-7s-close-circle" data-bs-toggle="tooltip"
+                                            title="pe-7s-close-circle"></i></li>
                                     <li><i class="pe-7s-id" data-bs-toggle="tooltip" title="pe-7s-id"></i></li>
-                                    <li><i class="pe-7s-angle-up" data-bs-toggle="tooltip" title="pe-7s-angle-up"></i></li>
-                                    <li><i class="pe-7s-wristwatch" data-bs-toggle="tooltip" title="pe-7s-wristwatch"></i></li>
-                                    <li><i class="pe-7s-angle-up-circle" data-bs-toggle="tooltip" title="pe-7s-angle-up-circle"></i></li>
+                                    <li><i class="pe-7s-angle-up" data-bs-toggle="tooltip" title="pe-7s-angle-up"></i>
+                                    </li>
+                                    <li><i class="pe-7s-wristwatch" data-bs-toggle="tooltip"
+                                            title="pe-7s-wristwatch"></i></li>
+                                    <li><i class="pe-7s-angle-up-circle" data-bs-toggle="tooltip"
+                                            title="pe-7s-angle-up-circle"></i></li>
                                     <li><i class="pe-7s-world" data-bs-toggle="tooltip" title="pe-7s-world"></i>
                                     </li>
-                                    <li><i class="pe-7s-angle-right" data-bs-toggle="tooltip" title="pe-7s-angle-right"></i></li>
+                                    <li><i class="pe-7s-angle-right" data-bs-toggle="tooltip"
+                                            title="pe-7s-angle-right"></i></li>
                                     <li><i class="pe-7s-volume" data-bs-toggle="tooltip" title="pe-7s-volume"></i>
                                     </li>
-                                    <li><i class="pe-7s-angle-right-circle" data-bs-toggle="tooltip" title="pe-7s-angle-right-circle"></i></li>
+                                    <li><i class="pe-7s-angle-right-circle" data-bs-toggle="tooltip"
+                                            title="pe-7s-angle-right-circle"></i></li>
                                     <li><i class="pe-7s-users" data-bs-toggle="tooltip" title="pe-7s-users"></i>
                                     </li>
-                                    <li><i class="pe-7s-angle-left" data-bs-toggle="tooltip" title="pe-7s-angle-left"></i></li>
-                                    <li><i class="pe-7s-user-female" data-bs-toggle="tooltip" title="pe-7s-user-female"></i></li>
-                                    <li><i class="pe-7s-angle-left-circle" data-bs-toggle="tooltip" title="pe-7s-angle-left-circle"></i></li>
-                                    <li><i class="pe-7s-up-arrow" data-bs-toggle="tooltip" title="pe-7s-up-arrow"></i></li>
-                                    <li><i class="pe-7s-angle-down" data-bs-toggle="tooltip" title="pe-7s-angle-down"></i></li>
+                                    <li><i class="pe-7s-angle-left" data-bs-toggle="tooltip"
+                                            title="pe-7s-angle-left"></i></li>
+                                    <li><i class="pe-7s-user-female" data-bs-toggle="tooltip"
+                                            title="pe-7s-user-female"></i></li>
+                                    <li><i class="pe-7s-angle-left-circle" data-bs-toggle="tooltip"
+                                            title="pe-7s-angle-left-circle"></i></li>
+                                    <li><i class="pe-7s-up-arrow" data-bs-toggle="tooltip" title="pe-7s-up-arrow"></i>
+                                    </li>
+                                    <li><i class="pe-7s-angle-down" data-bs-toggle="tooltip"
+                                            title="pe-7s-angle-down"></i></li>
                                     <li><i class="pe-7s-switch" data-bs-toggle="tooltip" title="pe-7s-switch"></i>
                                     </li>
-                                    <li><i class="pe-7s-angle-down-circle" data-bs-toggle="tooltip" title="pe-7s-angle-down-circle"></i></li>
-                                    <li><i class="pe-7s-scissors" data-bs-toggle="tooltip" title="pe-7s-scissors"></i></li>
+                                    <li><i class="pe-7s-angle-down-circle" data-bs-toggle="tooltip"
+                                            title="pe-7s-angle-down-circle"></i></li>
+                                    <li><i class="pe-7s-scissors" data-bs-toggle="tooltip" title="pe-7s-scissors"></i>
+                                    </li>
                                     <li><i class="pe-7s-wallet" data-bs-toggle="tooltip" title="pe-7s-wallet"></i>
                                     </li>
                                     <li><i class="pe-7s-safe" data-bs-toggle="tooltip" title="pe-7s-safe"></i></li>
@@ -113,7 +136,8 @@
                                     </li>
                                     <li><i class="pe-7s-volume1" data-bs-toggle="tooltip" title="pe-7s-volume1"></i>
                                     </li>
-                                    <li><i class="pe-7s-voicemail" data-bs-toggle="tooltip" title="pe-7s-voicemail"></i></li>
+                                    <li><i class="pe-7s-voicemail" data-bs-toggle="tooltip" title="pe-7s-voicemail"></i>
+                                    </li>
                                     <li><i class="pe-7s-video" data-bs-toggle="tooltip" title="pe-7s-video"></i>
                                     </li>
                                     <li><i class="pe-7s-user" data-bs-toggle="tooltip" title="pe-7s-user"></i></li>
@@ -121,7 +145,8 @@
                                     </li>
                                     <li><i class="pe-7s-unlock" data-bs-toggle="tooltip" title="pe-7s-unlock"></i>
                                     </li>
-                                    <li><i class="pe-7s-umbrella" data-bs-toggle="tooltip" title="pe-7s-umbrella"></i></li>
+                                    <li><i class="pe-7s-umbrella" data-bs-toggle="tooltip" title="pe-7s-umbrella"></i>
+                                    </li>
                                     <li><i class="pe-7s-trash" data-bs-toggle="tooltip" title="pe-7s-trash"></i>
                                     </li>
                                     <li><i class="pe-7s-tools" data-bs-toggle="tooltip" title="pe-7s-tools"></i>
@@ -135,7 +160,8 @@
                                     <li><i class="pe-7s-sun" data-bs-toggle="tooltip" title="pe-7s-sun"></i></li>
                                     <li><i class="pe-7s-study" data-bs-toggle="tooltip" title="pe-7s-study"></i>
                                     </li>
-                                    <li><i class="pe-7s-stopwatch" data-bs-toggle="tooltip" title="pe-7s-stopwatch"></i></li>
+                                    <li><i class="pe-7s-stopwatch" data-bs-toggle="tooltip" title="pe-7s-stopwatch"></i>
+                                    </li>
                                     <li><i class="pe-7s-star" data-bs-toggle="tooltip" title="pe-7s-star"></i></li>
                                     <li><i class="pe-7s-speaker" data-bs-toggle="tooltip" title="pe-7s-speaker"></i>
                                     </li>
@@ -161,9 +187,12 @@
                                     </li>
                                     <li><i class="pe-7s-refresh" data-bs-toggle="tooltip" title="pe-7s-refresh"></i>
                                     </li>
-                                    <li><i class="pe-7s-add-user" data-bs-toggle="tooltip" title="pe-7s-add-user"></i></li>
-                                    <li><i class="pe-7s-refresh-cloud" data-bs-toggle="tooltip" title="pe-7s-refresh-cloud"></i></li>
-                                    <li><i class="pe-7s-paperclip" data-bs-toggle="tooltip" title="pe-7s-paperclip"></i></li>
+                                    <li><i class="pe-7s-add-user" data-bs-toggle="tooltip" title="pe-7s-add-user"></i>
+                                    </li>
+                                    <li><i class="pe-7s-refresh-cloud" data-bs-toggle="tooltip"
+                                            title="pe-7s-refresh-cloud"></i></li>
+                                    <li><i class="pe-7s-paperclip" data-bs-toggle="tooltip" title="pe-7s-paperclip"></i>
+                                    </li>
                                     <li><i class="pe-7s-radio" data-bs-toggle="tooltip" title="pe-7s-radio"></i>
                                     </li>
                                     <li><i class="pe-7s-note2" data-bs-toggle="tooltip" title="pe-7s-note2"></i>
@@ -178,33 +207,43 @@
                                     </li>
                                     <li><i class="pe-7s-medal" data-bs-toggle="tooltip" title="pe-7s-medal"></i>
                                     </li>
-                                    <li><i class="pe-7s-portfolio" data-bs-toggle="tooltip" title="pe-7s-portfolio"></i></li>
+                                    <li><i class="pe-7s-portfolio" data-bs-toggle="tooltip" title="pe-7s-portfolio"></i>
+                                    </li>
                                     <li><i class="pe-7s-like2" data-bs-toggle="tooltip" title="pe-7s-like2"></i>
                                     </li>
                                     <li><i class="pe-7s-plus" data-bs-toggle="tooltip" title="pe-7s-plus"></i></li>
-                                    <li><i class="pe-7s-left-arrow" data-bs-toggle="tooltip" title="pe-7s-left-arrow"></i></li>
+                                    <li><i class="pe-7s-left-arrow" data-bs-toggle="tooltip"
+                                            title="pe-7s-left-arrow"></i></li>
                                     <li><i class="pe-7s-play" data-bs-toggle="tooltip" title="pe-7s-play"></i></li>
                                     <li><i class="pe-7s-key" data-bs-toggle="tooltip" title="pe-7s-key"></i></li>
                                     <li><i class="pe-7s-plane" data-bs-toggle="tooltip" title="pe-7s-plane"></i>
                                     </li>
                                     <li><i class="pe-7s-joy" data-bs-toggle="tooltip" title="pe-7s-joy"></i></li>
-                                    <li><i class="pe-7s-photo-gallery" data-bs-toggle="tooltip" title="pe-7s-photo-gallery"></i></li>
+                                    <li><i class="pe-7s-photo-gallery" data-bs-toggle="tooltip"
+                                            title="pe-7s-photo-gallery"></i></li>
                                     <li><i class="pe-7s-pin" data-bs-toggle="tooltip" title="pe-7s-pin"></i></li>
                                     <li><i class="pe-7s-phone" data-bs-toggle="tooltip" title="pe-7s-phone"></i>
                                     </li>
                                     <li><i class="pe-7s-plug" data-bs-toggle="tooltip" title="pe-7s-plug"></i></li>
                                     <li><i class="pe-7s-pen" data-bs-toggle="tooltip" title="pe-7s-pen"></i></li>
-                                    <li><i class="pe-7s-right-arrow" data-bs-toggle="tooltip" title="pe-7s-right-arrow"></i></li>
-                                    <li><i class="pe-7s-paper-plane" data-bs-toggle="tooltip" title="pe-7s-paper-plane"></i></li>
-                                    <li><i class="pe-7s-delete-user" data-bs-toggle="tooltip" title="pe-7s-delete-user"></i></li>
+                                    <li><i class="pe-7s-right-arrow" data-bs-toggle="tooltip"
+                                            title="pe-7s-right-arrow"></i></li>
+                                    <li><i class="pe-7s-paper-plane" data-bs-toggle="tooltip"
+                                            title="pe-7s-paper-plane"></i></li>
+                                    <li><i class="pe-7s-delete-user" data-bs-toggle="tooltip"
+                                            title="pe-7s-delete-user"></i></li>
                                     <li><i class="pe-7s-paint" data-bs-toggle="tooltip" title="pe-7s-paint"></i>
                                     </li>
-                                    <li><i class="pe-7s-bottom-arrow" data-bs-toggle="tooltip" title="pe-7s-bottom-arrow"></i></li>
-                                    <li><i class="pe-7s-notebook" data-bs-toggle="tooltip" title="pe-7s-notebook"></i></li>
+                                    <li><i class="pe-7s-bottom-arrow" data-bs-toggle="tooltip"
+                                            title="pe-7s-bottom-arrow"></i></li>
+                                    <li><i class="pe-7s-notebook" data-bs-toggle="tooltip" title="pe-7s-notebook"></i>
+                                    </li>
                                     <li><i class="pe-7s-note" data-bs-toggle="tooltip" title="pe-7s-note"></i></li>
                                     <li><i class="pe-7s-next" data-bs-toggle="tooltip" title="pe-7s-next"></i></li>
-                                    <li><i class="pe-7s-news-paper" data-bs-toggle="tooltip" title="pe-7s-news-paper"></i></li>
-                                    <li><i class="pe-7s-musiclist" data-bs-toggle="tooltip" title="pe-7s-musiclist"></i></li>
+                                    <li><i class="pe-7s-news-paper" data-bs-toggle="tooltip"
+                                            title="pe-7s-news-paper"></i></li>
+                                    <li><i class="pe-7s-musiclist" data-bs-toggle="tooltip" title="pe-7s-musiclist"></i>
+                                    </li>
                                     <li><i class="pe-7s-music" data-bs-toggle="tooltip" title="pe-7s-music"></i>
                                     </li>
                                     <li><i class="pe-7s-mouse" data-bs-toggle="tooltip" title="pe-7s-mouse"></i>
@@ -217,10 +256,13 @@
                                     </li>
                                     <li><i class="pe-7s-menu" data-bs-toggle="tooltip" title="pe-7s-menu"></i></li>
                                     <li><i class="pe-7s-map" data-bs-toggle="tooltip" title="pe-7s-map"></i></li>
-                                    <li><i class="pe-7s-map-marker" data-bs-toggle="tooltip" title="pe-7s-map-marker"></i></li>
+                                    <li><i class="pe-7s-map-marker" data-bs-toggle="tooltip"
+                                            title="pe-7s-map-marker"></i></li>
                                     <li><i class="pe-7s-mail" data-bs-toggle="tooltip" title="pe-7s-mail"></i></li>
-                                    <li><i class="pe-7s-mail-open" data-bs-toggle="tooltip" title="pe-7s-mail-open"></i></li>
-                                    <li><i class="pe-7s-mail-open-file" data-bs-toggle="tooltip" title="pe-7s-mail-open-file"></i></li>
+                                    <li><i class="pe-7s-mail-open" data-bs-toggle="tooltip" title="pe-7s-mail-open"></i>
+                                    </li>
+                                    <li><i class="pe-7s-mail-open-file" data-bs-toggle="tooltip"
+                                            title="pe-7s-mail-open-file"></i></li>
                                     <li><i class="pe-7s-magnet" data-bs-toggle="tooltip" title="pe-7s-magnet"></i>
                                     </li>
                                     <li><i class="pe-7s-loop" data-bs-toggle="tooltip" title="pe-7s-loop"></i></li>
@@ -271,10 +313,14 @@
                                     <li><i class="pe-7s-drop" data-bs-toggle="tooltip" title="pe-7s-drop"></i></li>
                                     <li><i class="pe-7s-drawer" data-bs-toggle="tooltip" title="pe-7s-drawer"></i>
                                     </li>
-                                    <li><i class="pe-7s-download" data-bs-toggle="tooltip" title="pe-7s-download"></i></li>
-                                    <li><i class="pe-7s-display2" data-bs-toggle="tooltip" title="pe-7s-display2"></i></li>
-                                    <li><i class="pe-7s-display1" data-bs-toggle="tooltip" title="pe-7s-display1"></i></li>
-                                    <li><i class="pe-7s-diskette" data-bs-toggle="tooltip" title="pe-7s-diskette"></i></li>
+                                    <li><i class="pe-7s-download" data-bs-toggle="tooltip" title="pe-7s-download"></i>
+                                    </li>
+                                    <li><i class="pe-7s-display2" data-bs-toggle="tooltip" title="pe-7s-display2"></i>
+                                    </li>
+                                    <li><i class="pe-7s-display1" data-bs-toggle="tooltip" title="pe-7s-display1"></i>
+                                    </li>
+                                    <li><i class="pe-7s-diskette" data-bs-toggle="tooltip" title="pe-7s-diskette"></i>
+                                    </li>
                                     <li><i class="pe-7s-date" data-bs-toggle="tooltip" title="pe-7s-date"></i></li>
                                     <li><i class="pe-7s-cup" data-bs-toggle="tooltip" title="pe-7s-cup"></i></li>
                                     <li><i class="pe-7s-culture" data-bs-toggle="tooltip" title="pe-7s-culture"></i>
@@ -282,7 +328,8 @@
                                     <li><i class="pe-7s-crop" data-bs-toggle="tooltip" title="pe-7s-crop"></i></li>
                                     <li><i class="pe-7s-credit" data-bs-toggle="tooltip" title="pe-7s-credit"></i>
                                     </li>
-                                    <li><i class="pe-7s-copy-file" data-bs-toggle="tooltip" title="pe-7s-copy-file"></i></li>
+                                    <li><i class="pe-7s-copy-file" data-bs-toggle="tooltip" title="pe-7s-copy-file"></i>
+                                    </li>
                                     <li><i class="pe-7s-config" data-bs-toggle="tooltip" title="pe-7s-config"></i>
                                     </li>
                                     <li><i class="pe-7s-compass" data-bs-toggle="tooltip" title="pe-7s-compass"></i>
@@ -302,12 +349,14 @@
                                     <li><i class="pe-7s-camera" data-bs-toggle="tooltip" title="pe-7s-camera"></i>
                                     </li>
                                     <li><i class="pe-7s-call" data-bs-toggle="tooltip" title="pe-7s-call"></i></li>
-                                    <li><i class="pe-7s-calculator" data-bs-toggle="tooltip" title="pe-7s-calculator"></i></li>
+                                    <li><i class="pe-7s-calculator" data-bs-toggle="tooltip"
+                                            title="pe-7s-calculator"></i></li>
                                     <li><i class="pe-7s-browser" data-bs-toggle="tooltip" title="pe-7s-browser"></i>
                                     </li>
                                     <li><i class="pe-7s-box2" data-bs-toggle="tooltip" title="pe-7s-box2"></i></li>
                                     <li><i class="pe-7s-box1" data-bs-toggle="tooltip" title="pe-7s-box1"></i></li>
-                                    <li><i class="pe-7s-bookmarks" data-bs-toggle="tooltip" title="pe-7s-bookmarks"></i></li>
+                                    <li><i class="pe-7s-bookmarks" data-bs-toggle="tooltip" title="pe-7s-bookmarks"></i>
+                                    </li>
                                     <li><i class="pe-7s-bicycle" data-bs-toggle="tooltip" title="pe-7s-bicycle"></i>
                                     </li>
                                     <li><i class="pe-7s-bell" data-bs-toggle="tooltip" title="pe-7s-bell"></i></li>
@@ -315,7 +364,8 @@
                                     </li>
                                     <li><i class="pe-7s-ball" data-bs-toggle="tooltip" title="pe-7s-ball"></i></li>
                                     <li><i class="pe-7s-back" data-bs-toggle="tooltip" title="pe-7s-back"></i></li>
-                                    <li><i class="pe-7s-attention" data-bs-toggle="tooltip" title="pe-7s-attention"></i></li>
+                                    <li><i class="pe-7s-attention" data-bs-toggle="tooltip" title="pe-7s-attention"></i>
+                                    </li>
                                     <li><i class="pe-7s-anchor" data-bs-toggle="tooltip" title="pe-7s-anchor"></i>
                                     </li>
                                     <li><i class="pe-7s-albums" data-bs-toggle="tooltip" title="pe-7s-albums"></i>
@@ -335,12 +385,12 @@
         </div>
         <!-- end container -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

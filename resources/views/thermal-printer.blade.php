@@ -1,9 +1,9 @@
 <?php $page = 'thermal-printer'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -13,15 +13,15 @@
                     <!-- row start -->
                     <div class=" row settings-wrapper d-flex">
                         <!-- Start settings sidebar -->
-                        @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @component('backoffice.components.settings-sidebar')
+                        @endcomponent
                         <!-- End settings sidebar -->
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
                                     <h6 class="mb-0">Thermal Printer</h6>
                                 </div>
-                                <form action="{{url('thermal-printer')}}">
+                                <form action="{{ url('thermal-printer') }}">
                                     <div class="">
                                         <!-- row start -->
                                         <div class="row align-items-center">
@@ -146,7 +146,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -154,6 +155,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

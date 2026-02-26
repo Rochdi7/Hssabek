@@ -1,9 +1,9 @@
 <?php $page = 'data-tables'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -18,7 +18,7 @@
             </div>
             <!-- Page Header End -->
 
-                <!-- Start Row -->
+            <!-- Start Row -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -32,7 +32,8 @@
                         <div class="card-body">
                             <div class="table-search d-flex align-items-center">
                                 <div class="search-input">
-                                    <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                    <a href="javascript:void(0);" class="btn-searchset"><i
+                                            class="isax isax-search-normal fs-12"></i></a>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -301,13 +302,17 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

@@ -1,9 +1,9 @@
 <?php $page = 'ai-configuration'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                    Start Page Content
+                ========================= -->
 
     <div class="page-wrapper">
 
@@ -18,15 +18,15 @@
                     <div class=" row settings-wrapper d-flex">
 
                         <!-- Start settings sidebar -->
-                        @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @component('backoffice.components.settings-sidebar')
+                        @endcomponent
                         <!-- End settings sidebar -->
 
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3 pb-3 border-bottom">
                                 <h6 class="fw-bold mb-0">AI Configuration</h6>
                             </div>
-                            <form action="{{url('ai-configuration')}}">
+                            <form action="{{ url('ai-configuration') }}">
 
                                 <!-- start row -->
                                 <div class="row align-items-center mb-3">
@@ -51,7 +51,8 @@
                                     <div class="col-3">
                                         <div class="d-flex justify-content-end">
                                             <div class="form-check form-check-sm form-switch">
-                                                <input class="form-check-input form-label" type="checkbox" role="switch" checked>
+                                                <input class="form-check-input form-label" type="checkbox" role="switch"
+                                                    checked>
                                             </div>
                                         </div>
                                     </div><!-- end col -->
@@ -67,7 +68,8 @@
                                     <div class="col-3">
                                         <div class="d-flex justify-content-end">
                                             <div class="form-check form-check-sm form-switch">
-                                                <input class="form-check-input form-label" type="checkbox" role="switch" checked>
+                                                <input class="form-check-input form-label" type="checkbox" role="switch"
+                                                    checked>
                                             </div>
                                         </div>
                                     </div><!-- end col -->
@@ -83,7 +85,8 @@
                                     <div class="col-3">
                                         <div class="d-flex justify-content-end">
                                             <div class="form-check form-check-sm form-switch">
-                                                <input class="form-check-input form-label" type="checkbox" role="switch" checked>
+                                                <input class="form-check-input form-label" type="checkbox" role="switch"
+                                                    checked>
                                             </div>
                                         </div>
                                     </div><!-- end col -->
@@ -92,7 +95,8 @@
 
                                 <div class="pt-4 mt-4 border-top mb-3">
                                     <div class="d-flex justify-content-between">
-                                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Cancel</a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-white me-3"
+                                            data-bs-dismiss="modal">Cancel</a>
                                         <button type="submit" class="btn btn-primary">Save Changes</button>
                                     </div>
                                 </div>
@@ -110,13 +114,14 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                    End Page Content
+                ========================= -->
 @endsection

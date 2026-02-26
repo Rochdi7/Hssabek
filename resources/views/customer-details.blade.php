@@ -1,9 +1,9 @@
 <?php $page = 'customer-details'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -13,34 +13,43 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6><a href="{{url('customers')}}"><i class="isax isax-arrow-left fs-16 me-2"></i>Customers</a></h6>
+                    <h6><a href="{{ url('customers') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>Customers</a></h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-primary d-flex align-items-center fs-14 fw-semibold" data-bs-toggle="dropdown">
-                           Add New
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-primary d-flex align-items-center fs-14 fw-semibold"
+                            data-bs-toggle="dropdown">
+                            Add New
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-end">
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item"> <i class="isax isax-document-text fs-14 me-2"></i>Invoice </a>
+                                <a href="javascript:void(0);" class="dropdown-item"> <i
+                                        class="isax isax-document-text fs-14 me-2"></i>Invoice </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item"> <i class="isax isax-money-send fs-14 me-2"></i> Expense</a>
+                                <a href="javascript:void(0);" class="dropdown-item"> <i
+                                        class="isax isax-money-send fs-14 me-2"></i> Expense</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item"> <i class="isax isax-money-add fs-14 me-2"></i> Credit Notes</a>
+                                <a href="javascript:void(0);" class="dropdown-item"> <i
+                                        class="isax isax-money-add fs-14 me-2"></i> Credit Notes</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item"> <i class="isax isax-money-recive fs-14 me-2"></i> Debit Notes</a>
+                                <a href="javascript:void(0);" class="dropdown-item"> <i
+                                        class="isax isax-money-recive fs-14 me-2"></i> Debit Notes</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item"> <i class="isax isax-document fs-14 me-2"></i> Purchase Order</a>
+                                <a href="javascript:void(0);" class="dropdown-item"> <i
+                                        class="isax isax-document fs-14 me-2"></i> Purchase Order</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item"> <i class="isax isax-document-download fs-14 me-2"></i> Quotation</a>
+                                <a href="javascript:void(0);" class="dropdown-item"> <i
+                                        class="isax isax-document-download fs-14 me-2"></i> Quotation</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item"> <i class="isax isax-document-forward fs-14 me-2"></i> Delivery Challan</a>
+                                <a href="javascript:void(0);" class="dropdown-item"> <i
+                                        class="isax isax-document-forward fs-14 me-2"></i> Delivery Challan</a>
                             </li>
                         </ul>
                     </div>
@@ -58,41 +67,55 @@
                             <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-3">
                                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                                     <div class="avatar avatar-xxl rounded-circle flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-08.jpg')}}" alt="user-01" class="img-fluid rounded-circle border border-white border-2">
+                                        <img src="{{ URL::asset('build/img/users/user-08.jpg') }}" alt="user-01"
+                                            class="img-fluid rounded-circle border border-white border-2">
                                     </div>
                                     <div class="">
                                         <p class="text-primary fs-14 fw-medium mb-1">Cl-12345</p>
-                                        <h6 class="mb-2"> Robert George <img src="{{URL::asset('build/img/icons/confirme.svg')}}" alt="confirme" class="ms-1">  </h6>
-                                        <p class="fs-14 fw-regular"><i class="isax isax-location fs-14 me-1 text-gray-9"></i> 4712 Cherry Ridge Drive Rochester, NY 14620.</p>
+                                        <h6 class="mb-2"> Robert George <img
+                                                src="{{ URL::asset('build/img/icons/confirme.svg') }}" alt="confirme"
+                                                class="ms-1"> </h6>
+                                        <p class="fs-14 fw-regular"><i
+                                                class="isax isax-location fs-14 me-1 text-gray-9"></i> 4712 Cherry Ridge
+                                            Drive Rochester, NY 14620.</p>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-outline-white border border-1 border-grey border-sm bg-white"><i class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> Edit Profile </a>
+                                <a href="#"
+                                    class="btn btn-outline-white border border-1 border-grey border-sm bg-white"><i
+                                        class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> Edit Profile </a>
                             </div>
 
                             <div class="card border-0 shadow shadow-none mb-0 bg-white">
                                 <div class="card-body border-0 shadow shadow-none">
-                                    <ul class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-0 m-0 list-unstyled">
+                                    <ul
+                                        class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-0 m-0 list-unstyled">
                                         <li>
-                                            <h6 class="mb-1 fs-14 fw-semibold"> <i class="isax isax-sms fs-14 me-2"></i>Email Address</h6>
+                                            <h6 class="mb-1 fs-14 fw-semibold"> <i
+                                                    class="isax isax-sms fs-14 me-2"></i>Email Address</h6>
                                             <p> john@example.com </p>
                                         </li>
                                         <li>
-                                            <h6 class="mb-1 fs-14 fw-semibold"> <i class="isax isax-call fs-14 me-2"></i>Phone</h6>
+                                            <h6 class="mb-1 fs-14 fw-semibold"> <i
+                                                    class="isax isax-call fs-14 me-2"></i>Phone</h6>
                                             <p> +158578 54840 </p>
                                         </li>
                                         <li>
-                                            <h6 class="mb-1 fs-14 fw-semibold"> <i class="isax isax-building fs-14 me-2"></i>Company </h6>
+                                            <h6 class="mb-1 fs-14 fw-semibold"> <i
+                                                    class="isax isax-building fs-14 me-2"></i>Company </h6>
                                             <p> TrueAI Technologies</p>
                                         </li>
                                         <li>
-                                            <h6 class="mb-1 fs-14 fw-semibold"> <i class="isax isax-global fs-14 me-2"></i>Website</h6>
-                                            <p class="d-flex align-items-center"> www.example.com <i class="isax isax-link fs-14 ms-1 text-primary"></i></p>
+                                            <h6 class="mb-1 fs-14 fw-semibold"> <i
+                                                    class="isax isax-global fs-14 me-2"></i>Website</h6>
+                                            <p class="d-flex align-items-center"> www.example.com <i
+                                                    class="isax isax-link fs-14 ms-1 text-primary"></i></p>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div><!-- end card body -->
-                        <img src="{{URL::asset('build/img/icons/elements-01.svg')}}" alt="elements-01" class="img-fluid customer-details-bg">
+                        <img src="{{ URL::asset('build/img/icons/elements-01.svg') }}" alt="elements-01"
+                            class="img-fluid customer-details-bg">
                     </div><!-- end card -->
                     <!-- End User -->
 
@@ -100,17 +123,21 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> Invoice Statistics </h6>
-                            <ul class="d-flex align-items-center justify-content-between flex-wrap gap-2 p-0 m-0 list-unstyled">
+                            <ul
+                                class="d-flex align-items-center justify-content-between flex-wrap gap-2 p-0 m-0 list-unstyled">
                                 <li>
-                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-primary me-2"></i> Total Invoice </p>
+                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-primary me-2"></i> Total
+                                        Invoice </p>
                                     <h6 class="fs-16 fw-600"> $56900.54</h6>
                                 </li>
                                 <li>
-                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-info me-2"></i> Outstanding </p>
+                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-info me-2"></i> Outstanding
+                                    </p>
                                     <h6 class="fs-16 fw-600"> $56900.54</h6>
                                 </li>
                                 <li>
-                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-danger me-2"></i> Overdue </p>
+                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-danger me-2"></i> Overdue
+                                    </p>
                                     <h6 class="fs-16 fw-600"> $56900.54</h6>
                                 </li>
                                 <li>
@@ -118,7 +145,8 @@
                                     <h6 class="fs-16 fw-600"> $56900.54</h6>
                                 </li>
                                 <li>
-                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-error me-2"></i> Cancelled </p>
+                                    <p class="mb-2"> <i class="fa-solid fa-circle fs-10 text-error me-2"></i> Cancelled
+                                    </p>
                                     <h6 class="fs-16 fw-600"> $56900.54</h6>
                                 </li>
                             </ul>
@@ -146,14 +174,16 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00025</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00025</a>
                                             </td>
                                             <td>22 Feb 2025</td>
                                             <td class="text-dark">$10,000</td>
 
                                             <td class="">$5,000</td>
                                             <td>
-                                                <span class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i
+                                                        class="isax isax-tick-circle ms-1"></i></span>
                                             </td>
                                             <td>04 Mar 2025</td>
                                             <td class="action-item">
@@ -162,30 +192,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00024</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00024</a>
                                             </td>
                                             <td>07 Feb 2025</td>
                                             <td class="text-dark">$25,750</td>
 
                                             <td class="">$10,750</td>
                                             <td>
-                                                <span class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">Unpaid<i class="isax isax-slash ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">Unpaid<i
+                                                        class="isax isax-slash ms-1"></i></span>
                                             </td>
                                             <td>04 Mar 2025</td>
                                             <td class="action-item">
@@ -194,30 +235,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00023</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00023</a>
                                             </td>
                                             <td>30 Jan 2025</td>
                                             <td class="text-dark">$50,125</td>
 
                                             <td class="">$20,000</td>
                                             <td>
-                                                <span class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">Cancelled<i
+                                                        class="isax isax-close-circle ms-1"></i></span>
                                             </td>
                                             <td>13 Feb 2025</td>
                                             <td class="action-item">
@@ -226,30 +278,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00022</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00022</a>
                                             </td>
                                             <td>17 Jan 2025</td>
                                             <td class="text-dark">$75,900</td>
 
                                             <td class="">$50,000</td>
                                             <td>
-                                                <span class="badge badge-soft-primary badge-sm d-inline-flex align-items-center">Partially Paid<i class="isax isax-timer ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-primary badge-sm d-inline-flex align-items-center">Partially
+                                                    Paid<i class="isax isax-timer ms-1"></i></span>
                                             </td>
                                             <td>30 Jan 2025</td>
                                             <td class="action-item">
@@ -258,30 +321,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00019</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00019</a>
                                             </td>
                                             <td>02 Dec 2024</td>
                                             <td class="text-dark">$2,50,000</td>
 
                                             <td class="">$1,25,000</td>
                                             <td>
-                                                <span class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">Unpaid<i class="isax isax-slash ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">Unpaid<i
+                                                        class="isax isax-slash ms-1"></i></span>
                                             </td>
                                             <td>15 Dec 2024</td>
                                             <td class="action-item">
@@ -290,30 +364,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00017</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00017</a>
                                             </td>
                                             <td>30 Nov 2024</td>
                                             <td class="text-dark">$7,50,300</td>
 
                                             <td class="">$2,50,500</td>
                                             <td>
-                                                <span class="badge badge-soft-primary badge-sm d-inline-flex align-items-center">Partially Paid<i class="isax isax-timer ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-primary badge-sm d-inline-flex align-items-center">Partially
+                                                    Paid<i class="isax isax-timer ms-1"></i></span>
                                             </td>
                                             <td>12 Nov 2024</td>
                                             <td class="action-item">
@@ -322,30 +407,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00016</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00016</a>
                                             </td>
                                             <td>12 Oct 2024</td>
                                             <td class="text-dark">$9,99,999</td>
 
                                             <td class="">$4,00,000</td>
                                             <td>
-                                                <span class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">Uncollectable<i class="isax isax-danger ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">Uncollectable<i
+                                                        class="isax isax-danger ms-1"></i></span>
                                             </td>
                                             <td>25 Oct 2024</td>
                                             <td class="action-item">
@@ -354,30 +450,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00014</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00014</a>
                                             </td>
                                             <td>09 Sep 2024</td>
                                             <td class="text-dark">$10,000</td>
 
                                             <td class="">$5,000</td>
                                             <td>
-                                                <span class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i
+                                                        class="isax isax-tick-circle ms-1"></i></span>
                                             </td>
                                             <td>04 Mar 2025</td>
                                             <td class="action-item">
@@ -386,30 +493,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00013</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00013</a>
                                             </td>
                                             <td>13 Sep 2025</td>
                                             <td class="text-dark">$10,000</td>
 
                                             <td class="">$5,000</td>
                                             <td>
-                                                <span class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i
+                                                        class="isax isax-tick-circle ms-1"></i></span>
                                             </td>
                                             <td>04 Mar 2025</td>
                                             <td class="action-item">
@@ -418,30 +536,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00012</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00012</a>
                                             </td>
                                             <td>12 Sep 2025</td>
                                             <td class="text-dark">$10,000</td>
 
                                             <td class="">$5,000</td>
                                             <td>
-                                                <span class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i
+                                                        class="isax isax-tick-circle ms-1"></i></span>
                                             </td>
                                             <td>04 Mar 2025</td>
                                             <td class="action-item">
@@ -450,30 +579,41 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('invoice-details')}}" class="link-default">INV00011</a>
+                                                <a href="{{ url('invoice-details') }}" class="link-default">INV00011</a>
                                             </td>
                                             <td>10 Aug 2025</td>
                                             <td class="text-dark">$10,000</td>
 
                                             <td class="">$5,000</td>
                                             <td>
-                                                <span class="badge badge-soft-primary badge-sm d-inline-flex align-items-center">Partially Paid<i class="isax isax-timer ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-primary badge-sm d-inline-flex align-items-center">Partially
+                                                    Paid<i class="isax isax-timer ms-1"></i></span>
                                             </td>
                                             <td>04 Mar 2025</td>
                                             <td class="action-item">
@@ -482,16 +622,25 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{url('invoice-details')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>View</a>
+                                                        <a href="{{ url('invoice-details') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-eye me-2"></i>View</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                        <a href="{{ url('edit-invoice') }}"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-edit me-2"></i>Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-archive-2 me-2"></i>Archive</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"><i
+                                                                class="isax isax-archive-2 me-2"></i>Archive</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash me-2"></i>Delete</a>
                                                     </li>
                                                 </ul>
                                             </td>
@@ -511,7 +660,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> Notes </h6>
-                            <p class="text-truncate line-clamb-3"> Keep in mind that in order to be deductible, your employees’ pay must be reasonable and necessary for conducting business to qualify for </p>
+                            <p class="text-truncate line-clamb-3"> Keep in mind that in order to be deductible, your
+                                employees’ pay must be reasonable and necessary for conducting business to qualify for </p>
                         </div><!-- end card body -->
                     </div><!-- end card -->
                     <!-- End Notes -->
@@ -524,11 +674,14 @@
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div class="d-flex align-items-center">
                                     <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0 me-2">
-                                        <img src="{{URL::asset('build/img/icons/transaction-01.svg')}}" class="rounded-circle" alt="img">
+                                        <img src="{{ URL::asset('build/img/icons/transaction-01.svg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a></h6>
-                                        <p class="fs-13"><a href="{{url('invoice-details')}}" class="link-default">#INV45478</a></p>
+                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a>
+                                        </h6>
+                                        <p class="fs-13"><a href="{{ url('invoice-details') }}"
+                                                class="link-default">#INV45478</a></p>
                                     </div>
                                 </div>
                                 <div>
@@ -536,18 +689,22 @@
                                     <p class="mb-0 fs-14 fw-semibold text-gray-9"> $417 </p>
                                 </div>
                                 <div class="text-end">
-                                    <span class="badge badge-sm badge-soft-success"> Paid <i class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
+                                    <span class="badge badge-sm badge-soft-success"> Paid <i
+                                            class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
                                 </div>
                             </div>
                             <!-- Pay2 -->
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div class="d-flex align-items-center">
                                     <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0 me-2">
-                                        <img src="{{URL::asset('build/img/icons/transaction-02.svg')}}" class="rounded-circle" alt="img">
+                                        <img src="{{ URL::asset('build/img/icons/transaction-02.svg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a></h6>
-                                        <p class="fs-13"><a href="{{url('invoice-details')}}" class="link-default">#INV45478</a></p>
+                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a>
+                                        </h6>
+                                        <p class="fs-13"><a href="{{ url('invoice-details') }}"
+                                                class="link-default">#INV45478</a></p>
                                     </div>
                                 </div>
                                 <div>
@@ -555,18 +712,22 @@
                                     <p class="mb-0 fs-14 fw-semibold text-gray-9"> $417 </p>
                                 </div>
                                 <div class="text-end">
-                                    <span class="badge badge-sm badge-soft-success"> Paid <i class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
+                                    <span class="badge badge-sm badge-soft-success"> Paid <i
+                                            class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
                                 </div>
                             </div>
                             <!-- Pay3 -->
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div class="d-flex align-items-center">
                                     <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0 me-2">
-                                        <img src="{{URL::asset('build/img/icons/transaction-01.svg')}}" class="rounded-circle" alt="img">
+                                        <img src="{{ URL::asset('build/img/icons/transaction-01.svg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a></h6>
-                                        <p class="fs-13"><a href="{{url('invoice-details')}}" class="link-default">#INV45478</a></p>
+                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a>
+                                        </h6>
+                                        <p class="fs-13"><a href="{{ url('invoice-details') }}"
+                                                class="link-default">#INV45478</a></p>
                                     </div>
                                 </div>
                                 <div>
@@ -574,18 +735,22 @@
                                     <p class="mb-0 fs-14 fw-semibold text-gray-9"> $417 </p>
                                 </div>
                                 <div class="text-end">
-                                    <span class="badge badge-sm badge-soft-success"> Paid <i class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
+                                    <span class="badge badge-sm badge-soft-success"> Paid <i
+                                            class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
                                 </div>
                             </div>
                             <!-- Pay4 -->
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div class="d-flex align-items-center">
                                     <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0 me-2">
-                                        <img src="{{URL::asset('build/img/icons/transaction-02.svg')}}" class="rounded-circle" alt="img">
+                                        <img src="{{ URL::asset('build/img/icons/transaction-02.svg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a></h6>
-                                        <p class="fs-13"><a href="{{url('invoice-details')}}" class="link-default">#INV45478</a></p>
+                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a>
+                                        </h6>
+                                        <p class="fs-13"><a href="{{ url('invoice-details') }}"
+                                                class="link-default">#INV45478</a></p>
                                     </div>
                                 </div>
                                 <div>
@@ -593,18 +758,22 @@
                                     <p class="mb-0 fs-14 fw-semibold text-gray-9"> $417 </p>
                                 </div>
                                 <div class="text-end">
-                                    <span class="badge badge-sm badge-soft-success"> Paid <i class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
+                                    <span class="badge badge-sm badge-soft-success"> Paid <i
+                                            class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
                                 </div>
                             </div>
                             <!-- Pay5 -->
                             <div class="d-flex align-items-center justify-content-between mb-0">
                                 <div class="d-flex align-items-center">
                                     <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0 me-2">
-                                        <img src="{{URL::asset('build/img/icons/transaction-01.svg')}}" class="rounded-circle" alt="img">
+                                        <img src="{{ URL::asset('build/img/icons/transaction-01.svg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a></h6>
-                                        <p class="fs-13"><a href="{{url('invoice-details')}}" class="link-default">#INV45478</a></p>
+                                        <h6 class="fs-14 fw-semibold mb-1"><a href="javascript:void(0);">Andrew James</a>
+                                        </h6>
+                                        <p class="fs-13"><a href="{{ url('invoice-details') }}"
+                                                class="link-default">#INV45478</a></p>
                                     </div>
                                 </div>
                                 <div>
@@ -612,7 +781,8 @@
                                     <p class="mb-0 fs-14 fw-semibold text-gray-9"> $417 </p>
                                 </div>
                                 <div class="text-end">
-                                    <span class="badge badge-sm badge-soft-success"> Paid <i class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
+                                    <span class="badge badge-sm badge-soft-success"> Paid <i
+                                            class="isax isax-tick-circle fs-10 fw-semibold ms-1"></i></span>
                                 </div>
                             </div>
                         </div><!-- end card body -->
@@ -626,31 +796,47 @@
                                 <h6 class="mb-1 pb-3 mb-3 border-bottom">Recent Activities</h6>
                                 <div class="recent-activities recent-activities-two">
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1">Status Changed to <span class="text-gray-9 fw-semibold">Partially Paid</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>19 Jan 2025</p>
+                                            <p class="mb-1">Status Changed to <span
+                                                    class="text-gray-9 fw-semibold">Partially Paid</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>19 Jan 2025</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1"><span class="text-gray-9 fw-semibold">$300</span> Partial Amount Paid on <span class="text-gray-9 fw-semibold">Paypal</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
+                                            <p class="mb-1"><span class="text-gray-9 fw-semibold">$300</span> Partial
+                                                Amount Paid on <span class="text-gray-9 fw-semibold">Paypal</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1">New Expenses added <span class="text-gray-9 fw-semibold">#TR018756</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
+                                            <p class="mb-1">New Expenses added <span
+                                                    class="text-gray-9 fw-semibold">#TR018756</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1">Estimate Created <span class="text-gray-9 fw-semibold">#ES458789</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>17 Jan 2025</p>
+                                            <p class="mb-1">Estimate Created <span
+                                                    class="text-gray-9 fw-semibold">#ES458789</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>17 Jan 2025</p>
                                         </div>
                                     </div>
                                 </div>
@@ -663,7 +849,7 @@
             </div>
             <!-- end row -->
 
-            @component('components.footer')
+            @component('backoffice.components.footer')
             @endcomponent
         </div>
         <!-- End Content -->
@@ -671,6 +857,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

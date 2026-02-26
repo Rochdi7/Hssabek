@@ -1,9 +1,9 @@
 <?php $page = 'form-grid-gutters'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,15 +19,15 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Form</a></li>
-                        
+
                         <li class="breadcrumb-item active">Grid & Gutters</li>
                     </ol>
                 </div>
             </div>
             <!-- End Page Header -->
-            
+
             <!-- start row -->
             <div class="row">
                 <div class="col-xl-6">
@@ -36,7 +36,7 @@
                             <h5 class="card-title">Form Grid</h5>
                         </div>
                         <div class="card-body">
-                        
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">First Name</label>
@@ -90,7 +90,8 @@
                                                 <label class="form-label mb-1">Maritial Status</label>
                                                 <div class="col-xl-6">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="status-married" required="">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            id="status-married" required="">
                                                         <label class="form-check-label" for="status-married">
                                                             Married
                                                         </label>
@@ -98,7 +99,8 @@
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="status-unmarried" required="">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            id="status-unmarried" required="">
                                                         <label class="form-check-label" for="status-unmarried">
                                                             Single
                                                         </label>
@@ -131,18 +133,18 @@
                                     <button type="submit" class="btn btn-primary">Sign in</button>
                                 </div>
                             </div>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Gutters</h5>
                         </div>
                         <div class="card-body">
-                            
+
                             <!-- Start Form -->
                             <form class="row g-3 mt-0">
                                 <div class="col-md-6">
@@ -197,22 +199,22 @@
                                 </div>
                             </form>
                             <!-- End Form -->
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
             </div>
             <!-- end row -->
 
         </div> <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

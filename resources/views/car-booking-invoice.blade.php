@@ -1,15 +1,15 @@
 <?php $page = 'car-booking-invoice'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="invoice-wrapper">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="mb-3">
-                    <h6><a href="{{url('invoice-templates')}}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
+                    <h6><a href="{{ url('invoice-templates') }}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
                 </div>
                 <div class="mb-3">
                     <div class="d-flex align-items-center justify-content-between bg-primary flex-wrap p-3 rounded">
@@ -20,7 +20,7 @@
 
                         </div>
                         <div>
-                            <img src="{{URL::asset('build/img/logo-white.svg')}}" alt="">
+                            <img src="{{ URL::asset('build/img/logo-white.svg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,8 @@
                     </div>
                     <div class="text-end">
                         <h6 class="mb-1 fs-18 fw-medium">Info:</h6>
-                        <p class="invoice-info">Seating is on a first come, first served basis unless you have purchased ticket for a Reserved Seating performance. Please arrive early for best seat section.</p>
+                        <p class="invoice-info">Seating is on a first come, first served basis unless you have purchased
+                            ticket for a Reserved Seating performance. Please arrive early for best seat section.</p>
                     </div>
 
                 </div>
@@ -198,7 +199,8 @@
                                     <td>1</td>
                                     <td>
                                         <div class="d-flex flex-column">
-                                            <span class="text-dark">Lamborghini Aventador - 15 Days - Driver Services - Road Fee</span>
+                                            <span class="text-dark">Lamborghini Aventador - 15 Days - Driver Services -
+                                                Road Fee</span>
                                         </div>
                                     </td>
                                     <td><span class="text-dark">$350</span></td>
@@ -224,27 +226,34 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="border-bottom-transparent"></td>
-                                    <td colspan="2" class="text-dark text-end fw-medium border-bottom-transparent">IGST 18.0%</td>
+                                    <td colspan="2" class="text-dark text-end fw-medium border-bottom-transparent">IGST
+                                        18.0%</td>
                                     <td class="text-dark text-end fw-medium border-bottom-transparent">$165.00</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-dark border-0 bg-light">Total Items / Qty : 4 / 4.00</td>
+                                    <td colspan="2" class="text-dark border-0 bg-light">Total Items / Qty : 4 / 4.00
+                                    </td>
                                     <td colspan="2" class="text-dark bg-light border-0 text-end fw-medium">
-                                        <h6>Total</h6></td>
+                                        <h6>Total</h6>
+                                    </td>
                                     <td class="text-dark bg-light text-end border-0 fw-medium">
-                                        <h6>$1,815.00</h6></td>
+                                        <h6>$1,815.00</h6>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="border-bottom-transparent">
                                         <div class="d-flex flex-column">
                                             <span>Total amount ( in words):</span>
-                                            <span class="text-dark mb-1">One Thousand, Eight Hundred and Fifteen Dollars Only</span>
+                                            <span class="text-dark mb-1">One Thousand, Eight Hundred and Fifteen Dollars
+                                                Only</span>
                                         </div>
                                     </td>
                                     <td colspan="2" class="text-dark text-end border-bottom-transparent fw-medium">
-                                        <h6>Amount Payable</h6></td>
+                                        <h6>Amount Payable</h6>
+                                    </td>
                                     <td class="text-dark border-bottom-transparent text-end fw-medium">
-                                        <h6>$1,815.00</h6></td>
+                                        <h6>$1,815.00</h6>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -263,7 +272,8 @@
                 <div class="border-bottom mb-3 p-3">
                     <h6 class="mb-2">Terms &amp; Conditions : </h6>
                     <p class="mb-1">1. Goods Once sold cannot be taken back or exchanged.</p>
-                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.</p>
+                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.
+                    </p>
                 </div>
                 <div class="border-bottom text-center pb-3">
                     <p>Thanks for your Business</p>
@@ -273,6 +283,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

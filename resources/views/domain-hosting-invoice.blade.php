@@ -1,5 +1,5 @@
 <?php $page = 'domain-hosting-invoice'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- Start Content -->
     <div class="invoice-wrapper">
@@ -10,7 +10,7 @@
                     <p class="mb-2">Original For Recipient</p>
                 </div>
                 <div class="invoice-logo">
-                    <img src="{{URL::asset('build/img/logo.svg')}}" alt="User Img">
+                    <img src="{{ URL::asset('build/img/logo.svg') }}" alt="User Img">
                 </div>
             </div>
         </div>
@@ -43,7 +43,8 @@
                 <p class="text-dark">Walter Roberson
                     <br> 299 Star Trek Drive, Panama City, Florida, 32405, USA.
                     <br> walter@gmail.com
-                    <br> +45 5421 4523</p>
+                    <br> +45 5421 4523
+                </p>
             </div>
             <div class="mb-3">
                 <h6 class="mb-3">Domain Details:</h6>
@@ -61,7 +62,8 @@
                             <tr>
                                 <td>
                                     <div class="bg-light p-2">
-                                        <p class="text-dark">1 Domain - (.com Domain Registration with SSL) 2 Yearsdomainname.com</p>
+                                        <p class="text-dark">1 Domain - (.com Domain Registration with SSL) 2
+                                            Yearsdomainname.com</p>
                                     </div>
                                 </td>
                                 <td>
@@ -232,7 +234,7 @@
                 </div>
                 <div class="text-center mb-3">
                     <p class="mb-1">For Dreamguys</p>
-                    <span><img src="{{URL::asset('build/img/icons/sign-01.png')}}" alt="User Img"></span>
+                    <span><img src="{{ URL::asset('build/img/icons/sign-01.png') }}" alt="User Img"></span>
                 </div>
             </div>
         </div>

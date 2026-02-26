@@ -1,9 +1,9 @@
 <?php $page = 'tables-basic'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper cardhead">
         <div class="content">
@@ -513,7 +513,8 @@
                                             <td>Moracco</td>
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-wave waves-effect waves-light">
-                                                    <i class="feather-download align-middle me-2 d-inline-block"></i>Download
+                                                    <i
+                                                        class="feather-download align-middle me-2 d-inline-block"></i>Download
                                                 </button>
                                             </td>
                                         </tr>
@@ -523,7 +524,8 @@
                                             <td>Thornton</td>
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-wave waves-effect waves-light">
-                                                    <i class="feather-download align-middle me-2 d-inline-block"></i>Download
+                                                    <i
+                                                        class="feather-download align-middle me-2 d-inline-block"></i>Download
                                                 </button>
                                             </td>
                                         </tr>
@@ -533,7 +535,8 @@
                                             <td>Larry Bird</td>
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-wave waves-effect waves-light">
-                                                    <i class="feather-download align-middle me-2 d-inline-block"></i>Download
+                                                    <i
+                                                        class="feather-download align-middle me-2 d-inline-block"></i>Download
                                                 </button>
                                             </td>
                                         </tr>
@@ -543,7 +546,8 @@
                                             <td>Erica Sean</td>
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-wave waves-effect waves-light">
-                                                    <i class="feather-download align-middle me-2 d-inline-block"></i>Download
+                                                    <i
+                                                        class="feather-download align-middle me-2 d-inline-block"></i>Download
                                                 </button>
                                             </td>
                                         </tr>
@@ -646,7 +650,8 @@
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkebox-sm" checked="">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="checkebox-sm" checked="">
                                                     <label class="form-check-label" for="checkebox-sm">
                                                         Zelensky
                                                     </label>
@@ -666,7 +671,8 @@
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkebox-sm1">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="checkebox-sm1">
                                                     <label class="form-check-label" for="checkebox-sm1">
                                                         Kim Jong
                                                     </label>
@@ -686,7 +692,8 @@
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkebox-sm2">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="checkebox-sm2">
                                                     <label class="form-check-label" for="checkebox-sm2">
                                                         Obana
                                                     </label>
@@ -706,7 +713,8 @@
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkebox-sm3">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="checkebox-sm3">
                                                     <label class="form-check-label" for="checkebox-sm3">
                                                         Sean Paul
                                                     </label>
@@ -726,7 +734,8 @@
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkebox-sm4">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="checkebox-sm4">
                                                     <label class="form-check-label" for="checkebox-sm4">
                                                         Karizma
                                                     </label>
@@ -776,11 +785,14 @@
                                             <td>24 May 2022</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
                                                             class="feather-download"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
                                                             class="feather-edit"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
                                                             class="feather-trash"></i></a>
                                                 </div>
                                             </td>
@@ -791,11 +803,14 @@
                                             <td>02 July 2022</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
                                                             class="feather-download"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
                                                             class="feather-edit"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
                                                             class="feather-trash"></i></a>
                                                 </div>
                                             </td>
@@ -806,11 +821,14 @@
                                             <td>15 April 2022</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
                                                             class="feather-download"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
                                                             class="feather-edit"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
                                                             class="feather-trash"></i></a>
                                                 </div>
                                             </td>
@@ -821,11 +839,14 @@
                                             <td>17 March 2022</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-success rounded-pill"><i
                                                             class="feather-download"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-info rounded-pill"><i
                                                             class="feather-edit"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-soft-danger rounded-pill"><i
                                                             class="feather-trash"></i></a>
                                                 </div>
                                             </td>
@@ -860,7 +881,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-10.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-10.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -876,22 +898,28 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-08.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-08.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +5
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 52%" aria-valuenow="52" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
@@ -900,7 +928,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -916,19 +945,24 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-04.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-04.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +6
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 40%" aria-valuenow="40" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
@@ -937,7 +971,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -953,22 +988,28 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-01.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-01.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-11.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-11.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-15.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-15.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +2
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 17%" aria-valuenow="17" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 17%" aria-valuenow="17" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
@@ -977,7 +1018,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-13.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-13.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -993,19 +1035,24 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-04.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-04.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +5
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 72%" aria-valuenow="72" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
@@ -1042,7 +1089,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-15.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-15.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -1063,7 +1111,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -1084,7 +1133,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-05.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-05.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -1106,7 +1156,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-sm me-2 avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-11.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-11.jpg') }}"
+                                                            alt="img">
                                                     </div>
                                                     <div>
                                                         <div class="lh-1">
@@ -1165,7 +1216,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <span class="avatar avatar-xs me-2 online avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-03.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-03.jpg') }}"
+                                                            alt="img">
                                                     </span>Mayor Kelly
                                                 </div>
                                             </td>
@@ -1175,29 +1227,36 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-08.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-08.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +4
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 52%" aria-valuenow="52" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>$10,984.29</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-success"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-success"><i
                                                             class="feather-download"></i></a>
                                                     <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-info"><i
                                                             class="feather-edit"></i></a>
@@ -1209,7 +1268,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <span class="avatar avatar-xs me-2 online avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                            alt="img">
                                                     </span>Andrew Garfield
                                                 </div>
                                             </td>
@@ -1219,32 +1279,40 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-01.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-01.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-05.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-05.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-11.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-11.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-15.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-15.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +4
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 91%" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 91%" aria-valuenow="91" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>$1.4billion</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-success"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-success"><i
                                                             class="feather-download"></i></a>
                                                     <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-info"><i
                                                             class="feather-edit"></i></a>
@@ -1256,7 +1324,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <span class="avatar avatar-xs me-2 online avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-14.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-14.jpg') }}"
+                                                            alt="img">
                                                     </span>Simon Cowel
                                                 </div>
                                             </td>
@@ -1266,26 +1335,32 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +10
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 45%" aria-valuenow="45" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>$7,123.21</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-success"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-success"><i
                                                             class="feather-download"></i></a>
                                                     <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-info"><i
                                                             class="feather-edit"></i></a>
@@ -1297,7 +1372,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <span class="avatar avatar-xs me-2 online avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-05.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-05.jpg') }}"
+                                                            alt="img">
                                                     </span>Mirinda Hers
                                                 </div>
                                             </td>
@@ -1307,29 +1383,36 @@
                                             <td>
                                                 <div class="avatar-list-stacked">
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-03.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-03.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-10.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-10.jpg') }}"
+                                                            alt="img">
                                                     </span>
                                                     <span class="avatar avatar-sm avatar-rounded">
-                                                        <img src="{{URL::asset('build/img/profiles/avatar-14.jpg')}}" alt="img">
+                                                        <img src="{{ URL::asset('build/img/profiles/avatar-14.jpg') }}"
+                                                            alt="img">
                                                     </span>
-                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
+                                                    <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                        href="javascript:void(0);">
                                                         +6
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 21%" aria-valuenow="21" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 21%" aria-valuenow="21" aria-valuemin="0"
+                                                        aria-valuemax="100">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>$2,325.45</td>
                                             <td>
                                                 <div class="hstack gap-2 fs-15">
-                                                    <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-success"><i
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-icon btn-sm btn-success"><i
                                                             class="feather-download"></i></a>
                                                     <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-info"><i
                                                             class="feather-edit"></i></a>
@@ -1644,13 +1727,18 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

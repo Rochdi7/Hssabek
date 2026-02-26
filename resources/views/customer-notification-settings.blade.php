@@ -1,9 +1,9 @@
 <?php $page = 'customer-notification-settings'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -25,16 +25,26 @@
                                             <div class="sidebar-menu p-0">
                                                 <ul>
                                                     <li>
-                                                        <a href="{{url('customer-account-settings')}}" class="fs-14 fw-medium d-flex align-items-center"><i class="isax isax-user-octagon fs-18 me-1"></i>Account Settings</a>
+                                                        <a href="{{ url('customer-account-settings') }}"
+                                                            class="fs-14 fw-medium d-flex align-items-center"><i
+                                                                class="isax isax-user-octagon fs-18 me-1"></i>Account
+                                                            Settings</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('customer-security-settings')}}" class="fs-14 fw-medium d-flex align-items-center"><i class="isax isax-security-safe fs-18 me-1"></i>Security</a>
+                                                        <a href="{{ url('customer-security-settings') }}"
+                                                            class="fs-14 fw-medium d-flex align-items-center"><i
+                                                                class="isax isax-security-safe fs-18 me-1"></i>Security</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('customer-plans-settings')}}" class="fs-14 fw-medium d-flex align-items-center"><i class="isax isax-transaction-minus fs-18 me-1"></i>Plans & Billings</a>
+                                                        <a href="{{ url('customer-plans-settings') }}"
+                                                            class="fs-14 fw-medium d-flex align-items-center"><i
+                                                                class="isax isax-transaction-minus fs-18 me-1"></i>Plans &
+                                                            Billings</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{url('customer-notifications-settings')}}" class="active fs-14 fw-medium d-flex align-items-center"><i class="isax isax-notification fs-18 me-1"></i>Notifications</a>
+                                                        <a href="{{ url('customer-notifications-settings') }}"
+                                                            class="active fs-14 fw-medium d-flex align-items-center"><i
+                                                                class="isax isax-notification fs-18 me-1"></i>Notifications</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -47,11 +57,13 @@
                             <div class="mb-3 pb-3 border-bottom">
                                 <h6 class="fw-bold mb-0">Notifications</h6>
                             </div>
-                            <form action="{{url('notifications-settings')}}">
+                            <form action="{{ url('notifications-settings') }}">
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-notification"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-notification"></i></span>
                                             General Notifications
                                         </h6>
                                         <div class="form-check form-switch">
@@ -74,7 +86,8 @@
                                                     <tr>
                                                         <td>
                                                             <h6 class="fs-13 fw-medium mb-1">System Updates</h6>
-                                                            <p class="fs-12">Get alerts for software updates and maintenance.</p>
+                                                            <p class="fs-12">Get alerts for software updates and
+                                                                maintenance.</p>
                                                         </td>
                                                         <td class="text-center">
                                                             <input class="form-check-input" type="checkbox" checked>
@@ -92,7 +105,8 @@
                                                     <tr>
                                                         <td>
                                                             <h6 class="fs-13 fw-medium mb-1">Security Alerts</h6>
-                                                            <p class="fs-12">Notify about login attempts, password changes.</p>
+                                                            <p class="fs-12">Notify about login attempts, password changes.
+                                                            </p>
                                                         </td>
                                                         <td class="text-center">
                                                             <input class="form-check-input" type="checkbox" checked>
@@ -115,7 +129,9 @@
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-shopping-cart"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-shopping-cart"></i></span>
                                             Sales Notifications
                                         </h6>
                                         <div class="form-check form-switch">
@@ -195,7 +211,9 @@
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-notification-status"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-notification-status"></i></span>
                                             Invoice Notifications
                                         </h6>
                                         <div class="form-check form-switch">
@@ -257,7 +275,9 @@
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-user-tag"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-user-tag"></i></span>
                                             User Management
                                         </h6>
                                         <div class="form-check form-switch">
@@ -366,17 +386,18 @@
 
             <!-- Start Footer-->
             <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-                <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+                <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                    Rights Reserved</p>
                 <p class="text-dark">Version : 1.3.8</p>
             </div>
             <!-- End Footer-->
-                
+
         </div>
         <!-- End Content -->
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

@@ -1,15 +1,15 @@
 <?php $page = 'form-wizard'; ?>
-@extends('layout.mainlayout')
-@section('content') 
+@extends('backoffice.layout.mainlayout')
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
         <!-- Start Content -->
         <div class="content">
-            
+
             <div class="d-flex align-items-sm-center flex-sm-row flex-column gap-2 pb-3">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold mb-0">Form Wizard</h4>
@@ -17,9 +17,9 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                        
+
                         <li class="breadcrumb-item active">Form Wizard</li>
                     </ol>
                 </div>
@@ -38,19 +38,22 @@
                                 <div id="basicwizard">
                                     <ul class="nav nav-pills nav-justified form-wizard-header mb-3">
                                         <li class="nav-item">
-                                            <a href="#basictab1" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#basictab1" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-person-circle fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Account</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#basictab2" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#basictab2" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-emoji-smile fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Profile</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#basictab3" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#basictab3" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-check2-circle fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Finish</span>
                                             </a>
@@ -62,22 +65,28 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="userName">User name</label>
+                                                        <label class="col-md-3 col-form-label" for="userName">User
+                                                            name</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="userName" name="userName" value="johne">
+                                                            <input type="text" class="form-control" id="userName"
+                                                                name="userName" value="johne">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="password"> Password</label>
+                                                        <label class="col-md-3 col-form-label" for="password">
+                                                            Password</label>
                                                         <div class="col-md-9">
-                                                            <input type="password" id="password" name="password" class="form-control" value="123456789">
+                                                            <input type="password" id="password" name="password"
+                                                                class="form-control" value="123456789">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="confirm">Re Password</label>
+                                                        <label class="col-md-3 col-form-label" for="confirm">Re
+                                                            Password</label>
                                                         <div class="col-md-9">
-                                                            <input type="password" id="confirm" name="confirm" class="form-control" value="123456789">
+                                                            <input type="password" id="confirm" name="confirm"
+                                                                class="form-control" value="123456789">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end col -->
@@ -88,22 +97,27 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="name"> First name</label>
+                                                        <label class="col-md-3 col-form-label" for="name"> First
+                                                            name</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="name" name="name" class="form-control" value="Francis">
+                                                            <input type="text" id="name" name="name"
+                                                                class="form-control" value="Francis">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="surname"> Last name</label>
+                                                        <label class="col-md-3 col-form-label" for="surname"> Last
+                                                            name</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="surname" name="surname" class="form-control" value="Brinkman">
+                                                            <input type="text" id="surname" name="surname"
+                                                                class="form-control" value="Brinkman">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
                                                         <label class="col-md-3 col-form-label" for="email">Email</label>
                                                         <div class="col-md-9">
-                                                            <input type="email" id="email" name="email" class="form-control" value="cory1979@hotmail.com">
+                                                            <input type="email" id="email" name="email"
+                                                                class="form-control" value="cory1979@hotmail.com">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end col -->
@@ -117,13 +131,17 @@
                                                         <h2 class="mt-0"><i class="bi bi-check2-all"></i></h2>
                                                         <h3 class="mt-0">Thank you !</h3>
 
-                                                        <p class="w-75 mb-2 mx-auto">Quisque nec turpis at urna dictum luctus. Suspendisse convallis dignissim eros at volutpat. In egestas mattis dui. Aliquam
+                                                        <p class="w-75 mb-2 mx-auto">Quisque nec turpis at urna dictum
+                                                            luctus. Suspendisse convallis dignissim eros at volutpat. In
+                                                            egestas mattis dui. Aliquam
                                                             mattis dictum aliquet.</p>
 
                                                         <div class="mb-3">
                                                             <div class="form-check d-inline-block">
-                                                                <input type="checkbox" class="form-check-input fs-15" id="customCheck1">
-                                                                <label class="form-check-label" for="customCheck1">I agree with the Terms and Conditions</label>
+                                                                <input type="checkbox" class="form-check-input fs-15"
+                                                                    id="customCheck1">
+                                                                <label class="form-check-label" for="customCheck1">I agree
+                                                                    with the Terms and Conditions</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -175,19 +193,22 @@
 
                                     <ul class="nav nav-pills nav-justified form-wizard-header mb-3">
                                         <li class="nav-item">
-                                            <a href="#account-2" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#account-2" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-person-circle fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Account</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#profile-tab-2" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#profile-tab-2" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-emoji-smile fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Profile</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#finish-2" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#finish-2" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-check2-circle fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Finish</span>
                                             </a>
@@ -197,29 +218,37 @@
                                     <div class="tab-content b-0 mb-0">
 
                                         <div id="bar" class="progress mb-3" style="height: 7px;">
-                                            <div class="bar progress-bar progress-bar-striped progress-bar-animated bg-success"></div>
+                                            <div
+                                                class="bar progress-bar progress-bar-striped progress-bar-animated bg-success">
+                                            </div>
                                         </div>
 
                                         <div class="tab-pane" id="account-2">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="userName1">User name</label>
+                                                        <label class="col-md-3 col-form-label" for="userName1">User
+                                                            name</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="userName1" name="userName1" value="johne">
+                                                            <input type="text" class="form-control" id="userName1"
+                                                                name="userName1" value="johne">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="password1"> Password</label>
+                                                        <label class="col-md-3 col-form-label" for="password1">
+                                                            Password</label>
                                                         <div class="col-md-9">
-                                                            <input type="password" id="password1" name="password1" class="form-control" value="123456789">
+                                                            <input type="password" id="password1" name="password1"
+                                                                class="form-control" value="123456789">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="confirm1">Re Password</label>
+                                                        <label class="col-md-3 col-form-label" for="confirm1">Re
+                                                            Password</label>
                                                         <div class="col-md-9">
-                                                            <input type="password" id="confirm1" name="confirm1" class="form-control" value="123456789">
+                                                            <input type="password" id="confirm1" name="confirm1"
+                                                                class="form-control" value="123456789">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end col -->
@@ -230,22 +259,28 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="name1"> First name</label>
+                                                        <label class="col-md-3 col-form-label" for="name1"> First
+                                                            name</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="name1" name="name1" class="form-control" value="Francis">
+                                                            <input type="text" id="name1" name="name1"
+                                                                class="form-control" value="Francis">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="surname1"> Last name</label>
+                                                        <label class="col-md-3 col-form-label" for="surname1"> Last
+                                                            name</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="surname1" name="surname1" class="form-control" value="Brinkman">
+                                                            <input type="text" id="surname1" name="surname1"
+                                                                class="form-control" value="Brinkman">
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="email1">Email</label>
+                                                        <label class="col-md-3 col-form-label"
+                                                            for="email1">Email</label>
                                                         <div class="col-md-9">
-                                                            <input type="email" id="email1" name="email1" class="form-control" value="cory1979@hotmail.com">
+                                                            <input type="email" id="email1" name="email1"
+                                                                class="form-control" value="cory1979@hotmail.com">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end col -->
@@ -259,13 +294,17 @@
                                                         <h2 class="mt-0"><i class="bi bi-check2-all"></i></h2>
                                                         <h3 class="mt-0">Thank you !</h3>
 
-                                                        <p class="w-75 mb-2 mx-auto">Quisque nec turpis at urna dictum luctus. Suspendisse convallis dignissim eros at volutpat. In egestas mattis dui. Aliquam
+                                                        <p class="w-75 mb-2 mx-auto">Quisque nec turpis at urna dictum
+                                                            luctus. Suspendisse convallis dignissim eros at volutpat. In
+                                                            egestas mattis dui. Aliquam
                                                             mattis dictum aliquet.</p>
 
                                                         <div class="mb-3">
                                                             <div class="form-check d-inline-block">
-                                                                <input type="checkbox" class="form-check-input fs-15" id="customCheck3">
-                                                                <label class="form-check-label" for="customCheck3">I agree with the Terms and Conditions</label>
+                                                                <input type="checkbox" class="form-check-input fs-15"
+                                                                    id="customCheck3">
+                                                                <label class="form-check-label" for="customCheck3">I agree
+                                                                    with the Terms and Conditions</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -316,19 +355,22 @@
                                 <div id="validation-wizard">
                                     <ul class="nav nav-pills nav-justified form-wizard-header mb-3">
                                         <li class="nav-item" data-target-form="#accountForm">
-                                            <a href="#first" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#first" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-person-circle fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Account</span>
                                             </a>
                                         </li>
                                         <li class="nav-item" data-target-form="#profileForm">
-                                            <a href="#second" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#second" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-emoji-smile fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Profile</span>
                                             </a>
                                         </li>
                                         <li class="nav-item" data-target-form="#otherForm">
-                                            <a href="#third" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                            <a href="#third" data-bs-toggle="tab" data-toggle="tab"
+                                                class="nav-link rounded-0 py-2">
                                                 <i class="bi bi-check2-circle fs-18 align-middle me-1"></i>
                                                 <span class="d-none d-sm-inline">Finish</span>
                                             </a>
@@ -338,26 +380,33 @@
                                     <div class="tab-content">
 
                                         <div class="tab-pane" id="first">
-                                            <form id="accountForm" method="post" action="#" class="form-horizontal">
+                                            <form id="accountForm" method="post" action="#"
+                                                class="form-horizontal">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="row mb-3">
-                                                            <label class="col-md-3 col-form-label" for="userName3">User name</label>
+                                                            <label class="col-md-3 col-form-label" for="userName3">User
+                                                                name</label>
                                                             <div class="col-md-9">
-                                                                <input type="text" class="form-control" id="userName3" name="userName3" required>
+                                                                <input type="text" class="form-control" id="userName3"
+                                                                    name="userName3" required>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
-                                                            <label class="col-md-3 col-form-label" for="password3"> Password</label>
+                                                            <label class="col-md-3 col-form-label" for="password3">
+                                                                Password</label>
                                                             <div class="col-md-9">
-                                                                <input type="password" id="password3" name="password3" class="form-control" required>
+                                                                <input type="password" id="password3" name="password3"
+                                                                    class="form-control" required>
                                                             </div>
                                                         </div>
 
                                                         <div class="row mb-3">
-                                                            <label class="col-md-3 col-form-label" for="confirm3">Re Password</label>
+                                                            <label class="col-md-3 col-form-label" for="confirm3">Re
+                                                                Password</label>
                                                             <div class="col-md-9">
-                                                                <input type="password" id="confirm3" name="confirm3" class="form-control" required>
+                                                                <input type="password" id="confirm3" name="confirm3"
+                                                                    class="form-control" required>
                                                             </div>
                                                         </div>
                                                     </div> <!-- end col -->
@@ -366,26 +415,33 @@
                                         </div>
 
                                         <div class="tab-pane fade" id="second">
-                                            <form id="profileForm" method="post" action="#" class="form-horizontal">
+                                            <form id="profileForm" method="post" action="#"
+                                                class="form-horizontal">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="row mb-3">
-                                                            <label class="col-md-3 col-form-label" for="name3"> First name</label>
+                                                            <label class="col-md-3 col-form-label" for="name3"> First
+                                                                name</label>
                                                             <div class="col-md-9">
-                                                                <input type="text" id="name3" name="name3" class="form-control" required>
+                                                                <input type="text" id="name3" name="name3"
+                                                                    class="form-control" required>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
-                                                            <label class="col-md-3 col-form-label" for="surname3"> Last name</label>
+                                                            <label class="col-md-3 col-form-label" for="surname3"> Last
+                                                                name</label>
                                                             <div class="col-md-9">
-                                                                <input type="text" id="surname3" name="surname3" class="form-control" required>
+                                                                <input type="text" id="surname3" name="surname3"
+                                                                    class="form-control" required>
                                                             </div>
                                                         </div>
 
                                                         <div class="row mb-3">
-                                                            <label class="col-md-3 col-form-label" for="email3">Email</label>
+                                                            <label class="col-md-3 col-form-label"
+                                                                for="email3">Email</label>
                                                             <div class="col-md-9">
-                                                                <input type="email" id="email3" name="email3" class="form-control" required>
+                                                                <input type="email" id="email3" name="email3"
+                                                                    class="form-control" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -405,13 +461,17 @@
                                                             </h2>
                                                             <h3 class="mt-0">Thank you !</h3>
 
-                                                            <p class="w-75 mb-2 mx-auto">Quisque nec turpis at urna dictum luctus. Suspendisse convallis dignissim eros at volutpat. In egestas mattis
+                                                            <p class="w-75 mb-2 mx-auto">Quisque nec turpis at urna dictum
+                                                                luctus. Suspendisse convallis dignissim eros at volutpat. In
+                                                                egestas mattis
                                                                 dui. Aliquam mattis dictum aliquet.</p>
 
                                                             <div class="mb-3">
                                                                 <div class="form-check d-inline-block">
-                                                                    <input type="checkbox" class="form-check-input fs-15" id="customCheck4" required>
-                                                                    <label class="form-check-label" for="customCheck4">I agree with the Terms and Conditions</label>
+                                                                    <input type="checkbox" class="form-check-input fs-15"
+                                                                        id="customCheck4" required>
+                                                                    <label class="form-check-label" for="customCheck4">I
+                                                                        agree with the Terms and Conditions</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -459,12 +519,12 @@
         </div>
         <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

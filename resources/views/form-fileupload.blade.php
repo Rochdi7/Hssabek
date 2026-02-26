@@ -1,9 +1,9 @@
 <?php $page = 'form-fileupload'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,9 +19,9 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                        
+
                         <li class="breadcrumb-item active">File Uploads</li>
                     </ol>
                 </div>
@@ -37,7 +37,8 @@
                     <p class="text-muted">
                         DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews.
                     </p>
-                    <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
+                    <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone"
+                        data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
                         <div class="fallback">
                             <input name="file" type="file" multiple />
                         </div>
@@ -83,12 +84,12 @@
         </div>
         <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

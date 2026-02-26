@@ -1,9 +1,9 @@
 <?php $page = 'ui-ratio'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -39,9 +39,10 @@
                         <div class="card-body">
                             <p class="text-muted">Use class <code>.ratio-21x9</code>
                                 <!-- 21:9 aspect ratio -->
-                                <div class="ratio ratio-21x9">
-                                    <iframe src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
-                                </div>
+                            <div class="ratio ratio-21x9">
+                                <iframe
+                                    src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
+                            </div>
                         </div>
                         <!-- end card body -->
                     </div>
@@ -56,7 +57,8 @@
                             <p class="text-muted">Use class <code>.ratio-1x1</code></p>
                             <!-- 1:1 aspect ratio -->
                             <div class="ratio ratio-1x1">
-                                <iframe src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
+                                <iframe
+                                    src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
                             </div>
                         </div>
                         <!-- end card body -->
@@ -74,9 +76,10 @@
                         <div class="card-body">
                             <p class="text-muted">Use class <code>.ratio-16x9</code>
                                 <!-- 16:9 aspect ratio -->
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
-                                </div>
+                            <div class="ratio ratio-16x9">
+                                <iframe
+                                    src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
+                            </div>
                         </div>
                         <!-- end card body -->
                     </div>
@@ -90,9 +93,10 @@
                         <div class="card-body">
                             <p class="text-muted">Use class <code>.ratio-4x3</code>
                                 <!-- 4:3 aspect ratio -->
-                                <div class="ratio ratio-4x3">
-                                    <iframe src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
-                                </div>
+                            <div class="ratio ratio-4x3">
+                                <iframe
+                                    src="https://www.youtube.com/embed/6bzTrChjEdc?autohide=0&showinfo=0&controls=0"></iframe>
+                            </div>
                         </div>
                         <!-- end card body -->
                     </div>
@@ -107,7 +111,11 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-title mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-title mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved
+            </p>
             <p class="text-title">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -115,6 +123,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

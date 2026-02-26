@@ -1,9 +1,9 @@
 <?php $page = 'icon-tabler'; ?>
-@extends('layout.mainlayout')
-@section('content') 
+@extends('backoffice.layout.mainlayout')
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper cardhead">
 
@@ -28,7 +28,9 @@
                             <div class="card-title">Tabler Icons</div>
                         </div> <!-- end card-header -->
                         <div class="card-body">
-                            <p class="mb-2"><code>&lt;i class="ti ti-ICON_NAME"&gt;&lt;/i&gt;</code>. For more information <a href="https://tabler-icons.io/" target="_blank" class="text-primary">click here</a>.</p>
+                            <p class="mb-2"><code>&lt;i class="ti ti-ICON_NAME"&gt;&lt;/i&gt;</code>. For more information
+                                <a href="https://tabler-icons.io/" target="_blank" class="text-primary">click here</a>.
+                            </p>
                             <div class="icons-items">
                                 <div class="icons-list">
                                     <div class="icons-list-item">
@@ -36,11 +38,13 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-layout-dashboard" data-bs-toggle="tooltip" title="ti ti-layout-dashboard"></i>
+                                        <i class="ti ti-layout-dashboard" data-bs-toggle="tooltip"
+                                            title="ti ti-layout-dashboard"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-map-pin-check" data-bs-toggle="tooltip" title="ti ti-map-pin-check"></i>
+                                        <i class="ti ti-map-pin-check" data-bs-toggle="tooltip"
+                                            title="ti ti-map-pin-check"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -56,7 +60,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-file-description" data-bs-toggle="tooltip" title="ti ti-file-description"></i>
+                                        <i class="ti ti-file-description" data-bs-toggle="tooltip"
+                                            title="ti ti-file-description"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -72,7 +77,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-settings-cog" data-bs-toggle="tooltip" title="ti ti-settings-cog"></i>
+                                        <i class="ti ti-settings-cog" data-bs-toggle="tooltip"
+                                            title="ti ti-settings-cog"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -80,11 +86,13 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-shopping-bag" data-bs-toggle="tooltip" title="ti ti-shopping-bag"></i>
+                                        <i class="ti ti-shopping-bag" data-bs-toggle="tooltip"
+                                            title="ti ti-shopping-bag"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-brand-hipchat" data-bs-toggle="tooltip" title="ti ti-brand-hipchat"></i>
+                                        <i class="ti ti-brand-hipchat" data-bs-toggle="tooltip"
+                                            title="ti ti-brand-hipchat"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -112,19 +120,23 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-chevron-down" data-bs-toggle="tooltip" title="ti ti-chevron-down"></i>
+                                        <i class="ti ti-chevron-down" data-bs-toggle="tooltip"
+                                            title="ti ti-chevron-down"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-chevrons-right" data-bs-toggle="tooltip" title="ti ti-chevrons-right"></i>
+                                        <i class="ti ti-chevrons-right" data-bs-toggle="tooltip"
+                                            title="ti ti-chevrons-right"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-circle-arrow-right-filled" data-bs-toggle="tooltip" title="ti ti-circle-arrow-right-filled"></i>
+                                        <i class="ti ti-circle-arrow-right-filled" data-bs-toggle="tooltip"
+                                            title="ti ti-circle-arrow-right-filled"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-cloud-download" data-bs-toggle="tooltip" title="ti ti-cloud-download"></i>
+                                        <i class="ti ti-cloud-download" data-bs-toggle="tooltip"
+                                            title="ti ti-cloud-download"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -132,7 +144,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-device-analytics" data-bs-toggle="tooltip" title="ti ti-device-analytics"></i>
+                                        <i class="ti ti-device-analytics" data-bs-toggle="tooltip"
+                                            title="ti ti-device-analytics"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -140,7 +153,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-dots-vertical" data-bs-toggle="tooltip" title="ti ti-dots-vertical"></i>
+                                        <i class="ti ti-dots-vertical" data-bs-toggle="tooltip"
+                                            title="ti ti-dots-vertical"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -152,7 +166,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-folder-open" data-bs-toggle="tooltip" title="ti ti-folder-open"></i>
+                                        <i class="ti ti-folder-open" data-bs-toggle="tooltip"
+                                            title="ti ti-folder-open"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -160,7 +175,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-calculator" data-bs-toggle="tooltip" title="ti ti-calculator"></i>
+                                        <i class="ti ti-calculator" data-bs-toggle="tooltip"
+                                            title="ti ti-calculator"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -168,7 +184,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="ti ti-phone-call" data-bs-toggle="tooltip" title="ti ti-phone-call"></i>
+                                        <i class="ti ti-phone-call" data-bs-toggle="tooltip"
+                                            title="ti ti-phone-call"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -185,11 +202,11 @@
         </div>
         <!-- end container -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

@@ -1,5 +1,5 @@
 <?php $page = 'internet-billing-invoice'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- Start content -->
     <div class="content p-4">
@@ -11,19 +11,21 @@
                         <h6 class="text-primary mb-2">TAX INVOICE</h6>
                         <div>
                             <h6 class="mb-1">Dreamguys Internet Pvt Ltd.,</h6>
-                            <div> 
-                                <p class="mb-1">Address : <span>15 Hodges Mews, High Wycombe HP12 3JL, United Kingdom.</span></p>
+                            <div>
+                                <p class="mb-1">Address : <span>15 Hodges Mews, High Wycombe HP12 3JL, United
+                                        Kingdom.</span></p>
                             </div>
                         </div>
                     </div>
                     <div class="">
-                        <div class="mb-1 text-end"><img src="{{URL::asset('build/img/invoice-logo.svg')}}" alt=""></div>
+                        <div class="mb-1 text-end"><img src="{{ URL::asset('build/img/invoice-logo.svg') }}" alt="">
+                        </div>
                         <p class="mb-1 text-end">Date: <span class="text-dark">05/12/2024</span></p>
                         <div class="inv-details">
                             <div class="inv-date-rest">
-                                <p class="text-start text-white">Invoice No: <span>INV 000500</span></p>                                
+                                <p class="text-start text-white">Invoice No: <span>INV 000500</span></p>
                             </div>
-                            <div class="triangle-right"></div>                            
+                            <div class="triangle-right"></div>
                         </div>
                     </div>
                 </div>
@@ -31,38 +33,39 @@
                     <div>
                         <p class="mb-1">Customer Info :</p>
                         <h6 class="mb-1 fs-16">John Williams</h6>
-                    </div>                
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-6 md-12 d-flex align-items-center justify-content-between">
                         <p class="mb-1">Client ID :</p>
                         <span class="mb-1 fs-13 fw-noraml text-dark">AS2534568</span>
-                    </div>                
+                    </div>
                     <div class="col-6 md-12 d-flex align-items-center justify-content-between">
                         <p class="mb-1">Outstanding Balance :</p>
                         <span class="mb-1 fs-13 fw-noraml text-dark">$3600</span>
-                    </div>                
+                    </div>
                     <div class="col-6 md-12 d-flex align-items-center justify-content-between">
                         <p class="mb-1">Invoice Date : </p>
                         <span class="mb-1 fs-13 fw-noraml text-dark">Johan Smith</span>
-                    </div>                
+                    </div>
                     <div class="col-6 md-12 d-flex align-items-center justify-content-between">
                         <p class="mb-1">Due Date :</p>
                         <span class="mb-1 fs-13 fw-noraml text-dark">Winter</span>
-                    </div>                
+                    </div>
                     <div class="col-6 md-12 d-flex align-items-center justify-content-between">
                         <p class="mb-1">Total Curent Charges :</p>
                         <span class="mb-1 fs-13 fw-noraml text-dark">SI2534687</span>
-                    </div>                
+                    </div>
                     <div class="col-6 md-12 d-flex align-items-center justify-content-between">
                         <p class="mb-1">Total Balance Due :</p>
                         <span class="mb-1 fs-13 fw-noraml text-dark">2024 Spring</span>
-                    </div>                
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <table class="table">
-                            <thead class="thead-light border-top border-start-0 border-end-0 border-bottom border-3 border-dark p-2">
+                            <thead
+                                class="thead-light border-top border-start-0 border-end-0 border-bottom border-3 border-dark p-2">
                                 <tr>
                                     <th>#</th>
                                     <th>Item</th>
@@ -127,7 +130,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-8">
-                        
+
                     </div>
                     <div class="col-md-4">
                         <div class="d-flex align-items-center justify-content-between ">
@@ -141,7 +144,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row border-top border-bottom border-3 border-dark p-3 align-items-center">
                     <div class="col-md-8">
@@ -156,12 +159,13 @@
                                 <span class="fw-bold fs-18 text-dark">$1,815.00</span>
                             </div>
                         </div>
-                    </div>                
+                    </div>
                 </div>
                 <div class="row py-3 border-bottom  border-bottom border-3 border-dark mb-3 d-flex align-items-center">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-center">
-                            <p class="text-gary">Total amount ( in words):<span class="text-dark"> One Thousand Eight Hundred Fifteen Dollars Only.</span></p>
+                            <p class="text-gary">Total amount ( in words):<span class="text-dark"> One Thousand Eight
+                                    Hundred Fifteen Dollars Only.</span></p>
                         </div>
                     </div>
                 </div>
@@ -169,10 +173,10 @@
                     <div class="mb-3">
                         <h6 class="mb-2">Payment Info:</h6>
                         <div>
-                            <p class="mb-1">Debit Card :  <span class="text-dark">465 *************645</span></p>
-                            <p class="mb-1">Amount :  <span class="text-dark">$1,815</span></p>
+                            <p class="mb-1">Debit Card : <span class="text-dark">465 *************645</span></p>
+                            <p class="mb-1">Amount : <span class="text-dark">$1,815</span></p>
                         </div>
-                    </div>                      
+                    </div>
                 </div>
                 <div class="row border border-start-0 border-end-0 border-dark text-center text-white bg-light p-2">
                     <div class="col-md-12">

@@ -1,9 +1,9 @@
 <?php $page = 'ui-video'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,14 +17,14 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">Utilities</li>
                     </ol>
                 </div>
             </div>
-            
+
             <!-- start row -->
             <div class="row">
                 <div class="col-xl-6">
@@ -96,19 +96,28 @@
                         <div class="card-body">
                             <p class="text-muted">Similar to the contextual text color classes, set the background
                                 of an element to any contextual class. Background utilities do not set
-                                <code>color</code>, so in some cases you’ll want to use <code>.text-*</code> <a href="https://getbootstrap.com/docs/5.3/utilities/colors/">color utilities</a>.
+                                <code>color</code>, so in some cases you’ll want to use <code>.text-*</code> <a
+                                    href="https://getbootstrap.com/docs/5.3/utilities/colors/">color utilities</a>.
                             </p>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-flex flex-column gap-2">
-                                        <div class="bg-primary-subtle p-2"><code class="text-primary-emphasis">.bg-primary-subtle</code></div>
-                                        <div class="bg-secondary-subtle p-2"><code class="text-secondary-emphasis">.bg-secondary-subtle </code></div>
-                                        <div class="bg-success-subtle p-2"><code class="text-success-emphasis">.bg-success-subtle</code></div>
-                                        <div class="bg-danger-subtle p-2"><code class="text-danger-emphasis">.bg-danger-subtle</code></div>
-                                        <div class="bg-warning-subtle p-2"><code class="text-warning-emphasis">.bg-warning-subtle</code></div>
-                                        <div class="bg-info-subtle p-2"><code class="text-info-emphasis">.bg-info-subtle</code></div>
-                                        <div class="bg-light-subtle p-2"><code class="text-light-emphasis">.bg-light-subtle</code></div>
-                                        <div class="bg-dark-subtle p-2"><code class="text-dark-emphasis">.bg-dark-subtle</code></div>
+                                        <div class="bg-primary-subtle p-2"><code
+                                                class="text-primary-emphasis">.bg-primary-subtle</code></div>
+                                        <div class="bg-secondary-subtle p-2"><code
+                                                class="text-secondary-emphasis">.bg-secondary-subtle </code></div>
+                                        <div class="bg-success-subtle p-2"><code
+                                                class="text-success-emphasis">.bg-success-subtle</code></div>
+                                        <div class="bg-danger-subtle p-2"><code
+                                                class="text-danger-emphasis">.bg-danger-subtle</code></div>
+                                        <div class="bg-warning-subtle p-2"><code
+                                                class="text-warning-emphasis">.bg-warning-subtle</code></div>
+                                        <div class="bg-info-subtle p-2"><code
+                                                class="text-info-emphasis">.bg-info-subtle</code></div>
+                                        <div class="bg-light-subtle p-2"><code
+                                                class="text-light-emphasis">.bg-light-subtle</code></div>
+                                        <div class="bg-dark-subtle p-2"><code
+                                                class="text-dark-emphasis">.bg-dark-subtle</code></div>
                                     </div>
                                 </div>
                             </div>
@@ -128,9 +137,10 @@
                         <div class="card-body">
                             <p class="text-muted">Similar to the contextual text color classes, set the background
                                 of an element to any contextual class. Background utilities do not set
-                                <code>color</code>, so in some cases you’ll want to use <code>.text-*</code> <a href="https://getbootstrap.com/docs/5.3/utilities/colors/">color utilities</a>.
+                                <code>color</code>, so in some cases you’ll want to use <code>.text-*</code> <a
+                                    href="https://getbootstrap.com/docs/5.3/utilities/colors/">color utilities</a>.
                             </p>
-                                    
+
                             <div class="row row-cols-12 d-flex align-items-center">
                                 <div class="p-3 col">
                                     <div class="m-2 bg-primary-gradient mx-auto color-container"></div>
@@ -191,7 +201,8 @@
                             </p>
                             <div class="d-flex flex-column gap-2">
                                 <div class="text-bg-primary p-2">Primary with contrasting color (.text-bg-primary)</div>
-                                <div class="text-bg-secondary p-2">Secondary with contrasting color (.text-bg-secondary)</div>
+                                <div class="text-bg-secondary p-2">Secondary with contrasting color (.text-bg-secondary)
+                                </div>
                                 <div class="text-bg-success p-2">Success with contrasting color (.text-bg-success)</div>
                                 <div class="text-bg-danger p-2">Danger with contrasting color (.text-bg-danger)</div>
                                 <div class="text-bg-warning p-2">Warning with contrasting color (.text-bg-warning)</div>
@@ -245,10 +256,14 @@
                                 allows for real-time color changes without compilation and dynamic alpha
                                 transparency changes.</p>
                             <div class="bg-primary p-2 text-white">This is default primary background</div>
-                            <div class="bg-primary p-2 text-white bg-opacity-75">This is 75% opacity primary background</div>
-                            <div class="bg-primary p-2 text-dark bg-opacity-50">This is 50% opacity primary background</div>
-                            <div class="bg-primary p-2 text-dark bg-opacity-25">This is 25% opacity primary background</div>
-                            <div class="bg-primary p-2 text-dark bg-opacity-10">This is 10% opacity success background</div>
+                            <div class="bg-primary p-2 text-white bg-opacity-75">This is 75% opacity primary background
+                            </div>
+                            <div class="bg-primary p-2 text-dark bg-opacity-50">This is 50% opacity primary background
+                            </div>
+                            <div class="bg-primary p-2 text-dark bg-opacity-25">This is 25% opacity primary background
+                            </div>
+                            <div class="bg-primary p-2 text-dark bg-opacity-10">This is 10% opacity success background
+                            </div>
 
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -264,7 +279,9 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Colorize text with color utilities. If you want to colorize links, you can use the <code>.link-*</code> helper classes which have <code>:hover</code> and <code>:focus</code> states.</p>
+                            <p class="text-muted">Colorize text with color utilities. If you want to colorize links, you
+                                can use the <code>.link-*</code> helper classes which have <code>:hover</code> and
+                                <code>:focus</code> states.</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <p class="text-primary">.text-primary</p>
@@ -491,10 +508,14 @@
                             <p class="text-muted">choose from any of the <code>.border-opacity</code> utilities:</p>
 
                             <div class="border border-success p-2 mb-2">This is default success border</div>
-                            <div class="border border-success p-2 mb-2 border-opacity-75">This is 75% opacity success border</div>
-                            <div class="border border-success p-2 mb-2 border-opacity-50">This is 50% opacity success border</div>
-                            <div class="border border-success p-2 mb-2 border-opacity-25">This is 25% opacity success border</div>
-                            <div class="border border-success p-2 border-opacity-10">This is 10% opacity success border</div>
+                            <div class="border border-success p-2 mb-2 border-opacity-75">This is 75% opacity success
+                                border</div>
+                            <div class="border border-success p-2 mb-2 border-opacity-50">This is 50% opacity success
+                                border</div>
+                            <div class="border border-success p-2 mb-2 border-opacity-25">This is 25% opacity success
+                                border</div>
+                            <div class="border border-success p-2 border-opacity-10">This is 10% opacity success border
+                            </div>
 
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -562,13 +583,20 @@
                             <p class="text-muted">Add classes to an element to easily round its corners.</p>
 
                             <div class="d-flex align-items-start flex-wrap gap-2">
-                                <img src="{{URL::asset('build/img/users/avatar-2.jpg')}}" class="avatar-lg rounded" alt="rounded">
-                                <img src="{{URL::asset('build/img/users/avatar-2.jpg')}}" class="avatar-lg rounded-top" alt="rounded-top">
-                                <img src="{{URL::asset('build/img/users/avatar-2.jpg')}}" class="avatar-lg rounded-end" alt="rounded-end">
-                                <img src="{{URL::asset('build/img/users/avatar-2.jpg')}}" class="avatar-lg rounded-bottom" alt="rounded-bottom">
-                                <img src="{{URL::asset('build/img/users/avatar-2.jpg')}}" class="avatar-lg rounded-start" alt="rounded-start">
-                                <img src="{{URL::asset('build/img/users/avatar-2.jpg')}}" class="avatar-lg rounded-circle" alt="rounded-circle">
-                                <img src="{{URL::asset('build/img/users/small-2.jpg')}}" class="avatar-lg w-auto rounded-pill" alt="rounded-pill">
+                                <img src="{{ URL::asset('build/img/users/avatar-2.jpg') }}" class="avatar-lg rounded"
+                                    alt="rounded">
+                                <img src="{{ URL::asset('build/img/users/avatar-2.jpg') }}" class="avatar-lg rounded-top"
+                                    alt="rounded-top">
+                                <img src="{{ URL::asset('build/img/users/avatar-2.jpg') }}" class="avatar-lg rounded-end"
+                                    alt="rounded-end">
+                                <img src="{{ URL::asset('build/img/users/avatar-2.jpg') }}"
+                                    class="avatar-lg rounded-bottom" alt="rounded-bottom">
+                                <img src="{{ URL::asset('build/img/users/avatar-2.jpg') }}"
+                                    class="avatar-lg rounded-start" alt="rounded-start">
+                                <img src="{{ URL::asset('build/img/users/avatar-2.jpg') }}"
+                                    class="avatar-lg rounded-circle" alt="rounded-circle">
+                                <img src="{{ URL::asset('build/img/users/small-2.jpg') }}"
+                                    class="avatar-lg w-auto rounded-pill" alt="rounded-pill">
                             </div>
 
                         </div> <!-- end card body -->
@@ -586,12 +614,18 @@
                                 Sizes range from <code>0</code> to <code>5</code>.</p>
 
                             <div class="d-flex align-items-start flex-wrap gap-2">
-                                <img src="{{URL::asset('build/img/users/avatar-4.jpg')}}" class="avatar-lg rounded-0" alt="rounded-0">
-                                <img src="{{URL::asset('build/img/users/avatar-4.jpg')}}" class="avatar-lg rounded-1" alt="rounded-1">
-                                <img src="{{URL::asset('build/img/users/avatar-4.jpg')}}" class="avatar-lg rounded-2" alt="rounded-2">
-                                <img src="{{URL::asset('build/img/users/avatar-4.jpg')}}" class="avatar-lg rounded-3" alt="rounded-3">
-                                <img src="{{URL::asset('build/img/users/avatar-4.jpg')}}" class="avatar-lg rounded-4" alt="rounded-4">
-                                <img src="{{URL::asset('build/img/users/avatar-4.jpg')}}" class="avatar-lg rounded-5" alt="rounded-5">
+                                <img src="{{ URL::asset('build/img/users/avatar-4.jpg') }}" class="avatar-lg rounded-0"
+                                    alt="rounded-0">
+                                <img src="{{ URL::asset('build/img/users/avatar-4.jpg') }}" class="avatar-lg rounded-1"
+                                    alt="rounded-1">
+                                <img src="{{ URL::asset('build/img/users/avatar-4.jpg') }}" class="avatar-lg rounded-2"
+                                    alt="rounded-2">
+                                <img src="{{ URL::asset('build/img/users/avatar-4.jpg') }}" class="avatar-lg rounded-3"
+                                    alt="rounded-3">
+                                <img src="{{ URL::asset('build/img/users/avatar-4.jpg') }}" class="avatar-lg rounded-4"
+                                    alt="rounded-4">
+                                <img src="{{ URL::asset('build/img/users/avatar-4.jpg') }}" class="avatar-lg rounded-5"
+                                    alt="rounded-5">
                             </div>
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -699,7 +733,8 @@
                             <p class="text-muted">Arrange elements easily with the edge positioning utilities. The
                                 format is <code>{property}-{position}</code>.</p>
                             <!-- Arrange elements -->
-                            <div class="position-relative p-5 bg-light bg-opacity-50 m-3 border rounded" style="height: 180px;">
+                            <div class="position-relative p-5 bg-light bg-opacity-50 m-3 border rounded"
+                                style="height: 180px;">
                                 <div class="position-absolute top-0 start-0 avatar-xs bg-dark rounded"></div>
                                 <div class="position-absolute top-0 end-0 avatar-xs bg-dark rounded"></div>
                                 <div class="position-absolute top-50 start-50 avatar-xs bg-dark rounded"></div>
@@ -722,18 +757,29 @@
                             <p class="text-muted">In addition, you can also center the elements with the transform
                                 utility class <code>.translate-middle</code>.</p>
                             <!-- Center elements -->
-                            <div class="position-relative m-3 bg-light bg-opacity-50 border rounded" style="height: 180px;">
-                                <div class="position-absolute top-0 start-0 translate-middle avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-0 start-50 translate-middle avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-0 start-100 translate-middle avatar-xs bg-dark rounded"></div>
+                            <div class="position-relative m-3 bg-light bg-opacity-50 border rounded"
+                                style="height: 180px;">
+                                <div class="position-absolute top-0 start-0 translate-middle avatar-xs bg-dark rounded">
+                                </div>
+                                <div class="position-absolute top-0 start-50 translate-middle avatar-xs bg-dark rounded">
+                                </div>
+                                <div class="position-absolute top-0 start-100 translate-middle avatar-xs bg-dark rounded">
+                                </div>
 
-                                <div class="position-absolute top-50 start-0 translate-middle avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-50 start-50 translate-middle avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-50 start-100 translate-middle avatar-xs bg-dark rounded"></div>
+                                <div class="position-absolute top-50 start-0 translate-middle avatar-xs bg-dark rounded">
+                                </div>
+                                <div class="position-absolute top-50 start-50 translate-middle avatar-xs bg-dark rounded">
+                                </div>
+                                <div class="position-absolute top-50 start-100 translate-middle avatar-xs bg-dark rounded">
+                                </div>
 
-                                <div class="position-absolute top-100 start-0 translate-middle avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-100 start-50 translate-middle avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-100 start-100 translate-middle avatar-xs bg-dark rounded"></div>
+                                <div class="position-absolute top-100 start-0 translate-middle avatar-xs bg-dark rounded">
+                                </div>
+                                <div class="position-absolute top-100 start-50 translate-middle avatar-xs bg-dark rounded">
+                                </div>
+                                <div
+                                    class="position-absolute top-100 start-100 translate-middle avatar-xs bg-dark rounded">
+                                </div>
                             </div>
 
                         </div> <!-- end card body -->
@@ -758,15 +804,21 @@
                             <!-- Center elements -->
                             <div class="position-relative m-3 bg-light border rounded" style="height: 180px;">
                                 <div class="position-absolute top-0 start-0 avatar-xs bg-dark rounded "></div>
-                                <div class="position-absolute top-0 start-50 translate-middle-x avatar-xs bg-dark rounded"></div>
+                                <div class="position-absolute top-0 start-50 translate-middle-x avatar-xs bg-dark rounded">
+                                </div>
                                 <div class="position-absolute top-0 end-0 avatar-xs bg-dark rounded"></div>
 
-                                <div class="position-absolute top-50 start-0 translate-middle-y avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-50 start-50 translate-middle avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute top-50 end-0 translate-middle-y avatar-xs bg-dark rounded"></div>
+                                <div class="position-absolute top-50 start-0 translate-middle-y avatar-xs bg-dark rounded">
+                                </div>
+                                <div class="position-absolute top-50 start-50 translate-middle avatar-xs bg-dark rounded">
+                                </div>
+                                <div class="position-absolute top-50 end-0 translate-middle-y avatar-xs bg-dark rounded">
+                                </div>
 
                                 <div class="position-absolute bottom-0 start-0 avatar-xs bg-dark rounded"></div>
-                                <div class="position-absolute bottom-0 start-50 translate-middle-x avatar-xs bg-dark rounded"></div>
+                                <div
+                                    class="position-absolute bottom-0 start-50 translate-middle-x avatar-xs bg-dark rounded">
+                                </div>
                                 <div class="position-absolute bottom-0 end-0 avatar-xs bg-dark rounded"></div>
                             </div>
 
@@ -869,30 +921,36 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Change the value of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit"><code>object-fit</code>
+                            <p class="text-muted">Change the value of the <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit"><code>object-fit</code>
                                     property</a> with our responsive <code>object-fit</code> utility classes. This
                                 property tells the content to fill the parent container in a variety of ways, such
                                 as preserving the aspect ratio or stretching to take up as much space as possible.
                             </p>
                             <div class="d-flex align-items-start flex-wrap gap-3 text-center">
                                 <div>
-                                    <img src="{{URL::asset('build/img/media/img-2.jpg')}}" class="object-fit-contain border rounded avatar-xl" alt="...">
+                                    <img src="{{ URL::asset('build/img/media/img-2.jpg') }}"
+                                        class="object-fit-contain border rounded avatar-xl" alt="...">
                                     <p class="mt-1 mb-0"><code class="user-select-all">.object-fit-contain</code></p>
                                 </div>
                                 <div>
-                                    <img src="{{URL::asset('build/img/media/img-2.jpg')}}" class="object-fit-cover border rounded avatar-xl" alt="...">
+                                    <img src="{{ URL::asset('build/img/media/img-2.jpg') }}"
+                                        class="object-fit-cover border rounded avatar-xl" alt="...">
                                     <p class="mt-1 mb-0"><code class="user-select-all">.object-fit-cover</code></p>
                                 </div>
                                 <div>
-                                    <img src="{{URL::asset('build/img/media/img-2.jpg')}}" class="object-fit-fill border rounded avatar-xl" alt="...">
+                                    <img src="{{ URL::asset('build/img/media/img-2.jpg') }}"
+                                        class="object-fit-fill border rounded avatar-xl" alt="...">
                                     <p class="mt-1 mb-0"><code class="user-select-all">.object-fit-fill</code></p>
                                 </div>
                                 <div>
-                                    <img src="{{URL::asset('build/img/media/img-2.jpg')}}" class="object-fit-scale border rounded avatar-xl" alt="...">
+                                    <img src="{{ URL::asset('build/img/media/img-2.jpg') }}"
+                                        class="object-fit-scale border rounded avatar-xl" alt="...">
                                     <p class="mt-1 mb-0"><code class="user-select-all">.object-fit-scale</code></p>
                                 </div>
                                 <div>
-                                    <img src="{{URL::asset('build/img/media/img-2.jpg')}}" class="object-fit-none border rounded avatar-xl" alt="...">
+                                    <img src="{{ URL::asset('build/img/media/img-2.jpg') }}"
+                                        class="object-fit-none border rounded avatar-xl" alt="...">
                                     <p class="mt-1 mb-0"><code class="user-select-all">.object-fit-none</code></p>
                                 </div>
                             </div>
@@ -912,7 +970,8 @@
                         <div class="card-body">
                             <p class="text-muted">Use <code>z-index</code> utilities to stack elements on top of one
                                 another. Requires a <code>position</code> value other than <code>static</code>,
-                                which can be set with custom styles or using our <a href="/docs/5.3/utilities/position/">position utilities</a>.</p>
+                                which can be set with custom styles or using our <a
+                                    href="/docs/5.3/utilities/position/">position utilities</a>.</p>
 
                             <div class="bd-example-zindex-levels position-relative">
 
@@ -934,7 +993,12 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-title mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-title mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved
+            </p>
             <p class="text-title">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -942,6 +1006,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

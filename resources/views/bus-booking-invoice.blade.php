@@ -1,5 +1,5 @@
 <?php $page = 'bus-booking-invoice'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- Start invoice -->
     <div class="invoice-wrapper">
@@ -7,12 +7,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="mb-3">
-                    <h6><a href="{{url('invoice-templates')}}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
+                    <h6><a href="{{ url('invoice-templates') }}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
                 </div>
                 <div class="pb-4 mb-4 border-bottom">
                     <div class="d-flex align-items-center justify-content-between bg-light flex-wrap p-3 rounded">
                         <div>
-                            <img src="{{URL::asset('build/img/invoice-logo.svg')}}" alt="">
+                            <img src="{{ URL::asset('build/img/invoice-logo.svg') }}" alt="">
                         </div>
                         <div class="text-end">
                             <h6 class="mb-2">Dreams Bus</h6>
@@ -135,27 +135,33 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="border-bottom-transparent"></td>
-                                    <td colspan="2" class="text-dark text-end fw-medium border-bottom-transparent">IGST 18.0%</td>
+                                    <td colspan="2" class="text-dark text-end fw-medium border-bottom-transparent">IGST
+                                        18.0%</td>
                                     <td class="text-dark text-end fw-medium border-bottom-transparent">$165.00</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="text-dark border-0 bg-light">Total Items / Qty : 4 / 4.00</td>
                                     <td colspan="2" class="text-dark bg-light border-0 text-end fw-medium">
-                                        <h6>Total</h6></td>
+                                        <h6>Total</h6>
+                                    </td>
                                     <td class="text-dark bg-light text-end border-0 fw-medium">
-                                        <h6>$1,815.00</h6></td>
+                                        <h6>$1,815.00</h6>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="border-bottom-transparent">
                                         <div class="d-flex flex-column">
                                             <span>Total amount ( in words):</span>
-                                            <span class="text-dark mb-1">One Thousand, Eight Hundred and Fifteen Dollars Only</span>
+                                            <span class="text-dark mb-1">One Thousand, Eight Hundred and Fifteen Dollars
+                                                Only</span>
                                         </div>
                                     </td>
                                     <td colspan="2" class="text-dark text-end border-bottom-transparent fw-medium">
-                                        <h6>Amount Payable</h6></td>
+                                        <h6>Amount Payable</h6>
+                                    </td>
                                     <td class="text-dark border-bottom-transparent text-end fw-medium">
-                                        <h6>$1,815.00</h6></td>
+                                        <h6>$1,815.00</h6>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -171,13 +177,14 @@
                     </div>
                     <div class="text-center mb-3">
                         <p class="mb-1">For Dreamguys</p>
-                        <span><img src="{{URL::asset('build/img/icons/sign-01.png')}}" alt=""></span>
+                        <span><img src="{{ URL::asset('build/img/icons/sign-01.png') }}" alt=""></span>
                     </div>
                 </div>
                 <div class="border-bottom mb-3 p-3">
                     <h6 class="mb-2">Terms &amp; Conditions : </h6>
                     <p class="mb-1">1. Goods Once sold cannot be taken back or exchanged.</p>
-                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.</p>
+                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.
+                    </p>
                 </div>
                 <div class="border-bottom text-center pb-3">
                     <p>Thanks for your Business</p>

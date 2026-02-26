@@ -1,9 +1,9 @@
 <?php $page = 'ui-colors'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -219,9 +219,9 @@
                                 </div><!-- end col -->
                             </div>
                             <!-- end row -->
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div><!-- end col -->
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
                 <!-- /Background gradients -->
 
                 <!-- Outline Colors -->
@@ -236,39 +236,47 @@
                             <!-- start row -->
                             <div class="row row-cols-12 d-flex align-items-center">
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-primary mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-primary mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-primary</code>
                                     </p>
                                 </div><!-- end col -->
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-secondary mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-secondary mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-secondary</code>
                                     </p>
                                 </div><!-- end col -->
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-warning mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-warning mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-warning</code>
                                     </p>
                                 </div><!-- end col -->
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-info mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-info mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-info</code></p>
                                 </div><!-- end col -->
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-success mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-success mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-success</code>
                                     </p>
                                 </div><!-- end col -->
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-danger mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-danger mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-danger</code></p>
                                 </div><!-- end col -->
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-light mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-light mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-light</code></p>
                                 </div><!-- end col -->
                                 <div class="p-3 col">
-                                    <div class="m-2 bg-outline-dark mx-auto color-container"><i data-feather="smile" class="fs-18"></i></div>
+                                    <div class="m-2 bg-outline-dark mx-auto color-container"><i data-feather="smile"
+                                            class="fs-18"></i></div>
                                     <p class="pb-0 mb-0 fw-semibold text-center"><code>.bg-outline-dark</code></p>
                                 </div><!-- end col -->
                             </div>
@@ -490,7 +498,8 @@
                     <div class="card-body py-0">
                         <div class="callout">Lorem ipsum dolor sit amet consectetur adipisicing elit. </div>
                         <div class="callout callout-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. </div>
-                        <div class="callout callout-warning">Lorem ipsum dolor sit amet consectetur adipisicing elit. </div>
+                        <div class="callout callout-warning">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </div>
                         <div class="callout callout-danger">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
                     </div><!-- end card body -->
                 </div><!-- end card -->
@@ -502,14 +511,19 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
-        <!-- End Footer -->		
+        <!-- End Footer -->
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

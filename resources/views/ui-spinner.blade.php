@@ -1,9 +1,9 @@
 <?php $page = 'ui-spinner'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,17 +19,17 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">Spinners</li>
                     </ol>
                 </div>
             </div>
             <!-- End page header -->
-            
+
             <div class="row">
-            
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -45,7 +45,7 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -68,9 +68,9 @@
                     </div> <!-- end card -->
                 </div> <!-- end col -->
             </div> <!-- end row -->
-            
+
             <div class="row">
-            
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -78,7 +78,8 @@
                         </div> <!-- end card-header -->
 
                         <div class="card-body">
-                            <p>If you don’t fancy a border spinner, switch to the grow spinner. While it doesn’t technically spin, it does repeatedly grow!</p>
+                            <p>If you don’t fancy a border spinner, switch to the grow spinner. While it doesn’t technically
+                                spin, it does repeatedly grow!</p>
 
                             <div class="spinner-grow m-2" role="status">
                                 <span class="visually-hidden">Loading...</span>
@@ -86,7 +87,7 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
 
                     <div class="card card-h-100">
@@ -109,7 +110,7 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-            </div> <!-- end row -->                
+            </div> <!-- end row -->
 
             <div class="row">
                 <div class="col-xl-6">
@@ -120,7 +121,8 @@
                         </div> <!-- end card-header -->
 
                         <div class="card-body">
-                            <p>Use flexbox utilities, float utilities, or text alignment utilities to place spinners exactly where you need them in any situation.</p>
+                            <p>Use flexbox utilities, float utilities, or text alignment utilities to place spinners exactly
+                                where you need them in any situation.</p>
 
                             <div class="d-flex justify-content-center">
                                 <div class="spinner-border" role="status"></div>
@@ -128,7 +130,7 @@
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
 
                     <div class="card">
@@ -137,7 +139,9 @@
                         </div> <!-- end card-header -->
 
                         <div class="card-body">
-                            <p>Use <code>flexbox utilities</code>, <code>float utilities</code>, or <code>text alignment</code> utilities to place spinners exactly where you need them in any situation.</p>
+                            <p>Use <code>flexbox utilities</code>, <code>float utilities</code>, or <code>text
+                                    alignment</code> utilities to place spinners exactly where you need them in any
+                                situation.</p>
 
                             <div class="d-flex align-items-center">
                                 <strong>Loading...</strong>
@@ -148,7 +152,7 @@
                     </div> <!-- end card -->
                 </div> <!-- end col -->
             </div> <!-- end row -->
-            
+
             <div class="row">
                 <div class="col-xl-6">
 
@@ -158,7 +162,8 @@
                         </div> <!-- end card-header -->
 
                         <div class="card-body">
-                            <p>Add <code>.spinner-border-sm</code> and <code>.spinner-border.avatar-**</code> to make a smaller spinner that can quickly be used within other components.
+                            <p>Add <code>.spinner-border-sm</code> and <code>.spinner-border.avatar-**</code> to make a
+                                smaller spinner that can quickly be used within other components.
                             </p>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -202,10 +207,12 @@
                                 <div class="col-lg-6">
                                     <div class="d-flex flex-wrap gap-2">
                                         <button class="btn btn-primary" type="button" disabled>
-                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="visually-hidden">Loading...</span>
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span><span class="visually-hidden">Loading...</span>
                                         </button>
                                         <button class="btn btn-primary" type="button" disabled>
-                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            <span class="spinner-border spinner-border-sm me-1" role="status"
+                                                aria-hidden="true"></span>
                                             Loading...
                                         </button>
                                     </div>
@@ -213,10 +220,12 @@
                                 <div class="col-lg-6">
                                     <div class="d-flex flex-wrap gap-2">
                                         <button class="btn btn-primary" type="button" disabled>
-                                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span class="visually-hidden">Loading...</span>
+                                            <span class="spinner-grow spinner-grow-sm" role="status"
+                                                aria-hidden="true"></span> <span class="visually-hidden">Loading...</span>
                                         </button>
                                         <button class="btn btn-primary" type="button" disabled>
-                                            <span class="spinner-grow spinner-grow-sm me-1" role="status" aria-hidden="true"></span>
+                                            <span class="spinner-grow spinner-grow-sm me-1" role="status"
+                                                aria-hidden="true"></span>
                                             Loading...
                                         </button>
                                     </div>
@@ -234,7 +243,12 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -242,6 +256,6 @@
     </div>
 
     <!-- ========================
-    End Page Content
-    ========================= -->
+        End Page Content
+        ========================= -->
 @endsection

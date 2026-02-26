@@ -1,5 +1,5 @@
 <?php $page = 'email-verification'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- Start Content -->
     <div class="container-fuild">
@@ -9,7 +9,7 @@
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
                             <div class=" mx-auto mb-5 text-center">
-                                <img src="{{URL::asset('build/img/logo.svg')}}" class="img-fluid" alt="Logo">
+                                <img src="{{ URL::asset('build/img/logo.svg') }}" class="img-fluid" alt="Logo">
                             </div>
                             <div class="card border-0 p-lg-3 shadow-lg rounded-2">
                                 <div class="card-body">
@@ -21,7 +21,8 @@
                                         <p class="mb-0">Check your email & change your password</p>
                                     </div>
                                     <div>
-                                        <a href="{{url('two-step-verification')}}" class="btn bg-primary-gradient text-white w-100">Reset Password</a>
+                                        <a href="{{ url('two-step-verification') }}"
+                                            class="btn bg-primary-gradient text-white w-100">Reset Password</a>
                                     </div>
                                 </div>
                             </div>

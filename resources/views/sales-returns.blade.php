@@ -1,11 +1,11 @@
 <?php $page = 'sales-returns'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
-    <div class="page-wrapper">	
+    <div class="page-wrapper">
 
         <!-- Start Content -->
         <div class="content content-two">
@@ -17,7 +17,8 @@
                 </div>
                 <div class="my-xl-auto">
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"  data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -43,7 +44,9 @@
                                     <p class="mb-2">Total Returns</p>
                                     <div class="d-flex align-items-end justify-content-between  mt-1">
                                         <div>
-                                            <h6 class="fs-16 fw-semibold mb-1">$50,000 <span class="text-success fw-normal fs-13 ms-2"><i class="isax isax-send fs-10"></i>5.62%</span></h6>
+                                            <h6 class="fs-16 fw-semibold mb-1">$50,000 <span
+                                                    class="text-success fw-normal fs-13 ms-2"><i
+                                                        class="isax isax-send fs-10"></i>5.62%</span></h6>
                                             <p class="fs-13 text-truncate">Compare to last month</p>
                                         </div>
                                         <div id="report_chart"></div>
@@ -59,7 +62,9 @@
                                     <p class="mb-2">Returned Invoices</p>
                                     <div class="d-flex align-items-end justify-content-between  mt-1">
                                         <div>
-                                            <h6 class="fs-16 fw-semibold mb-1">154<span class="text-success fw-normal fs-13 ms-2"><i class="isax isax-send fs-10"></i>11.4%</span></h6>
+                                            <h6 class="fs-16 fw-semibold mb-1">154<span
+                                                    class="text-success fw-normal fs-13 ms-2"><i
+                                                        class="isax isax-send fs-10"></i>11.4%</span></h6>
                                             <p class="fs-13 text-truncate">Compare to last month</p>
                                         </div>
                                         <div id="report_chart_2"></div>
@@ -75,7 +80,9 @@
                                     <p class="mb-2 text-truncate">Total Sales Loss Due to Returns</p>
                                     <div class="d-flex align-items-end justify-content-between  mt-1">
                                         <div>
-                                            <h6 class="fs-16 fw-semibold mb-1 d-flex flex-wrap">$25,000<span class="text-success fw-normal fs-13 ms-2"><i class="isax isax-send fs-10"></i>8.52%</span></h6>
+                                            <h6 class="fs-16 fw-semibold mb-1 d-flex flex-wrap">$25,000<span
+                                                    class="text-success fw-normal fs-13 ms-2"><i
+                                                        class="isax isax-send fs-10"></i>8.52%</span></h6>
                                             <p class="fs-13 text-truncate">Compare to last month</p>
                                         </div>
                                         <div id="report_chart_3"></div>
@@ -91,7 +98,9 @@
                                     <p class="mb-2">Total Returns</p>
                                     <div class="d-flex align-items-end justify-content-between  mt-1">
                                         <div>
-                                            <h6 class="fs-16 fw-semibold mb-1">$50,000 <span class="text-success fw-normal fs-13 ms-2"><i class="isax isax-send fs-10"></i>5.62%</span></h6>
+                                            <h6 class="fs-16 fw-semibold mb-1">$50,000 <span
+                                                    class="text-success fw-normal fs-13 ms-2"><i
+                                                        class="isax isax-send fs-10"></i>5.62%</span></h6>
                                             <p class="fs-13 text-truncate">Compare to last month</p>
                                         </div>
                                         <div id="report_chart_4"></div>
@@ -103,7 +112,7 @@
                 </div>
                 <!-- end row -->
             </div>
-            
+
             <!-- Table Search -->
             <div class="mb-3">
 
@@ -111,20 +120,25 @@
                     <div class="d-flex align-items-center gap-2 flex-wrap">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
                         <div id="reportrange" class="reportrange-picker d-flex align-items-center">
-                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
+                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span
+                                class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
-                        
+
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu">
@@ -159,11 +173,11 @@
                             </ul>
                         </div>
                     </div>
-                </div>				
+                </div>
 
             </div>
             <!-- /Table Search -->
-            
+
             <!-- Table List -->
             <div class="table-responsive">
                 <table class="table table-nowrap datatable">
@@ -195,11 +209,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-28.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-28.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Emily Clark</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Emily Clark</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -215,7 +232,8 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
                                         Paid <i class="isax isax-tick-circle4 ms-1"></i>
                                     </a>
                                 </div>
@@ -232,27 +250,31 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-29.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-29.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">John Carter</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">John Carter</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
                             <td class="text-dark">$25,750</td>
                             <td><a href="javascript:void(0);" class="link-default">INV00024</a></td>
                             <td class="text-dark">Cheque</td>
-                            <td >07 Feb 2025</td>
-                            
+                            <td>07 Feb 2025</td>
+
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
                                         Pending <i class="isax isax-timer ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td>
@@ -265,26 +287,30 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Sophia White</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Sophia White</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
                             <td class="text-dark">$50,125</td>
                             <td><a href="javascript:void(0);" class="link-default">INV00023</a></td>
                             <td class="text-dark">Cash</td>
-                            <td >30 Jan 2025</td>
+                            <td>30 Jan 2025</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
                                         Cancelled <i class="isax isax-close-circle4 ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td>
@@ -297,11 +323,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Michael Johnson</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Michael Johnson</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -310,15 +339,16 @@
                                 <a href="javascript:void(0);" class="link-default">INV00022</a>
                             </td>
                             <td class="text-dark">Cheque</td>
-                            <td >17 Jan 2025</td>
+                            <td>17 Jan 2025</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
                                         Paid <i class="isax isax-tick-circle4 ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                        
+
                         </tr>
                         <tr>
                             <td>
@@ -331,11 +361,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-30.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-30.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Olivia Harris</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Olivia Harris</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -344,15 +377,16 @@
                                 <a href="javascript:void(0);" class="link-default">INV00021</a>
                             </td>
                             <td class="text-dark">Cheque</td>
-                            <td >04 Jan 2025</td>
+                            <td>04 Jan 2025</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
                                         Pending <i class="isax isax-timer ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td>
@@ -365,23 +399,27 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">David Anderson</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">David Anderson</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
                             <td class="text-dark">$1,20,500</td>
                             <td>
-                                <a href="javascript:void(0);" class="link-default">INV00020	</a>
+                                <a href="javascript:void(0);" class="link-default">INV00020 </a>
                             </td>
                             <td class="text-dark">Cash</td>
-                            <td >09 Dec 2024</td>
+                            <td>09 Dec 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
                                         Cancelled <i class="isax isax-close-circle4 ms-1"></i>
                                     </a>
                                 </div>
@@ -398,8 +436,10 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Emma Lewis</a></h6>
@@ -411,10 +451,11 @@
                                 <a href="javascript:void(0);" class="link-default">INV00019</a>
                             </td>
                             <td class="text-dark">Cash</td>
-                            <td >02 Dec 2024</td>
+                            <td>02 Dec 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
                                         Paid <i class="isax isax-tick-circle4 ms-1"></i>
                                     </a>
                                 </div>
@@ -431,11 +472,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-23.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-23.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Robert Thomas</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Robert Thomas</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -444,16 +488,17 @@
                                 <a href="javascript:void(0);" class="link-default">INV00018</a>
                             </td>
                             <td class="text-dark">Cheque</td>
-                            <td >15 Nov 2024</td>
+                            <td>15 Nov 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
                                         Pending <i class="isax isax-timer ms-1"></i>
                                     </a>
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td>
                                 <div class="form-check form-check-md">
@@ -465,11 +510,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-07.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-07.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Isabella Scott</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Isabella Scott</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -478,15 +526,16 @@
                                 <a href="javascript:void(0);" class="link-default">INV00017</a>
                             </td>
                             <td class="text-dark">Cheque</td>
-                            <td >30 Nov 2024</td>
+                            <td>30 Nov 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
                                         Cancelled <i class="isax isax-close-circle4 ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td>
@@ -499,11 +548,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-31.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-31.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Daniel Martinez</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Daniel Martinez</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -512,10 +564,11 @@
                                 <a href="javascript:void(0);" class="link-default">INV00016</a>
                             </td>
                             <td class="text-dark">Cash</td>
-                            <td >12 Oct 2024</td>
+                            <td>12 Oct 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-success badge-sm d-inline-flex align-items-center">
                                         Paid <i class="isax isax-tick-circle4 ms-1"></i>
                                     </a>
                                 </div>
@@ -532,11 +585,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-37.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-37.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Charlotte Brown</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Charlotte Brown</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -545,15 +601,16 @@
                                 <a href="javascript:void(0);" class="link-default">INV00015</a>
                             </td>
                             <td class="text-dark">Cheque</td>
-                            <td >05 Oct 2024</td>
+                            <td>05 Oct 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
                                         Pending <i class="isax isax-timer ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td>
@@ -566,11 +623,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-21.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-21.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">William Parker</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">William Parker</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -579,15 +639,16 @@
                                 <a href="javascript:void(0);" class="link-default">INV00014</a>
                             </td>
                             <td class="text-dark">Cash</td>
-                            <td >09 Sep 2024</td>
+                            <td>09 Sep 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">
                                         Cancelled <i class="isax isax-close-circle4 ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td>
@@ -600,11 +661,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-17.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-17.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Mia Thompson</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Mia Thompson</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -613,10 +677,11 @@
                                 <a href="javascript:void(0);" class="link-default">INV00013</a>
                             </td>
                             <td class="text-dark">Cheque</td>
-                            <td >02 Sep 2024</td>
+                            <td>02 Sep 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-success-light d-inline-flex align-items-center me-1">
+                                    <a href="#"
+                                        class="btn btn-sm btn-success-light d-inline-flex align-items-center me-1">
                                         Paid <i class="isax isax-tick-circle4 ms-1"></i>
                                     </a>
                                 </div>
@@ -633,11 +698,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/profiles/avatar-07.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/profiles/avatar-07.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Amelia Robinson</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Amelia Robinson</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -646,17 +714,18 @@
                                 <a href="javascript:void(0);" class="link-default">INV00012</a>
                             </td>
                             <td class="text-dark">Cheque</td>
-                            <td >07 Aug 2024</td>
+                            <td>07 Aug 2024</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
+                                    <a href="#"
+                                        class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">
                                         Pending <i class="isax isax-timer ms-1"></i>
                                     </a>
                                 </div>
                             </td>
-                        
+
                         </tr>
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -664,37 +733,41 @@
 
         </div>
         <!-- End Content -->
-        
+
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- / End Footer-->
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Filter -->
-    <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">                                      
+    <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
-        </div>			
-        <div class="offcanvas-body pt-3">  
+        </div>
+        <div class="offcanvas-body pt-3">
             <form action="#">
                 <div class="mb-3">
                     <label class="form-label">Customer</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
-                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">							
+                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">
                             <div class="mb-3">
                                 <div class="input-icon-start position-relative">
                                     <span class="input-icon-addon fs-12">
@@ -709,42 +782,55 @@
                                         <input class="form-check-input select-all m-0 me-2" type="checkbox">
                                         Select All
                                     </label>
-                                    <a href="javascript:void(0);" class="link-danger fw-medium text-decoration-underline">Reset</a>
+                                    <a href="javascript:void(0);"
+                                        class="link-danger fw-medium text-decoration-underline">Reset</a>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-18.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Emily Clark
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-18.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Emily Clark
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-29.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>John Carter
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-29.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>John Carter
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Sophia White
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Sophia White
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Michael Johnson
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Michael Johnson
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-30.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Olivia Harris
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-30.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Olivia Harris
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>David Anderson
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>David Anderson
                                     </label>
                                 </li>
                             </ul>
@@ -762,24 +848,28 @@
                 <div class="mb-3">
                     <label class="form-label">Amount</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
-                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">							
+                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">
                             <div class="filter-range">
                                 <input type="text" id="range_03">
                                 <p>Range : <span class="text-gray-9">Range : $200 - $5695</span></p>
                             </div>
                         </div>
                     </div>
-                </div>	
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Payment Mode</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
-                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">	
+                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">
                             <ul class="mb-0">
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
@@ -823,14 +913,16 @@
                             <i class="isax isax-calendar-2"></i>
                         </span>
                     </div>
-                </div>	
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Status</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
-                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">	
+                        <div class="dropdown-menu shadow-lg w-100 dropdown-info">
                             <ul class="mb-0">
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
@@ -849,19 +941,20 @@
                                         <input class="form-check-input m-0 me-2" type="checkbox">
                                         <i class="fa-solid fa-circle fs-6 text-danger me-1"></i>Cancelled
                                     </label>
-                                </li>							
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                        
+
                 <div class="offcanvas-footer">
                     <div class="row g-2">
                         <div class="col-6">
-                            <a href="#"  class="btn btn-outline-white w-100">Reset</a>
+                            <a href="#" class="btn btn-outline-white w-100">Reset</a>
                         </div>
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div>
                     </div>
                 </div>

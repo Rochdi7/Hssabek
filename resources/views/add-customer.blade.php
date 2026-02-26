@@ -1,9 +1,9 @@
 <?php $page = 'add-customer'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -15,13 +15,14 @@
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6><a href="{{url('customers')}}"><i class="isax isax-arrow-left me-2"></i>Customer</a></h6>
-                            <a href="#" class="btn btn-outline-white d-inline-flex align-items-center"><i class="isax isax-eye me-1"></i>Preview</a>
+                            <h6><a href="{{ url('customers') }}"><i class="isax isax-arrow-left me-2"></i>Customer</a></h6>
+                            <a href="#" class="btn btn-outline-white d-inline-flex align-items-center"><i
+                                    class="isax isax-eye me-1"></i>Preview</a>
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="mb-3">Add Customer</h5>
-                                <form action="{{url('add-customer')}}">
+                                <form action="{{ url('add-customer') }}">
                                     <div class="mb-3">
                                         <h6 class="text-gray-9 fw-bold mb-2 d-flex">Basic Details</h6>
                                         <div class="d-flex align-items-center">
@@ -40,19 +41,22 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Name <span class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">Name <span
+                                                        class="text-danger ms-1">*</span></label>
                                                 <input type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Email <span class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">Email <span
+                                                        class="text-danger ms-1">*</span></label>
                                                 <input type="email" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Phone Number <span class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">Phone Number <span
+                                                        class="text-danger ms-1">*</span></label>
                                                 <input type="text" class="form-control">
                                             </div>
                                         </div>
@@ -155,7 +159,8 @@
                                             <div class="col-md-6">
                                                 <div class="d-flex align-items-center justify-content-between mb-3 pt-4">
                                                     <h6>Shipping Address</h6>
-                                                    <a href="#" class="d-inline-flex align-items-center text-primary text-decoration-underline fs-13">
+                                                    <a href="#"
+                                                        class="d-inline-flex align-items-center text-primary text-decoration-underline fs-13">
                                                         <i class="isax isax-document-copy me-1"></i>Copy From Billing
                                                     </a>
                                                 </div>
@@ -279,7 +284,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -287,6 +293,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

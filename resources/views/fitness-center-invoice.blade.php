@@ -1,9 +1,9 @@
 <?php $page = 'fitness-center-invoice'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <!-- Start Content -->
     <div class="content p-4">
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <div class="mb-3">
-                    <h6><a href="{{url('invoice-templates')}}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
+                    <h6><a href="{{ url('invoice-templates') }}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
                 </div>
                 <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3 pb-3">
                     <div>
@@ -23,7 +23,8 @@
                                 <p class="mb-1">GST IN : <span class="text-dark">22AABCU9603R1ZX</span></p>
                             </div>
                             <div>
-                                <p class="mb-1">Address : <span class="text-dark">15 Hodges Mews, High Wycombe HP12 3JL, United Kingdom.</span></p>
+                                <p class="mb-1">Address : <span class="text-dark">15 Hodges Mews, High Wycombe HP12 3JL,
+                                        United Kingdom.</span></p>
                             </div>
                             <div>
                                 <p class="mb-1">Mobile : <span class="text-dark">+91 98765 4321</span></p>
@@ -31,7 +32,8 @@
                         </div>
                     </div>
                     <div>
-                        <div class="mb-1 text-end"><img src="{{URL::asset('build/img/invoice-logo.svg')}}" alt="User Img"></div>
+                        <div class="mb-1 text-end"><img src="{{ URL::asset('build/img/invoice-logo.svg') }}" alt="User Img">
+                        </div>
                         <div>
                             <p class="mb-1 text-end">Original For Recipient</p>
                         </div>
@@ -93,7 +95,8 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <table class="table">
-                            <thead class="thead-dark border-top border-start-0 border-end-0 border-bottom border-3 border-dark p-2">
+                            <thead
+                                class="thead-dark border-top border-start-0 border-end-0 border-bottom border-3 border-dark p-2">
                                 <tr>
                                     <th>#</th>
                                     <th>Description</th>
@@ -196,7 +199,8 @@
                 <div class="row py-3 border-bottom  border-bottom border-3 border-gray mb-3 d-flex align-items-center">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-center">
-                            <p class="text-gary">Total amount ( in words):<span class="text-dark"> One Thousand Eight Hundred Fifteen Dollars Only.</span></p>
+                            <p class="text-gary">Total amount ( in words):<span class="text-dark"> One Thousand Eight
+                                    Hundred Fifteen Dollars Only.</span></p>
                         </div>
                     </div>
                 </div>
@@ -212,13 +216,14 @@
                     </div>
                     <div class="text-center">
                         <p class="mb-1">For Dreamguys</p>
-                        <span><img src="{{URL::asset('build/img/icons/sign-01.png')}}" alt="User Img"></span>
+                        <span><img src="{{ URL::asset('build/img/icons/sign-01.png') }}" alt="User Img"></span>
                     </div>
                 </div>
                 <div class="border-bottom mb-3 p-3">
                     <h6 class="mb-2">Terms &amp; Conditions : </h6>
                     <p class="mb-1">1. Goods Once sold cannot be taken back or exchanged.</p>
-                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.</p>
+                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms and conditions.
+                    </p>
                 </div>
                 <div class="border-bottom text-center pb-3">
                     <p>Thanks for your Business</p>
@@ -231,6 +236,6 @@
     <!-- End Content -->
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

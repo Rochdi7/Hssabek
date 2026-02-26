@@ -1,9 +1,9 @@
 <?php $page = 'customer-add-quotation'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -13,13 +13,15 @@
                 <div class="col-md-11 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6><a href="{{url('customer-quotations')}}"><i class="isax isax-arrow-left me-2"></i>Quotations</a></h6>
-                            <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"><i class="isax isax-eye me-1"></i>Preview</a>
+                            <h6><a href="{{ url('customer-quotations') }}"><i
+                                        class="isax isax-arrow-left me-2"></i>Quotations</a></h6>
+                            <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"><i
+                                    class="isax isax-eye me-1"></i>Preview</a>
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="mb-3">Quotation Details</h6>
-                                <form action="{{url('customer-quotations')}}">
+                                <form action="{{ url('customer-quotations') }}">
                                     <div class="border-bottom mb-4 pb-1">
                                         <div class="row justify-content-between">
                                             <div class="col-xl-5 col-lg-7">
@@ -28,13 +30,15 @@
                                                         <label class="form-label">Document Title</label>
                                                         <div class="d-flex align-items-center mb-3">
                                                             <div class="form-check me-3">
-                                                                <input class="form-check-input" type="radio" name="Radio-2" id="Radio-sm-1" checked="">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="Radio-2" id="Radio-sm-1" checked="">
                                                                 <label class="form-check-label" for="Radio-sm-1">
                                                                     Quotation
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="Radio-2" id="Radio-sm-2">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="Radio-2" id="Radio-sm-2">
                                                                 <label class="form-check-label" for="Radio-sm-2">
                                                                     Estimate
                                                                 </label>
@@ -44,7 +48,8 @@
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Quotation ID</label>
-                                                            <input type="text" class="form-control" placeholder="1254569" readonly="">
+                                                            <input type="text" class="form-control" placeholder="1254569"
+                                                                readonly="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -56,7 +61,9 @@
                                                     <div class="col-lg-12">
                                                         <label class="form-label">Quotation Date</label>
                                                         <div class="input-group position-relative mb-3">
-                                                            <input type="text" class="form-control datetimepicker rounded-end" placeholder="dd/mm/yyyy">
+                                                            <input type="text"
+                                                                class="form-control datetimepicker rounded-end"
+                                                                placeholder="dd/mm/yyyy">
                                                             <span class="input-icon-addon fs-16 text-gray-9">
                                                                 <i class="isax isax-calendar-2"></i>
                                                             </span>
@@ -64,7 +71,8 @@
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label class="form-label">Create Quotation with/without GST</label>
+                                                            <label class="form-label">Create Quotation with/without
+                                                                GST</label>
                                                             <select class="select">
                                                                 <option>Select</option>
                                                                 <option>With GST</option>
@@ -74,7 +82,10 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
-                                                            <a href="javascript:void(0);" class="d-inline-flex align-items-center"><i class="isax isax-add-circle5 text-primary me-1"></i>Add Due Date</a>
+                                                            <a href="javascript:void(0);"
+                                                                class="d-inline-flex align-items-center"><i
+                                                                    class="isax isax-add-circle5 text-primary me-1"></i>Add
+                                                                Due Date</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -82,8 +93,10 @@
                                             <div class="col-xl-4 col-lg-5">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <div class="border border-dashed bg-light rounded text-center p-3 mb-3">
-                                                            <img src="{{URL::asset('build/img/invoice-logo.svg')}}" alt="">
+                                                        <div
+                                                            class="border border-dashed bg-light rounded text-center p-3 mb-3">
+                                                            <img src="{{ URL::asset('build/img/invoice-logo.svg') }}"
+                                                                alt="">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12">
@@ -115,13 +128,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
-                                                        <div class="d-flex align-items-center justify-content-between border rounded p-2 mb-3">
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-between border rounded p-2 mb-3">
                                                             <div class="form-check form-switch me-4">
-                                                                <input class="form-check-input" type="checkbox" role="switch" id="enabe_tax" checked>
-                                                                <label class="form-check-label" for="enabe_tax">Enable Tax</label>
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    role="switch" id="enabe_tax" checked>
+                                                                <label class="form-check-label" for="enabe_tax">Enable
+                                                                    Tax</label>
                                                             </div>
                                                             <div>
-                                                                <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-soft-primary"><i class="isax isax-setting-2 text-primary fs-16"></i></a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="btn btn-icon btn-sm btn-soft-primary"><i
+                                                                        class="isax isax-setting-2 text-primary fs-16"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -143,10 +161,14 @@
                                                             </select>
                                                         </div>
                                                         <div class="bg-light border rounded p-3 d-flex align-items-start">
-                                                            <span class="avatar avatar-lg border flex-shrink-0 me-3"><img src="{{URL::asset('build/img/logo-small.svg')}}" alt=""></span>
+                                                            <span class="avatar avatar-lg border flex-shrink-0 me-3"><img
+                                                                    src="{{ URL::asset('build/img/logo-small.svg') }}"
+                                                                    alt=""></span>
                                                             <div>
-                                                                <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
-                                                                <p class="mb-1 fs-13">15 Hodges Mews, HP12 3JL, United Kingdom</p>
+                                                                <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice
+                                                                    Management</h6>
+                                                                <p class="mb-1 fs-13">15 Hodges Mews, HP12 3JL, United
+                                                                    Kingdom</p>
                                                                 <p class="mb-1 fs-13">Phone : +1 54664 75945</p>
                                                                 <p class="mb-1 fs-13">Email : info@example.com</p>
                                                                 <p class="text-dark fs-13">GST : 243E45767889</p>
@@ -162,8 +184,11 @@
                                                         <div>
                                                             <div class="d-flex align-items-center justify-content-between">
                                                                 <label class="form-label">Customer Name</label>
-                                                                <a href="javascript:void(0);" class="d-inline-flex align-items-center">
-                                                                    <i class="isax isax-add-circle5 text-primary me-1"></i>Add New
+                                                                <a href="javascript:void(0);"
+                                                                    class="d-inline-flex align-items-center">
+                                                                    <i
+                                                                        class="isax isax-add-circle5 text-primary me-1"></i>Add
+                                                                    New
                                                                 </a>
                                                             </div>
                                                             <div class="mb-3">
@@ -172,11 +197,16 @@
                                                                     <option>Timesquare Tech</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="bg-light border rounded p-3 d-flex align-items-start">
-                                                                <span class="avatar avatar-lg border bg-dark flex-shrink-0 me-3"><img src="{{URL::asset('build/img/icons/black-icon.png')}}" alt=""></span>
+                                                            <div
+                                                                class="bg-light border rounded p-3 d-flex align-items-start">
+                                                                <span
+                                                                    class="avatar avatar-lg border bg-dark flex-shrink-0 me-3"><img
+                                                                        src="{{ URL::asset('build/img/icons/black-icon.png') }}"
+                                                                        alt=""></span>
                                                                 <div>
                                                                     <h6 class="fs-14 fw-semibold mb-1">Timesquare Tech</h6>
-                                                                    <p class="mb-1 fs-13">299 Star Trek Drive, Florida, 32405, USA</p>
+                                                                    <p class="mb-1 fs-13">299 Star Trek Drive, Florida,
+                                                                        32405, USA</p>
                                                                     <p class="mb-1 fs-13">Phone : +1 54664 75945</p>
                                                                     <p class="mb-1 fs-13">Email : info@example.com</p>
                                                                     <p class="text-dark fs-13">GST : 243E45767889</p>
@@ -196,13 +226,15 @@
                                                     <label class="form-label">Item Type</label>
                                                     <div class="d-flex align-items-center mb-3">
                                                         <div class="form-check me-3">
-                                                            <input class="form-check-input" type="radio" name="Radio" id="Radio-sm-3" checked="">
+                                                            <input class="form-check-input" type="radio" name="Radio"
+                                                                id="Radio-sm-3" checked="">
                                                             <label class="form-check-label" for="Radio-sm-3">
                                                                 Product
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="Radio" id="Radio-sm-4">
+                                                            <input class="form-check-input" type="radio" name="Radio"
+                                                                id="Radio-sm-4">
                                                             <label class="form-check-label" for="Radio-sm-4">
                                                                 Service
                                                             </label>
@@ -239,16 +271,20 @@
                                                 <tbody class="add-tbody">
                                                     <tr>
                                                         <td>
-                                                            <input type="text" class="form-control" value="Nike Jordon">
+                                                            <input type="text" class="form-control"
+                                                                value="Nike Jordon">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="1" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="1"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="Pcs" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="Pcs"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="$1360.00" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="$1360.00"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
                                                             <select class="select">
@@ -260,20 +296,25 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="18" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="18"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="$1358.00" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="$1358.00"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <a href="javascript:void(0);" class="text-danger remove-table"><i class="isax isax-close-circle"></i></a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="text-danger remove-table"><i
+                                                                        class="isax isax-close-circle"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" class="form-control" value="Enter Product Name">
+                                                            <input type="text" class="form-control"
+                                                                value="Enter Product Name">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control" value="0">
@@ -297,11 +338,14 @@
                                                             <input type="text" class="form-control" value="0">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="0" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="0"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <a href="javascript:void(0);" class="text-danger remove-table"><i class="isax isax-close-circle"></i></a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="text-danger remove-table"><i
+                                                                        class="isax isax-close-circle"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -309,7 +353,9 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <a href="javascript:void(0);" class="d-inline-flex align-items-center add-invoice-data"><i class="isax isax-add-circle5 text-primary me-1"></i>Add New</a>
+                                            <a href="javascript:void(0);"
+                                                class="d-inline-flex align-items-center add-invoice-data"><i
+                                                    class="isax isax-add-circle5 text-primary me-1"></i>Add New</a>
                                         </div>
                                     </div>
                                     <div class="border-bottom mb-4">
@@ -318,19 +364,32 @@
                                                 <div class="mb-3">
                                                     <h6 class="mb-3">Extra Information</h6>
                                                     <div>
-                                                        <ul class="nav nav-tabs nav-solid-primary tab-style-1 border-0 p-0 d-flex flex-wrap gap-3 mb-3" role="tablist">
+                                                        <ul class="nav nav-tabs nav-solid-primary tab-style-1 border-0 p-0 d-flex flex-wrap gap-3 mb-3"
+                                                            role="tablist">
                                                             <li class="nav-item" role="presentation">
-                                                                <a class="nav-link active d-inline-flex align-items-center border fs-12 fw-semibold rounded-2" data-bs-toggle="tab" data-bs-target="#notes" aria-current="page" href="javascript:void(0);"><i class="isax isax-document-text me-1"></i>Add Notes</a>
+                                                                <a class="nav-link active d-inline-flex align-items-center border fs-12 fw-semibold rounded-2"
+                                                                    data-bs-toggle="tab" data-bs-target="#notes"
+                                                                    aria-current="page" href="javascript:void(0);"><i
+                                                                        class="isax isax-document-text me-1"></i>Add
+                                                                    Notes</a>
                                                             </li>
                                                             <li class="nav-item" role="presentation">
-                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2" data-bs-toggle="tab" data-bs-target="#terms" href="javascript:void(0);"><i class="isax isax-document me-1"></i>Add Terms & Conditions</a>
+                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2"
+                                                                    data-bs-toggle="tab" data-bs-target="#terms"
+                                                                    href="javascript:void(0);"><i
+                                                                        class="isax isax-document me-1"></i>Add Terms &
+                                                                    Conditions</a>
                                                             </li>
                                                             <li class="nav-item" role="presentation">
-                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2" data-bs-toggle="tab" data-bs-target="#bank" href="javascript:void(0);"><i class="isax isax-bank me-1"></i>Bank Details</a>
+                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2"
+                                                                    data-bs-toggle="tab" data-bs-target="#bank"
+                                                                    href="javascript:void(0);"><i
+                                                                        class="isax isax-bank me-1"></i>Bank Details</a>
                                                             </li>
                                                         </ul>
                                                         <div class="tab-content">
-                                                            <div class="tab-pane active show" id="notes" role="tabpanel">
+                                                            <div class="tab-pane active show" id="notes"
+                                                                role="tabpanel">
                                                                 <label class="form-label">Additional Notes</label>
                                                                 <textarea class="form-control"></textarea>
                                                             </div>
@@ -343,10 +402,14 @@
                                                                 <select class="select">
                                                                     <option>Select</option>
                                                                     <option>Andrew - 5225655545555454 (Swiss Bank)</option>
-                                                                    <option>Mark Salween - 4654145644566 (International Bank)</option>
-                                                                    <option>Sophia Martinez - 7890123456789012 (Global Finance)</option>
-                                                                    <option>David Chen - 2345678901234567 (National Bank)</option>
-                                                                    <option>Emily Johnson - 3456789012345678 (Community Credit Union)</option>
+                                                                    <option>Mark Salween - 4654145644566 (International
+                                                                        Bank)</option>
+                                                                    <option>Sophia Martinez - 7890123456789012 (Global
+                                                                        Finance)</option>
+                                                                    <option>David Chen - 2345678901234567 (National Bank)
+                                                                    </option>
+                                                                    <option>Emily Johnson - 3456789012345678 (Community
+                                                                        Credit Union)</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -368,22 +431,29 @@
                                                         <h6 class="fs-14 fw-semibold">$18</h6>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center">
-                                                            <i class="isax isax-add-circle5 text-primary me-1"></i>Add Additional Charges
+                                                        <a href="javascript:void(0);"
+                                                            class="d-inline-flex align-items-center">
+                                                            <i class="isax isax-add-circle5 text-primary me-1"></i>Add
+                                                            Additional Charges
                                                         </a>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-between mb-3">
                                                         <h6 class="fs-14 fw-semibold">Discount</h6>
-                                                        <input type="text" class="form-control" value="0%" style="width: 106px;">
+                                                        <input type="text" class="form-control" value="0%"
+                                                            style="width: 106px;">
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
                                                         <div class="form-check form-switch me-4">
-                                                            <input class="form-check-input" type="checkbox" role="switch" id="require_check_2" checked="">
-                                                            <label class="form-check-label" for="require_check_2">Round Off Total</label>
+                                                            <input class="form-check-input" type="checkbox"
+                                                                role="switch" id="require_check_2" checked="">
+                                                            <label class="form-check-label" for="require_check_2">Round
+                                                                Off Total</label>
                                                         </div>
                                                         <h6 class="fs-14 fw-semibold">$596</h6>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
                                                         <h6>Total (USD)</h6>
                                                         <h6>$596</h6>
                                                     </div>
@@ -408,8 +478,11 @@
                                                         <label class="form-label">Signature Name</label>
                                                         <input type="text" class="form-control" value="Adrian">
                                                     </div>
-                                                    <div class="file-upload drag-file w-100 h-auto py-3 d-flex align-items-center justify-content-center flex-column">
-                                                        <span class="upload-img d-block"><i class="isax isax-image text-primary me-1"></i>Upload Signature</span>
+                                                    <div
+                                                        class="file-upload drag-file w-100 h-auto py-3 d-flex align-items-center justify-content-center flex-column">
+                                                        <span class="upload-img d-block"><i
+                                                                class="isax isax-image text-primary me-1"></i>Upload
+                                                            Signature</span>
                                                         <input type="file" accept="video/image">
                                                     </div>
                                                 </div>
@@ -429,12 +502,12 @@
             <!-- End row -->
         </div>
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

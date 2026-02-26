@@ -1,9 +1,9 @@
 <?php $page = 'edit-customer'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -12,20 +12,25 @@
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6><a href="{{url('customers')}}"><i class="isax isax-arrow-left me-2"></i>Customer</a></h6>
-                            <a href="#" class="btn btn-outline-white d-inline-flex align-items-center"><i class="isax isax-eye me-1"></i>Preview</a>
+                            <h6><a href="{{ url('customers') }}"><i class="isax isax-arrow-left me-2"></i>Customer</a></h6>
+                            <a href="#" class="btn btn-outline-white d-inline-flex align-items-center"><i
+                                    class="isax isax-eye me-1"></i>Preview</a>
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="mb-3">Basic Details</h6>
-                                <form action="{{url('edit-customer')}}">
+                                <form action="{{ url('edit-customer') }}">
                                     <div class="mb-3">
-                                        <span class="text-gray-9 fw-bold mb-2 d-flex">Project Image <span class="text-danger">*</span></span>
+                                        <span class="text-gray-9 fw-bold mb-2 d-flex">Project Image <span
+                                                class="text-danger">*</span></span>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-xxl border border-dashed bg-light me-3 flex-shrink-0">
                                                 <div class="position-relative d-flex align-items-center">
-                                                    <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" class="avatar avatar-xl " alt="User Img">
-                                                    <a href="javascript:void(0);" class="rounded-trash trash-top d-flex align-items-center justify-content-center"><i class="isax isax-trash"></i></a>
+                                                    <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                                        class="avatar avatar-xl " alt="User Img">
+                                                    <a href="javascript:void(0);"
+                                                        class="rounded-trash trash-top d-flex align-items-center justify-content-center"><i
+                                                            class="isax isax-trash"></i></a>
                                                 </div>
                                             </div>
                                             <div class="d-inline-flex flex-column align-items-start">
@@ -52,7 +57,8 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                                <label class="form-label">Phone Number <span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" value="+1 9876543210">
                                             </div>
                                         </div>
@@ -78,7 +84,8 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Notes</label>
-                                                <input type="text" class="form-control" value="Ensure all details are accurate.">
+                                                <input type="text" class="form-control"
+                                                    value="Ensure all details are accurate.">
                                             </div>
                                         </div>
                                     </div>
@@ -90,19 +97,22 @@
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">Name</label>
-                                                            <input type="text" class="form-control" value="Mitchel Johnson">
+                                                            <input type="text" class="form-control"
+                                                                value="Mitchel Johnson">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">Address Line 1</label>
-                                                            <input type="text" class="form-control" value="1234, Sunset Boulevard">
+                                                            <input type="text" class="form-control"
+                                                                value="1234, Sunset Boulevard">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">Address Line 2</label>
-                                                            <input type="text" class="form-control" value="Los Angeles, CA 900026, USA">
+                                                            <input type="text" class="form-control"
+                                                                value="Los Angeles, CA 900026, USA">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -155,7 +165,8 @@
                                             <div class="col-md-6">
                                                 <div class="d-flex align-items-center justify-content-between mb-3 pt-4">
                                                     <h6>Shipping Address</h6>
-                                                    <a href="#" class="d-inline-flex align-items-center text-primary text-decoration-underline fs-13">
+                                                    <a href="#"
+                                                        class="d-inline-flex align-items-center text-primary text-decoration-underline fs-13">
                                                         <i class="isax isax-document-copy me-1"></i>Copy From Billing
                                                     </a>
                                                 </div>
@@ -163,19 +174,22 @@
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">Name</label>
-                                                            <input type="text" class="form-control" value="Mitchel Johnson">
+                                                            <input type="text" class="form-control"
+                                                                value="Mitchel Johnson">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">Address Line 1</label>
-                                                            <input type="text" class="form-control" value="1234, Sunset Boulevard">
+                                                            <input type="text" class="form-control"
+                                                                value="1234, Sunset Boulevard">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">Address Line 2</label>
-                                                            <input type="text" class="form-control" value="Los Angeles, CA 900026, USA">
+                                                            <input type="text" class="form-control"
+                                                                value="Los Angeles, CA 900026, USA">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -233,7 +247,8 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Bank Name</label>
-                                                    <input type="text" class="form-control" value="ABCD International Bank">
+                                                    <input type="text" class="form-control"
+                                                        value="ABCD International Bank">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
@@ -274,10 +289,11 @@
             </div>
             <!-- end row -->
         </div>
-        
+
         <!-- Footer Start -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- Footer End -->
@@ -285,6 +301,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

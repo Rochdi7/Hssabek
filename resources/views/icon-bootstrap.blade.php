@@ -1,9 +1,9 @@
 <?php $page = 'icon-bootstrap'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper cardhead">
 
@@ -28,7 +28,10 @@
                             <div class="card-title">Bootstrap Icons</div>
                         </div> <!-- end card-header -->
                         <div class="card-body">
-                            <p class="mb-2"><code>&lt;i class="bi bi-ICON_NAME"&gt;&lt;/i&gt;</code>. For more information <a href="https://icons.getbootstrap.com/" target="_blank" class="text-primary">click here</a>.</p>
+                            <p class="mb-2"><code>&lt;i class="bi bi-ICON_NAME"&gt;&lt;/i&gt;</code>. For more information
+                                <a href="https://icons.getbootstrap.com/" target="_blank" class="text-primary">click
+                                    here</a>.
+                            </p>
                             <div class="icons-items">
                                 <div class="icons-list">
                                     <div class="icons-list-item">
@@ -36,7 +39,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-speedometer2" data-bs-toggle="tooltip" title="bi bi-speedometer2"></i>
+                                        <i class="bi bi-speedometer2" data-bs-toggle="tooltip"
+                                            title="bi bi-speedometer2"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -44,7 +48,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-chat-left-text" data-bs-toggle="tooltip" title="bi bi-chat-left-text"></i>
+                                        <i class="bi bi-chat-left-text" data-bs-toggle="tooltip"
+                                            title="bi bi-chat-left-text"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -56,7 +61,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-file-earmark-text" data-bs-toggle="tooltip" title="bi bi-file-earmark-text"></i>
+                                        <i class="bi bi-file-earmark-text" data-bs-toggle="tooltip"
+                                            title="bi bi-file-earmark-text"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -64,7 +70,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-arrow-clockwise" data-bs-toggle="tooltip" title="bi bi-arrow-clockwise"></i>
+                                        <i class="bi bi-arrow-clockwise" data-bs-toggle="tooltip"
+                                            title="bi bi-arrow-clockwise"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -84,7 +91,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-camera-reels" data-bs-toggle="tooltip" title="bi bi-camera-reels"></i>
+                                        <i class="bi bi-camera-reels" data-bs-toggle="tooltip"
+                                            title="bi bi-camera-reels"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -104,7 +112,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-check2-square" data-bs-toggle="tooltip" title="bi bi-check2-square"></i>
+                                        <i class="bi bi-check2-square" data-bs-toggle="tooltip"
+                                            title="bi bi-check2-square"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -116,15 +125,18 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-arrow-down-square" data-bs-toggle="tooltip" title="bi bi-arrow-down-square"></i>
+                                        <i class="bi bi-arrow-down-square" data-bs-toggle="tooltip"
+                                            title="bi bi-arrow-down-square"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-arrow-down-up" data-bs-toggle="tooltip" title="bi bi-arrow-down-up"></i>
+                                        <i class="bi bi-arrow-down-up" data-bs-toggle="tooltip"
+                                            title="bi bi-arrow-down-up"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-cloud-arrow-down" data-bs-toggle="tooltip" title="bi bi-cloud-arrow-down"></i>
+                                        <i class="bi bi-cloud-arrow-down" data-bs-toggle="tooltip"
+                                            title="bi bi-cloud-arrow-down"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -136,11 +148,13 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="bi bi-exclamation-circle"></i>
+                                        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                                            title="bi bi-exclamation-circle"></i>
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-three-dots-vertical" data-bs-toggle="tooltip" title="bi bi-three-dots-vertical"></i>
+                                        <i class="bi bi-three-dots-vertical" data-bs-toggle="tooltip"
+                                            title="bi bi-three-dots-vertical"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -152,7 +166,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-folder2-open" data-bs-toggle="tooltip" title="bi bi-folder2-open"></i>
+                                        <i class="bi bi-folder2-open" data-bs-toggle="tooltip"
+                                            title="bi bi-folder2-open"></i>
                                     </div>
 
                                     <div class="icons-list-item">
@@ -172,7 +187,8 @@
                                     </div>
 
                                     <div class="icons-list-item">
-                                        <i class="bi bi-camera-video" data-bs-toggle="tooltip" title="bi bi-camera-video"></i>
+                                        <i class="bi bi-camera-video" data-bs-toggle="tooltip"
+                                            title="bi bi-camera-video"></i>
                                     </div>
                                 </div>
                             </div>
@@ -185,12 +201,12 @@
         </div>
         <!-- end container -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->  
+                End Page Content
+            ========================= -->
 @endsection

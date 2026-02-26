@@ -1,9 +1,9 @@
 <?php $page = 'account-settings'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
-	<!-- ========================
-		Start Page Content
-	========================= -->
+    <!-- ========================
+          Start Page Content
+         ========================= -->
 
     <div class="page-wrapper">
 
@@ -16,8 +16,8 @@
                     <div class="row settings-wrapper d-flex">
 
                         <!-- Start settings sidebar -->
-                        @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @component('backoffice.components.settings-sidebar')
+                        @endcomponent
                         <!-- End settings sidebar -->
 
                         <div class="col-xl-9 col-lg-8">
@@ -26,17 +26,22 @@
                                     <h6 class="mb-0">Account Settings</h6>
                                 </div>
                                 <div class="d-flex align-items-center mb-3">
-                                    <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i class="isax isax-info-circle fs-14"></i></span>
+                                    <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i
+                                            class="isax isax-info-circle fs-14"></i></span>
                                     <h6 class="fs-16 fw-semibold mb-0">General Information</h6>
                                 </div>
-                                <form action="{{url('account-settings')}}">
+                                <form action="{{ url('account-settings') }}">
                                     <div class="mb-3">
-                                        <span class="text-gray-9 fw-bold mb-2 d-flex">Profile Image<span class="text-danger ms-1">*</span></span>
+                                        <span class="text-gray-9 fw-bold mb-2 d-flex">Profile Image<span
+                                                class="text-danger ms-1">*</span></span>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-xxl border border-dashed bg-light me-3 flex-shrink-0">
                                                 <div class="position-relative d-flex align-items-center">
-                                                    <img src="{{URL::asset('build/img/users/user-01.jpg')}}" class="avatar avatar-xl " alt="">
-                                                    <a href="javascript:void(0);" class="rounded-trash trash-top d-flex align-items-center justify-content-center"><i class="isax isax-trash"></i></a>
+                                                    <img src="{{ URL::asset('build/img/users/user-01.jpg') }}"
+                                                        class="avatar avatar-xl " alt="">
+                                                    <a href="javascript:void(0);"
+                                                        class="rounded-trash trash-top d-flex align-items-center justify-content-center"><i
+                                                            class="isax isax-trash"></i></a>
                                                 </div>
                                             </div>
                                             <div class="d-inline-flex flex-column align-items-start">
@@ -52,19 +57,22 @@
                                         <div class="row gx-3">
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Name <span class="text-danger">*</span></label>
+                                                    <label class="form-label">Name <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <label class="form-label">Email <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                                                    <label class="form-label">Mobile Number <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control">
                                                 </div>
                                             </div>
@@ -82,7 +90,9 @@
                                                 <div class="mb-3">
                                                     <label class="form-label">DOB</label>
                                                     <div class="input-group position-relative mb-3">
-                                                        <input type="text" class="form-control datetimepicker rounded-end" placeholder="25 Mar 2025">
+                                                        <input type="text"
+                                                            class="form-control datetimepicker rounded-end"
+                                                            placeholder="25 Mar 2025">
                                                         <span class="input-icon-addon fs-16 text-gray-9">
                                                             <i class="isax isax-calendar-2"></i>
                                                         </span>
@@ -93,7 +103,8 @@
                                     </div>
                                     <div class="border-bottom mb-3">
                                         <div class="d-flex align-items-center mb-3">
-                                            <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i class="isax isax-info-circle fs-14"></i></span>
+                                            <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i
+                                                    class="isax isax-info-circle fs-14"></i></span>
                                             <h6 class="fs-16 fw-semibold mb-0">Address Information</h6>
                                         </div>
                                         <div class="row gx-3">
@@ -131,7 +142,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">City<span class="text-danger ms-1">*</span></label>
+                                                    <label class="form-label">City<span
+                                                            class="text-danger ms-1">*</span></label>
                                                     <select class="select">
                                                         <option>Select</option>
                                                         <option>Los Angeles</option>
@@ -144,7 +156,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Postal Code<span class="text-danger ms-1">*</span></label>
+                                                    <label class="form-label">Postal Code<span
+                                                            class="text-danger ms-1">*</span></label>
                                                     <input type="text" class="form-control">
                                                 </div>
                                             </div>
@@ -167,15 +180,15 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
 
     </div>
 
-	<!-- ========================
-		End Page Content
-	========================= -->
-
+    <!-- ========================
+          End Page Content
+         ========================= -->
 @endsection

@@ -1,10 +1,9 @@
 <?php $page = 'file-manager'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
-
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
     <div class="page-wrapper">
 
         <!-- Start Content -->
@@ -18,16 +17,18 @@
                     <div class="me-2 mb-2">
                         <div class="input-icon-start position-relative">
                             <span class="input-icon-addon">
-                            <i class="ti ti-search"></i>
-                        </span>
+                                <i class="ti ti-search"></i>
+                            </span>
                             <input type="text" class="form-control py-1 h-auto" placeholder="Search Files / Folders">
                         </div>
                     </div>
                     <div class="me-2 mb-2">
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                            All Files
-                        </a>
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
+                                All Files
+                            </a>
                             <ul class="dropdown-menu  dropdown-menu-end p-3">
                                 <li>
                                     <a href="javascript:void(0);" class="dropdown-item rounded-1">All Files</a>
@@ -48,7 +49,9 @@
                         </div>
                     </div>
                     <div class="mb-2">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#add_folder" class="btn btn-md btn-primary d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Create Folder</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#add_folder"
+                            class="btn btn-md btn-primary d-flex align-items-center"><i
+                                class="ti ti-circle-plus me-2"></i>Create Folder</a>
                     </div>
                 </div>
             </div>
@@ -60,28 +63,33 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{URL::asset('build/img/icons/dropbox.svg')}}" alt="img">
+                                    <img src="{{ URL::asset('build/img/icons/dropbox.svg') }}" alt="img">
                                     <h5 class="ms-2">Dropbox</h5>
                                 </div>
                                 <div class="dropdown">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                        data-bs-toggle="dropdown">
                                         <i class="ti ti-dots"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end p-3">
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Open</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-folder-open me-2"></i>Open</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash me-1"></i>Delete All</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-trash me-1"></i>Delete All</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-status-change me-1"></i>Reset</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-status-change me-1"></i>Reset</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="progress progress-xs flex-grow-1 mb-2">
-                                <div class="progress-bar bg-pink rounded" role="progressbar" style="width: 20%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-pink rounded" role="progressbar" style="width: 20%;"
+                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <p class="mb-0">200 Files</p>
@@ -98,28 +106,33 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{URL::asset('build/img/icons/drive.svg')}}" alt="img">
+                                    <img src="{{ URL::asset('build/img/icons/drive.svg') }}" alt="img">
                                     <h5 class="ms-2">Google Drive</h5>
                                 </div>
                                 <div class="dropdown">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                        data-bs-toggle="dropdown">
                                         <i class="ti ti-dots"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end p-3">
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Open</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-folder-open me-2"></i>Open</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash me-1"></i>Delete All</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-trash me-1"></i>Delete All</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-status-change me-1"></i>Reset</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-status-change me-1"></i>Reset</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="progress progress-xs flex-grow-1 mb-2">
-                                <div class="progress-bar bg-pink rounded" role="progressbar" style="width: 80%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-pink rounded" role="progressbar" style="width: 80%;"
+                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <p class="mb-0">144 Files</p>
@@ -136,28 +149,33 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{URL::asset('build/img/icons/cloud.svg')}}" alt="img">
+                                    <img src="{{ URL::asset('build/img/icons/cloud.svg') }}" alt="img">
                                     <h5 class="ms-2">Cloud Storage</h5>
                                 </div>
                                 <div class="dropdown">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                        data-bs-toggle="dropdown">
                                         <i class="ti ti-dots"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end p-3">
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Open</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-folder-open me-2"></i>Open</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash me-1"></i>Delete All</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-trash me-1"></i>Delete All</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-status-change me-1"></i>Reset</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-status-change me-1"></i>Reset</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="progress progress-xs flex-grow-1 mb-2">
-                                <div class="progress-bar bg-purple rounded" role="progressbar" style="width: 50%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-purple rounded" role="progressbar" style="width: 50%;"
+                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <p class="mb-0">144 Files</p>
@@ -174,28 +192,33 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{URL::asset('build/img/icons/storage.svg')}}" alt="img">
+                                    <img src="{{ URL::asset('build/img/icons/storage.svg') }}" alt="img">
                                     <h5 class="ms-2">Internal Storage</h5>
                                 </div>
                                 <div class="dropdown">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                        data-bs-toggle="dropdown">
                                         <i class="ti ti-dots"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end p-3">
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Open</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-folder-open me-2"></i>Open</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash me-1"></i>Delete All</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-trash me-1"></i>Delete All</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-status-change me-1"></i>Reset</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                    class="ti ti-status-change me-1"></i>Reset</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="progress progress-xs flex-grow-1 mb-2">
-                                <div class="progress-bar bg-purple rounded" role="progressbar" style="width: 20%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-purple rounded" role="progressbar" style="width: 20%;"
+                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <p class="mb-0">144 Files</p>
@@ -218,7 +241,8 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="d-flex align-items-center overflow-hidden">
                                         <span class="avatar flex-shrink-0">
-                                            <img src="{{URL::asset('build/img/profiles/avatar-01.jpg')}}" alt="img" class="rounded-circle">
+                                            <img src="{{ URL::asset('build/img/profiles/avatar-01.jpg') }}" alt="img"
+                                                class="rounded-circle">
                                         </span>
                                         <div class="overflow-hidden ms-2">
                                             <h5 class="text-truncate mb-1">James Hong</h5>
@@ -226,12 +250,14 @@
                                         </div>
                                     </div>
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu  dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-edit me-1"></i>Edit</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-edit me-1"></i>Edit</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -246,14 +272,22 @@
                                 <input type="file">
                             </div>
                             <div class="files-list nav d-block">
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2 active"><i class="ti ti-folder-up me-2"></i>All Folder / Files</a>
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i class="ti ti-star me-2"></i>Drive</a>
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i class="ti ti-octahedron me-2"></i>Dropbox</a>
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i class="ti ti-share-2 me-2"></i>Shared with Me</a>
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i class="ti ti-file me-2"></i>Document</a>
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i class="ti ti-clock-hour-11 me-2"></i>Recent File</a>
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i class="ti ti-star me-2"></i>Important</a>
-                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i class="ti ti-music me-2"></i>Media</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2 active"><i
+                                        class="ti ti-folder-up me-2"></i>All Folder / Files</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i
+                                        class="ti ti-star me-2"></i>Drive</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i
+                                        class="ti ti-octahedron me-2"></i>Dropbox</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i
+                                        class="ti ti-share-2 me-2"></i>Shared with Me</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i
+                                        class="ti ti-file me-2"></i>Document</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i
+                                        class="ti ti-clock-hour-11 me-2"></i>Recent File</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i
+                                        class="ti ti-star me-2"></i>Important</a>
+                                <a href="javscript:void(0);" class="d-flex align-items-center fw-medium p-2"><i
+                                        class="ti ti-music me-2"></i>Media</a>
                             </div>
                         </div>
                     </div>
@@ -348,38 +382,23 @@
                             <div class="col d-flex">
                                 <div class="card access-wrap flex-fill">
                                     <div class="card-body text-center">
-                                        <img src="{{URL::asset('build/img/icons/file.svg')}}" alt="img" class="mb-3">
-                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview">Final.doc</a></h6>
+                                        <img src="{{ URL::asset('build/img/icons/file.svg') }}" alt="img"
+                                            class="mb-3">
+                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">Final.doc</a></h6>
                                         <span class="badge badge-soft-primary">2.4 GB</span>
                                     </div>
-                                    <span class="access-rate rating-select"><i class="ti ti-star-filled filled"></i></span>
+                                    <span class="access-rate rating-select"><i
+                                            class="ti ti-star-filled filled"></i></span>
                                 </div>
                             </div>
                             <div class="col d-flex">
                                 <div class="card access-wrap flex-fill">
                                     <div class="card-body text-center">
-                                        <img src="{{URL::asset('build/img/icons/pdf-icon.svg')}}" alt="img" class="mb-3">
-                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview">Marklist.pdf</a></h6>
-                                        <span class="badge badge-soft-primary">2.4 GB</span>
-                                    </div>
-                                    <span class="access-rate rating-select"><i class="ti ti-star"></i></span>
-                                </div>
-                            </div>
-                            <div class="col d-flex">
-                                <div class="card access-wrap flex-fill">
-                                    <div class="card-body text-center">
-                                        <img src="{{URL::asset('build/img/icons/image.svg')}}" alt="img" class="mb-3">
-                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview">Nature.png</a></h6>
-                                        <span class="badge badge-soft-primary">2.4 GB</span>
-                                    </div>
-                                    <span class="access-rate rating-select"><i class="ti ti-star-filled filled"></i></span>
-                                </div>
-                            </div>
-                            <div class="col d-flex">
-                                <div class="card access-wrap flex-fill">
-                                    <div class="card-body text-center">
-                                        <img src="{{URL::asset('build/img/icons/xls-icon.svg')}}" alt="img" class="mb-3">
-                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview">List.xlsx</a></h6>
+                                        <img src="{{ URL::asset('build/img/icons/pdf-icon.svg') }}" alt="img"
+                                            class="mb-3">
+                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">Marklist.pdf</a></h6>
                                         <span class="badge badge-soft-primary">2.4 GB</span>
                                     </div>
                                     <span class="access-rate rating-select"><i class="ti ti-star"></i></span>
@@ -388,8 +407,35 @@
                             <div class="col d-flex">
                                 <div class="card access-wrap flex-fill">
                                     <div class="card-body text-center">
-                                        <img src="{{URL::asset('build/img/icons/folder-icon.svg')}}" alt="img" class="mb-3">
-                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview">Group Photos</a></h6>
+                                        <img src="{{ URL::asset('build/img/icons/image.svg') }}" alt="img"
+                                            class="mb-3">
+                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">Nature.png</a></h6>
+                                        <span class="badge badge-soft-primary">2.4 GB</span>
+                                    </div>
+                                    <span class="access-rate rating-select"><i
+                                            class="ti ti-star-filled filled"></i></span>
+                                </div>
+                            </div>
+                            <div class="col d-flex">
+                                <div class="card access-wrap flex-fill">
+                                    <div class="card-body text-center">
+                                        <img src="{{ URL::asset('build/img/icons/xls-icon.svg') }}" alt="img"
+                                            class="mb-3">
+                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">List.xlsx</a></h6>
+                                        <span class="badge badge-soft-primary">2.4 GB</span>
+                                    </div>
+                                    <span class="access-rate rating-select"><i class="ti ti-star"></i></span>
+                                </div>
+                            </div>
+                            <div class="col d-flex">
+                                <div class="card access-wrap flex-fill">
+                                    <div class="card-body text-center">
+                                        <img src="{{ URL::asset('build/img/icons/folder-icon.svg') }}" alt="img"
+                                            class="mb-3">
+                                        <h6 class="mb-2 fw-medium"><a href="javascript:void(0);"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">Group Photos</a></h6>
                                         <span class="badge badge-soft-primary">2.4 GB</span>
                                     </div>
                                     <span class="access-rate rating-select"><i class="ti ti-star"></i></span>
@@ -404,7 +450,8 @@
                         <div class="d-flex align-items-center justify-content-between mb-2 table-header">
                             <h4 class="mb-2">Recent Folders</h4>
                             <div class="dropdown mb-2">
-                                <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white" data-bs-toggle="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white"
+                                    data-bs-toggle="dropdown">
                                     Last 7 Days
                                 </a>
                                 <ul class="dropdown-menu  dropdown-menu-end p-3">
@@ -427,53 +474,69 @@
                                         <i class="ti ti-folder-filled"></i>
                                     </span>
                                     <div class="ms-2">
-                                        <h6 class="mb-1"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Personal Assets</a></h6>
+                                        <h6 class="mb-1"><a href="#" data-bs-toggle="offcanvas"
+                                                data-bs-target="#preview">Personal Assets</a></h6>
                                         <div class="d-flex align-items-center">
                                             <p class="fs-12 mb-0 me-2">2.4 GB</p>
-                                            <p class="fs-12 mb-0 d-flex align-items-center"><i class="ti ti-circle-filled fs-6 me-2 text-dark"></i>135 files</p>
+                                            <p class="fs-12 mb-0 d-flex align-items-center"><i
+                                                    class="ti ti-circle-filled fs-6 me-2 text-dark"></i>135 files</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="avatar-list-stacked avatar-group-sm">
                                         <span class="avatar avatar-rounded">
-                                            <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-07.jpg')}}" alt="img">
+                                            <img class="border border-white"
+                                                src="{{ URL::asset('build/img/profiles/avatar-07.jpg') }}"
+                                                alt="img">
                                         </span>
                                         <span class="avatar avatar-rounded">
-                                            <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                            <img class="border border-white"
+                                                src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                alt="img">
                                         </span>
                                     </div>
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Preview</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#preview" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-folder-open me-2"></i>Preview</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-copy me-2"></i>Duplicate</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-copy me-2"></i>Duplicate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-arrow-left-right me-2"></i>Move</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-arrow-left-right me-2"></i>Move</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-user-plus me-2"></i>Invite</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-user-plus me-2"></i>Invite</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-share-3 me-2"></i>Share Link</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-share-3 me-2"></i>Share Link</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider my-2">
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-eye me-2"></i>View Details</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-eye me-2"></i>View Details</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-download me-2"></i>Download</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-download me-2"></i>Download</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash-x me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -485,53 +548,69 @@
                                         <i class="ti ti-folder-filled"></i>
                                     </span>
                                     <div class="ms-2">
-                                        <h6 class="mb-1"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Document</a></h6>
+                                        <h6 class="mb-1"><a href="#" data-bs-toggle="offcanvas"
+                                                data-bs-target="#preview">Document</a></h6>
                                         <div class="d-flex align-items-center">
                                             <p class="fs-12 mb-0 me-2">4 GB</p>
-                                            <p class="fs-12 mb-0 d-flex align-items-center"><i class="ti ti-circle-filled fs-6 me-2 text-dark"></i>15 files</p>
+                                            <p class="fs-12 mb-0 d-flex align-items-center"><i
+                                                    class="ti ti-circle-filled fs-6 me-2 text-dark"></i>15 files</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="avatar-list-stacked avatar-group-sm">
                                         <span class="avatar avatar-rounded">
-                                            <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-05.jpg')}}" alt="img">
+                                            <img class="border border-white"
+                                                src="{{ URL::asset('build/img/profiles/avatar-05.jpg') }}"
+                                                alt="img">
                                         </span>
                                         <span class="avatar avatar-rounded">
-                                            <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                            <img class="border border-white"
+                                                src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                alt="img">
                                         </span>
                                     </div>
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Preview</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#preview" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-folder-open me-2"></i>Preview</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-copy me-2"></i>Duplicate</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-copy me-2"></i>Duplicate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-arrow-left-right me-2"></i>Move</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-arrow-left-right me-2"></i>Move</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-user-plus me-2"></i>Invite</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-user-plus me-2"></i>Invite</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-share-3 me-2"></i>Share Link</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-share-3 me-2"></i>Share Link</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider my-2">
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-eye me-2"></i>View Details</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-eye me-2"></i>View Details</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-download me-2"></i>Download</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-download me-2"></i>Download</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash-x me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -543,45 +622,57 @@
                                         <i class="ti ti-folder-filled"></i>
                                     </span>
                                     <div class="ms-2">
-                                        <h6 class="mb-1"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Handyimages</a></h6>
+                                        <h6 class="mb-1"><a href="#" data-bs-toggle="offcanvas"
+                                                data-bs-target="#preview">Handyimages</a></h6>
                                         <div class="d-flex align-items-center">
                                             <p class="fs-12 mb-0 me-2">1.4 GB</p>
-                                            <p class="fs-12 mb-0 d-flex align-items-center"><i class="ti ti-circle-filled fs-6 me-2 text-dark"></i>115 files</p>
+                                            <p class="fs-12 mb-0 d-flex align-items-center"><i
+                                                    class="ti ti-circle-filled fs-6 me-2 text-dark"></i>115 files</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Preview</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#preview" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-folder-open me-2"></i>Preview</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-copy me-2"></i>Duplicate</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-copy me-2"></i>Duplicate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-arrow-left-right me-2"></i>Move</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-arrow-left-right me-2"></i>Move</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-user-plus me-2"></i>Invite</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-user-plus me-2"></i>Invite</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-share-3 me-2"></i>Share Link</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-share-3 me-2"></i>Share Link</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider my-2">
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-eye me-2"></i>View Details</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-eye me-2"></i>View Details</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-download me-2"></i>Download</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-download me-2"></i>Download</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash-x me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -594,9 +685,11 @@
                     <!-- Recent Files -->
                     <div class="border-bottom mb-3">
                         <div class="d-flex align-items-center justify-content-between mb-2 table-header">
-                            <h4 class="mb-2"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Recent Files</a></h4>
+                            <h4 class="mb-2"><a href="#" data-bs-toggle="offcanvas"
+                                    data-bs-target="#preview">Recent Files</a></h4>
                             <div class="dropdown mb-2">
-                                <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white" data-bs-toggle="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white"
+                                    data-bs-toggle="dropdown">
                                     Last Modified
                                 </a>
                                 <ul class="dropdown-menu  dropdown-menu-end p-3">
@@ -614,168 +707,215 @@
                         </div>
                         <div class="owl-carousel files-carousel">
                             <div class="files-wrap">
-                                <div class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center  files-icon">
+                                <div
+                                    class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center  files-icon">
                                     <i class="ti ti-file-description fs-24 text-dark"></i>
                                 </div>
                                 <div class="bg-white d-flex align-items-center justify-content-between p-3 files-content">
                                     <h6 class="fw-medium">customer_data.txt</h6>
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Preview</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#preview" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-folder-open me-2"></i>Preview</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-copy me-2"></i>Duplicate</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-copy me-2"></i>Duplicate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-arrow-left-right me-2"></i>Move</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-arrow-left-right me-2"></i>Move</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-user-plus me-2"></i>Invite</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-user-plus me-2"></i>Invite</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-share-3 me-2"></i>Share Link</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-share-3 me-2"></i>Share Link</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider my-2">
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-eye me-2"></i>View Details</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-eye me-2"></i>View Details</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-download me-2"></i>Download</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-download me-2"></i>Download</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash-x me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="files-wrap">
-                                <div class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center files-icon">
+                                <div
+                                    class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center files-icon">
                                     <i class="ti ti-file-type-pdf fs-24 text-dark"></i>
                                 </div>
                                 <div class="bg-white d-flex align-items-center justify-content-between p-3 files-content">
-                                    <h6 class="fw-medium text-truncate"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">video_player_installer_setup.rar</a></h6>
+                                    <h6 class="fw-medium text-truncate"><a href="#" data-bs-toggle="offcanvas"
+                                            data-bs-target="#preview">video_player_installer_setup.rar</a></h6>
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Preview</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#preview" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-folder-open me-2"></i>Preview</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-copy me-2"></i>Duplicate</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-copy me-2"></i>Duplicate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-arrow-left-right me-2"></i>Move</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-arrow-left-right me-2"></i>Move</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-user-plus me-2"></i>Invite</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-user-plus me-2"></i>Invite</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-share-3 me-2"></i>Share Link</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-share-3 me-2"></i>Share Link</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider my-2">
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-eye me-2"></i>View Details</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-eye me-2"></i>View Details</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-download me-2"></i>Download</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-download me-2"></i>Download</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash-x me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="files-wrap">
-                                <div class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center files-icon">
+                                <div
+                                    class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center files-icon">
                                     <i class="fa-regular fa-file-audio fs-24 text-dark"></i>
                                 </div>
                                 <div class="bg-white d-flex align-items-center justify-content-between p-3 files-content">
-                                    <h6 class="fw-medium text-truncate"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">recording.mp3</a></h6>
+                                    <h6 class="fw-medium text-truncate"><a href="#" data-bs-toggle="offcanvas"
+                                            data-bs-target="#preview">recording.mp3</a></h6>
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Preview</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#preview" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-folder-open me-2"></i>Preview</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-copy me-2"></i>Duplicate</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-copy me-2"></i>Duplicate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-arrow-left-right me-2"></i>Move</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-arrow-left-right me-2"></i>Move</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-user-plus me-2"></i>Invite</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-user-plus me-2"></i>Invite</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-share-3 me-2"></i>Share Link</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-share-3 me-2"></i>Share Link</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider my-2">
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-eye me-2"></i>View Details</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-eye me-2"></i>View Details</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-download me-2"></i>Download</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-download me-2"></i>Download</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash-x me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="files-wrap">
-                                <div class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center files-icon">
+                                <div
+                                    class="bg-transparent-dark p-5 d-flex align-items-center justify-content-center files-icon">
                                     <i class="fa-solid fa-file-zipper fs-24 text-dark"></i>
                                 </div>
                                 <div class="bg-white d-flex align-items-center justify-content-between p-3 files-content">
-                                    <h6 class="fw-medium"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">header_file.zip</a></h6>
+                                    <h6 class="fw-medium"><a href="#" data-bs-toggle="offcanvas"
+                                            data-bs-target="#preview">header_file.zip</a></h6>
                                     <div class="dropdown ms-2">
-                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                            data-bs-toggle="dropdown">
                                             <i class="ti ti-dots"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
-                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#preview" class="dropdown-item rounded-1"><i class="ti ti-folder-open me-2"></i>Preview</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#preview" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-folder-open me-2"></i>Preview</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-copy me-2"></i>Duplicate</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-copy me-2"></i>Duplicate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-arrow-left-right me-2"></i>Move</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-arrow-left-right me-2"></i>Move</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-user-plus me-2"></i>Invite</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-user-plus me-2"></i>Invite</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-share-3 me-2"></i>Share Link</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-share-3 me-2"></i>Share Link</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider my-2">
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-eye me-2"></i>View Details</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-eye me-2"></i>View Details</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-download me-2"></i>Download</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-download me-2"></i>Download</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-trash-x me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1"><i
+                                                        class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -785,12 +925,13 @@
                     </div>
                     <!-- /Recent Files -->
 
-                <!-- table list -->
+                    <!-- table list -->
                     <div class="d-flex align-items-center justify-content-between mb-2 table-header">
                         <h4 class="mb-2">Files</h4>
                         <div class="d-flex align-items-center">
                             <div class="dropdown mb-2 me-2">
-                                <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white" data-bs-toggle="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white"
+                                    data-bs-toggle="dropdown">
                                     Sort By : Docs Type
                                 </a>
                                 <ul class="dropdown-menu  dropdown-menu-end p-3">
@@ -840,10 +981,14 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center file-name-icon">
-                                            <a href="#" class="avatar avatar-md bg-light" data-bs-toggle="offcanvas" data-bs-target="#preview">
-                                                <img src="{{URL::asset('build/img/icons/file-01.svg')}}" class="img-fluid" alt="img"></a>
+                                            <a href="#" class="avatar avatar-md bg-light"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">
+                                                <img src="{{ URL::asset('build/img/icons/file-01.svg') }}"
+                                                    class="img-fluid" alt="img"></a>
                                             <div class="ms-2">
-                                                <p class="text-dark fw-medium  mb-0"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Secret</a></p>
+                                                <p class="text-dark fw-medium  mb-0"><a href="#"
+                                                        data-bs-toggle="offcanvas" data-bs-target="#preview">Secret</a>
+                                                </p>
                                             </div>
                                         </div>
                                     </td>
@@ -856,13 +1001,19 @@
                                     <td>
                                         <div class="avatar-list-stacked avatar-group-sm">
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-03.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-03.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-04.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-04.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                    alt="img">
                                             </span>
                                         </div>
                                     </td>
@@ -872,7 +1023,8 @@
                                                 <a href="javascript:void(0);"><i class="ti ti-star"></i></a>
                                             </div>
                                             <div class="dropdown">
-                                                <a href="#" class="d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="d-flex align-items-center justify-content-center"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="ti ti-dots fs-14"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right p-3">
@@ -899,10 +1051,14 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center file-name-icon">
-                                            <a href="#" class="avatar avatar-md bg-light" data-bs-toggle="offcanvas" data-bs-target="#preview">
-                                                <img src="{{URL::asset('build/img/icons/file-02.svg')}}" class="img-fluid" alt="img"></a>
+                                            <a href="#" class="avatar avatar-md bg-light"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">
+                                                <img src="{{ URL::asset('build/img/icons/file-02.svg') }}"
+                                                    class="img-fluid" alt="img"></a>
                                             <div class="ms-2">
-                                                <p class="text-dark fw-medium  mb-0"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Sophie Headrick</a></p>
+                                                <p class="text-dark fw-medium  mb-0"><a href="#"
+                                                        data-bs-toggle="offcanvas" data-bs-target="#preview">Sophie
+                                                        Headrick</a></p>
                                             </div>
                                         </div>
                                     </td>
@@ -915,10 +1071,14 @@
                                     <td>
                                         <div class="avatar-list-stacked avatar-group-sm">
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-15.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-15.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                                    alt="img">
                                             </span>
                                         </div>
                                     </td>
@@ -928,7 +1088,8 @@
                                                 <a href="javascript:void(0);"><i class="ti ti-star"></i></a>
                                             </div>
                                             <div class="dropdown">
-                                                <a href="#" class="d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="d-flex align-items-center justify-content-center"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="ti ti-dots fs-14"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right p-3">
@@ -955,10 +1116,14 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center file-name-icon">
-                                            <a href="#" class="avatar avatar-md bg-light" data-bs-toggle="offcanvas" data-bs-target="#preview">
-                                                <img src="{{URL::asset('build/img/icons/file-03.svg')}}" class="img-fluid" alt="img"></a>
+                                            <a href="#" class="avatar avatar-md bg-light"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">
+                                                <img src="{{ URL::asset('build/img/icons/file-03.svg') }}"
+                                                    class="img-fluid" alt="img"></a>
                                             <div class="ms-2">
-                                                <p class="text-dark fw-medium  mb-0"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Gallery</a></p>
+                                                <p class="text-dark fw-medium  mb-0"><a href="#"
+                                                        data-bs-toggle="offcanvas" data-bs-target="#preview">Gallery</a>
+                                                </p>
                                             </div>
                                         </div>
                                     </td>
@@ -971,18 +1136,27 @@
                                     <td>
                                         <div class="avatar-list-stacked avatar-group-sm">
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-02.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-02.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-03.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-03.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-05.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-05.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                    alt="img">
                                             </span>
-                                            <a class="avatar bg-primary avatar-rounded text-fixed-white" href="javascript:void(0);">
+                                            <a class="avatar bg-primary avatar-rounded text-fixed-white"
+                                                href="javascript:void(0);">
                                                 +1
                                             </a>
                                         </div>
@@ -993,7 +1167,8 @@
                                                 <a href="javascript:void(0);"><i class="ti ti-star"></i></a>
                                             </div>
                                             <div class="dropdown">
-                                                <a href="#" class="d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="d-flex align-items-center justify-content-center"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="ti ti-dots fs-14"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right p-3">
@@ -1020,10 +1195,14 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center file-name-icon">
-                                            <a href="#" class="avatar avatar-md bg-light" data-bs-toggle="offcanvas" data-bs-target="#preview">
-                                                <img src="{{URL::asset('build/img/icons/file-04.svg')}}" class="img-fluid" alt="img"></a>
+                                            <a href="#" class="avatar avatar-md bg-light"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">
+                                                <img src="{{ URL::asset('build/img/icons/file-04.svg') }}"
+                                                    class="img-fluid" alt="img"></a>
                                             <div class="ms-2">
-                                                <p class="text-dark fw-medium  mb-0"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Doris Crowley</a></p>
+                                                <p class="text-dark fw-medium  mb-0"><a href="#"
+                                                        data-bs-toggle="offcanvas" data-bs-target="#preview">Doris
+                                                        Crowley</a></p>
                                             </div>
                                         </div>
                                     </td>
@@ -1036,13 +1215,19 @@
                                     <td>
                                         <div class="avatar-list-stacked avatar-group-sm">
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-10.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-10.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-15.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-15.jpg') }}"
+                                                    alt="img">
                                             </span>
                                         </div>
                                     </td>
@@ -1052,7 +1237,8 @@
                                                 <a href="javascript:void(0);"><i class="ti ti-star"></i></a>
                                             </div>
                                             <div class="dropdown">
-                                                <a href="#" class="d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="d-flex align-items-center justify-content-center"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="ti ti-dots fs-14"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right p-3">
@@ -1079,10 +1265,14 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center file-name-icon">
-                                            <a href="#" class="avatar avatar-md bg-light" data-bs-toggle="offcanvas" data-bs-target="#preview">
-                                                <img src="{{URL::asset('build/img/icons/file-05.svg')}}" class="img-fluid" alt="img"></a>
+                                            <a href="#" class="avatar avatar-md bg-light"
+                                                data-bs-toggle="offcanvas" data-bs-target="#preview">
+                                                <img src="{{ URL::asset('build/img/icons/file-05.svg') }}"
+                                                    class="img-fluid" alt="img"></a>
                                             <div class="ms-2">
-                                                <p class="text-dark fw-medium  mb-0"><a href="#" data-bs-toggle="offcanvas" data-bs-target="#preview">Cheat_codez</a></p>
+                                                <p class="text-dark fw-medium  mb-0"><a href="#"
+                                                        data-bs-toggle="offcanvas"
+                                                        data-bs-target="#preview">Cheat_codez</a></p>
                                             </div>
                                         </div>
                                     </td>
@@ -1095,16 +1285,24 @@
                                     <td>
                                         <div class="avatar-list-stacked avatar-group-sm">
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-04.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-04.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-05.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-05.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                    alt="img">
                                             </span>
                                             <span class="avatar avatar-rounded">
-                                                <img class="border border-white" src="{{URL::asset('build/img/profiles/avatar-11.jpg')}}" alt="img">
+                                                <img class="border border-white"
+                                                    src="{{ URL::asset('build/img/profiles/avatar-11.jpg') }}"
+                                                    alt="img">
                                             </span>
                                         </div>
                                     </td>
@@ -1114,7 +1312,8 @@
                                                 <a href="javascript:void(0);"><i class="ti ti-star"></i></a>
                                             </div>
                                             <div class="dropdown">
-                                                <a href="#" class="d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="d-flex align-items-center justify-content-center"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="ti ti-dots fs-14"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right p-3">
@@ -1144,11 +1343,10 @@
         </div>
         <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
     </div>
     <!-- ========================
-        End Page Content
-    ========================= -->
-
+                End Page Content
+            ========================= -->
 @endsection

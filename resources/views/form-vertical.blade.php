@@ -1,9 +1,9 @@
 <?php $page = 'form-vertical'; ?>
-@extends('layout.mainlayout')
-@section('content') 
+@extends('backoffice.layout.mainlayout')
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,9 +19,9 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                        
+
                         <li class="breadcrumb-item active">Form Vertical</li>
                     </ol>
                 </div>
@@ -68,7 +68,7 @@
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
@@ -143,11 +143,13 @@
                                         <div class="mb-3">
                                             <label class="d-block">Gender:</label>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" id="gender_male" value="option1">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                    id="gender_male" value="option1">
                                                 <label class="form-check-label" for="gender_male">Male</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" id="gender_female" value="option2">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                    id="gender_female" value="option2">
                                                 <label class="form-check-label" for="gender_female">Female</label>
                                             </div>
                                         </div>
@@ -330,7 +332,7 @@
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-            
+
             <!-- start row -->
             <div class="row">
                 <div class="col-xl-6">
@@ -366,7 +368,7 @@
                 </div> <!-- end col -->
 
                 <div class="col-xl-6">
-                
+
                     <div class="card card-h-100">
                         <div class="card-header">
                             <h5 class="card-title">Horizontal form label sizing</h5>
@@ -374,31 +376,34 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="colFormLabelSm" class="form-label form-label-sm">Email</label>
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="col-form-label-sm">
                             </div>
                             <div class="mb-3">
                                 <label for="colFormLabel" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="colFormLabel" placeholder="col-form-label">
+                                <input type="email" class="form-control" id="colFormLabel"
+                                    placeholder="col-form-label">
                             </div>
                             <div>
                                 <label for="colFormLabelLg" class="form-label form-label-lg">Email</label>
-                                <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="col-form-label-lg">
+                                <input type="email" class="form-control form-control-lg" id="colFormLabelLg"
+                                    placeholder="col-form-label-lg">
                             </div>
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-            
+
         </div>
         <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

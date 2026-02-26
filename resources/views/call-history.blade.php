@@ -1,9 +1,9 @@
 <?php $page = 'call-history'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
         <div class="content content-two">
@@ -13,12 +13,15 @@
                     <h5>Call History List</h5>
                     <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-2 table-header">
                         <div id="reportrange" class="reportrange-picker d-flex align-items-center me-2">
-                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">20 Apr 25 - 20 Apr 25</span>
+                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">20
+                                Apr 25 - 20 Apr 25</span>
                         </div>
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                            Sort By : Last 7 Days
-                        </a>
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
+                                Sort By : Last 7 Days
+                            </a>
                             <ul class="dropdown-menu  dropdown-menu-end p-3">
                                 <li>
                                     <a href="javascript:void(0);" class="dropdown-item rounded-1">Recently Added</a>
@@ -66,11 +69,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-01.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-01.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Anthony Lewis</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Anthony Lewis</a></p>
                                             <span class="fs-12">anthony@example.com</span>
                                         </div>
                                     </div>
@@ -85,8 +91,10 @@
                                 <td>14 Jan 2024, 04:27 AM </td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -98,11 +106,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-09.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-09.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Brian Villalobos</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Brian Villalobos</a></p>
                                             <span class="fs-12">brian@example.com</span>
                                         </div>
                                     </div>
@@ -117,8 +128,10 @@
                                 <td>21 Jan 2024, 03:19 AM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -130,11 +143,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-02.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-02.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Harvey Smith</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Harvey Smith</a></p>
                                             <span class="fs-12">harvey@example.com</span>
                                         </div>
                                     </div>
@@ -149,8 +165,10 @@
                                 <td>20 Feb 2024, 12:15 PM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -162,11 +180,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-03.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-03.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">peral@example.com</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">peral@example.com</a></p>
                                             <span class="fs-12">peral@example.com</span>
                                         </div>
                                     </div>
@@ -181,8 +202,10 @@
                                 <td>15 Mar 2024, 12:11 AM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -194,9 +217,13 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details"><img src="{{URL::asset('build/img/users/user-10.jpg')}}" class="img-fluid rounded-circle" alt="img"></a>
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details"><img
+                                                src="{{ URL::asset('build/img/users/user-10.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img"></a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Doglas Martini</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Doglas Martini</a></p>
                                             <span class="fs-12">martniwr@example.com</span>
                                         </div>
                                     </div>
@@ -211,8 +238,10 @@
                                 <td>12 Apr 2024, 05:48 PM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -224,11 +253,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-04.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-04.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Linda Ray</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Linda Ray</a></p>
                                             <span class="fs-12">ray456@example.com</span>
                                         </div>
                                     </div>
@@ -243,8 +275,10 @@
                                 <td>20 Apr 2024, 06:11 PM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -256,11 +290,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-05.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-05.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Elliot Murray</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Elliot Murray</a></p>
                                             <span class="fs-12">murray@example.com</span>
                                         </div>
                                     </div>
@@ -275,8 +312,10 @@
                                 <td>06 Jul 2024, 07:15 PM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -288,11 +327,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-06.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-06.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Rebecca Smtih</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Rebecca Smtih</a></p>
                                             <span class="fs-12">smtih@example.com</span>
                                         </div>
                                     </div>
@@ -307,8 +349,10 @@
                                 <td>02 Sep 2024, 09:21 PM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -320,9 +364,13 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details"><img src="{{URL::asset('build/img/users/user-07.jpg')}}" class="img-fluid rounded-circle" alt="img"></a>
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details"><img
+                                                src="{{ URL::asset('build/img/users/user-07.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img"></a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Connie Waters</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Connie Waters</a></p>
                                             <span class="fs-12">connie@example.com</span>
                                         </div>
                                     </div>
@@ -337,8 +385,10 @@
                                 <td>15 Nov 2024, 12:44 PM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -350,11 +400,14 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal" data-bs-target="#view_details">
-                                            <img src="{{URL::asset('build/img/users/user-08.jpg')}}" class="img-fluid rounded-circle" alt="img">
+                                        <a href="#" class="avatar avatar-md" data-bs-toggle="modal"
+                                            data-bs-target="#view_details">
+                                            <img src="{{ URL::asset('build/img/users/user-08.jpg') }}"
+                                                class="img-fluid rounded-circle" alt="img">
                                         </a>
                                         <div class="ms-2">
-                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#view_details">Lori Broaddus</a></p>
+                                            <p class="text-dark fw-medium mb-0"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#view_details">Lori Broaddus</a></p>
                                             <span class="fs-12">broaddus@example.com</span>
                                         </div>
                                     </div>
@@ -369,8 +422,10 @@
                                 <td>10 Dec 2024, 11:23 PM</td>
                                 <td>
                                     <div class="action-icon d-inline-flex align-items-center">
-                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
-                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
+                                        <a href="#" class="me-2 p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#call_history"><i class="ti ti-eye"></i></a>
+                                        <a href="#" class="p-1 rounded-circle d-flex" data-bs-toggle="modal"
+                                            data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -381,11 +436,11 @@
             </div>
 
         </div>
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

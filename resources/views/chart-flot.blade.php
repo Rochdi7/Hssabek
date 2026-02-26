@@ -1,9 +1,9 @@
 <?php $page = 'chart-flot'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper cardhead">
         <div class="content">
@@ -14,7 +14,7 @@
                     <div class="col-sm-12">
                         <h3 class="page-title">Flot Chart</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{url('index')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('index') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Flot Charts</li>
                         </ul>
                     </div>
@@ -135,11 +135,11 @@
 
         </div>
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

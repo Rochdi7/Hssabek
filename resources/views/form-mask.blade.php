@@ -1,9 +1,9 @@
 <?php $page = 'form-mask'; ?>
-@extends('layout.mainlayout')
-@section('content') 
+@extends('backoffice.layout.mainlayout')
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <!-- Page wrapper -->
     <div class="page-wrapper">
@@ -25,7 +25,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Form Mask</h5>
-                            <p class="sub-header">Input masks can be used to force the user to enter data conform a specific format. Unlike validation, the user can't enter any other key than the ones specified by the mask.</p>
+                            <p class="sub-header">Input masks can be used to force the user to enter data conform a specific
+                                format. Unlike validation, the user can't enter any other key than the ones specified by the
+                                mask.</p>
                         </div>
                         <div class="card-body">
                             <form action="#">
@@ -85,12 +87,12 @@
         </div>
         <!--  End container -->
 
-            @component('components.footer')
-            @endcomponent
+        @component('backoffice.components.footer')
+        @endcomponent
     </div>
     <!-- /Page wrapper -->
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection

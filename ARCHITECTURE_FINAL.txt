@@ -44,7 +44,7 @@ PDF:            barryvdh/laravel-dompdf ou spatie/browsershot
 Search:         laravel/scout + meilisearch (optionnel)
 Queue:          Laravel Horizon + Redis
 Cache:          Redis
-DB:             MySQL 8 / PostgreSQL 15
+DB:             MySQL 
 Storage:        S3-compatible (DigitalOcean Spaces / AWS S3)
 
 ================================================================================

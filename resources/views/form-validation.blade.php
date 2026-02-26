@@ -1,9 +1,9 @@
 <?php $page = 'form-validation'; ?>
-@extends('layout.mainlayout')
+@extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+                Start Page Content
+            ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,9 +19,9 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                        
+
                         <li class="breadcrumb-item active">Form Validation</li>
                     </ol>
                 </div>
@@ -37,8 +37,10 @@
                             <h5 class="card-title">Custom Bootstrap Form Validation</h5>
                         </div> <!-- end card-header -->
                         <div class="card-body">
-                            <p>For custom Bootstrap form validation messages, you’ll need to add the <code>novalidate</code> boolean attribute to your form. For server side validation <a href="https://getbootstrap.com/docs/4.1/components/forms/#server-side"
-                                target="_blank" class="text-primary">read full documentation</a>.</p>
+                            <p>For custom Bootstrap form validation messages, you’ll need to add the <code>novalidate</code>
+                                boolean attribute to your form. For server side validation <a
+                                    href="https://getbootstrap.com/docs/4.1/components/forms/#server-side" target="_blank"
+                                    class="text-primary">read full documentation</a>.</p>
                             <div class="row">
                                 <div class="col-sm">
                                     <form class="needs-validation" novalidate>
@@ -46,14 +48,16 @@
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label" for="validationCustom01">First name
                                                 </label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                                                <input type="text" class="form-control" id="validationCustom01"
+                                                    placeholder="First name" value="Mark" required>
                                                 <div class="valid-feedback">
                                                     Looks good!
                                                 </div>
                                             </div> <!-- end col -->
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label" for="validationCustom02">Last name</label>
-                                                <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                                                <input type="text" class="form-control" id="validationCustom02"
+                                                    placeholder="Last name" value="Otto" required>
                                                 <div class="valid-feedback">
                                                     Looks good!
                                                 </div>
@@ -62,7 +66,9 @@
                                                 <label class="form-label" for="validationCustomUsername">Username</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                    <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                                                    <input type="text" class="form-control" id="validationCustomUsername"
+                                                        placeholder="Username" aria-describedby="inputGroupPrepend"
+                                                        required>
                                                     <div class="invalid-feedback">
                                                         Please choose a username.
                                                     </div>
@@ -72,21 +78,24 @@
                                         <div class="form-row row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label" for="validationCustom03">City</label>
-                                                <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+                                                <input type="text" class="form-control" id="validationCustom03"
+                                                    placeholder="City" required>
                                                 <div class="invalid-feedback">
                                                     Please provide a valid city.
                                                 </div>
                                             </div> <!-- end col -->
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label" for="validationCustom04">State</label>
-                                                <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+                                                <input type="text" class="form-control" id="validationCustom04"
+                                                    placeholder="State" required>
                                                 <div class="invalid-feedback">
                                                     Please provide a valid state.
                                                 </div>
                                             </div> <!-- end col -->
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label" for="validationCustom05">Zip</label>
-                                                <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+                                                <input type="text" class="form-control" id="validationCustom05"
+                                                    placeholder="Zip" required>
                                                 <div class="invalid-feedback">
                                                     Please provide a valid zip.
                                                 </div>
@@ -94,7 +103,8 @@
                                         </div> <!-- end row -->
                                         <div class="mb-3">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="invalidCheck" required>
                                                 <label class="form-check-label" for="invalidCheck">
                                                     Agree to terms and conditions
                                                 </label>
@@ -115,7 +125,8 @@
                             <h5 class="card-title">Browser defaults</h5>
                         </div> <!-- end card-header -->
                         <div class="card-body">
-                            <p>Not interested in custom validation feedback messages or writing JavaScript to change form behaviors? All good, you can use the browser defaults. Try submitting the form below.</p>
+                            <p>Not interested in custom validation feedback messages or writing JavaScript to change form
+                                behaviors? All good, you can use the browser defaults. Try submitting the form below.</p>
                             <div class="row">
                                 <div class="col-sm">
                                     <form>
@@ -123,38 +134,46 @@
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label" for="validationDefault01">First name
                                                 </label>
-                                                <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark" required>
+                                                <input type="text" class="form-control" id="validationDefault01"
+                                                    placeholder="First name" value="Mark" required>
                                             </div> <!-- end col -->
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label" for="validationDefault02">Last name
                                                 </label>
-                                                <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required>
+                                                <input type="text" class="form-control" id="validationDefault02"
+                                                    placeholder="Last name" value="Otto" required>
                                             </div> <!-- end col -->
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label" for="validationDefaultUsername">Username</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                                                    <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+                                                    <input type="text" class="form-control"
+                                                        id="validationDefaultUsername" placeholder="Username"
+                                                        aria-describedby="inputGroupPrepend2" required>
                                                 </div>
                                             </div> <!-- end col -->
                                         </div> <!-- end row -->
                                         <div class="form-row row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label" for="validationDefault03">City</label>
-                                                <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+                                                <input type="text" class="form-control" id="validationDefault03"
+                                                    placeholder="City" required>
                                             </div> <!-- end col -->
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label" for="validationDefault04">State</label>
-                                                <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+                                                <input type="text" class="form-control" id="validationDefault04"
+                                                    placeholder="State" required>
                                             </div> <!-- end col -->
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label" for="validationDefault05">Zip</label>
-                                                <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+                                                <input type="text" class="form-control" id="validationDefault05"
+                                                    placeholder="Zip" required>
                                             </div> <!-- end col -->
                                         </div> <!-- end row -->
                                         <div class="mb-3">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="invalidCheck2" required>
                                                 <label class="form-check-label" for="invalidCheck2">
                                                     Agree to terms and conditions
                                                 </label>
@@ -170,9 +189,10 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Server side</h5>
-                        </div>  <!-- end card-header -->
+                        </div> <!-- end card-header -->
                         <div class="card-body">
-                            <p>We recommend using client side validation, but in case you require server side, you can indicate invalid and valid form fields with
+                            <p>We recommend using client side validation, but in case you require server side, you can
+                                indicate invalid and valid form fields with
                                 <code>.is-invalid</code> and <code>.is-valid</code>. Note that
                                 <code>.invalid-feedback</code> is also supported with these classes.
                             </p>
@@ -180,14 +200,16 @@
                                 <div class="form-row row">
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label" for="validationServer01">First name</label>
-                                        <input type="text" class="form-control is-valid" id="validationServer01" placeholder="First name" value="Mark" required>
+                                        <input type="text" class="form-control is-valid" id="validationServer01"
+                                            placeholder="First name" value="Mark" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                     </div> <!-- end col -->
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label" for="validationServer02">Last name</label>
-                                        <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Last name" value="Otto" required>
+                                        <input type="text" class="form-control is-valid" id="validationServer02"
+                                            placeholder="Last name" value="Otto" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -196,7 +218,9 @@
                                         <label class="form-label" for="validationServerUsername">Username</label>
                                         <div class="input-group input-grp">
                                             <span class="input-group-text" id="inputGroupPrepend3">@</span>
-                                            <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
+                                            <input type="text" class="form-control is-invalid"
+                                                id="validationServerUsername" placeholder="Username"
+                                                aria-describedby="inputGroupPrepend3" required>
                                             <div class="invalid-feedback">
                                                 Please choose a username.
                                             </div>
@@ -206,21 +230,24 @@
                                 <div class="form-row row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label" for="validationServer03">City</label>
-                                        <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
+                                        <input type="text" class="form-control is-invalid" id="validationServer03"
+                                            placeholder="City" required>
                                         <div class="invalid-feedback">
                                             Please provide a valid city.
                                         </div>
                                     </div> <!-- end col -->
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label" for="validationServer04">State</label>
-                                        <input type="text" class="form-control is-invalid" id="validationServer04" placeholder="State" required>
+                                        <input type="text" class="form-control is-invalid" id="validationServer04"
+                                            placeholder="State" required>
                                         <div class="invalid-feedback">
                                             Please provide a valid state.
                                         </div>
                                     </div> <!-- end col -->
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label" for="validationServer05">Zip</label>
-                                        <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
+                                        <input type="text" class="form-control is-invalid" id="validationServer05"
+                                            placeholder="Zip" required>
                                         <div class="invalid-feedback">
                                             Please provide a valid zip.
                                         </div>
@@ -228,7 +255,8 @@
                                 </div> <!-- end row -->
                                 <div class="mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+                                        <input class="form-check-input is-invalid" type="checkbox" value=""
+                                            id="invalidCheck3" required>
                                         <label class="form-check-label" for="invalidCheck3">
                                             Agree to terms and conditions
                                         </label>
@@ -260,20 +288,24 @@
                                         </div>
 
                                         <div class="form-check mb-3">
-                                            <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+                                            <input type="checkbox" class="form-check-input" id="validationFormCheck1"
+                                                required>
                                             <label class="form-check-label" for="validationFormCheck1">Check this checkbox
                                             </label>
                                             <div class="invalid-feedback">Example invalid feedback text</div>
                                         </div>
 
                                         <div class="form-check">
-                                            <input type="radio" class="form-check-input" id="validationFormCheck2" name="radio-stacked" required>
+                                            <input type="radio" class="form-check-input" id="validationFormCheck2"
+                                                name="radio-stacked" required>
                                             <label class="form-check-label" for="validationFormCheck2">Toggle this radio
                                             </label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input type="radio" class="form-check-input" id="validationFormCheck3" name="radio-stacked" required>
-                                            <label class="form-check-label" for="validationFormCheck3">Or toggle this other radio</label>
+                                            <input type="radio" class="form-check-input" id="validationFormCheck3"
+                                                name="radio-stacked" required>
+                                            <label class="form-check-label" for="validationFormCheck3">Or toggle this
+                                                other radio</label>
                                             <div class="invalid-feedback">More example invalid feedback text</div>
                                         </div>
 
@@ -288,11 +320,12 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="file" class="form-control" aria-label="file example" required>
+                                            <input type="file" class="form-control" aria-label="file example"
+                                                required>
                                             <div class="invalid-feedback">Example invalid form file feedback</div>
                                         </div>
                                     </form>
-                                </div>  <!-- end col -->
+                                </div> <!-- end col -->
                             </div> <!-- end row -->
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
@@ -303,19 +336,22 @@
                         </div> <!-- end card-header -->
                         <div class="card-body">
                             <p>You can swap the <code>.{valid|invalid}-feedback</code> classes for
-                                <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip.
+                                <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled
+                                tooltip.
                             </p>
                             <form class="row g-3 needs-validation" novalidate>
                                 <div class="col-md-4 position-relative">
                                     <label for="validationTooltip01" class="form-label">First name</label>
-                                    <input type="text" class="form-control" id="validationTooltip01" value="Mark" required>
+                                    <input type="text" class="form-control" id="validationTooltip01" value="Mark"
+                                        required>
                                     <div class="valid-tooltip">
                                         Looks good!
                                     </div>
                                 </div> <!-- end col -->
                                 <div class="col-md-4 position-relative">
                                     <label for="validationTooltip02" class="form-label">Last name</label>
-                                    <input type="text" class="form-control" id="validationTooltip02" value="Otto" required>
+                                    <input type="text" class="form-control" id="validationTooltip02" value="Otto"
+                                        required>
                                     <div class="valid-tooltip">
                                         Looks good!
                                     </div>
@@ -324,7 +360,8 @@
                                     <label for="validationTooltipUsername" class="form-label">Username</label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
-                                        <input type="text" class="form-control" id="validationTooltipUsername" aria-describedby="validationTooltipUsernamePrepend" required>
+                                        <input type="text" class="form-control" id="validationTooltipUsername"
+                                            aria-describedby="validationTooltipUsernamePrepend" required>
                                         <div class="invalid-tooltip">
                                             Please choose a unique and valid username.
                                         </div>
@@ -361,19 +398,19 @@
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
             </div>
             <!-- end row -->
-            
+
         </div>
         <!-- End Content -->
 
-        @component('components.footer')
+        @component('backoffice.components.footer')
         @endcomponent
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+                End Page Content
+            ========================= -->
 @endsection
