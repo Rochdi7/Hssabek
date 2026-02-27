@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->foreign('base_currency')->references('code')->on('currencies');
             $table->foreign('quote_currency')->references('code')->on('currencies');
             $table->index('tenant_id');
-            $table->unique(['tenant_id', 'base_currency', 'quote_currency', 'date']);
+            $table->unique(['tenant_id', 'base_currency', 'quote_currency', 'date'], 'idx_ex_rates_unique');
         });
     }
 

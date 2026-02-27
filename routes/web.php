@@ -37,8 +37,46 @@ Route::middleware('web')->group(function () {
     Route::get('/contact', function () {
         return view('web.pages.contact');
     })->name('contact');
-
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| 📊 DASHBOARD (POST-LOGIN REDIRECT)
+|--------------------------------------------------------------------------
+|
+| Central dashboard route that intelligently routes to:
+| - /backoffice for tenant users
+| - /admin for superadmin users
+|
+*/
+
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::get('/dashboard', function (Illuminate\Http\Request $request) {
+        $user = $request->user();
+
+        // Superadmin user (no tenant or has super_admin role)
+        if ($user->tenant_id === null || $user->hasRole('super_admin')) {
+            return redirect()->route('sa.dashboard');
+        }
+
+        // Tenant user
+        return redirect()->route('bo.dashboard');
+    })->name('dashboard');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| 🔐 AUTHENTICATION (PUBLIC)
+|--------------------------------------------------------------------------
+|
+| URL: /login, /register, /forgot-password, etc.
+| Accessible without prefix
+|
+*/
+
+require __DIR__ . '/auth.php';
 
 
 /*
@@ -62,22 +100,21 @@ Route::prefix('backoffice')
     ->group(function () {
 
         // Auth routes
-        require __DIR__.'/backoffice/auth.php';
+        require __DIR__ . '/backoffice/auth.php';
 
         // Protected routes
         Route::middleware('auth')->group(function () {
 
-            require __DIR__.'/backoffice/dashboard.php';
-            require __DIR__.'/backoffice/settings.php';
-            require __DIR__.'/backoffice/access.php';
-            require __DIR__.'/backoffice/crm.php';
-            require __DIR__.'/backoffice/catalog.php';
-            require __DIR__.'/backoffice/inventory.php';
-            require __DIR__.'/backoffice/sales.php';
-            require __DIR__.'/backoffice/purchases.php';
-            require __DIR__.'/backoffice/finance.php';
-            require __DIR__.'/backoffice/reports.php';
-
+            require __DIR__ . '/backoffice/dashboard.php';
+            require __DIR__ . '/backoffice/settings.php';
+            require __DIR__ . '/backoffice/access.php';
+            require __DIR__ . '/backoffice/crm.php';
+            require __DIR__ . '/backoffice/catalog.php';
+            require __DIR__ . '/backoffice/inventory.php';
+            require __DIR__ . '/backoffice/sales.php';
+            require __DIR__ . '/backoffice/purchases.php';
+            require __DIR__ . '/backoffice/finance.php';
+            require __DIR__ . '/backoffice/reports.php';
         });
     });
 
@@ -102,17 +139,16 @@ Route::prefix('admin')
     ])
     ->group(function () {
 
-        require __DIR__.'/superadmin/dashboard.php';
-        require __DIR__.'/superadmin/tenants.php';
-        require __DIR__.'/superadmin/plans.php';
-        require __DIR__.'/superadmin/subscriptions.php';
-        require __DIR__.'/superadmin/templates.php';
-        require __DIR__.'/superadmin/settings.php';
-
+        require __DIR__ . '/superadmin/dashboard.php';
+        require __DIR__ . '/superadmin/tenants.php';
+        require __DIR__ . '/superadmin/plans.php';
+        require __DIR__ . '/superadmin/subscriptions.php';
+        require __DIR__ . '/superadmin/templates.php';
+        require __DIR__ . '/superadmin/settings.php';
     });
-    
+
 // this route for testing the theming system, can be removed later
-require __DIR__.'/themeroutes.php';
+// require __DIR__.'/themeroutes.php';
 
 /*
 |--------------------------------------------------------------------------

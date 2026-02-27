@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->index('tenant_id');
             $table->index('warehouse_id');
             $table->index('product_id');
-            $table->unique(['tenant_id', 'warehouse_id', 'product_id']);
+            $table->unique(['tenant_id', 'warehouse_id', 'product_id'], 'idx_stock_tenant_wh_prod');
         });
     }
 

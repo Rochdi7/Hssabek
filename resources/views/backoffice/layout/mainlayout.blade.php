@@ -1,251 +1,142 @@
+@php
+    // ============================================================
+    // Dynamic Page Categories — based on $page variable set in each view
+    // Instead of hardcoded Route::is() from the theme, we use $page
+    // ============================================================
+    $page = $page ?? 'index';
+
+    // Auth pages: full-screen, no header/sidebar, white bg, auth-bg wrapper
+    $authPages = [
+        'login',
+        'register',
+        'forgot-password',
+        'reset-password',
+        'lock-screen',
+        'two-step-verification',
+        'two-step-verifcation',
+        'email-verification',
+        'free-trial',
+        'success',
+    ];
+
+    // Error / status pages: white bg, no header/sidebar
+    $statusPages = ['error-404', 'error-500', 'under-construction', 'under-maintenance', 'coming-soon'];
+
+    // Invoice print pages: no header/sidebar
+    $invoicePages = [
+        'general-invoice-1',
+        'general-invoice-1a',
+        'general-invoice-2',
+        'general-invoice-2a',
+        'general-invoice-3',
+        'general-invoice-4',
+        'general-invoice-5',
+        'general-invoice-6',
+        'general-invoice-7',
+        'general-invoice-8',
+        'general-invoice-9',
+        'general-invoice-10',
+        'hotel-booking-invoice',
+        'domain-hosting-invoice',
+        'ecommerce-invoice',
+        'internet-billing-invoice',
+        'invoice-medical',
+        'receipt-invoice-1',
+        'receipt-invoice-2',
+        'receipt-invoice-3',
+        'receipt-invoice-4',
+        'money-exchange-invoice',
+        'movie-ticket-booking-invoice',
+        'student-billing-invoice',
+        'train-ticket-invoice',
+        'bus-booking-invoice',
+        'car-booking-invoice',
+        'coffee-shop-invoice',
+        'fitness-center-invoice',
+        'flight-booking-invoice',
+        'restaurants-invoice',
+    ];
+
+    // Layout variants
+    $layoutMini = $page === 'layout-mini';
+    $layoutRtl = $page === 'layout-rtl';
+    $layoutSingle = $page === 'layout-single';
+    $layoutTransparent = $page === 'layout-transparent';
+    $layoutWithoutHeader = $page === 'layout-without-header';
+    $layoutDark = $page === 'layout-dark';
+
+    // Computed booleans
+    $isAuth = in_array($page, $authPages);
+    $isStatus = in_array($page, $statusPages);
+    $isInvoice = in_array($page, $invoicePages);
+    $isFullscreen = $isAuth || $isStatus || $isInvoice;
+    $hideHeaderSidebar = $isFullscreen;
+@endphp
 <!DOCTYPE html>
-@if (
-    !Route::is([
-        'layout-mini',
-        'layout-rtl',
-        'layout-single',
-        'layout-transparent',
-        'layout-without-header',
-        'layout-dark',
-    ]))
+@if ($layoutMini)
+    <html lang="en" data-layout="mini">
+@elseif ($layoutDark)
+    <html lang="en" data-bs-theme="dark" data-sidebar="light" data-color="primary" data-topbar="white"
+        data-layout="default" data-size="default" data-width="fluid">
+@elseif ($layoutRtl)
+    <html lang="en" dir="rtl">
+@elseif ($layoutSingle)
+    <html lang="en" data-layout="single">
+@elseif ($layoutTransparent)
+    <html lang="en" data-layout="transparent">
+@elseif ($layoutWithoutHeader)
+    <html lang="en" data-layout="without-header">
+@else
     <html lang="en">
 @endif
 
-@if (Route::is(['layout-mini']))
-    <html lang="en" data-layout="mini">
-@endif
+@include('backoffice.components.title-meta')
 
-@if (Route::is(['layout-dark']))
-    <html lang="en" data-bs-theme="dark" data-sidebar="light" data-color="primary" data-topbar="white"
-        data-layout="default" data-size="default" data-width="fluid">
-@endif
-
-@if (Route::is(['layout-rtl']))
-    <html lang="en" dir="rtl">
-@endif
-
-@if (Route::is(['layout-single']))
-    <html lang="en" data-layout="single">
-@endif
-
-@if (Route::is(['layout-transparent']))
-    <html lang="en" data-layout="transparent">
-@endif
-
-@if (Route::is(['layout-without-header']))
-    <html lang="en" data-layout="without-header">
-@endif
-
-@component('backoffice.components.title-meta')
-@endcomponent
-
-@if (
-    !Route::is([
-        'coming-soon',
-        'error-404',
-        'error-500',
-        'under-construction',
-        'coming-soon',
-        'under-maintenance',
-        'layout-mini',
-        'layout-rtl',
-        'lock-screen',
-        'login',
-        'general-invoice-5',
-        'two-step-verification',
-        'free-trial',
-        'reset-password',
-        'register',
-    ]))
-
-    <body>
-@endif
-
-@if (Route::is(['error-404', 'error-500', 'under-construction', 'under-maintenance', 'coming-soon']))
-
-    <body class="bg-white coming-soon">
-@endif
-
-@if (Route::is(['login', 'lock-screen', 'success', 'two-step-verification', 'free-trial', 'reset-password', 'register']))
+@if ($isAuth)
 
     <body class="bg-white">
+    @elseif ($isStatus)
+
+        <body class="bg-white coming-soon">
+        @elseif ($page === 'general-invoice-5')
+
+            <body class="bg-dark">
+            @elseif ($layoutMini)
+
+                <body class="mini-sidebar">
+                @elseif ($layoutRtl)
+
+                    <body class="layout-mode-rtl">
+                    @else
+
+                        <body>
 @endif
 
-@if (Route::is(['layout-mini']))
-
-    <body class="mini-sidebar">
-@endif
-
-@if (Route::is(['layout-rtl']))
-
-    <body class="layout-mode-rtl">
-@endif
-
-@if (Route::is(['general-invoice-5']))
-
-    <body class="bg-dark">
-@endif
 <!-- Start Main Wrapper -->
-@if (
-    !Route::is([
-        'error-404',
-        'error-500',
-        'lock-screen',
-        'login',
-        'success',
-        'two-step-verification',
-        'under-construction',
-        'under-maintenance',
-        'coming-soon',
-        'email-verification',
-        'forgot-password',
-        'free-trial',
-        'reset-password',
-        'register',
-    ]))
-    <div class="main-wrapper">
-@endif
-
-@if (Route::is([
-        'error-404',
-        'coming-soon',
-        'error-500',
-        'lock-screen',
-        'login',
-        'success',
-        'two-step-verification',
-        'under-construction',
-        'under-maintenance',
-        'email-verification',
-        'forgot-password',
-        'free-trial',
-        'reset-password',
-        'register',
-    ]))
+@if ($isAuth || $isStatus)
     <div class="main-wrapper auth-bg">
+    @else
+        <div class="main-wrapper">
 @endif
 
-@if (
-    !Route::is([
-        'signin',
-        'signup',
-        'coming-soon',
-        'error-404',
-        'error-500',
-        'under-construction',
-        'change-password',
-        'forgot-password',
-        'lock-screen',
-        'general-invoice-1',
-        'general-invoice-1a',
-        'general-invoice-2',
-        'general-invoice-2a',
-        'general-invoice-3',
-        'general-invoice-4',
-        'general-invoice-5',
-        'general-invoice-6',
-        'general-invoice-7',
-        'general-invoice-8',
-        'general-invoice-9',
-        'general-invoice-10',
-        'hotel-booking-invoice',
-        'domain-hosting-invoice',
-        'ecommerce-invoice',
-        'internet-billing-invoice',
-        'invoice-medical',
-        'receipt-invoice-1',
-        'receipt-invoice-2',
-        'receipt-invoice-3',
-        'receipt-invoice-4',
-        'hotel-booking-invoice',
-        'domain-hosting-invoice',
-        'ecommerce-invoice',
-        'internet-billing-invoice',
-        'email-verification',
-        'login',
-        'money-exchange-invoice',
-        'movie-ticket-booking-invoice',
-        'student-billing-invoice',
-        'success',
-        'train-ticket-invoice',
-        'two-step-verification',
-        'under-maintenance',
-        'bus-booking-invoice',
-        'car-booking-invoice',
-        'coffee-shop-invoice',
-        'fitness-center-invoice',
-        'flight-booking-invoice',
-        'free-trial',
-        'restaurants-invoice',
-        'reset-password',
-        'register',
-    ]))
+<!-- Global Alerts -->
+@include('backoffice.components.alerts')
+
+@unless ($hideHeaderSidebar)
     @include('backoffice.layout.partials.header')
-@endif
-@if (
-    !Route::is([
-        'signin',
-        'signup',
-        'coming-soon',
-        'error-404',
-        'error-500',
-        'under-construction',
-        'change-password',
-        'forgot-password',
-        'lock-screen',
-        'general-invoice-1',
-        'general-invoice-1a',
-        'general-invoice-2',
-        'general-invoice-2a',
-        'general-invoice-3',
-        'general-invoice-4',
-        'general-invoice-5',
-        'general-invoice-6',
-        'general-invoice-7',
-        'general-invoice-8',
-        'general-invoice-9',
-        'general-invoice-10',
-        'hotel-booking-invoice',
-        'domain-hosting-invoice',
-        'ecommerce-invoice',
-        'internet-billing-invoice',
-        'invoice-medical',
-        'receipt-invoice-1',
-        'receipt-invoice-2',
-        'receipt-invoice-3',
-        'receipt-invoice-4',
-        'hotel-booking-invoice',
-        'domain-hosting-invoice',
-        'ecommerce-invoice',
-        'internet-billing-invoice',
-        'email-verification',
-        'login',
-        'money-exchange-invoice',
-        'movie-ticket-booking-invoice',
-        'student-billing-invoice',
-        'success',
-        'train-ticket-invoice',
-        'two-step-verification',
-        'under-maintenance',
-        'bus-booking-invoice',
-        'car-booking-invoice',
-        'coffee-shop-invoice',
-        'fitness-center-invoice',
-        'flight-booking-invoice',
-        'free-trial',
-        'restaurants-invoice',
-        'reset-password',
-        'register',
-    ]))
     @include('backoffice.layout.partials.sidebar')
-@endif
+@endunless
+
 @yield('content')
+
 @component('backoffice.components.modal-popup')
 @endcomponent
+
 </div>
 <!-- End Main Wrapper -->
 
 @include('backoffice.layout.partials.footer-scripts')
+
 </body>
 
 </html>
