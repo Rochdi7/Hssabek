@@ -1805,9 +1805,13 @@
                             <hr class="dropdown-divider my-2">
 
                             <!-- Item-->
-                            <a class="dropdown-item logout d-flex align-items-center" href="{{ url('login') }}">
-                                <i class="isax isax-logout me-2"></i>Sign Out
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
+                                @csrf
+                                <button type="submit"
+                                    class="dropdown-item logout d-flex align-items-center border-0 bg-transparent w-100">
+                                    <i class="isax isax-logout me-2"></i>Sign Out
+                                </button>
+                            </form>
                         </div>
                     </div>
 
@@ -1834,9 +1838,13 @@
                 <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.account.settings.edit') }}">
                     <i class="isax isax-setting me-2"></i>Settings
                 </a>
-                <a class="dropdown-item logout d-flex align-items-center" href="{{ url('login') }}">
-                    <i class="isax isax-logout me-2"></i>Signout
-                </a>
+                <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
+                    @csrf
+                    <button type="submit"
+                        class="dropdown-item logout d-flex align-items-center border-0 bg-transparent w-100">
+                        <i class="isax isax-logout me-2"></i>Signout
+                    </button>
+                </form>
             </div>
         </div>
         <!-- /Mobile Menu -->

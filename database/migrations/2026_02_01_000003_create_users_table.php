@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     /**
      * Create the users table with UUID primary key for the multi-tenant system.
+     * Includes all profile fields (phone, gender, address, etc.).
      * Idempotent: skips if users table already exists.
      */
     public function up(): void
@@ -17,6 +18,14 @@ return new class extends Migration {
                 $table->uuid('tenant_id')->nullable();
                 $table->string('name');
                 $table->string('email')->unique();
+                $table->string('phone', 30)->nullable();
+                $table->enum('gender', ['male', 'female'])->nullable();
+                $table->date('date_of_birth')->nullable();
+                $table->string('address')->nullable();
+                $table->string('country')->nullable();
+                $table->string('state')->nullable();
+                $table->string('city')->nullable();
+                $table->string('postal_code')->nullable();
                 $table->dateTime('email_verified_at')->nullable();
                 $table->string('password');
                 $table->string('avatar_url')->nullable();

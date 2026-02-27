@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use HasUuids, Notifiable, HasRoles, InteractsWithMedia;
+    use HasUuids, HasApiTokens, Notifiable, HasRoles, InteractsWithMedia;
 
     protected $fillable = [
         'tenant_id',

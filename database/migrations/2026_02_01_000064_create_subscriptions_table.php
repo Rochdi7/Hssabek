@@ -13,10 +13,10 @@ return new class extends Migration {
             $table->uuid('plan_id');
             $table->enum('status', ['trialing', 'active', 'past_due', 'cancelled'])->default('active');
             $table->integer('quantity')->default(1);
-            $table->dateTime('current_period_start')->nullable();
-            $table->dateTime('current_period_end')->nullable();
-            $table->boolean('cancel_at_period_end')->default(false);
-            $table->dateTime('cancelled_at')->nullable();
+            $table->dateTime('starts_at')->nullable();
+            $table->dateTime('ends_at')->nullable();
+            $table->dateTime('trial_ends_at')->nullable();
+            $table->dateTime('cancels_at')->nullable();
             $table->enum('provider', ['stripe', 'manual'])->default('manual');
             $table->string('provider_subscription_id')->nullable();
             $table->timestamps();
