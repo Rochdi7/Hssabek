@@ -20,8 +20,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             @include('backoffice.components.avatar-cropper', [
-                                'currentUrl'  => asset('build/img/icons/company-icon-01.svg'),
-                                'defaultUrl'  => asset('build/img/icons/company-icon-01.svg'),
+                                'currentUrl'  => asset('build/img/icons/company-logo-01.svg'),
+                                'defaultUrl'  => asset('build/img/icons/company-logo-01.svg'),
                                 'inputName'   => 'cropped_logo',
                                 'previewId'   => 'add-tenant-logo-preview',
                                 'hasImage'    => false,
@@ -170,7 +170,7 @@
                             <div class="col-md-12">
                                 @include('backoffice.components.avatar-cropper', [
                                     'currentUrl'  => $tenant->logo_url,
-                                    'defaultUrl'  => asset('build/img/icons/company-icon-01.svg'),
+                                    'defaultUrl'  => asset('build/img/icons/company-logo-01.svg'),
                                     'inputName'   => 'cropped_logo',
                                     'previewId'   => 'edit-tenant-logo-' . $tenant->id,
                                     'hasImage'    => $tenant->hasMedia('logo'),

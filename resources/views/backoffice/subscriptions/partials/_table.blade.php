@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($subscriptions as $subscription)
+            @foreach($subscriptions as $subscription)
                 <tr>
                     <td>
                         <div class="form-check form-check-md">
@@ -87,11 +87,7 @@
                     </td>
                     @include('backoffice.subscriptions.partials._actions', ['subscription' => $subscription])
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="10" class="text-center text-muted py-4">Aucun enregistrement trouvé.</td>
-                </tr>
-            @endforelse
+            @endforeach
         </tbody>
     </table>
 </div>

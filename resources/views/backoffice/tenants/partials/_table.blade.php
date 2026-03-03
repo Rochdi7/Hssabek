@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($tenants as $tenant)
+            @foreach($tenants as $tenant)
                 <tr>
                     <td>
                         <div class="form-check form-check-md">
@@ -63,11 +63,7 @@
                     </td>
                     @include('backoffice.tenants.partials._actions', ['tenant' => $tenant])
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="8" class="text-center text-muted py-4">Aucun enregistrement trouvé.</td>
-                </tr>
-            @endforelse
+            @endforeach
         </tbody>
     </table>
 </div>

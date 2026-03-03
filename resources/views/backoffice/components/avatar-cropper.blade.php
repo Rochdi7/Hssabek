@@ -60,6 +60,10 @@
 @push('styles')
     @once
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+        <style>
+            #shared-crop-modal { z-index: 1070; }
+            #shared-crop-modal + .modal-backdrop { z-index: 1065; }
+        </style>
     @endonce
 @endpush
 
@@ -85,7 +89,7 @@
                     + '</div>'
                     + '<div class="modal-footer">'
                     + '<button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>'
-                    + '<button type="button" class="btn btn-primary" id="shared-crop-btn">'
+                    + '<button type="button" class="btn btn-primary" id="shared-crop-btn" disabled>'
                     + '<i class="isax isax-image me-1"></i>Recadrer'
                     + '</button>'
                     + '</div>'
@@ -101,10 +105,17 @@
                 var cropModal = new bootstrap.Modal(modalEl);
                 var cropper = null;
                 var activeCallback = null;
+                var pendingImageSrc = null;
 
-                // Init cropper when modal is shown
-                modalEl.addEventListener('shown.bs.modal', function() {
-                    if (cropper) cropper.destroy();
+                function destroyCropper() {
+                    if (cropper) {
+                        cropper.destroy();
+                        cropper = null;
+                    }
+                }
+
+                function createCropper() {
+                    destroyCropper();
                     cropper = new Cropper(cropImg, {
                         aspectRatio: 1,
                         viewMode: 1,
@@ -118,17 +129,45 @@
                         cropBoxMovable: true,
                         cropBoxResizable: true,
                         toggleDragModeOnDblclick: false,
+                        ready: function() {
+                            cropBtn.disabled = false;
+                        }
                     });
+                }
+
+                // Init cropper AFTER modal is fully visible
+                modalEl.addEventListener('shown.bs.modal', function() {
+                    destroyCropper();
+                    cropBtn.disabled = true;
+
+                    // Set image src now that modal is visible
+                    if (pendingImageSrc) {
+                        cropImg.src = pendingImageSrc;
+                        pendingImageSrc = null;
+                    }
+
+                    // Wait for image to load, then give the browser a frame to paint
+                    // before creating the Cropper (it needs visible container dimensions)
+                    function onImageReady() {
+                        cropImg.onload = null;
+                        setTimeout(function() { createCropper(); }, 50);
+                    }
+
+                    if (cropImg.complete && cropImg.naturalWidth > 0) {
+                        onImageReady();
+                    } else {
+                        cropImg.onload = onImageReady;
+                    }
                 });
 
                 // Cleanup on modal close
                 modalEl.addEventListener('hidden.bs.modal', function() {
-                    if (cropper) {
-                        cropper.destroy();
-                        cropper = null;
-                    }
+                    destroyCropper();
+                    cropBtn.disabled = true;
+                    cropImg.onload = null;
                     cropImg.src = '';
                     activeCallback = null;
+                    pendingImageSrc = null;
                     // Re-add modal-open to body if a parent modal is still visible
                     if (document.querySelector('.modal.show')) {
                         document.body.classList.add('modal-open');
@@ -148,16 +187,18 @@
                         imageSmoothingQuality: 'high',
                     });
 
+                    if (!canvas) return;
+
                     var base64 = canvas.toDataURL('image/png');
                     activeCallback(base64);
                     cropModal.hide();
                 });
 
-                // Expose open method for per-instance scripts
+                // Expose open method — store src, don't set it until modal is visible
                 window.__sharedCropper = {
                     open: function(imageSrc, callback) {
                         activeCallback = callback;
-                        cropImg.src = imageSrc;
+                        pendingImageSrc = imageSrc;
                         cropModal.show();
                     }
                 };

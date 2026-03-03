@@ -14,24 +14,24 @@ class ExchangeRate extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'from_currency_id',
-        'to_currency_id',
+        'base_currency',
+        'quote_currency',
         'rate',
-        'effective_date',
+        'date',
     ];
 
     protected $casts = [
-        'rate' => 'decimal:6',
-        'effective_date' => 'date',
+        'rate' => 'decimal:8',
+        'date' => 'date',
     ];
 
-    public function fromCurrency(): BelongsTo
+    public function baseCurrencyRelation(): BelongsTo
     {
-        return $this->belongsTo(Currency::class, 'from_currency_id');
+        return $this->belongsTo(Currency::class, 'base_currency', 'code');
     }
 
-    public function toCurrency(): BelongsTo
+    public function quoteCurrencyRelation(): BelongsTo
     {
-        return $this->belongsTo(Currency::class, 'to_currency_id');
+        return $this->belongsTo(Currency::class, 'quote_currency', 'code');
     }
 }

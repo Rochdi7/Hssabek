@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Requests\Settings;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreSignatureRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'signature_image' => ['required', 'image', 'mimes:jpg,jpeg,png,svg,webp', 'max:2048'],
+            'is_default' => ['nullable', 'boolean'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom de la signature est obligatoire.',
+            'name.max' => 'Le nom ne doit pas dépasser 255 caractères.',
+            'signature_image.required' => 'L\'image de la signature est obligatoire.',
+            'signature_image.image' => 'Le fichier doit être une image.',
+            'signature_image.mimes' => 'L\'image doit être au format JPG, PNG, SVG ou WebP.',
+            'signature_image.max' => 'L\'image ne doit pas dépasser 2 Mo.',
+        ];
+    }
+}

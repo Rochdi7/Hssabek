@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function invitations(): HasMany
     {
-        return $this->hasMany(\App\Models\System\UserInvitation::class, 'invited_by_id');
+        return $this->hasMany(\App\Models\System\UserInvitation::class, 'created_by');
     }
 
     public function loginLogs(): HasMany

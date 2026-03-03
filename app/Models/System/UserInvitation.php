@@ -12,11 +12,12 @@ class UserInvitation extends Model
     use HasUuids, BelongsToTenant;
 
     protected $fillable = [
-        'invited_by_id',
         'email',
-        'invitation_token',
-        'accepted_at',
+        'role_id',
+        'token',
         'expires_at',
+        'accepted_at',
+        'created_by',
     ];
 
     protected $casts = [
@@ -24,8 +25,18 @@ class UserInvitation extends Model
         'expires_at' => 'datetime',
     ];
 
-    public function invitedBy(): BelongsTo
+    public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User::class, 'invited_by_id');
+        return $this->belongsTo(\App\Models\User::class, 'created_by');
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Tenancy\Role::class, 'role_id');
+    }
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Tenancy\Tenant::class, 'tenant_id');
     }
 }

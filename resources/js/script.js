@@ -72,6 +72,8 @@ Template Name: Kanakku - Bootstrap Admin Template
 				searchPlaceholder: "Search",
 				sLengthMenu: 'Row Per Page _MENU_ Entries',
 				info: "_START_ - _END_ of _TOTAL_ items",
+				emptyTable: "Aucun enregistrement trouvé.",
+				zeroRecords: "Aucun enregistrement correspondant trouvé.",
 				paginate: {
 					next: '<i class="isax isax-arrow-right-1"></i>',
 					previous: '<i class="isax isax-arrow-left"></i> '

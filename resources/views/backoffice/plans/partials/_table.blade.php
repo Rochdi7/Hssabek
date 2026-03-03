@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($plans as $plan)
+            @foreach($plans as $plan)
                 <tr>
                     <td>
                         <a href="javascript:void(0);" class="text-dark" data-bs-toggle="modal" data-bs-target="#view_plan_{{ $plan->id }}">
@@ -47,11 +47,7 @@
                     </td>
                     @include('backoffice.plans.partials._actions', ['plan' => $plan])
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="9" class="text-center text-muted py-4">Aucun enregistrement trouvé.</td>
-                </tr>
-            @endforelse
+            @endforeach
         </tbody>
     </table>
 </div>

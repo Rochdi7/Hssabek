@@ -46,13 +46,21 @@ class Tenant extends Model implements HasMedia
     {
         $this->addMediaCollection('logo')
             ->singleFile()
-            ->useFallbackUrl(asset('build/img/icons/company-icon-01.svg'))
-            ->useFallbackPath(public_path('build/img/icons/company-icon-01.svg'));
+            ->useFallbackUrl(asset('build/img/icons/company-logo-01.svg'))
+            ->useFallbackPath(public_path('build/img/icons/company-logo-01.svg'));
+
+        $this->addMediaCollection('invoice_image')
+            ->singleFile();
     }
 
     public function getLogoUrlAttribute(): string
     {
         return $this->getFirstMediaUrl('logo')
-            ?: asset('build/img/icons/company-icon-01.svg');
+            ?: asset('build/img/icons/company-logo-01.svg');
+    }
+
+    public function getInvoiceImageUrlAttribute(): ?string
+    {
+        return $this->getFirstMediaUrl('invoice_image') ?: null;
     }
 }

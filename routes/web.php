@@ -102,11 +102,18 @@ Route::prefix('backoffice')
         // Auth routes
         require __DIR__ . '/backoffice/auth.php';
 
+        // Public invitation accept (no auth required)
+        Route::get('/accept-invitation/{token}', [\App\Http\Controllers\Backoffice\Users\UserInvitationController::class, 'accept'])
+            ->name('invitation.accept');
+        Route::post('/accept-invitation/{token}', [\App\Http\Controllers\Backoffice\Users\UserInvitationController::class, 'acceptStore'])
+            ->name('invitation.accept.store');
+
         // Protected routes
         Route::middleware('auth')->group(function () {
 
             require __DIR__ . '/backoffice/dashboard.php';
             require __DIR__ . '/backoffice/settings.php';
+            require __DIR__ . '/backoffice/users.php';
             require __DIR__ . '/backoffice/access.php';
             require __DIR__ . '/backoffice/crm.php';
             require __DIR__ . '/backoffice/catalog.php';
