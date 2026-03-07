@@ -67,6 +67,8 @@ class CreditNoteController extends Controller
 
         $this->creditNoteService->create($request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.credit-notes.index')
             ->with('success', 'Avoir créé avec succès.');
     }
@@ -110,6 +112,8 @@ class CreditNoteController extends Controller
 
         $this->creditNoteService->update($creditNote, $request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
             ->with('success', 'Avoir mis à jour avec succès.');
     }
@@ -120,6 +124,8 @@ class CreditNoteController extends Controller
 
         $creditNote->items()->delete();
         $creditNote->delete();
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.credit-notes.index')
             ->with('success', 'Avoir supprimé avec succès.');
@@ -146,6 +152,8 @@ class CreditNoteController extends Controller
         ]);
 
         $this->creditNoteService->apply($creditNote, $validated['allocations']);
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
             ->with('success', 'Avoir appliqué avec succès.');

@@ -2,18 +2,13 @@
 
 namespace App\Http\Requests\Catalog\Store;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreUnitRequest extends FormRequest
+class StoreUnitRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'name' => [
@@ -29,7 +24,7 @@ class StoreUnitRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'name.required'       => "Le nom de l'unité est obligatoire.",

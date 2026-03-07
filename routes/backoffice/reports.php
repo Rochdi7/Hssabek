@@ -41,14 +41,14 @@ Route::prefix('reports')->as('reports.')->group(function () {
 
     // Export endpoints
     Route::post('sales/export', [SalesReportController::class, 'export'])
-        ->middleware(['permission:reports.sales.view', 'plan.limit:exports_per_month'])
+        ->middleware(['permission:reports.sales.view', 'plan.limit:exports_per_month', 'throttle:report-export'])
         ->name('sales.export');
 
     Route::post('finance/export', [FinanceReportController::class, 'export'])
-        ->middleware(['permission:reports.finance.view', 'plan.limit:exports_per_month'])
+        ->middleware(['permission:reports.finance.view', 'plan.limit:exports_per_month', 'throttle:report-export'])
         ->name('finance.export');
 
     Route::post('inventory/export', [InventoryReportController::class, 'export'])
-        ->middleware(['permission:reports.inventory.view', 'plan.limit:exports_per_month'])
+        ->middleware(['permission:reports.inventory.view', 'plan.limit:exports_per_month', 'throttle:report-export'])
         ->name('inventory.export');
 });

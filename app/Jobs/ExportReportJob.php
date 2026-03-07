@@ -104,7 +104,7 @@ class ExportReportJob implements ShouldQueue
                     $product->code ?? $product->sku,
                     $product->name,
                     $product->category?->name ?? '-',
-                    $product->unit?->abbreviation ?? '-',
+                    $product->unit?->short_name ?? '-',
                     number_format($product->quantity, 0, ',', ' '),
                     number_format($product->selling_price, 2, ',', ' '),
                     number_format($product->purchase_price, 2, ',', ' '),

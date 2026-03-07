@@ -77,9 +77,21 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Référence</label>
+                                                <div class="mb-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                            onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
+                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                            onchange="var d=new Date(); document.getElementById('reference_number').value='REF-'+d.getFullYear()+(''+(d.getMonth()+1)).padStart(2,'0')+(''+(d.getDate())).padStart(2,'0')+'-'+Math.floor(1000+Math.random()*9000); document.getElementById('reference_number').readOnly=true;">
+                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                    </div>
+                                                </div>
                                                 <input type="text"
                                                     class="form-control @error('reference_number') is-invalid @enderror"
-                                                    name="reference_number" value="{{ old('reference_number') }}">
+                                                    name="reference_number" id="reference_number" value="{{ old('reference_number') }}">
                                                 @error('reference_number')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

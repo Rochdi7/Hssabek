@@ -13,6 +13,7 @@ use App\Models\Purchases\VendorBill;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Services\Tenancy\TenantContext;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -23,15 +24,55 @@ class ReportService
         return TenantContext::id() ?? throw new \RuntimeException('No tenant context.');
     }
 
+    private function cacheVersion(): int
+    {
+        return (int) Cache::get("report:version:{$this->tenantId()}", 0);
+    }
+
     private function cacheKey(string $prefix, string $from, string $to): string
     {
-        return "report:{$prefix}:{$this->tenantId()}:{$from}:{$to}";
+        $v = $this->cacheVersion();
+        return "report:{$prefix}:{$this->tenantId()}:v{$v}:{$from}:{$to}";
+    }
+
+    /**
+     * Flush all report/dashboard caches for a tenant by incrementing the version key.
+     * Old versioned keys will expire naturally (TTL 5 min).
+     */
+    public static function flushTenantCache(?string $tenantId = null): void
+    {
+        $tenantId = $tenantId ?? TenantContext::id();
+        if (!$tenantId) {
+            return;
+        }
+
+        Cache::increment("report:version:{$tenantId}");
+        Cache::forget("dashboard:kpis:{$tenantId}");
+        Cache::forget("report:inventory:{$tenantId}");
+    }
+
+    private function validateDateRange(?string $from, ?string $to): array
+    {
+        try {
+            $from = $from ? Carbon::parse($from) : Carbon::now()->startOfMonth();
+            $to = $to ? Carbon::parse($to) : Carbon::now()->endOfMonth();
+        } catch (\Exception) {
+            $from = Carbon::now()->startOfMonth();
+            $to = Carbon::now()->endOfMonth();
+        }
+
+        if ($from->diffInDays($to) > 366) {
+            $from = $to->copy()->subDays(366);
+        }
+
+        return [$from->toDateString(), $to->toDateString()];
     }
 
     // ─── SALES ───
 
     public function salesSummary(string $from, string $to): array
     {
+        [$from, $to] = $this->validateDateRange($from, $to);
         return Cache::remember($this->cacheKey('sales', $from, $to), 300, function () use ($from, $to) {
 
             $summary = Invoice::whereBetween('issue_date', [$from, $to])
@@ -75,6 +116,8 @@ class ReportService
 
     public function customerSummary(string $from, string $to): array
     {
+        [$from, $to] = $this->validateDateRange($from, $to);
+
         return Cache::remember($this->cacheKey('customers', $from, $to), 300, function () use ($from, $to) {
 
             $totalCustomers = Customer::count();
@@ -113,6 +156,8 @@ class ReportService
 
     public function purchaseSummary(string $from, string $to): array
     {
+        [$from, $to] = $this->validateDateRange($from, $to);
+
         return Cache::remember($this->cacheKey('purchases', $from, $to), 300, function () use ($from, $to) {
 
             $totalPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
@@ -145,6 +190,8 @@ class ReportService
 
     public function financeSummary(string $from, string $to): array
     {
+        [$from, $to] = $this->validateDateRange($from, $to);
+
         return Cache::remember($this->cacheKey('finance', $from, $to), 300, function () use ($from, $to) {
 
             $totalExpenses = Expense::whereBetween('expense_date', [$from, $to])
@@ -170,7 +217,7 @@ class ReportService
                 ->get();
 
             $expenses = Expense::whereBetween('expense_date', [$from, $to])
-                ->with(['category:id,name', 'supplier:id,name', 'bankAccount:id,account_name'])
+                ->with(['category:id,name', 'supplier:id,name', 'bankAccount:id,account_holder_name'])
                 ->latest('expense_date')
                 ->paginate(15)
                 ->withQueryString();
@@ -296,7 +343,7 @@ class ReportService
                 ->count();
 
             $products = Product::where('is_active', true)
-                ->with(['category:id,name', 'unit:id,name,abbreviation'])
+                ->with(['category:id,name', 'unit:id,name,short_name'])
                 ->latest()
                 ->paginate(15)
                 ->withQueryString();

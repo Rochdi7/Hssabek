@@ -2,22 +2,27 @@
 
 namespace App\Http\Requests\CRM\Store;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreCustomerRequest extends FormRequest
+class StoreCustomerRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'type' => ['required', 'in:individual,company'],
             'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'payment_terms_days' => ['nullable', 'integer', 'min:0', 'max:365'],
+            'status' => ['required', 'in:active,inactive'],
+            'notes' => ['nullable', 'string', 'max:2000'],
+        ];
+    }
+
+    protected function storeRules(): array
+    {
+        return [
             'email' => [
                 'nullable',
                 'email',
@@ -25,7 +30,6 @@ class StoreCustomerRequest extends FormRequest
                 Rule::unique('customers', 'email')
                     ->where('tenant_id', TenantContext::id()),
             ],
-            'phone' => ['nullable', 'string', 'max:30'],
             'tax_id' => [
                 'nullable',
                 'string',
@@ -33,13 +37,10 @@ class StoreCustomerRequest extends FormRequest
                 Rule::unique('customers', 'tax_id')
                     ->where('tenant_id', TenantContext::id()),
             ],
-            'payment_terms_days' => ['nullable', 'integer', 'min:0', 'max:365'],
-            'status' => ['required', 'in:active,inactive'],
-            'notes' => ['nullable', 'string', 'max:2000'],
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'type.required' => 'Le type de client est obligatoire.',

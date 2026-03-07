@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\DB;
 
 class StockTransferController extends Controller
 {
+    public function __construct(
+        private readonly StockService $stockService,
+    ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', StockTransfer::class);
@@ -125,7 +129,7 @@ class StockTransferController extends Controller
         $transfer->load('items');
 
         try {
-            app(StockService::class)->transfer($transfer);
+            $this->stockService->transfer($transfer);
 
             return redirect()->route('bo.inventory.transfers.show', $transfer)
                 ->with('success', 'Transfert exécuté avec succès.');

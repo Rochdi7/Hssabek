@@ -11,20 +11,53 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceTemplateSettingsController extends Controller
 {
+    /**
+     * Document types that support template selection.
+     */
+    private const DOCUMENT_TYPES = [
+        'invoice'          => 'Factures',
+        'quote'            => 'Devis',
+        'credit_note'      => 'Avoirs',
+        'delivery_challan' => 'Bons de livraison',
+        'purchase_order'   => 'Bons de commande',
+    ];
+
+    /**
+     * Map document_type to its slug prefix used in catalog codes.
+     * e.g. credit_note → credit-note, so code = "credit-note-modern"
+     */
+    private const DOC_TYPE_SLUG = [
+        'invoice'          => 'invoice',
+        'quote'            => 'quote',
+        'credit_note'      => 'credit-note',
+        'delivery_challan' => 'delivery-challan',
+        'purchase_order'   => 'purchase-order',
+    ];
+
     public function index()
     {
         $tenant = TenantContext::get();
         $settings = $tenant->settings;
-        $currentTemplate = $settings->invoice_settings['pdf_template'] ?? 'default';
 
-        // Document types with French labels
-        $documentTypes = [
-            'invoice'          => 'Factures',
-            'quote'            => 'Devis',
-            'credit_note'      => 'Avoirs',
-            'delivery_challan' => 'Bons de livraison',
-            'purchase_order'   => 'Bons de commande',
-        ];
+        // Per-document-type defaults: { "invoice": "modern", "quote": "default", ... }
+        $pdfTemplates = $settings->invoice_settings['pdf_templates'] ?? [];
+
+        // Backward compat: if old single pdf_template exists and no per-type map, use it for all
+        if (empty($pdfTemplates) && !empty($settings->invoice_settings['pdf_template'])) {
+            $legacy = $settings->invoice_settings['pdf_template'];
+            // Extract style from legacy value (could be "modern" or "invoice-modern")
+            $style = $this->extractStyle($legacy, 'invoice');
+            foreach (array_keys(self::DOCUMENT_TYPES) as $dt) {
+                $pdfTemplates[$dt] = $style;
+            }
+        }
+
+        // Fill missing doc types with 'default'
+        foreach (array_keys(self::DOCUMENT_TYPES) as $dt) {
+            $pdfTemplates[$dt] = $pdfTemplates[$dt] ?? 'default';
+        }
+
+        $documentTypes = self::DOCUMENT_TYPES;
 
         // All active catalog templates grouped by document_type
         $allTemplates = TemplateCatalog::where('is_active', true)
@@ -61,11 +94,19 @@ class InvoiceTemplateSettingsController extends Controller
         $myTemplatesGrouped = $myTemplates->groupBy('document_type');
         $storeTemplatesGrouped = $storeTemplates->groupBy('document_type');
 
+        // Build a map: code => style for easy lookup in blade
+        // e.g. "invoice-modern" => "modern"
+        $templateStyleMap = [];
+        foreach ($allTemplates as $tpl) {
+            $templateStyleMap[$tpl->code] = $this->extractStyle($tpl->code, $tpl->document_type);
+        }
+
         return view('backoffice.settings.invoice-templates', compact(
             'documentTypes',
             'myTemplatesGrouped',
             'storeTemplatesGrouped',
-            'currentTemplate',
+            'pdfTemplates',
+            'templateStyleMap',
             'settings',
             'tenant'
         ));
@@ -77,7 +118,7 @@ class InvoiceTemplateSettingsController extends Controller
             ->where('is_active', true)
             ->first();
 
-        if (!$catalogTemplate && !array_key_exists($template, PdfService::TEMPLATES)) {
+        if (!$catalogTemplate) {
             return redirect()->route('bo.settings.invoice-templates.index')
                 ->with('error', 'Modèle invalide.');
         }
@@ -85,7 +126,7 @@ class InvoiceTemplateSettingsController extends Controller
         $tenant = TenantContext::get();
 
         // If paid template, verify access
-        if ($catalogTemplate && !$catalogTemplate->is_free) {
+        if (!$catalogTemplate->is_free) {
             $hasAccess = DB::table('tenant_templates')
                 ->where('tenant_id', $tenant->id)
                 ->where('template_id', $catalogTemplate->id)
@@ -109,14 +150,23 @@ class InvoiceTemplateSettingsController extends Controller
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
         $invoiceSettings = $setting->invoice_settings ?? [];
-        $invoiceSettings['pdf_template'] = $template;
+
+        // Extract the style name and document type
+        $docType = $catalogTemplate->document_type;
+        $style = $this->extractStyle($catalogTemplate->code, $docType);
+
+        // Save per-document-type default
+        $pdfTemplates = $invoiceSettings['pdf_templates'] ?? [];
+        $pdfTemplates[$docType] = $style;
+        $invoiceSettings['pdf_templates'] = $pdfTemplates;
+
         $setting->invoice_settings = $invoiceSettings;
         $setting->save();
 
-        $name = $catalogTemplate ? $catalogTemplate->name : (PdfService::TEMPLATES[$template]['name'] ?? $template);
+        $docLabel = self::DOCUMENT_TYPES[$docType] ?? $docType;
 
         return redirect()->route('bo.settings.invoice-templates.index')
-            ->with('success', 'Modèle "' . $name . '" activé avec succès.');
+            ->with('success', "Modèle \"{$catalogTemplate->name}\" activé par défaut pour les {$docLabel}.");
     }
 
     public function preview(string $template)
@@ -132,8 +182,14 @@ class InvoiceTemplateSettingsController extends Controller
         $tenant = TenantContext::get();
         $settings = $tenant->settings;
 
+        // Temporarily override the template for this document type to render preview
+        $docType = $catalogTemplate ? $catalogTemplate->document_type : 'invoice';
+        $style = $catalogTemplate ? $this->extractStyle($catalogTemplate->code, $docType) : $template;
+
         $invoiceSettings = $settings->invoice_settings ?? [];
-        $invoiceSettings['pdf_template'] = $template;
+        $pdfTemplates = $invoiceSettings['pdf_templates'] ?? [];
+        $pdfTemplates[$docType] = $style;
+        $invoiceSettings['pdf_templates'] = $pdfTemplates;
         $settings->invoice_settings = $invoiceSettings;
 
         $invoice = \App\Models\Sales\Invoice::with(['customer', 'items.product', 'items.unit', 'items.taxGroup', 'charges'])
@@ -185,7 +241,7 @@ class InvoiceTemplateSettingsController extends Controller
         }
 
         // Redirect to WhatsApp for payment
-        $phone = '212632582096'; // 0632582096 in international format
+        $phone = '212632582096';
         $message = "Bonjour, je souhaite acheter le modèle de facture \"{$catalogTemplate->name}\" "
             . "(Réf: {$catalogTemplate->code}) au prix de " . number_format($catalogTemplate->price, 2) . " " . ($catalogTemplate->currency ?? 'MAD') . ". "
             . "Entreprise: {$tenant->name}. Merci.";
@@ -193,5 +249,22 @@ class InvoiceTemplateSettingsController extends Controller
         $whatsappUrl = 'https://wa.me/' . $phone . '?text=' . urlencode($message);
 
         return redirect()->away($whatsappUrl);
+    }
+
+    /**
+     * Extract the style name from a catalog code.
+     * e.g. "invoice-modern" → "modern", "credit-note-classic" → "classic"
+     */
+    private function extractStyle(string $code, string $docType): string
+    {
+        $slug = self::DOC_TYPE_SLUG[$docType] ?? str_replace('_', '-', $docType);
+        $prefix = $slug . '-';
+
+        if (str_starts_with($code, $prefix)) {
+            return substr($code, strlen($prefix));
+        }
+
+        // Already a style name (e.g. "modern", "default")
+        return $code;
     }
 }

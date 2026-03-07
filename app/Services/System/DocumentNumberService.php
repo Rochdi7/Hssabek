@@ -23,30 +23,28 @@ class DocumentNumberService
 
         return DB::transaction(function () use ($tenantId, $documentType) {
             $sequence = DocumentNumberSequence::where('tenant_id', $tenantId)
-                ->where('document_type', $documentType)
+                ->where('key', $documentType)
                 ->lockForUpdate()
                 ->first();
 
             if (!$sequence) {
                 // Auto-create a default sequence for this tenant+type
                 $sequence = DocumentNumberSequence::create([
-                    'document_type'  => $documentType,
-                    'prefix'         => strtoupper(substr($documentType, 0, 3)) . '-',
-                    'current_number' => 1,
-                    'increment_by'   => 1,
-                    'suffix'         => null,
+                    'key'         => $documentType,
+                    'prefix'      => strtoupper(substr($documentType, 0, 3)) . '-',
+                    'next_number' => 1,
                 ]);
             }
 
-            $number = $sequence->current_number;
+            $number = $sequence->next_number;
 
             // Increment using direct SQL to avoid Model events re-triggering
             DocumentNumberSequence::where('id', $sequence->id)
-                ->update(['current_number' => $number + $sequence->increment_by]);
+                ->update(['next_number' => $number + 1]);
 
             $padded = str_pad((string) $number, 5, '0', STR_PAD_LEFT);
 
-            return ($sequence->prefix ?? '') . $padded . ($sequence->suffix ?? '');
+            return ($sequence->prefix ?? '') . $padded;
         });
     }
 }

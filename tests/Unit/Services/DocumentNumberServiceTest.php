@@ -12,24 +12,6 @@ class DocumentNumberServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function tearDown(): void
-    {
-        TenantContext::forget();
-        parent::tearDown();
-    }
-
-    private function createTenant(string $slug): Tenant
-    {
-        return Tenant::create([
-            'name'             => 'Tenant ' . $slug,
-            'slug'             => $slug,
-            'status'           => 'active',
-            'timezone'         => 'UTC',
-            'default_currency' => 'USD',
-            'has_free_trial'   => false,
-        ]);
-    }
-
     /**
      * next() must return sequential, formatted document numbers.
      */

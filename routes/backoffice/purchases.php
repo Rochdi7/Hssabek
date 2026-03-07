@@ -78,11 +78,11 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->name('destroy');
 
         Route::get('/{purchaseOrder}/download', [PurchaseOrderController::class, 'download'])
-            ->middleware(['permission:purchases.purchase-orders.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:purchases.purchase-orders.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
 
         Route::get('/{purchaseOrder}/stream', [PurchaseOrderController::class, 'stream'])
-            ->middleware(['permission:purchases.purchase-orders.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:purchases.purchase-orders.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('stream');
 
         Route::post('/{purchaseOrder}/receive', [PurchaseOrderController::class, 'receive'])
@@ -125,7 +125,7 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->name('destroy');
 
         Route::get('/{vendorBill}/download', [VendorBillController::class, 'download'])
-            ->middleware(['permission:purchases.vendor-bills.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:purchases.vendor-bills.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
 
@@ -160,7 +160,7 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->name('destroy');
 
         Route::get('/{goodsReceipt}/download', [GoodsReceiptController::class, 'download'])
-            ->middleware(['permission:purchases.goods_receipts.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:purchases.goods_receipts.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
 
@@ -199,7 +199,7 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->name('apply');
 
         Route::get('/{debitNote}/download', [DebitNoteController::class, 'download'])
-            ->middleware(['permission:purchases.debit_notes.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:purchases.debit_notes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
 
@@ -222,7 +222,7 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->name('destroy');
 
         Route::get('/{supplierPayment}/download', [SupplierPaymentController::class, 'download'])
-            ->middleware(['permission:purchases.supplier_payments.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:purchases.supplier_payments.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
 });

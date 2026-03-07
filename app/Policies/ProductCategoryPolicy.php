@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Catalog\ProductCategory;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class ProductCategoryPolicy
+class ProductCategoryPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -21,12 +20,12 @@ class ProductCategoryPolicy
     public function update(User $user, ProductCategory $category): bool
     {
         return $user->can('inventory.products.edit')
-            && $category->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($category);
     }
 
     public function delete(User $user, ProductCategory $category): bool
     {
         return $user->can('inventory.products.delete')
-            && $category->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($category);
     }
 }

@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Catalog\Unit;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class UnitPolicy
+class UnitPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -21,12 +20,12 @@ class UnitPolicy
     public function update(User $user, Unit $unit): bool
     {
         return $user->can('inventory.products.edit')
-            && $unit->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($unit);
     }
 
     public function delete(User $user, Unit $unit): bool
     {
         return $user->can('inventory.products.delete')
-            && $unit->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($unit);
     }
 }

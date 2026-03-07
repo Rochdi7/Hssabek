@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Purchases\DebitNote;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class DebitNotePolicy
+class DebitNotePolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class DebitNotePolicy
     public function view(User $user, DebitNote $debitNote): bool
     {
         return $user->can('purchases.debit_notes.view')
-            && $debitNote->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($debitNote);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class DebitNotePolicy
     public function update(User $user, DebitNote $debitNote): bool
     {
         return $user->can('purchases.debit_notes.edit')
-            && $debitNote->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($debitNote);
     }
 
     public function delete(User $user, DebitNote $debitNote): bool
     {
         return $user->can('purchases.debit_notes.delete')
-            && $debitNote->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($debitNote);
     }
 }

@@ -2,18 +2,22 @@
 
 namespace App\Http\Requests\Inventory\Store;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreWarehouseRequest extends FormRequest
+class StoreWarehouseRequest extends BaseFormRequest
 {
-    public function authorize(): bool
+    protected function baseRules(): array
     {
-        return true;
+        return [
+            'address'    => 'nullable|string|max:500',
+            'is_default' => 'boolean',
+            'is_active'  => 'boolean',
+        ];
     }
 
-    public function rules(): array
+    protected function storeRules(): array
     {
         return [
             'name'       => [
@@ -24,13 +28,10 @@ class StoreWarehouseRequest extends FormRequest
                 'nullable', 'string', 'max:50',
                 Rule::unique('warehouses')->where('tenant_id', TenantContext::id()),
             ],
-            'address'    => 'nullable|string|max:500',
-            'is_default' => 'boolean',
-            'is_active'  => 'boolean',
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'name.required' => 'Le nom de l\'entrepôt est obligatoire.',

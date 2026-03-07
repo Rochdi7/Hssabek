@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Finance\FinanceCategory;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class FinanceCategoryPolicy
+class FinanceCategoryPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -21,12 +20,12 @@ class FinanceCategoryPolicy
     public function update(User $user, FinanceCategory $category): bool
     {
         return $user->can('finance.categories.edit')
-            && $category->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($category);
     }
 
     public function delete(User $user, FinanceCategory $category): bool
     {
         return $user->can('finance.categories.delete')
-            && $category->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($category);
     }
 }

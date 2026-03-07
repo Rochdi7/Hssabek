@@ -2,40 +2,17 @@
 
 namespace App\Http\Requests\Catalog\Update;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateProductRequest extends FormRequest
+class UpdateProductRequest extends BaseFormRequest
 {
-    public function authorize(): bool
+    protected function baseRules(): array
     {
-        return true;
-    }
-
-    public function rules(): array
-    {
-        $productId = $this->route('product')?->id ?? $this->route('product');
-
         return [
             'item_type'       => ['required', 'in:product,service'],
             'name'            => ['required', 'string', 'max:255'],
-            'code'            => [
-                'required',
-                'string',
-                'max:50',
-                Rule::unique('products', 'code')
-                    ->where('tenant_id', TenantContext::id())
-                    ->ignore($productId),
-            ],
-            'sku'             => [
-                'nullable',
-                'string',
-                'max:50',
-                Rule::unique('products', 'sku')
-                    ->where('tenant_id', TenantContext::id())
-                    ->ignore($productId),
-            ],
             'category_id'     => [
                 'nullable',
                 Rule::exists('product_categories', 'id')
@@ -70,7 +47,31 @@ class UpdateProductRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function updateRules(): array
+    {
+        $productId = $this->route('product')?->id ?? $this->route('product');
+
+        return [
+            'code'            => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('products', 'code')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($productId),
+            ],
+            'sku'             => [
+                'nullable',
+                'string',
+                'max:50',
+                Rule::unique('products', 'sku')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($productId),
+            ],
+        ];
+    }
+
+    protected function baseMessages(): array
     {
         return [
             'item_type.required'      => "Le type d'article est obligatoire.",

@@ -2,6 +2,8 @@
 
 namespace App\Services\Sales;
 
+use App\Events\InvoiceCreated;
+use App\Events\InvoicePaid;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\InvoiceCharge;
 use App\Models\Sales\InvoiceItem;
@@ -79,7 +81,11 @@ class InvoiceService
                 ]);
             }
 
-            return $invoice->load('items', 'charges');
+            $invoice = $invoice->load('items', 'charges');
+
+            InvoiceCreated::dispatch($invoice);
+
+            return $invoice;
         });
     }
 
@@ -183,6 +189,10 @@ class InvoiceService
         }
 
         $invoice->update($updates);
+
+        if ($newStatus === 'paid') {
+            InvoicePaid::dispatch($invoice);
+        }
     }
 
     /**

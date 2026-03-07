@@ -11,6 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->appendToGroup('web', \App\Http\Middleware\ContentSecurityPolicy::class);
+
         $middleware->alias([
             'identifyTenant' => \App\Http\Middleware\IdentifyTenantByDomain::class,
             'tenantActive' => \App\Http\Middleware\EnsureTenantIsActive::class,

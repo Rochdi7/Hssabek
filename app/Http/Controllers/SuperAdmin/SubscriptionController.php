@@ -63,6 +63,8 @@ class SubscriptionController extends Controller
 
         Subscription::create($validated);
 
+        \App\Services\Billing\PlanLimitService::flushPlanCache($validated['tenant_id']);
+
         return redirect()->route('sa.subscriptions.index')
             ->with('success', 'L\'abonnement a été créé avec succès.');
     }
@@ -86,6 +88,8 @@ class SubscriptionController extends Controller
 
         $subscription->update($validated);
 
+        \App\Services\Billing\PlanLimitService::flushPlanCache($subscription->tenant_id);
+
         return redirect()->route('sa.subscriptions.index')
             ->with('success', 'L\'abonnement a été mis à jour avec succès.');
     }
@@ -95,6 +99,8 @@ class SubscriptionController extends Controller
      */
     public function destroy(Subscription $subscription)
     {
+        \App\Services\Billing\PlanLimitService::flushPlanCache($subscription->tenant_id);
+
         $subscription->delete();
 
         return redirect()->route('sa.subscriptions.index')

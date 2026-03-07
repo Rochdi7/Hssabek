@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Settings;
 
+use App\Models\Billing\Plan;
+use App\Models\Billing\Subscription;
 use App\Models\Tenancy\Permission;
 use App\Models\Tenancy\Role;
 use App\Models\Tenancy\Tenant;
@@ -10,6 +12,7 @@ use App\Models\Tenancy\TenantSetting;
 use App\Models\User;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class CompanySettingsTest extends TestCase
@@ -33,9 +36,11 @@ class CompanySettingsTest extends TestCase
             'has_free_trial'   => false,
         ]);
 
+        $domain = 'test-company.localhost';
+
         TenantDomain::create([
             'tenant_id'  => $this->tenant->id,
-            'domain'     => 'test-company.localhost',
+            'domain'     => $domain,
             'is_primary' => true,
         ]);
 
@@ -47,6 +52,22 @@ class CompanySettingsTest extends TestCase
         ]);
 
         TenantContext::set($this->tenant);
+
+        // Force URL root to tenant domain for middleware resolution
+        URL::forceRootUrl('http://' . $domain);
+
+        // Create active subscription
+        $plan = Plan::firstOrCreate(
+            ['code' => 'test-plan'],
+            ['name' => 'Test Plan', 'interval' => 'month', 'price' => 0, 'currency' => 'MAD', 'is_active' => true]
+        );
+        Subscription::create([
+            'tenant_id' => $this->tenant->id,
+            'plan_id'   => $plan->id,
+            'status'    => 'active',
+            'starts_at' => now(),
+            'ends_at'   => null,
+        ]);
 
         // Create permissions
         $settingsViewPerm = Permission::create([
@@ -76,23 +97,11 @@ class CompanySettingsTest extends TestCase
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 
-    protected function tearDown(): void
-    {
-        TenantContext::forget();
-        parent::tearDown();
-    }
-
-    private function withTenantHost(): static
-    {
-        return $this->withHeader('HOST', 'test-company.localhost');
-    }
-
     // ──────────── Company Settings ────────────
 
     public function test_admin_can_view_company_settings(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->get(route('bo.settings.company.edit'));
 
         $response->assertStatus(200);
@@ -104,7 +113,6 @@ class CompanySettingsTest extends TestCase
     public function test_admin_can_update_company_settings(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->put(route('bo.settings.company.update'), [
                 'company_name'        => 'Ma Société SARL',
                 'company_email'       => 'contact@masociete.ma',
@@ -136,7 +144,6 @@ class CompanySettingsTest extends TestCase
     public function test_company_name_is_required(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->put(route('bo.settings.company.update'), [
                 'company_name' => '',
             ]);
@@ -149,7 +156,6 @@ class CompanySettingsTest extends TestCase
     public function test_admin_can_view_invoice_settings(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->get(route('bo.settings.invoice.edit'));
 
         $response->assertStatus(200);
@@ -159,7 +165,6 @@ class CompanySettingsTest extends TestCase
     public function test_admin_can_update_invoice_settings(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->put(route('bo.settings.invoice.update'), [
                 'invoice_prefix'       => 'FAC-',
                 'invoice_round_off'    => '5',
@@ -186,7 +191,6 @@ class CompanySettingsTest extends TestCase
     public function test_admin_can_view_locale_settings(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->get(route('bo.settings.locale.edit'));
 
         $response->assertStatus(200);
@@ -196,13 +200,12 @@ class CompanySettingsTest extends TestCase
     public function test_admin_can_update_locale_settings(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->put(route('bo.settings.locale.update'), [
                 'locale'      => 'fr',
                 'timezone'    => 'Africa/Casablanca',
                 'currency'    => 'MAD',
                 'date_format' => 'd/m/Y',
-                'time_format' => '24h',
+                'time_format' => '24',
             ]);
 
         $response->assertRedirect(route('bo.settings.locale.edit'));
@@ -220,13 +223,12 @@ class CompanySettingsTest extends TestCase
     public function test_invalid_locale_is_rejected(): void
     {
         $response = $this->actingAs($this->adminUser)
-            ->withTenantHost()
             ->put(route('bo.settings.locale.update'), [
                 'locale'      => 'xx',
                 'timezone'    => 'Africa/Casablanca',
                 'currency'    => 'MAD',
                 'date_format' => 'd/m/Y',
-                'time_format' => '24h',
+                'time_format' => '24',
             ]);
 
         $response->assertSessionHasErrors('locale');
@@ -236,14 +238,12 @@ class CompanySettingsTest extends TestCase
 
     public function test_user_without_permission_cannot_access_settings(): void
     {
-        TenantContext::set($this->tenant);
         $basicUser = User::factory()->create([
             'tenant_id' => $this->tenant->id,
             'status'    => 'active',
         ]);
 
         $response = $this->actingAs($basicUser)
-            ->withTenantHost()
             ->get(route('bo.settings.company.edit'));
 
         $response->assertStatus(403);

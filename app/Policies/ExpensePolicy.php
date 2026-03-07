@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Finance\Expense;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class ExpensePolicy
+class ExpensePolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class ExpensePolicy
     public function view(User $user, Expense $expense): bool
     {
         return $user->can('finance.expenses.view')
-            && $expense->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($expense);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class ExpensePolicy
     public function update(User $user, Expense $expense): bool
     {
         return $user->can('finance.expenses.edit')
-            && $expense->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($expense);
     }
 
     public function delete(User $user, Expense $expense): bool
     {
         return $user->can('finance.expenses.delete')
-            && $expense->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($expense);
     }
 }

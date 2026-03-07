@@ -77,12 +77,19 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Identifiant fiscal</label>
-                                                <input type="text"
-                                                    class="form-control @error('tax_id') is-invalid @enderror"
-                                                    name="tax_id" value="{{ old('tax_id', $supplier->tax_id) }}">
-                                                @error('tax_id')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
+                                                <div class="input-group">
+                                                    <input type="text" id="tax_id"
+                                                        class="form-control @error('tax_id') is-invalid @enderror"
+                                                        name="tax_id" value="{{ old('tax_id', $supplier->tax_id) }}">
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        onclick="document.getElementById('tax_id').value = 'IF' + Math.floor(100000 + Math.random() * 900000)"
+                                                        title="Générer automatiquement">
+                                                        <i class="isax isax-refresh"></i>
+                                                    </button>
+                                                    @error('tax_id')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">

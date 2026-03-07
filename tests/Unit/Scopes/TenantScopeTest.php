@@ -20,7 +20,7 @@ class TenantScopeTest extends TestCase
         parent::tearDown();
     }
 
-    private function createTenant(string $slug): Tenant
+    protected function createTenant(string $slug = null): Tenant
     {
         return Tenant::create([
             'name'             => 'Tenant ' . $slug,

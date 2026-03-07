@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Finance\Loan;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class LoanPolicy
+class LoanPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class LoanPolicy
     public function view(User $user, Loan $loan): bool
     {
         return $user->can('finance.loans.view')
-            && $loan->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($loan);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class LoanPolicy
     public function update(User $user, Loan $loan): bool
     {
         return $user->can('finance.loans.edit')
-            && $loan->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($loan);
     }
 
     public function delete(User $user, Loan $loan): bool
     {
         return $user->can('finance.loans.delete')
-            && $loan->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($loan);
     }
 }

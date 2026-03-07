@@ -2,18 +2,13 @@
 
 namespace App\Http\Requests\Finance\Store;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreExpenseRequest extends FormRequest
+class StoreExpenseRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'reference_number'  => 'nullable|string|max:100',
@@ -40,7 +35,7 @@ class StoreExpenseRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'amount.required'         => 'Le montant est obligatoire.',

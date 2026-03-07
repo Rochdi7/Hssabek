@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Customer extends Model
 {
-    use HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
 
     protected $fillable = [
         'type',

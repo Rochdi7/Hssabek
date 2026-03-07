@@ -47,11 +47,11 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('destroy');
 
         Route::get('/{invoice}/download', [InvoiceController::class, 'download'])
-            ->middleware(['permission:sales.invoices.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:sales.invoices.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
 
         Route::get('/{invoice}/stream', [InvoiceController::class, 'stream'])
-            ->middleware(['permission:sales.invoices.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:sales.invoices.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('stream');
 
         Route::post('/{invoice}/send', [InvoiceController::class, 'send'])
@@ -94,11 +94,11 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('destroy');
 
         Route::get('/{quote}/download', [QuoteController::class, 'download'])
-            ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
 
         Route::get('/{quote}/stream', [QuoteController::class, 'stream'])
-            ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('stream');
 
         Route::post('/{quote}/send', [QuoteController::class, 'send'])
@@ -141,7 +141,7 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('destroy');
 
         Route::get('/{payment}/download', [PaymentController::class, 'download'])
-            ->middleware(['permission:sales.invoices.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:sales.invoices.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
 
@@ -180,7 +180,7 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('apply');
 
         Route::get('/{creditNote}/download', [CreditNoteController::class, 'download'])
-            ->middleware(['permission:sales.credit_notes.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:sales.credit_notes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
 
@@ -215,7 +215,7 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('destroy');
 
         Route::get('/{deliveryChallan}/download', [DeliveryChallanController::class, 'download'])
-            ->middleware(['permission:sales.delivery_challans.view', 'plan.limit:exports_per_month'])
+            ->middleware(['permission:sales.delivery_challans.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
 

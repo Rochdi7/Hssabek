@@ -16,6 +16,8 @@ class CompanySettingsController extends Controller
 
     public function edit()
     {
+        $this->authorize('viewCompany', TenantSetting::class);
+
         $tenant = TenantContext::get();
         $settings = $tenant->settings;
 
@@ -24,6 +26,8 @@ class CompanySettingsController extends Controller
 
     public function update(UpdateCompanySettingsRequest $request)
     {
+        $this->authorize('editCompany', TenantSetting::class);
+
         $tenant = TenantContext::get();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 

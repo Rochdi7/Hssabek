@@ -6,11 +6,13 @@ use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TenantSetting extends Model
 {
-    use HasUuids, BelongsToTenant;
+    use HasFactory, HasUuids, BelongsToTenant;
 
-    public $timestamps = false;
+    const CREATED_AT = null;
+    const UPDATED_AT = 'updated_at';
 
     protected $fillable = [
         'tenant_id',

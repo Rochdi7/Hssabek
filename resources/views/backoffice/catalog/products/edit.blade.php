@@ -128,12 +128,18 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">SKU</label>
-                                                <input type="text"
-                                                    class="form-control @error('sku') is-invalid @enderror" name="sku"
-                                                    value="{{ old('sku', $product->sku) }}">
-                                                @error('sku')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
+                                                <div class="input-group">
+                                                    <input type="text" id="product-sku"
+                                                        class="form-control @error('sku') is-invalid @enderror" name="sku"
+                                                        value="{{ old('sku', $product->sku) }}">
+                                                    <button class="btn btn-outline-primary" type="button" id="btn-generate-sku"
+                                                        title="Générer depuis le nom">
+                                                        <i class="isax isax-refresh"></i>
+                                                    </button>
+                                                    @error('sku')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
@@ -525,6 +531,19 @@
 
             // Initialize on page load
             toggleFields();
+
+            // Auto-generate SKU from product name
+            document.getElementById('btn-generate-sku')?.addEventListener('click', function() {
+                const name = document.querySelector('[name="name"]').value.trim();
+                if (!name) { alert('Veuillez saisir le nom du produit d\'abord.'); return; }
+                const slug = name.toUpperCase()
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^A-Z0-9]+/g, '-')
+                    .replace(/^-|-$/g, '')
+                    .substring(0, 20);
+                const rand = String(Math.floor(Math.random() * 9000 + 1000));
+                document.getElementById('product-sku').value = slug + '-' + rand;
+            });
         });
     </script>
 @endpush

@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Inventory\Warehouse;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class WarehousePolicy
+class WarehousePolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class WarehousePolicy
     public function view(User $user, Warehouse $warehouse): bool
     {
         return $user->can('inventory.warehouses.view')
-            && $warehouse->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($warehouse);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class WarehousePolicy
     public function update(User $user, Warehouse $warehouse): bool
     {
         return $user->can('inventory.warehouses.edit')
-            && $warehouse->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($warehouse);
     }
 
     public function delete(User $user, Warehouse $warehouse): bool
     {
         return $user->can('inventory.warehouses.delete')
-            && $warehouse->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($warehouse);
     }
 }

@@ -2,36 +2,17 @@
 
 namespace App\Http\Requests\Catalog\Store;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreProductRequest extends FormRequest
+class StoreProductRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'item_type'       => ['required', 'in:product,service'],
             'name'            => ['required', 'string', 'max:255'],
-            'code'            => [
-                'required',
-                'string',
-                'max:50',
-                Rule::unique('products', 'code')
-                    ->where('tenant_id', TenantContext::id()),
-            ],
-            'sku'             => [
-                'nullable',
-                'string',
-                'max:50',
-                Rule::unique('products', 'sku')
-                    ->where('tenant_id', TenantContext::id()),
-            ],
             'category_id'     => [
                 'nullable',
                 Rule::exists('product_categories', 'id')
@@ -66,7 +47,27 @@ class StoreProductRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function storeRules(): array
+    {
+        return [
+            'code'            => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('products', 'code')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'sku'             => [
+                'nullable',
+                'string',
+                'max:50',
+                Rule::unique('products', 'sku')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+        ];
+    }
+
+    protected function baseMessages(): array
     {
         return [
             'item_type.required'      => "Le type d'article est obligatoire.",

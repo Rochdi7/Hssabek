@@ -6,20 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchases\Store\StoreDebitNoteRequest;
 use App\Http\Requests\Purchases\Update\UpdateDebitNoteRequest;
 use App\Models\Purchases\DebitNote;
-use App\Models\Purchases\DebitNoteItem;
 use App\Models\Purchases\Supplier;
 use App\Models\Purchases\VendorBill;
 use App\Services\Purchases\DebitNoteService;
 use App\Services\Sales\PdfService;
-use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DebitNoteController extends Controller
 {
     public function __construct(
         private readonly DebitNoteService $debitNoteService,
     ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', DebitNote::class);
@@ -53,73 +51,7 @@ class DebitNoteController extends Controller
     {
         $this->authorize('create', DebitNote::class);
 
-        $validated = $request->validated();
-
-        $debitNote = DB::transaction(function () use ($validated) {
-            $items = $validated['items'] ?? [];
-
-            // Calculate totals from items
-            $subtotal = 0;
-            $taxTotal = 0;
-            $discountTotal = 0;
-            foreach ($items as $item) {
-                $lineSubtotal = (float) $item['quantity'] * (float) $item['unit_price'];
-                $discount = 0;
-                if (($item['discount_type'] ?? 'none') === 'percentage') {
-                    $discount = $lineSubtotal * ((float) ($item['discount_value'] ?? 0)) / 100;
-                } elseif (($item['discount_type'] ?? 'none') === 'fixed') {
-                    $discount = (float) ($item['discount_value'] ?? 0);
-                }
-                $afterDiscount = $lineSubtotal - $discount;
-                $tax = $afterDiscount * ((float) ($item['tax_rate'] ?? 0)) / 100;
-                $subtotal += $lineSubtotal;
-                $discountTotal += $discount;
-                $taxTotal += $tax;
-            }
-            $total = round($subtotal - $discountTotal + $taxTotal, 2);
-
-            $debitNote = DebitNote::create([
-                'supplier_id' => $validated['supplier_id'],
-                'purchase_order_id' => $validated['purchase_order_id'] ?? null,
-                'vendor_bill_id' => $validated['vendor_bill_id'] ?? null,
-                'number' => app(DocumentNumberService::class)->next('debit_note'),
-                'reference_number' => $validated['reference_number'] ?? null,
-                'status' => 'draft',
-                'debit_note_date' => $validated['debit_note_date'],
-                'due_date' => $validated['due_date'] ?? null,
-                'enable_tax' => $validated['enable_tax'] ?? true,
-                'subtotal' => $subtotal,
-                'discount_total' => $discountTotal,
-                'tax_total' => $taxTotal,
-                'total' => $total,
-                'notes' => $validated['notes'] ?? null,
-                'terms' => $validated['terms'] ?? null,
-            ]);
-
-            foreach ($items as $i => $item) {
-                $lineSubtotal = (float) $item['quantity'] * (float) $item['unit_price'];
-                $discount = 0;
-                if (($item['discount_type'] ?? 'none') === 'percentage') {
-                    $discount = $lineSubtotal * ((float) ($item['discount_value'] ?? 0)) / 100;
-                } elseif (($item['discount_type'] ?? 'none') === 'fixed') {
-                    $discount = (float) ($item['discount_value'] ?? 0);
-                }
-                $afterDiscount = $lineSubtotal - $discount;
-                $tax = $afterDiscount * ((float) ($item['tax_rate'] ?? 0)) / 100;
-
-                DebitNoteItem::create([
-                    'debit_note_id' => $debitNote->id,
-                    'product_id' => $item['product_id'] ?? null,
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'],
-                    'discount_percentage' => ($item['discount_type'] ?? 'none') === 'percentage' ? ($item['discount_value'] ?? 0) : 0,
-                    'tax_amount' => $tax,
-                    'line_total' => round($afterDiscount + $tax, 2),
-                ]);
-            }
-
-            return $debitNote;
-        });
+        $debitNote = $this->debitNoteService->create($request->validated());
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
             ->with('success', 'Note de débit créée avec succès.');
@@ -147,68 +79,8 @@ class DebitNoteController extends Controller
     public function update(UpdateDebitNoteRequest $request, DebitNote $debitNote)
     {
         $this->authorize('update', $debitNote);
-        abort_unless($debitNote->status === 'draft', 403, 'Seules les notes de débit en brouillon peuvent être modifiées.');
 
-        DB::transaction(function () use ($request, $debitNote) {
-            $validated = $request->validated();
-            $items = $validated['items'] ?? [];
-
-            $subtotal = 0;
-            $taxTotal = 0;
-            $discountTotal = 0;
-            foreach ($items as $item) {
-                $lineSubtotal = (float) $item['quantity'] * (float) $item['unit_price'];
-                $discount = 0;
-                if (($item['discount_type'] ?? 'none') === 'percentage') {
-                    $discount = $lineSubtotal * ((float) ($item['discount_value'] ?? 0)) / 100;
-                } elseif (($item['discount_type'] ?? 'none') === 'fixed') {
-                    $discount = (float) ($item['discount_value'] ?? 0);
-                }
-                $afterDiscount = $lineSubtotal - $discount;
-                $tax = $afterDiscount * ((float) ($item['tax_rate'] ?? 0)) / 100;
-                $subtotal += $lineSubtotal;
-                $discountTotal += $discount;
-                $taxTotal += $tax;
-            }
-            $total = round($subtotal - $discountTotal + $taxTotal, 2);
-
-            $debitNote->update([
-                'supplier_id' => $validated['supplier_id'] ?? $debitNote->supplier_id,
-                'vendor_bill_id' => $validated['vendor_bill_id'] ?? $debitNote->vendor_bill_id,
-                'debit_note_date' => $validated['debit_note_date'] ?? $debitNote->debit_note_date,
-                'due_date' => $validated['due_date'] ?? $debitNote->due_date,
-                'reference_number' => $validated['reference_number'] ?? $debitNote->reference_number,
-                'notes' => $validated['notes'] ?? $debitNote->notes,
-                'terms' => $validated['terms'] ?? $debitNote->terms,
-                'subtotal' => $subtotal,
-                'discount_total' => $discountTotal,
-                'tax_total' => $taxTotal,
-                'total' => $total,
-            ]);
-
-            $debitNote->items()->delete();
-            foreach ($items as $item) {
-                $lineSubtotal = (float) $item['quantity'] * (float) $item['unit_price'];
-                $discount = 0;
-                if (($item['discount_type'] ?? 'none') === 'percentage') {
-                    $discount = $lineSubtotal * ((float) ($item['discount_value'] ?? 0)) / 100;
-                } elseif (($item['discount_type'] ?? 'none') === 'fixed') {
-                    $discount = (float) ($item['discount_value'] ?? 0);
-                }
-                $afterDiscount = $lineSubtotal - $discount;
-                $tax = $afterDiscount * ((float) ($item['tax_rate'] ?? 0)) / 100;
-
-                DebitNoteItem::create([
-                    'debit_note_id' => $debitNote->id,
-                    'product_id' => $item['product_id'] ?? null,
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'],
-                    'discount_percentage' => ($item['discount_type'] ?? 'none') === 'percentage' ? ($item['discount_value'] ?? 0) : 0,
-                    'tax_amount' => $tax,
-                    'line_total' => round($afterDiscount + $tax, 2),
-                ]);
-            }
-        });
+        $this->debitNoteService->update($debitNote, $request->validated());
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
             ->with('success', 'Note de débit mise à jour avec succès.');

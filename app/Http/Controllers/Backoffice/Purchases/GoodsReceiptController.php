@@ -8,15 +8,17 @@ use App\Http\Requests\Purchases\Update\UpdateGoodsReceiptRequest;
 use App\Models\Catalog\Product;
 use App\Models\Inventory\Warehouse;
 use App\Models\Purchases\GoodsReceipt;
-use App\Models\Purchases\GoodsReceiptItem;
 use App\Models\Purchases\PurchaseOrder;
+use App\Services\Purchases\GoodsReceiptService;
 use App\Services\Sales\PdfService;
-use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class GoodsReceiptController extends Controller
 {
+    public function __construct(
+        private readonly GoodsReceiptService $goodsReceiptService,
+    ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', GoodsReceipt::class);
@@ -50,33 +52,7 @@ class GoodsReceiptController extends Controller
     {
         $this->authorize('create', GoodsReceipt::class);
 
-        $validated = $request->validated();
-
-        $receipt = DB::transaction(function () use ($validated) {
-            $items = $validated['items'] ?? [];
-
-            $receipt = GoodsReceipt::create([
-                'purchase_order_id' => $validated['purchase_order_id'] ?? null,
-                'warehouse_id' => $validated['warehouse_id'],
-                'number' => app(DocumentNumberService::class)->next('goods_receipt'),
-                'status' => 'received',
-                'received_at' => $validated['received_at'] ?? now(),
-                'reference_number' => $validated['reference_number'] ?? null,
-                'notes' => $validated['notes'] ?? null,
-                'created_by' => auth()->id(),
-            ]);
-
-            foreach ($items as $i => $item) {
-                GoodsReceiptItem::create([
-                    'goods_receipt_id' => $receipt->id,
-                    'product_id' => $item['product_id'],
-                    'quantity' => $item['quantity'],
-                    'position' => $i,
-                ]);
-            }
-
-            return $receipt;
-        });
+        $receipt = $this->goodsReceiptService->create($request->validated());
 
         return redirect()->route('bo.purchases.goods-receipts.show', $receipt)
             ->with('success', 'Réception de marchandises enregistrée avec succès.');
@@ -107,28 +83,7 @@ class GoodsReceiptController extends Controller
     {
         $this->authorize('update', $goodsReceipt);
 
-        DB::transaction(function () use ($request, $goodsReceipt) {
-            $validated = $request->validated();
-            $items = $validated['items'] ?? [];
-
-            $goodsReceipt->update([
-                'purchase_order_id' => $validated['purchase_order_id'] ?? $goodsReceipt->purchase_order_id,
-                'warehouse_id' => $validated['warehouse_id'] ?? $goodsReceipt->warehouse_id,
-                'received_at' => $validated['received_at'] ?? $goodsReceipt->received_at,
-                'reference_number' => $validated['reference_number'] ?? $goodsReceipt->reference_number,
-                'notes' => $validated['notes'] ?? $goodsReceipt->notes,
-            ]);
-
-            $goodsReceipt->items()->delete();
-            foreach ($items as $i => $item) {
-                GoodsReceiptItem::create([
-                    'goods_receipt_id' => $goodsReceipt->id,
-                    'product_id' => $item['product_id'],
-                    'quantity' => $item['quantity'],
-                    'position' => $i,
-                ]);
-            }
-        });
+        $this->goodsReceiptService->update($goodsReceipt, $request->validated());
 
         return redirect()->route('bo.purchases.goods-receipts.show', $goodsReceipt)
             ->with('success', 'Réception de marchandises mise à jour avec succès.');

@@ -2,16 +2,11 @@
 
 namespace App\Http\Requests\Finance\Store;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class StoreLoanRequest extends FormRequest
+class StoreLoanRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'lender_type'       => 'required|in:bank,personal,other',
@@ -30,7 +25,7 @@ class StoreLoanRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'lender_type.required'       => 'Le type de prêteur est obligatoire.',
@@ -46,6 +41,7 @@ class StoreLoanRequest extends FormRequest
             'end_date.after_or_equal'    => 'La date de fin doit être postérieure ou égale à la date de début.',
             'payment_frequency.required' => 'La fréquence de paiement est obligatoire.',
             'payment_frequency.in'       => 'La fréquence de paiement est invalide.',
+            'status.required'            => 'Le statut est obligatoire.',
         ];
     }
 }

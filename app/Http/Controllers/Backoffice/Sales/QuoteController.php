@@ -75,6 +75,8 @@ class QuoteController extends Controller
 
         $this->quoteService->create($request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.quotes.index')
             ->with('success', 'Devis créé avec succès.');
     }
@@ -125,6 +127,8 @@ class QuoteController extends Controller
 
         $this->quoteService->update($quote, $request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.quotes.show', $quote)
             ->with('success', 'Devis mis à jour avec succès.');
     }
@@ -136,6 +140,8 @@ class QuoteController extends Controller
         $quote->items()->delete();
         $quote->charges()->delete();
         $quote->delete();
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.quotes.index')
             ->with('success', 'Devis supprimé avec succès.');
@@ -182,6 +188,8 @@ class QuoteController extends Controller
         );
 
         $invoice = $this->quoteService->convertToInvoice($quote);
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
             ->with('success', 'Devis converti en facture avec succès.');

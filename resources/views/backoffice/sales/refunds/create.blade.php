@@ -62,7 +62,19 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Réf. fournisseur de paiement</label>
-                                                <input type="text"
+                                                <div class="mb-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                            onchange="document.getElementById('provider_refund_id').value=''; document.getElementById('provider_refund_id').readOnly=false; document.getElementById('provider_refund_id').focus();">
+                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                            onchange="var d=new Date(); document.getElementById('provider_refund_id').value='REF-'+d.getFullYear()+(''+(d.getMonth()+1)).padStart(2,'0')+d.getDate()+'-'+Math.floor(1000+Math.random()*9000); document.getElementById('provider_refund_id').readOnly=true;">
+                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                    </div>
+                                                </div>
+                                                <input type="text" id="provider_refund_id"
                                                     class="form-control @error('provider_refund_id') is-invalid @enderror"
                                                     name="provider_refund_id" value="{{ old('provider_refund_id') }}">
                                                 @error('provider_refund_id')

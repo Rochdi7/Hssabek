@@ -167,7 +167,7 @@
         ========================= -->
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         let itemIndex = document.querySelectorAll('.item-row').length;
@@ -206,4 +206,4 @@
         });
     });
 </script>
-@endsection
+@endpush

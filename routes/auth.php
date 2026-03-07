@@ -20,18 +20,18 @@ Route::middleware(['web', 'identifyTenant', 'tenantActive', 'setTenantContext'])
     Route::middleware('guest')->group(function () {
         // Login routes
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('/login', [LoginController::class, 'login']);
+        Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:login');
 
         // Register routes (if enabled)
         Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
-        Route::post('/register', [RegisterController::class, 'register']);
+        Route::post('/register', [RegisterController::class, 'register'])->middleware('throttle:registration');
 
         // Password reset routes
         Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');
-        Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+        Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email')->middleware('throttle:password-reset');
 
         Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-        Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
+        Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update')->middleware('throttle:password-reset');
     });
 
     // Protected auth routes (accessible to authenticated users)
@@ -42,7 +42,7 @@ Route::middleware(['web', 'identifyTenant', 'tenantActive', 'setTenantContext'])
         // Email verification routes
         Route::get('/email/verify', [EmailVerificationController::class, 'showVerificationNotice'])->name('verification.notice');
         Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');
-        Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])->name('verification.send');
+        Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])->middleware('throttle:verification-resend')->name('verification.send');
 
         // Lock screen route (optional)
         Route::get('/lock-screen', function () {

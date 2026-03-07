@@ -20,6 +20,7 @@
                             <div class="mb-0">
                                 <div class="pb-3 border-bottom mb-3">
                                     <h6 class="mb-0">Modèles de documents</h6>
+                                    <p class="text-muted fs-13 mt-1">Choisissez un modèle par défaut pour chaque type de document. Le système utilisera automatiquement le modèle sélectionné lors de la génération des PDF.</p>
                                 </div>
 
                                 @if (session('success'))
@@ -67,13 +68,35 @@
                                         @php $hasMyTemplates = false; @endphp
                                         @foreach ($documentTypes as $docType => $docLabel)
                                             @if (isset($myTemplatesGrouped[$docType]) && $myTemplatesGrouped[$docType]->count() > 0)
-                                                @php $hasMyTemplates = true; @endphp
+                                                @php
+                                                    $hasMyTemplates = true;
+                                                    $activeStyle = $pdfTemplates[$docType] ?? 'default';
+                                                @endphp
                                                 <div class="mb-4">
-                                                    <h6 class="text-muted fw-semibold mb-3">{{ $docLabel }}</h6>
+                                                    <h6 class="text-muted fw-semibold mb-2">{{ $docLabel }}</h6>
+                                                    <p class="text-muted fs-12 mb-3">
+                                                        Modèle par défaut :
+                                                        <span class="fw-semibold text-dark">
+                                                            @php
+                                                                $activeTemplateName = 'Standard';
+                                                                foreach ($myTemplatesGrouped[$docType] as $t) {
+                                                                    if (($templateStyleMap[$t->code] ?? '') === $activeStyle) {
+                                                                        $activeTemplateName = $t->name;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            @endphp
+                                                            {{ $activeTemplateName }}
+                                                        </span>
+                                                    </p>
                                                     <div class="row gx-3">
                                                         @foreach ($myTemplatesGrouped[$docType] as $tpl)
+                                                            @php
+                                                                $tplStyle = $templateStyleMap[$tpl->code] ?? 'default';
+                                                                $isActive = ($tplStyle === $activeStyle);
+                                                            @endphp
                                                             <div class="col-xl-3 col-md-6">
-                                                                <div class="card invoice-template">
+                                                                <div class="card invoice-template {{ $isActive ? 'border-primary' : '' }}">
                                                                     <div class="card-body p-2">
                                                                         <div class="invoice-img">
                                                                             <a href="javascript:void(0);">
@@ -99,9 +122,10 @@
                                                                                         class="badge bg-info-transparent text-info fs-10 ms-1">Acheté</span>
                                                                                 @endif
                                                                             </div>
-                                                                            @if ($currentTemplate === $tpl->code)
+                                                                            @if ($isActive)
                                                                                 <a href="javascript:void(0);"
-                                                                                    class="invoice-star d-flex align-items-center justify-content-center active">
+                                                                                    class="invoice-star d-flex align-items-center justify-content-center active"
+                                                                                    title="Modèle par défaut pour les {{ $docLabel }}">
                                                                                     <i
                                                                                         class="isax isax-star-1 text-warning"></i>
                                                                                 </a>
@@ -112,7 +136,7 @@
                                                                                     @csrf
                                                                                     <button type="submit"
                                                                                         class="btn btn-sm p-0 border-0 bg-transparent invoice-star d-flex align-items-center justify-content-center"
-                                                                                        title="Activer ce modèle">
+                                                                                        title="Définir par défaut pour les {{ $docLabel }}">
                                                                                         <i class="isax isax-star"></i>
                                                                                     </button>
                                                                                 </form>
@@ -220,13 +244,19 @@
                    Preview Modals — My Templates
                   ========================= -->
     @foreach ($myTemplatesGrouped->flatten() as $tpl)
+        @php
+            $tplDocType = $tpl->document_type;
+            $tplStyle = $templateStyleMap[$tpl->code] ?? 'default';
+            $isActiveModal = ($tplStyle === ($pdfTemplates[$tplDocType] ?? 'default'));
+            $docLabelModal = $documentTypes[$tplDocType] ?? $tplDocType;
+        @endphp
         <div class="modal fade" id="template_preview_{{ $tpl->id }}" tabindex="-1"
             aria-labelledby="templatePreviewLabel_{{ $tpl->id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="templatePreviewLabel_{{ $tpl->id }}">
-                            Aperçu — {{ $tpl->name }}
+                            Aperçu — {{ $tpl->name }} ({{ $docLabelModal }})
                             @if ($tpl->is_free)
                                 <span class="badge bg-success-transparent text-success fs-10 ms-2">Gratuit</span>
                             @else
@@ -241,15 +271,14 @@
                             title="Aperçu {{ $tpl->name }}"></iframe>
                     </div>
                     <div class="modal-footer">
-                        @if ($currentTemplate === $tpl->code)
-                            <span class="text-success fw-medium"><i class="isax isax-tick-circle me-1"></i>Modèle
-                                actif</span>
+                        @if ($isActiveModal)
+                            <span class="text-success fw-medium"><i class="isax isax-tick-circle me-1"></i>Modèle par défaut pour les {{ $docLabelModal }}</span>
                         @else
                             <form method="POST"
                                 action="{{ route('bo.settings.invoice-templates.activate', $tpl->code) }}">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="isax isax-star me-1"></i>Activer ce modèle
+                                    <i class="isax isax-star me-1"></i>Définir par défaut pour les {{ $docLabelModal }}
                                 </button>
                             </form>
                         @endif

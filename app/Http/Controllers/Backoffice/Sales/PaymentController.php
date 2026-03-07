@@ -74,6 +74,8 @@ class PaymentController extends Controller
 
         $this->paymentService->create($request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.payments.index')
             ->with('success', 'Paiement enregistré avec succès.');
     }
@@ -100,6 +102,8 @@ class PaymentController extends Controller
 
         $payment->update($request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.payments.index')
             ->with('success', 'Paiement modifié avec succès.');
     }
@@ -109,6 +113,8 @@ class PaymentController extends Controller
         $this->authorize('delete', $payment);
 
         $this->paymentService->delete($payment);
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.payments.index')
             ->with('success', 'Paiement supprimé avec succès.');

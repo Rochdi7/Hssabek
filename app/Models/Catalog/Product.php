@@ -12,9 +12,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model implements HasMedia
 {
-    use HasUuids, SoftDeletes, BelongsToTenant, InteractsWithMedia, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, InteractsWithMedia, UsesTenantCurrency;
 
     protected $fillable = [
         'item_type',

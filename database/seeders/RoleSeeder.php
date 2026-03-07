@@ -33,12 +33,31 @@ class RoleSeeder extends Seeder
             'viewer' => 'Viewer with read-only access',
         ];
 
+        $tenantPermissions = Permission::where('tenant_id', null)->get();
+
         foreach ($globalRoles as $roleName => $description) {
-            Role::firstOrCreate([
+            $role = Role::firstOrCreate([
                 'name' => $roleName,
                 'guard_name' => 'web',
                 'tenant_id' => null,
             ]);
+
+            match ($roleName) {
+                'admin' => $role->syncPermissions($tenantPermissions),
+                'manager' => $role->syncPermissions(
+                    $tenantPermissions->filter(fn ($p) => !str_starts_with($p->name, 'access.') && !str_starts_with($p->name, 'settings.'))
+                ),
+                'accountant' => $role->syncPermissions(
+                    $tenantPermissions->filter(fn ($p) => str_starts_with($p->name, 'finance.') || str_starts_with($p->name, 'sales.') || str_starts_with($p->name, 'purchases.') || str_starts_with($p->name, 'reports.') || $p->name === 'dashboard.view')
+                ),
+                'receptionist' => $role->syncPermissions(
+                    $tenantPermissions->filter(fn ($p) => (str_starts_with($p->name, 'sales.') || str_starts_with($p->name, 'crm.')) && (str_ends_with($p->name, '.view') || str_ends_with($p->name, '.create')))
+                ),
+                'viewer' => $role->syncPermissions(
+                    $tenantPermissions->filter(fn ($p) => str_ends_with($p->name, '.view'))
+                ),
+                default => null,
+            };
         }
     }
 }

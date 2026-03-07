@@ -12,6 +12,8 @@ class InvoiceSettingsController extends Controller
 {
     public function edit()
     {
+        $this->authorize('viewInvoice', TenantSetting::class);
+
         $tenant = TenantContext::get();
         $settings = $tenant->settings;
 
@@ -20,6 +22,8 @@ class InvoiceSettingsController extends Controller
 
     public function update(UpdateInvoiceSettingsRequest $request)
     {
+        $this->authorize('editInvoice', TenantSetting::class);
+
         $tenant = TenantContext::get();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 

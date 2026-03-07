@@ -177,6 +177,8 @@ class TrashController extends Controller
         $modelClass = $types[$type]['model'];
         $item = $modelClass::onlyTrashed()->findOrFail($id);
 
+        $this->authorize('delete', $item);
+
         $item->restore();
 
         return redirect()->route('bo.trash.index', ['type' => $type])
@@ -191,6 +193,8 @@ class TrashController extends Controller
 
         $modelClass = $types[$type]['model'];
         $item = $modelClass::onlyTrashed()->findOrFail($id);
+
+        $this->authorize('delete', $item);
 
         $item->forceDelete();
 

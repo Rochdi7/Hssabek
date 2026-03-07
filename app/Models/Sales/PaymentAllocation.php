@@ -11,6 +11,8 @@ class PaymentAllocation extends Model
 {
     use HasUuids, BelongsToTenant;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'payment_id',
         'invoice_id',

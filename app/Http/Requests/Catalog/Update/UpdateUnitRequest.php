@@ -2,18 +2,29 @@
 
 namespace App\Http\Requests\Catalog\Update;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateUnitRequest extends FormRequest
+class UpdateUnitRequest extends BaseFormRequest
 {
-    public function authorize(): bool
+    protected function baseRules(): array
     {
-        return true;
+        return [
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('units', 'name')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'short_name' => [
+                'required', 'string', 'max:10',
+                Rule::unique('units', 'short_name')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+        ];
     }
 
-    public function rules(): array
+    protected function updateRules(): array
     {
         $unitId = $this->route('unit')?->id ?? $this->route('unit');
 
@@ -33,7 +44,7 @@ class UpdateUnitRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'name.required'       => "Le nom de l'unité est obligatoire.",

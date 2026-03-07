@@ -2,18 +2,13 @@
 
 namespace App\Http\Requests\Finance\Update;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateIncomeRequest extends FormRequest
+class UpdateIncomeRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'reference_number'  => 'nullable|string|max:100',
@@ -39,12 +34,15 @@ class UpdateIncomeRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'amount.required'        => 'Le montant est obligatoire.',
+            'amount.numeric'         => 'Le montant doit être un nombre.',
+            'amount.min'             => 'Le montant doit être supérieur à zéro.',
             'income_date.required'   => 'La date du revenu est obligatoire.',
             'payment_mode.required'  => 'Le mode de paiement est obligatoire.',
+            'payment_mode.in'        => 'Le mode de paiement est invalide.',
             'bank_account_id.exists' => 'Le compte bancaire sélectionné est invalide.',
             'customer_id.exists'     => 'Le client sélectionné est invalide.',
             'category_id.exists'     => 'La catégorie sélectionnée est invalide.',

@@ -2,18 +2,25 @@
 
 namespace App\Http\Requests\Finance\Update;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateFinanceCategoryRequest extends FormRequest
+class UpdateFinanceCategoryRequest extends BaseFormRequest
 {
-    public function authorize(): bool
+    protected function baseRules(): array
     {
-        return true;
+        return [
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('finance_categories')->where('tenant_id', TenantContext::id()),
+            ],
+            'type'      => 'required|in:expense,income',
+            'is_active' => 'boolean',
+        ];
     }
 
-    public function rules(): array
+    protected function updateRules(): array
     {
         return [
             'name' => [
@@ -21,12 +28,10 @@ class UpdateFinanceCategoryRequest extends FormRequest
                 Rule::unique('finance_categories')->where('tenant_id', TenantContext::id())
                     ->ignore($this->route('finance_category')),
             ],
-            'type'      => 'required|in:expense,income',
-            'is_active' => 'boolean',
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'name.required' => 'Le nom de la catégorie est obligatoire.',

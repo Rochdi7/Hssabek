@@ -12,6 +12,8 @@ class LocalizationSettingsController extends Controller
 {
     public function edit()
     {
+        $this->authorize('viewLocale', TenantSetting::class);
+
         $tenant = TenantContext::get();
         $settings = $tenant->settings;
         $currencies = Currency::orderBy('name')->get();
@@ -21,6 +23,8 @@ class LocalizationSettingsController extends Controller
 
     public function update(UpdateLocalizationSettingsRequest $request)
     {
+        $this->authorize('editLocale', TenantSetting::class);
+
         $tenant = TenantContext::get();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 

@@ -8,15 +8,17 @@ use App\Http\Requests\Sales\Update\UpdateDeliveryChallanRequest;
 use App\Models\Catalog\Product;
 use App\Models\CRM\Customer;
 use App\Models\Sales\DeliveryChallan;
-use App\Models\Sales\DeliveryChallanItem;
 use App\Models\Sales\Invoice;
+use App\Services\Sales\DeliveryChallanService;
 use App\Services\Sales\PdfService;
-use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DeliveryChallanController extends Controller
 {
+    public function __construct(
+        private readonly DeliveryChallanService $deliveryChallanService,
+    ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', DeliveryChallan::class);
@@ -51,58 +53,7 @@ class DeliveryChallanController extends Controller
     {
         $this->authorize('create', DeliveryChallan::class);
 
-        $validated = $request->validated();
-
-        $challan = DB::transaction(function () use ($validated) {
-            $items = $validated['items'] ?? [];
-
-            $subtotal = 0;
-            $taxTotal = 0;
-            foreach ($items as $item) {
-                $lineSubtotal = (float) ($item['quantity'] ?? 0) * (float) ($item['unit_price'] ?? 0);
-                $lineTax = $lineSubtotal * ((float) ($item['tax_rate'] ?? 0)) / 100;
-                $subtotal += $lineSubtotal;
-                $taxTotal += $lineTax;
-            }
-            $total = round($subtotal + $taxTotal, 2);
-
-            $challan = DeliveryChallan::create([
-                'customer_id' => $validated['customer_id'],
-                'invoice_id' => $validated['invoice_id'] ?? null,
-                'quote_id' => $validated['quote_id'] ?? null,
-                'number' => app(DocumentNumberService::class)->next('delivery_challan'),
-                'status' => 'draft',
-                'challan_date' => $validated['challan_date'],
-                'due_date' => $validated['due_date'] ?? null,
-                'reference_number' => $validated['reference_number'] ?? null,
-                'enable_tax' => $validated['enable_tax'] ?? true,
-                'subtotal' => $subtotal,
-                'tax_total' => $taxTotal,
-                'total' => $total,
-                'notes' => $validated['notes'] ?? null,
-                'terms' => $validated['terms'] ?? null,
-            ]);
-
-            foreach ($items as $i => $item) {
-                $lineSubtotal = (float) ($item['quantity'] ?? 0) * (float) ($item['unit_price'] ?? 0);
-                $lineTax = $lineSubtotal * ((float) ($item['tax_rate'] ?? 0)) / 100;
-
-                DeliveryChallanItem::create([
-                    'delivery_challan_id' => $challan->id,
-                    'product_id' => $item['product_id'] ?? null,
-                    'label' => $item['label'] ?? null,
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'] ?? 0,
-                    'tax_rate' => $item['tax_rate'] ?? 0,
-                    'line_subtotal' => $lineSubtotal,
-                    'line_tax' => $lineTax,
-                    'line_total' => round($lineSubtotal + $lineTax, 2),
-                    'position' => $i,
-                ]);
-            }
-
-            return $challan;
-        });
+        $challan = $this->deliveryChallanService->create($request->validated());
 
         return redirect()->route('bo.sales.delivery-challans.show', $challan)
             ->with('success', 'Bon de livraison créé avec succès.');
@@ -133,50 +84,7 @@ class DeliveryChallanController extends Controller
     {
         $this->authorize('update', $deliveryChallan);
 
-        DB::transaction(function () use ($request, $deliveryChallan) {
-            $validated = $request->validated();
-            $items = $validated['items'] ?? [];
-
-            $subtotal = 0;
-            $taxTotal = 0;
-            foreach ($items as $item) {
-                $lineSubtotal = (float) ($item['quantity'] ?? 0) * (float) ($item['unit_price'] ?? 0);
-                $lineTax = $lineSubtotal * ((float) ($item['tax_rate'] ?? 0)) / 100;
-                $subtotal += $lineSubtotal;
-                $taxTotal += $lineTax;
-            }
-            $total = round($subtotal + $taxTotal, 2);
-
-            $deliveryChallan->update([
-                'customer_id' => $validated['customer_id'] ?? $deliveryChallan->customer_id,
-                'invoice_id' => $validated['invoice_id'] ?? $deliveryChallan->invoice_id,
-                'challan_date' => $validated['challan_date'] ?? $deliveryChallan->challan_date,
-                'reference_number' => $validated['reference_number'] ?? $deliveryChallan->reference_number,
-                'notes' => $validated['notes'] ?? $deliveryChallan->notes,
-                'subtotal' => $subtotal,
-                'tax_total' => $taxTotal,
-                'total' => $total,
-            ]);
-
-            $deliveryChallan->items()->delete();
-            foreach ($items as $i => $item) {
-                $lineSubtotal = (float) ($item['quantity'] ?? 0) * (float) ($item['unit_price'] ?? 0);
-                $lineTax = $lineSubtotal * ((float) ($item['tax_rate'] ?? 0)) / 100;
-
-                DeliveryChallanItem::create([
-                    'delivery_challan_id' => $deliveryChallan->id,
-                    'product_id' => $item['product_id'] ?? null,
-                    'label' => $item['label'] ?? null,
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'] ?? 0,
-                    'tax_rate' => $item['tax_rate'] ?? 0,
-                    'line_subtotal' => $lineSubtotal,
-                    'line_tax' => $lineTax,
-                    'line_total' => round($lineSubtotal + $lineTax, 2),
-                    'position' => $i,
-                ]);
-            }
-        });
+        $this->deliveryChallanService->update($deliveryChallan, $request->validated());
 
         return redirect()->route('bo.sales.delivery-challans.show', $deliveryChallan)
             ->with('success', 'Bon de livraison mis à jour avec succès.');

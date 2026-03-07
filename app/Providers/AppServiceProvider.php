@@ -4,7 +4,12 @@ namespace App\Providers;
 
 use App\Services\System\DocumentNumberService;
 use App\Services\Tenancy\TenantContext;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +28,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configureRateLimiting();
+        $this->registerEvents();
+
+        // Resolve factories by model base name (flat factory directory)
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Database\\Factories\\' . class_basename($modelName) . 'Factory';
+        });
+
         // Super Admin bypass — tenant_id is null means platform-level super admin
         // Admin role bypass — admin users have full access within their tenant
         Gate::before(function ($user, $ability) {
@@ -67,6 +80,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(\App\Models\Pro\RecurringInvoice::class, \App\Policies\RecurringInvoicePolicy::class);
         Gate::policy(\App\Models\Pro\InvoiceReminder::class, \App\Policies\InvoiceReminderPolicy::class);
         Gate::policy(\App\Models\Pro\Branch::class, \App\Policies\BranchPolicy::class);
+        Gate::policy(\App\Models\Tenancy\TenantSetting::class, \App\Policies\SettingsPolicy::class);
 
         // Share appearance settings with the head partial for theme sync
         View::composer('backoffice.layout.partials.head', function ($view) {
@@ -76,6 +90,48 @@ class AppServiceProvider extends ServiceProvider
                 $appearance = $tenant->settings->modules_settings['appearance'] ?? [];
             }
             $view->with('appearanceSettings', $appearance);
+        });
+    }
+
+    protected function registerEvents(): void
+    {
+        $flush = \App\Listeners\FlushReportCacheListener::class;
+
+        Event::listen(\App\Events\InvoiceCreated::class, $flush);
+        Event::listen(\App\Events\InvoicePaid::class, $flush);
+        Event::listen(\App\Events\PaymentReceived::class, $flush);
+        Event::listen(\App\Events\ExpenseCreated::class, $flush);
+    }
+
+    protected function configureRateLimiting(): void
+    {
+        RateLimiter::for('login', function (Request $request) {
+            $key = strtolower($request->input('email', '')) . '|' . $request->ip();
+            return Limit::perMinute(5)->by($key);
+        });
+
+        RateLimiter::for('registration', function (Request $request) {
+            return Limit::perMinute(3)->by($request->ip());
+        });
+
+        RateLimiter::for('password-reset', function (Request $request) {
+            return Limit::perMinute(3)->by($request->ip());
+        });
+
+        RateLimiter::for('verification-resend', function (Request $request) {
+            return Limit::perMinute(3)->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('report-export', function (Request $request) {
+            return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('pdf-download', function (Request $request) {
+            return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('user-invitation', function (Request $request) {
+            return Limit::perMinute(10)->by(TenantContext::id() ?: $request->ip());
         });
     }
 }

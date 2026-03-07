@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Catalog\TaxGroup;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class TaxGroupPolicy
+class TaxGroupPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -21,12 +20,12 @@ class TaxGroupPolicy
     public function update(User $user, TaxGroup $taxGroup): bool
     {
         return $user->can('inventory.products.edit')
-            && $taxGroup->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($taxGroup);
     }
 
     public function delete(User $user, TaxGroup $taxGroup): bool
     {
         return $user->can('inventory.products.delete')
-            && $taxGroup->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($taxGroup);
     }
 }

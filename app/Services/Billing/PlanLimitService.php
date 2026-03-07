@@ -12,6 +12,7 @@ use App\Models\Sales\Invoice;
 use App\Models\Sales\Quote;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class PlanLimitService
 {
@@ -40,14 +41,24 @@ class PlanLimitService
             return null;
         }
 
-        $subscription = Subscription::withoutGlobalScopes()
-            ->where('tenant_id', $tenantId)
-            ->whereIn('status', ['active', 'trialing'])
-            ->with('plan')
-            ->latest('starts_at')
-            ->first();
+        return Cache::remember("plan:active:{$tenantId}", 300, function () use ($tenantId) {
+            $subscription = Subscription::withoutGlobalScopes()
+                ->where('tenant_id', $tenantId)
+                ->whereIn('status', ['active', 'trialing'])
+                ->with('plan')
+                ->latest('starts_at')
+                ->first();
 
-        return $subscription?->plan;
+            return $subscription?->plan;
+        });
+    }
+
+    public static function flushPlanCache(?string $tenantId = null): void
+    {
+        $tenantId = $tenantId ?? TenantContext::id();
+        if ($tenantId) {
+            Cache::forget("plan:active:{$tenantId}");
+        }
     }
 
     /**

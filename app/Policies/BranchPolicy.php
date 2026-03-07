@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Pro\Branch;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class BranchPolicy
+class BranchPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class BranchPolicy
     public function view(User $user, Branch $branch): bool
     {
         return $this->viewAny($user)
-            && $branch->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($branch);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class BranchPolicy
     public function update(User $user, Branch $branch): bool
     {
         return $this->create($user)
-            && $branch->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($branch);
     }
 
     public function delete(User $user, Branch $branch): bool
     {
         return $this->create($user)
-            && $branch->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($branch);
     }
 }

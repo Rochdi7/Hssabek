@@ -214,7 +214,12 @@ class PdfService
     {
         $tenant   = TenantContext::get();
         $settings = $tenant?->settings;
-        $template = $settings?->invoice_settings['pdf_template'] ?? 'default';
+        $invoiceSettings = $settings?->invoice_settings ?? [];
+
+        // Read per-document-type template, fallback to legacy single setting, then 'default'
+        $template = $invoiceSettings['pdf_templates'][$docType]
+            ?? $invoiceSettings['pdf_template']
+            ?? 'default';
 
         // Validate template exists
         if (!array_key_exists($template, self::TEMPLATES)) {

@@ -2,18 +2,13 @@
 
 namespace App\Http\Requests\Finance\Store;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreFinanceCategoryRequest extends FormRequest
+class StoreFinanceCategoryRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'name' => [
@@ -25,7 +20,7 @@ class StoreFinanceCategoryRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'name.required' => 'Le nom de la catégorie est obligatoire.',

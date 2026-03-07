@@ -37,7 +37,7 @@ Route::prefix('users')->as('users.')->group(function () {
         ->name('invite');
 
     Route::post('/invite', [UserInvitationController::class, 'store'])
-        ->middleware(['permission:access.users.create', 'plan.limit:users'])
+        ->middleware(['permission:access.users.create', 'plan.limit:users', 'throttle:user-invitation'])
         ->name('invite.store');
 
     Route::delete('/invite/{invitation}', [UserInvitationController::class, 'destroy'])

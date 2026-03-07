@@ -2,6 +2,7 @@
 
 namespace App\Services\Sales;
 
+use App\Events\PaymentReceived;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Models\Sales\PaymentAllocation;
@@ -55,7 +56,11 @@ class PaymentService
                 $this->invoiceService->updatePaymentTotals($invoice);
             }
 
-            return $payment->load('allocations');
+            $payment = $payment->load('allocations');
+
+            PaymentReceived::dispatch($payment);
+
+            return $payment;
         });
     }
 

@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Sales\Payment;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class PaymentPolicy
+class PaymentPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class PaymentPolicy
     public function view(User $user, Payment $payment): bool
     {
         return $user->can('sales.invoices.view')
-            && $payment->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($payment);
     }
 
     public function create(User $user): bool
@@ -27,6 +26,6 @@ class PaymentPolicy
     public function delete(User $user, Payment $payment): bool
     {
         return $user->can('sales.invoices.delete')
-            && $payment->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($payment);
     }
 }

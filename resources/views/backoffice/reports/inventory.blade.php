@@ -210,7 +210,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $product->category?->name ?? '-' }}</td>
-                                <td class="text-dark">{{ $product->unit?->abbreviation ?? $product->unit?->name ?? '-' }}</td>
+                                <td class="text-dark">{{ $product->unit?->short_name ?? $product->unit?->name ?? '-' }}</td>
                                 <td>{{ number_format($product->quantity, 0) }}</td>
                                 <td class="text-dark">{{ number_format($product->selling_price, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
                                 <td class="text-dark">{{ number_format($product->purchase_price, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>

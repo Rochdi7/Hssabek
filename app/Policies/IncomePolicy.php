@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Finance\Income;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class IncomePolicy
+class IncomePolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class IncomePolicy
     public function view(User $user, Income $income): bool
     {
         return $user->can('finance.incomes.view')
-            && $income->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($income);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class IncomePolicy
     public function update(User $user, Income $income): bool
     {
         return $user->can('finance.incomes.edit')
-            && $income->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($income);
     }
 
     public function delete(User $user, Income $income): bool
     {
         return $user->can('finance.incomes.delete')
-            && $income->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($income);
     }
 }

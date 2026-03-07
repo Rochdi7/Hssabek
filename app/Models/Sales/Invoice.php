@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Invoice extends Model
 {
-    use HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
 
     protected $fillable = [
         'customer_id',

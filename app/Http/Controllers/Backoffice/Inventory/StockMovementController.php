@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class StockMovementController extends Controller
 {
+    public function __construct(
+        private readonly StockService $stockService,
+    ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', StockMovement::class);
@@ -49,7 +53,7 @@ class StockMovementController extends Controller
         $this->authorize('create', StockMovement::class);
 
         try {
-            app(StockService::class)->adjust(
+            $this->stockService->adjust(
                 productId:   $request->product_id,
                 quantity:    abs((float) $request->quantity),
                 movementType: $request->movement_type,

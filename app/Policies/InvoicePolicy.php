@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Sales\Invoice;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class InvoicePolicy
+class InvoicePolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class InvoicePolicy
     public function view(User $user, Invoice $invoice): bool
     {
         return $user->can('sales.invoices.view')
-            && $invoice->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($invoice);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class InvoicePolicy
     public function update(User $user, Invoice $invoice): bool
     {
         return $user->can('sales.invoices.edit')
-            && $invoice->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($invoice);
     }
 
     public function delete(User $user, Invoice $invoice): bool
     {
         return $user->can('sales.invoices.delete')
-            && $invoice->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($invoice);
     }
 }

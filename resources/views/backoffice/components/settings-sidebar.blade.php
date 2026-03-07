@@ -61,7 +61,7 @@
                                                 <li><a href="{{ route('bo.settings.invoice.edit') }}"
                                                         class="{{ request()->routeIs('bo.settings.invoice.*') ? 'active' : '' }}">Paramètres de facturation</a></li>
                                                 <li><a href="{{ route('bo.settings.invoice-templates.index') }}"
-                                                        class="{{ request()->routeIs('bo.settings.invoice-templates.*') ? 'active' : '' }}">Modèles de factures</a></li>
+                                                        class="{{ request()->routeIs('bo.settings.invoice-templates.*') ? 'active' : '' }}">Modèles de documents</a></li>
                                                 <li><a href="{{ route('bo.catalog.tax-rates.index') }}"
                                                         class="{{ request()->routeIs('bo.catalog.tax-rates.*', 'bo.catalog.tax-categories.*', 'bo.catalog.tax-groups.*') ? 'active' : '' }}">Taux de taxes</a></li>
                                                 <li><a href="{{ route('bo.settings.email-templates.index') }}"

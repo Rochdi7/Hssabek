@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Pro\RecurringInvoice;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class RecurringInvoicePolicy
+class RecurringInvoicePolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class RecurringInvoicePolicy
     public function view(User $user, RecurringInvoice $recurringInvoice): bool
     {
         return $user->can('sales.invoices.view')
-            && $recurringInvoice->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($recurringInvoice);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class RecurringInvoicePolicy
     public function update(User $user, RecurringInvoice $recurringInvoice): bool
     {
         return $user->can('sales.invoices.edit')
-            && $recurringInvoice->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($recurringInvoice);
     }
 
     public function delete(User $user, RecurringInvoice $recurringInvoice): bool
     {
         return $user->can('sales.invoices.delete')
-            && $recurringInvoice->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($recurringInvoice);
     }
 }

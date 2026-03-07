@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class BankAccount extends Model
 {
-    use HasUuids, BelongsToTenant;
+    use HasFactory, HasUuids, BelongsToTenant;
 
     protected $fillable = [
         'account_holder_name',

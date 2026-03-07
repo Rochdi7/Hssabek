@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Income extends Model
 {
-    use HasUuids, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, BelongsToTenant, UsesTenantCurrency;
 
     protected $fillable = [
         'income_number',

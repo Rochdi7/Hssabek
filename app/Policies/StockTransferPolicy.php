@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Inventory\StockTransfer;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class StockTransferPolicy
+class StockTransferPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class StockTransferPolicy
     public function view(User $user, StockTransfer $transfer): bool
     {
         return $user->can('inventory.stock_movements.view')
-            && $transfer->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($transfer);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class StockTransferPolicy
     public function update(User $user, StockTransfer $transfer): bool
     {
         return $user->can('inventory.stock_movements.edit')
-            && $transfer->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($transfer);
     }
 
     public function delete(User $user, StockTransfer $transfer): bool
     {
         return $user->can('inventory.stock_movements.delete')
-            && $transfer->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($transfer);
     }
 }

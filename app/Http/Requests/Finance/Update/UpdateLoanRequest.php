@@ -2,16 +2,11 @@
 
 namespace App\Http\Requests\Finance\Update;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class UpdateLoanRequest extends FormRequest
+class UpdateLoanRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'lender_type'       => 'required|in:bank,personal,other',
@@ -25,22 +20,34 @@ class UpdateLoanRequest extends FormRequest
             'start_date'        => 'required|date',
             'end_date'          => 'nullable|date|after_or_equal:start_date',
             'payment_frequency' => 'required|in:monthly,quarterly,yearly',
-            'status'            => 'required|in:active,closed,defaulted',
+            'status'            => 'sometimes|in:active,closed,defaulted',
             'notes'             => 'nullable|string|max:2000',
         ];
     }
 
-    public function messages(): array
+    protected function updateRules(): array
+    {
+        return [
+            'status' => 'required|in:active,closed,defaulted',
+        ];
+    }
+
+    protected function baseMessages(): array
     {
         return [
             'lender_type.required'       => 'Le type de prêteur est obligatoire.',
+            'lender_type.in'             => 'Le type de prêteur est invalide.',
             'lender_name.required'       => 'Le nom du prêteur est obligatoire.',
             'principal_amount.required'  => 'Le montant principal est obligatoire.',
+            'principal_amount.min'       => 'Le montant principal doit être supérieur à zéro.',
+            'interest_rate.max'          => 'Le taux d\'intérêt ne peut pas dépasser 100%.',
+            'interest_type.required'     => 'Le type d\'intérêt est obligatoire.',
             'total_amount.required'      => 'Le montant total est obligatoire.',
             'remaining_balance.required' => 'Le solde restant est obligatoire.',
             'start_date.required'        => 'La date de début est obligatoire.',
             'end_date.after_or_equal'    => 'La date de fin doit être postérieure ou égale à la date de début.',
             'payment_frequency.required' => 'La fréquence de paiement est obligatoire.',
+            'payment_frequency.in'       => 'La fréquence de paiement est invalide.',
             'status.required'            => 'Le statut est obligatoire.',
         ];
     }

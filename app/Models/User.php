@@ -15,9 +15,10 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use HasUuids, SoftDeletes, HasApiTokens, Notifiable, HasRoles, InteractsWithMedia, BelongsToTenant;
+    use HasFactory, HasUuids, SoftDeletes, HasApiTokens, Notifiable, HasRoles, InteractsWithMedia, BelongsToTenant;
 
     protected $fillable = [
         'email',

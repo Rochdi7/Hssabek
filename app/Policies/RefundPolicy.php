@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Sales\Refund;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class RefundPolicy
+class RefundPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class RefundPolicy
     public function view(User $user, Refund $refund): bool
     {
         return $user->can('sales.refunds.view')
-            && $refund->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($refund);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class RefundPolicy
     public function update(User $user, Refund $refund): bool
     {
         return $user->can('sales.refunds.edit')
-            && $refund->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($refund);
     }
 
     public function delete(User $user, Refund $refund): bool
     {
         return $user->can('sales.refunds.delete')
-            && $refund->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($refund);
     }
 }

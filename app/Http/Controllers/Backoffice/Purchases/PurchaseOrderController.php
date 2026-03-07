@@ -7,21 +7,16 @@ use App\Http\Requests\Purchases\Store\StorePurchaseOrderRequest;
 use App\Http\Requests\Purchases\Update\UpdatePurchaseOrderRequest;
 use App\Models\Catalog\Product;
 use App\Models\Catalog\TaxGroup;
-use App\Models\Purchases\GoodsReceipt;
-use App\Models\Purchases\GoodsReceiptItem;
 use App\Models\Purchases\PurchaseOrder;
-use App\Models\Purchases\PurchaseOrderItem;
 use App\Models\Purchases\Supplier;
+use App\Services\Purchases\PurchaseOrderService;
 use App\Services\Sales\PdfService;
-use App\Services\System\DocumentNumberService;
-use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PurchaseOrderController extends Controller
 {
     public function __construct(
-        private DocumentNumberService $docNumberService,
+        private readonly PurchaseOrderService $purchaseOrderService,
     ) {}
 
     public function index(Request $request)
@@ -63,87 +58,7 @@ class PurchaseOrderController extends Controller
     {
         $this->authorize('create', PurchaseOrder::class);
 
-        $validated = $request->validated();
-
-        $po = DB::transaction(function () use ($validated) {
-            $items = $validated['items'];
-            $subtotal = 0;
-            $taxTotal = 0;
-            $discountTotal = 0;
-
-            $computedItems = [];
-            foreach ($items as $index => $item) {
-                $qty = (float) $item['quantity'];
-                $unitCost = (float) $item['unit_cost'];
-                $lineSubtotal = round($qty * $unitCost, 2);
-
-                $discountType = $item['discount_type'] ?? 'none';
-                $discountValue = (float) ($item['discount_value'] ?? 0);
-                $discountAmount = 0;
-                if ($discountType === 'percentage') {
-                    $discountAmount = round($lineSubtotal * $discountValue / 100, 2);
-                } elseif ($discountType === 'fixed') {
-                    $discountAmount = round($discountValue, 2);
-                }
-
-                $afterDiscount = $lineSubtotal - $discountAmount;
-                $taxRate = (float) ($item['tax_rate'] ?? 0);
-                $lineTax = round($afterDiscount * $taxRate / 100, 2);
-                $lineTotal = round($afterDiscount + $lineTax, 2);
-
-                $subtotal += $lineSubtotal;
-                $discountTotal += $discountAmount;
-                $taxTotal += $lineTax;
-
-                $computedItems[] = array_merge($item, [
-                    'line_subtotal' => $lineSubtotal,
-                    'line_tax'      => $lineTax,
-                    'line_total'    => $lineTotal,
-                    'position'      => $index + 1,
-                    'discount_type' => $discountType,
-                    'discount_value' => $discountValue,
-                    'tax_rate'      => $taxRate,
-                ]);
-            }
-
-            $total = round($subtotal - $discountTotal + $taxTotal, 2);
-
-            $po = PurchaseOrder::create([
-                'supplier_id'    => $validated['supplier_id'],
-                'number'         => $this->docNumberService->next('purchase_order'),
-                'order_date'     => $validated['order_date'],
-                'expected_date'  => $validated['expected_date'] ?? null,
-                'status'         => 'draft',
-                'subtotal'       => $subtotal,
-                'discount_total' => $discountTotal,
-                'tax_total'      => $taxTotal,
-                'total'          => $total,
-                'notes'          => $validated['notes'] ?? null,
-                'terms'          => $validated['terms'] ?? null,
-            ]);
-
-            foreach ($computedItems as $item) {
-                PurchaseOrderItem::create([
-                    'tenant_id'        => TenantContext::id(),
-                    'purchase_order_id' => $po->id,
-                    'product_id'       => $item['product_id'] ?? null,
-                    'label'            => $item['label'],
-                    'description'      => $item['description'] ?? null,
-                    'quantity'         => $item['quantity'],
-                    'unit_cost'        => $item['unit_cost'],
-                    'discount_type'    => $item['discount_type'],
-                    'discount_value'   => $item['discount_value'],
-                    'tax_rate'         => $item['tax_rate'],
-                    'tax_group_id'     => $item['tax_group_id'] ?? null,
-                    'line_subtotal'    => $item['line_subtotal'],
-                    'line_tax'         => $item['line_tax'],
-                    'line_total'       => $item['line_total'],
-                    'position'         => $item['position'],
-                ]);
-            }
-
-            return $po;
-        });
+        $po = $this->purchaseOrderService->create($request->validated());
 
         return redirect()->route('bo.purchases.purchase-orders.show', $po)
             ->with('success', 'Bon de commande créé avec succès.');
@@ -175,74 +90,8 @@ class PurchaseOrderController extends Controller
     public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)
     {
         $this->authorize('update', $purchaseOrder);
-        abort_unless($purchaseOrder->status === 'draft', 403, 'Seuls les bons de commande en brouillon peuvent être modifiés.');
 
-        $validated = $request->validated();
-
-        DB::transaction(function () use ($validated, $purchaseOrder) {
-            $items = $validated['items'];
-            $subtotal = 0;
-            $taxTotal = 0;
-            $discountTotal = 0;
-
-            $purchaseOrder->items()->delete();
-
-            foreach ($items as $index => $item) {
-                $qty = (float) $item['quantity'];
-                $unitCost = (float) $item['unit_cost'];
-                $lineSubtotal = round($qty * $unitCost, 2);
-
-                $discountType = $item['discount_type'] ?? 'none';
-                $discountValue = (float) ($item['discount_value'] ?? 0);
-                $discountAmount = 0;
-                if ($discountType === 'percentage') {
-                    $discountAmount = round($lineSubtotal * $discountValue / 100, 2);
-                } elseif ($discountType === 'fixed') {
-                    $discountAmount = round($discountValue, 2);
-                }
-
-                $afterDiscount = $lineSubtotal - $discountAmount;
-                $taxRate = (float) ($item['tax_rate'] ?? 0);
-                $lineTax = round($afterDiscount * $taxRate / 100, 2);
-                $lineTotal = round($afterDiscount + $lineTax, 2);
-
-                $subtotal += $lineSubtotal;
-                $discountTotal += $discountAmount;
-                $taxTotal += $lineTax;
-
-                PurchaseOrderItem::create([
-                    'tenant_id'        => TenantContext::id(),
-                    'purchase_order_id' => $purchaseOrder->id,
-                    'product_id'       => $item['product_id'] ?? null,
-                    'label'            => $item['label'],
-                    'description'      => $item['description'] ?? null,
-                    'quantity'         => $item['quantity'],
-                    'unit_cost'        => $item['unit_cost'],
-                    'discount_type'    => $discountType,
-                    'discount_value'   => $discountValue,
-                    'tax_rate'         => $taxRate,
-                    'tax_group_id'     => $item['tax_group_id'] ?? null,
-                    'line_subtotal'    => $lineSubtotal,
-                    'line_tax'         => $lineTax,
-                    'line_total'       => $lineTotal,
-                    'position'         => $index + 1,
-                ]);
-            }
-
-            $total = round($subtotal - $discountTotal + $taxTotal, 2);
-
-            $purchaseOrder->update([
-                'supplier_id'    => $validated['supplier_id'],
-                'order_date'     => $validated['order_date'],
-                'expected_date'  => $validated['expected_date'] ?? null,
-                'subtotal'       => $subtotal,
-                'discount_total' => $discountTotal,
-                'tax_total'      => $taxTotal,
-                'total'          => $total,
-                'notes'          => $validated['notes'] ?? null,
-                'terms'          => $validated['terms'] ?? null,
-            ]);
-        });
+        $this->purchaseOrderService->update($purchaseOrder, $request->validated());
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
             ->with('success', 'Bon de commande mis à jour avec succès.');
@@ -270,38 +119,7 @@ class PurchaseOrderController extends Controller
 
         $purchaseOrder->load('items');
 
-        DB::transaction(function () use ($purchaseOrder) {
-            $receipt = GoodsReceipt::create([
-                'purchase_order_id' => $purchaseOrder->id,
-                'number'            => $this->docNumberService->next('goods_receipt'),
-                'status'            => 'received',
-                'received_at'       => now(),
-                'created_by'        => auth()->id(),
-            ]);
-
-            foreach ($purchaseOrder->items as $item) {
-                $qtyToReceive = $item->quantity - $item->received_quantity;
-                if ($qtyToReceive <= 0) {
-                    continue;
-                }
-
-                GoodsReceiptItem::create([
-                    'tenant_id'              => TenantContext::id(),
-                    'goods_receipt_id'       => $receipt->id,
-                    'purchase_order_item_id' => $item->id,
-                    'product_id'             => $item->product_id,
-                    'quantity'               => $qtyToReceive,
-                    'unit_cost'              => $item->unit_cost,
-                    'tax_rate'               => $item->tax_rate,
-                    'tax_group_id'           => $item->tax_group_id,
-                    'line_total'             => $item->line_total,
-                ]);
-
-                $item->update(['received_quantity' => $item->quantity]);
-            }
-
-            $purchaseOrder->update(['status' => 'received']);
-        });
+        $this->purchaseOrderService->receive($purchaseOrder);
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
             ->with('success', 'Marchandises réceptionnées avec succès.');
@@ -325,13 +143,7 @@ class PurchaseOrderController extends Controller
     {
         $this->authorize('update', $purchaseOrder);
 
-        abort_unless(
-            in_array($purchaseOrder->status, ['draft', 'sent', 'confirmed']),
-            422,
-            'Ce bon de commande ne peut pas être annulé dans son état actuel.'
-        );
-
-        $purchaseOrder->update(['status' => 'cancelled']);
+        $this->purchaseOrderService->transition($purchaseOrder, 'cancelled');
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
             ->with('success', 'Bon de commande annulé.');

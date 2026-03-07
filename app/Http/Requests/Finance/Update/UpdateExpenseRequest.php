@@ -2,18 +2,13 @@
 
 namespace App\Http\Requests\Finance\Update;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateExpenseRequest extends FormRequest
+class UpdateExpenseRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'reference_number'  => 'nullable|string|max:100',
@@ -40,7 +35,7 @@ class UpdateExpenseRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'amount.required'         => 'Le montant est obligatoire.',
@@ -48,7 +43,9 @@ class UpdateExpenseRequest extends FormRequest
             'amount.min'              => 'Le montant doit être supérieur à zéro.',
             'expense_date.required'   => 'La date de la dépense est obligatoire.',
             'payment_mode.required'   => 'Le mode de paiement est obligatoire.',
+            'payment_mode.in'         => 'Le mode de paiement est invalide.',
             'payment_status.required' => 'Le statut de paiement est obligatoire.',
+            'payment_status.in'       => 'Le statut de paiement est invalide.',
             'bank_account_id.exists'  => 'Le compte bancaire sélectionné est invalide.',
             'supplier_id.exists'      => 'Le fournisseur sélectionné est invalide.',
             'category_id.exists'      => 'La catégorie sélectionnée est invalide.',

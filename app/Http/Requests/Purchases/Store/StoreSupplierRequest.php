@@ -2,41 +2,42 @@
 
 namespace App\Http\Requests\Purchases\Store;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreSupplierRequest extends FormRequest
+class StoreSupplierRequest extends BaseFormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
+    protected function baseRules(): array
     {
         return [
             'name'               => 'required|string|max:255',
-            'email'              => [
-                'nullable',
-                'email',
-                'max:255',
-                Rule::unique('suppliers', 'email')->where('tenant_id', TenantContext::id()),
-            ],
             'phone'              => 'nullable|string|max:30',
-            'tax_id'             => [
-                'nullable',
-                'string',
-                'max:50',
-                Rule::unique('suppliers', 'tax_id')->where('tenant_id', TenantContext::id()),
-            ],
             'payment_terms_days' => 'nullable|integer|min:0|max:365',
             'status'             => 'required|in:active,inactive',
             'notes'              => 'nullable|string|max:2000',
         ];
     }
 
-    public function messages(): array
+    protected function storeRules(): array
+    {
+        return [
+            'email'              => [
+                'nullable',
+                'email',
+                'max:255',
+                Rule::unique('suppliers', 'email')->where('tenant_id', TenantContext::id()),
+            ],
+            'tax_id'             => [
+                'nullable',
+                'string',
+                'max:50',
+                Rule::unique('suppliers', 'tax_id')->where('tenant_id', TenantContext::id()),
+            ],
+        ];
+    }
+
+    protected function baseMessages(): array
     {
         return [
             'name.required'              => 'Le nom du fournisseur est obligatoire.',

@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Sales\DeliveryChallan;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class DeliveryChallanPolicy
+class DeliveryChallanPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class DeliveryChallanPolicy
     public function view(User $user, DeliveryChallan $deliveryChallan): bool
     {
         return $user->can('sales.delivery_challans.view')
-            && $deliveryChallan->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($deliveryChallan);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class DeliveryChallanPolicy
     public function update(User $user, DeliveryChallan $deliveryChallan): bool
     {
         return $user->can('sales.delivery_challans.edit')
-            && $deliveryChallan->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($deliveryChallan);
     }
 
     public function delete(User $user, DeliveryChallan $deliveryChallan): bool
     {
         return $user->can('sales.delivery_challans.delete')
-            && $deliveryChallan->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($deliveryChallan);
     }
 }

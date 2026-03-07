@@ -11,16 +11,13 @@ class LoginLog extends Model
     use HasUuids;
 
     protected $fillable = [
+        'tenant_id',
         'user_id',
-        'login_time',
-        'logout_time',
-        'ip_address',
+        'email',
+        'ip',
         'user_agent',
-    ];
-
-    protected $casts = [
-        'login_time' => 'datetime',
-        'logout_time' => 'datetime',
+        'status',
+        'message',
     ];
 
     public function user(): BelongsTo

@@ -3,9 +3,8 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class UserPolicy
+class UserPolicy extends TenantPolicy
 {
     public function viewAny(User $authUser): bool
     {
@@ -15,7 +14,7 @@ class UserPolicy
     public function view(User $authUser, User $user): bool
     {
         return $authUser->can('access.users.view')
-            && $user->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($user);
     }
 
     public function create(User $authUser): bool
@@ -26,19 +25,19 @@ class UserPolicy
     public function update(User $authUser, User $user): bool
     {
         return $authUser->can('access.users.edit')
-            && $user->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($user);
     }
 
     public function activate(User $authUser, User $user): bool
     {
         return $authUser->can('access.users.edit')
-            && $user->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($user);
     }
 
     public function deactivate(User $authUser, User $user): bool
     {
         return $authUser->can('access.users.edit')
-            && $user->tenant_id === TenantContext::id()
+            && $this->belongsToTenant($user)
             && $authUser->id !== $user->id;
     }
 }

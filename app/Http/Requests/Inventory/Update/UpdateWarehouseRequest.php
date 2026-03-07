@@ -2,18 +2,22 @@
 
 namespace App\Http\Requests\Inventory\Update;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateWarehouseRequest extends FormRequest
+class UpdateWarehouseRequest extends BaseFormRequest
 {
-    public function authorize(): bool
+    protected function baseRules(): array
     {
-        return true;
+        return [
+            'address'    => 'nullable|string|max:500',
+            'is_default' => 'boolean',
+            'is_active'  => 'boolean',
+        ];
     }
 
-    public function rules(): array
+    protected function updateRules(): array
     {
         $warehouseId = $this->route('warehouse')?->id ?? $this->route('warehouse');
 
@@ -26,13 +30,10 @@ class UpdateWarehouseRequest extends FormRequest
                 'nullable', 'string', 'max:50',
                 Rule::unique('warehouses')->where('tenant_id', TenantContext::id())->ignore($warehouseId),
             ],
-            'address'    => 'nullable|string|max:500',
-            'is_default' => 'boolean',
-            'is_active'  => 'boolean',
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'name.required' => 'Le nom de l\'entrepôt est obligatoire.',

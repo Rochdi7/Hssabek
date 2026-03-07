@@ -2,23 +2,28 @@
 
 namespace App\Http\Requests\Purchases\Update;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateSupplierRequest extends FormRequest
+class UpdateSupplierRequest extends BaseFormRequest
 {
-    public function authorize(): bool
+    protected function baseRules(): array
     {
-        return true;
+        return [
+            'name'               => 'required|string|max:255',
+            'phone'              => 'nullable|string|max:30',
+            'payment_terms_days' => 'nullable|integer|min:0|max:365',
+            'status'             => 'required|in:active,inactive',
+            'notes'              => 'nullable|string|max:2000',
+        ];
     }
 
-    public function rules(): array
+    protected function updateRules(): array
     {
         $supplierId = $this->route('supplier')?->id ?? $this->route('supplier');
 
         return [
-            'name'               => 'required|string|max:255',
             'email'              => [
                 'nullable',
                 'email',
@@ -27,7 +32,6 @@ class UpdateSupplierRequest extends FormRequest
                     ->where('tenant_id', TenantContext::id())
                     ->ignore($supplierId),
             ],
-            'phone'              => 'nullable|string|max:30',
             'tax_id'             => [
                 'nullable',
                 'string',
@@ -36,13 +40,10 @@ class UpdateSupplierRequest extends FormRequest
                     ->where('tenant_id', TenantContext::id())
                     ->ignore($supplierId),
             ],
-            'payment_terms_days' => 'nullable|integer|min:0|max:365',
-            'status'             => 'required|in:active,inactive',
-            'notes'              => 'nullable|string|max:2000',
         ];
     }
 
-    public function messages(): array
+    protected function baseMessages(): array
     {
         return [
             'name.required'              => 'Le nom du fournisseur est obligatoire.',

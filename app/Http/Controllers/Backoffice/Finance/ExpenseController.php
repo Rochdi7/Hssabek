@@ -9,12 +9,16 @@ use App\Models\Finance\BankAccount;
 use App\Models\Finance\Expense;
 use App\Models\Finance\FinanceCategory;
 use App\Models\Purchases\Supplier;
-use App\Services\System\DocumentNumberService;
+use App\Services\Finance\ExpenseService;
+use App\Services\Reports\ReportService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {
+    public function __construct(
+        private readonly ExpenseService $expenseService,
+    ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', Expense::class);
@@ -52,22 +56,9 @@ class ExpenseController extends Controller
     {
         $this->authorize('create', Expense::class);
 
-        $data = $request->validated();
-        $data['expense_number'] = app(DocumentNumberService::class)->next('expense');
+        $this->expenseService->create($request->validated());
 
-        $expense = DB::transaction(function () use ($data) {
-            $expense = Expense::create($data);
-
-            // Deduct from bank account if paid and linked
-            if ($expense->bank_account_id && $expense->payment_status === 'paid') {
-                $account = BankAccount::where('id', $expense->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                $account->decrement('current_balance', $expense->amount);
-            }
-
-            return $expense;
-        });
+        ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.expenses.index')
             ->with('success', 'Dépense enregistrée avec succès.');
@@ -88,35 +79,9 @@ class ExpenseController extends Controller
     {
         $this->authorize('update', $expense);
 
-        DB::transaction(function () use ($request, $expense) {
-            $oldBankAccountId = $expense->bank_account_id;
-            $oldAmount = $expense->amount;
-            $oldPaymentStatus = $expense->payment_status;
+        $this->expenseService->update($expense, $request->validated());
 
-            // Lock all involved bank accounts upfront
-            $accountIds = array_filter(array_unique([
-                $oldBankAccountId,
-                $request->validated('bank_account_id', $oldBankAccountId),
-            ]));
-
-            if (!empty($accountIds)) {
-                BankAccount::whereIn('id', $accountIds)->lockForUpdate()->get();
-            }
-
-            // Restore old bank balance if it was paid
-            if ($oldBankAccountId && $oldPaymentStatus === 'paid') {
-                BankAccount::where('id', $oldBankAccountId)
-                    ->increment('current_balance', $oldAmount);
-            }
-
-            $expense->update($request->validated());
-
-            // Deduct new amount if paid
-            if ($expense->bank_account_id && $expense->payment_status === 'paid') {
-                BankAccount::where('id', $expense->bank_account_id)
-                    ->decrement('current_balance', $expense->amount);
-            }
-        });
+        ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.expenses.index')
             ->with('success', 'Dépense mise à jour avec succès.');
@@ -126,17 +91,9 @@ class ExpenseController extends Controller
     {
         $this->authorize('delete', $expense);
 
-        DB::transaction(function () use ($expense) {
-            // Restore bank balance before deletion
-            if ($expense->bank_account_id && $expense->payment_status === 'paid') {
-                $account = BankAccount::where('id', $expense->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                $account->increment('current_balance', $expense->amount);
-            }
+        $this->expenseService->delete($expense);
 
-            $expense->delete();
-        });
+        ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.expenses.index')
             ->with('success', 'Dépense supprimée avec succès.');

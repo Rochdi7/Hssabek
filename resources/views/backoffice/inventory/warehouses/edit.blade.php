@@ -49,8 +49,15 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Code</label>
-                                                <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code', $warehouse->code) }}" placeholder="Ex: WH-001">
-                                                @error('code')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                                <div class="input-group">
+                                                    <input type="text" id="warehouse-code" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code', $warehouse->code) }}" placeholder="Ex: WH-001">
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        onclick="document.getElementById('warehouse-code').value = 'WH-' + String(Math.floor(Math.random() * 9000 + 1000))"
+                                                        title="Générer automatiquement">
+                                                        <i class="isax isax-refresh"></i>
+                                                    </button>
+                                                    @error('code')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">

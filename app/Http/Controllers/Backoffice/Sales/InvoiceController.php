@@ -78,6 +78,8 @@ class InvoiceController extends Controller
 
         $this->invoiceService->create($request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.invoices.index')
             ->with('success', 'Facture créée avec succès.');
     }
@@ -129,6 +131,8 @@ class InvoiceController extends Controller
 
         $this->invoiceService->update($invoice, $request->validated());
 
+        \App\Services\Reports\ReportService::flushTenantCache();
+
         return redirect()->route('bo.sales.invoices.show', $invoice)
             ->with('success', 'Facture mise à jour avec succès.');
     }
@@ -140,6 +144,8 @@ class InvoiceController extends Controller
         $invoice->items()->delete();
         $invoice->charges()->delete();
         $invoice->delete();
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.index')
             ->with('success', 'Facture supprimée avec succès.');
@@ -180,6 +186,8 @@ class InvoiceController extends Controller
         $this->authorize('update', $invoice);
 
         $this->invoiceService->transition($invoice, 'void');
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
             ->with('success', 'Facture annulée avec succès.');

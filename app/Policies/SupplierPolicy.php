@@ -4,9 +4,8 @@ namespace App\Policies;
 
 use App\Models\Purchases\Supplier;
 use App\Models\User;
-use App\Services\Tenancy\TenantContext;
 
-class SupplierPolicy
+class SupplierPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
@@ -16,7 +15,7 @@ class SupplierPolicy
     public function view(User $user, Supplier $supplier): bool
     {
         return $user->can('purchases.suppliers.view')
-            && $supplier->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($supplier);
     }
 
     public function create(User $user): bool
@@ -27,12 +26,12 @@ class SupplierPolicy
     public function update(User $user, Supplier $supplier): bool
     {
         return $user->can('purchases.suppliers.edit')
-            && $supplier->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($supplier);
     }
 
     public function delete(User $user, Supplier $supplier): bool
     {
         return $user->can('purchases.suppliers.delete')
-            && $supplier->tenant_id === TenantContext::id();
+            && $this->belongsToTenant($supplier);
     }
 }

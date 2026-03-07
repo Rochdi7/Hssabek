@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class PurchaseOrder extends Model
 {
-    use HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
 
     protected $fillable = [
         'supplier_id',
@@ -59,5 +60,10 @@ class PurchaseOrder extends Model
     public function goodsReceipts(): HasMany
     {
         return $this->hasMany(GoodsReceipt::class);
+    }
+
+    public function vendorBills(): HasMany
+    {
+        return $this->hasMany(VendorBill::class);
     }
 }
