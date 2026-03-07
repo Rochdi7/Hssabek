@@ -122,10 +122,10 @@
 <!-- Global Alerts -->
 @include('backoffice.components.alerts')
 
-@unless ($hideHeaderSidebar)
+@if (auth()->check() && !$hideHeaderSidebar)
     @include('backoffice.layout.partials.header')
     @include('backoffice.layout.partials.sidebar')
-@endunless
+@endif
 
 @yield('content')
 

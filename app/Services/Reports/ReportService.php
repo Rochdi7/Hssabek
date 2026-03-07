@@ -19,6 +19,13 @@ use Illuminate\Support\Facades\DB;
 
 class ReportService
 {
+    private function monthGroupExpression(string $column): string
+    {
+        return DB::connection()->getDriverName() === 'sqlite'
+            ? "strftime('%Y-%m', {$column})"
+            : "DATE_FORMAT({$column}, '%Y-%m')";
+    }
+
     private function tenantId(): string
     {
         return TenantContext::id() ?? throw new \RuntimeException('No tenant context.');
@@ -29,10 +36,23 @@ class ReportService
         return (int) Cache::get("report:version:{$this->tenantId()}", 0);
     }
 
-    private function cacheKey(string $prefix, string $from, string $to): string
+    private function resolvePagination(): array
     {
+        $request = request();
+        $page = max(1, (int) $request->query('page', 1));
+        $perPage = max(1, (int) $request->query('per_page', 15));
+
+        return [$page, $perPage];
+    }
+
+    private function cacheKey(string $prefix, string $from, string $to, ?int $page = null, ?int $perPage = null): string
+    {
+        if ($page === null || $perPage === null) {
+            [$page, $perPage] = $this->resolvePagination();
+        }
+
         $v = $this->cacheVersion();
-        return "report:{$prefix}:{$this->tenantId()}:v{$v}:{$from}:{$to}";
+        return "report:{$prefix}:{$this->tenantId()}:v{$v}:{$from}:{$to}:p{$page}:pp{$perPage}";
     }
 
     /**
@@ -73,7 +93,8 @@ class ReportService
     public function salesSummary(string $from, string $to): array
     {
         [$from, $to] = $this->validateDateRange($from, $to);
-        return Cache::remember($this->cacheKey('sales', $from, $to), 300, function () use ($from, $to) {
+        [$page, $perPage] = $this->resolvePagination();
+        return Cache::remember($this->cacheKey('sales', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
             $summary = Invoice::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'cancelled')
@@ -85,9 +106,10 @@ class ReportService
                 ")
                 ->first();
 
+            $monthExpr = $this->monthGroupExpression('issue_date');
             $byMonth = Invoice::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'cancelled')
-                ->selectRaw("DATE_FORMAT(issue_date, '%Y-%m') as month, COALESCE(SUM(total), 0) as revenue")
+                ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as revenue")
                 ->groupBy('month')
                 ->orderBy('month')
                 ->get();
@@ -105,7 +127,7 @@ class ReportService
                 ->where('status', '!=', 'cancelled')
                 ->with('customer:id,name')
                 ->latest('issue_date')
-                ->paginate(15)
+                ->paginate($perPage)
                 ->withQueryString();
 
             return compact('summary', 'byMonth', 'topCustomers', 'invoices');
@@ -117,8 +139,9 @@ class ReportService
     public function customerSummary(string $from, string $to): array
     {
         [$from, $to] = $this->validateDateRange($from, $to);
+        [$page, $perPage] = $this->resolvePagination();
 
-        return Cache::remember($this->cacheKey('customers', $from, $to), 300, function () use ($from, $to) {
+        return Cache::remember($this->cacheKey('customers', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
             $totalCustomers = Customer::count();
 
@@ -145,7 +168,7 @@ class ReportService
                       ->where('status', '!=', 'cancelled');
                 }], 'amount_due')
                 ->latest()
-                ->paginate(15)
+                ->paginate($perPage)
                 ->withQueryString();
 
             return compact('totalCustomers', 'newCustomers', 'totalRevenue', 'avgRevenue', 'customers');
@@ -157,8 +180,9 @@ class ReportService
     public function purchaseSummary(string $from, string $to): array
     {
         [$from, $to] = $this->validateDateRange($from, $to);
+        [$page, $perPage] = $this->resolvePagination();
 
-        return Cache::remember($this->cacheKey('purchases', $from, $to), 300, function () use ($from, $to) {
+        return Cache::remember($this->cacheKey('purchases', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
             $totalPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'cancelled')
@@ -179,7 +203,7 @@ class ReportService
             $vendorBills = VendorBill::whereBetween('issue_date', [$from, $to])
                 ->with('supplier:id,name')
                 ->latest('issue_date')
-                ->paginate(15)
+                ->paginate($perPage)
                 ->withQueryString();
 
             return compact('totalPurchases', 'paidPurchases', 'pendingPurchases', 'cancelledPurchases', 'vendorBills');
@@ -191,8 +215,9 @@ class ReportService
     public function financeSummary(string $from, string $to): array
     {
         [$from, $to] = $this->validateDateRange($from, $to);
+        [$page, $perPage] = $this->resolvePagination();
 
-        return Cache::remember($this->cacheKey('finance', $from, $to), 300, function () use ($from, $to) {
+        return Cache::remember($this->cacheKey('finance', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
             $totalExpenses = Expense::whereBetween('expense_date', [$from, $to])
                 ->sum('amount');
@@ -219,7 +244,7 @@ class ReportService
             $expenses = Expense::whereBetween('expense_date', [$from, $to])
                 ->with(['category:id,name', 'supplier:id,name', 'bankAccount:id,account_holder_name'])
                 ->latest('expense_date')
-                ->paginate(15)
+                ->paginate($perPage)
                 ->withQueryString();
 
             return compact('totalExpenses', 'totalIncome', 'netProfit', 'expensesByCategory', 'incomesByCategory', 'expenses');
@@ -294,10 +319,11 @@ class ReportService
                 ->limit(5)
                 ->get();
 
+            $monthExpr = $this->monthGroupExpression('issue_date');
             // Revenue last 12 months (line chart)
             $revenueTrend = Invoice::where('issue_date', '>=', $now->copy()->subMonths(11)->startOfMonth())
                 ->where('status', '!=', 'void')
-                ->selectRaw("DATE_FORMAT(issue_date, '%Y-%m') as month, COALESCE(SUM(total), 0) as revenue")
+                ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as revenue")
                 ->groupBy('month')
                 ->orderBy('month')
                 ->get();

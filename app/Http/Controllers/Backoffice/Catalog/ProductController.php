@@ -9,11 +9,17 @@ use App\Models\Catalog\Product;
 use App\Models\Catalog\ProductCategory;
 use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\Unit;
+use App\Models\Inventory\StockMovement;
+use App\Models\Inventory\Warehouse;
+use App\Services\Inventory\StockService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    public function __construct(
+        private readonly StockService $stockService,
+    ) {}
     public function index(Request $request)
     {
         $this->authorize('viewAny', Product::class);
@@ -43,7 +49,9 @@ class ProductController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('backoffice.catalog.products.index', compact('products', 'categories'));
+        $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
+
+        return view('backoffice.catalog.products.index', compact('products', 'categories', 'warehouses'));
     }
 
     public function create()
@@ -129,5 +137,87 @@ class ProductController extends Controller
 
         return redirect()->route('bo.catalog.products.index')
             ->with('success', 'Produit supprimé avec succès.');
+    }
+
+    /**
+     * Fetch movement history for a product (AJAX - JSON).
+     */
+    public function stockHistory(Product $product)
+    {
+        $movements = StockMovement::with(['warehouse', 'createdBy'])
+            ->where('product_id', $product->id)
+            ->latest('moved_at')
+            ->limit(50)
+            ->get();
+
+        return response()->json([
+            'product_name' => $product->name,
+            'product_code' => $product->code ?? '',
+            'movements'    => $movements->map(fn($m) => [
+                'date'        => $m->moved_at->format('d M Y, h:i A'),
+                'unit'        => $product->unit->abbreviation ?? $product->unit->name ?? '—',
+                'adjustment'  => (str_contains($m->movement_type, 'in') || $m->movement_type === 'unreserve')
+                    ? '+' . number_format($m->quantity, 2, ',', ' ')
+                    : '-' . number_format($m->quantity, 2, ',', ' '),
+                'is_positive' => str_contains($m->movement_type, 'in') || $m->movement_type === 'unreserve',
+                'stock'       => number_format($product->quantity, 2, ',', ' '),
+                'reason'      => $m->note ?: ucfirst(str_replace('_', ' ', $m->movement_type)),
+                'warehouse'   => $m->warehouse->name ?? '—',
+            ]),
+        ]);
+    }
+
+    /**
+     * Stock In — add quantity to a product.
+     */
+    public function stockIn(Request $request, Product $product)
+    {
+        $request->validate([
+            'warehouse_id' => 'required|exists:warehouses,id',
+            'quantity'     => 'required|numeric|min:0.001',
+            'note'         => 'nullable|string|max:500',
+        ]);
+
+        try {
+            $this->stockService->adjust(
+                productId: $product->id,
+                quantity: abs((float) $request->quantity),
+                movementType: 'stock_in',
+                note: $request->note ?? '',
+                warehouseId: $request->warehouse_id,
+            );
+
+            return redirect()->route('bo.catalog.products.index')
+                ->with('success', 'Stock ajouté avec succès pour "' . $product->name . '".');
+        } catch (\DomainException $e) {
+            return back()->withInput()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Stock Out — remove quantity from a product.
+     */
+    public function stockOut(Request $request, Product $product)
+    {
+        $request->validate([
+            'warehouse_id' => 'required|exists:warehouses,id',
+            'quantity'     => 'required|numeric|min:0.001',
+            'note'         => 'nullable|string|max:500',
+        ]);
+
+        try {
+            $this->stockService->adjust(
+                productId: $product->id,
+                quantity: abs((float) $request->quantity),
+                movementType: 'stock_out',
+                note: $request->note ?? '',
+                warehouseId: $request->warehouse_id,
+            );
+
+            return redirect()->route('bo.catalog.products.index')
+                ->with('success', 'Stock retiré avec succès pour "' . $product->name . '".');
+        } catch (\DomainException $e) {
+            return back()->withInput()->with('error', $e->getMessage());
+        }
     }
 }

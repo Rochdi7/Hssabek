@@ -111,6 +111,52 @@ class PaymentServiceTest extends TestCase
         ]);
     }
 
+    public function test_total_allocations_cannot_exceed_payment_amount(): void
+    {
+        $invoice1 = $this->createSentInvoice(200);
+        $invoice2 = $this->createSentInvoice(200);
+
+        $this->expectException(\DomainException::class);
+
+        $this->service->create([
+            'customer_id' => $this->customer->id,
+            'amount' => 300,
+            'payment_date' => now()->toDateString(),
+            'allocations' => [
+                ['invoice_id' => $invoice1->id, 'amount_applied' => 200],
+                ['invoice_id' => $invoice2->id, 'amount_applied' => 150],
+            ],
+        ]);
+    }
+
+    public function test_invoice_must_belong_to_same_customer_as_payment(): void
+    {
+        $otherCustomer = Customer::create([
+            'name' => 'Other Client',
+            'email' => 'other@test.com',
+            'type' => 'company',
+            'status' => 'active',
+        ]);
+
+        $foreignInvoice = $this->invoiceService->create([
+            'customer_id' => $otherCustomer->id,
+            'issue_date' => now()->toDateString(),
+            'items' => [['label' => 'Other', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
+        ]);
+        $this->invoiceService->transition($foreignInvoice, 'sent');
+
+        $this->expectException(\DomainException::class);
+
+        $this->service->create([
+            'customer_id' => $this->customer->id,
+            'amount' => 100,
+            'payment_date' => now()->toDateString(),
+            'allocations' => [
+                ['invoice_id' => $foreignInvoice->id, 'amount_applied' => 100],
+            ],
+        ]);
+    }
+
     public function test_payment_updates_invoice_amount_paid(): void
     {
         $invoice = $this->createSentInvoice(1000);

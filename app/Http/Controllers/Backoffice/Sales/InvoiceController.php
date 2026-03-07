@@ -10,6 +10,7 @@ use App\Models\Catalog\Product;
 use App\Models\Catalog\TaxGroup;
 use App\Models\Catalog\Unit;
 use App\Models\CRM\Customer;
+use App\Models\Finance\BankAccount;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\PaymentMethod;
 use App\Services\Sales\InvoiceService;
@@ -57,18 +58,26 @@ class InvoiceController extends Controller
     {
         $this->authorize('create', Invoice::class);
 
+        $tenant = TenantContext::get();
+        $settings = $tenant->settings;
+        $invoiceSettings = $settings->invoice_settings ?? [];
+
         $customers = Customer::orderBy('name')->get();
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $paymentMethods = PaymentMethod::orderBy('name')->get();
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
         return view('backoffice.sales.invoices.create', compact(
             'customers',
             'products',
             'units',
             'taxGroups',
-            'paymentMethods'
+            'paymentMethods',
+            'bankAccounts',
+            'tenant',
+            'invoiceSettings'
         ));
     }
 
@@ -109,17 +118,25 @@ class InvoiceController extends Controller
 
         $invoice->load(['items', 'charges']);
 
+        $tenant = TenantContext::get();
+        $settings = $tenant->settings;
+        $invoiceSettings = $settings->invoice_settings ?? [];
+
         $customers = Customer::orderBy('name')->get();
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
         return view('backoffice.sales.invoices.edit', compact(
             'invoice',
             'customers',
             'products',
             'units',
-            'taxGroups'
+            'taxGroups',
+            'bankAccounts',
+            'tenant',
+            'invoiceSettings'
         ));
     }
 

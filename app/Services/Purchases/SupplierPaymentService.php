@@ -19,10 +19,28 @@ class SupplierPaymentService
     public function create(array $validated): SupplierPayment
     {
         return DB::transaction(function () use ($validated) {
+            $paymentAmount = (float) $validated['amount'];
+            $allocations = $validated['allocations'] ?? [];
+            $totalAllocated = 0.0;
+
+            foreach ($allocations as $alloc) {
+                $amountApplied = (float) ($alloc['amount_applied'] ?? 0);
+                if ($amountApplied <= 0) {
+                    throw new \DomainException("Chaque montant d'allocation doit être supérieur à 0.");
+                }
+                $totalAllocated += $amountApplied;
+            }
+
+            if ($totalAllocated > $paymentAmount + 0.01) {
+                throw new \DomainException(
+                    "Le total alloué ({$totalAllocated}) dépasse le montant du paiement fournisseur ({$paymentAmount})."
+                );
+            }
+
             $payment = SupplierPayment::create([
                 'supplier_id' => $validated['supplier_id'],
                 'amount' => $validated['amount'],
-                'status' => 'completed',
+                'status' => 'succeeded',
                 'payment_date' => $validated['paid_at'],
                 'paid_at' => now(),
                 'payment_method_id' => $validated['payment_method_id'] ?? null,
@@ -30,14 +48,22 @@ class SupplierPaymentService
                 'notes' => $validated['notes'] ?? null,
             ]);
 
-            $allocations = $validated['allocations'] ?? [];
             foreach ($allocations as $alloc) {
                 $amountApplied = (float) $alloc['amount_applied'];
-                if ($amountApplied <= 0) {
-                    continue;
+
+                $vendorBill = VendorBill::whereKey($alloc['vendor_bill_id'])
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                if ($vendorBill->tenant_id !== $payment->tenant_id) {
+                    throw new \DomainException("La facture fournisseur sélectionnée n'appartient pas à votre organisation.");
                 }
 
-                $vendorBill = VendorBill::findOrFail($alloc['vendor_bill_id']);
+                if ($vendorBill->supplier_id !== $payment->supplier_id) {
+                    throw new \DomainException(
+                        "Chaque facture fournisseur allouée doit appartenir au même fournisseur que le paiement."
+                    );
+                }
 
                 // Anti-over-allocation check
                 $outstanding = (float) $vendorBill->amount_due;

@@ -10,6 +10,7 @@ use App\Models\Finance\MoneyTransfer;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class MoneyTransferController extends Controller
 {
@@ -42,14 +43,27 @@ class MoneyTransferController extends Controller
             // Lock both accounts to prevent race conditions
             $fromAccount = BankAccount::where('id', $data['from_bank_account_id'])->lockForUpdate()->firstOrFail();
             $toAccount = BankAccount::where('id', $data['to_bank_account_id'])->lockForUpdate()->firstOrFail();
+            $amount = (float) $data['amount'];
+
+            if ($fromAccount->tenant_id !== TenantContext::id() || $toAccount->tenant_id !== TenantContext::id()) {
+                throw ValidationException::withMessages([
+                    'from_bank_account_id' => "Les comptes sélectionnés n'appartiennent pas à votre organisation.",
+                ]);
+            }
+
+            if ((float) $fromAccount->current_balance + 0.01 < $amount) {
+                throw ValidationException::withMessages([
+                    'amount' => 'Solde insuffisant sur le compte source pour effectuer ce transfert.',
+                ]);
+            }
 
             $transfer = MoneyTransfer::create($data);
 
             // Deduct from source
-            $fromAccount->decrement('current_balance', $transfer->amount);
+            $fromAccount->decrement('current_balance', $amount);
 
             // Add to destination
-            $toAccount->increment('current_balance', $transfer->amount);
+            $toAccount->increment('current_balance', $amount);
 
             return $transfer;
         });
@@ -94,8 +108,22 @@ class MoneyTransferController extends Controller
             // Apply new transfer
             $newFrom = BankAccount::where('id', $moneyTransfer->from_bank_account_id)->lockForUpdate()->firstOrFail();
             $newTo = BankAccount::where('id', $moneyTransfer->to_bank_account_id)->lockForUpdate()->firstOrFail();
-            $newFrom->decrement('current_balance', $moneyTransfer->amount);
-            $newTo->increment('current_balance', $moneyTransfer->amount);
+            $amount = (float) $moneyTransfer->amount;
+
+            if ($newFrom->tenant_id !== TenantContext::id() || $newTo->tenant_id !== TenantContext::id()) {
+                throw ValidationException::withMessages([
+                    'from_bank_account_id' => "Les comptes sélectionnés n'appartiennent pas à votre organisation.",
+                ]);
+            }
+
+            if ((float) $newFrom->current_balance + 0.01 < $amount) {
+                throw ValidationException::withMessages([
+                    'amount' => 'Solde insuffisant sur le compte source pour effectuer ce transfert.',
+                ]);
+            }
+
+            $newFrom->decrement('current_balance', $amount);
+            $newTo->increment('current_balance', $amount);
         });
 
         return redirect()->route('bo.finance.money-transfers.show', $moneyTransfer)

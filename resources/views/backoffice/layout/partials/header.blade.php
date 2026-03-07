@@ -1,3 +1,4 @@
+@auth
 <!-- Topbar Start -->
 <div class="header">
     <div class="main-header">
@@ -1736,3 +1737,4 @@
     </div>
 </div>
 <!-- Topbar End -->
+@endauth

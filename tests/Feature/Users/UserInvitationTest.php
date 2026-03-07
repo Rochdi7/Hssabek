@@ -206,9 +206,19 @@ class UserInvitationTest extends TestCase
 
     public function test_valid_token_shows_accept_form(): void
     {
-        // Skipped: view calls auth()->user()->unreadNotifications() on a public
-        // (unauthenticated) route, causing a 500 error. Needs view fix.
-        $this->markTestSkipped('View bug: accept-invitation view assumes authenticated user for notifications.');
+        UserInvitation::create([
+            'email'      => 'invitee@example.com',
+            'role_id'    => $this->memberRole->id,
+            'token'      => 'valid-token-123',
+            'expires_at' => now()->addDays(7),
+            'created_by' => $this->adminUser->id,
+        ]);
+
+        $response = $this->get(route('bo.invitation.accept', 'valid-token-123'));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('backoffice.users.accept-invitation');
+        $response->assertSee('invitee@example.com');
     }
 
     public function test_expired_token_returns_404(): void

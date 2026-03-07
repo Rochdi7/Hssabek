@@ -20,6 +20,25 @@ class PaymentService
     public function create(array $validated): Payment
     {
         return DB::transaction(function () use ($validated) {
+            $paymentAmount = (float) $validated['amount'];
+            $allocations = $validated['allocations'] ?? [];
+            $totalAllocated = 0.0;
+
+            foreach ($allocations as $alloc) {
+                $allocAmount = (float) ($alloc['amount_applied'] ?? 0);
+                if ($allocAmount <= 0) {
+                    throw new \DomainException("Chaque montant d'allocation doit être supérieur à 0.");
+                }
+
+                $totalAllocated += $allocAmount;
+            }
+
+            if ($totalAllocated > $paymentAmount + 0.01) {
+                throw new \DomainException(
+                    "Le total alloué ({$totalAllocated}) dépasse le montant du paiement ({$paymentAmount})."
+                );
+            }
+
             $payment = Payment::create([
                 'customer_id' => $validated['customer_id'],
                 'payment_method_id' => $validated['payment_method_id'] ?? null,
@@ -32,9 +51,18 @@ class PaymentService
             ]);
 
             // Allocate to invoices
-            $allocations = $validated['allocations'] ?? [];
             foreach ($allocations as $alloc) {
-                $invoice = Invoice::findOrFail($alloc['invoice_id']);
+                $invoice = Invoice::whereKey($alloc['invoice_id'])
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                if ($invoice->tenant_id !== $payment->tenant_id) {
+                    throw new \DomainException("La facture sélectionnée n'appartient pas à votre organisation.");
+                }
+
+                if ($invoice->customer_id !== $payment->customer_id) {
+                    throw new \DomainException("Chaque facture allouée doit appartenir au même client que le paiement.");
+                }
 
                 // Anti-over-allocation check
                 $outstanding = (float) $invoice->amount_due;

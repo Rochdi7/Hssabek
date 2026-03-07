@@ -40,6 +40,18 @@ Route::prefix('catalog')->as('catalog.')->group(function () {
         Route::delete('/{product}', [ProductController::class, 'destroy'])
             ->middleware('permission:inventory.products.delete')
             ->name('destroy');
+
+        Route::get('/{product}/stock-history', [ProductController::class, 'stockHistory'])
+            ->middleware('permission:inventory.stock_movements.view')
+            ->name('stock-history');
+
+        Route::post('/{product}/stock-in', [ProductController::class, 'stockIn'])
+            ->middleware('permission:inventory.stock_movements.create')
+            ->name('stock-in');
+
+        Route::post('/{product}/stock-out', [ProductController::class, 'stockOut'])
+            ->middleware('permission:inventory.stock_movements.create')
+            ->name('stock-out');
     });
 
     // ─── Categories ─────────────────────────────────────────────
