@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->enum('interest_type', ['fixed', 'reducing'])->default('fixed');
             $table->decimal('total_amount', 14, 2);
             $table->decimal('remaining_balance', 14, 2);
-            $table->char('currency', 3);
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->enum('payment_frequency', ['monthly', 'quarterly', 'yearly']);

@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->enum('status', ['draft', 'sent', 'confirmed', 'partially_received', 'received', 'cancelled'])->default('draft');
             $table->date('order_date');
             $table->date('expected_date')->nullable();
-            $table->char('currency', 3);
             $table->decimal('subtotal', 12, 2);
             $table->decimal('discount_total', 12, 2)->default(0);
             $table->decimal('tax_total', 12, 2)->default(0);

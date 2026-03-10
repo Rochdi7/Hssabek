@@ -7,6 +7,7 @@ use App\Http\Requests\Sales\Store\StoreRefundRequest;
 use App\Http\Requests\Sales\Update\UpdateRefundRequest;
 use App\Models\Sales\Payment;
 use App\Models\Sales\Refund;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class RefundController extends Controller
@@ -35,7 +36,9 @@ class RefundController extends Controller
 
         $payments = Payment::with('customer')->orderBy('payment_date', 'desc')->limit(50)->get();
 
-        return view('backoffice.sales.refunds.create', compact('payments'));
+        $nextReference = app(DocumentNumberService::class)->preview('refund_ref');
+
+        return view('backoffice.sales.refunds.create', compact('payments', 'nextReference'));
     }
 
     public function store(StoreRefundRequest $request)
@@ -57,7 +60,9 @@ class RefundController extends Controller
 
         $refund->load(['payment', 'payment.customer']);
 
-        return view('backoffice.sales.refunds.edit', compact('refund'));
+        $nextReference = app(DocumentNumberService::class)->preview('refund_ref');
+
+        return view('backoffice.sales.refunds.edit', compact('refund', 'nextReference'));
     }
 
     public function update(UpdateRefundRequest $request, Refund $refund)

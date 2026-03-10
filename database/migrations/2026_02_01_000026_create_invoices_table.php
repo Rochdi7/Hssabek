@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->enum('status', ['draft', 'sent', 'partial', 'paid', 'overdue', 'void'])->default('draft');
             $table->date('issue_date');
             $table->date('due_date')->nullable();
-            $table->char('currency', 3);
             $table->boolean('enable_tax')->default(true);
             $table->json('bill_from_snapshot')->nullable();
             $table->json('bill_to_snapshot')->nullable();

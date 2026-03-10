@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->string('income_number');
             $table->string('reference_number')->nullable();
             $table->decimal('amount', 12, 2);
-            $table->char('currency', 3);
             $table->date('income_date');
             $table->enum('payment_mode', ['cash', 'bank_transfer', 'card', 'cheque', 'other']);
             $table->uuid('bank_account_id')->nullable();

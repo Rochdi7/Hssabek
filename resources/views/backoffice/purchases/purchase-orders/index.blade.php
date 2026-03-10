@@ -116,7 +116,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $po->order_date->format('d/m/Y') }}</td>
-                                <td class="text-dark fw-medium">{{ number_format($po->total, 2, ',', ' ') }} {{ $po->currency }}</td>
+                                <td class="text-dark fw-medium">{{ number_format($po->total, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
                                 <td>
                                     @switch($po->status)
                                         @case('draft')

@@ -2,127 +2,248 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                    Start Page Content
-                ========================= -->
+                                Start Page Content
+                            ========================= -->
+
+    @php
+        $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
+        $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
+        $paymentDays = (int) ($invoiceSettings['payment_terms_days'] ?? 30);
+        $roundOff = $invoiceSettings['invoice_round_off'] ?? '0';
+        $showCompany = $invoiceSettings['show_company_details'] ?? true;
+        $currency = $tenant->default_currency ?? 'MAD';
+    @endphp
 
     <div class="page-wrapper">
 
         <!-- Start Content -->
         <div class="content">
 
-            <!-- start row -->
+            <!-- Start row  -->
             <div class="row">
                 <div class="col-md-11 mx-auto">
-                    <div>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6><a href="{{ route('bo.sales.invoices.index') }}"><i
+
+                    <!-- Start Breadcrumb -->
+                    <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
+                        <div>
+                            <h6><a href="{{ route('bo.sales.invoices.index') }}" class="d-flex align-items-center"><i
                                         class="isax isax-arrow-left me-2"></i>Factures</a></h6>
+                        </div>
+                        <div class="right-content">
                             <a href="{{ route('bo.sales.invoices.show', $invoice) }}"
                                 class="btn btn-outline-white d-inline-flex align-items-center"><i
                                     class="isax isax-eye me-1"></i>Aperçu</a>
                         </div>
+                    </div>
+                    <!-- End Breadcrumb -->
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
 
-                        <div class="card">
+                    <div class="card">
+                        <form action="{{ route('bo.sales.invoices.update', $invoice) }}" method="POST"
+                            id="invoice-form">
+                            @csrf
+                            @method('PUT')
                             <div class="card-body">
-                                <h6 class="mb-3">Modifier la facture</h6>
-                                <form action="{{ route('bo.sales.invoices.update', $invoice) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="border-bottom mb-3 pb-1">
+                                <div class="top-content">
+                                    <div class="purchase-header mb-3">
+                                        <h6>Modifier la facture</h6>
+                                    </div>
+                                    <div>
+
                                         <!-- start row -->
                                         <div class="row justify-content-between">
-                                            <div class="col-xl-5 col-lg-7">
-                                                <div class="row gx-3">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">N° Facture</label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ $invoice->number }}" readonly>
+                                            <div class="col-xl-5">
+                                                <div class="purchase-top-content">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">N° Facture</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $invoice->number }}" readonly>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Référence</label>
-                                                            <div class="mb-2">
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
-                                                                        onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').focus();">
-                                                                    <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Référence</label>
+                                                                <div class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                                            onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').focus();">
+                                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                                            onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
+                                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
-                                                                        onchange="var d=new Date(); document.getElementById('reference_number').value='REF-'+d.getFullYear()+(''+(d.getMonth()+1)).padStart(2,'0')+(''+(d.getDate())).padStart(2,'0')+'-'+Math.floor(1000+Math.random()*9000); document.getElementById('reference_number').readOnly=true;">
-                                                                    <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                                <input type="text" name="reference_number"
+                                                                    id="reference_number"
+                                                                    class="form-control @error('reference_number') is-invalid @enderror"
+                                                                    value="{{ old('reference_number', $invoice->reference_number) }}"
+                                                                    placeholder="Ex: FAC-00001">
+                                                                @error('reference_number')
+                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Date d'émission</label>
+                                                                <div class="input-group position-relative">
+                                                                    <input type="date" name="issue_date"
+                                                                        class="form-control rounded-end @error('issue_date') is-invalid @enderror"
+                                                                        value="{{ old('issue_date', $invoice->issue_date?->format('Y-m-d')) }}">
+                                                                    <span class="input-icon-addon fs-16 text-gray-9">
+                                                                        <i class="isax isax-calendar-2"></i>
+                                                                    </span>
+                                                                    @error('issue_date')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
-                                                            <input type="text" name="reference_number" id="reference_number"
-                                                                class="form-control @error('reference_number') is-invalid @enderror"
-                                                                value="{{ old('reference_number', $invoice->reference_number) }}">
-                                                            @error('reference_number')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Date d'émission <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="date" name="issue_date"
-                                                                class="form-control @error('issue_date') is-invalid @enderror"
-                                                                value="{{ old('issue_date', $invoice->issue_date?->format('Y-m-d')) }}">
-                                                            @error('issue_date')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
+                                                        @php
+                                                            $hasDueDate = old(
+                                                                'due_date',
+                                                                $invoice->due_date?->format('Y-m-d'),
+                                                            );
+                                                        @endphp
+                                                        <div class="col-md-12 {{ $hasDueDate ? 'd-none' : '' }}"
+                                                            id="due-date-link-wrapper">
+                                                            <div class="mb-3">
+                                                                <a href="javascript:void(0);"
+                                                                    class="d-inline-flex align-items-center"
+                                                                    id="add-due-date-link"><i
+                                                                        class="isax isax-add-circle5 text-primary me-1"></i>Ajouter
+                                                                    une date d'échéance</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Date d'échéance</label>
-                                                            <input type="date" name="due_date"
-                                                                class="form-control @error('due_date') is-invalid @enderror"
-                                                                value="{{ old('due_date', $invoice->due_date?->format('Y-m-d')) }}">
-                                                            @error('due_date')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
+                                                        <div class="col-md-12 {{ $hasDueDate ? '' : 'd-none' }}"
+                                                            id="due-date-field-wrapper">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Date d'échéance</label>
+                                                                <div class="input-group position-relative">
+                                                                    <input type="date" name="due_date" id="due_date"
+                                                                        class="form-control rounded-end @error('due_date') is-invalid @enderror"
+                                                                        value="{{ old('due_date', $invoice->due_date?->format('Y-m-d')) }}">
+                                                                    <span class="input-icon-addon fs-16 text-gray-9">
+                                                                        <i class="isax isax-calendar-2"></i>
+                                                                    </span>
+                                                                    @error('due_date')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+                                                                <div class="form-check form-switch me-4">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        role="switch" id="recurring_check"
+                                                                        {{ old('is_recurring') ? 'checked' : '' }}>
+                                                                    <label class="form-check-label"
+                                                                        for="recurring_check">Récurrence</label>
+                                                                </div>
+                                                                <div class="d-flex align-items-center flex-fill {{ old('is_recurring') ? '' : 'd-none' }}"
+                                                                    id="recurring-fields">
+                                                                    <input type="hidden" name="is_recurring"
+                                                                        id="is_recurring_input"
+                                                                        value="{{ old('is_recurring', '0') }}">
+                                                                    <div class="flex-fill me-3">
+                                                                        <select class="form-select" name="recurring_interval"
+                                                                            id="recurring_interval">
+                                                                            <option value="month"
+                                                                                {{ old('recurring_interval') == 'month' ? 'selected' : '' }}>
+                                                                                Mensuel</option>
+                                                                            <option value="week"
+                                                                                {{ old('recurring_interval') == 'week' ? 'selected' : '' }}>
+                                                                                Hebdomadaire</option>
+                                                                            <option value="year"
+                                                                                {{ old('recurring_interval') == 'year' ? 'selected' : '' }}>
+                                                                                Annuel</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="flex-fill">
+                                                                        <select class="form-select" name="recurring_every"
+                                                                            id="recurring_every">
+                                                                            <option value="1"
+                                                                                {{ old('recurring_every') == '1' ? 'selected' : '' }}>
+                                                                                1</option>
+                                                                            <option value="2"
+                                                                                {{ old('recurring_every') == '2' ? 'selected' : '' }}>
+                                                                                2</option>
+                                                                            <option value="3"
+                                                                                {{ old('recurring_every') == '3' ? 'selected' : '' }}>
+                                                                                3</option>
+                                                                            <option value="6"
+                                                                                {{ old('recurring_every') == '6' ? 'selected' : '' }}>
+                                                                                6</option>
+                                                                            <option value="12"
+                                                                                {{ old('recurring_every') == '12' ? 'selected' : '' }}>
+                                                                                12</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div><!-- end col -->
-                                            <div class="col-xl-4 col-lg-5">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="row gx-3">
-                                                            <div class="col-md-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Devise</label>
-                                                                    <input type="text" class="form-control"
-                                                                        value="{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}"
-                                                                        readonly disabled>
+                                            <div class="col-xl-4">
+                                                <div class="purchase-top-content">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <div class="logo-image">
+                                                                    @if ($tenant->invoice_image_url)
+                                                                        <img src="{{ $tenant->invoice_image_url }}"
+                                                                            class="img-fluid" alt="Logo facture"
+                                                                            style="max-height: 60px;">
+                                                                    @else
+                                                                        <img src="{{ URL::asset('build/img/invoice-logo.svg') }}"
+                                                                            class="invoice-logo-dark" alt="img">
+                                                                        <img src="{{ URL::asset('build/img/invoice-logo-white-2.svg') }}"
+                                                                            class="invoice-logo-white" alt="img">
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div
-                                                            class="d-flex align-items-center justify-content-between border rounded p-2 mb-3">
-                                                            <div class="form-check form-switch me-4">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    role="switch" name="enable_tax" id="enable_tax"
-                                                                    value="1"
-                                                                    {{ old('enable_tax', $invoice->enable_tax) ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="enable_tax">Activer la
-                                                                    taxe</label>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Devise</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $currency }}" readonly disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="p-2 border rounded d-flex justify-content-between">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="form-check form-switch me-4">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            role="switch" name="enable_tax" id="enable_tax"
+                                                                            value="1"
+                                                                            {{ old('enable_tax', $invoice->enable_tax) ? 'checked' : '' }}>
+                                                                        <label class="form-check-label" for="enable_tax">Activer
+                                                                            la
+                                                                            taxe</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <a href="{{ route('bo.settings.invoice.edit') }}"><span
+                                                                            class="bg-primary-subtle p-1 rounded"><i
+                                                                                class="isax isax-setting-2 text-primary"></i></span></a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -130,18 +251,47 @@
                                             </div><!-- end col -->
                                         </div>
                                         <!-- end row -->
-                                    </div>
 
-                                    <div class="border-bottom mb-3">
-                                        <!-- start row -->
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="card shadow-none">
+                                    </div>
+                                </div>
+
+                                <div class="bill-content pb-0">
+
+                                    <!-- start row -->
+                                    <div class="row">
+                                        @if ($showCompany)
+                                            <div class="col-md-6">
+                                                <div class="card box-shadow-0">
+                                                    <div class="card-header border-0 pb-0">
+                                                        <h6>Facturé par</h6>
+                                                    </div>
                                                     <div class="card-body">
-                                                        <h6 class="mb-3">Facturer à</h6>
-                                                        <div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Entreprise</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $tenant->name }}" readonly disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end col -->
+                                        @endif
+                                        <div class="col-md-6">
+                                            <div class="card box-shadow-0">
+                                                <div class="card-header border-0 pb-0">
+                                                    <h6>Facturer à</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div>
+                                                        <div class="d-flex align-items-center justify-content-between">
                                                             <label class="form-label">Client <span
                                                                     class="text-danger">*</span></label>
+                                                            <a href="{{ route('bo.crm.customers.create') }}"
+                                                                class="d-flex align-items-center">
+                                                                <i
+                                                                    class="isax isax-add-circle5 text-primary me-1"></i>Ajouter
+                                                            </a>
+                                                        </div>
+                                                        <div class="mb-3">
                                                             <select name="customer_id"
                                                                 class="select @error('customer_id') is-invalid @enderror">
                                                                 <option value="">Sélectionner un client</option>
@@ -157,204 +307,355 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div><!-- end col -->
-                                        </div>
-                                        <!-- end row -->
+                                            </div>
+                                        </div><!-- end col -->
+                                    </div>
+                                    <!-- end row -->
+
+                                </div>
+
+                                <div class="items-details">
+                                    <div class="purchase-header mb-3">
+                                        <h6>Articles & Détails</h6>
                                     </div>
 
-                                    <div class="border-bottom mb-3 pb-3">
-                                        <h6 class="mb-3">Articles</h6>
-
-                                        <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                            <table class="table table-nowrap add-table m-0" id="items-table">
-                                                <thead class="table-dark">
-                                                    <tr>
-                                                        <th>Libellé</th>
-                                                        <th>Quantité</th>
-                                                        <th>Unité</th>
-                                                        <th>Prix unitaire</th>
-                                                        <th>Remise</th>
-                                                        <th>Taxe (%)</th>
-                                                        <th>Montant</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="add-tbody">
-                                                    @foreach ($invoice->items as $i => $item)
-                                                        <tr class="item-row">
-                                                            <td>
-                                                                <input type="text"
-                                                                    name="items[{{ $i }}][label]"
-                                                                    class="form-control"
-                                                                    value="{{ old("items.{$i}.label", $item->label) }}"
-                                                                    required>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number"
-                                                                    name="items[{{ $i }}][quantity]"
-                                                                    class="form-control item-qty"
-                                                                    value="{{ old("items.{$i}.quantity", $item->quantity) }}"
-                                                                    min="0.001" step="0.001"
-                                                                    style="min-width: 80px;" required>
-                                                            </td>
-                                                            <td>
-                                                                <select name="items[{{ $i }}][unit_id]"
-                                                                    class="form-select" style="min-width: 90px;">
-                                                                    <option value="">—</option>
-                                                                    @foreach ($units as $unit)
-                                                                        <option value="{{ $unit->id }}"
-                                                                            {{ old("items.{$i}.unit_id", $item->unit_id) == $unit->id ? 'selected' : '' }}>
-                                                                            {{ $unit->short_name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number"
-                                                                    name="items[{{ $i }}][unit_price]"
-                                                                    class="form-control item-price"
-                                                                    value="{{ old("items.{$i}.unit_price", $item->unit_price) }}"
-                                                                    min="0" step="0.01"
-                                                                    style="min-width: 100px;" required>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center gap-1"
-                                                                    style="min-width: 130px;">
-                                                                    <select
-                                                                        name="items[{{ $i }}][discount_type]"
-                                                                        class="form-select" style="width: 60px;">
-                                                                        <option value="none"
-                                                                            {{ old("items.{$i}.discount_type", $item->discount_type) == 'none' ? 'selected' : '' }}>
-                                                                            —</option>
-                                                                        <option value="percentage"
-                                                                            {{ old("items.{$i}.discount_type", $item->discount_type) == 'percentage' ? 'selected' : '' }}>
-                                                                            %</option>
-                                                                        <option value="fixed"
-                                                                            {{ old("items.{$i}.discount_type", $item->discount_type) == 'fixed' ? 'selected' : '' }}>
-                                                                            Fixe</option>
-                                                                    </select>
-                                                                    <input type="number"
-                                                                        name="items[{{ $i }}][discount_value]"
-                                                                        class="form-control item-discount"
-                                                                        value="{{ old("items.{$i}.discount_value", $item->discount_value) }}"
-                                                                        min="0" step="0.01"
-                                                                        style="width: 70px;">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <select name="items[{{ $i }}][tax_group_id]"
-                                                                    class="form-select" style="min-width: 100px;">
-                                                                    <option value="">0%</option>
-                                                                    @foreach ($taxGroups as $tg)
-                                                                        <option value="{{ $tg->id }}"
-                                                                            {{ old("items.{$i}.tax_group_id", $item->tax_group_id) == $tg->id ? 'selected' : '' }}>
-                                                                            {{ $tg->name }}
-                                                                            ({{ $tg->rates->sum('rate') }}%)
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control item-total"
-                                                                    value="{{ number_format($item->line_total, 2) }}"
-                                                                    readonly style="min-width: 90px;">
-                                                            </td>
-                                                            <td>
-                                                                @if (!$loop->first)
-                                                                    <a href="javascript:void(0);"
-                                                                        class="text-danger remove-item"><i
-                                                                            class="isax isax-close-circle"></i></a>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
+                                    <!-- start row -->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <h6 class="fs-14 mb-1">Type d'article</h6>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="item_type_filter" id="item-type-product"
+                                                            value="product" checked>
+                                                        <label class="form-check-label" for="item-type-product">
+                                                            Produit
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="item_type_filter" id="item-type-service"
+                                                            value="service">
+                                                        <label class="form-check-label" for="item-type-service">
+                                                            Service
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Produits/Services</label>
+                                                <select class="select" id="product-select">
+                                                    <option value="">Sélectionner</option>
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product->id }}"
+                                                            data-name="{{ $product->name }}"
+                                                            data-price="{{ $product->selling_price }}"
+                                                            data-unit-id="{{ $product->unit_id }}"
+                                                            data-type="{{ $product->item_type }}">
+                                                            {{ $product->name }}
+                                                        </option>
                                                     @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div>
-                                            <a href="javascript:void(0);" class="d-inline-flex align-items-center"
-                                                id="add-item-btn"><i
-                                                    class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un
-                                                article</a>
-                                        </div>
+                                                </select>
+                                            </div>
+                                        </div><!-- end col -->
                                     </div>
+                                    <!-- end row -->
 
-                                    <div class="border-bottom mb-3">
-                                        <!-- start row -->
-                                        <div class="row">
-                                            <div class="col-lg-7">
-                                                <div class="mb-3">
-                                                    <h6 class="mb-3">Informations supplémentaires</h6>
-                                                    <div>
-                                                        <ul class="nav nav-tabs nav-solid-primary tab-style-1 border-0 p-0 d-flex flex-wrap gap-3 mb-3"
-                                                            role="tablist">
-                                                            <li class="nav-item" role="presentation">
-                                                                <a class="nav-link active d-inline-flex align-items-center border fs-12 fw-semibold rounded-2"
-                                                                    data-bs-toggle="tab" data-bs-target="#notes"
-                                                                    aria-current="page" href="javascript:void(0);"><i
-                                                                        class="isax isax-document-text me-1"></i>Notes</a>
-                                                            </li>
-                                                            <li class="nav-item" role="presentation">
-                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2"
-                                                                    data-bs-toggle="tab" data-bs-target="#terms"
-                                                                    href="javascript:void(0);"><i
-                                                                        class="isax isax-document me-1"></i>Conditions</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="tab-content">
-                                                            <div class="tab-pane active show" id="notes"
-                                                                role="tabpanel">
-                                                                <label class="form-label">Notes additionnelles</label>
-                                                                <textarea name="notes" class="form-control" rows="3">{{ old('notes', $invoice->notes) }}</textarea>
+                                    <!-- Table List Start -->
+                                    <div class="table-responsive rounded border-bottom-0 border mb-3">
+                                        <table class="table table-nowrap add-table m-0" id="items-table">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Libellé</th>
+                                                    <th>Quantité</th>
+                                                    <th>Unité</th>
+                                                    <th>Prix unitaire</th>
+                                                    <th>Remise</th>
+                                                    <th>Taxe (%)</th>
+                                                    <th>Montant</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="add-tbody">
+                                                @foreach ($invoice->items as $i => $item)
+                                                    <tr class="item-row">
+                                                        <td>
+                                                            <input type="hidden"
+                                                                name="items[{{ $i }}][product_id]"
+                                                                class="item-product-id"
+                                                                value="{{ old("items.{$i}.product_id", $item->product_id) }}">
+                                                            <input type="text"
+                                                                name="items[{{ $i }}][label]"
+                                                                class="form-control item-label"
+                                                                value="{{ old("items.{$i}.label", $item->label) }}"
+                                                                placeholder="Nom de l'article" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number"
+                                                                name="items[{{ $i }}][quantity]"
+                                                                class="form-control item-qty"
+                                                                value="{{ old("items.{$i}.quantity", $item->quantity) }}"
+                                                                min="0.001" step="0.001"
+                                                                style="min-width: 80px;" required>
+                                                        </td>
+                                                        <td>
+                                                            <select name="items[{{ $i }}][unit_id]"
+                                                                class="form-select item-unit"
+                                                                style="min-width: 90px;">
+                                                                <option value="">—</option>
+                                                                @foreach ($units as $unit)
+                                                                    <option value="{{ $unit->id }}"
+                                                                        {{ old("items.{$i}.unit_id", $item->unit_id) == $unit->id ? 'selected' : '' }}>
+                                                                        {{ $unit->short_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number"
+                                                                name="items[{{ $i }}][unit_price]"
+                                                                class="form-control item-price"
+                                                                value="{{ old("items.{$i}.unit_price", $item->unit_price) }}"
+                                                                min="0" step="0.01"
+                                                                style="min-width: 100px;" required>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center gap-1"
+                                                                style="min-width: 130px;">
+                                                                <select
+                                                                    name="items[{{ $i }}][discount_type]"
+                                                                    class="form-select item-discount-type"
+                                                                    style="width: 60px;">
+                                                                    <option value="none"
+                                                                        {{ old("items.{$i}.discount_type", $item->discount_type) == 'none' ? 'selected' : '' }}>
+                                                                        —</option>
+                                                                    <option value="percentage"
+                                                                        {{ old("items.{$i}.discount_type", $item->discount_type) == 'percentage' ? 'selected' : '' }}>
+                                                                        %</option>
+                                                                    <option value="fixed"
+                                                                        {{ old("items.{$i}.discount_type", $item->discount_type) == 'fixed' ? 'selected' : '' }}>
+                                                                        Fixe</option>
+                                                                </select>
+                                                                <input type="number"
+                                                                    name="items[{{ $i }}][discount_value]"
+                                                                    class="form-control item-discount"
+                                                                    value="{{ old("items.{$i}.discount_value", $item->discount_value) }}"
+                                                                    min="0" step="0.01"
+                                                                    style="width: 70px;">
                                                             </div>
-                                                            <div class="tab-pane fade" id="terms" role="tabpanel">
-                                                                <label class="form-label">Conditions générales</label>
-                                                                <textarea name="terms" class="form-control" rows="3">{{ old('terms', $invoice->terms) }}</textarea>
-                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <select name="items[{{ $i }}][tax_group_id]"
+                                                                class="form-select item-tax"
+                                                                style="min-width: 100px;">
+                                                                <option value="" data-rate="0">0%</option>
+                                                                @foreach ($taxGroups as $tg)
+                                                                    <option value="{{ $tg->id }}"
+                                                                        data-rate="{{ $tg->rates->sum('rate') }}"
+                                                                        {{ old("items.{$i}.tax_group_id", $item->tax_group_id) == $tg->id ? 'selected' : '' }}>
+                                                                        {{ $tg->name }}
+                                                                        ({{ $tg->rates->sum('rate') }}%)
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control item-total"
+                                                                value="0,00" readonly style="min-width: 90px;">
+                                                        </td>
+                                                        <td>
+                                                            @if (!$loop->first)
+                                                                <a href="javascript:void(0);"
+                                                                    class="text-danger remove-item"><i
+                                                                        class="isax isax-close-circle"></i></a>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- Table List End -->
+
+                                    <div>
+                                        <a href="javascript:void(0);"
+                                            class="d-inline-flex align-items-center add-invoice-data"
+                                            id="add-item-btn"><i
+                                                class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un
+                                            article</a>
+                                    </div>
+                                </div>
+
+                                <div class="extra-info">
+
+                                    <!-- start row -->
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="mb-3">
+                                                <h6 class="mb-3">Informations supplémentaires</h6>
+                                                <div>
+                                                    <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">
+                                                        <li class="nav-item me-2" role="presentation">
+                                                            <a class="nav-link active border fs-12 fw-semibold rounded"
+                                                                data-bs-toggle="tab" data-bs-target="#notes"
+                                                                aria-current="page" href="javascript:void(0);"><i
+                                                                    class="isax isax-document-text me-1"></i>Notes</a>
+                                                        </li>
+                                                        <li class="nav-item me-2" role="presentation">
+                                                            <a class="nav-link border fs-12 fw-semibold rounded"
+                                                                data-bs-toggle="tab" data-bs-target="#terms"
+                                                                href="javascript:void(0);"><i
+                                                                    class="isax isax-document me-1"></i>Conditions</a>
+                                                        </li>
+                                                        <li class="nav-item me-2" role="presentation">
+                                                            <a class="nav-link border fs-12 fw-semibold rounded"
+                                                                data-bs-toggle="tab" data-bs-target="#bank"
+                                                                href="javascript:void(0);"><i
+                                                                    class="isax isax-bank me-1"></i>Coordonnées
+                                                                bancaires</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active show" id="notes"
+                                                            role="tabpanel">
+                                                            <label class="form-label">Notes additionnelles</label>
+                                                            <textarea name="notes" class="form-control" rows="3">{{ old('notes', $invoice->notes) }}</textarea>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="terms" role="tabpanel">
+                                                            <label class="form-label">Conditions générales</label>
+                                                            <textarea name="terms" class="form-control" rows="3">{{ old('terms', $invoice->terms) }}</textarea>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="bank" role="tabpanel">
+                                                            <label class="form-label">Compte bancaire</label>
+                                                            <select class="select" name="bank_account_id">
+                                                                <option value="">Sélectionner</option>
+                                                                @foreach ($bankAccounts as $ba)
+                                                                    <option value="{{ $ba->id }}"
+                                                                        {{ old('bank_account_id') == $ba->id ? 'selected' : '' }}>
+                                                                        {{ $ba->account_holder_name }} -
+                                                                        {{ $ba->account_number }}
+                                                                        ({{ $ba->bank_name }})
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div><!-- end col -->
-                                            <div class="col-lg-5">
-                                                <div class="mb-3">
-                                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                                        <h6 class="fs-14 fw-semibold">Sous-total</h6>
-                                                        <h6 class="fs-14 fw-semibold">
-                                                            {{ number_format($invoice->subtotal, 2, ',', ' ') }}</h6>
+                                            </div>
+                                        </div><!-- end col -->
+                                        <div class="col-md-5">
+                                            <ul class="mb-0 ps-0 list-unstyled">
+                                                <li class="mb-3">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">Sous-total</p>
+                                                        <h6 class="fs-14" id="display-subtotal">0,00</h6>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                                        <h6 class="fs-14 fw-semibold">Remise</h6>
-                                                        <h6 class="fs-14 fw-semibold text-danger">
-                                                            {{ number_format($invoice->discount_total, 2, ',', ' ') }}</h6>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">Taxe</p>
+                                                        <h6 class="fs-14" id="display-tax">0,00</h6>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                                        <h6 class="fs-14 fw-semibold">Taxe</h6>
-                                                        <h6 class="fs-14 fw-semibold">
-                                                            {{ number_format($invoice->tax_total, 2, ',', ' ') }}</h6>
+                                                </li>
+                                                <li class="mb-3" id="charges-container">
+                                                    {{-- Existing charges rendered by JS on init --}}
+                                                </li>
+                                                <li class="mb-3">
+                                                    <a href="javascript:void(0);"
+                                                        class="d-inline-flex align-items-center" id="add-charge-btn">
+                                                        <i class="isax isax-add-circle5 text-primary me-1"></i>Ajouter
+                                                        des frais supplémentaires
+                                                    </a>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">Remise</p>
+                                                        <input type="text" class="form-control"
+                                                            id="global-discount-value" value="0%"
+                                                            style="width: 106px;">
                                                     </div>
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
-                                                        <h6>Total ({{ $invoice->currency }})</h6>
-                                                        <h6>{{ number_format($invoice->total, 2, ',', ' ') }}</h6>
+                                                </li>
+                                                <li class="mb-3 pb-3 border-bottom border-gray">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div class="form-check form-switch me-4">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                role="switch" id="round_off_check"
+                                                                {{ $roundOff != '0' ? 'checked' : '' }}>
+                                                            <label class="form-check-label"
+                                                                for="round_off_check">Arrondi</label>
+                                                        </div>
+                                                        <h6 class="fs-14" id="display-roundoff">0,00</h6>
                                                     </div>
-                                                    <p class="text-muted fs-12">Les totaux seront recalculés à la
-                                                        sauvegarde.</p>
-                                                </div>
-                                            </div><!-- end col -->
-                                        </div>
-                                        <!-- end row -->
+                                                </li>
+                                                <li class="mb-3 pb-3 border-bottom border-gray">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6>Total ({{ $currency }})</h6>
+                                                        <h6 id="display-total">0,00</h6>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-3 pb-3 border-bottom border-gray">
+                                                    <h6 class="fs-14 fw-semibold mb-1">Total en lettres</h6>
+                                                    <p id="display-total-words">—</p>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Signature</label>
+                                                        <select class="form-select" name="signature_id"
+                                                            id="signature-select">
+                                                            <option value="">Sélectionner une signature</option>
+                                                            @foreach ($signatures as $sig)
+                                                                <option value="{{ $sig->id }}"
+                                                                    data-name="{{ $sig->name }}"
+                                                                    data-url="{{ $sig->signature_url }}"
+                                                                    {{ old('signature_id', $invoice->signature_id ?? $defaultSignature?->id) == $sig->id ? 'selected' : '' }}>
+                                                                    {{ $sig->name }}
+                                                                    @if ($sig->is_default)
+                                                                        (Par défaut)
+                                                                    @endif
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <label class="form-label">Nom du signataire</label>
+                                                        <input type="text" class="form-control"
+                                                            name="signature_name" id="signature-name"
+                                                            value="{{ old('signature_name', $invoice->signature_name ?? ($defaultSignature?->name ?? '')) }}"
+                                                            placeholder="Nom du signataire">
+                                                    </div>
+                                                    @php
+                                                        $editSigUrl = null;
+                                                        if (old('signature_id', $invoice->signature_id ?? null)) {
+                                                            $editSigUrl = $signatures->firstWhere(
+                                                                'id',
+                                                                old('signature_id', $invoice->signature_id),
+                                                            )?->signature_url;
+                                                        } elseif ($defaultSignature) {
+                                                            $editSigUrl = $defaultSignature->signature_url;
+                                                        }
+                                                    @endphp
+                                                    <div id="signature-preview"
+                                                        class="text-center {{ $editSigUrl ? '' : 'd-none' }}">
+                                                        <img id="signature-img" src="{{ $editSigUrl ?? '' }}"
+                                                            alt="Signature" class="img-fluid border rounded p-2"
+                                                            style="max-height: 80px;">
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div><!-- end col -->
                                     </div>
+                                    <!-- end row -->
 
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <a href="{{ route('bo.sales.invoices.show', $invoice) }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                    </div>
-
-                                </form>
+                                </div>
                             </div><!-- end card body -->
-                        </div><!-- end card -->
-                    </div>
+
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a href="{{ route('bo.sales.invoices.show', $invoice) }}"
+                                    class="btn btn-outline-white">Annuler</a>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </div><!-- end card footer -->
+                        </form>
+                    </div><!-- end card -->
                 </div><!-- end col -->
             </div>
             <!-- end row -->
@@ -367,61 +668,440 @@
     </div>
 
     <!-- ========================
-                    End Page Content
-                ========================= -->
+                                End Page Content
+                            ========================= -->
 @endsection
+
+@php
+    $taxGroupsJson = $taxGroups
+        ->map(function ($tg) {
+            return [
+                'id' => $tg->id,
+                'name' => $tg->name,
+                'rate' => $tg->rates->sum('rate'),
+            ];
+        })
+        ->values();
+
+    $productsJson = $products
+        ->map(function ($p) {
+            return [
+                'id' => $p->id,
+                'name' => $p->name,
+                'selling_price' => $p->selling_price,
+                'unit_id' => $p->unit_id,
+                'item_type' => $p->item_type,
+            ];
+        })
+        ->values();
+
+    $existingChargesJson = $invoice->charges
+        ->map(function ($c) {
+            return [
+                'label' => $c->label,
+                'amount' => $c->amount,
+                'tax_rate' => $c->tax_rate,
+            ];
+        })
+        ->values();
+@endphp
 
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
+            /* =========================================================
+             * Data from server
+             * ========================================================= */
+            const units = @json($units);
+            const taxGroups = @json($taxGroupsJson);
+            const products = @json($productsJson);
+            const existingCharges = @json($existingChargesJson);
+            const paymentDays = {{ $paymentDays }};
+            const roundOffSetting = {{ $roundOff }};
+            const currency = '{{ $currency }}';
+
+            /* =========================================================
+             * Due Date link toggle
+             * ========================================================= */
+            const dueDateLink = document.getElementById('add-due-date-link');
+            const dueDateLinkWrapper = document.getElementById('due-date-link-wrapper');
+            const dueDateFieldWrapper = document.getElementById('due-date-field-wrapper');
+            const dueDateInput = document.getElementById('due_date');
+
+            dueDateLink.addEventListener('click', function() {
+                dueDateLinkWrapper.classList.add('d-none');
+                dueDateFieldWrapper.classList.remove('d-none');
+                // Auto-calculate due date from issue date + payment terms (only if empty)
+                const issueDate = document.querySelector('[name="issue_date"]').value;
+                if (issueDate && paymentDays > 0 && !dueDateInput.value) {
+                    const d = new Date(issueDate);
+                    d.setDate(d.getDate() + paymentDays);
+                    dueDateInput.value = d.toISOString().split('T')[0];
+                }
+                dueDateInput.focus();
+            });
+
+            /* =========================================================
+             * Recurring toggle
+             * ========================================================= */
+            const recurringCheck = document.getElementById('recurring_check');
+            const recurringFields = document.getElementById('recurring-fields');
+            const isRecurringInput = document.getElementById('is_recurring_input');
+
+            recurringCheck.addEventListener('change', function() {
+                if (this.checked) {
+                    recurringFields.classList.remove('d-none');
+                    isRecurringInput.value = '1';
+                } else {
+                    recurringFields.classList.add('d-none');
+                    isRecurringInput.value = '0';
+                }
+            });
+
+            /* =========================================================
+             * Product select → populate first empty row
+             * ========================================================= */
+            const productSelect = document.getElementById('product-select');
+            const itemTypeRadios = document.querySelectorAll('[name="item_type_filter"]');
+
+            // Filter product options based on type
+            itemTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const type = this.value;
+                    const options = productSelect.querySelectorAll('option');
+                    options.forEach(opt => {
+                        if (!opt.value) return;
+                        const p = products.find(pr => pr.id === opt.value);
+                        if (p) {
+                            opt.style.display = (p.item_type === type || !p.item_type) ?
+                                '' : 'none';
+                        }
+                    });
+                });
+            });
+
+            productSelect.addEventListener('change', function() {
+                const pid = this.value;
+                if (!pid) return;
+                const product = products.find(p => p.id === pid);
+                if (!product) return;
+
+                // Find first empty row or add new one
+                const lastRow = tbody.querySelector('.item-row:last-child');
+                const labelInput = lastRow?.querySelector('.item-label');
+                let targetRow = lastRow;
+
+                if (labelInput && labelInput.value && labelInput.value.trim() !== '') {
+                    addBtn.click();
+                    targetRow = tbody.querySelector('.item-row:last-child');
+                }
+
+                if (targetRow) {
+                    targetRow.querySelector('.item-product-id').value = product.id;
+                    targetRow.querySelector('.item-label').value = product.name;
+                    targetRow.querySelector('.item-price').value = product.selling_price;
+                    if (product.unit_id) {
+                        targetRow.querySelector('.item-unit').value = product.unit_id;
+                    }
+                }
+
+                this.value = '';
+                recalcTotals();
+            });
+
+            /* =========================================================
+             * Add / Remove item rows
+             * ========================================================= */
             let itemIndex = {{ $invoice->items->count() }};
             const tbody = document.querySelector('#items-table .add-tbody');
             const addBtn = document.getElementById('add-item-btn');
 
             addBtn.addEventListener('click', function() {
-                const units = @json($units);
-                const taxGroups = @json($taxGroups);
-
                 let unitOptions = '<option value="">—</option>';
                 units.forEach(u => {
                     unitOptions += `<option value="${u.id}">${u.short_name}</option>`;
                 });
 
-                let taxOptions = '<option value="">0%</option>';
+                let taxOptions = '<option value="" data-rate="0">0%</option>';
                 taxGroups.forEach(tg => {
-                    const rate = tg.rates.reduce((s, r) => s + parseFloat(r.rate), 0);
-                    taxOptions += `<option value="${tg.id}">${tg.name} (${rate}%)</option>`;
+                    taxOptions +=
+                        `<option value="${tg.id}" data-rate="${tg.rate}">${tg.name} (${tg.rate}%)</option>`;
                 });
 
                 const row = document.createElement('tr');
                 row.className = 'item-row';
                 row.innerHTML = `
-                <td><input type="text" name="items[${itemIndex}][label]" class="form-control" placeholder="Nom de l'article" required></td>
-                <td><input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" style="min-width: 80px;" required></td>
-                <td><select name="items[${itemIndex}][unit_id]" class="form-select" style="min-width: 90px;">${unitOptions}</select></td>
-                <td><input type="number" name="items[${itemIndex}][unit_price]" class="form-control item-price" value="0" min="0" step="0.01" style="min-width: 100px;" required></td>
-                <td>
-                    <div class="d-flex align-items-center gap-1" style="min-width: 130px;">
-                        <select name="items[${itemIndex}][discount_type]" class="form-select" style="width: 60px;">
-                            <option value="none">—</option><option value="percentage">%</option><option value="fixed">Fixe</option>
-                        </select>
-                        <input type="number" name="items[${itemIndex}][discount_value]" class="form-control item-discount" value="0" min="0" step="0.01" style="width: 70px;">
-                    </div>
-                </td>
-                <td><select name="items[${itemIndex}][tax_group_id]" class="form-select" style="min-width: 100px;">${taxOptions}</select></td>
-                <td><input type="text" class="form-control item-total" value="0.00" readonly style="min-width: 90px;"></td>
-                <td><a href="javascript:void(0);" class="text-danger remove-item"><i class="isax isax-close-circle"></i></a></td>
-            `;
+                    <td>
+                        <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
+                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="Nom de l'article" required>
+                    </td>
+                    <td><input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" style="min-width: 80px;" required></td>
+                    <td><select name="items[${itemIndex}][unit_id]" class="form-select item-unit" style="min-width: 90px;">${unitOptions}</select></td>
+                    <td><input type="number" name="items[${itemIndex}][unit_price]" class="form-control item-price" value="0" min="0" step="0.01" style="min-width: 100px;" required></td>
+                    <td>
+                        <div class="d-flex align-items-center gap-1" style="min-width: 130px;">
+                            <select name="items[${itemIndex}][discount_type]" class="form-select item-discount-type" style="width: 60px;">
+                                <option value="none">—</option><option value="percentage">%</option><option value="fixed">Fixe</option>
+                            </select>
+                            <input type="number" name="items[${itemIndex}][discount_value]" class="form-control item-discount" value="0" min="0" step="0.01" style="width: 70px;">
+                        </div>
+                    </td>
+                    <td><select name="items[${itemIndex}][tax_group_id]" class="form-select item-tax" style="min-width: 100px;">${taxOptions}</select></td>
+                    <td><input type="text" class="form-control item-total" value="0,00" readonly style="min-width: 90px;"></td>
+                    <td><a href="javascript:void(0);" class="text-danger remove-item"><i class="isax isax-close-circle"></i></a></td>
+                `;
                 tbody.appendChild(row);
                 itemIndex++;
+                bindRowEvents(row);
             });
 
             tbody.addEventListener('click', function(e) {
                 const removeBtn = e.target.closest('.remove-item');
                 if (removeBtn) {
                     removeBtn.closest('tr').remove();
+                    recalcTotals();
                 }
             });
+
+            /* =========================================================
+             * Additional charges
+             * ========================================================= */
+            let chargeIndex = 0;
+            const chargesContainer = document.getElementById('charges-container');
+            const addChargeBtn = document.getElementById('add-charge-btn');
+
+            function addChargeRow(label = '', amount = '', taxRate = '') {
+                const div = document.createElement('div');
+                div.className = 'd-flex align-items-center gap-2 mb-2 charge-row';
+                div.innerHTML = `
+                    <input type="text" name="charges[${chargeIndex}][label]" class="form-control" placeholder="Libellé" style="flex: 2;" value="${label}" required>
+                    <input type="number" name="charges[${chargeIndex}][amount]" class="form-control charge-amount" placeholder="Montant" min="0" step="0.01" style="flex: 1;" value="${amount}" required>
+                    <input type="number" name="charges[${chargeIndex}][tax_rate]" class="form-control charge-tax" placeholder="Taxe %" min="0" max="100" step="0.01" style="width: 70px;" value="${taxRate}">
+                    <a href="javascript:void(0);" class="text-danger remove-charge"><i class="isax isax-close-circle"></i></a>
+                `;
+                chargesContainer.appendChild(div);
+                chargeIndex++;
+
+                div.querySelectorAll('input').forEach(inp => {
+                    inp.addEventListener('input', recalcTotals);
+                });
+                div.querySelector('.remove-charge').addEventListener('click', function() {
+                    div.remove();
+                    recalcTotals();
+                });
+            }
+
+            addChargeBtn.addEventListener('click', function() {
+                addChargeRow();
+            });
+
+            // Populate existing charges from the invoice
+            existingCharges.forEach(charge => {
+                addChargeRow(charge.label, charge.amount, charge.tax_rate || '');
+            });
+
+            /* =========================================================
+             * Real-time totals calculation
+             * ========================================================= */
+            function recalcTotals() {
+                let subtotal = 0;
+                let totalTax = 0;
+
+                document.querySelectorAll('.item-row').forEach(row => {
+                    const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+                    const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+                    const discountType = row.querySelector('.item-discount-type')?.value || 'none';
+                    const discountVal = parseFloat(row.querySelector('.item-discount')?.value) || 0;
+                    const taxSelect = row.querySelector('.item-tax');
+                    const taxRate = parseFloat(taxSelect?.selectedOptions[0]?.dataset.rate) || 0;
+
+                    let lineSubtotal = qty * price;
+                    let lineDiscount = 0;
+
+                    if (discountType === 'percentage') {
+                        lineDiscount = lineSubtotal * (discountVal / 100);
+                    } else if (discountType === 'fixed') {
+                        lineDiscount = discountVal;
+                    }
+
+                    const afterDiscount = lineSubtotal - lineDiscount;
+                    const lineTax = afterDiscount * (taxRate / 100);
+                    const lineTotal = afterDiscount + lineTax;
+
+                    const totalInput = row.querySelector('.item-total');
+                    if (totalInput) totalInput.value = formatNumber(lineTotal);
+
+                    subtotal += afterDiscount;
+                    totalTax += lineTax;
+                });
+
+                // Additional charges
+                let chargesTotal = 0;
+                document.querySelectorAll('.charge-row').forEach(row => {
+                    const amount = parseFloat(row.querySelector('.charge-amount')?.value) || 0;
+                    const tax = parseFloat(row.querySelector('.charge-tax')?.value) || 0;
+                    chargesTotal += amount + (amount * tax / 100);
+                });
+
+                // Global discount (parsed from the text input)
+                const gDiscountStr = document.getElementById('global-discount-value').value.replace(',', '.')
+                    .replace(/[^0-9.]/g, '');
+                const gDiscountVal = parseFloat(gDiscountStr) || 0;
+                const isPercent = document.getElementById('global-discount-value').value.includes('%');
+                let globalDiscount = 0;
+                if (isPercent) {
+                    globalDiscount = subtotal * (gDiscountVal / 100);
+                } else {
+                    globalDiscount = gDiscountVal;
+                }
+
+                const beforeRound = subtotal + totalTax + chargesTotal - globalDiscount;
+
+                // Round off
+                let roundOff = 0;
+                if (document.getElementById('round_off_check').checked && roundOffSetting > 0) {
+                    roundOff = Math.round(beforeRound / roundOffSetting) * roundOffSetting - beforeRound;
+                }
+
+                const total = Math.max(0, beforeRound + roundOff);
+
+                document.getElementById('display-subtotal').textContent = formatNumber(subtotal);
+                document.getElementById('display-tax').textContent = formatNumber(totalTax);
+                document.getElementById('display-roundoff').textContent = formatNumber(roundOff);
+                document.getElementById('display-total').textContent = formatNumber(total);
+
+                // Total in words
+                document.getElementById('display-total-words').textContent = numberToWordsFr(total, currency);
+            }
+
+            function formatNumber(num) {
+                return num.toFixed(2).replace('.', ',').replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ');
+            }
+
+            /**
+             * Convert a number to French words
+             */
+            function numberToWordsFr(amount, cur) {
+                if (amount === 0) return 'Zéro';
+
+                const units = ['', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf',
+                    'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit',
+                    'dix-neuf'
+                ];
+                const tens = ['', 'dix', 'vingt', 'trente', 'quarante', 'cinquante', 'soixante', 'soixante',
+                    'quatre-vingt', 'quatre-vingt'
+                ];
+
+                function convertChunk(n) {
+                    if (n === 0) return '';
+                    if (n < 20) return units[n];
+                    if (n < 100) {
+                        const t = Math.floor(n / 10);
+                        const u = n % 10;
+                        if (t === 7 || t === 9) {
+                            return tens[t] + (u === 1 && t === 7 ? ' et ' : '-') + units[10 + u];
+                        }
+                        if (t === 8 && u === 0) return 'quatre-vingts';
+                        return tens[t] + (u === 1 && t < 8 ? ' et ' : (u ? '-' : '')) + units[u];
+                    }
+                    if (n < 1000) {
+                        const h = Math.floor(n / 100);
+                        const rest = n % 100;
+                        let s = (h === 1 ? 'cent' : units[h] + ' cent') + (rest === 0 && h > 1 ? 's' : '');
+                        if (rest > 0) s += ' ' + convertChunk(rest);
+                        return s;
+                    }
+                    return '';
+                }
+
+                function convert(n) {
+                    if (n === 0) return 'zéro';
+                    if (n >= 1000000000) {
+                        const b = Math.floor(n / 1000000000);
+                        const rest = n % 1000000000;
+                        return (b === 1 ? 'un milliard' : convert(b) + ' milliards') + (rest > 0 ? ' ' + convert(
+                            rest) : '');
+                    }
+                    if (n >= 1000000) {
+                        const m = Math.floor(n / 1000000);
+                        const rest = n % 1000000;
+                        return (m === 1 ? 'un million' : convert(m) + ' millions') + (rest > 0 ? ' ' + convert(
+                            rest) : '');
+                    }
+                    if (n >= 1000) {
+                        const k = Math.floor(n / 1000);
+                        const rest = n % 1000;
+                        return (k === 1 ? 'mille' : convertChunk(k) + ' mille') + (rest > 0 ? ' ' + convertChunk(
+                            rest) : '');
+                    }
+                    return convertChunk(n);
+                }
+
+                const wholePart = Math.floor(amount);
+                const centsPart = Math.round((amount - wholePart) * 100);
+
+                const currencyNames = {
+                    'MAD': ['dirham', 'dirhams', 'centime', 'centimes'],
+                    'EUR': ['euro', 'euros', 'centime', 'centimes'],
+                    'USD': ['dollar', 'dollars', 'cent', 'cents'],
+                    'GBP': ['livre', 'livres', 'penny', 'pence'],
+                    'XOF': ['franc CFA', 'francs CFA', 'centime', 'centimes'],
+                    'TND': ['dinar', 'dinars', 'millime', 'millimes'],
+                    'DZD': ['dinar', 'dinars', 'centime', 'centimes'],
+                };
+                const names = currencyNames[cur] || [cur, cur, 'centime', 'centimes'];
+
+                let result = convert(wholePart) + ' ' + (wholePart <= 1 ? names[0] : names[1]);
+                if (centsPart > 0) {
+                    result += ' et ' + convert(centsPart) + ' ' + (centsPart <= 1 ? names[2] : names[3]);
+                }
+                return result.charAt(0).toUpperCase() + result.slice(1);
+            }
+
+            // Bind events on existing rows
+            function bindRowEvents(row) {
+                row.querySelectorAll('input, select').forEach(el => {
+                    el.addEventListener('input', recalcTotals);
+                    el.addEventListener('change', recalcTotals);
+                });
+            }
+
+            // Init: bind existing rows
+            document.querySelectorAll('.item-row').forEach(bindRowEvents);
+
+            // Global discount & round off events
+            document.getElementById('global-discount-value').addEventListener('input', recalcTotals);
+            document.getElementById('round_off_check').addEventListener('change', recalcTotals);
+
+            // Initial calc
+            recalcTotals();
+
+            /* =========================================================
+             * Signature select → update name + preview
+             * ========================================================= */
+            const sigSelect = document.getElementById('signature-select');
+            const sigName = document.getElementById('signature-name');
+            const sigPreview = document.getElementById('signature-preview');
+            const sigImg = document.getElementById('signature-img');
+
+            sigSelect.addEventListener('change', function() {
+                const opt = this.selectedOptions[0];
+                if (this.value && opt) {
+                    sigName.value = opt.dataset.name || '';
+                    const url = opt.dataset.url || '';
+                    if (url) {
+                        sigImg.src = url;
+                        sigPreview.classList.remove('d-none');
+                    } else {
+                        sigPreview.classList.add('d-none');
+                    }
+                } else {
+                    sigName.value = '';
+                    sigPreview.classList.add('d-none');
+                }
+            });
+
         });
     </script>
 @endpush

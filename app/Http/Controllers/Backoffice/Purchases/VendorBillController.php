@@ -57,7 +57,9 @@ class VendorBillController extends Controller
             $selectedPO = PurchaseOrder::with('supplier', 'items')->find($poId);
         }
 
-        return view('backoffice.purchases.vendor-bills.create', compact('suppliers', 'purchaseOrders', 'selectedPO'));
+        $nextReference = $this->docNumberService->preview('vendor_bill_ref');
+
+        return view('backoffice.purchases.vendor-bills.create', compact('suppliers', 'purchaseOrders', 'selectedPO', 'nextReference'));
     }
 
     public function store(StoreVendorBillRequest $request)
@@ -94,7 +96,9 @@ class VendorBillController extends Controller
 
         $suppliers = Supplier::where('status', 'active')->orderBy('name')->get();
 
-        return view('backoffice.purchases.vendor-bills.edit', compact('vendorBill', 'suppliers'));
+        $nextReference = $this->docNumberService->preview('vendor_bill_ref');
+
+        return view('backoffice.purchases.vendor-bills.edit', compact('vendorBill', 'suppliers', 'nextReference'));
     }
 
     public function update(UpdateVendorBillRequest $request, VendorBill $vendorBill)

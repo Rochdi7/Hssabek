@@ -11,6 +11,7 @@ use App\Models\Finance\FinanceCategory;
 use App\Models\Finance\Income;
 use App\Services\Finance\IncomeService;
 use App\Services\Reports\ReportService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class IncomeController extends Controller
@@ -47,8 +48,9 @@ class IncomeController extends Controller
         $categories = FinanceCategory::where('type', 'income')->where('is_active', true)->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
         $customers = Customer::orderBy('name')->get();
+        $nextReference = app(DocumentNumberService::class)->preview('income_ref');
 
-        return view('backoffice.finance.incomes.create', compact('categories', 'bankAccounts', 'customers'));
+        return view('backoffice.finance.incomes.create', compact('categories', 'bankAccounts', 'customers', 'nextReference'));
     }
 
     public function store(StoreIncomeRequest $request)
@@ -71,7 +73,9 @@ class IncomeController extends Controller
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
         $customers = Customer::orderBy('name')->get();
 
-        return view('backoffice.finance.incomes.edit', compact('income', 'categories', 'bankAccounts', 'customers'));
+        $nextReference = app(DocumentNumberService::class)->preview('income_ref');
+
+        return view('backoffice.finance.incomes.edit', compact('income', 'categories', 'bankAccounts', 'customers', 'nextReference'));
     }
 
     public function update(UpdateIncomeRequest $request, Income $income)

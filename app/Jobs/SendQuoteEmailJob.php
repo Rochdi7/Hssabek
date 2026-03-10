@@ -52,7 +52,7 @@ class SendQuoteEmailJob implements ShouldQueue
 
         try {
             $settings = $tenant->settings;
-            $pdfContent = Pdf::loadView('pdf.quote', [
+            $pdfContent = Pdf::loadView('pdf.templates.free.quote.model-1', [
                 'quote'    => $quote,
                 'settings' => $settings,
                 'tenant'   => $tenant,

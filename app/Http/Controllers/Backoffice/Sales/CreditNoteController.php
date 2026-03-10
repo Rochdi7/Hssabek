@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sales\Store\StoreCreditNoteRequest;
 use App\Http\Requests\Sales\Update\UpdateCreditNoteRequest;
 use App\Models\CRM\Customer;
+use App\Models\Finance\BankAccount;
 use App\Models\Sales\CreditNote;
 use App\Models\Sales\Invoice;
 use App\Services\Sales\CreditNoteService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class CreditNoteController extends Controller
@@ -58,7 +60,11 @@ class CreditNoteController extends Controller
             ->orderBy('issue_date', 'desc')
             ->get();
 
-        return view('backoffice.sales.credit-notes.create', compact('customers', 'invoices'));
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+
+        $nextReference = app(DocumentNumberService::class)->preview('credit_note_ref');
+
+        return view('backoffice.sales.credit-notes.create', compact('customers', 'invoices', 'bankAccounts', 'nextReference'));
     }
 
     public function store(StoreCreditNoteRequest $request)
@@ -101,7 +107,11 @@ class CreditNoteController extends Controller
             ->orderBy('issue_date', 'desc')
             ->get();
 
-        return view('backoffice.sales.credit-notes.edit', compact('creditNote', 'customers', 'invoices'));
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+
+        $nextReference = app(DocumentNumberService::class)->preview('credit_note_ref');
+
+        return view('backoffice.sales.credit-notes.edit', compact('creditNote', 'customers', 'invoices', 'bankAccounts', 'nextReference'));
     }
 
     public function update(UpdateCreditNoteRequest $request, CreditNote $creditNote)

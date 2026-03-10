@@ -109,6 +109,11 @@
                                             <i class="isax isax-document-text"></i><span>Modèles PDF</span>
                                         </a>
                                     </li>
+                                    <li class="{{ request()->routeIs('sa.template-catalog.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.template-catalog.index') }}">
+                                            <i class="isax isax-additem"></i><span>Catalogue modèles</span>
+                                        </a>
+                                    </li>
                                     <li class="{{ request()->routeIs('sa.delete-requests.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.delete-requests.index') }}">
                                             <i class="isax isax-trash"></i><span>Demandes de suppression</span>

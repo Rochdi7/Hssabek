@@ -7,10 +7,12 @@ use App\Http\Requests\Sales\Store\StoreDeliveryChallanRequest;
 use App\Http\Requests\Sales\Update\UpdateDeliveryChallanRequest;
 use App\Models\Catalog\Product;
 use App\Models\CRM\Customer;
+use App\Models\Finance\BankAccount;
 use App\Models\Sales\DeliveryChallan;
 use App\Models\Sales\Invoice;
 use App\Services\Sales\DeliveryChallanService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class DeliveryChallanController extends Controller
@@ -46,7 +48,11 @@ class DeliveryChallanController extends Controller
         $invoices = Invoice::orderBy('issue_date', 'desc')->limit(50)->get();
         $products = Product::orderBy('name')->get();
 
-        return view('backoffice.sales.delivery-challans.create', compact('customers', 'invoices', 'products'));
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+
+        $nextReference = app(DocumentNumberService::class)->preview('challan_ref');
+
+        return view('backoffice.sales.delivery-challans.create', compact('customers', 'invoices', 'products', 'bankAccounts', 'nextReference'));
     }
 
     public function store(StoreDeliveryChallanRequest $request)
@@ -77,7 +83,11 @@ class DeliveryChallanController extends Controller
         $products = Product::orderBy('name')->get();
         $deliveryChallan->load('items');
 
-        return view('backoffice.sales.delivery-challans.edit', compact('deliveryChallan', 'customers', 'invoices', 'products'));
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+
+        $nextReference = app(DocumentNumberService::class)->preview('challan_ref');
+
+        return view('backoffice.sales.delivery-challans.edit', compact('deliveryChallan', 'customers', 'invoices', 'products', 'bankAccounts', 'nextReference'));
     }
 
     public function update(UpdateDeliveryChallanRequest $request, DeliveryChallan $deliveryChallan)

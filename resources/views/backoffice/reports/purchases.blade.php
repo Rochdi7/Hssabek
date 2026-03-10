@@ -125,6 +125,30 @@
                 </form>
             </div>
 
+            <!-- Charts -->
+            <div class="row mb-3">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Évolution des achats par mois</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="purchases_monthly_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Répartition par statut</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="purchases_status_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Table List -->
             <div class="table-responsive">
                 <table class="table table-nowrap datatable">
@@ -204,3 +228,59 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? "MAD" }}';
+    var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+    // Monthly purchases bar chart
+    var monthlyEl = document.querySelector('#purchases_monthly_chart');
+    if (monthlyEl) {
+        var labels = {!! json_encode($purchasesByMonth->pluck('month')) !!};
+        var data = {!! json_encode($purchasesByMonth->pluck('total')->map(fn($v) => (float)$v)) !!};
+        var formattedLabels = labels.map(function(m) {
+            var parts = m.split('-');
+            return monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
+        });
+        new ApexCharts(monthlyEl, {
+            chart: { type: 'bar', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
+            series: [{ name: 'Achats', data: data }],
+            xaxis: { categories: formattedLabels },
+            yaxis: { labels: { formatter: function(val) { return val >= 1000 ? (val / 1000).toFixed(0) + 'k' : val.toFixed(0); } } },
+            colors: ['#dc3545'],
+            plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
+            dataLabels: { enabled: false },
+            tooltip: { y: { formatter: function(val) { return val.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' ' + currency; } } },
+            grid: { borderColor: '#f1f1f1' }
+        }).render();
+    }
+
+    // Purchase status donut
+    var statusEl = document.querySelector('#purchases_status_chart');
+    if (statusEl) {
+        var breakdown = @json($purchaseStatusBreakdown->map(fn($s) => (int)$s->count));
+        var statusLabels = { draft: 'Brouillon', sent: 'Envoyée', partial: 'Partielle', paid: 'Payée', cancelled: 'Annulée', overdue: 'En retard' };
+        var statusColors = { draft: '#6c757d', sent: '#0dcaf0', partial: '#ffc107', paid: '#198754', cancelled: '#adb5bd', overdue: '#dc3545' };
+        var chartLabels = [], chartData = [], chartColors = [];
+        for (var key in breakdown) {
+            chartLabels.push(statusLabels[key] || key);
+            chartData.push(breakdown[key]);
+            chartColors.push(statusColors[key] || '#6c757d');
+        }
+        new ApexCharts(statusEl, {
+            chart: { type: 'donut', height: 300, fontFamily: 'inherit' },
+            series: chartData,
+            labels: chartLabels,
+            colors: chartColors,
+            legend: { position: 'bottom' },
+            dataLabels: { enabled: true },
+            plotOptions: { pie: { donut: { size: '65%' } } },
+            responsive: [{ breakpoint: 480, options: { chart: { width: 200 } } }]
+        }).render();
+    }
+});
+</script>
+@endpush

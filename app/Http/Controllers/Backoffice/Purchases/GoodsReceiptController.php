@@ -11,6 +11,7 @@ use App\Models\Purchases\GoodsReceipt;
 use App\Models\Purchases\PurchaseOrder;
 use App\Services\Purchases\GoodsReceiptService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class GoodsReceiptController extends Controller
@@ -45,7 +46,9 @@ class GoodsReceiptController extends Controller
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $products = Product::orderBy('name')->get();
 
-        return view('backoffice.purchases.goods-receipts.create', compact('purchaseOrders', 'warehouses', 'products'));
+        $nextReference = app(DocumentNumberService::class)->preview('receipt_ref');
+
+        return view('backoffice.purchases.goods-receipts.create', compact('purchaseOrders', 'warehouses', 'products', 'nextReference'));
     }
 
     public function store(StoreGoodsReceiptRequest $request)
@@ -76,7 +79,9 @@ class GoodsReceiptController extends Controller
         $products = Product::orderBy('name')->get();
         $goodsReceipt->load('items');
 
-        return view('backoffice.purchases.goods-receipts.edit', compact('goodsReceipt', 'purchaseOrders', 'warehouses', 'products'));
+        $nextReference = app(DocumentNumberService::class)->preview('receipt_ref');
+
+        return view('backoffice.purchases.goods-receipts.edit', compact('goodsReceipt', 'purchaseOrders', 'warehouses', 'products', 'nextReference'));
     }
 
     public function update(UpdateGoodsReceiptRequest $request, GoodsReceipt $goodsReceipt)

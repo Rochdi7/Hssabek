@@ -7,10 +7,12 @@ use App\Http\Requests\Purchases\Store\StorePurchaseOrderRequest;
 use App\Http\Requests\Purchases\Update\UpdatePurchaseOrderRequest;
 use App\Models\Catalog\Product;
 use App\Models\Catalog\TaxGroup;
+use App\Models\Finance\BankAccount;
 use App\Models\Purchases\PurchaseOrder;
 use App\Models\Purchases\Supplier;
 use App\Services\Purchases\PurchaseOrderService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class PurchaseOrderController extends Controller
@@ -50,8 +52,10 @@ class PurchaseOrderController extends Controller
         $suppliers = Supplier::where('status', 'active')->orderBy('name')->get();
         $products = Product::orderBy('name')->get();
         $taxGroups = TaxGroup::orderBy('name')->get();
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $nextNumber = app(DocumentNumberService::class)->preview('purchase_order');
 
-        return view('backoffice.purchases.purchase-orders.create', compact('suppliers', 'products', 'taxGroups'));
+        return view('backoffice.purchases.purchase-orders.create', compact('suppliers', 'products', 'taxGroups', 'bankAccounts', 'nextNumber'));
     }
 
     public function store(StorePurchaseOrderRequest $request)
@@ -83,8 +87,9 @@ class PurchaseOrderController extends Controller
         $suppliers = Supplier::where('status', 'active')->orderBy('name')->get();
         $products = Product::orderBy('name')->get();
         $taxGroups = TaxGroup::orderBy('name')->get();
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
-        return view('backoffice.purchases.purchase-orders.edit', compact('purchaseOrder', 'suppliers', 'products', 'taxGroups'));
+        return view('backoffice.purchases.purchase-orders.edit', compact('purchaseOrder', 'suppliers', 'products', 'taxGroups', 'bankAccounts'));
     }
 
     public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)

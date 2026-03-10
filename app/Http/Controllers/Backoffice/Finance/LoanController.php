@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Finance\Store\StoreLoanRequest;
 use App\Http\Requests\Finance\Update\UpdateLoanRequest;
 use App\Models\Finance\Loan;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
@@ -33,7 +34,9 @@ class LoanController extends Controller
     {
         $this->authorize('create', Loan::class);
 
-        return view('backoffice.finance.loans.create');
+        $nextReference = app(DocumentNumberService::class)->preview('loan_ref');
+
+        return view('backoffice.finance.loans.create', compact('nextReference'));
     }
 
     public function store(StoreLoanRequest $request)
@@ -62,7 +65,9 @@ class LoanController extends Controller
     {
         $this->authorize('update', $loan);
 
-        return view('backoffice.finance.loans.edit', compact('loan'));
+        $nextReference = app(DocumentNumberService::class)->preview('loan_ref');
+
+        return view('backoffice.finance.loans.edit', compact('loan', 'nextReference'));
     }
 
     public function update(UpdateLoanRequest $request, Loan $loan)

@@ -10,6 +10,7 @@ use App\Models\Purchases\Supplier;
 use App\Models\Purchases\VendorBill;
 use App\Services\Purchases\DebitNoteService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class DebitNoteController extends Controller
@@ -44,7 +45,9 @@ class DebitNoteController extends Controller
         $suppliers = Supplier::orderBy('name')->get();
         $vendorBills = VendorBill::with('supplier')->orderBy('issue_date', 'desc')->limit(50)->get();
 
-        return view('backoffice.purchases.debit-notes.create', compact('suppliers', 'vendorBills'));
+        $nextReference = app(DocumentNumberService::class)->preview('debit_note_ref');
+
+        return view('backoffice.purchases.debit-notes.create', compact('suppliers', 'vendorBills', 'nextReference'));
     }
 
     public function store(StoreDebitNoteRequest $request)
@@ -73,7 +76,9 @@ class DebitNoteController extends Controller
         $suppliers = Supplier::orderBy('name')->get();
         $vendorBills = VendorBill::with('supplier')->orderBy('issue_date', 'desc')->limit(50)->get();
 
-        return view('backoffice.purchases.debit-notes.edit', compact('debitNote', 'suppliers', 'vendorBills'));
+        $nextReference = app(DocumentNumberService::class)->preview('debit_note_ref');
+
+        return view('backoffice.purchases.debit-notes.edit', compact('debitNote', 'suppliers', 'vendorBills', 'nextReference'));
     }
 
     public function update(UpdateDebitNoteRequest $request, DebitNote $debitNote)

@@ -13,8 +13,10 @@ use App\Models\CRM\Customer;
 use App\Models\Finance\BankAccount;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\PaymentMethod;
+use App\Models\Tenancy\Signature;
 use App\Services\Sales\InvoiceService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
 
@@ -68,6 +70,10 @@ class InvoiceController extends Controller
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $paymentMethods = PaymentMethod::orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $signatures = Signature::where('status', true)->orderBy('name')->get();
+        $defaultSignature = $signatures->firstWhere('is_default', true);
+
+        $nextReference = app(DocumentNumberService::class)->preview('invoice_ref');
 
         return view('backoffice.sales.invoices.create', compact(
             'customers',
@@ -76,8 +82,11 @@ class InvoiceController extends Controller
             'taxGroups',
             'paymentMethods',
             'bankAccounts',
+            'signatures',
+            'defaultSignature',
             'tenant',
-            'invoiceSettings'
+            'invoiceSettings',
+            'nextReference'
         ));
     }
 
@@ -127,6 +136,10 @@ class InvoiceController extends Controller
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $signatures = Signature::where('status', true)->orderBy('name')->get();
+        $defaultSignature = $signatures->firstWhere('is_default', true);
+
+        $nextReference = app(DocumentNumberService::class)->preview('invoice_ref');
 
         return view('backoffice.sales.invoices.edit', compact(
             'invoice',
@@ -135,8 +148,11 @@ class InvoiceController extends Controller
             'units',
             'taxGroups',
             'bankAccounts',
+            'signatures',
+            'defaultSignature',
             'tenant',
-            'invoiceSettings'
+            'invoiceSettings',
+            'nextReference'
         ));
     }
 

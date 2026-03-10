@@ -11,6 +11,7 @@ use App\Models\Purchases\VendorBill;
 use App\Models\Sales\PaymentMethod;
 use App\Services\Purchases\SupplierPaymentService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class SupplierPaymentController extends Controller
@@ -50,7 +51,9 @@ class SupplierPaymentController extends Controller
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
         $paymentMethods = PaymentMethod::where('is_active', true)->orderBy('name')->get();
 
-        return view('backoffice.purchases.supplier-payments.create', compact('suppliers', 'vendorBills', 'bankAccounts', 'paymentMethods'));
+        $nextReference = app(DocumentNumberService::class)->preview('supplier_payment_ref');
+
+        return view('backoffice.purchases.supplier-payments.create', compact('suppliers', 'vendorBills', 'bankAccounts', 'paymentMethods', 'nextReference'));
     }
 
     public function store(StoreSupplierPaymentRequest $request)

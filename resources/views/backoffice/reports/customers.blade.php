@@ -140,6 +140,30 @@
                 </form>
             </div>
 
+            <!-- Charts -->
+            <div class="row mb-3">
+                <div class="col-lg-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Top 10 clients par revenu</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="customers_top_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Nouveaux clients par mois</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="customers_new_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Table List -->
             <div class="table-responsive">
                 <table class="table table-nowrap datatable">
@@ -209,3 +233,51 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? "MAD" }}';
+    var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+    // Top customers horizontal bar
+    var topEl = document.querySelector('#customers_top_chart');
+    if (topEl) {
+        var names = {!! json_encode($topCustomersByRevenue->map(fn($c) => $c->customer?->name ?? '-')) !!};
+        var values = {!! json_encode($topCustomersByRevenue->pluck('total')->map(fn($v) => (float)$v)) !!};
+        new ApexCharts(topEl, {
+            chart: { type: 'bar', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
+            series: [{ name: 'Revenu', data: values }],
+            xaxis: { categories: names },
+            plotOptions: { bar: { horizontal: true, borderRadius: 4, barHeight: '60%' } },
+            colors: ['#0dcaf0'],
+            dataLabels: { enabled: false },
+            tooltip: { y: { formatter: function(val) { return val.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' ' + currency; } } },
+            grid: { borderColor: '#f1f1f1' }
+        }).render();
+    }
+
+    // New customers by month
+    var newEl = document.querySelector('#customers_new_chart');
+    if (newEl) {
+        var labels = {!! json_encode($newCustomersByMonth->pluck('month')) !!};
+        var data = {!! json_encode($newCustomersByMonth->pluck('count')->map(fn($v) => (int)$v)) !!};
+        var formattedLabels = labels.map(function(m) {
+            var parts = m.split('-');
+            return monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
+        });
+        new ApexCharts(newEl, {
+            chart: { type: 'area', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
+            series: [{ name: 'Nouveaux clients', data: data }],
+            xaxis: { categories: formattedLabels },
+            colors: ['#198754'],
+            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.1 } },
+            stroke: { curve: 'smooth', width: 2 },
+            dataLabels: { enabled: false },
+            grid: { borderColor: '#f1f1f1' }
+        }).render();
+    }
+});
+</script>
+@endpush

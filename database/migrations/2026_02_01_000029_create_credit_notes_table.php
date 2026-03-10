@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('reference_number')->nullable();
             $table->enum('status', ['draft', 'issued', 'applied', 'void'])->default('draft');
             $table->date('issue_date');
-            $table->char('currency', 3);
             $table->boolean('enable_tax')->default(true);
             $table->decimal('subtotal', 12, 2);
             $table->decimal('tax_total', 12, 2)->default(0);

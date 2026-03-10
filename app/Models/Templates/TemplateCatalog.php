@@ -13,17 +13,33 @@ class TemplateCatalog extends Model
     protected $table = 'template_catalog';
 
     protected $fillable = [
+        'code',
         'name',
-        'description',
+        'slug',
+        'document_type',
         'category',
+        'description',
+        'engine',
+        'view_path',
+        'css_path',
         'preview_image',
+        'version',
         'price',
-        'is_premium',
+        'currency',
+        'is_free',
+        'is_featured',
+        'is_active',
+        'sort_order',
+        'created_by',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
-        'is_premium' => 'boolean',
+        'is_free' => 'boolean',
+        'is_featured' => 'boolean',
+        'is_active' => 'boolean',
+        'sort_order' => 'integer',
+        'features' => 'array',
     ];
 
     public function tenantTemplates(): HasMany

@@ -162,6 +162,30 @@
                 </form>
             </div>
 
+            <!-- Charts -->
+            <div class="row mb-3">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Évolution du chiffre d'affaires</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="sales_revenue_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Répartition par statut</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="sales_status_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Top Customers -->
             @if($topCustomers->count() > 0)
             <div class="card mb-3">
@@ -271,3 +295,59 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? "MAD" }}';
+    var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+    // Revenue by month bar chart
+    var revenueEl = document.querySelector('#sales_revenue_chart');
+    if (revenueEl) {
+        var labels = {!! json_encode($byMonth->pluck('month')) !!};
+        var data = {!! json_encode($byMonth->pluck('revenue')->map(fn($v) => (float)$v)) !!};
+        var formattedLabels = labels.map(function(m) {
+            var parts = m.split('-');
+            return monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
+        });
+        new ApexCharts(revenueEl, {
+            chart: { type: 'bar', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
+            series: [{ name: "Chiffre d'affaires", data: data }],
+            xaxis: { categories: formattedLabels },
+            yaxis: { labels: { formatter: function(val) { return val >= 1000 ? (val / 1000).toFixed(0) + 'k' : val.toFixed(0); } } },
+            colors: ['#2563eb'],
+            plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
+            dataLabels: { enabled: false },
+            tooltip: { y: { formatter: function(val) { return val.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' ' + currency; } } },
+            grid: { borderColor: '#f1f1f1' }
+        }).render();
+    }
+
+    // Invoice status donut
+    var statusEl = document.querySelector('#sales_status_chart');
+    if (statusEl) {
+        var breakdown = @json($statusBreakdown->map(fn($s) => (int)$s->count));
+        var statusLabels = { draft: 'Brouillon', sent: 'Envoyée', partial: 'Partielle', paid: 'Payée', overdue: 'En retard', cancelled: 'Annulée', void: 'Annulée' };
+        var statusColors = { draft: '#6c757d', sent: '#0dcaf0', partial: '#ffc107', paid: '#198754', overdue: '#dc3545', cancelled: '#adb5bd', void: '#adb5bd' };
+        var chartLabels = [], chartData = [], chartColors = [];
+        for (var key in breakdown) {
+            chartLabels.push(statusLabels[key] || key);
+            chartData.push(breakdown[key]);
+            chartColors.push(statusColors[key] || '#6c757d');
+        }
+        new ApexCharts(statusEl, {
+            chart: { type: 'donut', height: 300, fontFamily: 'inherit' },
+            series: chartData,
+            labels: chartLabels,
+            colors: chartColors,
+            legend: { position: 'bottom' },
+            dataLabels: { enabled: true },
+            plotOptions: { pie: { donut: { size: '65%' } } },
+            responsive: [{ breakpoint: 480, options: { chart: { width: 200 } } }]
+        }).render();
+    }
+});
+</script>
+@endpush

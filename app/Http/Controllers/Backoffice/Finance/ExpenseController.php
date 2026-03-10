@@ -11,6 +11,7 @@ use App\Models\Finance\FinanceCategory;
 use App\Models\Purchases\Supplier;
 use App\Services\Finance\ExpenseService;
 use App\Services\Reports\ReportService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -48,8 +49,9 @@ class ExpenseController extends Controller
         $categories = FinanceCategory::where('type', 'expense')->where('is_active', true)->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
         $suppliers = Supplier::orderBy('name')->get();
+        $nextReference = app(DocumentNumberService::class)->preview('expense_ref');
 
-        return view('backoffice.finance.expenses.create', compact('categories', 'bankAccounts', 'suppliers'));
+        return view('backoffice.finance.expenses.create', compact('categories', 'bankAccounts', 'suppliers', 'nextReference'));
     }
 
     public function store(StoreExpenseRequest $request)
@@ -72,7 +74,9 @@ class ExpenseController extends Controller
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
         $suppliers = Supplier::orderBy('name')->get();
 
-        return view('backoffice.finance.expenses.edit', compact('expense', 'categories', 'bankAccounts', 'suppliers'));
+        $nextReference = app(DocumentNumberService::class)->preview('expense_ref');
+
+        return view('backoffice.finance.expenses.edit', compact('expense', 'categories', 'bankAccounts', 'suppliers', 'nextReference'));
     }
 
     public function update(UpdateExpenseRequest $request, Expense $expense)

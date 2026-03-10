@@ -123,6 +123,12 @@ class ReportService
                 ->limit(10)
                 ->get();
 
+            $statusBreakdown = Invoice::whereBetween('issue_date', [$from, $to])
+                ->selectRaw("status, COUNT(*) as count")
+                ->groupBy('status')
+                ->get()
+                ->keyBy('status');
+
             $invoices = Invoice::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'cancelled')
                 ->with('customer:id,name')
@@ -130,7 +136,7 @@ class ReportService
                 ->paginate($perPage)
                 ->withQueryString();
 
-            return compact('summary', 'byMonth', 'topCustomers', 'invoices');
+            return compact('summary', 'byMonth', 'topCustomers', 'statusBreakdown', 'invoices');
         });
     }
 
@@ -155,6 +161,22 @@ class ReportService
                 ? round($totalRevenue / $totalCustomers, 2)
                 : 0;
 
+            $monthExpr = $this->monthGroupExpression('created_at');
+            $newCustomersByMonth = Customer::whereBetween('created_at', [$from, $to . ' 23:59:59'])
+                ->selectRaw("{$monthExpr} as month, COUNT(*) as count")
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            $topCustomersByRevenue = Invoice::whereBetween('issue_date', [$from, $to])
+                ->where('status', '!=', 'cancelled')
+                ->with('customer:id,name')
+                ->selectRaw('customer_id, COALESCE(SUM(total), 0) as total')
+                ->groupBy('customer_id')
+                ->orderByDesc('total')
+                ->limit(10)
+                ->get();
+
             $customers = Customer::withCount(['invoices' => function ($q) use ($from, $to) {
                     $q->whereBetween('issue_date', [$from, $to])
                       ->where('status', '!=', 'cancelled');
@@ -171,7 +193,7 @@ class ReportService
                 ->paginate($perPage)
                 ->withQueryString();
 
-            return compact('totalCustomers', 'newCustomers', 'totalRevenue', 'avgRevenue', 'customers');
+            return compact('totalCustomers', 'newCustomers', 'totalRevenue', 'avgRevenue', 'newCustomersByMonth', 'topCustomersByRevenue', 'customers');
         });
     }
 
@@ -200,13 +222,27 @@ class ReportService
                 ->where('status', 'cancelled')
                 ->sum('total');
 
+            $monthExpr = $this->monthGroupExpression('issue_date');
+            $purchasesByMonth = VendorBill::whereBetween('issue_date', [$from, $to])
+                ->where('status', '!=', 'cancelled')
+                ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as total")
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            $purchaseStatusBreakdown = VendorBill::whereBetween('issue_date', [$from, $to])
+                ->selectRaw("status, COUNT(*) as count")
+                ->groupBy('status')
+                ->get()
+                ->keyBy('status');
+
             $vendorBills = VendorBill::whereBetween('issue_date', [$from, $to])
                 ->with('supplier:id,name')
                 ->latest('issue_date')
                 ->paginate($perPage)
                 ->withQueryString();
 
-            return compact('totalPurchases', 'paidPurchases', 'pendingPurchases', 'cancelledPurchases', 'vendorBills');
+            return compact('totalPurchases', 'paidPurchases', 'pendingPurchases', 'cancelledPurchases', 'purchasesByMonth', 'purchaseStatusBreakdown', 'vendorBills');
         });
     }
 
@@ -241,13 +277,28 @@ class ReportService
                 ->orderByDesc('total')
                 ->get();
 
+            $expMonthExpr = $this->monthGroupExpression('expense_date');
+            $incMonthExpr = $this->monthGroupExpression('income_date');
+
+            $expensesByMonth = Expense::whereBetween('expense_date', [$from, $to])
+                ->selectRaw("{$expMonthExpr} as month, COALESCE(SUM(amount), 0) as total")
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            $incomesByMonth = Income::whereBetween('income_date', [$from, $to])
+                ->selectRaw("{$incMonthExpr} as month, COALESCE(SUM(amount), 0) as total")
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
             $expenses = Expense::whereBetween('expense_date', [$from, $to])
                 ->with(['category:id,name', 'supplier:id,name', 'bankAccount:id,account_holder_name'])
                 ->latest('expense_date')
                 ->paginate($perPage)
                 ->withQueryString();
 
-            return compact('totalExpenses', 'totalIncome', 'netProfit', 'expensesByCategory', 'incomesByCategory', 'expenses');
+            return compact('totalExpenses', 'totalIncome', 'netProfit', 'expensesByCategory', 'incomesByCategory', 'expensesByMonth', 'incomesByMonth', 'expenses');
         });
     }
 
@@ -379,7 +430,20 @@ class ReportService
                 ->orderBy('quantity_on_hand')
                 ->get();
 
-            return compact('totalValue', 'lowStockCount', 'outOfStockCount', 'pendingReorders', 'products', 'lowStockItems');
+            $stockByCategory = Product::where('is_active', true)
+                ->with('category:id,name')
+                ->selectRaw('category_id, COUNT(*) as product_count, COALESCE(SUM(selling_price * quantity), 0) as total_value')
+                ->groupBy('category_id')
+                ->orderByDesc('total_value')
+                ->get();
+
+            $topProductsByValue = Product::where('is_active', true)
+                ->selectRaw('name, selling_price, quantity, (selling_price * quantity) as total_value')
+                ->orderByDesc(DB::raw('selling_price * quantity'))
+                ->limit(10)
+                ->get();
+
+            return compact('totalValue', 'lowStockCount', 'outOfStockCount', 'pendingReorders', 'products', 'lowStockItems', 'stockByCategory', 'topProductsByValue');
         });
     }
 }

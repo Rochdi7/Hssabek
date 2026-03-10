@@ -11,6 +11,7 @@ use App\Models\Sales\Payment;
 use App\Models\Sales\PaymentMethod;
 use App\Services\Sales\PaymentService;
 use App\Services\Sales\PdfService;
+use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -61,10 +62,13 @@ class PaymentController extends Controller
             ->get();
         $paymentMethods = PaymentMethod::orderBy('name')->get();
 
+        $nextReference = app(DocumentNumberService::class)->preview('payment_ref');
+
         return view('backoffice.sales.payments.create', compact(
             'customers',
             'invoices',
-            'paymentMethods'
+            'paymentMethods',
+            'nextReference'
         ));
     }
 
@@ -93,7 +97,9 @@ class PaymentController extends Controller
     {
         $this->authorize('update', $payment);
 
-        return view('backoffice.sales.payments.edit', compact('payment'));
+        $nextReference = app(DocumentNumberService::class)->preview('payment_ref');
+
+        return view('backoffice.sales.payments.edit', compact('payment', 'nextReference'));
     }
 
     public function update(UpdatePaymentRequest $request, Payment $payment)

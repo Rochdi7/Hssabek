@@ -12,7 +12,6 @@ return new class extends Migration {
             $table->uuid('tenant_id');
             $table->uuid('supplier_id');
             $table->uuid('vendor_bill_id')->nullable();
-            $table->char('currency', 3);
             $table->decimal('amount', 12, 2);
             $table->enum('status', ['pending', 'succeeded', 'failed', 'refunded', 'cancelled'])->default('pending');
             $table->date('payment_date')->nullable();

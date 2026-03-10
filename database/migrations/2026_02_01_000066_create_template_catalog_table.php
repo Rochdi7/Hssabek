@@ -20,7 +20,10 @@ return new class extends Migration {
                 'debit_note',
                 'purchase_order',
                 'vendor_bill',
-                'receipt'
+                'receipt',
+                'payment_receipt',
+                'supplier_payment_receipt',
+                'goods_receipt',
             ]);
             $table->string('category')->nullable();
             $table->text('description')->nullable();
@@ -28,6 +31,7 @@ return new class extends Migration {
             $table->enum('engine', ['blade', 'html', 'mjml'])->default('blade');
             $table->string('view_path');
             $table->string('css_path')->nullable();
+            $table->string('preview_image')->nullable();
             $table->string('version')->default('1.0.0');
             $table->decimal('price', 12, 2)->default(0);
             $table->char('currency', 3)->default('MAD');

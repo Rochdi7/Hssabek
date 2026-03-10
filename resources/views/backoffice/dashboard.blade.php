@@ -453,7 +453,7 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // ─── Revenue Trend Chart ───

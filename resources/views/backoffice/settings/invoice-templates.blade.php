@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                   Start Page Content
-                  ========================= -->
+                       Start Page Content
+                      ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -20,7 +20,9 @@
                             <div class="mb-0">
                                 <div class="pb-3 border-bottom mb-3">
                                     <h6 class="mb-0">Modèles de documents</h6>
-                                    <p class="text-muted fs-13 mt-1">Choisissez un modèle par défaut pour chaque type de document. Le système utilisera automatiquement le modèle sélectionné lors de la génération des PDF.</p>
+                                    <p class="text-muted fs-13 mt-1">Choisissez un modèle par défaut pour chaque type de
+                                        document. Le système utilisera automatiquement le modèle sélectionné lors de la
+                                        génération des PDF.</p>
                                 </div>
 
                                 @if (session('success'))
@@ -60,8 +62,8 @@
 
                                 <div class="tab-content">
                                     <!-- ═══════════════════════════════════════
-                                                 Tab 1: Mes modèles (free + purchased)
-                                                 ═══════════════════════════════════════ -->
+                                                     Tab 1: Mes modèles (free + purchased)
+                                                     ═══════════════════════════════════════ -->
                                     <div class="tab-pane active" id="my_templates_tab" role="tabpanel"
                                         aria-labelledby="my-templates-tab" tabindex="0">
 
@@ -80,7 +82,10 @@
                                                             @php
                                                                 $activeTemplateName = 'Standard';
                                                                 foreach ($myTemplatesGrouped[$docType] as $t) {
-                                                                    if (($templateStyleMap[$t->code] ?? '') === $activeStyle) {
+                                                                    if (
+                                                                        ($templateStyleMap[$t->code] ?? '') ===
+                                                                        $activeStyle
+                                                                    ) {
                                                                         $activeTemplateName = $t->name;
                                                                         break;
                                                                     }
@@ -93,10 +98,11 @@
                                                         @foreach ($myTemplatesGrouped[$docType] as $tpl)
                                                             @php
                                                                 $tplStyle = $templateStyleMap[$tpl->code] ?? 'default';
-                                                                $isActive = ($tplStyle === $activeStyle);
+                                                                $isActive = $tplStyle === $activeStyle;
                                                             @endphp
                                                             <div class="col-xl-3 col-md-6">
-                                                                <div class="card invoice-template {{ $isActive ? 'border-primary' : '' }}">
+                                                                <div
+                                                                    class="card invoice-template {{ $isActive ? 'border-primary' : '' }}">
                                                                     <div class="card-body p-2">
                                                                         <div class="invoice-img">
                                                                             <a href="javascript:void(0);">
@@ -163,8 +169,8 @@
                                     </div>
 
                                     <!-- ═══════════════════════════════════════
-                                                 Tab 2: Boutique (paid templates to buy)
-                                                 ═══════════════════════════════════════ -->
+                                                     Tab 2: Boutique (paid templates to buy)
+                                                     ═══════════════════════════════════════ -->
                                     <div class="tab-pane" id="store_tab" role="tabpanel" aria-labelledby="store-tab"
                                         tabindex="0">
 
@@ -241,13 +247,13 @@
     </div>
 
     <!-- ========================
-                   Preview Modals — My Templates
-                  ========================= -->
+                       Preview Modals — My Templates
+                      ========================= -->
     @foreach ($myTemplatesGrouped->flatten() as $tpl)
         @php
             $tplDocType = $tpl->document_type;
             $tplStyle = $templateStyleMap[$tpl->code] ?? 'default';
-            $isActiveModal = ($tplStyle === ($pdfTemplates[$tplDocType] ?? 'default'));
+            $isActiveModal = $tplStyle === ($pdfTemplates[$tplDocType] ?? 'default');
             $docLabelModal = $documentTypes[$tplDocType] ?? $tplDocType;
         @endphp
         <div class="modal fade" id="template_preview_{{ $tpl->id }}" tabindex="-1"
@@ -266,22 +272,37 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                     </div>
                     <div class="modal-body p-0">
-                        <iframe data-src="{{ route('bo.settings.invoice-templates.preview', $tpl->code) }}"
-                            class="template-preview-iframe" style="width: 100%; height: 80vh; border: none;"
-                            title="Aperçu {{ $tpl->name }}"></iframe>
+                        <div class="pdf-preview-container"
+                            data-pdf-url="{{ route('bo.settings.invoice-templates.preview', $tpl->code) }}"
+                            style="width: 100%; height: 80vh; display: flex; align-items: center; justify-content: center;">
+                            <div class="pdf-loading text-center">
+                                <div class="spinner-border text-primary" role="status"></div>
+                                <p class="text-muted mt-2">Chargement de l'aperçu...</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        @if ($isActiveModal)
-                            <span class="text-success fw-medium"><i class="isax isax-tick-circle me-1"></i>Modèle par défaut pour les {{ $docLabelModal }}</span>
-                        @else
-                            <form method="POST"
-                                action="{{ route('bo.settings.invoice-templates.activate', $tpl->code) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="isax isax-star me-1"></i>Définir par défaut pour les {{ $docLabelModal }}
-                                </button>
-                            </form>
-                        @endif
+                    <div class="modal-footer d-flex align-items-center justify-content-between">
+                        <div>
+                            @if ($isActiveModal)
+                                <span class="text-success fw-medium"><i class="isax isax-tick-circle me-1"></i>Modèle par
+                                    défaut pour les {{ $docLabelModal }}</span>
+                            @else
+                                <form method="POST"
+                                    action="{{ route('bo.settings.invoice-templates.activate', $tpl->code) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="isax isax-star me-1"></i>Définir par défaut pour les {{ $docLabelModal }}
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                        <div class="d-flex align-items-center gap-2 pdf-zoom-controls">
+                            <button type="button" class="btn btn-sm btn-outline-secondary pdf-zoom-out"><i class="fa fa-minus"></i></button>
+                            <span class="fw-medium fs-13 pdf-zoom-label" style="min-width:50px;text-align:center;">100%</span>
+                            <button type="button" class="btn btn-sm btn-outline-secondary pdf-zoom-in"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-sm btn-outline-primary pdf-zoom-reset"><i class="fa fa-expand me-1"></i>Auto</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary pdf-download" title="Télécharger"><i class="fa fa-download"></i></button>
+                        </div>
                         <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Fermer</button>
                     </div>
                 </div>
@@ -290,8 +311,8 @@
     @endforeach
 
     <!-- ========================
-                   Preview + Purchase Modals — Store Templates
-                  ========================= -->
+                       Preview + Purchase Modals — Store Templates
+                      ========================= -->
     @foreach ($storeTemplatesGrouped->flatten() as $tpl)
         {{-- Preview modal --}}
         <div class="modal fade" id="template_preview_store_{{ $tpl->id }}" tabindex="-1"
@@ -308,12 +329,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                     </div>
                     <div class="modal-body p-0">
-                        <iframe data-src="{{ route('bo.settings.invoice-templates.preview', $tpl->code) }}"
-                            class="template-preview-iframe" style="width: 100%; height: 80vh; border: none;"
-                            title="Aperçu {{ $tpl->name }}"></iframe>
+                        <div class="pdf-preview-container"
+                            data-pdf-url="{{ route('bo.settings.invoice-templates.preview', $tpl->code) }}"
+                            style="width: 100%; height: 80vh; display: flex; align-items: center; justify-content: center;">
+                            <div class="pdf-loading text-center">
+                                <div class="spinner-border text-primary" role="status"></div>
+                                <p class="text-muted mt-2">Chargement de l'aperçu...</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer d-flex align-items-center justify-content-between">
                         <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Fermer</button>
+                        <div class="d-flex align-items-center gap-2 pdf-zoom-controls">
+                            <button type="button" class="btn btn-sm btn-outline-secondary pdf-zoom-out"><i class="fa fa-minus"></i></button>
+                            <span class="fw-medium fs-13 pdf-zoom-label" style="min-width:50px;text-align:center;">100%</span>
+                            <button type="button" class="btn btn-sm btn-outline-secondary pdf-zoom-in"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-sm btn-outline-primary pdf-zoom-reset"><i class="fa fa-expand me-1"></i>Auto</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary pdf-download" title="Télécharger"><i class="fa fa-download"></i></button>
+                        </div>
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal"
                             data-bs-target="#purchase_confirm_{{ $tpl->id }}">
                             <i class="fa-brands fa-whatsapp me-1"></i>Acheter — {{ number_format($tpl->price, 2) }}
@@ -362,27 +395,193 @@
     @endforeach
 
     <!-- ========================
-                   End Page Content
-                  ========================= -->
+                       End Page Content
+                      ========================= -->
 @endsection
 
 @push('scripts')
     <script>
-        // Lazy-load iframe src when modal opens
-        document.querySelectorAll('.modal').forEach(function(modal) {
-            modal.addEventListener('shown.bs.modal', function() {
-                var iframe = modal.querySelector('.template-preview-iframe');
-                if (iframe && !iframe.src && iframe.dataset.src) {
-                    iframe.src = iframe.dataset.src;
+        // Load PDF.js from CDN for reliable cross-browser PDF rendering
+        var pdfjsScript = document.createElement('script');
+        pdfjsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        pdfjsScript.onload = function() {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            initPdfPreviews();
+        };
+        document.head.appendChild(pdfjsScript);
+
+        function renderPdfToContainer(pdfData, container, modal) {
+            var loadingTask = pdfjsLib.getDocument({ data: pdfData });
+            loadingTask.promise.then(function(pdf) {
+                container.innerHTML = '';
+                container._pdfDoc = pdf;
+                container._zoomLevel = 1.0;
+
+                // Full-height scrollable wrapper
+                var wrapper = document.createElement('div');
+                wrapper.style.cssText = 'width:100%;height:80vh;overflow:auto;background:#f5f5f5;';
+                container.appendChild(wrapper);
+                container._wrapper = wrapper;
+
+                // Wire up footer zoom controls
+                var zoomControls = modal.querySelector('.pdf-zoom-controls');
+                var zoomLabel = modal.querySelector('.pdf-zoom-label');
+                var btnMinus = modal.querySelector('.pdf-zoom-out');
+                var btnPlus = modal.querySelector('.pdf-zoom-in');
+                var btnReset = modal.querySelector('.pdf-zoom-reset');
+
+                function getAutoScale(page) {
+                    return (wrapper.clientWidth - 20) / page.getViewport({ scale: 1 }).width;
                 }
-            });
-            // Reset iframe when modal closes to free memory
-            modal.addEventListener('hidden.bs.modal', function() {
-                var iframe = modal.querySelector('.template-preview-iframe');
-                if (iframe) {
-                    iframe.removeAttribute('src');
+
+                function renderAllPages(zoomFactor) {
+                    var scrollTop = wrapper.scrollTop;
+                    wrapper.innerHTML = '';
+                    container._zoomLevel = zoomFactor;
+
+                    var renderPage = function(pageNum) {
+                        if (pageNum > pdf.numPages) {
+                            wrapper.scrollTop = scrollTop;
+                            return;
+                        }
+                        pdf.getPage(pageNum).then(function(page) {
+                            var autoScale = getAutoScale(page);
+                            var scale = autoScale * zoomFactor;
+                            var viewport = page.getViewport({ scale: scale });
+                            var canvas = document.createElement('canvas');
+                            canvas.style.cssText = 'display:block;margin:10px auto;box-shadow:0 2px 8px rgba(0,0,0,.15);';
+                            canvas.width = viewport.width;
+                            canvas.height = viewport.height;
+                            wrapper.appendChild(canvas);
+                            page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise.then(function() {
+                                renderPage(pageNum + 1);
+                            });
+                        });
+                    };
+                    renderPage(1);
                 }
+
+                container._renderAllPages = renderAllPages;
+
+                if (btnMinus) {
+                    btnMinus.onclick = function() {
+                        var z = Math.max(0.25, container._zoomLevel - 0.25);
+                        zoomLabel.textContent = Math.round(z * 100) + '%';
+                        renderAllPages(z);
+                    };
+                }
+                if (btnPlus) {
+                    btnPlus.onclick = function() {
+                        var z = Math.min(3, container._zoomLevel + 0.25);
+                        zoomLabel.textContent = Math.round(z * 100) + '%';
+                        renderAllPages(z);
+                    };
+                }
+                if (btnReset) {
+                    btnReset.onclick = function() {
+                        zoomLabel.textContent = '100%';
+                        renderAllPages(1.0);
+                    };
+                }
+                // Download button — decode from stored base64 (pdfData buffer is neutered by PDF.js)
+                var btnDownload = modal.querySelector('.pdf-download');
+                if (btnDownload) {
+                    btnDownload.onclick = function() {
+                        var b64 = container._pdfBase64;
+                        if (!b64) return;
+                        var binary = atob(b64);
+                        var bytes = new Uint8Array(binary.length);
+                        for (var i = 0; i < binary.length; i++) {
+                            bytes[i] = binary.charCodeAt(i);
+                        }
+                        var blob = new Blob([bytes], { type: 'application/pdf' });
+                        var url = URL.createObjectURL(blob);
+                        var a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'apercu-modele.pdf';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    };
+                }
+
+                if (zoomControls) zoomControls.style.visibility = 'visible';
+
+                renderAllPages(1.0);
             });
-        });
+        }
+
+        function initPdfPreviews() {
+            document.querySelectorAll('.modal').forEach(function(modal) {
+                // Hide zoom controls until PDF is loaded
+                var zoomControls = modal.querySelector('.pdf-zoom-controls');
+                if (zoomControls) zoomControls.style.visibility = 'hidden';
+
+                modal.addEventListener('shown.bs.modal', function() {
+                    var container = modal.querySelector('.pdf-preview-container');
+                    if (!container || container.dataset.loaded) return;
+
+                    var url = container.dataset.pdfUrl;
+                    if (!url) return;
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', url, true);
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    xhr.setRequestHeader('Accept', 'application/json');
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            try {
+                                var data = JSON.parse(xhr.responseText);
+                                if (data.pdf) {
+                                    var binary = atob(data.pdf);
+                                    var bytes = new Uint8Array(binary.length);
+                                    for (var i = 0; i < binary.length; i++) {
+                                        bytes[i] = binary.charCodeAt(i);
+                                    }
+                                    container._pdfBase64 = data.pdf;
+                                    renderPdfToContainer(bytes, container, modal);
+                                    container.dataset.loaded = '1';
+                                } else {
+                                    container.innerHTML = '<div class="text-center text-muted p-4">' +
+                                        '<i class="isax isax-document-text fs-1"></i>' +
+                                        '<p class="mt-2">' + (data.error || 'Aucun aperçu disponible.') + '</p></div>';
+                                }
+                            } catch (e) {
+                                container.innerHTML = '<div class="text-center text-danger p-4">' +
+                                    '<i class="isax isax-warning-2 fs-1"></i>' +
+                                    '<p class="mt-2">Erreur lors du chargement de l\'aperçu.</p></div>';
+                            }
+                        } else {
+                            container.innerHTML = '<div class="text-center text-danger p-4">' +
+                                '<i class="isax isax-warning-2 fs-1"></i>' +
+                                '<p class="mt-2">Erreur lors du chargement de l\'aperçu.</p>' +
+                                '<small class="text-muted">HTTP ' + xhr.status + '</small></div>';
+                        }
+                    };
+                    xhr.onerror = function() {
+                        container.innerHTML = '<div class="text-center text-danger p-4">' +
+                            '<i class="isax isax-warning-2 fs-1"></i>' +
+                            '<p class="mt-2">Erreur lors du chargement de l\'aperçu.</p></div>';
+                    };
+                    xhr.send();
+                });
+
+                // Reset on modal close
+                modal.addEventListener('hidden.bs.modal', function() {
+                    var container = modal.querySelector('.pdf-preview-container');
+                    if (container && container.dataset.loaded) {
+                        container.innerHTML = '<div class="pdf-loading text-center">' +
+                            '<div class="spinner-border text-primary" role="status"></div>' +
+                            '<p class="text-muted mt-2">Chargement de l\'aperçu...</p></div>';
+                        delete container.dataset.loaded;
+                    }
+                    var zc = modal.querySelector('.pdf-zoom-controls');
+                    var zl = modal.querySelector('.pdf-zoom-label');
+                    if (zc) zc.style.visibility = 'hidden';
+                    if (zl) zl.textContent = '100%';
+                });
+            });
+        }
     </script>
 @endpush

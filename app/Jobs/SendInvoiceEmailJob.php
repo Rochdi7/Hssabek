@@ -52,7 +52,7 @@ class SendInvoiceEmailJob implements ShouldQueue
 
         try {
             $settings = $tenant->settings;
-            $pdfContent = Pdf::loadView('pdf.invoice', [
+            $pdfContent = Pdf::loadView('pdf.templates.free.invoice.model-1', [
                 'invoice'  => $invoice,
                 'settings' => $settings,
                 'tenant'   => $tenant,

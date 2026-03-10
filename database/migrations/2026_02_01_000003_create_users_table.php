@@ -28,6 +28,7 @@ return new class extends Migration {
                 $table->string('postal_code')->nullable();
                 $table->dateTime('email_verified_at')->nullable();
                 $table->string('password');
+                $table->timestamp('password_changed_at')->nullable();
                 $table->string('avatar_url')->nullable();
                 $table->enum('status', ['active', 'blocked'])->default('active');
                 $table->dateTime('last_login_at')->nullable();

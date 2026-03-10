@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->index('tenant_id');
             $table->index(['tenant_id', 'status']);
             $table->index(['loan_id', 'due_date']);
+            $table->index(['loan_id', 'status']);
         });
     }
 

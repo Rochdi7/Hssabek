@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->enum('status', ['draft', 'posted', 'paid', 'void'])->default('draft');
             $table->date('issue_date');
             $table->date('due_date')->nullable();
-            $table->char('currency', 3);
             $table->decimal('subtotal', 12, 2);
             $table->decimal('tax_total', 12, 2)->default(0);
             $table->decimal('round_off', 12, 2)->default(0);

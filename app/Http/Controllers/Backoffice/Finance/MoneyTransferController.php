@@ -7,6 +7,7 @@ use App\Http\Requests\Finance\Store\StoreMoneyTransferRequest;
 use App\Http\Requests\Finance\Update\UpdateMoneyTransferRequest;
 use App\Models\Finance\BankAccount;
 use App\Models\Finance\MoneyTransfer;
+use App\Services\System\DocumentNumberService;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,8 +31,9 @@ class MoneyTransferController extends Controller
     public function create()
     {
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $nextReference = app(DocumentNumberService::class)->preview('transfer_ref');
 
-        return view('backoffice.finance.money-transfers.create', compact('bankAccounts'));
+        return view('backoffice.finance.money-transfers.create', compact('bankAccounts', 'nextReference'));
     }
 
     public function store(StoreMoneyTransferRequest $request)
@@ -87,7 +89,9 @@ class MoneyTransferController extends Controller
 
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
-        return view('backoffice.finance.money-transfers.edit', compact('moneyTransfer', 'bankAccounts'));
+        $nextReference = app(DocumentNumberService::class)->preview('transfer_ref');
+
+        return view('backoffice.finance.money-transfers.edit', compact('moneyTransfer', 'bankAccounts', 'nextReference'));
     }
 
     public function update(UpdateMoneyTransferRequest $request, MoneyTransfer $moneyTransfer)

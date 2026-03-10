@@ -12,6 +12,7 @@ use App\Models\Sales\DeliveryChallan;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Models\Sales\Quote;
+use App\Models\Templates\TemplateCatalog;
 use App\Models\Tenancy\Signature;
 use App\Services\Tenancy\TenantContext;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -19,24 +20,29 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class PdfService
 {
     /**
-     * Available templates: default & modern are free, classic & elegant are paid.
+     * Available template styles.
      */
     public const TEMPLATES = [
         'default' => ['name' => 'Standard', 'paid' => false],
         'modern'  => ['name' => 'Moderne', 'paid' => false],
-        'classic' => ['name' => 'Classique', 'paid' => true],
-        'elegant' => ['name' => 'Élégant', 'paid' => true],
+        'classic' => ['name' => 'Classique', 'paid' => false],
+        'elegant' => ['name' => 'Élégant', 'paid' => false],
     ];
 
     /**
      * Document types that support template variants.
      */
     private const TEMPLATED_VIEWS = [
-        'invoice'          => 'invoice',
-        'quote'            => 'quote',
-        'credit_note'      => 'credit-note',
-        'delivery_challan' => 'delivery-challan',
-        'purchase_order'   => 'purchase-order',
+        'invoice'                  => 'invoice',
+        'quote'                    => 'quote',
+        'credit_note'              => 'credit-note',
+        'delivery_challan'         => 'delivery-challan',
+        'purchase_order'           => 'purchase-order',
+        'vendor_bill'              => 'vendor-bill',
+        'debit_note'               => 'debit-note',
+        'payment_receipt'          => 'payment-receipt',
+        'supplier_payment_receipt' => 'supplier-payment-receipt',
+        'goods_receipt'            => 'goods-receipt',
     ];
 
     // ─── Sales ──────────────────────────────────────────────────
@@ -126,7 +132,7 @@ class PdfService
         $payment->loadMissing(['customer', 'paymentMethod', 'allocations.invoice']);
 
         $data = $this->buildData($payment, 'payment');
-        $pdf  = Pdf::loadView('pdf.payment-receipt', $data)->setPaper('a4', 'portrait');
+        $pdf  = Pdf::loadView('pdf.templates.free.payment-receipt.model-1', $data)->setPaper('a4', 'portrait');
 
         $filename = 'recu-paiement-' . ($payment->reference_number ?? $payment->id) . '.pdf';
 
@@ -157,7 +163,7 @@ class PdfService
         $bill->loadMissing(['supplier', 'purchaseOrder', 'goodsReceipt']);
 
         $data = $this->buildData($bill, 'vendor_bill');
-        $pdf  = Pdf::loadView('pdf.vendor-bill', $data)->setPaper('a4', 'portrait');
+        $pdf  = Pdf::loadView('pdf.templates.free.vendor-bill.model-1', $data)->setPaper('a4', 'portrait');
 
         $filename = 'facture-fournisseur-' . $bill->number . '.pdf';
 
@@ -171,7 +177,7 @@ class PdfService
         $debitNote->loadMissing(['supplier', 'items', 'vendorBill', 'purchaseOrder']);
 
         $data = $this->buildData($debitNote, 'debit_note');
-        $pdf  = Pdf::loadView('pdf.debit-note', $data)->setPaper('a4', 'portrait');
+        $pdf  = Pdf::loadView('pdf.templates.free.debit-note.model-1', $data)->setPaper('a4', 'portrait');
 
         $filename = 'note-debit-' . $debitNote->number . '.pdf';
 
@@ -185,7 +191,7 @@ class PdfService
         $payment->loadMissing(['supplier', 'paymentMethod', 'vendorBill', 'allocations.vendorBill']);
 
         $data = $this->buildData($payment, 'supplier_payment');
-        $pdf  = Pdf::loadView('pdf.supplier-payment-receipt', $data)->setPaper('a4', 'portrait');
+        $pdf  = Pdf::loadView('pdf.templates.free.supplier-payment-receipt.model-1', $data)->setPaper('a4', 'portrait');
 
         $filename = 'recu-paiement-fournisseur-' . ($payment->reference_number ?? $payment->id) . '.pdf';
 
@@ -199,13 +205,24 @@ class PdfService
         $receipt->loadMissing(['purchaseOrder.supplier', 'warehouse', 'items.product', 'creator']);
 
         $data = $this->buildData($receipt, 'goods_receipt');
-        $pdf  = Pdf::loadView('pdf.goods-receipt', $data)->setPaper('a4', 'portrait');
+        $pdf  = Pdf::loadView('pdf.templates.free.goods-receipt.model-1', $data)->setPaper('a4', 'portrait');
 
         $filename = 'bon-reception-' . $receipt->number . '.pdf';
 
         return ($disposition === 'download')
             ? $pdf->download($filename)
             : $pdf->stream($filename);
+    }
+
+    /**
+     * Generate raw PDF content for any document type.
+     */
+    public function generatePdfContent($model, string $docType): string
+    {
+        $data = $this->buildData($model, $docType);
+        $view = $this->resolveView($docType);
+
+        return Pdf::loadView($view, $data)->setPaper('a4', 'portrait')->output();
     }
 
     // ─── Private ────────────────────────────────────────────────
@@ -216,28 +233,68 @@ class PdfService
         $settings = $tenant?->settings;
         $invoiceSettings = $settings?->invoice_settings ?? [];
 
-        // Read per-document-type template, fallback to legacy single setting, then 'default'
-        $template = $invoiceSettings['pdf_templates'][$docType]
+        // Read per-document-type selection, fallback to legacy single setting, then 'default'
+        // Selection can be either a style (modern/classic/...) or a catalog code (quote-modern, ...).
+        $selection = (string) ($invoiceSettings['pdf_templates'][$docType]
             ?? $invoiceSettings['pdf_template']
-            ?? 'default';
+            ?? 'default');
 
-        // Validate template exists
-        if (!array_key_exists($template, self::TEMPLATES)) {
-            $template = 'default';
+        // 1) If selection is a known style, resolve directly.
+        if (array_key_exists($selection, self::TEMPLATES)) {
+            return $this->resolveVariantOrDefault($docType, $selection);
         }
 
-        // Check if this doc type supports template variants
+        // 2) If selection is a catalog code, resolve by catalog row and view_path.
+        $catalogTemplate = TemplateCatalog::query()
+            ->where('code', $selection)
+            ->where('document_type', $docType)
+            ->where('is_active', true)
+            ->first();
+
+        if ($catalogTemplate && is_string($catalogTemplate->view_path) && view()->exists($catalogTemplate->view_path)) {
+            return $catalogTemplate->view_path;
+        }
+
+        // 3) Backward compatibility for code-like values (e.g. quote-modern) not found in catalog.
+        $viewFile = self::TEMPLATED_VIEWS[$docType] ?? null;
+        if ($viewFile && str_starts_with($selection, $viewFile . '-')) {
+            $style = substr($selection, strlen($viewFile . '-'));
+            if (array_key_exists($style, self::TEMPLATES)) {
+                return $this->resolveVariantOrDefault($docType, $style);
+            }
+        }
+
+        return $this->resolveVariantOrDefault($docType, 'default');
+    }
+
+    /**
+     * Map style names to their folder and model number.
+     */
+    private const STYLE_MAP = [
+        'default' => ['folder' => 'free', 'model' => 'model-1'],
+        'modern'  => ['folder' => 'free', 'model' => 'model-2'],
+        'classic' => ['folder' => 'free', 'model' => 'model-3'],
+        'elegant' => ['folder' => 'free', 'model' => 'model-4'],
+    ];
+
+    private function resolveVariantOrDefault(string $docType, string $template): string
+    {
         $viewFile = self::TEMPLATED_VIEWS[$docType] ?? null;
 
-        if ($template !== 'default' && $viewFile) {
-            $variantView = "pdf.templates.{$template}.{$viewFile}";
+        if ($viewFile && isset(self::STYLE_MAP[$template])) {
+            $map = self::STYLE_MAP[$template];
+            $variantView = "pdf.templates.{$map['folder']}.{$viewFile}.{$map['model']}";
             if (view()->exists($variantView)) {
                 return $variantView;
             }
         }
 
-        // Fallback to default
-        return 'pdf.' . ($viewFile ?? $docType);
+        // Fallback to default (free/model-1)
+        if ($viewFile) {
+            return "pdf.templates.free.{$viewFile}.model-1";
+        }
+
+        return "pdf.templates.free.{$docType}.model-1";
     }
 
     private function buildData($model, string $type): array
@@ -246,13 +303,15 @@ class PdfService
         $settings = $tenant?->settings;
 
         $varNameMap = [
-            'purchase_order'   => 'purchaseOrder',
-            'credit_note'      => 'creditNote',
-            'delivery_challan' => 'deliveryChallan',
-            'debit_note'       => 'debitNote',
-            'vendor_bill'      => 'vendorBill',
-            'supplier_payment' => 'supplierPayment',
-            'goods_receipt'    => 'goodsReceipt',
+            'purchase_order'           => 'purchaseOrder',
+            'credit_note'              => 'creditNote',
+            'delivery_challan'         => 'deliveryChallan',
+            'debit_note'               => 'debitNote',
+            'vendor_bill'              => 'vendorBill',
+            'supplier_payment'         => 'supplierPayment',
+            'supplier_payment_receipt' => 'supplierPayment',
+            'payment_receipt'          => 'payment',
+            'goods_receipt'            => 'goodsReceipt',
         ];
 
         $varName = $varNameMap[$type] ?? $type;

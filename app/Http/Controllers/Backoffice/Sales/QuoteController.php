@@ -10,9 +10,11 @@ use App\Models\Catalog\Product;
 use App\Models\Catalog\TaxGroup;
 use App\Models\Catalog\Unit;
 use App\Models\CRM\Customer;
+use App\Models\Finance\BankAccount;
 use App\Models\Sales\Quote;
 use App\Services\Sales\PdfService;
 use App\Services\Sales\QuoteService;
+use App\Services\System\DocumentNumberService;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
 
@@ -60,12 +62,17 @@ class QuoteController extends Controller
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+
+        $nextReference = app(DocumentNumberService::class)->preview('quote_ref');
 
         return view('backoffice.sales.quotes.create', compact(
             'customers',
             'products',
             'units',
-            'taxGroups'
+            'taxGroups',
+            'bankAccounts',
+            'nextReference'
         ));
     }
 
@@ -109,13 +116,18 @@ class QuoteController extends Controller
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+
+        $nextReference = app(DocumentNumberService::class)->preview('quote_ref');
 
         return view('backoffice.sales.quotes.edit', compact(
             'quote',
             'customers',
             'products',
             'units',
-            'taxGroups'
+            'taxGroups',
+            'bankAccounts',
+            'nextReference'
         ));
     }
 

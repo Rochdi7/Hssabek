@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('tax_id')->nullable();
-            $table->char('currency', 3)->nullable();
             $table->integer('payment_terms_days')->default(0);
             $table->text('notes')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');

@@ -19,10 +19,16 @@ return new class extends Migration {
             $table->uuid('unit_id')->nullable();
             $table->text('description')->nullable();
 
+            // Service-specific fields
+            $table->enum('billing_type', ['one_time', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'per_project'])
+                ->default('one_time');
+            $table->decimal('hourly_rate', 12, 2)->nullable();
+            $table->integer('estimated_hours')->nullable();
+            $table->string('sac_code')->nullable();
+
             // Prices
             $table->decimal('selling_price', 12, 2);
             $table->decimal('purchase_price', 12, 2)->default(0);
-            $table->char('currency', 3)->nullable();
 
             // Inventory
             $table->boolean('track_inventory')->default(false);

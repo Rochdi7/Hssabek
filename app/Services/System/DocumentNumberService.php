@@ -16,6 +16,24 @@ class DocumentNumberService
      * @return string  e.g. 'INV-00001'
      * @throws \RuntimeException if TenantContext is not set
      */
+    /**
+     * Preview the next document number without incrementing.
+     */
+    public function preview(string $documentType): string
+    {
+        $tenantId = TenantContext::id()
+            ?? throw new \RuntimeException('TenantContext not set.');
+
+        $sequence = DocumentNumberSequence::where('tenant_id', $tenantId)
+            ->where('key', $documentType)
+            ->first();
+
+        $prefix = $sequence->prefix ?? strtoupper(substr($documentType, 0, 3)) . '-';
+        $number = $sequence->next_number ?? 1;
+
+        return $prefix . str_pad((string) $number, 5, '0', STR_PAD_LEFT);
+    }
+
     public function next(string $documentType): string
     {
         $tenantId = TenantContext::id()

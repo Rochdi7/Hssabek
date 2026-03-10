@@ -28,7 +28,6 @@ return new class extends Migration {
             ]);
             $table->decimal('quantity', 14, 3);
             $table->decimal('unit_cost', 12, 2)->nullable();
-            $table->char('currency', 3)->nullable();
             $table->string('reference_type')->nullable();
             $table->uuid('reference_id')->nullable();
             $table->text('note')->nullable();

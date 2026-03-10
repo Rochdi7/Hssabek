@@ -139,6 +139,30 @@
             </div>
             <!-- end row -->
 
+            <!-- Charts -->
+            <div class="row mb-3">
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Valeur du stock par catégorie</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="inventory_category_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Top 10 produits par valeur</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="inventory_top_chart" style="min-height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Low Stock Alert -->
             @if($lowStockItems->count() > 0)
             <div class="card mb-3">
@@ -235,3 +259,51 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? "MAD" }}';
+
+    // Stock value by category donut
+    var catEl = document.querySelector('#inventory_category_chart');
+    if (catEl) {
+        var catNames = {!! json_encode($stockByCategory->map(fn($c) => $c->category?->name ?? 'Non catégorisé')) !!};
+        var catValues = {!! json_encode($stockByCategory->pluck('total_value')->map(fn($v) => (float)$v)) !!};
+        if (catValues.length > 0) {
+            new ApexCharts(catEl, {
+                chart: { type: 'donut', height: 300, fontFamily: 'inherit' },
+                series: catValues,
+                labels: catNames,
+                colors: ['#2563eb', '#198754', '#ffc107', '#dc3545', '#0dcaf0', '#6f42c1', '#fd7e14', '#6c757d', '#d63384', '#20c997'],
+                legend: { position: 'bottom', fontSize: '12px' },
+                dataLabels: { enabled: true },
+                plotOptions: { pie: { donut: { size: '65%' } } },
+                tooltip: { y: { formatter: function(val) { return val.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' ' + currency; } } },
+                responsive: [{ breakpoint: 480, options: { chart: { width: 200 } } }]
+            }).render();
+        }
+    }
+
+    // Top products by value horizontal bar
+    var topEl = document.querySelector('#inventory_top_chart');
+    if (topEl) {
+        var names = {!! json_encode($topProductsByValue->pluck('name')) !!};
+        var values = {!! json_encode($topProductsByValue->pluck('total_value')->map(fn($v) => (float)$v)) !!};
+        if (values.length > 0) {
+            new ApexCharts(topEl, {
+                chart: { type: 'bar', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
+                series: [{ name: 'Valeur', data: values }],
+                xaxis: { categories: names },
+                plotOptions: { bar: { horizontal: true, borderRadius: 4, barHeight: '60%' } },
+                colors: ['#ffc107'],
+                dataLabels: { enabled: false },
+                tooltip: { y: { formatter: function(val) { return val.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' ' + currency; } } },
+                grid: { borderColor: '#f1f1f1' }
+            }).render();
+        }
+    }
+});
+</script>
+@endpush
