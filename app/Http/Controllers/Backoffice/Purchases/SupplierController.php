@@ -29,7 +29,7 @@ class SupplierController extends Controller
             $query->where('status', $status);
         }
 
-        $suppliers = $query->latest()->paginate(15)->withQueryString();
+        $suppliers = $query->latest()->paginate($request->input('per_page', 15))->withQueryString();
 
         return view('backoffice.purchases.suppliers.index', compact('suppliers'));
     }

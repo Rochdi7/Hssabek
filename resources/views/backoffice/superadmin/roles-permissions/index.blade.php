@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-               Start Page Content
-              ========================= -->
+                   Start Page Content
+                  ========================= -->
 
     <div class="page-wrapper">
 
@@ -157,11 +157,7 @@
             </div>
             <!-- /Table List -->
 
-            @if ($roles->hasPages())
-                <div class="mt-3">
-                    {{ $roles->links() }}
-                </div>
-            @endif
+            @include('backoffice.components.table-footer', ['paginator' => $roles])
 
         </div>
         <!-- End Content -->
@@ -172,8 +168,8 @@
     </div>
 
     <!-- ========================
-               End Page Content
-              ========================= -->
+                   End Page Content
+                  ========================= -->
 
     <!-- Add Role Modal -->
     <div class="modal fade" id="add_modal" tabindex="-1" aria-hidden="true">

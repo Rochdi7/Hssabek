@@ -9,35 +9,35 @@ class CustomReportPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('reports.custom.view');
+        return $user->can('pro.rapports.view');
     }
 
     public function view(User $user, CustomReport $report): bool
     {
-        return $user->can('reports.custom.view')
+        return $user->can('pro.rapports.view')
             && $this->belongsToTenant($report);
     }
 
     public function create(User $user): bool
     {
-        return $user->can('reports.custom.create');
+        return $user->can('pro.rapports.create');
     }
 
     public function update(User $user, CustomReport $report): bool
     {
-        return $user->can('reports.custom.edit')
+        return $user->can('pro.rapports.edit')
             && $this->belongsToTenant($report);
     }
 
     public function delete(User $user, CustomReport $report): bool
     {
-        return $user->can('reports.custom.delete')
+        return $user->can('pro.rapports.delete')
             && $this->belongsToTenant($report);
     }
 
     public function export(User $user, CustomReport $report): bool
     {
-        return $user->can('reports.custom.export')
+        return $user->can('pro.rapports.export')
             && $this->belongsToTenant($report);
     }
 }

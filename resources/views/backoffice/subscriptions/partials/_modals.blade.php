@@ -69,28 +69,28 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Date de début<span class="text-danger ms-1">*</span></label>
-                                <input type="date" class="form-control @error('starts_at') is-invalid @enderror" name="starts_at" value="{{ old('starts_at') }}">
+                                <input type="text" class="form-control datetimepicker @error('starts_at') is-invalid @enderror" name="starts_at" value="{{ old('starts_at') }}">
                                 @error('starts_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Date de fin</label>
-                                <input type="date" class="form-control @error('ends_at') is-invalid @enderror" name="ends_at" value="{{ old('ends_at') }}">
+                                <input type="text" class="form-control datetimepicker @error('ends_at') is-invalid @enderror" name="ends_at" value="{{ old('ends_at') }}">
                                 @error('ends_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Fin de la période d'essai</label>
-                                <input type="date" class="form-control @error('trial_ends_at') is-invalid @enderror" name="trial_ends_at" value="{{ old('trial_ends_at') }}">
+                                <input type="text" class="form-control datetimepicker @error('trial_ends_at') is-invalid @enderror" name="trial_ends_at" value="{{ old('trial_ends_at') }}">
                                 @error('trial_ends_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Date d'annulation</label>
-                                <input type="date" class="form-control @error('cancels_at') is-invalid @enderror" name="cancels_at" value="{{ old('cancels_at') }}">
+                                <input type="text" class="form-control datetimepicker @error('cancels_at') is-invalid @enderror" name="cancels_at" value="{{ old('cancels_at') }}">
                                 @error('cancels_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
@@ -188,25 +188,25 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Date de début<span class="text-danger ms-1">*</span></label>
-                                    <input type="date" class="form-control" name="starts_at" value="{{ old('starts_at', $subscription->starts_at?->format('Y-m-d')) }}">
+                                    <input type="text" class="form-control datetimepicker" name="starts_at" value="{{ old('starts_at', $subscription->starts_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Date de fin</label>
-                                    <input type="date" class="form-control" name="ends_at" value="{{ old('ends_at', $subscription->ends_at?->format('Y-m-d')) }}">
+                                    <input type="text" class="form-control datetimepicker" name="ends_at" value="{{ old('ends_at', $subscription->ends_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Fin de la période d'essai</label>
-                                    <input type="date" class="form-control" name="trial_ends_at" value="{{ old('trial_ends_at', $subscription->trial_ends_at?->format('Y-m-d')) }}">
+                                    <input type="text" class="form-control datetimepicker" name="trial_ends_at" value="{{ old('trial_ends_at', $subscription->trial_ends_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Date d'annulation</label>
-                                    <input type="date" class="form-control" name="cancels_at" value="{{ old('cancels_at', $subscription->cancels_at?->format('Y-m-d')) }}">
+                                    <input type="text" class="form-control datetimepicker" name="cancels_at" value="{{ old('cancels_at', $subscription->cancels_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -24,7 +24,7 @@ class RefundController extends Controller
             }))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest('refunded_at')
-            ->paginate(15)
+            ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.sales.refunds.index', compact('refunds'));

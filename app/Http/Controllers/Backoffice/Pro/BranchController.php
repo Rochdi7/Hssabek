@@ -21,7 +21,7 @@ class BranchController extends Controller
                     ->orWhere('email', 'like', "%{$s}%");
             }))
             ->orderBy('name')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.pro.branches.index', compact('branches'));

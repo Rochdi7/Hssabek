@@ -20,7 +20,7 @@ class ProductStockController extends Controller
             ->when($request->search, fn($q, $s) => $q->whereHas('product', fn($pq) =>
             $pq->where('name', 'like', "%{$s}%")
                 ->orWhere('code', 'like', "%{$s}%")))
-            ->paginate(25)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         $warehouses = Warehouse::orderBy('name')->get();

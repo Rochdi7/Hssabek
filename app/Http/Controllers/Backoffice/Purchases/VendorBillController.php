@@ -39,7 +39,7 @@ class VendorBillController extends Controller
             $query->where('status', $status);
         }
 
-        $vendorBills = $query->latest()->paginate(15)->withQueryString();
+        $vendorBills = $query->latest()->paginate($request->input('per_page', 15))->withQueryString();
 
         return view('backoffice.purchases.vendor-bills.index', compact('vendorBills'));
     }

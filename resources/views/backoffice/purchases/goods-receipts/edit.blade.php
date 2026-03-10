@@ -70,10 +70,10 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Date de réception <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('received_at') is-invalid @enderror"
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('received_at') is-invalid @enderror"
                                                     name="received_at"
-                                                    value="{{ old('received_at', $goodsReceipt->received_at instanceof \Carbon\Carbon ? $goodsReceipt->received_at->format('Y-m-d') : $goodsReceipt->received_at) }}">
+                                                    value="{{ old('received_at', $goodsReceipt->received_at instanceof \Carbon\Carbon ? $goodsReceipt->received_at->format('d-m-Y') : $goodsReceipt->received_at) }}">
                                                 @error('received_at')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

@@ -83,7 +83,8 @@
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <div>
                                         <p class="mb-1">Revenu total</p>
-                                        <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalRevenue, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                        <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalRevenue, 2, ',', ' ') }}
+                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                     </div>
                                     <div>
                                         <span class="badge badge-soft-warning p-2 rounded-circle border border-warning">
@@ -104,7 +105,8 @@
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <div>
                                         <p class="mb-1">Revenu moyen</p>
-                                        <h6 class="fs-16 fw-semibold mb-0">{{ number_format($avgRevenue, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                        <h6 class="fs-16 fw-semibold mb-0">{{ number_format($avgRevenue, 2, ',', ' ') }}
+                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                     </div>
                                     <div>
                                         <span class="badge badge-soft-info p-2 rounded-circle border border-info">
@@ -124,13 +126,22 @@
 
             <!-- Date Range Filter -->
             <div class="mb-3">
-                <form method="GET" action="{{ route('bo.reports.customers') }}" class="d-flex align-items-center gap-2 flex-wrap">
+                <form method="GET" action="{{ route('bo.reports.customers') }}"
+                    class="d-flex align-items-center gap-2 flex-wrap">
                     <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <div>
-                            <input type="date" name="from" class="form-control" value="{{ $from }}">
+                        <div class="input-group position-relative" style="width: auto;">
+                            <input type="text" name="from" class="form-control datetimepicker rounded-end"
+                                placeholder="dd-mm-yyyy" value="{{ $from }}">
+                            <span class="input-icon-addon fs-16 text-gray-9">
+                                <i class="isax isax-calendar-2"></i>
+                            </span>
                         </div>
-                        <div>
-                            <input type="date" name="to" class="form-control" value="{{ $to }}">
+                        <div class="input-group position-relative" style="width: auto;">
+                            <input type="text" name="to" class="form-control datetimepicker rounded-end"
+                                placeholder="dd-mm-yyyy" value="{{ $to }}">
+                            <span class="input-icon-addon fs-16 text-gray-9">
+                                <i class="isax isax-calendar-2"></i>
+                            </span>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="isax isax-filter me-1"></i>Filtrer
@@ -195,21 +206,26 @@
                                     <div class="d-flex align-items-center">
                                         <div>
                                             <h6 class="fs-14 fw-medium mb-0">
-                                                <a href="{{ route('bo.crm.customers.show', $customer) }}">{{ $customer->name }}</a>
+                                                <a
+                                                    href="{{ route('bo.crm.customers.show', $customer) }}">{{ $customer->name }}</a>
                                             </h6>
                                         </div>
                                     </div>
                                 </td>
                                 <td>{{ $customer->phone ?? '-' }}</td>
-                                <td class="text-dark">{{ number_format($customer->total_due ?? 0, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                <td class="text-dark">{{ number_format($customer->total_due ?? 0, 2, ',', ' ') }}
+                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
                                 <td>{{ $customer->invoices_count ?? 0 }}</td>
-                                <td class="text-dark">{{ number_format($customer->total_revenue ?? 0, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                <td class="text-dark">{{ number_format($customer->total_revenue ?? 0, 2, ',', ' ') }}
+                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
                                 <td>{{ $customer->created_at?->format('d/m/Y') }}</td>
                                 <td>
-                                    @if($customer->status === 'active')
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Actif <i class="isax isax-tick-circle ms-1"></i></span>
+                                    @if ($customer->status === 'active')
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Actif <i
+                                                class="isax isax-tick-circle ms-1"></i></span>
                                     @else
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Inactif <i class="isax isax-close-circle ms-1"></i></span>
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Inactif <i
+                                                class="isax isax-close-circle ms-1"></i></span>
                                     @endif
                                 </td>
                             </tr>
@@ -222,11 +238,7 @@
                 </table>
             </div>
 
-            @if($customers->hasPages())
-                <div class="mt-3">
-                    {{ $customers->links() }}
-                </div>
-            @endif
+            @include('backoffice.components.table-footer', ['paginator' => $customers])
 
             @component('backoffice.components.footer')
             @endcomponent
@@ -235,49 +247,105 @@
 @endsection
 
 @push('scripts')
-<script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? "MAD" }}';
-    var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+    <script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}';
+            var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
 
-    // Top customers horizontal bar
-    var topEl = document.querySelector('#customers_top_chart');
-    if (topEl) {
-        var names = {!! json_encode($topCustomersByRevenue->map(fn($c) => $c->customer?->name ?? '-')) !!};
-        var values = {!! json_encode($topCustomersByRevenue->pluck('total')->map(fn($v) => (float)$v)) !!};
-        new ApexCharts(topEl, {
-            chart: { type: 'bar', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
-            series: [{ name: 'Revenu', data: values }],
-            xaxis: { categories: names },
-            plotOptions: { bar: { horizontal: true, borderRadius: 4, barHeight: '60%' } },
-            colors: ['#0dcaf0'],
-            dataLabels: { enabled: false },
-            tooltip: { y: { formatter: function(val) { return val.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' ' + currency; } } },
-            grid: { borderColor: '#f1f1f1' }
-        }).render();
-    }
+            // Top customers horizontal bar
+            var topEl = document.querySelector('#customers_top_chart');
+            if (topEl) {
+                var names = {!! json_encode($topCustomersByRevenue->map(fn($c) => $c->customer?->name ?? '-')) !!};
+                var values = {!! json_encode($topCustomersByRevenue->pluck('total')->map(fn($v) => (float) $v)) !!};
+                new ApexCharts(topEl, {
+                    chart: {
+                        type: 'bar',
+                        height: 300,
+                        toolbar: {
+                            show: false
+                        },
+                        fontFamily: 'inherit'
+                    },
+                    series: [{
+                        name: 'Revenu',
+                        data: values
+                    }],
+                    xaxis: {
+                        categories: names
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: true,
+                            borderRadius: 4,
+                            barHeight: '60%'
+                        }
+                    },
+                    colors: ['#0dcaf0'],
+                    dataLabels: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(val) {
+                                return val.toLocaleString('fr-FR', {
+                                    minimumFractionDigits: 2
+                                }) + ' ' + currency;
+                            }
+                        }
+                    },
+                    grid: {
+                        borderColor: '#f1f1f1'
+                    }
+                }).render();
+            }
 
-    // New customers by month
-    var newEl = document.querySelector('#customers_new_chart');
-    if (newEl) {
-        var labels = {!! json_encode($newCustomersByMonth->pluck('month')) !!};
-        var data = {!! json_encode($newCustomersByMonth->pluck('count')->map(fn($v) => (int)$v)) !!};
-        var formattedLabels = labels.map(function(m) {
-            var parts = m.split('-');
-            return monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
+            // New customers by month
+            var newEl = document.querySelector('#customers_new_chart');
+            if (newEl) {
+                var labels = {!! json_encode($newCustomersByMonth->pluck('month')) !!};
+                var data = {!! json_encode($newCustomersByMonth->pluck('count')->map(fn($v) => (int) $v)) !!};
+                var formattedLabels = labels.map(function(m) {
+                    var parts = m.split('-');
+                    return monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
+                });
+                new ApexCharts(newEl, {
+                    chart: {
+                        type: 'area',
+                        height: 300,
+                        toolbar: {
+                            show: false
+                        },
+                        fontFamily: 'inherit'
+                    },
+                    series: [{
+                        name: 'Nouveaux clients',
+                        data: data
+                    }],
+                    xaxis: {
+                        categories: formattedLabels
+                    },
+                    colors: ['#198754'],
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.4,
+                            opacityTo: 0.1
+                        }
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                        width: 2
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    grid: {
+                        borderColor: '#f1f1f1'
+                    }
+                }).render();
+            }
         });
-        new ApexCharts(newEl, {
-            chart: { type: 'area', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
-            series: [{ name: 'Nouveaux clients', data: data }],
-            xaxis: { categories: formattedLabels },
-            colors: ['#198754'],
-            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.1 } },
-            stroke: { curve: 'smooth', width: 2 },
-            dataLabels: { enabled: false },
-            grid: { borderColor: '#f1f1f1' }
-        }).render();
-    }
-});
-</script>
+    </script>
 @endpush

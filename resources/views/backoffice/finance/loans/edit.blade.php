@@ -199,10 +199,10 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Date de début <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('start_date') is-invalid @enderror"
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('start_date') is-invalid @enderror"
                                                     name="start_date"
-                                                    value="{{ old('start_date', $loan->start_date instanceof \Carbon\Carbon ? $loan->start_date->format('Y-m-d') : $loan->start_date) }}">
+                                                    value="{{ old('start_date', $loan->start_date instanceof \Carbon\Carbon ? $loan->start_date->format('d-m-Y') : $loan->start_date) }}">
                                                 @error('start_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -211,10 +211,10 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Date de fin</label>
-                                                <input type="date"
-                                                    class="form-control @error('end_date') is-invalid @enderror"
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('end_date') is-invalid @enderror"
                                                     name="end_date"
-                                                    value="{{ old('end_date', $loan->end_date instanceof \Carbon\Carbon ? $loan->end_date->format('Y-m-d') : $loan->end_date) }}">
+                                                    value="{{ old('end_date', $loan->end_date instanceof \Carbon\Carbon ? $loan->end_date->format('d-m-Y') : $loan->end_date) }}">
                                                 @error('end_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

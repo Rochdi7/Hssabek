@@ -33,7 +33,7 @@ class CustomerController extends Controller
             $query->where('type', $type);
         }
 
-        $customers = $query->latest()->paginate(15)->withQueryString();
+        $customers = $query->latest()->paginate(request()->input('per_page', 15))->withQueryString();
 
         return view('backoffice.crm.customers.index', compact('customers'));
     }

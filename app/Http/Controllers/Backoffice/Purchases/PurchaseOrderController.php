@@ -41,7 +41,7 @@ class PurchaseOrderController extends Controller
             $query->where('status', $status);
         }
 
-        $purchaseOrders = $query->latest()->paginate(15)->withQueryString();
+        $purchaseOrders = $query->latest()->paginate($request->input('per_page', 15))->withQueryString();
 
         return view('backoffice.purchases.purchase-orders.index', compact('purchaseOrders'));
     }

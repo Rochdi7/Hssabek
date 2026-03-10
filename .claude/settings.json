@@ -32,7 +32,16 @@
       "Bash(composer require phpoffice/phpword --no-interaction)",
       "Bash(__NEW_LINE_09de6cbcf129e924__ node -e \":*)",
       "Bash(php artisan migrate --path=database/migrations/2026_03_10_020000_create_custom_reports_table.php)",
-      "Bash(php artisan route:list --name=bo.reports.custom)"
+      "Bash(php artisan route:list --name=bo.reports.custom)",
+      "Bash(xargs grep -l \"$invoice\")",
+      "Bash(xargs grep -l \"preview\\\\|pdf\\\\|render\")",
+      "Bash(xargs grep -l \"InvoiceTemplate\")",
+      "Bash(php artisan route:list --name=bo.export)",
+      "Bash(php -l app/Http/Controllers/Backoffice/ExportController.php)",
+      "Bash(php -l app/Services/System/ListExportService.php)",
+      "Bash(find resources/views/backoffice -name \"index.blade.php\" -exec sed -i 's/class=\"\"table table-nowrap datatable\"\"/class=\"\"table table-nowrap table-hover\"\"/g' {} +)",
+      "Bash(grep -rn '\\\\$\\\\w\\\\+->links\\(\\)' resources/views/backoffice/ --include=\"*index.blade.php\")",
+      "Bash(php -r \":*)"
     ]
   }
 }

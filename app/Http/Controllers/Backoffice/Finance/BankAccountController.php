@@ -24,7 +24,7 @@ class BankAccountController extends Controller
             ->when($request->status === 'active', fn ($q) => $q->where('is_active', true))
             ->when($request->status === 'inactive', fn ($q) => $q->where('is_active', false))
             ->orderBy('bank_name')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.finance.bank-accounts.index', compact('accounts'));

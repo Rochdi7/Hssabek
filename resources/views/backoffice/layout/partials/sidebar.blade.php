@@ -29,6 +29,10 @@
                     </li>
                 @endif
                 <li>
+                    <a href="{{ route('bo.documentation.index') }}" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title="Documentation"><i class="isax isax-document-normal4"></i></a>
+                </li>
+                <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="javascript:void(0);" onclick="this.closest('form').submit();" data-bs-toggle="tooltip"
@@ -321,19 +325,22 @@
                                             <li><a href="{{ route('bo.pro.branches.index') }}"
                                                     class="{{ request()->routeIs('bo.pro.branches.*') ? 'active' : '' }}">Succursales</a>
                                             </li>
+                                            <li><a href="{{ route('bo.pro.rapports.index') }}"
+                                                    class="{{ request()->routeIs('bo.pro.rapports.*') ? 'active' : '' }}">Rapports</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
 
-                            {{-- ─── RAPPORTS ─── --}}
-                            <li class="menu-title"><span>Rapports</span></li>
+                            {{-- ─── ANALYSES ─── --}}
+                            <li class="menu-title"><span>Analyses</span></li>
                             <li>
                                 <ul>
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
                                             class="{{ request()->routeIs('bo.reports.*') ? 'active subdrop' : '' }}">
-                                            <i class="isax isax-chart-215"></i><span>Rapports</span>
+                                            <i class="isax isax-chart-215"></i><span>Analyses</span>
                                             <span class="menu-arrow"></span>
                                         </a>
                                         <ul>
@@ -351,9 +358,6 @@
                                             </li>
                                             <li><a href="{{ route('bo.reports.inventory') }}"
                                                     class="{{ request()->routeIs('bo.reports.inventory') ? 'active' : '' }}">Inventaire</a>
-                                            </li>
-                                            <li><a href="{{ route('bo.reports.custom.index') }}"
-                                                    class="{{ request()->routeIs('bo.reports.custom.*') ? 'active' : '' }}">Personnalisés</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -431,6 +435,11 @@
                                             class="isax isax-setting-25"></i></a>
                                 </li>
                             @endif
+                            <li>
+                                <a href="{{ route('bo.documentation.index') }}" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" data-bs-title="Documentation"><i
+                                        class="isax isax-document-normal4"></i></a>
+                            </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

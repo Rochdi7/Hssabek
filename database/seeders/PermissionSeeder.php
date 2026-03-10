@@ -126,10 +126,10 @@ class PermissionSeeder extends Seeder
             ]);
         }
 
-        // Custom Reports (full CRUD + export)
+        // Rapports Pro (full CRUD + export)
         foreach (['view', 'create', 'edit', 'delete', 'export'] as $action) {
             Permission::firstOrCreate([
-                'name' => "reports.custom.{$action}",
+                'name' => "pro.rapports.{$action}",
                 'guard_name' => 'web',
                 'tenant_id' => null,
             ]);

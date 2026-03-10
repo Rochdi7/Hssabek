@@ -21,7 +21,7 @@ class RecurringInvoiceController extends Controller
             ->when($request->search, fn($q, $s) => $q->whereHas('customer', fn($cq) => $cq->where('name', 'like', "%{$s}%")))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest('next_run_at')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.pro.recurring-invoices.index', compact('recurringInvoices'));

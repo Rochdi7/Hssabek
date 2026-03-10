@@ -22,7 +22,7 @@ class WarehouseController extends Controller
             ->when($request->status === 'active', fn ($q) => $q->where('is_active', true))
             ->when($request->status === 'inactive', fn ($q) => $q->where('is_active', false))
             ->orderBy('name')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.inventory.warehouses.index', compact('warehouses'));

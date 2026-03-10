@@ -28,7 +28,7 @@ class StockTransferController extends Controller
             ->when($request->status, fn ($q, $s) => $q->where('status', $s))
             ->when($request->search, fn ($q, $s) => $q->where('number', 'like', "%{$s}%"))
             ->latest()
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.inventory.transfers.index', compact('transfers'));
@@ -39,7 +39,7 @@ class StockTransferController extends Controller
         $this->authorize('create', StockTransfer::class);
 
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
-        $products = Product::where('is_active', true)->orderBy('name')->get();
+        $products = Product::where('is_active', true)->where('item_type', 'product')->orderBy('name')->get();
 
         return view('backoffice.inventory.transfers.create', compact('warehouses', 'products'));
     }
@@ -89,7 +89,7 @@ class StockTransferController extends Controller
 
         $transfer->load('items.product');
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
-        $products = Product::where('is_active', true)->orderBy('name')->get();
+        $products = Product::where('is_active', true)->where('item_type', 'product')->orderBy('name')->get();
 
         return view('backoffice.inventory.transfers.edit', compact('transfer', 'warehouses', 'products'));
     }

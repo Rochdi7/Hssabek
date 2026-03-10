@@ -8,6 +8,7 @@
                     <h6>Factures récurrentes</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'recurring-invoices'])
                     <div>
                         <a href="{{ route('bo.pro.recurring-invoices.create') }}"
                             class="btn btn-primary d-flex align-items-center">
@@ -84,7 +85,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -159,7 +160,7 @@
                 </table>
             </div>
 
-            {{ $recurringInvoices->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $recurringInvoices])
 
             @component('backoffice.components.footer')
             @endcomponent

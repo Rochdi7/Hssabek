@@ -1,4 +1,4 @@
-<?php $page = 'reports'; ?>
+<?php $page = 'pro'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
@@ -13,11 +13,11 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Rapports personnalisés</h6>
+                    <h6>Rapports</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div>
-                        <a href="{{ route('bo.reports.custom.create') }}" class="btn btn-primary d-flex align-items-center">
+                        <a href="{{ route('bo.pro.rapports.create') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Nouveau rapport
                         </a>
                     </div>
@@ -36,7 +36,7 @@
             <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                     <div class="d-flex align-items-center flex-wrap gap-2">
-                        <form action="{{ route('bo.reports.custom.index') }}" method="GET" class="table-search d-flex align-items-center mb-0">
+                        <form action="{{ route('bo.pro.rapports.index') }}" method="GET" class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control" placeholder="Rechercher un rapport..." value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset" onclick="this.closest('form').submit()"><i
@@ -56,13 +56,13 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a href="{{ route('bo.reports.custom.index', array_merge(request()->except('status', 'page'))) }}" class="dropdown-item">Tous</a>
+                                    <a href="{{ route('bo.pro.rapports.index', array_merge(request()->except('status', 'page'))) }}" class="dropdown-item">Tous</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bo.reports.custom.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}" class="dropdown-item">Brouillon</a>
+                                    <a href="{{ route('bo.pro.rapports.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}" class="dropdown-item">Brouillon</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bo.reports.custom.index', array_merge(request()->except('page'), ['status' => 'published'])) }}" class="dropdown-item">Publié</a>
+                                    <a href="{{ route('bo.pro.rapports.index', array_merge(request()->except('page'), ['status' => 'published'])) }}" class="dropdown-item">Publié</a>
                                 </li>
                             </ul>
                         </div>
@@ -73,7 +73,7 @@
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -99,7 +99,7 @@
                                 </td>
                                 <td>
                                     <h6 class="fs-14 fw-medium mb-0">
-                                        <a href="{{ route('bo.reports.custom.show', $report) }}">{{ $report->title }}</a>
+                                        <a href="{{ route('bo.pro.rapports.show', $report) }}">{{ $report->title }}</a>
                                     </h6>
                                 </td>
                                 <td>{{ $report->category ?? '—' }}</td>
@@ -118,27 +118,27 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('bo.reports.custom.show', $report) }}"
+                                            <a href="{{ route('bo.pro.rapports.show', $report) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>Voir</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('bo.reports.custom.edit', $report) }}"
+                                            <a href="{{ route('bo.pro.rapports.edit', $report) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-edit me-2"></i>Modifier</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('bo.reports.custom.export-pdf', $report) }}"
+                                            <a href="{{ route('bo.pro.rapports.export-pdf', $report) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-document-download me-2"></i>Exporter PDF</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('bo.reports.custom.export-word', $report) }}"
+                                            <a href="{{ route('bo.pro.rapports.export-word', $report) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-document-text me-2"></i>Exporter Word</a>
                                         </li>
                                         <li>
-                                            <form method="POST" action="{{ route('bo.reports.custom.destroy', $report) }}">
+                                            <form method="POST" action="{{ route('bo.pro.rapports.destroy', $report) }}">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger" type="submit"
                                                     onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rapport ?')">
@@ -151,7 +151,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center text-muted py-4">Aucun rapport personnalisé trouvé.</td>
+                                <td colspan="7" class="text-center text-muted py-4">Aucun rapport trouvé.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -159,7 +159,7 @@
             </div>
             <!-- End Table List -->
 
-            {{ $reports->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $reports])
 
             @component('backoffice.components.footer')
             @endcomponent

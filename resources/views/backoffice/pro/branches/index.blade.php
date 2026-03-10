@@ -8,6 +8,7 @@
                     <h6>Succursales</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'branches'])
                     <div>
                         <a href="{{ route('bo.pro.branches.create') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Nouvelle succursale
@@ -43,7 +44,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -111,7 +112,7 @@
                 </table>
             </div>
 
-            {{ $branches->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $branches])
             @component('backoffice.components.footer')
             @endcomponent
         </div>

@@ -8,6 +8,7 @@
                     <h6>Paiements fournisseurs</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'supplier-payments'])
                     <div>
                         <a href="{{ route('bo.purchases.supplier-payments.create') }}"
                             class="btn btn-primary d-flex align-items-center">
@@ -49,7 +50,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -119,7 +120,7 @@
                 </table>
             </div>
 
-            {{ $payments->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $payments])
 
             @component('backoffice.components.footer')
             @endcomponent

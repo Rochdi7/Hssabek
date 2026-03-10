@@ -16,8 +16,8 @@ class TaxGroupController extends Controller
     {
         $this->authorize('viewAny', TaxGroup::class);
 
-        $taxCategories = TaxCategory::latest()->paginate(15, ['*'], 'tax_page');
-        $taxGroups = TaxGroup::with('rates')->latest()->paginate(15, ['*'], 'group_page');
+        $taxCategories = TaxCategory::latest()->paginate(request()->input('per_page', 15), ['*'], 'tax_page')->withQueryString();
+        $taxGroups = TaxGroup::with('rates')->latest()->paginate(request()->input('per_page', 15), ['*'], 'group_page')->withQueryString();
 
         return view('backoffice.catalog.tax-rates.index', compact('taxCategories', 'taxGroups'));
     }

@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                Start Page Content
-            ========================= -->
+                        Start Page Content
+                    ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -48,16 +48,18 @@
                                     </div>
                                 </div>
 
-                                @if(session('success'))
+                                @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Fermer"></button>
                                     </div>
                                 @endif
-                                @if(session('error'))
+                                @if (session('error'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         {{ session('error') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Fermer"></button>
                                     </div>
                                 @endif
 
@@ -77,17 +79,18 @@
                                             @forelse($taxCategories as $category)
                                                 <tr>
                                                     <td>
-                                                        <a href="javascript:void(0);" class="text-dark">{{ $category->name }}</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="text-dark">{{ $category->name }}</a>
                                                     </td>
                                                     <td>
-                                                        @if($category->type === 'percentage')
+                                                        @if ($category->type === 'percentage')
                                                             {{ number_format($category->rate, 2) }}%
                                                         @else
                                                             {{ number_format($category->rate, 2) }}
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if($category->type === 'percentage')
+                                                        @if ($category->type === 'percentage')
                                                             <span class="badge bg-soft-primary">Pourcentage</span>
                                                         @else
                                                             <span class="badge bg-soft-info">Fixe</span>
@@ -142,11 +145,9 @@
                                 </div>
 
                                 {{-- Pagination Tax Categories --}}
-                                @if($taxCategories->hasPages())
-                                    <div class="mt-3">
-                                        {{ $taxCategories->links() }}
-                                    </div>
-                                @endif
+                                @include('backoffice.components.table-footer', [
+                                    'paginator' => $taxCategories,
+                                ])
 
                                 {{-- ========================================= --}}
                                 {{-- SECTION 2 : Groupes de taxes (Tax Groups) --}}
@@ -187,19 +188,23 @@
                                             @forelse($taxGroups as $group)
                                                 <tr>
                                                     <td>
-                                                        <a href="javascript:void(0);" class="text-dark">{{ $group->name }}</a>
+                                                        <a href="javascript:void(0);"
+                                                            class="text-dark">{{ $group->name }}</a>
                                                     </td>
                                                     <td>
                                                         @forelse($group->rates->sortBy('position') as $rate)
-                                                            <span class="badge bg-soft-secondary me-1">{{ $rate->name }} ({{ number_format($rate->rate, 2) }}%)</span>
+                                                            <span class="badge bg-soft-secondary me-1">{{ $rate->name }}
+                                                                ({{ number_format($rate->rate, 2) }}%)
+                                                            </span>
                                                         @empty
                                                             <span class="text-muted">Aucun</span>
                                                         @endforelse
                                                     </td>
                                                     <td>
                                                         <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" role="switch"
-                                                                {{ $group->is_active ? 'checked' : '' }} disabled>
+                                                            <input class="form-check-input" type="checkbox"
+                                                                role="switch" {{ $group->is_active ? 'checked' : '' }}
+                                                                disabled>
                                                         </div>
                                                     </td>
                                                     <td class="action-item">
@@ -215,7 +220,7 @@
                                                                     data-id="{{ $group->id }}"
                                                                     data-name="{{ $group->name }}"
                                                                     data-is-active="{{ $group->is_active ? '1' : '0' }}"
-                                                                    data-rates="{{ $group->rates->sortBy('position')->map(function($r) { return ['name' => $r->name, 'rate' => $r->rate, 'position' => $r->position]; })->values()->toJson() }}"
+                                                                    data-rates="{{ $group->rates->sortBy('position')->map(function ($r) {return ['name' => $r->name, 'rate' => $r->rate, 'position' => $r->position];})->values()->toJson() }}"
                                                                     data-url="{{ route('bo.catalog.tax-groups.update', $group) }}"><i
                                                                         class="isax isax-edit me-2"></i>Modifier</a>
                                                             </li>
@@ -234,7 +239,8 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="4" class="text-center">Aucun groupe de taxes trouvé.</td>
+                                                    <td colspan="4" class="text-center">Aucun groupe de taxes trouvé.
+                                                    </td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -242,11 +248,7 @@
                                 </div>
 
                                 {{-- Pagination Tax Groups --}}
-                                @if($taxGroups->hasPages())
-                                    <div class="mt-3">
-                                        {{ $taxGroups->links() }}
-                                    </div>
-                                @endif
+                                @include('backoffice.components.table-footer', ['paginator' => $taxGroups])
 
                             </div>
                         </div>
@@ -265,8 +267,8 @@
     </div>
 
     <!-- ========================
-                End Page Content
-            ========================= -->
+                        End Page Content
+                    ========================= -->
 
     {{-- ============================================================= --}}
     {{-- MODALS : Tax Categories (Taux de taxes)                       --}}
@@ -278,7 +280,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Ajouter un taux de taxe</h4>
-                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
+                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form action="{{ route('bo.catalog.tax-categories.store') }}" method="POST">
                     @csrf
@@ -286,31 +289,45 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Nom de la taxe <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('name', 'categoryStore') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Ex : TVA">
-                            @error('name', 'categoryStore')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <input type="text"
+                                class="form-control @error('name', 'categoryStore') is-invalid @enderror" name="name"
+                                value="{{ old('name') }}" placeholder="Ex : TVA">
+                            @error('name', 'categoryStore')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Taux <span class="text-danger">*</span></label>
-                            <input type="number" step="0.01" min="0" class="form-control @error('rate', 'categoryStore') is-invalid @enderror" name="rate" value="{{ old('rate') }}" placeholder="Ex : 20.00">
-                            @error('rate', 'categoryStore')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <input type="number" step="0.01" min="0"
+                                class="form-control @error('rate', 'categoryStore') is-invalid @enderror" name="rate"
+                                value="{{ old('rate') }}" placeholder="Ex : 20.00">
+                            @error('rate', 'categoryStore')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Type <span class="text-danger">*</span></label>
-                            <select class="form-select @error('type', 'categoryStore') is-invalid @enderror" name="type">
-                                <option value="percentage" {{ old('type') === 'percentage' ? 'selected' : '' }}>Pourcentage</option>
+                            <select class="form-select @error('type', 'categoryStore') is-invalid @enderror"
+                                name="type">
+                                <option value="percentage" {{ old('type') === 'percentage' ? 'selected' : '' }}>
+                                    Pourcentage</option>
                                 <option value="fixed" {{ old('type') === 'fixed' ? 'selected' : '' }}>Fixe</option>
                             </select>
-                            @error('type', 'categoryStore')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('type', 'categoryStore')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_default" value="1" id="add_cat_is_default" {{ old('is_default') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="is_default" value="1"
+                                    id="add_cat_is_default" {{ old('is_default') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="add_cat_is_default">Définir par défaut</label>
                             </div>
                         </div>
                         <div class="mb-0">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_active" value="1" id="add_cat_is_active" {{ old('is_active', '1') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="is_active" value="1"
+                                    id="add_cat_is_active" {{ old('is_active', '1') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="add_cat_is_active">Actif</label>
                             </div>
                         </div>
@@ -331,7 +348,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Modifier le taux de taxe</h4>
-                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
+                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form id="edit_tax_category_form" action="" method="POST">
                     @csrf
@@ -339,11 +357,13 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Nom de la taxe <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" id="edit_cat_name" value="">
+                            <input type="text" class="form-control" name="name" id="edit_cat_name"
+                                value="">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Taux <span class="text-danger">*</span></label>
-                            <input type="number" step="0.01" min="0" class="form-control" name="rate" id="edit_cat_rate" value="">
+                            <input type="number" step="0.01" min="0" class="form-control" name="rate"
+                                id="edit_cat_rate" value="">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Type <span class="text-danger">*</span></label>
@@ -354,13 +374,15 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_default" value="1" id="edit_cat_is_default">
+                                <input class="form-check-input" type="checkbox" name="is_default" value="1"
+                                    id="edit_cat_is_default">
                                 <label class="form-check-label" for="edit_cat_is_default">Définir par défaut</label>
                             </div>
                         </div>
                         <div class="mb-0">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_active" value="1" id="edit_cat_is_active">
+                                <input class="form-check-input" type="checkbox" name="is_active" value="1"
+                                    id="edit_cat_is_active">
                                 <label class="form-check-label" for="edit_cat_is_active">Actif</label>
                             </div>
                         </div>
@@ -384,9 +406,11 @@
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
                     <h6 class="mb-1">Supprimer le taux de taxe</h6>
-                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer le taux <strong id="delete_cat_name"></strong> ?</p>
+                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer le taux <strong id="delete_cat_name"></strong> ?
+                    </p>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
+                        <a href="javascript:void(0);" class="btn btn-outline-white me-3"
+                            data-bs-dismiss="modal">Annuler</a>
                         <form id="delete_tax_category_form" action="" method="POST">
                             @csrf
                             @method('DELETE')
@@ -409,7 +433,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Ajouter un groupe de taxes</h4>
-                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
+                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form action="{{ route('bo.catalog.tax-groups.store') }}" method="POST">
                     @csrf
@@ -417,12 +442,16 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Nom du groupe <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('name', 'groupStore') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Ex : TVA composée">
-                            @error('name', 'groupStore')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <input type="text" class="form-control @error('name', 'groupStore') is-invalid @enderror"
+                                name="name" value="{{ old('name') }}" placeholder="Ex : TVA composée">
+                            @error('name', 'groupStore')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_active" value="1" id="add_group_is_active" {{ old('is_active', '1') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="is_active" value="1"
+                                    id="add_group_is_active" {{ old('is_active', '1') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="add_group_is_active">Actif</label>
                             </div>
                         </div>
@@ -431,21 +460,28 @@
                             <div id="add-group-rates-container">
                                 <div class="row mb-2 rate-row">
                                     <div class="col-4">
-                                        <input type="text" class="form-control" name="rates[0][name]" placeholder="Nom">
+                                        <input type="text" class="form-control" name="rates[0][name]"
+                                            placeholder="Nom">
                                     </div>
                                     <div class="col-3">
-                                        <input type="number" step="0.01" min="0" class="form-control" name="rates[0][rate]" placeholder="Taux (%)">
+                                        <input type="number" step="0.01" min="0" class="form-control"
+                                            name="rates[0][rate]" placeholder="Taux (%)">
                                     </div>
                                     <div class="col-3">
-                                        <input type="number" min="0" class="form-control" name="rates[0][position]" placeholder="Position" value="0">
+                                        <input type="number" min="0" class="form-control"
+                                            name="rates[0][position]" placeholder="Position" value="0">
                                     </div>
                                     <div class="col-2 d-flex align-items-center">
-                                        <a href="javascript:void(0);" class="text-danger remove-rate-row d-none"><i class="isax isax-trash"></i></a>
+                                        <a href="javascript:void(0);" class="text-danger remove-rate-row d-none"><i
+                                                class="isax isax-trash"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            @error('rates', 'groupStore')<div class="text-danger small">{{ $message }}</div>@enderror
-                            <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary mt-2" id="add-group-add-rate">
+                            @error('rates', 'groupStore')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
+                            <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary mt-2"
+                                id="add-group-add-rate">
                                 <i class="isax isax-add-circle5 me-1"></i>Ajouter une sous-taxe
                             </a>
                         </div>
@@ -466,7 +502,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Modifier le groupe de taxes</h4>
-                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
+                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form id="edit_tax_group_form" action="" method="POST">
                     @csrf
@@ -474,11 +511,13 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Nom du groupe <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" id="edit_group_name" value="">
+                            <input type="text" class="form-control" name="name" id="edit_group_name"
+                                value="">
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_active" value="1" id="edit_group_is_active">
+                                <input class="form-check-input" type="checkbox" name="is_active" value="1"
+                                    id="edit_group_is_active">
                                 <label class="form-check-label" for="edit_group_is_active">Actif</label>
                             </div>
                         </div>
@@ -487,7 +526,8 @@
                             <div id="edit-group-rates-container">
                                 {{-- Populated dynamically via JavaScript --}}
                             </div>
-                            <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary mt-2" id="edit-group-add-rate">
+                            <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary mt-2"
+                                id="edit-group-add-rate">
                                 <i class="isax isax-add-circle5 me-1"></i>Ajouter une sous-taxe
                             </a>
                         </div>
@@ -511,9 +551,11 @@
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
                     <h6 class="mb-1">Supprimer le groupe de taxes</h6>
-                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer le groupe <strong id="delete_group_name"></strong> ?</p>
+                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer le groupe <strong
+                            id="delete_group_name"></strong> ?</p>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
+                        <a href="javascript:void(0);" class="btn btn-outline-white me-3"
+                            data-bs-dismiss="modal">Annuler</a>
                         <form id="delete_tax_group_form" action="" method="POST">
                             @csrf
                             @method('DELETE')
@@ -529,212 +571,228 @@
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // ===========================
-        // Search filtering — Tax Rates
-        // ===========================
-        var searchTaxRate = document.getElementById('searchTaxRate');
-        if (searchTaxRate) {
-            searchTaxRate.addEventListener('keyup', function () {
-                var filter = this.value.toLowerCase();
-                var table = this.closest('.col-xl-9').querySelector('.table-responsive.pb-3 tbody');
-                if (table) {
-                    var rows = table.querySelectorAll('tr');
-                    rows.forEach(function (row) {
-                        var text = row.textContent.toLowerCase();
-                        row.style.display = text.includes(filter) ? '' : 'none';
-                    });
-                }
-            });
-        }
+            // ===========================
+            // Search filtering — Tax Rates
+            // ===========================
+            var searchTaxRate = document.getElementById('searchTaxRate');
+            if (searchTaxRate) {
+                searchTaxRate.addEventListener('keyup', function() {
+                    var filter = this.value.toLowerCase();
+                    var table = this.closest('.col-xl-9').querySelector('.table-responsive.pb-3 tbody');
+                    if (table) {
+                        var rows = table.querySelectorAll('tr');
+                        rows.forEach(function(row) {
+                            var text = row.textContent.toLowerCase();
+                            row.style.display = text.includes(filter) ? '' : 'none';
+                        });
+                    }
+                });
+            }
 
-        // ===========================
-        // Search filtering — Tax Groups
-        // ===========================
-        var searchTaxGroup = document.getElementById('searchTaxGroup');
-        if (searchTaxGroup) {
-            searchTaxGroup.addEventListener('keyup', function () {
-                var filter = this.value.toLowerCase();
-                var tables = this.closest('.col-xl-9').querySelectorAll('.table-responsive.table-nowrap:not(.pb-3) tbody');
-                var table = tables[tables.length - 1];
-                if (table) {
-                    var rows = table.querySelectorAll('tr');
-                    rows.forEach(function (row) {
-                        var text = row.textContent.toLowerCase();
-                        row.style.display = text.includes(filter) ? '' : 'none';
-                    });
-                }
-            });
-        }
+            // ===========================
+            // Search filtering — Tax Groups
+            // ===========================
+            var searchTaxGroup = document.getElementById('searchTaxGroup');
+            if (searchTaxGroup) {
+                searchTaxGroup.addEventListener('keyup', function() {
+                    var filter = this.value.toLowerCase();
+                    var tables = this.closest('.col-xl-9').querySelectorAll(
+                        '.table-responsive.table-nowrap:not(.pb-3) tbody');
+                    var table = tables[tables.length - 1];
+                    if (table) {
+                        var rows = table.querySelectorAll('tr');
+                        rows.forEach(function(row) {
+                            var text = row.textContent.toLowerCase();
+                            row.style.display = text.includes(filter) ? '' : 'none';
+                        });
+                    }
+                });
+            }
 
-        // ===========================
-        // Edit Tax Category — populate modal via data- attributes
-        // ===========================
-        document.querySelectorAll('.btn-edit-category').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var form = document.getElementById('edit_tax_category_form');
-                form.action = this.getAttribute('data-url');
-                document.getElementById('edit_cat_name').value = this.getAttribute('data-name');
-                document.getElementById('edit_cat_rate').value = this.getAttribute('data-rate');
-                document.getElementById('edit_cat_type').value = this.getAttribute('data-type');
-                document.getElementById('edit_cat_is_default').checked = this.getAttribute('data-is-default') === '1';
-                document.getElementById('edit_cat_is_active').checked = this.getAttribute('data-is-active') === '1';
-            });
-        });
-
-        // ===========================
-        // Delete Tax Category — populate modal via data- attributes
-        // ===========================
-        document.querySelectorAll('.btn-delete-category').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var form = document.getElementById('delete_tax_category_form');
-                form.action = this.getAttribute('data-url');
-                document.getElementById('delete_cat_name').textContent = this.getAttribute('data-name');
-            });
-        });
-
-        // ===========================
-        // Edit Tax Group — populate modal via data- attributes
-        // ===========================
-        document.querySelectorAll('.btn-edit-group').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var form = document.getElementById('edit_tax_group_form');
-                form.action = this.getAttribute('data-url');
-                document.getElementById('edit_group_name').value = this.getAttribute('data-name');
-                document.getElementById('edit_group_is_active').checked = this.getAttribute('data-is-active') === '1';
-
-                // Populate rate rows
-                var container = document.getElementById('edit-group-rates-container');
-                container.innerHTML = '';
-                var rates = JSON.parse(this.getAttribute('data-rates') || '[]');
-
-                if (rates.length === 0) {
-                    rates = [{ name: '', rate: '', position: 0 }];
-                }
-
-                rates.forEach(function (rate, index) {
-                    var row = createRateRow(index, rate.name, rate.rate, rate.position, rates.length <= 1);
-                    container.appendChild(row);
+            // ===========================
+            // Edit Tax Category — populate modal via data- attributes
+            // ===========================
+            document.querySelectorAll('.btn-edit-category').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var form = document.getElementById('edit_tax_category_form');
+                    form.action = this.getAttribute('data-url');
+                    document.getElementById('edit_cat_name').value = this.getAttribute('data-name');
+                    document.getElementById('edit_cat_rate').value = this.getAttribute('data-rate');
+                    document.getElementById('edit_cat_type').value = this.getAttribute('data-type');
+                    document.getElementById('edit_cat_is_default').checked = this.getAttribute(
+                        'data-is-default') === '1';
+                    document.getElementById('edit_cat_is_active').checked = this.getAttribute(
+                        'data-is-active') === '1';
                 });
             });
-        });
 
-        // ===========================
-        // Delete Tax Group — populate modal via data- attributes
-        // ===========================
-        document.querySelectorAll('.btn-delete-group').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var form = document.getElementById('delete_tax_group_form');
-                form.action = this.getAttribute('data-url');
-                document.getElementById('delete_group_name').textContent = this.getAttribute('data-name');
+            // ===========================
+            // Delete Tax Category — populate modal via data- attributes
+            // ===========================
+            document.querySelectorAll('.btn-delete-category').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var form = document.getElementById('delete_tax_category_form');
+                    form.action = this.getAttribute('data-url');
+                    document.getElementById('delete_cat_name').textContent = this.getAttribute(
+                        'data-name');
+                });
             });
-        });
 
-        // ===========================
-        // Add Tax Group — dynamic rate rows
-        // ===========================
-        var addGroupContainer = document.getElementById('add-group-rates-container');
-        var addGroupBtn = document.getElementById('add-group-add-rate');
-        if (addGroupBtn) {
-            addGroupBtn.addEventListener('click', function () {
-                var rows = addGroupContainer.querySelectorAll('.rate-row');
-                var index = rows.length;
-                var newRow = createRateRow(index, '', '', index, false);
-                addGroupContainer.appendChild(newRow);
-                updateRemoveButtons(addGroupContainer);
-            });
-        }
+            // ===========================
+            // Edit Tax Group — populate modal via data- attributes
+            // ===========================
+            document.querySelectorAll('.btn-edit-group').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var form = document.getElementById('edit_tax_group_form');
+                    form.action = this.getAttribute('data-url');
+                    document.getElementById('edit_group_name').value = this.getAttribute(
+                        'data-name');
+                    document.getElementById('edit_group_is_active').checked = this.getAttribute(
+                        'data-is-active') === '1';
 
-        // ===========================
-        // Edit Tax Group — dynamic rate rows
-        // ===========================
-        var editGroupBtn = document.getElementById('edit-group-add-rate');
-        if (editGroupBtn) {
-            editGroupBtn.addEventListener('click', function () {
-                var container = document.getElementById('edit-group-rates-container');
-                var rows = container.querySelectorAll('.rate-row');
-                var index = rows.length;
-                var newRow = createRateRow(index, '', '', index, false);
-                container.appendChild(newRow);
-                updateRemoveButtons(container);
-            });
-        }
+                    // Populate rate rows
+                    var container = document.getElementById('edit-group-rates-container');
+                    container.innerHTML = '';
+                    var rates = JSON.parse(this.getAttribute('data-rates') || '[]');
 
-        // ===========================
-        // Remove rate row (delegated)
-        // ===========================
-        document.addEventListener('click', function (e) {
-            var removeBtn = e.target.closest('.remove-rate-row');
-            if (removeBtn) {
-                var row = removeBtn.closest('.rate-row');
-                var container = row.parentElement;
-                row.remove();
-                updateRemoveButtons(container);
-            }
-        });
-
-        // ===========================
-        // Helper: create a rate row element
-        // ===========================
-        function createRateRow(index, name, rate, position, hideRemove) {
-            var row = document.createElement('div');
-            row.className = 'row mb-2 rate-row';
-            row.innerHTML =
-                '<div class="col-4">' +
-                    '<input type="text" class="form-control" name="rates[' + index + '][name]" placeholder="Nom" value="' + escapeHtml(name || '') + '">' +
-                '</div>' +
-                '<div class="col-3">' +
-                    '<input type="number" step="0.01" min="0" class="form-control" name="rates[' + index + '][rate]" placeholder="Taux (%)" value="' + escapeHtml(String(rate || '')) + '">' +
-                '</div>' +
-                '<div class="col-3">' +
-                    '<input type="number" min="0" class="form-control" name="rates[' + index + '][position]" placeholder="Position" value="' + escapeHtml(String(position || '0')) + '">' +
-                '</div>' +
-                '<div class="col-2 d-flex align-items-center">' +
-                    '<a href="javascript:void(0);" class="text-danger remove-rate-row' + (hideRemove ? ' d-none' : '') + '"><i class="isax isax-trash"></i></a>' +
-                '</div>';
-            return row;
-        }
-
-        // ===========================
-        // Helper: update remove buttons visibility
-        // ===========================
-        function updateRemoveButtons(container) {
-            var rows = container.querySelectorAll('.rate-row');
-            rows.forEach(function (row) {
-                var btn = row.querySelector('.remove-rate-row');
-                if (btn) {
-                    if (rows.length <= 1) {
-                        btn.classList.add('d-none');
-                    } else {
-                        btn.classList.remove('d-none');
+                    if (rates.length === 0) {
+                        rates = [{
+                            name: '',
+                            rate: '',
+                            position: 0
+                        }];
                     }
+
+                    rates.forEach(function(rate, index) {
+                        var row = createRateRow(index, rate.name, rate.rate, rate.position,
+                            rates.length <= 1);
+                        container.appendChild(row);
+                    });
+                });
+            });
+
+            // ===========================
+            // Delete Tax Group — populate modal via data- attributes
+            // ===========================
+            document.querySelectorAll('.btn-delete-group').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var form = document.getElementById('delete_tax_group_form');
+                    form.action = this.getAttribute('data-url');
+                    document.getElementById('delete_group_name').textContent = this.getAttribute(
+                        'data-name');
+                });
+            });
+
+            // ===========================
+            // Add Tax Group — dynamic rate rows
+            // ===========================
+            var addGroupContainer = document.getElementById('add-group-rates-container');
+            var addGroupBtn = document.getElementById('add-group-add-rate');
+            if (addGroupBtn) {
+                addGroupBtn.addEventListener('click', function() {
+                    var rows = addGroupContainer.querySelectorAll('.rate-row');
+                    var index = rows.length;
+                    var newRow = createRateRow(index, '', '', index, false);
+                    addGroupContainer.appendChild(newRow);
+                    updateRemoveButtons(addGroupContainer);
+                });
+            }
+
+            // ===========================
+            // Edit Tax Group — dynamic rate rows
+            // ===========================
+            var editGroupBtn = document.getElementById('edit-group-add-rate');
+            if (editGroupBtn) {
+                editGroupBtn.addEventListener('click', function() {
+                    var container = document.getElementById('edit-group-rates-container');
+                    var rows = container.querySelectorAll('.rate-row');
+                    var index = rows.length;
+                    var newRow = createRateRow(index, '', '', index, false);
+                    container.appendChild(newRow);
+                    updateRemoveButtons(container);
+                });
+            }
+
+            // ===========================
+            // Remove rate row (delegated)
+            // ===========================
+            document.addEventListener('click', function(e) {
+                var removeBtn = e.target.closest('.remove-rate-row');
+                if (removeBtn) {
+                    var row = removeBtn.closest('.rate-row');
+                    var container = row.parentElement;
+                    row.remove();
+                    updateRemoveButtons(container);
                 }
             });
-        }
 
-        // ===========================
-        // Helper: escape HTML for safe attribute injection
-        // ===========================
-        function escapeHtml(str) {
-            var div = document.createElement('div');
-            div.appendChild(document.createTextNode(str));
-            return div.innerHTML;
-        }
+            // ===========================
+            // Helper: create a rate row element
+            // ===========================
+            function createRateRow(index, name, rate, position, hideRemove) {
+                var row = document.createElement('div');
+                row.className = 'row mb-2 rate-row';
+                row.innerHTML =
+                    '<div class="col-4">' +
+                    '<input type="text" class="form-control" name="rates[' + index +
+                    '][name]" placeholder="Nom" value="' + escapeHtml(name || '') + '">' +
+                    '</div>' +
+                    '<div class="col-3">' +
+                    '<input type="number" step="0.01" min="0" class="form-control" name="rates[' + index +
+                    '][rate]" placeholder="Taux (%)" value="' + escapeHtml(String(rate || '')) + '">' +
+                    '</div>' +
+                    '<div class="col-3">' +
+                    '<input type="number" min="0" class="form-control" name="rates[' + index +
+                    '][position]" placeholder="Position" value="' + escapeHtml(String(position || '0')) + '">' +
+                    '</div>' +
+                    '<div class="col-2 d-flex align-items-center">' +
+                    '<a href="javascript:void(0);" class="text-danger remove-rate-row' + (hideRemove ? ' d-none' :
+                        '') + '"><i class="isax isax-trash"></i></a>' +
+                    '</div>';
+                return row;
+            }
 
-        // ===========================
-        // Re-open modal on validation error
-        // ===========================
-        @if($errors->categoryStore->any())
-            var addCatModal = new bootstrap.Modal(document.getElementById('add_tax_category_modal'));
-            addCatModal.show();
-        @endif
+            // ===========================
+            // Helper: update remove buttons visibility
+            // ===========================
+            function updateRemoveButtons(container) {
+                var rows = container.querySelectorAll('.rate-row');
+                rows.forEach(function(row) {
+                    var btn = row.querySelector('.remove-rate-row');
+                    if (btn) {
+                        if (rows.length <= 1) {
+                            btn.classList.add('d-none');
+                        } else {
+                            btn.classList.remove('d-none');
+                        }
+                    }
+                });
+            }
 
-        @if($errors->groupStore->any())
-            var addGroupModal = new bootstrap.Modal(document.getElementById('add_tax_group_modal'));
-            addGroupModal.show();
-        @endif
-    });
-</script>
+            // ===========================
+            // Helper: escape HTML for safe attribute injection
+            // ===========================
+            function escapeHtml(str) {
+                var div = document.createElement('div');
+                div.appendChild(document.createTextNode(str));
+                return div.innerHTML;
+            }
+
+            // ===========================
+            // Re-open modal on validation error
+            // ===========================
+            @if ($errors->categoryStore->any())
+                var addCatModal = new bootstrap.Modal(document.getElementById('add_tax_category_modal'));
+                addCatModal.show();
+            @endif
+
+            @if ($errors->groupStore->any())
+                var addGroupModal = new bootstrap.Modal(document.getElementById('add_tax_group_modal'));
+                addGroupModal.show();
+            @endif
+        });
+    </script>
 @endpush

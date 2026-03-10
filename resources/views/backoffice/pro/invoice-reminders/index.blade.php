@@ -8,6 +8,7 @@
                     <h6>Rappels de factures</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'invoice-reminders'])
                     <div>
                         <a href="{{ route('bo.pro.invoice-reminders.create') }}"
                             class="btn btn-primary d-flex align-items-center">
@@ -44,7 +45,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -132,7 +133,7 @@
                 </table>
             </div>
 
-            {{ $reminders->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $reminders])
             @component('backoffice.components.footer')
             @endcomponent
         </div>

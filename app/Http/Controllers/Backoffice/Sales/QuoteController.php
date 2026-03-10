@@ -49,7 +49,7 @@ class QuoteController extends Controller
             $query->whereDate('issue_date', '<=', $to);
         }
 
-        $quotes = $query->latest('issue_date')->paginate(15)->withQueryString();
+        $quotes = $query->latest('issue_date')->paginate($request->input('per_page', 15))->withQueryString();
 
         return view('backoffice.sales.quotes.index', compact('quotes'));
     }

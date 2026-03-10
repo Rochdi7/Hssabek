@@ -18,7 +18,7 @@ class FinanceCategoryController extends Controller
             ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
             ->when($request->type, fn ($q, $t) => $q->where('type', $t))
             ->orderBy('type')->orderBy('name')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.finance.categories.index', compact('categories'));

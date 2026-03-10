@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backoffice\Reports;
+namespace App\Http\Controllers\Backoffice\Pro;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reports\CustomReportRequest;
@@ -30,16 +30,16 @@ class CustomReportController extends Controller
             $query->where('status', $status);
         }
 
-        $reports = $query->latest()->paginate(15)->withQueryString();
+        $reports = $query->latest()->paginate(request()->input('per_page', 15))->withQueryString();
 
-        return view('backoffice.reports.custom.index', compact('reports'));
+        return view('backoffice.pro.rapports.index', compact('reports'));
     }
 
     public function create()
     {
         $this->authorize('create', CustomReport::class);
 
-        return view('backoffice.reports.custom.create');
+        return view('backoffice.pro.rapports.create');
     }
 
     public function store(CustomReportRequest $request)
@@ -51,7 +51,7 @@ class CustomReportController extends Controller
             ['created_by' => auth()->id()]
         ));
 
-        return redirect()->route('bo.reports.custom.show', $report)
+        return redirect()->route('bo.pro.rapports.show', $report)
             ->with('success', 'Rapport créé avec succès.');
     }
 
@@ -61,14 +61,14 @@ class CustomReportController extends Controller
 
         $customReport->load('creator');
 
-        return view('backoffice.reports.custom.show', ['report' => $customReport]);
+        return view('backoffice.pro.rapports.show', ['report' => $customReport]);
     }
 
     public function edit(CustomReport $customReport)
     {
         $this->authorize('update', $customReport);
 
-        return view('backoffice.reports.custom.edit', ['report' => $customReport]);
+        return view('backoffice.pro.rapports.edit', ['report' => $customReport]);
     }
 
     public function update(CustomReportRequest $request, CustomReport $customReport)
@@ -77,7 +77,7 @@ class CustomReportController extends Controller
 
         $customReport->update($request->validated());
 
-        return redirect()->route('bo.reports.custom.show', $customReport)
+        return redirect()->route('bo.pro.rapports.show', $customReport)
             ->with('success', 'Rapport mis à jour avec succès.');
     }
 
@@ -87,7 +87,7 @@ class CustomReportController extends Controller
 
         $customReport->delete();
 
-        return redirect()->route('bo.reports.custom.index')
+        return redirect()->route('bo.pro.rapports.index')
             ->with('success', 'Rapport supprimé avec succès.');
     }
 
@@ -97,7 +97,7 @@ class CustomReportController extends Controller
 
         $customReport->load('creator');
 
-        $pdf = Pdf::loadView('backoffice.reports.custom.pdf', ['report' => $customReport])
+        $pdf = Pdf::loadView('backoffice.pro.rapports.pdf', ['report' => $customReport])
             ->setPaper('a4', 'portrait');
 
         $filename = 'rapport-' . \Str::slug($customReport->title) . '.pdf';

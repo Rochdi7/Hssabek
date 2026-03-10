@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-           Start Page Content
-          ========================= -->
+               Start Page Content
+              ========================= -->
 
     <div class="page-wrapper">
         <div class="content content-two">
@@ -25,14 +25,14 @@
             </div>
             <!-- End Page Header -->
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
-            @if(session('error'))
+            @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -55,7 +55,8 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Trier par : <span class="fw-normal ms-1">Plus récent</span>
+                                <i class="isax isax-sort me-1"></i>Trier par : <span class="fw-normal ms-1">Plus
+                                    récent</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a href="javascript:void(0);" class="dropdown-item">Plus récent</a></li>
@@ -83,95 +84,105 @@
                     </thead>
                     <tbody>
                         @forelse($announcements as $announcement)
-                        <tr>
-                            <td>
-                                <h6 class="fs-14 fw-medium mb-0">{{ Str::limit($announcement->title, 50) }}</h6>
-                            </td>
-                            <td>
-                                @switch($announcement->type)
-                                    @case('info')
-                                        <span class="badge badge-soft-info d-inline-flex align-items-center"><i class="isax isax-info-circle me-1"></i> Information</span>
+                            <tr>
+                                <td>
+                                    <h6 class="fs-14 fw-medium mb-0">{{ Str::limit($announcement->title, 50) }}</h6>
+                                </td>
+                                <td>
+                                    @switch($announcement->type)
+                                        @case('info')
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center"><i
+                                                    class="isax isax-info-circle me-1"></i> Information</span>
                                         @break
-                                    @case('warning')
-                                        <span class="badge badge-soft-warning d-inline-flex align-items-center"><i class="isax isax-warning-2 me-1"></i> Avertissement</span>
+
+                                        @case('warning')
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center"><i
+                                                    class="isax isax-warning-2 me-1"></i> Avertissement</span>
                                         @break
-                                    @case('success')
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="isax isax-tick-circle me-1"></i> Succès</span>
+
+                                        @case('success')
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i
+                                                    class="isax isax-tick-circle me-1"></i> Succès</span>
                                         @break
-                                    @case('danger')
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center"><i class="isax isax-danger me-1"></i> Urgent</span>
+
+                                        @case('danger')
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center"><i
+                                                    class="isax isax-danger me-1"></i> Urgent</span>
                                         @break
-                                @endswitch
-                            </td>
-                            <td>
-                                @if($announcement->is_active)
-                                    <span class="badge badge-soft-success">Active</span>
-                                @else
-                                    <span class="badge badge-soft-secondary">Inactive</span>
-                                @endif
-                            </td>
-                            <td>{{ $announcement->published_at?->translatedFormat('d M Y H:i') ?? '-' }}</td>
-                            <td>{{ $announcement->expires_at?->translatedFormat('d M Y H:i') ?? 'Jamais' }}</td>
-                            <td>{{ $announcement->author->name ?? '-' }}</td>
-                            <td>
-                                <div class="d-flex align-items-center gap-1">
-                                    <a href="{{ route('sa.announcements.edit', $announcement) }}"
-                                        class="btn btn-outline-white d-inline-flex align-items-center">
-                                        <i class="isax isax-edit-2 me-1"></i> Modifier
-                                    </a>
-                                    <a href="#" class="btn btn-outline-white d-inline-flex align-items-center text-danger"
-                                        data-bs-toggle="modal" data-bs-target="#delete_{{ $announcement->id }}">
-                                        <i class="isax isax-trash me-1"></i> Supprimer
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="7" class="text-center py-4 text-muted">
-                                Aucune annonce trouvée.
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                    @endswitch
+                                </td>
+                                <td>
+                                    @if ($announcement->is_active)
+                                        <span class="badge badge-soft-success">Active</span>
+                                    @else
+                                        <span class="badge badge-soft-secondary">Inactive</span>
+                                    @endif
+                                </td>
+                                <td>{{ $announcement->published_at?->translatedFormat('d M Y H:i') ?? '-' }}</td>
+                                <td>{{ $announcement->expires_at?->translatedFormat('d M Y H:i') ?? 'Jamais' }}</td>
+                                <td>{{ $announcement->author->name ?? '-' }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <a href="{{ route('sa.announcements.edit', $announcement) }}"
+                                            class="btn btn-outline-white d-inline-flex align-items-center">
+                                            <i class="isax isax-edit-2 me-1"></i> Modifier
+                                        </a>
+                                        <a href="#"
+                                            class="btn btn-outline-white d-inline-flex align-items-center text-danger"
+                                            data-bs-toggle="modal" data-bs-target="#delete_{{ $announcement->id }}">
+                                            <i class="isax isax-trash me-1"></i> Supprimer
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center py-4 text-muted">
+                                        Aucune annonce trouvée.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Table List End -->
+
+                @include('backoffice.components.table-footer', ['paginator' => $announcements])
+
             </div>
-            <!-- Table List End -->
 
-            {{ $announcements->links() }}
-
+            @component('backoffice.components.footer')
+            @endcomponent
         </div>
 
-        @component('backoffice.components.footer')
-        @endcomponent
-    </div>
-
-    <!-- Delete Modals -->
-    @foreach($announcements as $ann)
-    <div class="modal fade" id="delete_{{ $ann->id }}">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <div class="mb-3">
-                        <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
-                    </div>
-                    <h6 class="mb-1">Supprimer l'annonce</h6>
-                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer l'annonce « <strong>{{ $ann->title }}</strong> » ?</p>
-                    <form method="POST" action="{{ route('sa.announcements.destroy', $ann) }}">
-                        @csrf
-                        @method('DELETE')
-                        <div class="d-flex justify-content-center">
-                            <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
-                            <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+        <!-- Delete Modals -->
+        @foreach ($announcements as $ann)
+            <div class="modal fade" id="delete_{{ $ann->id }}">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <div class="mb-3">
+                                <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
+                            </div>
+                            <h6 class="mb-1">Supprimer l'annonce</h6>
+                            <p class="mb-3">Êtes-vous sûr de vouloir supprimer l'annonce «
+                                <strong>{{ $ann->title }}</strong> » ?</p>
+                            <form method="POST" action="{{ route('sa.announcements.destroy', $ann) }}">
+                                @csrf
+                                @method('DELETE')
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0);" class="btn btn-outline-white me-3"
+                                        data-bs-dismiss="modal">Annuler</a>
+                                    <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    @endforeach
+        @endforeach
 
-    <!-- ========================
-           End Page Content
-          ========================= -->
-@endsection
+        <!-- ========================
+                   End Page Content
+                  ========================= -->
+    @endsection

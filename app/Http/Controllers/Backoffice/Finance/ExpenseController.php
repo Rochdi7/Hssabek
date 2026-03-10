@@ -34,7 +34,7 @@ class ExpenseController extends Controller
             ->when($request->category_id, fn($q, $c) => $q->where('category_id', $c))
             ->when($request->payment_status, fn($q, $s) => $q->where('payment_status', $s))
             ->latest('expense_date')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         $categories = FinanceCategory::where('type', 'expense')->orderBy('name')->get();

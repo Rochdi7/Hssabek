@@ -74,14 +74,18 @@
                                                 <label class="form-label">Réf. fournisseur de paiement</label>
                                                 <div class="mb-2">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                        <input class="form-check-input" type="radio" name="ref_mode"
+                                                            id="ref_mode_manual" value="manual" checked
                                                             onchange="document.getElementById('provider_refund_id').readOnly=false; document.getElementById('provider_refund_id').focus();">
-                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                        <label class="form-check-label" for="ref_mode_manual">Saisie
+                                                            manuelle</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                        <input class="form-check-input" type="radio" name="ref_mode"
+                                                            id="ref_mode_auto" value="auto"
                                                             onchange="document.getElementById('provider_refund_id').value='{{ $nextReference }}'; document.getElementById('provider_refund_id').readOnly=true;">
-                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                        <label class="form-check-label" for="ref_mode_auto">Générer
+                                                            automatiquement</label>
                                                     </div>
                                                 </div>
                                                 <input type="text" id="provider_refund_id"
@@ -96,12 +100,18 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Date de remboursement</label>
-                                                <input type="date"
-                                                    class="form-control @error('refunded_at') is-invalid @enderror"
-                                                    name="refunded_at"
-                                                    value="{{ old('refunded_at', $refund->refunded_at instanceof \Carbon\Carbon ? $refund->refunded_at->format('Y-m-d') : $refund->refunded_at) }}">
+                                                <div class="input-group position-relative">
+                                                    <input type="text"
+                                                        class="form-control datetimepicker @error('refunded_at') is-invalid @enderror"
+                                                        name="refunded_at"
+                                                        value="{{ old('refunded_at', $refund->refunded_at instanceof \Carbon\Carbon ? $refund->refunded_at->format('d-m-Y') : $refund->refunded_at) }}"
+                                                        placeholder="{{ now()->format('d M Y') }}">
+                                                    <span class="input-icon-addon fs-16 text-gray-9">
+                                                        <i class="isax isax-calendar-2"></i>
+                                                    </span>
+                                                </div>
                                                 @error('refunded_at')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>

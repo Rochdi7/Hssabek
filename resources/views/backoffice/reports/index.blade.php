@@ -65,17 +65,6 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-3">
-                    <a href="{{ route('bo.reports.custom.index') }}" class="text-decoration-none">
-                        <div class="card">
-                            <div class="card-body text-center py-4">
-                                <i class="isax isax-document-text fs-1 text-secondary mb-2 d-block"></i>
-                                <h6>Rapports personnalisés</h6>
-                                <p class="text-muted mb-0">Créer et exporter vos rapports</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
             </div>
 
             @component('backoffice.components.footer')

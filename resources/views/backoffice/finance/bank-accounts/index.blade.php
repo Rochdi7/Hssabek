@@ -16,6 +16,7 @@
                     <h6>Comptes bancaires</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'bank-accounts'])
                     <div>
                         <a href="{{ route('bo.finance.bank-accounts.create') }}"
                             class="btn btn-primary d-flex align-items-center">
@@ -88,7 +89,7 @@
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -196,7 +197,7 @@
             </div>
             <!-- End Table List -->
 
-            {{ $accounts->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $accounts])
 
             @component('backoffice.components.footer')
             @endcomponent

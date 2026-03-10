@@ -1,4 +1,4 @@
-<?php $page = 'reports'; ?>
+<?php $page = 'pro'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
@@ -15,12 +15,12 @@
                 <div class="col-12">
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6><a href="{{ route('bo.reports.custom.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Rapports personnalisés</a></h6>
+                            <h6><a href="{{ route('bo.pro.rapports.index') }}"><i
+                                        class="isax isax-arrow-left me-2"></i>Rapports</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Nouveau rapport</h5>
+                                <h5 class="mb-3">Modifier le rapport</h5>
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -33,8 +33,9 @@
                                     </div>
                                 @endif
 
-                                <form id="report-form" action="{{ route('bo.reports.custom.store') }}" method="POST">
+                                <form id="report-form" action="{{ route('bo.pro.rapports.update', $report) }}" method="POST">
                                     @csrf
+                                    @method('PUT')
                                     <div class="row gx-3">
                                         <div class="col-lg-6 col-md-6">
                                             <div class="mb-3">
@@ -42,7 +43,7 @@
                                                 <input type="text"
                                                     class="form-control @error('title') is-invalid @enderror"
                                                     name="title"
-                                                    value="{{ old('title') }}">
+                                                    value="{{ old('title', $report->title) }}">
                                                 @error('title')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -53,12 +54,9 @@
                                                 <label class="form-label">Catégorie</label>
                                                 <select class="form-select @error('category') is-invalid @enderror" name="category">
                                                     <option value="">-- Sélectionner --</option>
-                                                    <option value="Général" {{ old('category') === 'Général' ? 'selected' : '' }}>Général</option>
-                                                    <option value="Financier" {{ old('category') === 'Financier' ? 'selected' : '' }}>Financier</option>
-                                                    <option value="Ventes" {{ old('category') === 'Ventes' ? 'selected' : '' }}>Ventes</option>
-                                                    <option value="Achats" {{ old('category') === 'Achats' ? 'selected' : '' }}>Achats</option>
-                                                    <option value="Inventaire" {{ old('category') === 'Inventaire' ? 'selected' : '' }}>Inventaire</option>
-                                                    <option value="Autre" {{ old('category') === 'Autre' ? 'selected' : '' }}>Autre</option>
+                                                    @foreach(['Général', 'Financier', 'Ventes', 'Achats', 'Inventaire', 'Autre'] as $cat)
+                                                        <option value="{{ $cat }}" {{ old('category', $report->category) === $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('category')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -69,8 +67,8 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Statut <span class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('status') is-invalid @enderror" name="status">
-                                                    <option value="draft" {{ old('status', 'draft') === 'draft' ? 'selected' : '' }}>Brouillon</option>
-                                                    <option value="published" {{ old('status') === 'published' ? 'selected' : '' }}>Publié</option>
+                                                    <option value="draft" {{ old('status', $report->status) === 'draft' ? 'selected' : '' }}>Brouillon</option>
+                                                    <option value="published" {{ old('status', $report->status) === 'published' ? 'selected' : '' }}>Publié</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -80,7 +78,7 @@
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Contenu <span class="text-danger ms-1">*</span></label>
-                                                <textarea id="summernote" name="content" class="form-control @error('content') is-invalid @enderror">{!! old('content') !!}</textarea>
+                                                <textarea id="summernote" name="content" class="form-control @error('content') is-invalid @enderror">{!! old('content', $report->content) !!}</textarea>
                                                 @error('content')
                                                     <div class="text-danger mt-1 fs-12">{{ $message }}</div>
                                                 @enderror
@@ -88,8 +86,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
-                                        <a href="{{ route('bo.reports.custom.index') }}" class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Créer le rapport</button>
+                                        <a href="{{ route('bo.pro.rapports.index') }}" class="btn btn-outline-white">Annuler</a>
+                                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
                                     </div>
                                 </form>
                             </div><!-- end card body -->
@@ -111,4 +109,4 @@
                 ========================= -->
 @endsection
 
-@include('backoffice.reports.custom._summernote-assets')
+@include('backoffice.pro.rapports._summernote-assets')

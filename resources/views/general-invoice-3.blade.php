@@ -1,6 +1,12 @@
 <?php $page = 'general-invoice-3'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('content')
+    @php
+        $company = $settings?->company_settings ?? [];
+        $billTo = $invoice->bill_to_snapshot ?? [];
+        $billFrom = $invoice->bill_from_snapshot ?? [];
+        $bank = $invoice->bank_details_snapshot ?? [];
+    @endphp
     <!-- ========================
       Start Page Content
      ========================= -->
@@ -11,41 +17,44 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="mb-3">
-                    <h6><a href="{{ url('invoice-templates') }}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
+                    <h6><a href="{{ url()->previous() }}"><i class="isax isax-arrow-left me-1"></i>Retour</a></h6>
                 </div>
                 <div>
                     <div class="card rounded-0 shadow-none mb-0 border-bottom-0">
                         <div class="card-header py-2">
                             <div class="d-flex align-items-center justify-content-between">
-                                <h5>TAX INVOICE</h5>
-                                <p>Original For Recipient</p>
+                                <h5>FACTURE</h5>
+                                <p>Original pour le destinataire</p>
                             </div>
                         </div> <!-- end card-header -->
                         <div class="card-body p-0">
                             <div class="row gx-0">
                                 <div class="col-lg-5 d-flex">
                                     <div class="p-3 border-end flex-fill">
-                                        <div class="mb-3"><img src="{{ URL::asset('build/img/invoice-logo.svg') }}"
-                                                alt=""></div>
-                                        <h6 class="fs-16 fw-semibold mb-2">Dreamstechnologies</h6>
+                                        @if($tenant)
+                                            @php $logoPath = $tenant->getFirstMediaUrl('logo'); @endphp
+                                            @if($logoPath)
+                                                <div class="mb-3"><img src="{{ $logoPath }}" alt="" style="max-height: 50px;"></div>
+                                            @endif
+                                        @endif
+                                        <h6 class="fs-16 fw-semibold mb-2">{{ $company['company_name'] ?? $tenant?->name ?? '' }}</h6>
                                         <div class="row align-items-center">
                                             <div class="col-md-6">
                                                 <div class="mb-2">
-                                                    <span class="d-block mb-1">GST IN :</span>
-                                                    <p class="text-dark">22AABCU9603R1ZX</p>
+                                                    <span class="d-block mb-1">IF :</span>
+                                                    <p class="text-dark">{{ $company['tax_id'] ?? '' }}</p>
                                                 </div>
                                             </div> <!-- end col -->
                                             <div class="col-md-6">
                                                 <div class="mb-2">
-                                                    <span class="d-block mb-1">Mobile :</span>
-                                                    <p class="text-dark">+91 98765 43210</p>
+                                                    <span class="d-block mb-1">Tél :</span>
+                                                    <p class="text-dark">{{ $company['phone'] ?? '' }}</p>
                                                 </div>
                                             </div> <!-- end col -->
                                             <div class="col-md-12">
                                                 <div>
-                                                    <span class="d-block mb-1">Address :</span>
-                                                    <p class="text-dark">15 Hodges Mews, High Wycombe HP12 3JL, United
-                                                        Kingdom.</p>
+                                                    <span class="d-block mb-1">Adresse :</span>
+                                                    <p class="text-dark">{{ $company['address'] ?? '' }}@if(!empty($company['city'])), {{ $company['city'] }}@endif @if(!empty($company['postal_code'])) {{ $company['postal_code'] }}@endif @if(!empty($company['country'])) {{ $company['country'] }}@endif</p>
                                                 </div>
                                             </div> <!-- end col -->
                                         </div> <!-- end row -->
@@ -55,36 +64,40 @@
                                     <div class="row flex-fill gx-0 align-items-center">
                                         <div class="col-md-6">
                                             <div class="border-end border-bottom p-3">
-                                                <span class="d-block mb-1">Invoice No:</span>
-                                                <p class="text-dark">INV 00001</p>
+                                                <span class="d-block mb-1">N° Facture :</span>
+                                                <p class="text-dark">{{ $invoice->number }}</p>
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-6">
                                             <div class="border-bottom p-3">
-                                                <span class="d-block mb-1">Invoice Date:</span>
-                                                <p class="text-dark">05/12/2024</p>
+                                                <span class="d-block mb-1">Date de facturation :</span>
+                                                <p class="text-dark">{{ $invoice->issue_date?->format('d/m/Y') }}</p>
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-6">
                                             <div class="border-end p-3">
-                                                <h6 class="fs-16 text-gray-5 mb-2">Invoice To :</h6>
+                                                <h6 class="fs-16 text-gray-5 mb-2">Facturé à :</h6>
                                                 <div>
-                                                    <p class="mb-0 text-dark">Walter Roberson</p>
-                                                    <p class="mb-0 text-dark">299 Star Trek Drive, Panama City, <br>
-                                                        Florida, 32405, USA.</p>
-                                                    <p class="mb-0 text-dark">walter@gmail.com</p>
-                                                    <p class="mb-0 text-dark">+45 5421 4523</p>
+                                                    <p class="mb-0 text-dark">{{ $billTo['name'] ?? $invoice->customer?->name ?? '' }}</p>
+                                                    <p class="mb-0 text-dark">
+                                                        @if(!empty($billTo['address'])) {{ $billTo['address'] }}@if(!empty($billTo['city'])), <br> {{ $billTo['city'] }}@endif @if(!empty($billTo['postal_code'])) {{ $billTo['postal_code'] }}@endif @if(!empty($billTo['country'])) {{ $billTo['country'] }}@endif @endif
+                                                    </p>
+                                                    @if(!empty($billTo['email'])) <p class="mb-0 text-dark">{{ $billTo['email'] }}</p> @endif
+                                                    @if(!empty($billTo['phone'])) <p class="mb-0 text-dark">{{ $billTo['phone'] }}</p> @endif
                                                 </div>
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-6">
                                             <div class="p-3">
-                                                <h6 class="fs-16 text-gray-5 mb-2">Pay To :</h6>
+                                                <h6 class="fs-16 text-gray-5 mb-2">Payé à :</h6>
                                                 <div>
-                                                    <p class="mb-0 text-dark">Lowell H. Dominguez</p>
-                                                    <p class="mb-0 text-dark">84 Spilman Street, London <br> United King</p>
-                                                    <p class="mb-0 text-dark">domlowell@gmail.com</p>
-                                                    <p class="mb-0 text-dark">+45 5421 2154</p>
+                                                    <p class="mb-0 text-dark">{{ $billFrom['company_name'] ?? $company['company_name'] ?? $tenant?->name ?? '' }}</p>
+                                                    <p class="mb-0 text-dark">
+                                                        @if(!empty($billFrom['address'] ?? $company['address'] ?? '')) {{ $billFrom['address'] ?? $company['address'] ?? '' }} @endif
+                                                        @if(!empty($billFrom['city'] ?? $company['city'] ?? '')) <br> {{ $billFrom['city'] ?? $company['city'] ?? '' }} @endif
+                                                    </p>
+                                                    @if(!empty($billFrom['email'] ?? $company['email'] ?? '')) <p class="mb-0 text-dark">{{ $billFrom['email'] ?? $company['email'] ?? '' }}</p> @endif
+                                                    @if(!empty($billFrom['phone'] ?? $company['phone'] ?? '')) <p class="mb-0 text-dark">{{ $billFrom['phone'] ?? $company['phone'] ?? '' }}</p> @endif
                                                 </div>
                                             </div>
                                         </div> <!-- end col -->
@@ -98,102 +111,103 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>#</th>
-                                    <th>Item</th>
-                                    <th>Rate/Item</th>
-                                    <th>Qty</th>
-                                    <th>Tax Value</th>
-                                    <th>Tax Amount</th>
+                                    <th>Désignation</th>
+                                    <th>Prix unit.</th>
+                                    <th>Qté</th>
+                                    <th>Montant HT</th>
+                                    @if($invoice->enable_tax)
+                                    <th>TVA</th>
+                                    @endif
                                     <th class="text-end">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($invoice->items->sortBy('position') as $index => $item)
                                 <tr>
-                                    <td class="text-dark">1</td>
+                                    <td class="text-dark">{{ $index + 1 }}</td>
                                     <td>
                                         <div>
-                                            <p class="text-dark mb-0">Samsung Galaxy M32 Prime Edition...</p>
-                                            <span class="d-block">( Light Blue, 4GB RAM, 64GB )</span>
+                                            <p class="text-dark mb-0">{{ $item->label }}</p>
+                                            @if($item->description)
+                                            <span class="d-block">{{ $item->description }}</span>
+                                            @endif
                                         </div>
                                     </td>
-                                    <td class="text-dark">15,677.15</td>
-                                    <td>1</td>
-                                    <td class="text-dark">15,677.15</td>
-                                    <td>2,821.88(18%)</td>
-                                    <td class="text-dark text-end">18,49.00</td>
+                                    <td class="text-dark">{{ number_format($item->unit_price, 2, ',', ' ') }}</td>
+                                    <td>{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ' '), '0'), ',') }}</td>
+                                    <td class="text-dark">{{ number_format($item->line_subtotal, 2, ',', ' ') }}</td>
+                                    @if($invoice->enable_tax)
+                                    <td>{{ number_format($item->line_tax, 2, ',', ' ') }} ({{ number_format($item->tax_rate, 0) }}%)</td>
+                                    @endif
+                                    <td class="text-dark text-end">{{ number_format($item->line_total, 2, ',', ' ') }} {{ $currency }}</td>
                                 </tr>
+                                @endforeach
                                 <tr>
-                                    <td class="text-dark">2</td>
-                                    <td>
-                                        <div>
-                                            <p class="text-dark mb-0">OPPO A74 5G...</p>
-                                            <span class="d-block">( Fluid Black, 6GB RAM, 128GB Storage )</span>
-                                        </div>
-                                    </td>
-                                    <td class="text-dark">2541.53</td>
-                                    <td>2</td>
-                                    <td class="text-dark">2541.53</td>
-                                    <td>457.48(18%)</td>
-                                    <td class="text-dark text-end">2,999.00</td>
+                                    <td colspan="{{ $invoice->enable_tax ? 5 : 4 }}" class="border-0 border-start text-dark">Total articles : {{ $invoice->items->count() }}</td>
+                                    <td class="text-dark fw-medium border-0 text-center">Total HT</td>
+                                    <td class="text-dark text-end fw-medium border-0 border-end">{{ number_format($invoice->subtotal, 2, ',', ' ') }} {{ $currency }}</td>
                                 </tr>
+                                @if($invoice->enable_tax)
                                 <tr>
-                                    <td colspan="5" class="border-0 border-start text-dark">Total Items / Qty : 2 / 2.00
-                                    </td>
-                                    <td class="text-dark fw-medium border-0 text-center">Total</td>
-                                    <td class="text-dark text-end fw-medium border-0 border-end">$21,498.00</td>
+                                    <td colspan="{{ $invoice->enable_tax ? 5 : 4 }}" class="border-end-0"></td>
+                                    <td class="text-dark fw-medium border-end-0 border-start-0 text-center">TVA</td>
+                                    <td class="text-dark text-end fw-medium border-start-0">{{ number_format($invoice->tax_total, 2, ',', ' ') }} {{ $currency }}</td>
                                 </tr>
+                                @endif
                                 <tr>
-                                    <td colspan="5" class="border-end-0"></td>
-                                    <td class="text-dark fw-medium border-end-0 border-start-0 text-center">IGST 18.5%</td>
-                                    <td class="text-dark text-end fw-medium border-start-0">$21,498.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="border-end-0"></td>
+                                    <td colspan="{{ $invoice->enable_tax ? 4 : 3 }}" class="border-end-0"></td>
                                     <td colspan="2" class="text-dark fw-medium border-end-0 border-start-0 text-center">
-                                        <h6>Amount Payable</h6>
+                                        <h6>Total TTC</h6>
                                     </td>
                                     <td class="text-dark text-end fw-medium border-start-0">
-                                        <h6>$21,498.00</h6>
+                                        <h6>{{ number_format($invoice->total, 2, ',', ' ') }} {{ $currency }}</h6>
                                     </td>
                                 </tr>
                             </tbody>
                         </table> <!-- end table -->
                     </div>
+                    @if($invoice->total_in_words)
                     <div class="p-3 border border-top-0 text-center">
-                        <p class="text-dark">Total amount ( in words): One Thousand Eight Hundred Fifteen Dollars Only.</p>
+                        <p class="text-dark">Arrêtée la présente facture à la somme de : {{ $invoice->total_in_words }}</p>
                     </div>
+                    @endif
                     <div class="d-flex justify-content-between align-items-center flex-wrap border border-top-0">
+                        @if(!empty($bank))
                         <div class="p-3 flex-fill">
-                            <h6 class="mb-2">Bank Details</h6>
+                            <h6 class="mb-2">Coordonnées bancaires</h6>
                             <div class="d-flex align-items-center">
                                 <div class="me-2">
-                                    <p class="mb-1">Bank Name : <span class="text-dark">YES Bank</span></p>
-                                    <p class="mb-0">Account # : <span class="text-dark">6677889944551</span></p>
+                                    @if(!empty($bank['bank_name'])) <p class="mb-1">Banque : <span class="text-dark">{{ $bank['bank_name'] }}</span></p> @endif
+                                    @if(!empty($bank['account_name'])) <p class="mb-0">Titulaire : <span class="text-dark">{{ $bank['account_name'] }}</span></p> @endif
                                 </div>
                                 <div>
-                                    <p class="mb-1">IFSC : <span class="text-dark">YESBBIN4567</span></p>
-                                    <p class="mb-0">BRANCH : <span class="text-dark">RS Puram</span></p>
+                                    @if(!empty($bank['rib'])) <p class="mb-1">RIB : <span class="text-dark">{{ $bank['rib'] }}</span></p> @endif
+                                    @if(!empty($bank['iban'])) <p class="mb-0">IBAN : <span class="text-dark">{{ $bank['iban'] }}</span></p> @endif
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="text-center border-start p-3">
-                            <p class="mb-1">For Dreamstechnologies</p>
-                            <span><img src="{{ URL::asset('build/img/icons/sign-01.png') }}" alt=""></span>
+                            <p class="mb-1">Pour {{ $company['company_name'] ?? $tenant?->name ?? '' }}</p>
+                            @if($signature && $signature->getFirstMediaUrl('signature'))
+                                <span><img src="{{ $signature->getFirstMediaUrl('signature') }}" alt="" style="max-height: 60px;"></span>
+                            @endif
                         </div>
                     </div>
                     <div class="border border-top-0">
                         <div class="row align-items-center">
                             <div class="col-lg-3 col-md-6 d-flex">
                                 <div class="p-3 flex-fill">
-                                    <span class="d-block mb-1">Notes:</span>
-                                    <p class="text-dark">Thanks for your Business</p>
+                                    <span class="d-block mb-1">Notes :</span>
+                                    <p class="text-dark">{{ $invoice->notes ?? 'Merci pour votre confiance' }}</p>
                                 </div>
                             </div> <!-- end col -->
                             <div class="col-lg-9 col-md-6 d-flex">
                                 <div class="p-3 ps-5 flex-fill border-start">
-                                    <h6 class="mb-2">Terms & Conditions : </h6>
-                                    <p class="mb-1">1. Goods Once sold cannot be taken back or exchanged.</p>
-                                    <p>2. We are not the manufactures, company will stand for warrenty as per their terms
-                                        and conditions.</p>
+                                    @if($invoice->terms)
+                                    <h6 class="mb-2">Conditions générales :</h6>
+                                    {!! nl2br(e($invoice->terms)) !!}
+                                    @endif
                                 </div>
                             </div> <!-- end col -->
                         </div> <!-- end row -->
@@ -206,6 +220,6 @@
     </div>
 
     <!-- ========================
-      Start Page Content
+      End Page Content
      ========================= -->
 @endsection

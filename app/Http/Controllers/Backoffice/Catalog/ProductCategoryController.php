@@ -16,7 +16,8 @@ class ProductCategoryController extends Controller
 
         $categories = ProductCategory::withCount('products')
             ->latest()
-            ->paginate(15);
+            ->paginate(request()->input('per_page', 15))
+            ->withQueryString();
 
         return view('backoffice.catalog.categories.index', compact('categories'));
     }

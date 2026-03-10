@@ -16,6 +16,7 @@
                     <h6>Cat&eacute;gories</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'categories'])
                     <div>
                         <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                             data-bs-target="#add_category_modal"><i class="isax isax-add-circle5 me-1"></i>Nouvelle cat&eacute;gorie</a>
@@ -55,7 +56,7 @@
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -124,7 +125,7 @@
             <!-- /Table List -->
 
             <!-- Pagination -->
-            {{ $categories->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $categories])
 
         </div>
         <!-- End Content -->

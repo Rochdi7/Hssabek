@@ -82,7 +82,7 @@
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -158,7 +158,7 @@
             </div>
             <!-- End Table List -->
 
-            {{ $items->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $items])
 
             @component('backoffice.components.footer')
             @endcomponent

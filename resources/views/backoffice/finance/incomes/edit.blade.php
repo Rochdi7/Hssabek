@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                    Start Page Content
-                ========================= -->
+                        Start Page Content
+                    ========================= -->
 
     <div class="page-wrapper">
 
@@ -44,12 +44,18 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Date du revenu <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('income_date') is-invalid @enderror"
-                                                    name="income_date"
-                                                    value="{{ old('income_date', $income->income_date instanceof \Carbon\Carbon ? $income->income_date->format('Y-m-d') : $income->income_date) }}">
+                                                <div class="input-group position-relative">
+                                                    <input type="text"
+                                                        class="form-control datetimepicker @error('income_date') is-invalid @enderror"
+                                                        name="income_date"
+                                                        value="{{ old('income_date', $income->income_date instanceof \Carbon\Carbon ? $income->income_date->format('d-m-Y') : $income->income_date) }}"
+                                                        placeholder="{{ now()->format('d M Y') }}">
+                                                    <span class="input-icon-addon fs-16 text-gray-9">
+                                                        <i class="isax isax-calendar-2"></i>
+                                                    </span>
+                                                </div>
                                                 @error('income_date')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -58,14 +64,18 @@
                                                 <label class="form-label">Numéro de référence</label>
                                                 <div class="mb-2">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                        <input class="form-check-input" type="radio" name="ref_mode"
+                                                            id="ref_mode_manual" value="manual" checked
                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').focus();">
-                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                        <label class="form-check-label" for="ref_mode_manual">Saisie
+                                                            manuelle</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                        <input class="form-check-input" type="radio" name="ref_mode"
+                                                            id="ref_mode_auto" value="auto"
                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                        <label class="form-check-label" for="ref_mode_auto">Générer
+                                                            automatiquement</label>
                                                     </div>
                                                 </div>
                                                 <input type="text" id="reference_number"
@@ -214,6 +224,6 @@
     </div>
 
     <!-- ========================
-                    End Page Content
-                ========================= -->
+                        End Page Content
+                    ========================= -->
 @endsection

@@ -10,6 +10,7 @@
                     <h6>Paiements</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'payments'])
                     <div>
                         <a href="{{ route('bo.sales.payments.create') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Nouveau paiement
@@ -18,7 +19,7 @@
                 </div>
             </div>
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -29,10 +30,14 @@
             <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                     <div class="d-flex align-items-center flex-wrap gap-2">
-                        <form action="{{ route('bo.sales.payments.index') }}" method="GET" class="table-search d-flex align-items-center mb-0">
+                        <form action="{{ route('bo.sales.payments.index') }}" method="GET"
+                            class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <input type="text" name="search" class="form-control" placeholder="Rechercher un paiement..." value="{{ request('search') }}">
-                                <a href="javascript:void(0);" class="btn-searchset" onclick="this.closest('form').submit()"><i class="isax isax-search-normal fs-12"></i></a>
+                                <input type="text" name="search" class="form-control"
+                                    placeholder="Rechercher un paiement..." value="{{ request('search') }}">
+                                <a href="javascript:void(0);" class="btn-searchset"
+                                    onclick="this.closest('form').submit()"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </form>
                     </div>
@@ -43,30 +48,54 @@
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
                                     @switch(request('status'))
-                                        @case('pending') En attente @break
-                                        @case('succeeded') Réussi @break
-                                        @case('failed') Échoué @break
-                                        @case('refunded') Remboursé @break
-                                        @case('cancelled') Annulé @break
-                                        @default Tous
+                                        @case('pending')
+                                            En attente
+                                        @break
+
+                                        @case('succeeded')
+                                            Réussi
+                                        @break
+
+                                        @case('failed')
+                                            Échoué
+                                        @break
+
+                                        @case('refunded')
+                                            Remboursé
+                                        @break
+
+                                        @case('cancelled')
+                                            Annulé
+                                        @break
+
+                                        @default
+                                            Tous
                                     @endswitch
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a href="{{ route('bo.sales.payments.index', request()->except('status', 'page')) }}" class="dropdown-item">Tous</a></li>
-                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'succeeded'])) }}" class="dropdown-item">Réussi</a></li>
-                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'pending'])) }}" class="dropdown-item">En attente</a></li>
-                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'failed'])) }}" class="dropdown-item">Échoué</a></li>
-                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'refunded'])) }}" class="dropdown-item">Remboursé</a></li>
+                                <li><a href="{{ route('bo.sales.payments.index', request()->except('status', 'page')) }}"
+                                        class="dropdown-item">Tous</a></li>
+                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'succeeded'])) }}"
+                                        class="dropdown-item">Réussi</a></li>
+                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'pending'])) }}"
+                                        class="dropdown-item">En attente</a></li>
+                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'failed'])) }}"
+                                        class="dropdown-item">Échoué</a></li>
+                                <li><a href="{{ route('bo.sales.payments.index', array_merge(request()->except('page'), ['status' => 'refunded'])) }}"
+                                        class="dropdown-item">Remboursé</a></li>
                             </ul>
                         </div>
+                        @include('backoffice.components.column-toggle', [
+                            'columns' => ['Client', 'Date', 'Méthode', 'Référence', 'Montant', 'Statut'],
+                        ])
                     </div>
                 </div>
             </div>
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -84,7 +113,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($payments as $payment)
+                        @foreach ($payments as $payment)
                             <tr>
                                 <td>
                                     <div class="form-check form-check-md">
@@ -93,7 +122,8 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-sm rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-2 flex-shrink-0">
+                                        <span
+                                            class="avatar avatar-sm rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-2 flex-shrink-0">
                                             {{ strtoupper(substr($payment->customer->name ?? '?', 0, 1)) }}
                                         </span>
                                         <div>
@@ -104,24 +134,34 @@
                                 <td>{{ $payment->payment_date?->format('d/m/Y') }}</td>
                                 <td>{{ $payment->paymentMethod?->name ?? '—' }}</td>
                                 <td>{{ $payment->reference_number ?? '—' }}</td>
-                                <td class="text-dark">{{ number_format($payment->amount, 2, ',', ' ') }} {{ $payment->currency }}</td>
+                                <td class="text-dark">{{ number_format($payment->amount, 2, ',', ' ') }}
+                                    {{ $payment->currency }}</td>
                                 <td>
                                     @switch($payment->status)
                                         @case('succeeded')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Réussi <i class="isax isax-tick-circle ms-1"></i></span>
-                                            @break
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Réussi <i
+                                                    class="isax isax-tick-circle ms-1"></i></span>
+                                        @break
+
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En attente <i class="isax isax-timer ms-1"></i></span>
-                                            @break
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En attente <i
+                                                    class="isax isax-timer ms-1"></i></span>
+                                        @break
+
                                         @case('failed')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Échoué <i class="isax isax-close-circle ms-1"></i></span>
-                                            @break
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Échoué <i
+                                                    class="isax isax-close-circle ms-1"></i></span>
+                                        @break
+
                                         @case('refunded')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">Remboursé <i class="isax isax-money-3 ms-1"></i></span>
-                                            @break
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center">Remboursé <i
+                                                    class="isax isax-money-3 ms-1"></i></span>
+                                        @break
+
                                         @case('cancelled')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Annulé <i class="isax isax-close-circle ms-1"></i></span>
-                                            @break
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Annulé <i
+                                                    class="isax isax-close-circle ms-1"></i></span>
+                                        @break
                                     @endswitch
                                 </td>
                                 <td class="action-item">
@@ -130,9 +170,11 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <form method="POST" action="{{ route('bo.sales.payments.destroy', $payment) }}">
+                                            <form method="POST"
+                                                action="{{ route('bo.sales.payments.destroy', $payment) }}">
                                                 @csrf @method('DELETE')
-                                                <button class="dropdown-item d-flex align-items-center text-danger" type="submit"
+                                                <button class="dropdown-item d-flex align-items-center text-danger"
+                                                    type="submit"
                                                     onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce paiement ? Les allocations seront annulées.')">
                                                     <i class="isax isax-trash me-2"></i>Supprimer
                                                 </button>
@@ -146,7 +188,7 @@
                 </table>
             </div>
 
-            {{ $payments->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $payments])
 
             @component('backoffice.components.footer')
             @endcomponent

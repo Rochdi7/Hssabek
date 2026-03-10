@@ -101,10 +101,10 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Prochaine exécution <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('next_run_at') is-invalid @enderror"
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('next_run_at') is-invalid @enderror"
                                                     name="next_run_at"
-                                                    value="{{ old('next_run_at', $recurringInvoice->next_run_at instanceof \Carbon\Carbon ? $recurringInvoice->next_run_at->format('Y-m-d') : $recurringInvoice->next_run_at) }}">
+                                                    value="{{ old('next_run_at', $recurringInvoice->next_run_at instanceof \Carbon\Carbon ? $recurringInvoice->next_run_at->format('d-m-Y') : $recurringInvoice->next_run_at) }}">
                                                 @error('next_run_at')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

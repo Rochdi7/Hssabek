@@ -51,7 +51,7 @@ class InvoiceController extends Controller
             $query->whereDate('issue_date', '<=', $to);
         }
 
-        $invoices = $query->latest('issue_date')->paginate(15)->withQueryString();
+        $invoices = $query->latest('issue_date')->paginate($request->input('per_page', 15))->withQueryString();
 
         return view('backoffice.sales.invoices.index', compact('invoices'));
     }

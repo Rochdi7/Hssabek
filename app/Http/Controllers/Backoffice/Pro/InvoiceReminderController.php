@@ -21,7 +21,7 @@ class InvoiceReminderController extends Controller
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->when($request->type, fn($q, $t) => $q->where('type', $t))
             ->latest('scheduled_at')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.pro.invoice-reminders.index', compact('reminders'));

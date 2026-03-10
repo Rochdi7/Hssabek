@@ -68,9 +68,9 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Date de réception <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('received_at') is-invalid @enderror"
-                                                    name="received_at" value="{{ old('received_at', date('Y-m-d')) }}">
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('received_at') is-invalid @enderror"
+                                                    name="received_at" value="{{ old('received_at', date('d-m-Y')) }}">
                                                 @error('received_at')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

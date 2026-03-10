@@ -22,7 +22,7 @@ class MoneyTransferController extends Controller
             ->when($request->search, fn($q, $s) => $q->where('reference_number', 'like', "%{$s}%"))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest('transfer_date')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.finance.money-transfers.index', compact('transfers'));

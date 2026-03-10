@@ -16,6 +16,7 @@
                     <h6>Mouvements de stock</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'stock-movements'])
                     <div>
                         <a href="{{ route('bo.inventory.movements.create') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Nouveau mouvement
@@ -116,7 +117,7 @@
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -187,7 +188,7 @@
             </div>
             <!-- End Table List -->
 
-            {{ $movements->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $movements])
 
             @component('backoffice.components.footer')
             @endcomponent

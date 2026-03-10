@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                    Start Page Content
-                ========================= -->
+                        Start Page Content
+                    ========================= -->
 
     @php
         $currency = App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD';
@@ -66,14 +66,21 @@
                                                                 <label class="form-label">Référence</label>
                                                                 <div class="mb-2">
                                                                     <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="ref_mode" id="ref_mode_manual"
+                                                                            value="manual" checked
                                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
-                                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                                        <label class="form-check-label"
+                                                                            for="ref_mode_manual">Saisie manuelle</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="ref_mode" id="ref_mode_auto"
+                                                                            value="auto"
                                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                                        <label class="form-check-label"
+                                                                            for="ref_mode_auto">Générer
+                                                                            automatiquement</label>
                                                                     </div>
                                                                 </div>
                                                                 <input type="text" name="reference_number"
@@ -91,9 +98,10 @@
                                                                 <label class="form-label">Date d'émission <span
                                                                         class="text-danger">*</span></label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date" name="issue_date"
-                                                                        class="form-control rounded-end @error('issue_date') is-invalid @enderror"
-                                                                        value="{{ old('issue_date', date('Y-m-d')) }}">
+                                                                    <input type="text" name="issue_date"
+                                                                        class="form-control datetimepicker rounded-end @error('issue_date') is-invalid @enderror"
+                                                                        value="{{ old('issue_date', date('d-m-Y')) }}"
+                                                                        placeholder="{{ now()->format('d M Y') }}">
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
                                                                         <i class="isax isax-calendar-2"></i>
                                                                     </span>
@@ -107,9 +115,10 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date d'expiration</label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date" name="expiry_date"
-                                                                        class="form-control rounded-end @error('expiry_date') is-invalid @enderror"
-                                                                        value="{{ old('expiry_date') }}">
+                                                                    <input type="text" name="expiry_date"
+                                                                        class="form-control datetimepicker rounded-end @error('expiry_date') is-invalid @enderror"
+                                                                        value="{{ old('expiry_date') }}"
+                                                                        placeholder="{{ now()->format('d M Y') }}">
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
                                                                         <i class="isax isax-calendar-2"></i>
                                                                     </span>
@@ -153,8 +162,8 @@
                                                                 <div class="d-flex align-items-center">
                                                                     <div class="form-check form-switch me-4">
                                                                         <input class="form-check-input" type="checkbox"
-                                                                            role="switch" name="enable_tax" id="enable_tax"
-                                                                            value="1"
+                                                                            role="switch" name="enable_tax"
+                                                                            id="enable_tax" value="1"
                                                                             {{ old('enable_tax', '1') == '1' ? 'checked' : '' }}>
                                                                         <label class="form-check-label"
                                                                             for="enable_tax">Activer la
@@ -284,7 +293,8 @@
 
                                     <!-- Table List Start -->
                                     <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                        <table class="table table-nowrap add-table mb-0" id="items-table" style="table-layout: fixed; width: 100%;">
+                                        <table class="table table-nowrap add-table mb-0" id="items-table"
+                                            style="table-layout: fixed; width: 100%;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th style="width: 22%;">Libellé</th>
@@ -315,8 +325,7 @@
                                                             step="0.001" required>
                                                     </td>
                                                     <td>
-                                                        <select name="items[0][unit_id]" class="form-select item-unit"
-                                                           >
+                                                        <select name="items[0][unit_id]" class="form-select item-unit">
                                                             <option value="">—</option>
                                                             @foreach ($units as $unit)
                                                                 <option value="{{ $unit->id }}"
@@ -332,8 +341,7 @@
                                                             step="0.01" required>
                                                     </td>
                                                     <td>
-                                                        <div class="d-flex align-items-center gap-1"
-                                                           >
+                                                        <div class="d-flex align-items-center gap-1">
                                                             <select name="items[0][discount_type]"
                                                                 class="form-select item-discount-type"
                                                                 style="width: 60px;">
@@ -373,8 +381,7 @@
                                     <!-- Table List End -->
 
                                     <div>
-                                        <a href="javascript:void(0);"
-                                            class="d-inline-flex align-items-center"
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
                                             id="add-item-btn"><i
                                                 class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un
                                             article</a>
@@ -411,16 +418,21 @@
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
-                                                        <div class="tab-pane active show" id="notes"
-                                                            role="tabpanel">
+                                                        <div class="tab-pane active show" id="notes" role="tabpanel">
                                                             <label class="form-label">Notes additionnelles</label>
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">Conditions générales</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">Compte bancaire</label>
@@ -469,8 +481,7 @@
                             </div><!-- end card body -->
 
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a href="{{ route('bo.sales.quotes.index') }}"
-                                    class="btn btn-outline-white">Annuler</a>
+                                <a href="{{ route('bo.sales.quotes.index') }}" class="btn btn-outline-white">Annuler</a>
                                 <button type="submit" class="btn btn-primary">Enregistrer</button>
                             </div><!-- end card footer -->
                         </form>
@@ -486,8 +497,8 @@
     </div>
 
     <!-- ========================
-                    End Page Content
-                ========================= -->
+                        End Page Content
+                    ========================= -->
 @endsection
 
 @php

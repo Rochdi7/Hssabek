@@ -125,6 +125,8 @@ Route::prefix('backoffice')
             require __DIR__ . '/backoffice/reports.php';
             require __DIR__ . '/backoffice/notifications.php';
             require __DIR__ . '/backoffice/trash.php';
+            require __DIR__ . '/backoffice/export.php';
+            require __DIR__ . '/backoffice/documentation.php';
         });
     });
 

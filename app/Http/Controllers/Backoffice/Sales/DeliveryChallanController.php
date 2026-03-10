@@ -35,7 +35,7 @@ class DeliveryChallanController extends Controller
             }))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest('challan_date')
-            ->paginate(15)
+            ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.sales.delivery-challans.index', compact('challans'));

@@ -12,27 +12,14 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Produits</h6>
+                    <h6>Produits & Services</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="javascript:void(0);">Télécharger en PDF</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:void(0);">Télécharger en Excel</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'products'])
                     <div>
                         <a href="{{ route('bo.catalog.products.create') }}"
                             class="btn btn-primary d-flex align-items-center"><i
-                                class="isax isax-add-circle5 me-1"></i>Nouveau produit</a>
+                                class="isax isax-add-circle5 me-1"></i>Nouveau</a>
                     </div>
                 </div>
             </div>
@@ -61,7 +48,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un produit..." value="{{ request('search') }}">
+                                    placeholder="Rechercher un produit ou service..." value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -71,10 +58,35 @@
                                 @if (request('status'))
                                     <input type="hidden" name="status" value="{{ request('status') }}">
                                 @endif
+                                @if (request('item_type'))
+                                    <input type="hidden" name="item_type" value="{{ request('item_type') }}">
+                                @endif
                             </div>
                         </form>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
+                        <div class="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
+                                <i class="isax isax-category me-1"></i>Type : <span
+                                    class="fw-normal ms-1">{{ request('item_type') === 'product' ? 'Produits' : (request('item_type') === 'service' ? 'Services' : 'Tous') }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('item_type', 'page'))) }}"
+                                        class="dropdown-item">Tous</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['item_type' => 'product'])) }}"
+                                        class="dropdown-item">Produits</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['item_type' => 'service'])) }}"
+                                        class="dropdown-item">Services</a>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="dropdown">
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
@@ -125,7 +137,7 @@
 
             <!-- Start Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -133,7 +145,8 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Produit</th>
+                            <th>Produit / Service</th>
+                            <th>Type</th>
                             <th>Catégorie</th>
                             <th>Unité</th>
                             <th>Quantité</th>
@@ -144,7 +157,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @forelse ($products as $product)
                             <tr>
                                 <td>
                                     <div class="form-check form-check-md">
@@ -174,9 +187,20 @@
                                         </div>
                                     </div>
                                 </td>
+                                <td>
+                                    @if ($product->item_type === 'service')
+                                        <span class="badge badge-soft-info d-inline-flex align-items-center">
+                                            <i class="isax isax-setting-25 me-1"></i>Service
+                                        </span>
+                                    @else
+                                        <span class="badge badge-soft-primary d-inline-flex align-items-center">
+                                            <i class="isax isax-box-15 me-1"></i>Produit
+                                        </span>
+                                    @endif
+                                </td>
                                 <td>{{ $product->category?->name ?? '—' }}</td>
                                 <td class="text-dark">{{ $product->unit?->name ?? '—' }}</td>
-                                <td>{{ $product->quantity ?? 0 }}</td>
+                                <td>{{ $product->item_type === 'service' ? '—' : ($product->quantity ?? 0) }}</td>
                                 <td class="text-dark">{{ number_format($product->selling_price, 2, ',', ' ') }}</td>
                                 <td>
                                     @if ($product->is_active)
@@ -190,7 +214,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($product->track_inventory)
+                                    @if ($product->item_type === 'product' && $product->track_inventory)
                                         <div class="d-flex align-items-center">
                                             <a href="#"
                                                 class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular btn-view-history"
@@ -239,7 +263,7 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
+                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer {{ $product->item_type === 'service' ? 'ce service' : 'ce produit' }} ?')">
                                                     <i class="isax isax-trash me-2"></i>Supprimer
                                                 </button>
                                             </form>
@@ -247,13 +271,19 @@
                                     </ul>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="9" class="text-center text-muted py-4">
+                                    Aucun enregistrement trouvé.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
             <!-- End Table List -->
 
-            {{ $products->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $products])
 
         </div>
         <!-- End Container  -->

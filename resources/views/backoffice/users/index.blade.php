@@ -16,20 +16,7 @@
                     <h6>Utilisateurs</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en PDF</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en Excel</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'users'])
                     <div>
                         <a href="{{ route('bo.users.invite') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Inviter un utilisateur
@@ -113,7 +100,7 @@
 
             {{-- Users Table --}}
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -203,7 +190,7 @@
                 </table>
             </div>
 
-            {{ $users->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $users])
 
         </div>
 

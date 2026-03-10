@@ -43,7 +43,11 @@ class ProductController extends Controller
             $query->where('is_active', $request->input('status') === 'active');
         }
 
-        $products = $query->latest()->paginate(15)->withQueryString();
+        if ($request->filled('item_type') && in_array($request->input('item_type'), ['product', 'service'])) {
+            $query->where('item_type', $request->input('item_type'));
+        }
+
+        $products = $query->latest()->paginate(request()->input('per_page', 15))->withQueryString();
 
         $categories = ProductCategory::where('is_active', true)
             ->orderBy('name')
@@ -80,6 +84,14 @@ class ProductController extends Controller
             $data['slug'] = Str::slug($data['name']);
         }
 
+        // Clear inventory fields for services
+        if (($data['item_type'] ?? 'product') === 'service') {
+            $data['track_inventory'] = false;
+            $data['quantity'] = 0;
+            $data['alert_quantity'] = null;
+            $data['barcode'] = null;
+        }
+
         $product = Product::create($data);
 
         if ($request->hasFile('product_image')) {
@@ -87,8 +99,10 @@ class ProductController extends Controller
                 ->toMediaCollection('product_image');
         }
 
+        $label = ($data['item_type'] ?? 'product') === 'service' ? 'Service' : 'Produit';
+
         return redirect()->route('bo.catalog.products.index')
-            ->with('success', 'Produit créé avec succès.');
+            ->with('success', "$label créé avec succès.");
     }
 
     public function edit(Product $product)
@@ -118,6 +132,14 @@ class ProductController extends Controller
             $data['slug'] = Str::slug($data['name']);
         }
 
+        // Clear inventory fields for services
+        if (($data['item_type'] ?? $product->item_type) === 'service') {
+            $data['track_inventory'] = false;
+            $data['quantity'] = 0;
+            $data['alert_quantity'] = null;
+            $data['barcode'] = null;
+        }
+
         $product->update($data);
 
         if ($request->hasFile('product_image')) {
@@ -125,18 +147,22 @@ class ProductController extends Controller
                 ->toMediaCollection('product_image');
         }
 
+        $label = $product->item_type === 'service' ? 'Service' : 'Produit';
+
         return redirect()->route('bo.catalog.products.index')
-            ->with('success', 'Produit mis à jour avec succès.');
+            ->with('success', "$label mis à jour avec succès.");
     }
 
     public function destroy(Product $product)
     {
         $this->authorize('delete', $product);
 
+        $label = $product->item_type === 'service' ? 'Service' : 'Produit';
+
         $product->delete();
 
         return redirect()->route('bo.catalog.products.index')
-            ->with('success', 'Produit supprimé avec succès.');
+            ->with('success', "$label supprimé avec succès.");
     }
 
     /**

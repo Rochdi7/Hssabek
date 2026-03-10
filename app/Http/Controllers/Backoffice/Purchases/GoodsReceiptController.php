@@ -32,7 +32,7 @@ class GoodsReceiptController extends Controller
             }))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest('received_at')
-            ->paginate(15)
+            ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.purchases.goods-receipts.index', compact('receipts'));
@@ -44,7 +44,7 @@ class GoodsReceiptController extends Controller
 
         $purchaseOrders = PurchaseOrder::where('status', 'confirmed')->with('supplier')->orderBy('order_date', 'desc')->get();
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
-        $products = Product::orderBy('name')->get();
+        $products = Product::where('item_type', 'product')->orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('receipt_ref');
 
@@ -76,7 +76,7 @@ class GoodsReceiptController extends Controller
 
         $purchaseOrders = PurchaseOrder::with('supplier')->orderBy('order_date', 'desc')->get();
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
-        $products = Product::orderBy('name')->get();
+        $products = Product::where('item_type', 'product')->orderBy('name')->get();
         $goodsReceipt->load('items');
 
         $nextReference = app(DocumentNumberService::class)->preview('receipt_ref');

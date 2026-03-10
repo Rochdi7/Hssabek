@@ -8,6 +8,7 @@
                     <h6>Notes de débit</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'debit-notes'])
                     <div>
                         <a href="{{ route('bo.purchases.debit-notes.create') }}"
                             class="btn btn-primary d-flex align-items-center">
@@ -79,12 +80,15 @@
                                         class="dropdown-item">Appliquée</a></li>
                             </ul>
                         </div>
+                        @include('backoffice.components.column-toggle', [
+                            'columns' => ['N° Note', 'Date', 'Fournisseur', 'Montant', 'Statut'],
+                        ])
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -162,7 +166,7 @@
                 </table>
             </div>
 
-            {{ $debitNotes->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $debitNotes])
 
             @component('backoffice.components.footer')
             @endcomponent

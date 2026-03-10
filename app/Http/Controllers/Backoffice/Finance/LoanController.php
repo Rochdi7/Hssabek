@@ -24,7 +24,7 @@ class LoanController extends Controller
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->when($request->lender_type, fn($q, $t) => $q->where('lender_type', $t))
             ->latest('start_date')
-            ->paginate(15)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.finance.loans.index', compact('loans'));

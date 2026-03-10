@@ -148,7 +148,7 @@ class TrashController extends Controller
             $query->where($config['name_column'], 'like', "%{$search}%");
         }
 
-        $items = $query->latest('deleted_at')->paginate(15)->withQueryString();
+        $items = $query->latest('deleted_at')->paginate(request()->input('per_page', 15))->withQueryString();
 
         // Count trashed items per type for badges
         $counts = [];

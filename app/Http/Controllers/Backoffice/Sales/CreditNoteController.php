@@ -46,7 +46,7 @@ class CreditNoteController extends Controller
             $query->whereDate('issue_date', '<=', $to);
         }
 
-        $creditNotes = $query->latest('issue_date')->paginate(15)->withQueryString();
+        $creditNotes = $query->latest('issue_date')->paginate($request->input('per_page', 15))->withQueryString();
 
         return view('backoffice.sales.credit-notes.index', compact('creditNotes'));
     }

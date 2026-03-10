@@ -76,7 +76,7 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Date du transfert <span class="text-danger ms-1">*</span></label>
-                                                <input type="date" class="form-control @error('transfer_date') is-invalid @enderror" name="transfer_date" value="{{ old('transfer_date', date('Y-m-d')) }}">
+                                                <input type="text" class="form-control datetimepicker @error('transfer_date') is-invalid @enderror" name="transfer_date" value="{{ old('transfer_date', date('d-m-Y')) }}">
                                                 @error('transfer_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                             </div>
                                         </div>

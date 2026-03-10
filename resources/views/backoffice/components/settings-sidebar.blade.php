@@ -64,12 +64,12 @@
                                                         class="{{ request()->routeIs('bo.settings.invoice-templates.*') ? 'active' : '' }}">Modèles de documents</a></li>
                                                 <li><a href="{{ route('bo.catalog.tax-rates.index') }}"
                                                         class="{{ request()->routeIs('bo.catalog.tax-rates.*', 'bo.catalog.tax-categories.*', 'bo.catalog.tax-groups.*') ? 'active' : '' }}">Taux de taxes</a></li>
-                                                <li><a href="{{ route('bo.settings.email-templates.index') }}"
-                                                        class="{{ request()->routeIs('bo.settings.email-templates.*') ? 'active' : '' }}">Modèles d'email</a></li>
+                                                <li><a href="javascript:void(0);" class="d-flex align-items-center">Modèles d'email
+                                                        <span class="badge bg-soft-warning text-warning ms-2" style="font-size: 10px;">Bientôt</span></a></li>
                                                 <li><a href="{{ route('bo.settings.signatures.index') }}"
                                                         class="{{ request()->routeIs('bo.settings.signatures.*') ? 'active' : '' }}">Signatures électroniques</a></li>
-                                                <li><a href="{{ route('bo.settings.barcode.edit') }}"
-                                                        class="{{ request()->routeIs('bo.settings.barcode.*') ? 'active' : '' }}">Code-barres</a></li>
+                                                <li><a href="javascript:void(0);" class="d-flex align-items-center">Code-barres
+                                                        <span class="badge bg-soft-warning text-warning ms-2" style="font-size: 10px;">Bientôt</span></a></li>
                                                 <li><a href="{{ route('bo.settings.payment-methods.index') }}"
                                                         class="{{ request()->routeIs('bo.settings.payment-methods.*') ? 'active' : '' }}">Modes de paiement</a></li>
                                             </ul>

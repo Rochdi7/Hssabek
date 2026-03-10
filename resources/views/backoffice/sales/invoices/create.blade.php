@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                            Start Page Content
-                        ========================= -->
+                                Start Page Content
+                            ========================= -->
 
     @php
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
@@ -82,9 +82,10 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date d'émission</label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date" name="issue_date"
-                                                                        class="form-control rounded-end @error('issue_date') is-invalid @enderror"
-                                                                        value="{{ old('issue_date', date('Y-m-d')) }}">
+                                                                    <input type="text" name="issue_date"
+                                                                        class="form-control datetimepicker rounded-end @error('issue_date') is-invalid @enderror"
+                                                                        value="{{ old('issue_date', date('d-m-Y')) }}"
+                                                                        placeholder="{{ now()->format('d M Y') }}">
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
                                                                         <i class="isax isax-calendar-2"></i>
                                                                     </span>
@@ -107,9 +108,10 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date d'échéance</label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date" name="due_date" id="due_date"
-                                                                        class="form-control rounded-end @error('due_date') is-invalid @enderror"
-                                                                        value="{{ old('due_date') }}">
+                                                                    <input type="text" name="due_date" id="due_date"
+                                                                        class="form-control datetimepicker rounded-end @error('due_date') is-invalid @enderror"
+                                                                        value="{{ old('due_date') }}"
+                                                                        placeholder="{{ now()->format('d M Y') }}">
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
                                                                         <i class="isax isax-calendar-2"></i>
                                                                     </span>
@@ -134,7 +136,8 @@
                                                                         id="is_recurring_input"
                                                                         value="{{ old('is_recurring', '0') }}">
                                                                     <div class="flex-fill me-3">
-                                                                        <select class="form-select" name="recurring_interval"
+                                                                        <select class="form-select"
+                                                                            name="recurring_interval"
                                                                             id="recurring_interval">
                                                                             <option value="month"
                                                                                 {{ old('recurring_interval') == 'month' ? 'selected' : '' }}>
@@ -204,10 +207,11 @@
                                                                 <div class="d-flex align-items-center">
                                                                     <div class="form-check form-switch me-4">
                                                                         <input class="form-check-input" type="checkbox"
-                                                                            role="switch" name="enable_tax" id="enable_tax"
-                                                                            value="1"
+                                                                            role="switch" name="enable_tax"
+                                                                            id="enable_tax" value="1"
                                                                             {{ old('enable_tax', '1') == '1' ? 'checked' : '' }}>
-                                                                        <label class="form-check-label" for="enable_tax">Activer
+                                                                        <label class="form-check-label"
+                                                                            for="enable_tax">Activer
                                                                             la
                                                                             taxe</label>
                                                                     </div>
@@ -337,7 +341,8 @@
 
                                     <!-- Table List Start -->
                                     <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                        <table class="table table-nowrap add-table m-0" id="items-table" style="table-layout: fixed; width: 100%;">
+                                        <table class="table table-nowrap add-table m-0" id="items-table"
+                                            style="table-layout: fixed; width: 100%;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th style="width: 22%; color: #fff;">Libellé</th>
@@ -368,8 +373,7 @@
                                                             step="0.001" required>
                                                     </td>
                                                     <td>
-                                                        <select name="items[0][unit_id]" class="form-select item-unit"
-                                                           >
+                                                        <select name="items[0][unit_id]" class="form-select item-unit">
                                                             <option value="">—</option>
                                                             @foreach ($units as $unit)
                                                                 <option value="{{ $unit->id }}"
@@ -385,8 +389,7 @@
                                                             step="0.01" required>
                                                     </td>
                                                     <td>
-                                                        <div class="d-flex align-items-center gap-1"
-                                                           >
+                                                        <div class="d-flex align-items-center gap-1">
                                                             <select name="items[0][discount_type]"
                                                                 class="form-select item-discount-type"
                                                                 style="width: 60px;">
@@ -426,8 +429,7 @@
                                     <!-- Table List End -->
 
                                     <div>
-                                        <a href="javascript:void(0);"
-                                            class="d-inline-flex align-items-center"
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
                                             id="add-item-btn"><i
                                                 class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un
                                             article</a>
@@ -464,16 +466,21 @@
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
-                                                        <div class="tab-pane active show" id="notes"
-                                                            role="tabpanel">
+                                                        <div class="tab-pane active show" id="notes" role="tabpanel">
                                                             <label class="form-label">Notes additionnelles</label>
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">Conditions générales</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">Compte bancaire</label>
@@ -511,8 +518,8 @@
                                                     {{-- Additional charges injected by JS --}}
                                                 </li>
                                                 <li class="mb-3">
-                                                    <a href="javascript:void(0);"
-                                                        class="d-inline-flex align-items-center" id="add-charge-btn">
+                                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center"
+                                                        id="add-charge-btn">
                                                         <i class="isax isax-add-circle5 text-primary me-1"></i>Ajouter
                                                         des frais supplémentaires
                                                     </a>
@@ -568,8 +575,8 @@
                                                     </div>
                                                     <div class="mb-2">
                                                         <label class="form-label">Nom du signataire</label>
-                                                        <input type="text" class="form-control"
-                                                            name="signature_name" id="signature-name"
+                                                        <input type="text" class="form-control" name="signature_name"
+                                                            id="signature-name"
                                                             value="{{ old('signature_name', $defaultSignature?->name ?? '') }}"
                                                             placeholder="Nom du signataire">
                                                     </div>
@@ -608,8 +615,8 @@
     </div>
 
     <!-- ========================
-                            End Page Content
-                        ========================= -->
+                                End Page Content
+                            ========================= -->
 @endsection
 
 @php

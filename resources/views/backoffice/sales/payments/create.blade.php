@@ -90,11 +90,17 @@
                                                 <div class="mb-3">
                                                     <label class="form-label">Date de paiement <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="date" name="payment_date"
-                                                        class="form-control @error('payment_date') is-invalid @enderror"
-                                                        value="{{ old('payment_date', date('Y-m-d')) }}" required>
+                                                    <div class="input-group position-relative">
+                                                        <input type="text" name="payment_date"
+                                                            class="form-control datetimepicker @error('payment_date') is-invalid @enderror"
+                                                            value="{{ old('payment_date', date('d-m-Y')) }}"
+                                                            placeholder="{{ now()->format('d M Y') }}" required>
+                                                        <span class="input-icon-addon fs-16 text-gray-9">
+                                                            <i class="isax isax-calendar-2"></i>
+                                                        </span>
+                                                    </div>
                                                     @error('payment_date')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                        <div class="invalid-feedback d-block">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -103,14 +109,18 @@
                                                     <label class="form-label">Référence</label>
                                                     <div class="mb-2">
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                            <input class="form-check-input" type="radio" name="ref_mode"
+                                                                id="ref_mode_manual" value="manual" checked
                                                                 onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
-                                                            <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                            <label class="form-check-label" for="ref_mode_manual">Saisie
+                                                                manuelle</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                            <input class="form-check-input" type="radio" name="ref_mode"
+                                                                id="ref_mode_auto" value="auto"
                                                                 onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                            <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                            <label class="form-check-label" for="ref_mode_auto">Générer
+                                                                automatiquement</label>
                                                         </div>
                                                     </div>
                                                     <input type="text" name="reference_number" id="reference_number"

@@ -91,7 +91,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Date de fin d'essai<span class="text-danger ms-1">*</span></label>
                                 <div class="input-group position-relative">
-                                    <input type="date" class="form-control @error('trial_ends_at') is-invalid @enderror" name="trial_ends_at" value="{{ old('trial_ends_at') }}">
+                                    <input type="text" class="form-control datetimepicker @error('trial_ends_at') is-invalid @enderror" name="trial_ends_at" value="{{ old('trial_ends_at') }}">
                                     @error('trial_ends_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Date de fin d'essai<span class="text-danger ms-1">*</span></label>
                                     <div class="input-group position-relative">
-                                        <input type="date" class="form-control" name="trial_ends_at" value="{{ old('trial_ends_at', $tenant->trial_ends_at?->format('Y-m-d')) }}">
+                                        <input type="text" class="form-control datetimepicker" name="trial_ends_at" value="{{ old('trial_ends_at', $tenant->trial_ends_at?->format('d-m-Y')) }}">
                                     </div>
                                 </div>
                             </div>

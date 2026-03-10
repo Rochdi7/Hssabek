@@ -265,10 +265,10 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label">Date du taux</label>
-                                        <input type="date"
-                                            class="form-control @error('date') is-invalid @enderror"
+                                        <input type="text"
+                                            class="form-control datetimepicker @error('date') is-invalid @enderror"
                                             name="date"
-                                            value="{{ old('date', $exchangeRate->date instanceof \Carbon\Carbon ? $exchangeRate->date->format('Y-m-d') : $exchangeRate->date) }}">
+                                            value="{{ old('date', $exchangeRate->date instanceof \Carbon\Carbon ? $exchangeRate->date->format('d-m-Y') : $exchangeRate->date) }}">
                                         @error('date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
                                 </div>

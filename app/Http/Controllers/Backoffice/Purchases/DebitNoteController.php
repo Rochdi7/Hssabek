@@ -34,7 +34,7 @@ class DebitNoteController extends Controller
             }))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest('debit_note_date')
-            ->paginate(15)
+            ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.purchases.debit-notes.index', compact('debitNotes'));

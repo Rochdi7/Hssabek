@@ -8,6 +8,7 @@
                     <h6>Remboursements</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'refunds'])
                     <div>
                         <a href="{{ route('bo.sales.refunds.create') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Nouveau remboursement
@@ -78,12 +79,15 @@
                                         class="dropdown-item">Échoué</a></li>
                             </ul>
                         </div>
+                        @include('backoffice.components.column-toggle', [
+                            'columns' => ['Paiement', 'Client', 'Montant', 'Date', 'Réf. fournisseur', 'Statut'],
+                        ])
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -158,7 +162,7 @@
                 </table>
             </div>
 
-            {{ $refunds->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $refunds])
 
             @component('backoffice.components.footer')
             @endcomponent

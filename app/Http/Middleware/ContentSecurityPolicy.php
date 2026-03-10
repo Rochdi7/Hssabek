@@ -18,7 +18,7 @@ class ContentSecurityPolicy
         if (str_contains($contentType, 'text/html') && !$response->headers->has('Content-Security-Policy')) {
             $response->headers->set(
                 'Content-Security-Policy',
-                "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src blob:; frame-src blob: data:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+                "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src blob:; frame-src blob: data:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
             );
         }
 

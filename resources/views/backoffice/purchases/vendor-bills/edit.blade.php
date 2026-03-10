@@ -73,10 +73,10 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date d'émission <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="date"
-                                                                    class="form-control @error('issue_date') is-invalid @enderror"
+                                                                <input type="text"
+                                                                    class="form-control datetimepicker @error('issue_date') is-invalid @enderror"
                                                                     name="issue_date"
-                                                                    value="{{ old('issue_date', $vendorBill->issue_date->format('Y-m-d')) }}"
+                                                                    value="{{ old('issue_date', $vendorBill->issue_date->format('d-m-Y')) }}"
                                                                     required>
                                                                 @error('issue_date')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -86,10 +86,10 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date d'échéance</label>
-                                                                <input type="date"
-                                                                    class="form-control @error('due_date') is-invalid @enderror"
+                                                                <input type="text"
+                                                                    class="form-control datetimepicker @error('due_date') is-invalid @enderror"
                                                                     name="due_date"
-                                                                    value="{{ old('due_date', $vendorBill->due_date?->format('Y-m-d')) }}">
+                                                                    value="{{ old('due_date', $vendorBill->due_date?->format('d-m-Y')) }}">
                                                                 @error('due_date')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror

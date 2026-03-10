@@ -27,7 +27,7 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->latest()->paginate(15)->withQueryString();
+        $users = $query->latest()->paginate(request()->input('per_page', 15))->withQueryString();
 
         $pendingInvitations = UserInvitation::where('tenant_id', TenantContext::id())
             ->whereNull('accepted_at')

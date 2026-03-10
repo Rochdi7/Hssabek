@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-      Start Page Content
-     ========================= -->
+          Start Page Content
+         ========================= -->
 
     <div class="page-wrapper">
 
@@ -16,6 +16,7 @@
                     <h6>Clients</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'customers'])
                     <div>
                         <a href="{{ route('bo.crm.customers.create') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Nouveau client
@@ -25,7 +26,7 @@
             </div>
             <!-- End Page Header -->
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -36,15 +37,18 @@
             <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                     <div class="d-flex align-items-center flex-wrap gap-2">
-                        <form action="{{ route('bo.crm.customers.index') }}" method="GET" class="table-search d-flex align-items-center mb-0">
+                        <form action="{{ route('bo.crm.customers.index') }}" method="GET"
+                            class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <input type="text" name="search" class="form-control" placeholder="Rechercher un client..." value="{{ request('search') }}">
-                                <a href="javascript:void(0);" class="btn-searchset" onclick="this.closest('form').submit()"><i
+                                <input type="text" name="search" class="form-control"
+                                    placeholder="Rechercher un client..." value="{{ request('search') }}">
+                                <a href="javascript:void(0);" class="btn-searchset"
+                                    onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
-                                @if(request('status'))
+                                @if (request('status'))
                                     <input type="hidden" name="status" value="{{ request('status') }}">
                                 @endif
-                                @if(request('type'))
+                                @if (request('type'))
                                     <input type="hidden" name="type" value="{{ request('type') }}">
                                 @endif
                             </div>
@@ -55,17 +59,21 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">{{ request('status') === 'active' ? 'Actif' : (request('status') === 'inactive' ? 'Inactif' : 'Tous') }}</span>
+                                <i class="isax isax-filter me-1"></i>Statut : <span
+                                    class="fw-normal ms-1">{{ request('status') === 'active' ? 'Actif' : (request('status') === 'inactive' ? 'Inactif' : 'Tous') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('status', 'page'))) }}" class="dropdown-item">Tous</a>
+                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('status', 'page'))) }}"
+                                        class="dropdown-item">Tous</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['status' => 'active'])) }}" class="dropdown-item">Actif</a>
+                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['status' => 'active'])) }}"
+                                        class="dropdown-item">Actif</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['status' => 'inactive'])) }}" class="dropdown-item">Inactif</a>
+                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['status' => 'inactive'])) }}"
+                                        class="dropdown-item">Inactif</a>
                                 </li>
                             </ul>
                         </div>
@@ -73,20 +81,27 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Type : <span class="fw-normal ms-1">{{ request('type') === 'individual' ? 'Particulier' : (request('type') === 'company' ? 'Entreprise' : 'Tous') }}</span>
+                                <i class="isax isax-sort me-1"></i>Type : <span
+                                    class="fw-normal ms-1">{{ request('type') === 'individual' ? 'Particulier' : (request('type') === 'company' ? 'Entreprise' : 'Tous') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('type', 'page'))) }}" class="dropdown-item">Tous</a>
+                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('type', 'page'))) }}"
+                                        class="dropdown-item">Tous</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['type' => 'individual'])) }}" class="dropdown-item">Particulier</a>
+                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['type' => 'individual'])) }}"
+                                        class="dropdown-item">Particulier</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['type' => 'company'])) }}" class="dropdown-item">Entreprise</a>
+                                    <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['type' => 'company'])) }}"
+                                        class="dropdown-item">Entreprise</a>
                                 </li>
                             </ul>
                         </div>
+                        @include('backoffice.components.column-toggle', [
+                            'columns' => ['Client', 'Téléphone', 'Type', 'Factures', 'Créé le', 'Statut'],
+                        ])
                     </div>
                 </div>
             </div>
@@ -94,7 +109,7 @@
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -112,7 +127,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($customers as $customer)
+                        @foreach ($customers as $customer)
                             <tr>
                                 <td>
                                     <div class="form-check form-check-md">
@@ -123,12 +138,15 @@
                                     <div class="d-flex align-items-center">
                                         <a href="{{ route('bo.crm.customers.show', $customer) }}"
                                             class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                            <span class="avatar avatar-sm rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                            <span
+                                                class="avatar avatar-sm rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
                                                 {{ strtoupper(substr($customer->name, 0, 1)) }}
                                             </span>
                                         </a>
                                         <div>
-                                            <h6 class="fs-14 fw-medium mb-0"><a href="{{ route('bo.crm.customers.show', $customer) }}">{{ $customer->name }}</a></h6>
+                                            <h6 class="fs-14 fw-medium mb-0"><a
+                                                    href="{{ route('bo.crm.customers.show', $customer) }}">{{ $customer->name }}</a>
+                                            </h6>
                                             <span class="fs-12 text-muted">{{ $customer->email ?? '—' }}</span>
                                         </div>
                                     </div>
@@ -142,7 +160,7 @@
                                 <td>{{ $customer->invoices_count }}</td>
                                 <td>{{ $customer->created_at->format('d/m/Y') }}</td>
                                 <td>
-                                    @if($customer->status === 'active')
+                                    @if ($customer->status === 'active')
                                         <span class="badge badge-soft-success d-inline-flex align-items-center">Actif <i
                                                 class="isax isax-tick-circle ms-1"></i></span>
                                     @else
@@ -166,9 +184,11 @@
                                                     class="isax isax-edit me-2"></i>Modifier</a>
                                         </li>
                                         <li>
-                                            <form method="POST" action="{{ route('bo.crm.customers.destroy', $customer) }}">
+                                            <form method="POST"
+                                                action="{{ route('bo.crm.customers.destroy', $customer) }}">
                                                 @csrf @method('DELETE')
-                                                <button class="dropdown-item d-flex align-items-center text-danger" type="submit"
+                                                <button class="dropdown-item d-flex align-items-center text-danger"
+                                                    type="submit"
                                                     onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?')">
                                                     <i class="isax isax-trash me-2"></i>Supprimer
                                                 </button>
@@ -183,7 +203,7 @@
             </div>
             <!-- End Table List -->
 
-            {{ $customers->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $customers])
 
             @component('backoffice.components.footer')
             @endcomponent
@@ -193,6 +213,6 @@
     </div>
 
     <!-- ========================
-      End Page Content
-     ========================= -->
+          End Page Content
+         ========================= -->
 @endsection

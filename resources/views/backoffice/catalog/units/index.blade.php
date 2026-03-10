@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -16,8 +16,11 @@
                     <h6>Unit&eacute;s</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'units'])
                     <div>
-                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_unit_modal"><i class="isax isax-add-circle5 me-1"></i>Nouvelle unit&eacute;</a>
+                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#add_unit_modal"><i class="isax isax-add-circle5 me-1"></i>Nouvelle
+                            unit&eacute;</a>
                     </div>
                 </div>
             </div>
@@ -29,19 +32,20 @@
                         <span class="input-group-text bg-white border-end-0">
                             <i class="isax isax-search-normal fs-12"></i>
                         </span>
-                        <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="Rechercher" id="unit-search">
+                        <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="Rechercher"
+                            id="unit-search">
                     </div>
                 </div> <!-- end col -->
             </div> <!-- end row -->
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
                 </div>
             @endif
 
-            @if(session('error'))
+            @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
                     {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
@@ -73,18 +77,16 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="#" class="dropdown-item d-flex align-items-center"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#edit_unit_modal"
-                                                data-id="{{ $unit->id }}"
-                                                data-name="{{ $unit->name }}"
-                                                data-short-name="{{ $unit->short_name }}"><i class="isax isax-edit me-2"></i>Modifier</a>
+                                                data-bs-toggle="modal" data-bs-target="#edit_unit_modal"
+                                                data-id="{{ $unit->id }}" data-name="{{ $unit->name }}"
+                                                data-short-name="{{ $unit->short_name }}"><i
+                                                    class="isax isax-edit me-2"></i>Modifier</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#delete_unit_modal"
-                                                data-id="{{ $unit->id }}"
-                                                data-name="{{ $unit->name }}"><i class="isax isax-trash me-2"></i>Supprimer</a>
+                                                data-bs-toggle="modal" data-bs-target="#delete_unit_modal"
+                                                data-id="{{ $unit->id }}" data-name="{{ $unit->name }}"><i
+                                                    class="isax isax-trash me-2"></i>Supprimer</a>
                                         </li>
                                     </ul>
                                 </td>
@@ -98,11 +100,7 @@
                 </table> <!-- end table -->
             </div>
 
-            @if($units->hasPages())
-                <div class="mt-3">
-                    {{ $units->links() }}
-                </div>
-            @endif
+            @include('backoffice.components.table-footer', ['paginator' => $units])
 
         </div>
         <!-- end container -->
@@ -115,8 +113,8 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     {{-- ============================================
         Add Unit Modal
@@ -126,7 +124,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Ajouter une unit&eacute;</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
+                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('bo.catalog.units.store') }}">
                     @csrf
@@ -136,23 +135,22 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label">Nom<span class="text-danger ms-1">*</span></label>
-                                    <input type="text"
-                                        class="form-control @error('name') is-invalid @enderror"
-                                        name="name"
-                                        value="{{ old('name') }}"
-                                        placeholder="Ex : Kilogramme">
-                                    @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        name="name" value="{{ old('name') }}" placeholder="Ex : Kilogramme">
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Abr&eacute;viation<span class="text-danger ms-1">*</span></label>
-                                    <input type="text"
-                                        class="form-control @error('short_name') is-invalid @enderror"
-                                        name="short_name"
-                                        value="{{ old('short_name') }}"
-                                        placeholder="Ex : kg">
-                                    @error('short_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    <label class="form-label">Abr&eacute;viation<span
+                                            class="text-danger ms-1">*</span></label>
+                                    <input type="text" class="form-control @error('short_name') is-invalid @enderror"
+                                        name="short_name" value="{{ old('short_name') }}" placeholder="Ex : kg">
+                                    @error('short_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -175,7 +173,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Modifier l'unit&eacute;</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
+                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="" id="edit_unit_form">
                     @csrf
@@ -186,25 +185,24 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label">Nom<span class="text-danger ms-1">*</span></label>
-                                    <input type="text"
-                                        class="form-control @error('name') is-invalid @enderror"
-                                        name="name"
-                                        id="edit_unit_name"
-                                        value="{{ old('name') }}"
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        name="name" id="edit_unit_name" value="{{ old('name') }}"
                                         placeholder="Ex : Kilogramme">
-                                    @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Abr&eacute;viation<span class="text-danger ms-1">*</span></label>
-                                    <input type="text"
-                                        class="form-control @error('short_name') is-invalid @enderror"
-                                        name="short_name"
-                                        id="edit_unit_short_name"
-                                        value="{{ old('short_name') }}"
+                                    <label class="form-label">Abr&eacute;viation<span
+                                            class="text-danger ms-1">*</span></label>
+                                    <input type="text" class="form-control @error('short_name') is-invalid @enderror"
+                                        name="short_name" id="edit_unit_short_name" value="{{ old('short_name') }}"
                                         placeholder="Ex : kg">
-                                    @error('short_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    @error('short_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -230,9 +228,11 @@
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
                     <h6 class="mb-1">Supprimer l'unit&eacute;</h6>
-                    <p class="mb-3" id="delete_unit_message">Etes-vous s&ucirc;r de vouloir supprimer cette unit&eacute; ?</p>
+                    <p class="mb-3" id="delete_unit_message">Etes-vous s&ucirc;r de vouloir supprimer cette unit&eacute;
+                        ?</p>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
+                        <a href="javascript:void(0);" class="btn btn-outline-white me-3"
+                            data-bs-dismiss="modal">Annuler</a>
                         <form method="POST" action="" id="delete_unit_form">
                             @csrf
                             @method('DELETE')
@@ -244,78 +244,79 @@
         </div>
     </div>
     {{-- /Delete Unit Modal --}}
-
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // ===========================
-        // Client-side search filtering
-        // ===========================
-        var searchInput = document.getElementById('unit-search');
-        if (searchInput) {
-            searchInput.addEventListener('keyup', function() {
-                var filter = this.value.toLowerCase();
-                var rows = document.querySelectorAll('table tbody tr');
-                rows.forEach(function(row) {
-                    var text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(filter) ? '' : 'none';
+            // ===========================
+            // Client-side search filtering
+            // ===========================
+            var searchInput = document.getElementById('unit-search');
+            if (searchInput) {
+                searchInput.addEventListener('keyup', function() {
+                    var filter = this.value.toLowerCase();
+                    var rows = document.querySelectorAll('table tbody tr');
+                    rows.forEach(function(row) {
+                        var text = row.textContent.toLowerCase();
+                        row.style.display = text.includes(filter) ? '' : 'none';
+                    });
                 });
-            });
-        }
+            }
 
-        // ===========================
-        // Edit modal — populate from data- attributes
-        // ===========================
-        var editModal = document.getElementById('edit_unit_modal');
-        if (editModal) {
-            editModal.addEventListener('show.bs.modal', function(event) {
-                var trigger = event.relatedTarget;
-                if (trigger) {
-                    var id = trigger.getAttribute('data-id');
-                    var name = trigger.getAttribute('data-name');
-                    var shortName = trigger.getAttribute('data-short-name');
+            // ===========================
+            // Edit modal — populate from data- attributes
+            // ===========================
+            var editModal = document.getElementById('edit_unit_modal');
+            if (editModal) {
+                editModal.addEventListener('show.bs.modal', function(event) {
+                    var trigger = event.relatedTarget;
+                    if (trigger) {
+                        var id = trigger.getAttribute('data-id');
+                        var name = trigger.getAttribute('data-name');
+                        var shortName = trigger.getAttribute('data-short-name');
 
-                    var baseUrl = "{{ route('bo.catalog.units.update', ':id') }}";
-                    document.getElementById('edit_unit_form').action = baseUrl.replace(':id', id);
-                    document.getElementById('edit_unit_name').value = name;
-                    document.getElementById('edit_unit_short_name').value = shortName;
-                }
-            });
-        }
+                        var baseUrl = "{{ route('bo.catalog.units.update', ':id') }}";
+                        document.getElementById('edit_unit_form').action = baseUrl.replace(':id', id);
+                        document.getElementById('edit_unit_name').value = name;
+                        document.getElementById('edit_unit_short_name').value = shortName;
+                    }
+                });
+            }
 
-        // ===========================
-        // Delete modal — populate from data- attributes
-        // ===========================
-        var deleteModal = document.getElementById('delete_unit_modal');
-        if (deleteModal) {
-            deleteModal.addEventListener('show.bs.modal', function(event) {
-                var trigger = event.relatedTarget;
-                if (trigger) {
-                    var id = trigger.getAttribute('data-id');
-                    var name = trigger.getAttribute('data-name');
+            // ===========================
+            // Delete modal — populate from data- attributes
+            // ===========================
+            var deleteModal = document.getElementById('delete_unit_modal');
+            if (deleteModal) {
+                deleteModal.addEventListener('show.bs.modal', function(event) {
+                    var trigger = event.relatedTarget;
+                    if (trigger) {
+                        var id = trigger.getAttribute('data-id');
+                        var name = trigger.getAttribute('data-name');
 
-                    var baseUrl = "{{ route('bo.catalog.units.destroy', ':id') }}";
-                    document.getElementById('delete_unit_form').action = baseUrl.replace(':id', id);
-                    document.getElementById('delete_unit_message').textContent = 'Etes-vous s\u00fbr de vouloir supprimer l\'unit\u00e9 \u00ab ' + name + ' \u00bb ?';
-                }
-            });
-        }
+                        var baseUrl = "{{ route('bo.catalog.units.destroy', ':id') }}";
+                        document.getElementById('delete_unit_form').action = baseUrl.replace(':id', id);
+                        document.getElementById('delete_unit_message').textContent =
+                            'Etes-vous s\u00fbr de vouloir supprimer l\'unit\u00e9 \u00ab ' + name +
+                            ' \u00bb ?';
+                    }
+                });
+            }
 
-        // ===========================
-        // Re-open modal on validation error
-        // ===========================
-        @if($errors->any())
-            @if(old('_modal') === 'add_unit_modal')
-                var addModalInstance = new bootstrap.Modal(document.getElementById('add_unit_modal'));
-                addModalInstance.show();
-            @elseif(old('_modal') === 'edit_unit_modal')
-                var editModalInstance = new bootstrap.Modal(document.getElementById('edit_unit_modal'));
-                editModalInstance.show();
+            // ===========================
+            // Re-open modal on validation error
+            // ===========================
+            @if ($errors->any())
+                @if (old('_modal') === 'add_unit_modal')
+                    var addModalInstance = new bootstrap.Modal(document.getElementById('add_unit_modal'));
+                    addModalInstance.show();
+                @elseif (old('_modal') === 'edit_unit_modal')
+                    var editModalInstance = new bootstrap.Modal(document.getElementById('edit_unit_modal'));
+                    editModalInstance.show();
+                @endif
             @endif
-        @endif
-    });
-</script>
+        });
+    </script>
 @endpush

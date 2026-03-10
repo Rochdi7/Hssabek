@@ -45,7 +45,7 @@ class PaymentController extends Controller
             $query->whereDate('payment_date', '<=', $to);
         }
 
-        $payments = $query->latest('payment_date')->paginate(15)->withQueryString();
+        $payments = $query->latest('payment_date')->paginate($request->input('per_page', 15))->withQueryString();
 
         return view('backoffice.sales.payments.index', compact('payments'));
     }

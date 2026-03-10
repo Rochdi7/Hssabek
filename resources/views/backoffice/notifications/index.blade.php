@@ -1,7 +1,6 @@
 <?php $page = 'notifications'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('content')
-
     <div class="page-wrapper">
 
         <div class="content content-two">
@@ -10,7 +9,7 @@
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h6>Toutes les notifications</h6>
                 <div class="d-flex gap-2">
-                    @if($notifications->where('read_at', null)->count() > 0)
+                    @if ($notifications->where('read_at', null)->count() > 0)
                         <form method="POST" action="{{ route('bo.notifications.markAllRead') }}">
                             @csrf
                             <button type="submit" class="btn btn-sm btn-outline-primary">
@@ -18,7 +17,7 @@
                             </button>
                         </form>
                     @endif
-                    @if($notifications->count() > 0)
+                    @if ($notifications->count() > 0)
                         <form method="POST" action="{{ route('bo.notifications.destroyAll') }}">
                             @csrf
                             <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -30,7 +29,7 @@
             </div>
             <!-- End Breadcrumb -->
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
@@ -43,28 +42,33 @@
                         <div class="d-flex align-items-center">
                             <div class="d-flex me-2">
                                 <span class="avatar avatar-lg avatar-rounded">
-                                    <span class="avatar-title bg-soft-{{ $notification->data['color'] ?? 'info' }} text-{{ $notification->data['color'] ?? 'info' }} rounded-circle">
+                                    <span
+                                        class="avatar-title bg-soft-{{ $notification->data['color'] ?? 'info' }} text-{{ $notification->data['color'] ?? 'info' }} rounded-circle">
                                         <i class="isax isax-{{ $notification->data['icon'] ?? 'notification' }} fs-18"></i>
                                     </span>
                                 </span>
                             </div>
                             <div class="flex-fill ml-3">
                                 <p class="mb-0">
-                                    @if(!empty($notification->data['title']))
+                                    @if (!empty($notification->data['title']))
                                         <span class="fs-14 fw-semibold">{{ $notification->data['title'] }}</span>
                                     @endif
                                     <span>{{ $notification->data['message'] ?? '' }}</span>
-                                    @if(!empty($notification->data['link_text']))
-                                        <a href="{{ $notification->data['link_url'] ?? '#' }}" class="fs-14 fw-semibold">{{ $notification->data['link_text'] }}</a>
+                                    @if (!empty($notification->data['link_text']))
+                                        <a href="{{ $notification->data['link_url'] ?? '#' }}"
+                                            class="fs-14 fw-semibold">{{ $notification->data['link_text'] }}</a>
                                     @endif
                                 </p>
-                                <span class="fs-12 d-flex align-items-center"><i class="ti ti-clock me-1"></i>{{ $notification->created_at->diffForHumans() }}</span>
+                                <span class="fs-12 d-flex align-items-center"><i
+                                        class="ti ti-clock me-1"></i>{{ $notification->created_at->diffForHumans() }}</span>
                             </div>
                             <div class="d-flex gap-2 ms-3">
-                                @if(is_null($notification->read_at))
-                                    <form method="POST" action="{{ route('bo.notifications.markAsRead', $notification->id) }}">
+                                @if (is_null($notification->read_at))
+                                    <form method="POST"
+                                        action="{{ route('bo.notifications.markAsRead', $notification->id) }}">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="Marquer comme lu">
+                                        <button type="submit" class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip"
+                                            title="Marquer comme lu">
                                             <i class="ti ti-bell-check"></i>
                                         </button>
                                     </form>
@@ -72,7 +76,8 @@
                                 <form method="POST" action="{{ route('bo.notifications.destroy', $notification->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Supprimer">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip"
+                                        title="Supprimer">
                                         <i class="ti ti-trash"></i>
                                     </button>
                                 </form>
@@ -89,12 +94,9 @@
                 </div>
             @endforelse
 
-            <div class="mt-3">
-                {{ $notifications->links() }}
-            </div>
+            @include('backoffice.components.table-footer', ['paginator' => $notifications])
 
         </div>
 
     </div>
-
 @endsection

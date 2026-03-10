@@ -15,7 +15,8 @@ class UnitController extends Controller
 
         $units = Unit::withCount('products')
             ->latest()
-            ->paginate(15);
+            ->paginate(request()->input('per_page', 15))
+            ->withQueryString();
 
         return view('backoffice.catalog.units.index', compact('units'));
     }

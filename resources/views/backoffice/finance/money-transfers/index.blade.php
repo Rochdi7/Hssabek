@@ -16,6 +16,7 @@
                     <h6>Transferts entre comptes</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'money-transfers'])
                     <div>
                         <a href="{{ route('bo.finance.money-transfers.create') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>Nouveau transfert
@@ -90,7 +91,7 @@
 
             <!-- Table List -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -162,7 +163,7 @@
             </div>
             <!-- End Table List -->
 
-            {{ $transfers->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $transfers])
 
             @component('backoffice.components.footer')
             @endcomponent

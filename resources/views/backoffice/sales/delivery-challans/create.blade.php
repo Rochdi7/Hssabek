@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-            Start Page Content
-        ========================= -->
+                Start Page Content
+            ========================= -->
 
     @php
         $tenant = App\Services\Tenancy\TenantContext::get();
@@ -67,14 +67,21 @@
                                                                 <label class="form-label">Référence</label>
                                                                 <div class="mb-2">
                                                                     <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="ref_mode" id="ref_mode_manual"
+                                                                            value="manual" checked
                                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
-                                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                                        <label class="form-check-label"
+                                                                            for="ref_mode_manual">Saisie manuelle</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="ref_mode" id="ref_mode_auto"
+                                                                            value="auto"
                                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                                        <label class="form-check-label"
+                                                                            for="ref_mode_auto">Générer
+                                                                            automatiquement</label>
                                                                     </div>
                                                                 </div>
                                                                 <input type="text" name="reference_number"
@@ -91,9 +98,10 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date du bon de livraison</label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date" name="challan_date"
-                                                                        class="form-control rounded-end @error('challan_date') is-invalid @enderror"
-                                                                        value="{{ old('challan_date', date('Y-m-d')) }}">
+                                                                    <input type="text" name="challan_date"
+                                                                        class="form-control datetimepicker rounded-end @error('challan_date') is-invalid @enderror"
+                                                                        value="{{ old('challan_date', date('d-m-Y')) }}"
+                                                                        placeholder="{{ now()->format('d M Y') }}">
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
                                                                         <i class="isax isax-calendar-2"></i>
                                                                     </span>
@@ -159,7 +167,8 @@
                                                                                 Livré</option>
                                                                         </select>
                                                                         @error('status')
-                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            <div class="invalid-feedback">{{ $message }}
+                                                                            </div>
                                                                         @enderror
                                                                     </div>
                                                                 </div>
@@ -167,8 +176,7 @@
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Devise</label>
                                                                         <input type="text" class="form-control"
-                                                                            value="{{ $currency }}"
-                                                                            readonly disabled>
+                                                                            value="{{ $currency }}" readonly disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -180,7 +188,8 @@
                                                                         <input class="form-check-input" type="checkbox"
                                                                             role="switch" id="enabe_tax"
                                                                             {{ old('enable_tax', '1') == '1' ? 'checked' : '' }}>
-                                                                        <label class="form-check-label" for="enabe_tax">Activer
+                                                                        <label class="form-check-label"
+                                                                            for="enabe_tax">Activer
                                                                             la taxe</label>
                                                                     </div>
                                                                 </div>
@@ -270,16 +279,15 @@
                                                 <div class="d-flex align-items-center gap-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="item_type_filter" id="Radio-sm-3"
-                                                            value="product" checked>
+                                                            name="item_type_filter" id="Radio-sm-3" value="product"
+                                                            checked>
                                                         <label class="form-check-label" for="Radio-sm-3">
                                                             Produit
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
-                                                            name="item_type_filter" id="Radio-sm-4"
-                                                            value="service">
+                                                            name="item_type_filter" id="Radio-sm-4" value="service">
                                                         <label class="form-check-label" for="Radio-sm-4">
                                                             Service
                                                         </label>
@@ -306,7 +314,8 @@
 
                                     <!-- Table List start -->
                                     <div class="table-responsive table-nowrap rounded border-bottom-0 border mb-3">
-                                        <table class="table mb-0 add-table" id="items-table" style="table-layout: fixed; width: 100%;">
+                                        <table class="table mb-0 add-table" id="items-table"
+                                            style="table-layout: fixed; width: 100%;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th style="width: 28%;">Produit/Service</th>
@@ -331,23 +340,20 @@
                                                     <td>
                                                         <input type="number" name="items[0][quantity]"
                                                             class="form-control item-qty"
-                                                            value="{{ old('items.0.quantity', 1) }}"
-                                                            min="0.001" step="0.001"
-                                                            required>
+                                                            value="{{ old('items.0.quantity', 1) }}" min="0.001"
+                                                            step="0.001" required>
                                                     </td>
                                                     <td>
                                                         <input type="number" name="items[0][unit_price]"
                                                             class="form-control item-price"
-                                                            value="{{ old('items.0.unit_price', 0) }}"
-                                                            min="0" step="0.01"
-                                                           >
+                                                            value="{{ old('items.0.unit_price', 0) }}" min="0"
+                                                            step="0.01">
                                                     </td>
                                                     <td>
                                                         <input type="number" name="items[0][tax_rate]"
                                                             class="form-control item-tax"
-                                                            value="{{ old('items.0.tax_rate', 0) }}"
-                                                            min="0" max="100" step="0.01"
-                                                           >
+                                                            value="{{ old('items.0.tax_rate', 0) }}" min="0"
+                                                            max="100" step="0.01">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control item-total"
@@ -361,8 +367,7 @@
                                     <!-- Table List end -->
 
                                     <div>
-                                        <a href="javascript:void(0);"
-                                            class="d-inline-flex align-items-center"
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
                                             id="add-item-btn"><i
                                                 class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un
                                             article</a>
@@ -381,8 +386,7 @@
                                                         <li class="nav-item me-2" role="presentation">
                                                             <a class="nav-link active border fs-12 fw-semibold rounded"
                                                                 data-bs-toggle="tab" data-bs-target="#notes"
-                                                                aria-current="page"
-                                                                href="javascript:void(0);"><i
+                                                                aria-current="page" href="javascript:void(0);"><i
                                                                     class="isax isax-document-text me-1"></i>Notes</a>
                                                         </li>
                                                         <li class="nav-item me-2" role="presentation">
@@ -400,18 +404,23 @@
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
-                                                        <div class="tab-pane active show" id="notes"
-                                                            role="tabpanel">
+                                                        <div class="tab-pane active show" id="notes" role="tabpanel">
                                                             <label class="form-label">Notes
                                                                 additionnelles</label>
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">Conditions
                                                                 générales</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">Compte bancaire</label>
@@ -479,8 +488,8 @@
     </div>
 
     <!-- ========================
-            End Page Content
-        ========================= -->
+                End Page Content
+            ========================= -->
 @endsection
 
 @push('scripts')
@@ -494,6 +503,24 @@
             const tbody = document.querySelector('#items-table .add-tbody');
             const addBtn = document.getElementById('add-item-btn');
             const productSelect = document.getElementById('product-select');
+
+            /* =========================================================
+             * Item type filter — show/hide product options based on type
+             * ========================================================= */
+            const itemTypeRadios = document.querySelectorAll('[name="item_type_filter"]');
+            itemTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const type = this.value;
+                    Array.from(productSelect.options).forEach(opt => {
+                        if (!opt.value) return;
+                        opt.style.display = (opt.dataset.type === type) ? '' : 'none';
+                        if (opt.style.display === 'none' && opt.selected) opt.selected =
+                            false;
+                    });
+                });
+            });
+            const checkedRadio = document.querySelector('[name="item_type_filter"]:checked');
+            if (checkedRadio) checkedRadio.dispatchEvent(new Event('change'));
 
             /* =========================================================
              * Add new item row

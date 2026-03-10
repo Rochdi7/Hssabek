@@ -32,7 +32,7 @@ class SupplierPaymentController extends Controller
             }))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest('payment_date')
-            ->paginate(15)
+            ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
         return view('backoffice.purchases.supplier-payments.index', compact('payments'));

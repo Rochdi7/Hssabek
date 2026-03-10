@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-              Start Page Content
-             ========================= -->
+                  Start Page Content
+                 ========================= -->
 
     <div class="page-wrapper">
 
@@ -16,20 +16,7 @@
                     <h6>Niveaux de stock</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en PDF</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en Excel</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'products'])
                 </div>
             </div>
             <!-- End Breadcrumb -->
@@ -121,65 +108,17 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- Column Toggle -->
-                        <div class="dropdown">
-                            <a href="javascript:void(0);"
-                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
-                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                                <i class="isax isax-grid-3 me-1"></i>Colonnes
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu">
-                                <li>
-                                    <label class="dropdown-item d-flex align-items-center form-switch">
-                                        <i class="fa-solid fa-grip-vertical me-3 text-default"></i>
-                                        <input class="form-check-input m-0 me-2" type="checkbox" checked>
-                                        <span>Produit</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item d-flex align-items-center form-switch">
-                                        <i class="fa-solid fa-grip-vertical me-3 text-default"></i>
-                                        <input class="form-check-input m-0 me-2" type="checkbox" checked>
-                                        <span>Code</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item d-flex align-items-center form-switch">
-                                        <i class="fa-solid fa-grip-vertical me-3 text-default"></i>
-                                        <input class="form-check-input m-0 me-2" type="checkbox" checked>
-                                        <span>Entrepôt</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item d-flex align-items-center form-switch">
-                                        <i class="fa-solid fa-grip-vertical me-3 text-default"></i>
-                                        <input class="form-check-input m-0 me-2" type="checkbox" checked>
-                                        <span>Quantité en stock</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item d-flex align-items-center form-switch">
-                                        <i class="fa-solid fa-grip-vertical me-3 text-default"></i>
-                                        <input class="form-check-input m-0 me-2" type="checkbox" checked>
-                                        <span>Quantité réservée</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item d-flex align-items-center form-switch">
-                                        <i class="fa-solid fa-grip-vertical me-3 text-default"></i>
-                                        <input class="form-check-input m-0 me-2" type="checkbox" checked>
-                                        <span>Seuil de réappro.</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item d-flex align-items-center form-switch">
-                                        <i class="fa-solid fa-grip-vertical me-3 text-default"></i>
-                                        <input class="form-check-input m-0 me-2" type="checkbox" checked>
-                                        <span>État</span>
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
+                        @include('backoffice.components.column-toggle', [
+                            'columns' => [
+                                'Produit',
+                                'Code',
+                                'Entrepôt',
+                                'Quantité en stock',
+                                'Quantité réservée',
+                                'Seuil de réappro.',
+                                'État',
+                            ],
+                        ])
                     </div>
                 </div>
             </div>
@@ -187,7 +126,7 @@
 
             <!-- Table List Start -->
             <div class="table-responsive">
-                <table class="table table-nowrap datatable">
+                <table class="table table-nowrap table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th class="no-sort">
@@ -248,7 +187,7 @@
             </div>
             <!-- Table List End -->
 
-            {{ $stocks->links() }}
+            @include('backoffice.components.table-footer', ['paginator' => $stocks])
 
             @component('backoffice.components.footer')
             @endcomponent
@@ -258,6 +197,6 @@
     </div>
 
     <!-- ========================
-              End Page Content
-             ========================= -->
+                  End Page Content
+                 ========================= -->
 @endsection

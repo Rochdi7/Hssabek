@@ -48,10 +48,10 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Date <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('debit_note_date') is-invalid @enderror"
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('debit_note_date') is-invalid @enderror"
                                                     name="debit_note_date"
-                                                    value="{{ old('debit_note_date', $debitNote->debit_note_date instanceof \Carbon\Carbon ? $debitNote->debit_note_date->format('Y-m-d') : $debitNote->debit_note_date) }}">
+                                                    value="{{ old('debit_note_date', $debitNote->debit_note_date instanceof \Carbon\Carbon ? $debitNote->debit_note_date->format('d-m-Y') : $debitNote->debit_note_date) }}">
                                                 @error('debit_note_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

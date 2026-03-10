@@ -1,4 +1,4 @@
-<?php $page = 'reports'; ?>
+<?php $page = 'pro'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
@@ -15,12 +15,12 @@
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
-                            <h6><a href="{{ route('bo.reports.custom.index') }}"><i class="isax isax-arrow-left me-2"></i>Rapports personnalisés</a></h6>
+                            <h6><a href="{{ route('bo.pro.rapports.index') }}"><i class="isax isax-arrow-left me-2"></i>Rapports</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('bo.reports.custom.export-pdf', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>Exporter PDF</a>
-                                <a href="{{ route('bo.reports.custom.export-word', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-text me-1"></i>Exporter Word</a>
-                                <a href="{{ route('bo.reports.custom.edit', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>Modifier</a>
-                                <form method="POST" action="{{ route('bo.reports.custom.destroy', $report) }}">
+                                <a href="{{ route('bo.pro.rapports.export-pdf', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>Exporter PDF</a>
+                                <a href="{{ route('bo.pro.rapports.export-word', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-text me-1"></i>Exporter Word</a>
+                                <a href="{{ route('bo.pro.rapports.edit', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>Modifier</a>
+                                <form method="POST" action="{{ route('bo.pro.rapports.destroy', $report) }}">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
                                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rapport ?')">

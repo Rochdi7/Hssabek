@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-            Start Page Content
-        ========================= -->
+                Start Page Content
+            ========================= -->
 
     @php
         $tenant = App\Services\Tenancy\TenantContext::get();
@@ -40,8 +40,7 @@
                     @endif
 
                     <div class="card">
-                        <form action="{{ route('bo.sales.credit-notes.store') }}" method="POST"
-                            id="credit-note-form">
+                        <form action="{{ route('bo.sales.credit-notes.store') }}" method="POST" id="credit-note-form">
                             @csrf
                             <div class="card-body">
                                 <div class="top-content">
@@ -67,14 +66,21 @@
                                                                 <label class="form-label">Référence</label>
                                                                 <div class="mb-2">
                                                                     <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="ref_mode" id="ref_mode_manual"
+                                                                            value="manual" checked
                                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
-                                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                                        <label class="form-check-label"
+                                                                            for="ref_mode_manual">Saisie manuelle</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="ref_mode" id="ref_mode_auto"
+                                                                            value="auto"
                                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                                        <label class="form-check-label"
+                                                                            for="ref_mode_auto">Générer
+                                                                            automatiquement</label>
                                                                     </div>
                                                                 </div>
                                                                 <input type="text" name="reference_number"
@@ -110,9 +116,10 @@
                                                             <label class="form-label">Date de l'avoir <span
                                                                     class="text-danger">*</span></label>
                                                             <div class="input-group position-relative mb-3">
-                                                                <input type="date" name="issue_date"
-                                                                    class="form-control rounded-end @error('issue_date') is-invalid @enderror"
-                                                                    value="{{ old('issue_date', date('Y-m-d')) }}">
+                                                                <input type="text" name="issue_date"
+                                                                    class="form-control datetimepicker rounded-end @error('issue_date') is-invalid @enderror"
+                                                                    value="{{ old('issue_date', date('d-m-Y')) }}"
+                                                                    placeholder="{{ now()->format('d M Y') }}">
                                                                 <span class="input-icon-addon fs-16 text-gray-9">
                                                                     <i class="isax isax-calendar-2"></i>
                                                                 </span>
@@ -134,14 +141,16 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date d'échéance</label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date" name="due_date" id="due_date"
-                                                                        class="form-control rounded-end @error('due_date') is-invalid @enderror"
-                                                                        value="{{ old('due_date') }}">
+                                                                    <input type="text" name="due_date" id="due_date"
+                                                                        class="form-control datetimepicker rounded-end @error('due_date') is-invalid @enderror"
+                                                                        value="{{ old('due_date') }}"
+                                                                        placeholder="{{ now()->format('d M Y') }}">
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
                                                                         <i class="isax isax-calendar-2"></i>
                                                                     </span>
                                                                     @error('due_date')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                        <div class="invalid-feedback">{{ $message }}
+                                                                        </div>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -180,8 +189,8 @@
                                                                 <div class="d-flex align-items-center">
                                                                     <div class="form-check form-switch me-4">
                                                                         <input class="form-check-input" type="checkbox"
-                                                                            role="switch" name="enable_tax" id="enable_tax"
-                                                                            value="1"
+                                                                            role="switch" name="enable_tax"
+                                                                            id="enable_tax" value="1"
                                                                             {{ old('enable_tax', '1') == '1' ? 'checked' : '' }}>
                                                                         <label class="form-check-label"
                                                                             for="enable_tax">Activer la
@@ -294,7 +303,8 @@
 
                                     <!-- Table list start -->
                                     <div class="table-responsive rounded table-nowrap border-bottom-0 border mb-3">
-                                        <table class="table mb-0 add-table" id="items-table" style="table-layout: fixed; width: 100%;">
+                                        <table class="table mb-0 add-table" id="items-table"
+                                            style="table-layout: fixed; width: 100%;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th style="width: 28%;">Libellé</th>
@@ -310,8 +320,8 @@
                                                     <td>
                                                         <input type="text" name="items[0][label]"
                                                             class="form-control item-label"
-                                                            value="{{ old('items.0.label') }}"
-                                                            placeholder="Libellé" required>
+                                                            value="{{ old('items.0.label') }}" placeholder="Libellé"
+                                                            required>
                                                     </td>
                                                     <td>
                                                         <input type="number" name="items[0][quantity]"
@@ -343,8 +353,7 @@
                                     <!-- Table list end -->
 
                                     <div>
-                                        <a href="javascript:void(0);"
-                                            class="d-inline-flex align-items-center"
+                                        <a href="javascript:void(0);" class="d-inline-flex align-items-center"
                                             id="add-item-btn"><i
                                                 class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un
                                             article</a>
@@ -384,12 +393,18 @@
                                                         <div class="tab-pane active show" id="notes" role="tabpanel">
                                                             <label class="form-label">Notes additionnelles</label>
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">Conditions générales</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                            <small class="text-muted mt-1 d-block"><i
+                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
+                                                                    de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">Compte bancaire</label>
@@ -485,8 +500,8 @@
     </div>
 
     <!-- ========================
-            End Page Content
-        ========================= -->
+                End Page Content
+            ========================= -->
 @endsection
 
 @push('scripts')

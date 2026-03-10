@@ -80,10 +80,10 @@
                                                                 <label class="form-label">Date de commande <span
                                                                         class="text-danger">*</span></label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date"
-                                                                        class="form-control rounded-end @error('order_date') is-invalid @enderror"
+                                                                    <input type="text"
+                                                                        class="form-control datetimepicker rounded-end @error('order_date') is-invalid @enderror"
                                                                         name="order_date"
-                                                                        value="{{ old('order_date', date('Y-m-d')) }}"
+                                                                        value="{{ old('order_date', date('d-m-Y')) }}"
                                                                         required>
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
                                                                         <i class="isax isax-calendar-2"></i>
@@ -98,8 +98,8 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Date de livraison prévue</label>
                                                                 <div class="input-group position-relative">
-                                                                    <input type="date"
-                                                                        class="form-control rounded-end @error('expected_date') is-invalid @enderror"
+                                                                    <input type="text"
+                                                                        class="form-control datetimepicker rounded-end @error('expected_date') is-invalid @enderror"
                                                                         name="expected_date"
                                                                         value="{{ old('expected_date') }}">
                                                                     <span class="input-icon-addon fs-16 text-gray-9">
@@ -282,7 +282,8 @@
                                                         <option value="{{ $product->id }}"
                                                             data-name="{{ $product->name }}"
                                                             data-cost="{{ $product->cost_price ?? 0 }}"
-                                                            data-tax="{{ $product->tax_rate ?? 20 }}">
+                                                            data-tax="{{ $product->tax_rate ?? 20 }}"
+                                                            data-type="{{ $product->item_type }}">
                                                             {{ $product->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -471,8 +472,25 @@
             let itemIndex = 1;
             const productsJson = @json($products);
 
+            // Item type filter — show/hide product options based on type
+            const productSelector = document.getElementById('product-selector');
+            const itemTypeRadios = document.querySelectorAll('[name="item_type_radio"]');
+            itemTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const type = this.value;
+                    Array.from(productSelector.options).forEach(opt => {
+                        if (!opt.value) return;
+                        opt.style.display = (opt.dataset.type === type) ? '' : 'none';
+                        if (opt.style.display === 'none' && opt.selected) opt.selected = false;
+                    });
+                });
+            });
+            // Trigger initial filter
+            const checkedRadio = document.querySelector('[name="item_type_radio"]:checked');
+            if (checkedRadio) checkedRadio.dispatchEvent(new Event('change'));
+
             // Product selector — adds a new row pre-filled with selected product data
-            document.getElementById('product-selector').addEventListener('change', function() {
+            productSelector.addEventListener('change', function() {
                 const sel = this;
                 const opt = sel.options[sel.selectedIndex];
                 if (!opt || !opt.value) return;

@@ -29,11 +29,11 @@ class StockMovementController extends Controller
                 $pq->where('name', 'like', "%{$s}%")
                    ->orWhere('code', 'like', "%{$s}%")))
             ->latest('moved_at')
-            ->paginate(25)
+            ->paginate(request()->input('per_page', 15))
             ->withQueryString();
 
         $warehouses = Warehouse::orderBy('name')->get();
-        $products = Product::where('track_inventory', true)->orderBy('name')->get();
+        $products = Product::where('track_inventory', true)->where('item_type', 'product')->orderBy('name')->get();
 
         return view('backoffice.inventory.movements.index', compact('movements', 'warehouses', 'products'));
     }
@@ -43,7 +43,7 @@ class StockMovementController extends Controller
         $this->authorize('create', StockMovement::class);
 
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
-        $products = Product::where('is_active', true)->orderBy('name')->get();
+        $products = Product::where('is_active', true)->where('item_type', 'product')->orderBy('name')->get();
 
         return view('backoffice.inventory.movements.create', compact('warehouses', 'products'));
     }

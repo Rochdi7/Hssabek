@@ -65,9 +65,9 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Date de paiement <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('paid_at') is-invalid @enderror"
-                                                    name="paid_at" value="{{ old('paid_at', date('Y-m-d')) }}">
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('paid_at') is-invalid @enderror"
+                                                    name="paid_at" value="{{ old('paid_at', date('d-m-Y')) }}">
                                                 @error('paid_at')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

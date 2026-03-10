@@ -93,10 +93,10 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Date du transfert <span
                                                         class="text-danger ms-1">*</span></label>
-                                                <input type="date"
-                                                    class="form-control @error('transfer_date') is-invalid @enderror"
+                                                <input type="text"
+                                                    class="form-control datetimepicker @error('transfer_date') is-invalid @enderror"
                                                     name="transfer_date"
-                                                    value="{{ old('transfer_date', $moneyTransfer->transfer_date?->format('Y-m-d') ?? $moneyTransfer->transfer_date) }}">
+                                                    value="{{ old('transfer_date', $moneyTransfer->transfer_date?->format('d-m-Y') ?? $moneyTransfer->transfer_date) }}">
                                                 @error('transfer_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
