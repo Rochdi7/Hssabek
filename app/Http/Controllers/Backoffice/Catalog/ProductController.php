@@ -24,8 +24,19 @@ class ProductController extends Controller
     {
         $this->authorize('viewAny', Product::class);
 
+        $warehouseFilter = $request->input('warehouse_id');
+
         $query = Product::query()
             ->with(['category', 'unit', 'taxCategory']);
+
+        // When filtering by warehouse, show that warehouse's stock; otherwise show total
+        if ($warehouseFilter) {
+            $query->withSum(['stocks' => fn($q) => $q->where('warehouse_id', $warehouseFilter)], 'quantity_on_hand');
+            // Only show products that have stock in this warehouse
+            $query->whereHas('stocks', fn($q) => $q->where('warehouse_id', $warehouseFilter));
+        } else {
+            $query->withSum('stocks', 'quantity_on_hand');
+        }
 
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
@@ -232,20 +243,45 @@ class ProductController extends Controller
             ->limit(50)
             ->get();
 
-        return response()->json([
-            'product_name' => $product->name,
-            'product_code' => $product->code ?? '',
-            'movements'    => $movements->map(fn($m) => [
+        // Build per-warehouse running balances (current stock per warehouse)
+        $warehouseBalances = \App\Models\Inventory\ProductStock::where('product_id', $product->id)
+            ->pluck('quantity_on_hand', 'warehouse_id')
+            ->mapWithKeys(fn($qty, $id) => [$id => (float) $qty])
+            ->toArray();
+
+        $currentStock = array_sum($warehouseBalances);
+        $mapped = [];
+
+        foreach ($movements as $m) {
+            $isPositive = str_contains($m->movement_type, 'in') || $m->movement_type === 'unreserve';
+            $wId = $m->warehouse_id;
+
+            // Stock in this warehouse after this movement
+            $warehouseStock = $warehouseBalances[$wId] ?? 0;
+
+            $mapped[] = [
                 'date'        => $m->moved_at->format('d M Y, h:i A'),
                 'unit'        => $product->unit->abbreviation ?? $product->unit->name ?? '—',
-                'adjustment'  => (str_contains($m->movement_type, 'in') || $m->movement_type === 'unreserve')
+                'adjustment'  => $isPositive
                     ? '+' . number_format($m->quantity, 2, ',', ' ')
                     : '-' . number_format($m->quantity, 2, ',', ' '),
-                'is_positive' => str_contains($m->movement_type, 'in') || $m->movement_type === 'unreserve',
-                'stock'       => number_format($product->quantity, 2, ',', ' '),
+                'is_positive' => $isPositive,
+                'stock'       => number_format($warehouseStock, 2, ',', ' '),
                 'reason'      => $m->note ?: ucfirst(str_replace('_', ' ', $m->movement_type)),
                 'warehouse'   => $m->warehouse->name ?? '—',
-            ]),
+            ];
+
+            // Reverse the movement to get warehouse stock before this movement
+            $warehouseBalances[$wId] = $isPositive
+                ? $warehouseStock - $m->quantity
+                : $warehouseStock + $m->quantity;
+        }
+
+        return response()->json([
+            'product_name'  => $product->name,
+            'product_code'  => $product->code ?? '',
+            'current_stock' => number_format($currentStock, 2, ',', ' '),
+            'movements'     => $mapped,
         ]);
     }
 
@@ -301,5 +337,18 @@ class ProductController extends Controller
         } catch (\DomainException $e) {
             return back()->withInput()->with('error', $e->getMessage());
         }
+    }
+
+    /**
+     * Get stock per warehouse for a product (AJAX - JSON).
+     */
+    public function warehouseStock(Product $product)
+    {
+        $stocks = \App\Models\Inventory\ProductStock::where('product_id', $product->id)
+            ->pluck('quantity_on_hand', 'warehouse_id')
+            ->mapWithKeys(fn($qty, $id) => [$id => (float) $qty])
+            ->toArray();
+
+        return response()->json(['stocks' => $stocks]);
     }
 }

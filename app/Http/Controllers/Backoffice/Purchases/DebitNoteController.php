@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backoffice\Purchases;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchases\Store\StoreDebitNoteRequest;
 use App\Http\Requests\Purchases\Update\UpdateDebitNoteRequest;
+use App\Models\Catalog\TaxCategory;
+use App\Models\Catalog\TaxGroup;
 use App\Models\Purchases\DebitNote;
 use App\Models\Purchases\Supplier;
 use App\Models\Purchases\VendorBill;
@@ -49,12 +51,14 @@ class DebitNoteController extends Controller
 
         $nextReference = app(DocumentNumberService::class)->preview('debit_note_ref');
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
         $invoiceSettings = TenantContext::get()->settings->invoice_settings ?? [];
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.purchases.debit-notes.create', compact('suppliers', 'vendorBills', 'nextReference', 'bankAccounts', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.purchases.debit-notes.create', compact('suppliers', 'vendorBills', 'nextReference', 'bankAccounts', 'taxGroups', 'taxCategories', 'defaultTerms', 'defaultFooter'));
     }
 
     public function store(StoreDebitNoteRequest $request)
@@ -85,12 +89,14 @@ class DebitNoteController extends Controller
 
         $nextReference = app(DocumentNumberService::class)->preview('debit_note_ref');
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
         $invoiceSettings = TenantContext::get()->settings->invoice_settings ?? [];
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.purchases.debit-notes.edit', compact('debitNote', 'suppliers', 'vendorBills', 'nextReference', 'bankAccounts', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.purchases.debit-notes.edit', compact('debitNote', 'suppliers', 'vendorBills', 'nextReference', 'bankAccounts', 'taxGroups', 'taxCategories', 'defaultTerms', 'defaultFooter'));
     }
 
     public function update(UpdateDebitNoteRequest $request, DebitNote $debitNote)

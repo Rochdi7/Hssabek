@@ -56,6 +56,10 @@ Route::prefix('catalog')->as('catalog.')->group(function () {
         Route::post('/{product}/stock-out', [ProductController::class, 'stockOut'])
             ->middleware('permission:inventory.stock_movements.create')
             ->name('stock-out');
+
+        Route::get('/{product}/warehouse-stock', [ProductController::class, 'warehouseStock'])
+            ->middleware('permission:inventory.stock_movements.view')
+            ->name('warehouse-stock');
     });
 
     // ─── Categories ─────────────────────────────────────────────

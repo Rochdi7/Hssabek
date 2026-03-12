@@ -140,6 +140,11 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
+                                            <a href="{{ route('bo.sales.refunds.show', $refund) }}"
+                                                class="dropdown-item d-flex align-items-center"><i
+                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                        </li>
+                                        <li>
                                             <a href="{{ route('bo.sales.refunds.edit', $refund) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-edit me-2"></i>Modifier</a>

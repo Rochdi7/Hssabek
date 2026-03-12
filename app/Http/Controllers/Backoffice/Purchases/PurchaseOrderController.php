@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchases\Store\StorePurchaseOrderRequest;
 use App\Http\Requests\Purchases\Update\UpdatePurchaseOrderRequest;
 use App\Models\Catalog\Product;
+use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\TaxGroup;
 use App\Models\Finance\BankAccount;
+use App\Models\Inventory\Warehouse;
 use App\Models\Purchases\PurchaseOrder;
 use App\Models\Purchases\Supplier;
 use App\Services\Purchases\PurchaseOrderService;
@@ -52,15 +54,18 @@ class PurchaseOrderController extends Controller
 
         $suppliers = Supplier::where('status', 'active')->orderBy('name')->get();
         $products = Product::orderBy('name')->get();
-        $taxGroups = TaxGroup::orderBy('name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $nextNumber = app(DocumentNumberService::class)->preview('purchase_order');
+        $nextReference = app(DocumentNumberService::class)->preview('purchase_order_ref');
 
         $invoiceSettings = TenantContext::get()->settings->invoice_settings ?? [];
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.purchases.purchase-orders.create', compact('suppliers', 'products', 'taxGroups', 'bankAccounts', 'nextNumber', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.purchases.purchase-orders.create', compact('suppliers', 'products', 'taxGroups', 'taxCategories', 'bankAccounts', 'warehouses', 'nextNumber', 'nextReference', 'defaultTerms', 'defaultFooter'));
     }
 
     public function store(StorePurchaseOrderRequest $request)
@@ -91,14 +96,17 @@ class PurchaseOrderController extends Controller
         $purchaseOrder->load('items');
         $suppliers = Supplier::where('status', 'active')->orderBy('name')->get();
         $products = Product::orderBy('name')->get();
-        $taxGroups = TaxGroup::orderBy('name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
+        $nextReference = app(DocumentNumberService::class)->preview('purchase_order_ref');
 
         $invoiceSettings = TenantContext::get()->settings->invoice_settings ?? [];
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.purchases.purchase-orders.edit', compact('purchaseOrder', 'suppliers', 'products', 'taxGroups', 'bankAccounts', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.purchases.purchase-orders.edit', compact('purchaseOrder', 'suppliers', 'products', 'taxGroups', 'taxCategories', 'bankAccounts', 'warehouses', 'nextReference', 'defaultTerms', 'defaultFooter'));
     }
 
     public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)

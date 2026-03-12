@@ -2,12 +2,14 @@
 
 namespace App\Http\Requests\Purchases\Store;
 
+use App\Http\Requests\Traits\ResolveTaxSelection;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StorePurchaseOrderRequest extends FormRequest
 {
+    use ResolveTaxSelection;
     public function authorize(): bool
     {
         return true;
@@ -19,6 +21,7 @@ class StorePurchaseOrderRequest extends FormRequest
 
         return [
             'supplier_id'              => ['required', 'uuid', Rule::exists('suppliers', 'id')->where('tenant_id', $tenantId)],
+            'warehouse_id'             => ['required', 'uuid', Rule::exists('warehouses', 'id')->where('tenant_id', $tenantId)],
             'order_date'               => 'required|date',
             'expected_date'            => 'nullable|date|after_or_equal:order_date',
             'notes'                    => 'nullable|string|max:2000',
@@ -41,6 +44,8 @@ class StorePurchaseOrderRequest extends FormRequest
         return [
             'supplier_id.required'       => 'Le fournisseur est obligatoire.',
             'supplier_id.exists'         => 'Le fournisseur sélectionné est invalide.',
+            'warehouse_id.required'      => 'L\'entrepôt est obligatoire.',
+            'warehouse_id.exists'        => 'L\'entrepôt sélectionné est invalide.',
             'order_date.required'        => 'La date de commande est obligatoire.',
             'expected_date.after_or_equal' => 'La date de livraison prévue doit être postérieure ou égale à la date de commande.',
             'items.required'             => 'Au moins un article est obligatoire.',

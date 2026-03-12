@@ -3,25 +3,33 @@
 namespace App\Http\Controllers\Backoffice\Finance;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Finance\Store\StoreLoanPaymentRequest;
 use App\Http\Requests\Finance\Store\StoreLoanRequest;
 use App\Http\Requests\Finance\Update\UpdateLoanRequest;
+use App\Models\Finance\BankAccount;
 use App\Models\Finance\Loan;
+use App\Models\Finance\LoanPayment;
+use App\Services\Finance\LoanService;
 use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
 {
+    public function __construct(
+        private readonly LoanService $loanService,
+    ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', Loan::class);
 
         $loans = Loan::query()
-            ->with(['installments'])
             ->when($request->search, fn($q, $s) => $q->where(function ($q) use ($s) {
                 $q->where('lender_name', 'like', "%{$s}%")
                     ->orWhere('reference_number', 'like', "%{$s}%");
             }))
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
+            ->when($request->loan_type, fn($q, $t) => $q->where('loan_type', $t))
             ->when($request->lender_type, fn($q, $t) => $q->where('lender_type', $t))
             ->latest('start_date')
             ->paginate(request()->input('per_page', 15))
@@ -46,7 +54,7 @@ class LoanController extends Controller
         $data = $request->validated();
         $data['created_by'] = auth()->id();
 
-        Loan::create($data);
+        $this->loanService->create($data);
 
         return redirect()->route('bo.finance.loans.index')
             ->with('success', 'Prêt enregistré avec succès.');
@@ -56,9 +64,10 @@ class LoanController extends Controller
     {
         $this->authorize('view', $loan);
 
-        $loan->load(['installments' => fn($q) => $q->orderBy('due_date'), 'createdBy']);
+        $loan->load(['payments.bankAccount', 'createdBy']);
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
-        return view('backoffice.finance.loans.show', compact('loan'));
+        return view('backoffice.finance.loans.show', compact('loan', 'bankAccounts'));
     }
 
     public function edit(Loan $loan)
@@ -74,23 +83,56 @@ class LoanController extends Controller
     {
         $this->authorize('update', $loan);
 
-        $loan->update($request->validated());
+        $this->loanService->update($loan, $request->validated());
 
-        return redirect()->route('bo.finance.loans.index')
+        return redirect()->route('bo.finance.loans.show', $loan)
             ->with('success', 'Prêt mis à jour avec succès.');
+    }
+
+    public function addPayment(StoreLoanPaymentRequest $request, Loan $loan)
+    {
+        $this->authorize('update', $loan);
+
+        if ($loan->remaining_amount <= 0) {
+            return redirect()->route('bo.finance.loans.show', $loan)
+                ->with('error', 'Ce prêt est déjà entièrement remboursé.');
+        }
+
+        try {
+            $this->loanService->addPayment($loan, $request->validated());
+
+            return redirect()->route('bo.finance.loans.show', $loan)
+                ->with('success', 'Paiement enregistré avec succès.');
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('bo.finance.loans.show', $loan)
+                ->with('error', $e->getMessage());
+        }
+    }
+
+    public function deletePayment(Loan $loan, LoanPayment $payment)
+    {
+        $this->authorize('update', $loan);
+
+        if ($payment->loan_id !== $loan->id) {
+            abort(404);
+        }
+
+        $this->loanService->deletePayment($loan, $payment);
+
+        return redirect()->route('bo.finance.loans.show', $loan)
+            ->with('success', 'Paiement supprimé avec succès.');
     }
 
     public function destroy(Loan $loan)
     {
         $this->authorize('delete', $loan);
 
-        if ($loan->installments()->where('status', 'paid')->exists()) {
+        if ($loan->payments()->exists()) {
             return redirect()->route('bo.finance.loans.index')
-                ->with('error', 'Impossible de supprimer ce prêt : il contient des échéances payées.');
+                ->with('error', 'Impossible de supprimer ce prêt : il contient des paiements enregistrés.');
         }
 
-        $loan->installments()->delete();
-        $loan->delete();
+        $this->loanService->delete($loan);
 
         return redirect()->route('bo.finance.loans.index')
             ->with('success', 'Prêt supprimé avec succès.');

@@ -172,11 +172,15 @@
                                                 <select class="select" name="bank_account_id">
                                                     <option value="">Sélectionner</option>
                                                     @foreach ($bankAccounts as $ba)
-                                                        <option value="{{ $ba->id }}" {{ old('bank_account_id', $vendorBill->bank_account_id ?? '') == $ba->id ? 'selected' : '' }}>
+                                                        <option value="{{ $ba->id }}"
+                                                            data-balance="{{ number_format($ba->current_balance, 2, ',', ' ') }}"
+                                                            data-currency="{{ $ba->currency }}"
+                                                            {{ old('bank_account_id', $vendorBill->bank_account_id ?? '') == $ba->id ? 'selected' : '' }}>
                                                             {{ $ba->account_holder_name }} - {{ $ba->account_number }} ({{ $ba->bank_name }})
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                             </div>
                                         </div>
                                     </div>

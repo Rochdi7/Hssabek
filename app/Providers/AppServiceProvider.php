@@ -98,10 +98,16 @@ class AppServiceProvider extends ServiceProvider
     {
         $flush = \App\Listeners\FlushReportCacheListener::class;
 
+        // Flush report cache on financial events
         Event::listen(\App\Events\InvoiceCreated::class, $flush);
         Event::listen(\App\Events\InvoicePaid::class, $flush);
         Event::listen(\App\Events\PaymentReceived::class, $flush);
         Event::listen(\App\Events\ExpenseCreated::class, $flush);
+
+        // Additional listeners
+        Event::listen(\App\Events\InvoiceCreated::class, \App\Listeners\LogInvoiceCreatedActivity::class);
+        Event::listen(\App\Events\PaymentReceived::class, \App\Listeners\SendPaymentConfirmationListener::class);
+        Event::listen(\App\Events\SubscriptionExpired::class, \App\Listeners\HandleSubscriptionExpired::class);
     }
 
     protected function configureRateLimiting(): void

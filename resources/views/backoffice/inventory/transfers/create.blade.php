@@ -1,16 +1,8 @@
 <?php $page = 'stock-transfers'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('content')
-    <!-- ========================
-            Start Page Content
-        ========================= -->
-
     <div class="page-wrapper">
-
-        <!-- Start Content -->
         <div class="content">
-
-            <!-- start row -->
             <div class="row">
                 <div class="col-md-10 mx-auto">
                     <div>
@@ -42,7 +34,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Entrepôt source <span class="text-danger ms-1">*</span></label>
-                                                <select class="form-select @error('from_warehouse_id') is-invalid @enderror" name="from_warehouse_id">
+                                                <select class="form-select @error('from_warehouse_id') is-invalid @enderror" name="from_warehouse_id" id="from_warehouse_id">
                                                     <option value="">Sélectionner l'entrepôt source</option>
                                                     @foreach($warehouses as $warehouse)
                                                         <option value="{{ $warehouse->id }}" {{ old('from_warehouse_id') == $warehouse->id ? 'selected' : '' }}>
@@ -85,9 +77,10 @@
                                         <table class="table border" id="items-table">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 50%">Produit <span class="text-danger">*</span></th>
-                                                    <th style="width: 30%">Quantité <span class="text-danger">*</span></th>
-                                                    <th style="width: 20%" class="text-end"></th>
+                                                    <th style="width: 40%">Produit <span class="text-danger">*</span></th>
+                                                    <th style="width: 20%">Stock disponible</th>
+                                                    <th style="width: 25%">Quantité <span class="text-danger">*</span></th>
+                                                    <th style="width: 15%" class="text-end"></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="items-body">
@@ -95,7 +88,7 @@
                                                     @foreach(old('items') as $i => $item)
                                                         <tr class="item-row">
                                                             <td>
-                                                                <select class="form-select form-select-sm @error('items.'.$i.'.product_id') is-invalid @enderror" name="items[{{ $i }}][product_id]">
+                                                                <select class="form-select form-select-sm product-select @error('items.'.$i.'.product_id') is-invalid @enderror" name="items[{{ $i }}][product_id]">
                                                                     <option value="">Sélectionner</option>
                                                                     @foreach($products as $product)
                                                                         <option value="{{ $product->id }}" {{ ($item['product_id'] ?? '') == $product->id ? 'selected' : '' }}>
@@ -104,6 +97,9 @@
                                                                     @endforeach
                                                                 </select>
                                                                 @error('items.'.$i.'.product_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                                            </td>
+                                                            <td>
+                                                                <span class="stock-badge text-muted">—</span>
                                                             </td>
                                                             <td>
                                                                 <input type="number" step="0.001" min="0.001" class="form-control form-control-sm @error('items.'.$i.'.quantity') is-invalid @enderror" name="items[{{ $i }}][quantity]" value="{{ $item['quantity'] ?? '' }}" placeholder="0.000">
@@ -117,12 +113,15 @@
                                                 @else
                                                     <tr class="item-row">
                                                         <td>
-                                                            <select class="form-select form-select-sm" name="items[0][product_id]">
+                                                            <select class="form-select form-select-sm product-select" name="items[0][product_id]">
                                                                 <option value="">Sélectionner</option>
                                                                 @foreach($products as $product)
                                                                     <option value="{{ $product->id }}">{{ $product->name }} {{ $product->code ? '(' . $product->code . ')' : '' }}</option>
                                                                 @endforeach
                                                             </select>
+                                                        </td>
+                                                        <td>
+                                                            <span class="stock-badge text-muted">—</span>
                                                         </td>
                                                         <td>
                                                             <input type="number" step="0.001" min="0.001" class="form-control form-control-sm" name="items[0][quantity]" placeholder="0.000">
@@ -148,30 +147,63 @@
                                         <button type="submit" class="btn btn-primary">Créer le transfert</button>
                                     </div>
                                 </form>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
+                            </div>
+                        </div>
                     </div>
-                </div><!-- end col -->
+                </div>
             </div>
-            <!-- end row -->
 
             @component('backoffice.components.footer')
             @endcomponent
         </div>
-        <!-- End Content -->
-
     </div>
-
-    <!-- ========================
-            End Page Content
-        ========================= -->
 @endsection
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Stock map from server: { warehouseId: { productId: qty } }
+        const stockMap = @json($stockMap ?? []);
         let itemIndex = document.querySelectorAll('.item-row').length;
 
+        function getStock(warehouseId, productId) {
+            if (!warehouseId || !productId || !stockMap[warehouseId]) return 0;
+            return parseFloat(stockMap[warehouseId][productId] || 0);
+        }
+
+        function updateStockBadge(row) {
+            const warehouseId = document.getElementById('from_warehouse_id').value;
+            const productId = row.querySelector('.product-select').value;
+            const badge = row.querySelector('.stock-badge');
+
+            if (!warehouseId || !productId) {
+                badge.textContent = '—';
+                badge.className = 'stock-badge text-muted';
+                return;
+            }
+
+            const qty = getStock(warehouseId, productId);
+            badge.textContent = qty.toFixed(3);
+            badge.className = qty > 0
+                ? 'stock-badge badge badge-soft-success'
+                : 'stock-badge badge badge-soft-danger';
+        }
+
+        function updateAllStockBadges() {
+            document.querySelectorAll('.item-row').forEach(updateStockBadge);
+        }
+
+        // Update all badges when source warehouse changes
+        document.getElementById('from_warehouse_id').addEventListener('change', updateAllStockBadges);
+
+        // Update badge when product changes
+        document.getElementById('items-body').addEventListener('change', function(e) {
+            if (e.target.classList.contains('product-select')) {
+                updateStockBadge(e.target.closest('.item-row'));
+            }
+        });
+
+        // Add item
         document.getElementById('add-item').addEventListener('click', function() {
             const tbody = document.getElementById('items-body');
             const productOptions = tbody.querySelector('select[name^="items"]').innerHTML;
@@ -179,9 +211,12 @@
             row.className = 'item-row';
             row.innerHTML = `
                 <td>
-                    <select class="form-select form-select-sm" name="items[${itemIndex}][product_id]">
+                    <select class="form-select form-select-sm product-select" name="items[${itemIndex}][product_id]">
                         ${productOptions}
                     </select>
+                </td>
+                <td>
+                    <span class="stock-badge text-muted">—</span>
                 </td>
                 <td>
                     <input type="number" step="0.001" min="0.001" class="form-control form-control-sm" name="items[${itemIndex}][quantity]" placeholder="0.000">
@@ -191,11 +226,11 @@
                 </td>
             `;
             tbody.appendChild(row);
-            // Reset the newly cloned select to no selection
             row.querySelector('select').selectedIndex = 0;
             itemIndex++;
         });
 
+        // Remove item
         document.addEventListener('click', function(e) {
             if (e.target.closest('.remove-item')) {
                 const rows = document.querySelectorAll('.item-row');
@@ -204,6 +239,9 @@
                 }
             }
         });
+
+        // Initial update on page load
+        updateAllStockBadges();
     });
 </script>
 @endpush

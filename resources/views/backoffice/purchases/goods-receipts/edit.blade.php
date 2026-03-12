@@ -106,18 +106,13 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Statut</label>
-                                                <select class="form-select @error('status') is-invalid @enderror"
-                                                    name="status">
-                                                    <option value="received"
-                                                        {{ old('status', $goodsReceipt->status) === 'received' ? 'selected' : '' }}>
-                                                        Reçue</option>
-                                                    <option value="partial"
-                                                        {{ old('status', $goodsReceipt->status) === 'partial' ? 'selected' : '' }}>
-                                                        Partielle</option>
-                                                </select>
-                                                @error('status')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
+                                                <p class="form-control-plaintext">
+                                                    @if($goodsReceipt->status === 'draft')
+                                                        <span class="badge badge-soft-secondary">Brouillon</span>
+                                                    @elseif($goodsReceipt->status === 'received')
+                                                        <span class="badge badge-soft-success">Reçue</span>
+                                                    @endif
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">

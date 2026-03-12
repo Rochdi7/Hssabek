@@ -181,11 +181,14 @@
                                                     <option value="">— Sélectionner —</option>
                                                     @foreach ($bankAccounts as $bankAccount)
                                                         <option value="{{ $bankAccount->id }}"
+                                                            data-balance="{{ number_format($bankAccount->current_balance, 2, ',', ' ') }}"
+                                                            data-currency="{{ $bankAccount->currency }}"
                                                             {{ old('bank_account_id') == $bankAccount->id ? 'selected' : '' }}>
                                                             {{ $bankAccount->bank_name }} —
                                                             {{ $bankAccount->account_number }}</option>
                                                     @endforeach
                                                 </select>
+                                                <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                 @error('bank_account_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

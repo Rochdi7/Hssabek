@@ -17,6 +17,7 @@ class UpdateGoodsReceiptRequest extends TenantFormRequest
             'purchase_order_id' => ['sometimes', 'nullable', 'uuid', $this->tenantExists('purchase_orders')],
             'warehouse_id'      => ['sometimes', 'uuid', $this->tenantExists('warehouses')],
             'received_at'       => ['sometimes', 'nullable', 'date'],
+            'reference_number'  => ['sometimes', 'nullable', 'string', 'max:120'],
             'notes'             => ['sometimes', 'nullable', 'string', 'max:2000'],
 
             'items'                  => ['sometimes', 'array', 'min:1'],

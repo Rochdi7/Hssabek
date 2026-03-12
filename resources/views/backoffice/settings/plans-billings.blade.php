@@ -69,9 +69,13 @@
                                                             <h6 class="fw-bold mb-2 fs-14">{{ $currentSubscription->plan->name }}</h6>
                                                             <div class="progress-container">
                                                                 @php
+                                                                    $effectiveEnd = $currentSubscription->ends_at;
+                                                                    if ($currentSubscription->cancels_at && (!$effectiveEnd || $currentSubscription->cancels_at->lt($effectiveEnd))) {
+                                                                        $effectiveEnd = $currentSubscription->cancels_at;
+                                                                    }
                                                                     $endDate = ($isOnTrial && $tenant->trial_ends_at)
                                                                         ? $tenant->trial_ends_at
-                                                                        : $currentSubscription->ends_at;
+                                                                        : $effectiveEnd;
 
                                                                     $daysLeft = $endDate
                                                                         ? now()->diffInDays($endDate, false)

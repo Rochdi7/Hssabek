@@ -54,6 +54,11 @@ class VendorBill extends Model
         return $this->belongsTo(PurchaseOrder::class);
     }
 
+    public function goodsReceipt(): BelongsTo
+    {
+        return $this->belongsTo(GoodsReceipt::class);
+    }
+
     public function debitNotes(): HasMany
     {
         return $this->hasMany(DebitNote::class);

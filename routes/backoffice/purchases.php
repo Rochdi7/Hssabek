@@ -6,6 +6,7 @@ use App\Http\Controllers\Backoffice\Purchases\VendorBillController;
 use App\Http\Controllers\Backoffice\Purchases\GoodsReceiptController;
 use App\Http\Controllers\Backoffice\Purchases\DebitNoteController;
 use App\Http\Controllers\Backoffice\Purchases\SupplierPaymentController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -159,6 +160,10 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->middleware('permission:purchases.goods_receipts.delete')
             ->name('destroy');
 
+        Route::post('/{goodsReceipt}/confirm', [GoodsReceiptController::class, 'confirm'])
+            ->middleware('permission:purchases.goods_receipts.edit')
+            ->name('confirm');
+
         Route::get('/{goodsReceipt}/download', [GoodsReceiptController::class, 'download'])
             ->middleware(['permission:purchases.goods_receipts.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
@@ -217,6 +222,18 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->middleware('permission:purchases.supplier_payments.create')
             ->name('store');
 
+        Route::get('/{supplierPayment}', [SupplierPaymentController::class, 'show'])
+            ->middleware('permission:purchases.supplier_payments.view')
+            ->name('show');
+
+        Route::get('/{supplierPayment}/edit', [SupplierPaymentController::class, 'edit'])
+            ->middleware('permission:purchases.supplier_payments.view')
+            ->name('edit');
+
+        Route::put('/{supplierPayment}', [SupplierPaymentController::class, 'update'])
+            ->middleware('permission:purchases.supplier_payments.view')
+            ->name('update');
+
         Route::delete('/{supplierPayment}', [SupplierPaymentController::class, 'destroy'])
             ->middleware('permission:purchases.supplier_payments.delete')
             ->name('destroy');
@@ -225,4 +242,5 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->middleware(['permission:purchases.supplier_payments.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
     });
+
 });

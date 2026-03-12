@@ -105,6 +105,7 @@
                                                 <label class="form-label">Solde d'ouverture <span class="text-danger ms-1">*</span></label>
                                                 <input type="number" step="0.01" class="form-control @error('opening_balance') is-invalid @enderror" name="opening_balance" value="{{ old('opening_balance', '0.00') }}">
                                                 @error('opening_balance')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                                <small class="text-warning d-block mt-1"><i class="isax isax-warning-2 me-1"></i>Ce montant ne pourra plus être modifié après la création.</small>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
@@ -127,9 +128,36 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.finance.bank-accounts.index') }}" class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Créer le compte</button>
+                                        <button type="button" class="btn btn-primary" id="btnSubmitAccount">Créer le compte</button>
                                     </div>
                                 </form>
+
+                                <!-- Modal confirmation solde d'ouverture -->
+                                <div class="modal fade" id="confirmOpeningBalanceModal" tabindex="-1" aria-labelledby="confirmOpeningBalanceLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header border-0 pb-0">
+                                                <h5 class="modal-title" id="confirmOpeningBalanceLabel">Confirmation du solde d'ouverture</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="text-center mb-3">
+                                                    <i class="isax isax-warning-2 text-warning" style="font-size: 48px;"></i>
+                                                </div>
+                                                <div class="alert alert-warning mb-3">
+                                                    <strong>Attention !</strong> Le solde d'ouverture ne pourra plus être modifié après la création du compte.
+                                                </div>
+                                                <p class="mb-1">Veuillez vérifier que le montant suivant est correct :</p>
+                                                <p class="text-center fs-4 fw-bold text-primary" id="displayOpeningBalance">0.00</p>
+                                                <p class="text-muted text-center mb-0">Assurez-vous que ce montant est exact à 100% avant de confirmer.</p>
+                                            </div>
+                                            <div class="modal-footer border-0 pt-0">
+                                                <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Vérifier à nouveau</button>
+                                                <button type="button" class="btn btn-primary" id="btnConfirmCreate">Confirmer et créer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div>
@@ -147,4 +175,29 @@
     <!-- ========================
             End Page Content
         ========================= -->
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form[action*="bank-accounts"]');
+    var btnSubmit = document.getElementById('btnSubmitAccount');
+    var btnConfirm = document.getElementById('btnConfirmCreate');
+    var modal = new bootstrap.Modal(document.getElementById('confirmOpeningBalanceModal'));
+    var displayAmount = document.getElementById('displayOpeningBalance');
+
+    btnSubmit.addEventListener('click', function() {
+        var openingBalance = form.querySelector('input[name="opening_balance"]').value || '0.00';
+        var formatted = parseFloat(openingBalance).toFixed(2);
+        var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? "MAD" }}';
+        displayAmount.textContent = formatted + ' ' + currency;
+        modal.show();
+    });
+
+    btnConfirm.addEventListener('click', function() {
+        modal.hide();
+        form.submit();
+    });
+});
+</script>
+@endpush
 @endsection

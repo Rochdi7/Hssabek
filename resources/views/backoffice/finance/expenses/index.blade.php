@@ -131,6 +131,8 @@
                                 'Catégorie',
                                 'Fournisseur',
                                 'Montant',
+                                'Payé',
+                                'Reste',
                                 'Mode de paiement',
                                 'Statut',
                             ],
@@ -155,6 +157,8 @@
                             <th>Catégorie</th>
                             <th>Fournisseur</th>
                             <th>Montant</th>
+                            <th>Payé</th>
+                            <th>Reste</th>
                             <th>Mode de paiement</th>
                             <th class="no-sort">Statut</th>
                             <th class="no-sort"></th>
@@ -178,6 +182,11 @@
                                 <td>{{ $expense->category->name ?? '—' }}</td>
                                 <td>{{ $expense->supplier->name ?? '—' }}</td>
                                 <td class="fw-semibold">{{ number_format($expense->amount, 2, ',', ' ') }}
+                                    {{ $expense->currency }}</td>
+                                <td class="text-success">{{ number_format($expense->paid_amount, 2, ',', ' ') }}
+                                    {{ $expense->currency }}</td>
+                                <td class="{{ $expense->remaining_amount > 0 ? 'text-danger' : 'text-success' }}">
+                                    {{ number_format($expense->remaining_amount, 2, ',', ' ') }}
                                     {{ $expense->currency }}</td>
                                 <td>
                                     @switch($expense->payment_mode)
@@ -220,6 +229,11 @@
                                         <i class="isax isax-more"></i>
                                     </a>
                                     <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ route('bo.finance.expenses.show', $expense) }}"
+                                                class="dropdown-item d-flex align-items-center"><i
+                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('bo.finance.expenses.edit', $expense) }}"
                                                 class="dropdown-item d-flex align-items-center"><i

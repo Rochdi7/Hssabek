@@ -2,6 +2,7 @@
 
 namespace App\Services\Purchases;
 
+use App\Models\Inventory\Warehouse;
 use App\Models\Purchases\GoodsReceipt;
 use App\Models\Purchases\GoodsReceiptItem;
 use App\Models\Purchases\PurchaseOrder;
@@ -29,8 +30,13 @@ class PurchaseOrderService
 
             $totals = $this->taxService->calculateDocument($mappedItems);
 
+            $warehouseId = $validated['warehouse_id']
+                ?? Warehouse::where('is_default', true)->value('id')
+                ?? Warehouse::where('is_active', true)->value('id');
+
             $po = PurchaseOrder::create([
                 'supplier_id'    => $validated['supplier_id'],
+                'warehouse_id'   => $warehouseId,
                 'number'         => $this->docService->next('purchase_order'),
                 'order_date'     => $validated['order_date'],
                 'expected_date'  => $validated['expected_date'] ?? null,
@@ -104,6 +110,7 @@ class PurchaseOrderService
 
             $po->update([
                 'supplier_id'    => $validated['supplier_id'],
+                'warehouse_id'   => $validated['warehouse_id'] ?? $po->warehouse_id,
                 'order_date'     => $validated['order_date'],
                 'expected_date'  => $validated['expected_date'] ?? null,
                 'subtotal'       => $totals['subtotal'],
@@ -144,6 +151,7 @@ class PurchaseOrderService
         return DB::transaction(function () use ($po) {
             $receipt = GoodsReceipt::create([
                 'purchase_order_id' => $po->id,
+                'warehouse_id'      => $po->warehouse_id,
                 'number'            => $this->docService->next('goods_receipt'),
                 'status'            => 'received',
                 'received_at'       => now(),

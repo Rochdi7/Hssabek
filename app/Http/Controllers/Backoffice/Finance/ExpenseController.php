@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backoffice\Finance;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Finance\Store\StoreExpensePaymentRequest;
 use App\Http\Requests\Finance\Store\StoreExpenseRequest;
 use App\Http\Requests\Finance\Update\UpdateExpenseRequest;
 use App\Models\Finance\BankAccount;
@@ -66,6 +67,16 @@ class ExpenseController extends Controller
             ->with('success', 'Dépense enregistrée avec succès.');
     }
 
+    public function show(Expense $expense)
+    {
+        $this->authorize('view', $expense);
+
+        $expense->load(['category', 'bankAccount', 'supplier', 'payments.bankAccount']);
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+
+        return view('backoffice.finance.expenses.show', compact('expense', 'bankAccounts'));
+    }
+
     public function edit(Expense $expense)
     {
         $this->authorize('update', $expense);
@@ -89,6 +100,27 @@ class ExpenseController extends Controller
 
         return redirect()->route('bo.finance.expenses.index')
             ->with('success', 'Dépense mise à jour avec succès.');
+    }
+
+    public function addPayment(StoreExpensePaymentRequest $request, Expense $expense)
+    {
+        $this->authorize('update', $expense);
+
+        if ($expense->remaining_amount <= 0) {
+            return redirect()->route('bo.finance.expenses.show', $expense)
+                ->with('error', 'Cette dépense est déjà entièrement payée.');
+        }
+
+        try {
+            $this->expenseService->addPayment($expense, $request->validated());
+            ReportService::flushTenantCache();
+
+            return redirect()->route('bo.finance.expenses.show', $expense)
+                ->with('success', 'Paiement enregistré avec succès.');
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('bo.finance.expenses.show', $expense)
+                ->with('error', $e->getMessage());
+        }
     }
 
     public function destroy(Expense $expense)

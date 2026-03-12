@@ -44,13 +44,18 @@ class DebitNoteService
 
             foreach ($totals['calculated_items'] as $item) {
                 DebitNoteItem::create([
-                    'debit_note_id' => $debitNote->id,
-                    'product_id' => $item['product_id'] ?? null,
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'],
-                    'discount_percentage' => ($item['discount_type'] ?? 'none') === 'percentage' ? ($item['discount_value'] ?? 0) : 0,
-                    'tax_amount' => $item['line_tax'],
-                    'line_total' => $item['line_total'],
+                    'debit_note_id'  => $debitNote->id,
+                    'product_id'     => $item['product_id'] ?? null,
+                    'label'          => $item['label'] ?? '',
+                    'description'    => $item['description'] ?? null,
+                    'quantity'       => $item['quantity'],
+                    'unit_cost'      => $item['unit_price'],
+                    'discount_type'  => $item['discount_type'] ?? 'none',
+                    'discount_value' => $item['discount_value'] ?? 0,
+                    'tax_rate'       => $item['tax_rate'],
+                    'tax_group_id'   => $item['tax_group_id'] ?? null,
+                    'line_total'     => $item['line_total'],
+                    'position'       => $item['position'],
                 ]);
             }
 
@@ -85,13 +90,18 @@ class DebitNoteService
             $debitNote->items()->delete();
             foreach ($totals['calculated_items'] as $item) {
                 DebitNoteItem::create([
-                    'debit_note_id' => $debitNote->id,
-                    'product_id' => $item['product_id'] ?? null,
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'],
-                    'discount_percentage' => ($item['discount_type'] ?? 'none') === 'percentage' ? ($item['discount_value'] ?? 0) : 0,
-                    'tax_amount' => $item['line_tax'],
-                    'line_total' => $item['line_total'],
+                    'debit_note_id'  => $debitNote->id,
+                    'product_id'     => $item['product_id'] ?? null,
+                    'label'          => $item['label'] ?? '',
+                    'description'    => $item['description'] ?? null,
+                    'quantity'       => $item['quantity'],
+                    'unit_cost'      => $item['unit_price'],
+                    'discount_type'  => $item['discount_type'] ?? 'none',
+                    'discount_value' => $item['discount_value'] ?? 0,
+                    'tax_rate'       => $item['tax_rate'],
+                    'tax_group_id'   => $item['tax_group_id'] ?? null,
+                    'line_total'     => $item['line_total'],
+                    'position'       => $item['position'],
                 ]);
             }
 
@@ -126,9 +136,10 @@ class DebitNoteService
                 }
 
                 DebitNoteApplication::create([
-                    'debit_note_id' => $debitNote->id,
+                    'debit_note_id'  => $debitNote->id,
                     'vendor_bill_id' => $vendorBill->id,
                     'amount_applied' => $amountApplied,
+                    'applied_at'     => now(),
                 ]);
 
                 $this->vendorBillService->updatePaymentTotals($vendorBill);

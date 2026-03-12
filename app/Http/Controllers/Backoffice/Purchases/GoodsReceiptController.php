@@ -42,7 +42,7 @@ class GoodsReceiptController extends Controller
     {
         $this->authorize('create', GoodsReceipt::class);
 
-        $purchaseOrders = PurchaseOrder::where('status', 'confirmed')->with('supplier')->orderBy('order_date', 'desc')->get();
+        $purchaseOrders = PurchaseOrder::whereIn('status', ['draft', 'confirmed', 'partially_received'])->with('supplier')->orderBy('order_date', 'desc')->get();
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $products = Product::where('item_type', 'product')->orderBy('name')->get();
 
@@ -103,6 +103,20 @@ class GoodsReceiptController extends Controller
 
         return redirect()->route('bo.purchases.goods-receipts.index')
             ->with('success', 'Réception de marchandises supprimée avec succès.');
+    }
+
+    public function confirm(GoodsReceipt $goodsReceipt)
+    {
+        $this->authorize('update', $goodsReceipt);
+
+        try {
+            $this->goodsReceiptService->confirm($goodsReceipt);
+        } catch (\LogicException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('bo.purchases.goods-receipts.show', $goodsReceipt)
+            ->with('success', 'Réception confirmée — le stock a été mis à jour.');
     }
 
     public function download(GoodsReceipt $goodsReceipt, PdfService $pdfService)

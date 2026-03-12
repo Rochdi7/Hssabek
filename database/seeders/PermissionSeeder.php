@@ -116,6 +116,15 @@ class PermissionSeeder extends Seeder
             ]);
         }
 
+        // supplier_payment_methods (full CRUD)
+        foreach ($actions as $action) {
+            Permission::firstOrCreate([
+                'name' => "purchases.supplier_payment_methods.{$action}",
+                'guard_name' => 'web',
+                'tenant_id' => null,
+            ]);
+        }
+
         // Reports (view-only)
         $reportModules = ['sales', 'customers', 'purchases', 'inventory', 'finance'];
         foreach ($reportModules as $module) {

@@ -2,14 +2,14 @@
 
 namespace App\Models\Purchases;
 
+use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SupplierPaymentMethod extends Model
 {
-    use HasUuids;
+    use HasUuids, BelongsToTenant;
 
     public $timestamps = false;
 
@@ -22,11 +22,6 @@ class SupplierPaymentMethod extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
-
-    public function supplier(): BelongsTo
-    {
-        return $this->belongsTo(Supplier::class);
-    }
 
     public function payments(): HasMany
     {

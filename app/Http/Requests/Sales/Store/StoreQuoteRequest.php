@@ -2,12 +2,14 @@
 
 namespace App\Http\Requests\Sales\Store;
 
+use App\Http\Requests\Traits\ResolveTaxSelection;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreQuoteRequest extends FormRequest
 {
+    use ResolveTaxSelection;
     public function authorize(): bool
     {
         return true;

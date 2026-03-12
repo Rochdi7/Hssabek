@@ -14,13 +14,11 @@ class UpdateSupplierPaymentRequest extends TenantFormRequest
     public function rules(): array
     {
         return [
-            'supplier_id'       => ['sometimes', 'uuid', $this->tenantExists('suppliers')],
-            'vendor_bill_id'    => ['sometimes', 'nullable', 'uuid', $this->tenantExists('vendor_bills')],
-            'bank_account_id'   => ['sometimes', 'nullable', 'uuid', $this->tenantExists('bank_accounts')],
             'amount'            => ['sometimes', 'numeric', 'gt:0'],
             'paid_at'           => ['sometimes', 'date'],
-            'payment_mode'      => ['sometimes', 'in:cash,bank_transfer,card,cheque,other'],
-            'reference'         => ['sometimes', 'nullable', 'string', 'max:120'],
+            'bank_account_id'   => ['sometimes', 'nullable', 'uuid', $this->tenantExists('bank_accounts')],
+            'payment_method_id' => ['sometimes', 'nullable', 'uuid', $this->tenantExists('supplier_payment_methods')],
+            'reference_number'  => ['sometimes', 'nullable', 'string', 'max:120'],
             'notes'             => ['sometimes', 'nullable', 'string', 'max:2000'],
         ];
     }
@@ -28,11 +26,13 @@ class UpdateSupplierPaymentRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'supplier_id.exists'     => 'Le fournisseur sélectionné est invalide.',
-            'vendor_bill_id.exists'  => 'La facture fournisseur sélectionnée est invalide.',
-            'bank_account_id.exists' => 'Le compte bancaire sélectionné est invalide.',
-            'amount.gt'             => 'Le montant doit être supérieur à zéro.',
-            'payment_mode.in'       => 'Le mode de paiement est invalide.',
+            'bank_account_id.exists'   => 'Le compte bancaire sélectionné est invalide.',
+            'payment_method_id.exists' => 'La méthode de paiement sélectionnée est invalide.',
+            'amount.gt'                => 'Le montant doit être supérieur à zéro.',
+            'amount.numeric'           => 'Le montant doit être un nombre valide.',
+            'paid_at.date'             => 'La date de paiement est invalide.',
+            'reference_number.max'     => 'La référence ne peut pas dépasser 120 caractères.',
+            'notes.max'                => 'Les notes ne peuvent pas dépasser 2000 caractères.',
         ];
     }
 }

@@ -178,7 +178,8 @@
                                                 <label class="form-label">Statut de paiement <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('payment_status') is-invalid @enderror"
-                                                    name="payment_status">
+                                                    name="payment_status" id="payment_status"
+                                                    onchange="togglePaidAmount()">
                                                     <option value="unpaid"
                                                         {{ old('payment_status', 'unpaid') === 'unpaid' ? 'selected' : '' }}>
                                                         Impayée</option>
@@ -194,6 +195,24 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col-lg-4 col-md-6" id="paid_amount_wrapper"
+                                            style="{{ old('payment_status') === 'partial' ? '' : 'display:none;' }}">
+                                            <div class="mb-3">
+                                                <label class="form-label">Montant payé <span
+                                                        class="text-danger ms-1">*</span></label>
+                                                <input type="number" step="0.01" min="0"
+                                                    class="form-control @error('paid_amount') is-invalid @enderror"
+                                                    name="paid_amount" id="paid_amount_input"
+                                                    value="{{ old('paid_amount') }}"
+                                                    oninput="calculateReste()">
+                                                @error('paid_amount')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                <small class="text-muted" id="reste_info" style="display:none;">
+                                                    Reste à payer : <strong id="reste_value">0,00</strong>
+                                                </small>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Compte bancaire</label>
@@ -202,11 +221,14 @@
                                                     <option value="">— Sélectionner —</option>
                                                     @foreach ($bankAccounts as $bankAccount)
                                                         <option value="{{ $bankAccount->id }}"
+                                                            data-balance="{{ number_format($bankAccount->current_balance, 2, ',', ' ') }}"
+                                                            data-currency="{{ $bankAccount->currency }}"
                                                             {{ old('bank_account_id') == $bankAccount->id ? 'selected' : '' }}>
                                                             {{ $bankAccount->bank_name }} —
                                                             {{ $bankAccount->account_number }}</option>
                                                     @endforeach
                                                 </select>
+                                                <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                 @error('bank_account_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -246,3 +268,37 @@
                         End Page Content
                     ========================= -->
 @endsection
+
+@push('scripts')
+    <script>
+        function togglePaidAmount() {
+            var status = document.getElementById('payment_status').value;
+            var wrapper = document.getElementById('paid_amount_wrapper');
+            if (status === 'partial') {
+                wrapper.style.display = '';
+                calculateReste();
+            } else {
+                wrapper.style.display = 'none';
+            }
+        }
+
+        function calculateReste() {
+            var amount = parseFloat(document.querySelector('input[name="amount"]').value) || 0;
+            var paid = parseFloat(document.getElementById('paid_amount_input').value) || 0;
+            var reste = Math.max(0, amount - paid);
+            document.getElementById('reste_value').textContent = reste.toFixed(2).replace('.', ',');
+            document.getElementById('reste_info').style.display = '';
+        }
+
+        // Init on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            togglePaidAmount();
+            // Also recalculate when amount changes
+            document.querySelector('input[name="amount"]').addEventListener('input', function() {
+                if (document.getElementById('payment_status').value === 'partial') {
+                    calculateReste();
+                }
+            });
+        });
+    </script>
+@endpush

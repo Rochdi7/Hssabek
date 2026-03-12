@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backoffice\Sales;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sales\Store\StoreCreditNoteRequest;
 use App\Http\Requests\Sales\Update\UpdateCreditNoteRequest;
+use App\Models\Catalog\TaxCategory;
+use App\Models\Catalog\TaxGroup;
 use App\Models\CRM\Customer;
 use App\Models\Finance\BankAccount;
 use App\Models\Sales\CreditNote;
@@ -62,6 +64,8 @@ class CreditNoteController extends Controller
             ->get();
 
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('credit_note_ref');
 
@@ -69,7 +73,7 @@ class CreditNoteController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.sales.credit-notes.create', compact('customers', 'invoices', 'bankAccounts', 'nextReference', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.sales.credit-notes.create', compact('customers', 'invoices', 'bankAccounts', 'taxGroups', 'taxCategories', 'nextReference', 'defaultTerms', 'defaultFooter'));
     }
 
     public function store(StoreCreditNoteRequest $request)
@@ -113,6 +117,8 @@ class CreditNoteController extends Controller
             ->get();
 
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('credit_note_ref');
 
@@ -120,7 +126,7 @@ class CreditNoteController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.sales.credit-notes.edit', compact('creditNote', 'customers', 'invoices', 'bankAccounts', 'nextReference', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.sales.credit-notes.edit', compact('creditNote', 'customers', 'invoices', 'bankAccounts', 'taxGroups', 'taxCategories', 'nextReference', 'defaultTerms', 'defaultFooter'));
     }
 
     public function update(UpdateCreditNoteRequest $request, CreditNote $creditNote)

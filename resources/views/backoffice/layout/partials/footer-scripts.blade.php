@@ -27,5 +27,26 @@
  {{-- Page-specific scripts pushed from individual views --}}
  @stack('scripts')
 
+ {{-- Bank account balance display on select change --}}
+ <script>
+ document.addEventListener('DOMContentLoaded', function () {
+     document.querySelectorAll('select[name="bank_account_id"], select[name="from_bank_account_id"], select[name="to_bank_account_id"]').forEach(function (select) {
+         var info = select.parentElement.querySelector('.bank-balance-info');
+         if (!info) return;
+         function updateBalance() {
+             var opt = select.options[select.selectedIndex];
+             if (opt && opt.value) {
+                 info.innerHTML = 'Solde actuel : <strong>' + opt.getAttribute('data-balance') + ' ' + opt.getAttribute('data-currency') + '</strong>';
+                 info.style.display = 'block';
+             } else {
+                 info.style.display = 'none';
+             }
+         }
+         select.addEventListener('change', updateBalance);
+         updateBalance();
+     });
+ });
+ </script>
+
  <!-- Custom JS -->
  <script src="{{ URL::asset('build/js/script.js') }}"></script>

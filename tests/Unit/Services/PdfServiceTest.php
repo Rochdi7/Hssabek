@@ -52,7 +52,7 @@ class PdfServiceTest extends TestCase
 
         $resolved = $method->invoke($service, 'quote');
 
-        $this->assertSame('pdf.templates.modern.quote', $resolved);
+        $this->assertSame('pdf.templates.free.quote.model-2', $resolved);
     }
 }
 

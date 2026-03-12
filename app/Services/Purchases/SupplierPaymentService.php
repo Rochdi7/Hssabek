@@ -44,7 +44,7 @@ class SupplierPaymentService
                 'payment_date' => $validated['paid_at'],
                 'paid_at' => now(),
                 'payment_method_id' => $validated['payment_method_id'] ?? null,
-                'reference_number' => $validated['reference'] ?? null,
+                'reference_number' => $validated['reference_number'] ?? null,
                 'notes' => $validated['notes'] ?? null,
             ]);
 

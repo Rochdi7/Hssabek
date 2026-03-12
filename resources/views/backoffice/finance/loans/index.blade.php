@@ -50,13 +50,39 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
+                                <i class="isax isax-filter me-1"></i>Type : <span class="fw-normal ms-1">
+                                    @switch(request('loan_type'))
+                                        @case('received')
+                                            Reçu
+                                        @break
+                                        @case('given')
+                                            Donné
+                                        @break
+                                        @default
+                                            Tous
+                                    @endswitch
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a href="{{ route('bo.finance.loans.index', request()->except('loan_type', 'page')) }}"
+                                        class="dropdown-item">Tous</a></li>
+                                <li><a href="{{ route('bo.finance.loans.index', array_merge(request()->except('page'), ['loan_type' => 'received'])) }}"
+                                        class="dropdown-item">Reçu</a></li>
+                                <li><a href="{{ route('bo.finance.loans.index', array_merge(request()->except('page'), ['loan_type' => 'given'])) }}"
+                                        class="dropdown-item">Donné</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
                                     @switch(request('status'))
                                         @case('active')
                                             Actif
                                         @break
 
-                                        @case('completed')
+                                        @case('closed')
                                             Terminé
                                         @break
 
@@ -74,7 +100,7 @@
                                         class="dropdown-item">Tous</a></li>
                                 <li><a href="{{ route('bo.finance.loans.index', array_merge(request()->except('page'), ['status' => 'active'])) }}"
                                         class="dropdown-item">Actif</a></li>
-                                <li><a href="{{ route('bo.finance.loans.index', array_merge(request()->except('page'), ['status' => 'completed'])) }}"
+                                <li><a href="{{ route('bo.finance.loans.index', array_merge(request()->except('page'), ['status' => 'closed'])) }}"
                                         class="dropdown-item">Terminé</a></li>
                                 <li><a href="{{ route('bo.finance.loans.index', array_merge(request()->except('page'), ['status' => 'defaulted'])) }}"
                                         class="dropdown-item">Défaut</a></li>
@@ -83,9 +109,9 @@
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
                                 'Référence',
-                                'Prêteur',
+                                'Type',
+                                'Prêteur / Emprunteur',
                                 'Montant principal',
-                                'Taux d\'intérêt',
                                 'Date début',
                                 'Date fin',
                                 'Solde restant',
@@ -106,9 +132,9 @@
                                 </div>
                             </th>
                             <th>Référence</th>
-                            <th>Prêteur</th>
+                            <th>Type</th>
+                            <th>Prêteur / Emprunteur</th>
                             <th>Montant principal</th>
-                            <th>Taux d'intérêt</th>
                             <th>Date début</th>
                             <th>Date fin</th>
                             <th>Solde restant</th>
@@ -126,14 +152,18 @@
                                 </td>
                                 <td><span class="fw-medium">{{ $loan->reference_number }}</span></td>
                                 <td>
+                                    @if ($loan->loan_type === 'given')
+                                        <span class="badge badge-soft-primary">Donné</span>
+                                    @else
+                                        <span class="badge badge-soft-warning">Reçu</span>
+                                    @endif
+                                </td>
+                                <td>
                                     {{ $loan->lender_name }}
                                     <br><small
-                                        class="text-muted">{{ $loan->lender_type === 'bank' ? 'Banque' : ($loan->lender_type === 'institution' ? 'Institution' : 'Particulier') }}</small>
+                                        class="text-muted">{{ $loan->lender_type === 'bank' ? 'Banque' : ($loan->lender_type === 'personal' ? 'Particulier' : 'Autre') }}</small>
                                 </td>
                                 <td class="fw-semibold">{{ number_format($loan->principal_amount, 2, ',', ' ') }}</td>
-                                <td>{{ $loan->interest_rate }}% <small
-                                        class="text-muted">{{ $loan->interest_type === 'fixed' ? 'Fixe' : 'Variable' }}</small>
-                                </td>
                                 <td>{{ \Carbon\Carbon::parse($loan->start_date)->format('d/m/Y') }}</td>
                                 <td>{{ $loan->end_date ? \Carbon\Carbon::parse($loan->end_date)->format('d/m/Y') : '—' }}
                                 </td>
@@ -144,7 +174,7 @@
                                             <span class="badge badge-soft-success d-inline-flex align-items-center">Actif</span>
                                         @break
 
-                                        @case('completed')
+                                        @case('closed')
                                             <span class="badge badge-soft-info d-inline-flex align-items-center">Terminé</span>
                                         @break
 

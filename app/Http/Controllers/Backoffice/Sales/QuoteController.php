@@ -7,6 +7,7 @@ use App\Http\Requests\Sales\Store\StoreQuoteRequest;
 use App\Http\Requests\Sales\Update\UpdateQuoteRequest;
 use App\Jobs\SendQuoteEmailJob;
 use App\Models\Catalog\Product;
+use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\TaxGroup;
 use App\Models\Catalog\Unit;
 use App\Models\CRM\Customer;
@@ -62,6 +63,7 @@ class QuoteController extends Controller
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('quote_ref');
@@ -75,6 +77,7 @@ class QuoteController extends Controller
             'products',
             'units',
             'taxGroups',
+            'taxCategories',
             'bankAccounts',
             'nextReference',
             'defaultTerms',
@@ -122,6 +125,7 @@ class QuoteController extends Controller
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('quote_ref');
@@ -136,6 +140,7 @@ class QuoteController extends Controller
             'products',
             'units',
             'taxGroups',
+            'taxCategories',
             'bankAccounts',
             'nextReference',
             'defaultTerms',

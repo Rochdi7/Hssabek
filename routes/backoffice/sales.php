@@ -233,6 +233,10 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->middleware('permission:sales.refunds.create')
             ->name('store');
 
+        Route::get('/{refund}', [RefundController::class, 'show'])
+            ->middleware('permission:sales.refunds.view')
+            ->name('show');
+
         Route::get('/{refund}/edit', [RefundController::class, 'edit'])
             ->middleware('permission:sales.refunds.edit')
             ->name('edit');

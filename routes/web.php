@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,21 +23,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('web')->group(function () {
 
-    Route::get('/', function () {
-        return view('web.pages.home');
-    })->name('home');
+    Route::get('/', [PageController::class, 'home'])->name('home');
+    Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
+    Route::get('/features', [PageController::class, 'features'])->name('features');
+    Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+    Route::post('/contact', [PageController::class, 'contactSend'])->name('contact.send');
 
-    Route::get('/pricing', function () {
-        return view('web.pages.pricing');
-    })->name('pricing');
-
-    Route::get('/features', function () {
-        return view('web.pages.features');
-    })->name('features');
-
-    Route::get('/contact', function () {
-        return view('web.pages.contact');
-    })->name('contact');
+    // Legal pages
+    Route::get('/conditions-utilisation', [PageController::class, 'terms'])->name('terms');
+    Route::get('/politique-confidentialite', [PageController::class, 'privacy'])->name('privacy');
+    Route::get('/mentions-legales', [PageController::class, 'legal'])->name('legal');
 });
 
 

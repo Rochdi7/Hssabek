@@ -7,11 +7,16 @@ use App\Http\Requests\Sales\Store\StoreRefundRequest;
 use App\Http\Requests\Sales\Update\UpdateRefundRequest;
 use App\Models\Sales\Payment;
 use App\Models\Sales\Refund;
+use App\Services\Sales\RefundService;
 use App\Services\System\DocumentNumberService;
 use Illuminate\Http\Request;
 
 class RefundController extends Controller
 {
+    public function __construct(
+        private readonly RefundService $service,
+    ) {}
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', Refund::class);
@@ -45,13 +50,19 @@ class RefundController extends Controller
     {
         $this->authorize('create', Refund::class);
 
-        $data = $request->validated();
-        $data['status'] = 'pending';
-
-        Refund::create($data);
+        $this->service->createRefund($request->validated());
 
         return redirect()->route('bo.sales.refunds.index')
             ->with('success', 'Remboursement enregistré avec succès.');
+    }
+
+    public function show(Refund $refund)
+    {
+        $this->authorize('view', $refund);
+
+        $refund->load(['payment', 'payment.customer', 'payment.paymentMethod']);
+
+        return view('backoffice.sales.refunds.show', compact('refund'));
     }
 
     public function edit(Refund $refund)
@@ -69,7 +80,7 @@ class RefundController extends Controller
     {
         $this->authorize('update', $refund);
 
-        $refund->update($request->validated());
+        $this->service->updateRefund($refund, $request->validated());
 
         return redirect()->route('bo.sales.refunds.index')
             ->with('success', 'Remboursement mis à jour avec succès.');
@@ -79,7 +90,7 @@ class RefundController extends Controller
     {
         $this->authorize('delete', $refund);
 
-        $refund->delete();
+        $this->service->deleteRefund($refund);
 
         return redirect()->route('bo.sales.refunds.index')
             ->with('success', 'Remboursement supprimé avec succès.');

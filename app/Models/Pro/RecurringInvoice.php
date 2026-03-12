@@ -4,12 +4,13 @@ namespace App\Models\Pro;
 
 use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RecurringInvoice extends Model
 {
-    use HasUuids, BelongsToTenant;
+    use HasFactory, HasUuids, BelongsToTenant;
 
     protected $fillable = [
         'customer_id',

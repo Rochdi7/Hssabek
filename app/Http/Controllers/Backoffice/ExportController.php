@@ -32,8 +32,10 @@ use App\Models\Sales\Payment;
 use App\Models\Sales\Quote;
 use App\Models\Sales\Refund;
 use App\Models\User;
+use App\Exports\GenericListExport;
 use App\Services\System\ListExportService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
@@ -106,6 +108,13 @@ class ExportController extends Controller
 
         if ($format === 'csv') {
             return $this->exportService->toCsv($query, $config['columns'], $filename);
+        }
+
+        if ($format === 'excel') {
+            return Excel::download(
+                new GenericListExport($query, $config['columns'], $config['title'], $filename),
+                $filename . '.xlsx'
+            );
         }
 
         return $this->exportService->toPdf($query, $config['columns'], $config['title'], $filename);

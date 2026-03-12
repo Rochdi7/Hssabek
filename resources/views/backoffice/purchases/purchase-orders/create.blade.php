@@ -65,7 +65,19 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">Réf. fournisseur</label>
-                                                                <input type="text"
+                                                                <div class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
+                                                                            onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
+                                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
+                                                                            onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
+                                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" id="reference_number"
                                                                     class="form-control @error('reference_number') is-invalid @enderror"
                                                                     name="reference_number"
                                                                     value="{{ old('reference_number') }}"
@@ -126,10 +138,9 @@
                                                                             class="img-fluid" alt="Logo"
                                                                             style="max-height: 60px;">
                                                                     @else
-                                                                        <img src="{{ URL::asset('build/img/invoice-logo.svg') }}"
-                                                                            class="invoice-logo-dark" alt="img">
-                                                                        <img src="{{ URL::asset('build/img/invoice-logo-white-2.svg') }}"
-                                                                            class="invoice-logo-white" alt="img">
+                                                                        <img src="{{ $tenant->logo_url }}"
+                                                                            class="img-fluid" alt="Logo entreprise"
+                                                                            style="max-height: 60px;">
                                                                     @endif
                                                                 </div>
                                                             </div>
@@ -244,6 +255,26 @@
                                     </div>
                                     <!-- end row -->
 
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Entrepôt <span class="text-danger">*</span></label>
+                                                <select name="warehouse_id"
+                                                    class="form-select @error('warehouse_id') is-invalid @enderror" required>
+                                                    @foreach ($warehouses as $warehouse)
+                                                        <option value="{{ $warehouse->id }}"
+                                                            {{ old('warehouse_id', $warehouse->is_default ? $warehouse->id : '') == $warehouse->id ? 'selected' : '' }}>
+                                                            {{ $warehouse->name }}{{ $warehouse->code ? ' (' . $warehouse->code . ')' : '' }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('warehouse_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <div class="items-details">
@@ -300,7 +331,7 @@
                                                     <th style="width: 28%;">Produit / Libellé</th>
                                                     <th style="width: 13%;">Quantité</th>
                                                     <th style="width: 17%;">Coût unitaire</th>
-                                                    <th style="width: 15%;">Taxe (%)</th>
+                                                    <th class="tax-col" style="width: 15%;">Taxe (%)</th>
                                                     <th style="width: 17%;">Total ligne</th>
                                                     <th style="width: 10%;"></th>
                                                 </tr>
@@ -334,11 +365,30 @@
                                                             value="{{ old('items.0.unit_cost', 0) }}" min="0"
                                                             step="0.01" required>
                                                     </td>
-                                                    <td>
-                                                        <input type="number" class="form-control item-tax"
-                                                            name="items[0][tax_rate]"
-                                                            value="{{ old('items.0.tax_rate', 20) }}" min="0"
-                                                            max="100" step="0.01">
+                                                    <td class="tax-col">
+                                                        <select name="items[0][tax_group_id]" class="form-select item-tax">
+                                                            <option value="" data-rate="0" data-type="">0%</option>
+                                                            @if($taxCategories->count())
+                                                            <optgroup label="Taux de taxes">
+                                                                @foreach ($taxCategories as $tc)
+                                                                    <option value="cat_{{ $tc->id }}" data-rate="{{ $tc->rate }}" data-type="category"
+                                                                        {{ old('items.0.tax_group_id') == 'cat_'.$tc->id ? 'selected' : '' }}>
+                                                                        {{ $tc->name }} ({{ $tc->rate }}%)
+                                                                    </option>
+                                                                @endforeach
+                                                            </optgroup>
+                                                            @endif
+                                                            @if($taxGroups->count())
+                                                            <optgroup label="Groupes de taxes">
+                                                                @foreach ($taxGroups as $tg)
+                                                                    <option value="{{ $tg->id }}" data-rate="{{ $tg->rates->sum('rate') }}" data-type="group"
+                                                                        {{ old('items.0.tax_group_id') == $tg->id ? 'selected' : '' }}>
+                                                                        {{ $tg->name }} ({{ $tg->rates->sum('rate') }}%)
+                                                                    </option>
+                                                                @endforeach
+                                                            </optgroup>
+                                                            @endif
+                                                        </select>
                                                     </td>
                                                     <td>
                                                         <span class="item-total fw-medium">0,00</span>
@@ -404,6 +454,8 @@
                                                                 <option value="">Sélectionner</option>
                                                                 @foreach ($bankAccounts as $ba)
                                                                     <option value="{{ $ba->id }}"
+                                                                        data-balance="{{ number_format($ba->current_balance, 2, ',', ' ') }}"
+                                                                        data-currency="{{ $ba->currency }}"
                                                                         {{ old('bank_account_id') == $ba->id ? 'selected' : '' }}>
                                                                         {{ $ba->account_holder_name }} -
                                                                         {{ $ba->account_number }}
@@ -411,6 +463,7 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -424,7 +477,7 @@
                                                         <h6 class="fs-14" id="display-subtotal">0,00</h6>
                                                     </div>
                                                 </li>
-                                                <li class="mb-3">
+                                                <li class="mb-3" id="tax-total-row">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <p class="fw-semibold fs-14 text-gray-9 mb-0">Taxes</p>
                                                         <h6 class="fs-14" id="display-tax">0,00</h6>
@@ -471,6 +524,32 @@
         document.addEventListener('DOMContentLoaded', function() {
             let itemIndex = 1;
             const productsJson = @json($products);
+            const taxCategories = @json($taxCategories);
+            const taxGroups = @json($taxGroups);
+            const enableTaxCheck = document.getElementById('enable_tax');
+            const taxTotalRow = document.getElementById('tax-total-row');
+            const defaultTaxGroup = null;
+
+            // Build tax select options
+            function buildTaxOptions() {
+                let taxOpts = '<option value="" data-rate="0" data-type="">0%</option>';
+                if (taxCategories.length) {
+                    taxOpts += '<optgroup label="Taux de taxes">';
+                    taxCategories.forEach(tc => {
+                        taxOpts += `<option value="cat_${tc.id}" data-rate="${tc.rate}" data-type="category">${tc.name} (${tc.rate}%)</option>`;
+                    });
+                    taxOpts += '</optgroup>';
+                }
+                if (taxGroups.length) {
+                    taxOpts += '<optgroup label="Groupes de taxes">';
+                    taxGroups.forEach(tg => {
+                        const rate = tg.rates ? tg.rates.reduce((sum, r) => sum + parseFloat(r.rate), 0) : 0;
+                        taxOpts += `<option value="${tg.id}" data-rate="${rate}" data-type="group">${tg.name} (${rate}%)</option>`;
+                    });
+                    taxOpts += '</optgroup>';
+                }
+                return taxOpts;
+            }
 
             // Item type filter — show/hide product options based on type
             const productSelector = document.getElementById('product-selector');
@@ -505,6 +584,7 @@
                     productOptions += `<option value="${p.id}"${selected}>${p.name}</option>`;
                 });
 
+                const taxOpts = buildTaxOptions();
                 const row = document.createElement('tr');
                 row.classList.add('item-row');
                 row.innerHTML = `
@@ -514,12 +594,18 @@
                     </td>
                     <td><input type="number" class="form-control item-qty" name="items[${itemIndex}][quantity]" value="1" min="0.001" step="0.001" required></td>
                     <td><input type="number" class="form-control item-cost" name="items[${itemIndex}][unit_cost]" value="${cost}" min="0" step="0.01" required></td>
-                    <td><input type="number" class="form-control item-tax" name="items[${itemIndex}][tax_rate]" value="${tax}" min="0" max="100" step="0.01"></td>
+                    <td class="tax-col"><select name="items[${itemIndex}][tax_group_id]" class="form-select item-tax">${taxOpts}</select></td>
                     <td><span class="item-total fw-medium">0,00</span></td>
                     <td><a href="javascript:void(0);" class="text-danger remove-item"><i class="isax isax-close-circle"></i></a></td>
                 `;
                 document.getElementById('items-body').appendChild(row);
                 itemIndex++;
+                if (enableTaxCheck.checked && defaultTaxGroup) {
+                    row.querySelector('.item-tax').value = defaultTaxGroup.id;
+                }
+                row.querySelectorAll('.tax-col').forEach(el => {
+                    el.style.display = enableTaxCheck.checked ? '' : 'none';
+                });
                 sel.value = '';
                 recalc();
             });
@@ -530,6 +616,7 @@
                     productOptions += `<option value="${p.id}">${p.name}</option>`;
                 });
 
+                const taxOpts = buildTaxOptions();
                 const row = document.createElement('tr');
                 row.classList.add('item-row');
                 row.innerHTML = `
@@ -539,12 +626,18 @@
             </td>
             <td><input type="number" class="form-control item-qty" name="items[${itemIndex}][quantity]" value="1" min="0.001" step="0.001" required></td>
             <td><input type="number" class="form-control item-cost" name="items[${itemIndex}][unit_cost]" value="0" min="0" step="0.01" required></td>
-            <td><input type="number" class="form-control item-tax" name="items[${itemIndex}][tax_rate]" value="20" min="0" max="100" step="0.01"></td>
+            <td class="tax-col"><select name="items[${itemIndex}][tax_group_id]" class="form-select item-tax">${taxOpts}</select></td>
             <td><span class="item-total fw-medium">0,00</span></td>
             <td><a href="javascript:void(0);" class="text-danger remove-item"><i class="isax isax-close-circle"></i></a></td>
         `;
                 document.getElementById('items-body').appendChild(row);
                 itemIndex++;
+                if (enableTaxCheck.checked && defaultTaxGroup) {
+                    row.querySelector('.item-tax').value = defaultTaxGroup.id;
+                }
+                row.querySelectorAll('.tax-col').forEach(el => {
+                    el.style.display = enableTaxCheck.checked ? '' : 'none';
+                });
                 recalc();
             });
 
@@ -559,21 +652,36 @@
                 recalc();
             });
 
-            // Toggle tax column visibility
-            document.getElementById('enable_tax').addEventListener('change', function() {
-                const taxInputs = document.querySelectorAll('.item-tax');
-                taxInputs.forEach(input => {
-                    if (!this.checked) {
-                        input.dataset.prevValue = input.value;
-                        input.value = 0;
-                        input.disabled = true;
-                    } else {
-                        input.value = input.dataset.prevValue || 20;
-                        input.disabled = false;
-                    }
-                });
+            document.getElementById('items-body').addEventListener('change', function() {
                 recalc();
             });
+
+            /* =========================================================
+             * Tax toggle — show/hide tax column & auto-select default
+             * ========================================================= */
+            function toggleTax() {
+                const enabled = enableTaxCheck.checked;
+                document.querySelectorAll('.tax-col').forEach(el => {
+                    el.style.display = enabled ? '' : 'none';
+                });
+                if (taxTotalRow) taxTotalRow.style.display = enabled ? '' : 'none';
+                if (!enabled) {
+                    document.querySelectorAll('.item-tax').forEach(sel => {
+                        sel.value = '';
+                    });
+                }
+                if (enabled && defaultTaxGroup) {
+                    document.querySelectorAll('.item-tax').forEach(sel => {
+                        if (!sel.value) {
+                            sel.value = defaultTaxGroup.id;
+                        }
+                    });
+                }
+                recalc();
+            }
+
+            enableTaxCheck.addEventListener('change', toggleTax);
+            toggleTax();
 
             function recalc() {
                 let subtotal = 0,
@@ -581,7 +689,9 @@
                 document.querySelectorAll('.item-row').forEach(row => {
                     const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
                     const cost = parseFloat(row.querySelector('.item-cost')?.value) || 0;
-                    const taxRate = parseFloat(row.querySelector('.item-tax')?.value) || 0;
+                    const taxEnabled = enableTaxCheck.checked;
+                    const taxSel = row.querySelector('.item-tax');
+                    const taxRate = taxEnabled ? (parseFloat(taxSel?.options[taxSel.selectedIndex]?.dataset.rate) || 0) : 0;
                     const lineSub = qty * cost;
                     const lineTax = lineSub * taxRate / 100;
                     const lineTotal = lineSub + lineTax;

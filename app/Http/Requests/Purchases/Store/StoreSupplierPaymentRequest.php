@@ -19,7 +19,7 @@ class StoreSupplierPaymentRequest extends TenantFormRequest
             'payment_method_id' => ['nullable', 'uuid', $this->tenantExists('payment_methods')],
             'amount'            => ['required', 'numeric', 'gt:0'],
             'paid_at'           => ['required', 'date'],
-            'reference'         => ['nullable', 'string', 'max:120'],
+            'reference_number'  => ['nullable', 'string', 'max:120'],
             'notes'             => ['nullable', 'string', 'max:2000'],
 
             'allocations'                    => ['nullable', 'array'],

@@ -17,6 +17,7 @@ class StoreGoodsReceiptRequest extends TenantFormRequest
             'purchase_order_id' => ['nullable', 'uuid', $this->tenantExists('purchase_orders')],
             'warehouse_id'      => ['required', 'uuid', $this->tenantExists('warehouses')],
             'received_at'       => ['nullable', 'date'],
+            'reference_number'  => ['nullable', 'string', 'max:120'],
             'notes'             => ['nullable', 'string', 'max:2000'],
 
             'items'                  => ['required', 'array', 'min:1'],

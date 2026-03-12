@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backoffice\Purchases;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchases\Store\StoreSupplierPaymentRequest;
+use App\Http\Requests\Purchases\Update\UpdateSupplierPaymentRequest;
 use App\Models\Finance\BankAccount;
 use App\Models\Purchases\Supplier;
 use App\Models\Purchases\SupplierPayment;
@@ -64,6 +65,42 @@ class SupplierPaymentController extends Controller
 
         return redirect()->route('bo.purchases.supplier-payments.index')
             ->with('success', 'Paiement fournisseur enregistré avec succès.');
+    }
+
+    public function show(SupplierPayment $supplierPayment)
+    {
+        $this->authorize('view', $supplierPayment);
+
+        $supplierPayment->load(['supplier', 'paymentMethod', 'allocations.vendorBill']);
+
+        return view('backoffice.purchases.supplier-payments.show', compact('supplierPayment'));
+    }
+
+    public function edit(SupplierPayment $supplierPayment)
+    {
+        $this->authorize('view', $supplierPayment);
+
+        $supplierPayment->load(['supplier', 'paymentMethod', 'allocations.vendorBill']);
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $paymentMethods = PaymentMethod::where('is_active', true)->orderBy('name')->get();
+
+        return view('backoffice.purchases.supplier-payments.edit', compact('supplierPayment', 'bankAccounts', 'paymentMethods'));
+    }
+
+    public function update(UpdateSupplierPaymentRequest $request, SupplierPayment $supplierPayment)
+    {
+        $this->authorize('view', $supplierPayment);
+
+        $data = $request->validated();
+
+        if (isset($data['paid_at'])) {
+            $data['payment_date'] = $data['paid_at'];
+        }
+
+        $supplierPayment->update($data);
+
+        return redirect()->route('bo.purchases.supplier-payments.show', $supplierPayment)
+            ->with('success', 'Paiement fournisseur mis à jour avec succès.');
     }
 
     public function destroy(SupplierPayment $supplierPayment)

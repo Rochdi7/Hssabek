@@ -148,10 +148,9 @@
                                                                             class="img-fluid" alt="Logo"
                                                                             style="max-height: 60px;">
                                                                     @else
-                                                                        <img src="{{ URL::asset('build/img/invoice-logo.svg') }}"
-                                                                            class="invoice-logo-dark" alt="img">
-                                                                        <img src="{{ URL::asset('build/img/invoice-logo-white-2.svg') }}"
-                                                                            class="invoice-logo-white" alt="img">
+                                                                        <img src="{{ $tenant->logo_url }}"
+                                                                            class="img-fluid" alt="Logo entreprise"
+                                                                            style="max-height: 60px;">
                                                                     @endif
                                                                 </div>
                                                             </div>
@@ -327,7 +326,7 @@
                                                     <th style="width: 28%;">Produit/Service</th>
                                                     <th style="width: 13%;">Quantité</th>
                                                     <th style="width: 17%;">Prix unitaire</th>
-                                                    <th style="width: 15%;">Taxe (%)</th>
+                                                    <th style="width: 15%;" class="tax-col">Taxe (%)</th>
                                                     <th style="width: 17%;">Montant</th>
                                                     <th style="width: 10%;"></th>
                                                 </tr>
@@ -360,12 +359,30 @@
                                                                 value="{{ $item['unit_price'] ?? 0 }}" min="0"
                                                                 step="0.01">
                                                         </td>
-                                                        <td>
-                                                            <input type="number"
-                                                                name="items[{{ $i }}][tax_rate]"
-                                                                class="form-control item-tax"
-                                                                value="{{ $item['tax_rate'] ?? 0 }}" min="0"
-                                                                max="100" step="0.01">
+                                                        <td class="tax-col">
+                                                            <select name="items[{{ $i }}][tax_group_id]" class="form-select item-tax">
+                                                                <option value="" data-rate="0" data-type="">0%</option>
+                                                                @if($taxCategories->count())
+                                                                <optgroup label="Taux de taxes">
+                                                                    @foreach ($taxCategories as $tc)
+                                                                        <option value="cat_{{ $tc->id }}" data-rate="{{ $tc->rate }}" data-type="category"
+                                                                            {{ (isset($item['tax_group_id']) && $item['tax_group_id'] == 'cat_'.$tc->id) ? 'selected' : '' }}>
+                                                                            {{ $tc->name }} ({{ $tc->rate }}%)
+                                                                        </option>
+                                                                    @endforeach
+                                                                </optgroup>
+                                                                @endif
+                                                                @if($taxGroups->count())
+                                                                <optgroup label="Groupes de taxes">
+                                                                    @foreach ($taxGroups as $tg)
+                                                                        <option value="{{ $tg->id }}" data-rate="{{ $tg->rates->sum('rate') }}" data-type="group"
+                                                                            {{ (isset($item['tax_group_id']) && $item['tax_group_id'] == $tg->id) ? 'selected' : '' }}>
+                                                                            {{ $tg->name }} ({{ $tg->rates->sum('rate') }}%)
+                                                                        </option>
+                                                                    @endforeach
+                                                                </optgroup>
+                                                                @endif
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control item-total"
@@ -450,6 +467,8 @@
                                                                 <option value="">Sélectionner</option>
                                                                 @foreach ($bankAccounts as $ba)
                                                                     <option value="{{ $ba->id }}"
+                                                                        data-balance="{{ number_format($ba->current_balance, 2, ',', ' ') }}"
+                                                                        data-currency="{{ $ba->currency }}"
                                                                         {{ old('bank_account_id', $deliveryChallan->bank_account_id) == $ba->id ? 'selected' : '' }}>
                                                                         {{ $ba->account_holder_name }} -
                                                                         {{ $ba->account_number }}
@@ -457,6 +476,7 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -470,7 +490,7 @@
                                                         <h6 class="fs-14" id="display-subtotal">0,00</h6>
                                                     </div>
                                                 </li>
-                                                <li class="mb-3">
+                                                <li class="mb-3" id="tax-total-row">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <p class="fw-semibold fs-14 text-gray-9 mb-0">Taxe</p>
                                                         <h6 class="fs-14" id="display-tax">0,00</h6>
@@ -525,6 +545,8 @@
             const tbody = document.querySelector('#items-table .add-tbody');
             const addBtn = document.getElementById('add-item-btn');
             const productSelect = document.getElementById('product-select');
+            const taxGroups = @json($taxGroups);
+            const taxCategories = @json($taxCategories);
 
             /* =========================================================
              * Item type filter — show/hide product options based on type
@@ -548,6 +570,23 @@
              * Add new item row
              * ========================================================= */
             addBtn.addEventListener('click', function() {
+                let taxOpts = '<option value="" data-rate="0" data-type="">0%</option>';
+                if (taxCategories.length) {
+                    taxOpts += '<optgroup label="Taux de taxes">';
+                    taxCategories.forEach(tc => {
+                        taxOpts += `<option value="cat_${tc.id}" data-rate="${tc.rate}" data-type="category">${tc.name} (${tc.rate}%)</option>`;
+                    });
+                    taxOpts += '</optgroup>';
+                }
+                if (taxGroups.length) {
+                    taxOpts += '<optgroup label="Groupes de taxes">';
+                    taxGroups.forEach(tg => {
+                        const rate = tg.rates ? tg.rates.reduce((sum, r) => sum + parseFloat(r.rate), 0) : 0;
+                        taxOpts += `<option value="${tg.id}" data-rate="${rate}" data-type="group">${tg.name} (${rate}%)</option>`;
+                    });
+                    taxOpts += '</optgroup>';
+                }
+
                 const row = document.createElement('tr');
                 row.className = 'item-row';
                 row.innerHTML = `
@@ -561,8 +600,8 @@
                     <td>
                         <input type="number" name="items[${itemIndex}][unit_price]" class="form-control item-price" value="0" min="0" step="0.01">
                     </td>
-                    <td>
-                        <input type="number" name="items[${itemIndex}][tax_rate]" class="form-control item-tax" value="0" min="0" max="100" step="0.01">
+                    <td class="tax-col">
+                        <select name="items[${itemIndex}][tax_group_id]" class="form-select item-tax">${taxOpts}</select>
                     </td>
                     <td>
                         <input type="text" class="form-control item-total" value="0,00" readonly>
@@ -575,6 +614,12 @@
                 `;
                 tbody.appendChild(row);
                 itemIndex++;
+                if (enableTaxCheck.checked && defaultTaxValue) {
+                    row.querySelector('.item-tax').value = defaultTaxValue;
+                }
+                row.querySelectorAll('.tax-col').forEach(el => {
+                    el.style.display = enableTaxCheck.checked ? '' : 'none';
+                });
                 recalcAll();
             });
 
@@ -629,8 +674,13 @@
              * ========================================================= */
             tbody.addEventListener('input', function(e) {
                 if (e.target.classList.contains('item-qty') ||
-                    e.target.classList.contains('item-price') ||
-                    e.target.classList.contains('item-tax')) {
+                    e.target.classList.contains('item-price')) {
+                    recalcAll();
+                }
+            });
+
+            tbody.addEventListener('change', function(e) {
+                if (e.target.classList.contains('item-tax')) {
                     recalcAll();
                 }
             });
@@ -642,7 +692,8 @@
                 document.querySelectorAll('#items-table .item-row').forEach(function(row) {
                     const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
                     const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
-                    const taxRate = parseFloat(row.querySelector('.item-tax')?.value) || 0;
+                    const taxEnabled = enableTaxCheck.checked;
+                    const taxRate = taxEnabled ? (parseFloat(row.querySelector('.item-tax')?.selectedOptions[0]?.dataset.rate) || 0) : 0;
 
                     const lineSubtotal = qty * price;
                     const lineTax = lineSubtotal * (taxRate / 100);
@@ -666,6 +717,38 @@
                 if (displayTotal) displayTotal.textContent = (subtotal + taxTotal).toFixed(2).replace('.',
                     ',');
             }
+
+            /* =========================================================
+             * Tax toggle — show/hide tax column & auto-select default
+             * ========================================================= */
+            const enableTaxCheck = document.getElementById('enable_tax');
+            const taxTotalRow = document.getElementById('tax-total-row');
+            const defaultTaxGroup = taxGroups.length > 0 ? taxGroups[0] : (taxCategories.length > 0 ? taxCategories[0] : null);
+            const defaultTaxValue = defaultTaxGroup ? (defaultTaxGroup.rates ? String(defaultTaxGroup.id) : 'cat_' + defaultTaxGroup.id) : '';
+
+            function toggleTax() {
+                const enabled = enableTaxCheck.checked;
+                document.querySelectorAll('.tax-col').forEach(el => {
+                    el.style.display = enabled ? '' : 'none';
+                });
+                if (taxTotalRow) taxTotalRow.style.display = enabled ? '' : 'none';
+                if (!enabled) {
+                    document.querySelectorAll('.item-tax').forEach(sel => {
+                        sel.value = '';
+                    });
+                }
+                if (enabled && defaultTaxValue) {
+                    document.querySelectorAll('.item-tax').forEach(sel => {
+                        if (!sel.value) {
+                            sel.value = defaultTaxValue;
+                        }
+                    });
+                }
+                recalcAll();
+            }
+
+            enableTaxCheck.addEventListener('change', toggleTax);
+            toggleTax();
 
             // Initial calculation
             recalcAll();

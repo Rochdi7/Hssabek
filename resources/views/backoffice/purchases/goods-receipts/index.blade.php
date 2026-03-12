@@ -91,6 +91,10 @@
                                 </td>
                                 <td>
                                     @switch($receipt->status)
+                                        @case('draft')
+                                            <span class="badge badge-soft-secondary d-inline-flex align-items-center">Brouillon</span>
+                                        @break
+
                                         @case('received')
                                             <span class="badge badge-soft-success d-inline-flex align-items-center">Reçue</span>
                                         @break

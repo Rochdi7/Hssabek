@@ -61,6 +61,9 @@
                                 @if (request('item_type'))
                                     <input type="hidden" name="item_type" value="{{ request('item_type') }}">
                                 @endif
+                                @if (request('warehouse_id'))
+                                    <input type="hidden" name="warehouse_id" value="{{ request('warehouse_id') }}">
+                                @endif
                             </div>
                         </form>
                     </div>
@@ -127,6 +130,26 @@
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['status' => 'inactive'])) }}"
                                         class="dropdown-item">Inactif</a>
                                 </li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
+                                <i class="isax isax-building-4 me-1"></i>Entrepôt : <span
+                                    class="fw-normal ms-1">{{ $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? 'Tous' }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('warehouse_id', 'page'))) }}"
+                                        class="dropdown-item">Tous</a>
+                                </li>
+                                @foreach ($warehouses as $wh)
+                                    <li>
+                                        <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['warehouse_id' => $wh->id])) }}"
+                                            class="dropdown-item">{{ $wh->name }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
@@ -211,7 +234,7 @@
                                 </td>
                                 <td>{{ $product->category?->name ?? '—' }}</td>
                                 <td class="text-dark">{{ $product->unit?->name ?? '—' }}</td>
-                                <td>{{ $product->item_type === 'service' ? '—' : $product->quantity ?? 0 }}</td>
+                                <td>{{ $product->item_type === 'service' ? '—' : ($product->stocks_sum_quantity_on_hand ?? $product->quantity ?? 0) }}</td>
                                 <td class="text-dark">{{ number_format($product->selling_price, 2, ',', ' ') }}</td>
                                 <td>
                                     @if ($product->is_active)
@@ -232,7 +255,9 @@
                                                 data-bs-toggle="modal" data-bs-target="#view_history"
                                                 data-history-url="{{ route('bo.catalog.products.stock-history', $product->id) }}"
                                                 data-product-name="{{ $product->name }}"
-                                                data-product-code="{{ $product->code ?? '' }}">
+                                                data-product-code="{{ $product->code ?? '' }}"
+                                                data-product-quantity="{{ number_format($product->stocks_sum_quantity_on_hand ?? $product->quantity, 2, ',', ' ') }}"
+                                                data-product-unit="{{ $product->unit?->abbreviation ?? ($product->unit?->name ?? '—') }}">
                                                 <i class="isax isax-document-sketch5 me-1"></i> Historique
                                             </a>
                                             <a href="#"
@@ -242,7 +267,7 @@
                                                 data-product-name="{{ $product->name }}"
                                                 data-product-code="{{ $product->code ?? '' }}"
                                                 data-unit="{{ $product->unit?->abbreviation ?? ($product->unit?->name ?? '—') }}"
-                                                data-quantity="{{ $product->quantity ?? 0 }}">
+                                                data-quantity="{{ $product->stocks_sum_quantity_on_hand ?? $product->quantity ?? 0 }}">
                                                 <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                             </a>
                                             <a href="#"
@@ -252,7 +277,7 @@
                                                 data-product-name="{{ $product->name }}"
                                                 data-product-code="{{ $product->code ?? '' }}"
                                                 data-unit="{{ $product->unit?->abbreviation ?? ($product->unit?->name ?? '—') }}"
-                                                data-quantity="{{ $product->quantity ?? 0 }}">
+                                                data-quantity="{{ $product->stocks_sum_quantity_on_hand ?? $product->quantity ?? 0 }}">
                                                 <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                             </a>
                                         </div>
@@ -329,6 +354,10 @@
                             <span class="text-primary" id="history-product-code"></span>
                         </div>
                         <div class="d-flex align-items-center">
+                            <div class="text-end me-3">
+                                <span class="text-muted fs-12">Stock actuel</span>
+                                <h5 class="fw-bold mb-0 text-primary" id="history-current-stock">—</h5>
+                            </div>
                             <button type="button" class="btn btn-outline-white me-3"><i
                                     class="isax isax-document-like me-1"></i>Télécharger PDF</button>
                             <button type="button" class="btn btn-outline-white"><i
@@ -341,9 +370,9 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>Date</th>
-                                    <th>Unité</th>
+                                    <th>Entrepôt</th>
                                     <th>Ajustement</th>
-                                    <th>Stock</th>
+                                    <th>Stock entrepôt</th>
                                     <th class="no-sort">Raison</th>
                                 </tr>
                             </thead>
@@ -393,7 +422,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Entrepôt <span class="text-danger ms-1">*</span></label>
-                                    <select class="form-select" name="warehouse_id" required>
+                                    <select class="form-select" name="warehouse_id" id="stockin-warehouse" required>
                                         <option value="">Sélectionner</option>
                                         @foreach ($warehouses as $warehouse)
                                             <option value="{{ $warehouse->id }}"
@@ -467,7 +496,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Entrepôt <span class="text-danger ms-1">*</span></label>
-                                    <select class="form-select" name="warehouse_id" required>
+                                    <select class="form-select" name="warehouse_id" id="stockout-warehouse" required>
                                         <option value="">Sélectionner</option>
                                         @foreach ($warehouses as $warehouse)
                                             <option value="{{ $warehouse->id }}"
@@ -521,8 +550,12 @@
                     var productName = this.dataset.productName;
                     var productCode = this.dataset.productCode;
 
+                    var productQuantity = this.dataset.productQuantity;
+                    var productUnit = this.dataset.productUnit;
+
                     document.getElementById('history-product-name').textContent = productName;
                     document.getElementById('history-product-code').textContent = productCode;
+                    document.getElementById('history-current-stock').textContent = productQuantity + ' ' + productUnit;
                     document.getElementById('history-table-body').innerHTML =
                         '<tr><td colspan="5" class="text-center text-muted">Chargement...</td></tr>';
 
@@ -531,6 +564,10 @@
                             return response.json();
                         })
                         .then(function(data) {
+                            // Update current stock from API (real value)
+                            if (data.current_stock) {
+                                document.getElementById('history-current-stock').textContent = data.current_stock + ' ' + productUnit;
+                            }
                             var tbody = document.getElementById('history-table-body');
                             if (data.movements && data.movements.length > 0) {
                                 tbody.innerHTML = '';
@@ -540,7 +577,7 @@
                                     tbody.innerHTML += '<tr>' +
                                         '<td><h6 class="fw-medium fs-14">' + m.date +
                                         '</h6></td>' +
-                                        '<td class="text-dark">' + m.unit + '</td>' +
+                                        '<td class="text-dark">' + m.warehouse + '</td>' +
                                         '<td class="' + colorClass + ' fw-medium">' + m
                                         .adjustment + '</td>' +
                                         '<td>' + m.stock + '</td>' +
@@ -559,38 +596,87 @@
                 });
             });
 
-            // Stock In Modal — set form action dynamically
-            var stockInBaseUrl = "{{ route('bo.catalog.products.index') }}";
+            // ─── Shared: fetch warehouse stocks for a product ───
+            var baseUrl = "{{ route('bo.catalog.products.index') }}";
+            var warehouseStocksCache = {};
+
+            function fetchWarehouseStocks(productId, callback) {
+                if (warehouseStocksCache[productId]) {
+                    callback(warehouseStocksCache[productId]);
+                    return;
+                }
+                fetch(baseUrl + '/' + productId + '/warehouse-stock')
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        warehouseStocksCache[productId] = data.stocks || {};
+                        callback(warehouseStocksCache[productId]);
+                    })
+                    .catch(function() { callback({}); });
+            }
+
+            function updateQtyField(qtyFieldId, stocks, warehouseId) {
+                var qty = (warehouseId && stocks[warehouseId] !== undefined)
+                    ? stocks[warehouseId]
+                    : 0;
+                document.getElementById(qtyFieldId).value = qty;
+            }
+
+            // ─── Stock In Modal ───
+            var currentStockinProductId = null;
+            var currentStockinStocks = {};
+
             document.querySelectorAll('.btn-stockin').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     var productId = this.dataset.productId;
-                    document.getElementById('stockin-form').action = stockInBaseUrl + '/' +
-                        productId + '/stock-in';
-                    document.getElementById('stockin-product-name').value = this.dataset
-                        .productName;
-                    document.getElementById('stockin-product-code').value = this.dataset
-                        .productCode;
+                    currentStockinProductId = productId;
+                    warehouseStocksCache[productId] = null; // clear cache
+
+                    document.getElementById('stockin-form').action = baseUrl + '/' + productId + '/stock-in';
+                    document.getElementById('stockin-product-name').value = this.dataset.productName;
+                    document.getElementById('stockin-product-code').value = this.dataset.productCode;
                     document.getElementById('stockin-unit').value = this.dataset.unit;
-                    document.getElementById('stockin-current-qty').value = this.dataset.quantity;
+                    document.getElementById('stockin-current-qty').value = 'Chargement...';
+
+                    fetchWarehouseStocks(productId, function(stocks) {
+                        currentStockinStocks = stocks;
+                        var selectedWarehouse = document.getElementById('stockin-warehouse').value;
+                        updateQtyField('stockin-current-qty', stocks, selectedWarehouse);
+                    });
                 });
             });
 
-            // Stock Out Modal — set form action dynamically
-            var stockOutBaseUrl = "{{ route('bo.catalog.products.index') }}";
+            document.getElementById('stockin-warehouse').addEventListener('change', function() {
+                updateQtyField('stockin-current-qty', currentStockinStocks, this.value);
+            });
+
+            // ─── Stock Out Modal ───
+            var currentStockoutProductId = null;
+            var currentStockoutStocks = {};
+
             document.querySelectorAll('.btn-stockout').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     var productId = this.dataset.productId;
-                    document.getElementById('stockout-form').action = stockOutBaseUrl + '/' +
-                        productId + '/stock-out';
-                    document.getElementById('stockout-product-name').value = this.dataset
-                        .productName;
-                    document.getElementById('stockout-product-code').value = this.dataset
-                        .productCode;
+                    currentStockoutProductId = productId;
+                    warehouseStocksCache[productId] = null; // clear cache
+
+                    document.getElementById('stockout-form').action = baseUrl + '/' + productId + '/stock-out';
+                    document.getElementById('stockout-product-name').value = this.dataset.productName;
+                    document.getElementById('stockout-product-code').value = this.dataset.productCode;
                     document.getElementById('stockout-unit').value = this.dataset.unit;
-                    document.getElementById('stockout-current-qty').value = this.dataset.quantity;
+                    document.getElementById('stockout-current-qty').value = 'Chargement...';
+
+                    fetchWarehouseStocks(productId, function(stocks) {
+                        currentStockoutStocks = stocks;
+                        var selectedWarehouse = document.getElementById('stockout-warehouse').value;
+                        updateQtyField('stockout-current-qty', stocks, selectedWarehouse);
+                    });
                 });
+            });
+
+            document.getElementById('stockout-warehouse').addEventListener('change', function() {
+                updateQtyField('stockout-current-qty', currentStockoutStocks, this.value);
             });
         });
     </script>

@@ -27,13 +27,35 @@
 
                                 <form action="{{ route('bo.finance.loans.store') }}" method="POST">
                                     @csrf
+                                    <div class="row gx-3 mb-3">
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Type de prêt <span
+                                                        class="text-danger ms-1">*</span></label>
+                                                <select class="form-select @error('loan_type') is-invalid @enderror"
+                                                    name="loan_type" id="loan_type"
+                                                    onchange="updateLoanTypeLabels()">
+                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="received"
+                                                        {{ old('loan_type', 'received') === 'received' ? 'selected' : '' }}>
+                                                        Reçu (j'ai emprunté)</option>
+                                                    <option value="given"
+                                                        {{ old('loan_type') === 'given' ? 'selected' : '' }}>
+                                                        Donné (j'ai prêté)</option>
+                                                </select>
+                                                @error('loan_type')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="mb-3">
-                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">Informations du prêteur</h6>
+                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex" id="lender_section_title">Informations du prêteur</h6>
                                     </div>
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Type de prêteur <span
+                                                <label class="form-label" id="lender_type_label">Type de prêteur <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('lender_type') is-invalid @enderror"
                                                     name="lender_type">
@@ -41,12 +63,12 @@
                                                     <option value="bank"
                                                         {{ old('lender_type') === 'bank' ? 'selected' : '' }}>Banque
                                                     </option>
-                                                    <option value="institution"
-                                                        {{ old('lender_type') === 'institution' ? 'selected' : '' }}>
-                                                        Institution</option>
-                                                    <option value="individual"
-                                                        {{ old('lender_type') === 'individual' ? 'selected' : '' }}>
+                                                    <option value="personal"
+                                                        {{ old('lender_type') === 'personal' ? 'selected' : '' }}>
                                                         Particulier</option>
+                                                    <option value="other"
+                                                        {{ old('lender_type') === 'other' ? 'selected' : '' }}>
+                                                        Autre</option>
                                                 </select>
                                                 @error('lender_type')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -55,7 +77,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Nom du prêteur <span
+                                                <label class="form-label" id="lender_name_label">Nom du prêteur <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('lender_name') is-invalid @enderror"
@@ -110,58 +132,6 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Taux d'intérêt (%) <span
-                                                        class="text-danger ms-1">*</span></label>
-                                                <input type="number" step="0.01" min="0" max="100"
-                                                    class="form-control @error('interest_rate') is-invalid @enderror"
-                                                    name="interest_rate" value="{{ old('interest_rate') }}">
-                                                @error('interest_rate')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Type d'intérêt <span
-                                                        class="text-danger ms-1">*</span></label>
-                                                <select class="form-select @error('interest_type') is-invalid @enderror"
-                                                    name="interest_type">
-                                                    <option value="fixed"
-                                                        {{ old('interest_type', 'fixed') === 'fixed' ? 'selected' : '' }}>
-                                                        Fixe</option>
-                                                    <option value="variable"
-                                                        {{ old('interest_type') === 'variable' ? 'selected' : '' }}>
-                                                        Variable</option>
-                                                </select>
-                                                @error('interest_type')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Montant total</label>
-                                                <input type="number" step="0.01" min="0"
-                                                    class="form-control @error('total_amount') is-invalid @enderror"
-                                                    name="total_amount" value="{{ old('total_amount') }}">
-                                                @error('total_amount')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Solde restant</label>
-                                                <input type="number" step="0.01" min="0"
-                                                    class="form-control @error('remaining_balance') is-invalid @enderror"
-                                                    name="remaining_balance" value="{{ old('remaining_balance') }}">
-                                                @error('remaining_balance')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
                                                 <label class="form-label">Fréquence de paiement</label>
                                                 <select
                                                     class="form-select @error('payment_frequency') is-invalid @enderror"
@@ -173,11 +143,8 @@
                                                     <option value="quarterly"
                                                         {{ old('payment_frequency') === 'quarterly' ? 'selected' : '' }}>
                                                         Trimestriel</option>
-                                                    <option value="semi_annual"
-                                                        {{ old('payment_frequency') === 'semi_annual' ? 'selected' : '' }}>
-                                                        Semestriel</option>
-                                                    <option value="annual"
-                                                        {{ old('payment_frequency') === 'annual' ? 'selected' : '' }}>
+                                                    <option value="yearly"
+                                                        {{ old('payment_frequency') === 'yearly' ? 'selected' : '' }}>
                                                         Annuel</option>
                                                 </select>
                                                 @error('payment_frequency')
@@ -222,8 +189,8 @@
                                                     <option value="active"
                                                         {{ old('status', 'active') === 'active' ? 'selected' : '' }}>Actif
                                                     </option>
-                                                    <option value="completed"
-                                                        {{ old('status') === 'completed' ? 'selected' : '' }}>Terminé
+                                                    <option value="closed"
+                                                        {{ old('status') === 'closed' ? 'selected' : '' }}>Terminé
                                                     </option>
                                                     <option value="defaulted"
                                                         {{ old('status') === 'defaulted' ? 'selected' : '' }}>Défaut
@@ -261,3 +228,16 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        function updateLoanTypeLabels() {
+            var type = document.getElementById('loan_type').value;
+            var isGiven = type === 'given';
+            document.getElementById('lender_section_title').textContent = isGiven ? "Informations de l'emprunteur" : 'Informations du prêteur';
+            document.getElementById('lender_type_label').innerHTML = (isGiven ? "Type d'emprunteur" : 'Type de prêteur') + ' <span class="text-danger ms-1">*</span>';
+            document.getElementById('lender_name_label').innerHTML = (isGiven ? "Nom de l'emprunteur" : 'Nom du prêteur') + ' <span class="text-danger ms-1">*</span>';
+        }
+        document.addEventListener('DOMContentLoaded', updateLoanTypeLabels);
+    </script>
+@endpush

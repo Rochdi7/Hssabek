@@ -322,9 +322,10 @@
                                             <li><a href="{{ route('bo.pro.invoice-reminders.index') }}"
                                                     class="{{ request()->routeIs('bo.pro.invoice-reminders.*') ? 'active' : '' }}">Rappels
                                                     de factures</a></li>
+                                            {{-- V2: Succursales
                                             <li><a href="{{ route('bo.pro.branches.index') }}"
                                                     class="{{ request()->routeIs('bo.pro.branches.*') ? 'active' : '' }}">Succursales</a>
-                                            </li>
+                                            </li> --}}
                                             <li><a href="{{ route('bo.pro.rapports.index') }}"
                                                     class="{{ request()->routeIs('bo.pro.rapports.*') ? 'active' : '' }}">Rapports</a>
                                             </li>

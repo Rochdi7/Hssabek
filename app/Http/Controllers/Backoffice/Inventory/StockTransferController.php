@@ -41,7 +41,14 @@ class StockTransferController extends Controller
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $products = Product::where('is_active', true)->where('item_type', 'product')->orderBy('name')->get();
 
-        return view('backoffice.inventory.transfers.create', compact('warehouses', 'products'));
+        // Build stock map: { warehouse_id: { product_id: qty_on_hand } }
+        $stockMap = \App\Models\Inventory\ProductStock::select('warehouse_id', 'product_id', 'quantity_on_hand')
+            ->get()
+            ->groupBy('warehouse_id')
+            ->map(fn ($items) => $items->pluck('quantity_on_hand', 'product_id'))
+            ->toArray();
+
+        return view('backoffice.inventory.transfers.create', compact('warehouses', 'products', 'stockMap'));
     }
 
     public function store(StoreStockTransferRequest $request)
@@ -91,7 +98,13 @@ class StockTransferController extends Controller
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $products = Product::where('is_active', true)->where('item_type', 'product')->orderBy('name')->get();
 
-        return view('backoffice.inventory.transfers.edit', compact('transfer', 'warehouses', 'products'));
+        $stockMap = \App\Models\Inventory\ProductStock::select('warehouse_id', 'product_id', 'quantity_on_hand')
+            ->get()
+            ->groupBy('warehouse_id')
+            ->map(fn ($items) => $items->pluck('quantity_on_hand', 'product_id'))
+            ->toArray();
+
+        return view('backoffice.inventory.transfers.edit', compact('transfer', 'warehouses', 'products', 'stockMap'));
     }
 
     public function update(UpdateStockTransferRequest $request, StockTransfer $transfer)

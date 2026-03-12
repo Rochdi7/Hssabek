@@ -5,6 +5,7 @@ namespace App\Models\Sales;
 use App\Traits\BelongsToTenant;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeliveryChallan extends Model
 {
-    use HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
 
     protected $fillable = [
         'customer_id',

@@ -32,6 +32,7 @@ class StoreExpenseRequest extends BaseFormRequest
                 Rule::exists('finance_categories', 'id')->where('tenant_id', TenantContext::id()),
             ],
             'description'       => 'nullable|string|max:2000',
+            'paid_amount'       => 'nullable|numeric|min:0.01|lt:amount',
         ];
     }
 
@@ -49,6 +50,8 @@ class StoreExpenseRequest extends BaseFormRequest
             'bank_account_id.exists'  => 'Le compte bancaire sélectionné est invalide.',
             'supplier_id.exists'      => 'Le fournisseur sélectionné est invalide.',
             'category_id.exists'      => 'La catégorie sélectionnée est invalide.',
+            'paid_amount.min'         => 'Le montant payé doit être supérieur à zéro.',
+            'paid_amount.lt'          => 'Le montant payé doit être inférieur au montant total.',
         ];
     }
 }

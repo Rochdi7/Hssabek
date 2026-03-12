@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sales\Store\StoreDeliveryChallanRequest;
 use App\Http\Requests\Sales\Update\UpdateDeliveryChallanRequest;
 use App\Models\Catalog\Product;
+use App\Models\Catalog\TaxCategory;
+use App\Models\Catalog\TaxGroup;
 use App\Models\CRM\Customer;
 use App\Models\Finance\BankAccount;
 use App\Models\Sales\DeliveryChallan;
@@ -50,6 +52,8 @@ class DeliveryChallanController extends Controller
         $products = Product::orderBy('name')->get();
 
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('challan_ref');
 
@@ -57,7 +61,7 @@ class DeliveryChallanController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.sales.delivery-challans.create', compact('customers', 'invoices', 'products', 'bankAccounts', 'nextReference', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.sales.delivery-challans.create', compact('customers', 'invoices', 'products', 'bankAccounts', 'taxGroups', 'taxCategories', 'nextReference', 'defaultTerms', 'defaultFooter'));
     }
 
     public function store(StoreDeliveryChallanRequest $request)
@@ -89,6 +93,8 @@ class DeliveryChallanController extends Controller
         $deliveryChallan->load('items');
 
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('challan_ref');
 
@@ -96,7 +102,7 @@ class DeliveryChallanController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.sales.delivery-challans.edit', compact('deliveryChallan', 'customers', 'invoices', 'products', 'bankAccounts', 'nextReference', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.sales.delivery-challans.edit', compact('deliveryChallan', 'customers', 'invoices', 'products', 'bankAccounts', 'taxGroups', 'taxCategories', 'nextReference', 'defaultTerms', 'defaultFooter'));
     }
 
     public function update(UpdateDeliveryChallanRequest $request, DeliveryChallan $deliveryChallan)

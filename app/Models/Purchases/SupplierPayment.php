@@ -43,7 +43,7 @@ class SupplierPayment extends Model
 
     public function paymentMethod(): BelongsTo
     {
-        return $this->belongsTo(SupplierPaymentMethod::class, 'payment_method_id');
+        return $this->belongsTo(\App\Models\Sales\PaymentMethod::class, 'payment_method_id');
     }
 
     public function allocations(): HasMany

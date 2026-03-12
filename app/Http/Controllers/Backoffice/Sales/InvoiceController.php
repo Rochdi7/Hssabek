@@ -7,6 +7,7 @@ use App\Http\Requests\Sales\Store\StoreInvoiceRequest;
 use App\Http\Requests\Sales\Update\UpdateInvoiceRequest;
 use App\Jobs\SendInvoiceEmailJob;
 use App\Models\Catalog\Product;
+use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\TaxGroup;
 use App\Models\Catalog\Unit;
 use App\Models\CRM\Customer;
@@ -68,6 +69,7 @@ class InvoiceController extends Controller
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
         $paymentMethods = PaymentMethod::orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
         $signatures = Signature::where('status', true)->orderBy('name')->get();
@@ -80,6 +82,7 @@ class InvoiceController extends Controller
             'products',
             'units',
             'taxGroups',
+            'taxCategories',
             'paymentMethods',
             'bankAccounts',
             'signatures',
@@ -135,6 +138,7 @@ class InvoiceController extends Controller
         $products = Product::orderBy('name')->get();
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
         $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
         $signatures = Signature::where('status', true)->orderBy('name')->get();
         $defaultSignature = $signatures->firstWhere('is_default', true);
@@ -147,6 +151,7 @@ class InvoiceController extends Controller
             'products',
             'units',
             'taxGroups',
+            'taxCategories',
             'bankAccounts',
             'signatures',
             'defaultSignature',

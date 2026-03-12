@@ -32,8 +32,10 @@ Route::prefix('finance')->as('finance.')->group(function () {
         Route::get('/', [ExpenseController::class, 'index'])->middleware('permission:finance.expenses.view')->name('index');
         Route::get('/create', [ExpenseController::class, 'create'])->middleware('permission:finance.expenses.create')->name('create');
         Route::post('/', [ExpenseController::class, 'store'])->middleware('permission:finance.expenses.create')->name('store');
+        Route::get('/{expense}', [ExpenseController::class, 'show'])->middleware('permission:finance.expenses.view')->name('show');
         Route::get('/{expense}/edit', [ExpenseController::class, 'edit'])->middleware('permission:finance.expenses.edit')->name('edit');
         Route::put('/{expense}', [ExpenseController::class, 'update'])->middleware('permission:finance.expenses.edit')->name('update');
+        Route::post('/{expense}/payments', [ExpenseController::class, 'addPayment'])->middleware('permission:finance.expenses.edit')->name('payments.store');
         Route::delete('/{expense}', [ExpenseController::class, 'destroy'])->middleware('permission:finance.expenses.delete')->name('destroy');
     });
 
@@ -79,6 +81,8 @@ Route::prefix('finance')->as('finance.')->group(function () {
         Route::get('/{loan}', [LoanController::class, 'show'])->middleware('permission:finance.loans.view')->name('show');
         Route::get('/{loan}/edit', [LoanController::class, 'edit'])->middleware('permission:finance.loans.edit')->name('edit');
         Route::put('/{loan}', [LoanController::class, 'update'])->middleware('permission:finance.loans.edit')->name('update');
+        Route::post('/{loan}/payments', [LoanController::class, 'addPayment'])->middleware('permission:finance.loans.edit')->name('payments.store');
+        Route::delete('/{loan}/payments/{payment}', [LoanController::class, 'deletePayment'])->middleware('permission:finance.loans.edit')->name('payments.destroy');
         Route::delete('/{loan}', [LoanController::class, 'destroy'])->middleware('permission:finance.loans.delete')->name('destroy');
     });
 });

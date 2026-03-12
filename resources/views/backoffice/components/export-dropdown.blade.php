@@ -8,7 +8,10 @@
             <a class="dropdown-item" href="{{ route('bo.export', ['type' => $exportType, 'format' => 'pdf']) }}{{ request()->getQueryString() ? '&' . request()->getQueryString() : '' }}">Télécharger en PDF</a>
         </li>
         <li>
-            <a class="dropdown-item" href="{{ route('bo.export', ['type' => $exportType, 'format' => 'csv']) }}{{ request()->getQueryString() ? '&' . request()->getQueryString() : '' }}">Télécharger en Excel</a>
+            <a class="dropdown-item" href="{{ route('bo.export', ['type' => $exportType, 'format' => 'excel']) }}{{ request()->getQueryString() ? '&' . request()->getQueryString() : '' }}">Télécharger en Excel</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{{ route('bo.export', ['type' => $exportType, 'format' => 'csv']) }}{{ request()->getQueryString() ? '&' . request()->getQueryString() : '' }}">Télécharger en CSV</a>
         </li>
     </ul>
 </div>

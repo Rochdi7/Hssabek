@@ -43,17 +43,20 @@ class StockService
             $isOutgoing = in_array($movementType, ['stock_out', 'adjustment_out', 'transfer_out', 'return_out', 'sale_out', 'reserve']);
             $delta = $isOutgoing ? -abs($quantity) : abs($quantity);
 
-            // Over-sell prevention for tracked products
-            if ($isOutgoing && $product->track_inventory) {
-                if ($stock->quantity_on_hand < abs($quantity)) {
-                    throw new \DomainException(
-                        "Stock insuffisant pour \"{$product->name}\". "
-                        . "Disponible: {$stock->quantity_on_hand}, Demandé: " . abs($quantity)
-                    );
-                }
+            // Over-sell prevention — never allow negative stock in any warehouse
+            if ($isOutgoing && $stock->quantity_on_hand < abs($quantity)) {
+                throw new \DomainException(
+                    "Stock insuffisant pour \"{$product->name}\". "
+                    . "Disponible: {$stock->quantity_on_hand}, Demandé: " . abs($quantity)
+                );
             }
 
             $stock->increment('quantity_on_hand', $delta);
+
+            // Sync the product's quantity column with total across all warehouses
+            $product->update([
+                'quantity' => ProductStock::where('product_id', $productId)->sum('quantity_on_hand'),
+            ]);
 
             StockMovement::create([
                 'product_id'     => $productId,

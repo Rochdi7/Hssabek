@@ -180,7 +180,7 @@
                                                 <label class="form-label">Statut de paiement <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('payment_status') is-invalid @enderror"
-                                                    name="payment_status">
+                                                    name="payment_status" id="payment_status">
                                                     <option value="unpaid"
                                                         {{ old('payment_status', $expense->payment_status) === 'unpaid' ? 'selected' : '' }}>
                                                         Impayée</option>
@@ -194,6 +194,17 @@
                                                 @error('payment_status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                @if ($expense->payment_status === 'partial' || $expense->payment_status === 'paid')
+                                                    <small class="text-muted d-block mt-1">
+                                                        Payé : <strong>{{ number_format($expense->paid_amount, 2, ',', ' ') }}</strong>
+                                                        — Reste : <strong>{{ number_format($expense->remaining_amount, 2, ',', ' ') }}</strong>
+                                                    </small>
+                                                    @if ($expense->remaining_amount > 0)
+                                                        <a href="{{ route('bo.finance.expenses.show', $expense) }}" class="small">
+                                                            <i class="isax isax-money-send me-1"></i>Gérer les paiements
+                                                        </a>
+                                                    @endif
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
@@ -204,11 +215,14 @@
                                                     <option value="">— Sélectionner —</option>
                                                     @foreach ($bankAccounts as $bankAccount)
                                                         <option value="{{ $bankAccount->id }}"
+                                                            data-balance="{{ number_format($bankAccount->current_balance, 2, ',', ' ') }}"
+                                                            data-currency="{{ $bankAccount->currency }}"
                                                             {{ old('bank_account_id', $expense->bank_account_id) == $bankAccount->id ? 'selected' : '' }}>
                                                             {{ $bankAccount->bank_name }} —
                                                             {{ $bankAccount->account_number }}</option>
                                                     @endforeach
                                                 </select>
+                                                <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                 @error('bank_account_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

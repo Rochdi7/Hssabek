@@ -15,13 +15,22 @@
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <h5>Réception — {{ $goodsReceipt->number }}</h5>
                                     <div class="d-flex gap-2">
+                                        @if ($goodsReceipt->status === 'draft')
+                                            <form action="{{ route('bo.purchases.goods-receipts.confirm', $goodsReceipt) }}" method="POST"
+                                                onsubmit="return confirm('Confirmer cette réception ? Le stock sera mis à jour.')">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="isax isax-tick-circle me-1"></i>Confirmer la réception
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('bo.purchases.goods-receipts.edit', $goodsReceipt) }}"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <i class="isax isax-edit me-1"></i>Modifier
+                                            </a>
+                                        @endif
                                         <a href="{{ route('bo.purchases.goods-receipts.download', $goodsReceipt) }}" target="_blank"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="isax isax-document-download me-1"></i>Télécharger PDF
-                                        </a>
-                                        <a href="{{ route('bo.purchases.goods-receipts.edit', $goodsReceipt) }}"
-                                            class="btn btn-sm btn-outline-primary">
-                                            <i class="isax isax-edit me-1"></i>Modifier
                                         </a>
                                     </div>
                                 </div>
@@ -49,6 +58,10 @@
                                         <label class="form-label text-muted">Statut</label>
                                         <p class="mb-0">
                                             @switch($goodsReceipt->status)
+                                                @case('draft')
+                                                    <span class="badge badge-soft-secondary">Brouillon</span>
+                                                @break
+
                                                 @case('received')
                                                     <span class="badge badge-soft-success">Reçue</span>
                                                 @break
@@ -68,21 +81,26 @@
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th>Produit</th>
-                                                    <th>Quantité commandée</th>
                                                     <th>Quantité reçue</th>
+                                                    <th>Coût unitaire</th>
+                                                    <th>Total ligne</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($goodsReceipt->items as $item)
                                                     <tr>
                                                         <td>{{ $item->product->name ?? '—' }}</td>
-                                                        <td>{{ $item->quantity_ordered ?? '—' }}</td>
-                                                        <td>{{ $item->quantity_received }}</td>
+                                                        <td>{{ number_format($item->quantity, 3) }}</td>
+                                                        <td>{{ number_format($item->unit_cost, 2) }}</td>
+                                                        <td>{{ number_format($item->line_total, 2) }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
+                                @else
+                                    <h6 class="mb-3">Articles reçus</h6>
+                                    <p class="text-muted">Aucun article enregistré pour cette réception.</p>
                                 @endif
                             </div>
                         </div>

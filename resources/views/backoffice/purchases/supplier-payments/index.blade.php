@@ -91,23 +91,33 @@
                                 </td>
                                 <td><span class="fw-medium">{{ $payment->reference_number ?? '—' }}</span></td>
                                 <td>{{ $payment->supplier->name ?? '—' }}</td>
-                                <td>{{ $payment->vendorBill->number ?? '—' }}</td>
+                                <td>{{ $payment->allocations->pluck('vendorBill.number')->filter()->implode(', ') ?: '—' }}</td>
                                 <td class="fw-semibold">{{ number_format($payment->amount, 2, ',', ' ') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}</td>
                                 <td>
                                     @switch($payment->status)
-                                        @case('completed')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Complété</span>
+                                        @case('succeeded')
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Réussi</span>
                                         @break
 
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En
-                                                attente</span>
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En attente</span>
+                                        @break
+
+                                        @case('failed')
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Échoué</span>
+                                        @break
+
+                                        @case('refunded')
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center">Remboursé</span>
+                                        @break
+
+                                        @case('cancelled')
+                                            <span class="badge badge-soft-secondary d-inline-flex align-items-center">Annulé</span>
                                         @break
 
                                         @default
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ ucfirst($payment->status) }}</span>
+                                            <span class="badge badge-soft-secondary d-inline-flex align-items-center">{{ ucfirst($payment->status) }}</span>
                                     @endswitch
                                 </td>
                                 <td class="action-item">
@@ -115,6 +125,16 @@
                                         <i class="isax isax-more"></i>
                                     </a>
                                     <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ route('bo.purchases.supplier-payments.show', $payment) }}"
+                                                class="dropdown-item d-flex align-items-center"><i
+                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('bo.purchases.supplier-payments.edit', $payment) }}"
+                                                class="dropdown-item d-flex align-items-center"><i
+                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                        </li>
                                         <li>
                                             <form method="POST"
                                                 action="{{ route('bo.purchases.supplier-payments.destroy', $payment) }}">
