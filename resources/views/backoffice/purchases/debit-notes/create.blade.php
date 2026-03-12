@@ -42,6 +42,9 @@
                                                 @error('supplier_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                @if ($suppliers->isEmpty())
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun fournisseur trouvé. <a href="{{ route('bo.purchases.suppliers.create') }}">Créer un fournisseur</a> avant de continuer.</small>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
@@ -59,6 +62,7 @@
                                                 @error('vendor_bill_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Optionnel. Pour lier à une facture fournisseur, <a href="{{ route('bo.purchases.vendor-bills.create') }}">créez-en une d'abord</a>.</small>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">

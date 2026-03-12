@@ -143,6 +143,7 @@ Route::prefix('admin')
         require __DIR__ . '/superadmin/access.php';
         require __DIR__ . '/superadmin/announcements.php';
         require __DIR__ . '/superadmin/activity-logs.php';
+        require __DIR__ . '/superadmin/contact-messages.php';
     });
 
 // this route for testing the theming system, can be removed later

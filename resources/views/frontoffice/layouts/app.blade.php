@@ -86,6 +86,40 @@
 	<!-- Custom JS -->
 	<script src="{{ url('build/js/landing-script.js') }}"></script>
 
+	<!-- Newsletter AJAX -->
+	<script>
+	$(function() {
+		$('#newsletter-form').on('submit', function(e) {
+			e.preventDefault();
+			var $form = $(this), $btn = $('#newsletter-btn'), $msg = $('#newsletter-msg');
+			$btn.prop('disabled', true).text('...');
+			$msg.hide();
+			$.ajax({
+				url: $form.attr('action'),
+				method: 'POST',
+				data: $form.serialize(),
+				dataType: 'json',
+				success: function(res) {
+					$msg.removeClass('text-danger').addClass('text-success').text(res.message).show();
+					$form.find('input[name="email"]').val('');
+				},
+				error: function(xhr) {
+					var msg = 'Une erreur est survenue.';
+					if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.email) {
+						msg = xhr.responseJSON.errors.email[0];
+					} else if (xhr.responseJSON && xhr.responseJSON.message) {
+						msg = xhr.responseJSON.message;
+					}
+					$msg.removeClass('text-success').addClass('text-danger').text(msg).show();
+				},
+				complete: function() {
+					$btn.prop('disabled', false).text("S'abonner");
+				}
+			});
+		});
+	});
+	</script>
+
 	@stack('scripts')
 </body>
 </html>

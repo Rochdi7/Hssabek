@@ -47,6 +47,9 @@
                                                 @error('supplier_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                @if ($suppliers->isEmpty())
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun fournisseur trouvé. <a href="{{ route('bo.purchases.suppliers.create') }}">Créer un fournisseur</a> avant de continuer.</small>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
@@ -183,7 +186,7 @@
                                                     @endforeach
                                                     @if($vendorBills->isEmpty())
                                                         <tr>
-                                                            <td colspan="5" class="text-center text-muted py-3">Aucune facture fournisseur en attente de paiement.</td>
+                                                            <td colspan="5" class="text-center text-muted py-3">Aucune facture fournisseur en attente de paiement. <a href="{{ route('bo.purchases.vendor-bills.create') }}">Créer une facture fournisseur</a></td>
                                                         </tr>
                                                     @endif
                                                 </tbody>

@@ -110,6 +110,7 @@
                                                                 @error('invoice_id')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
+                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Optionnel. Pour lier cet avoir à une facture, <a href="{{ route('bo.sales.invoices.create') }}">créez d'abord une facture</a>.</small>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -279,6 +280,9 @@
                                                                     {{ $customer->name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @if ($customers->isEmpty())
+                                                            <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun client trouvé. <a href="{{ route('bo.crm.customers.create') }}">Créer un client</a> avant de continuer.</small>
+                                                        @endif
                                                         @error('customer_id')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror

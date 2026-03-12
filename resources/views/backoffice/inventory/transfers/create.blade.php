@@ -43,6 +43,11 @@
                                                     @endforeach
                                                 </select>
                                                 @error('from_warehouse_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                                @if($warehouses->isEmpty())
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun entrepôt trouvé. <a href="{{ route('bo.inventory.warehouses.create') }}">Créer un entrepôt</a> avant de continuer.</small>
+                                                @elseif($warehouses->count() < 2)
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Un transfert nécessite au moins 2 entrepôts. <a href="{{ route('bo.inventory.warehouses.create') }}">Créer un entrepôt</a></small>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">

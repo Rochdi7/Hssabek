@@ -47,6 +47,9 @@
                                                     @error('customer_id')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
+                                                    @if ($customers->isEmpty())
+                                                        <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun client trouvé. <a href="{{ route('bo.crm.customers.create') }}">Créer un client</a> avant de continuer.</small>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -184,6 +187,9 @@
                                         </div>
                                         <p class="text-muted fs-12">Saisissez le montant à allouer pour chaque facture. Les
                                             champs s'activent automatiquement quand un montant est saisi.</p>
+                                        @if ($invoices->isEmpty())
+                                            <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucune facture en attente de paiement. <a href="{{ route('bo.sales.invoices.create') }}">Créer une facture</a> avant d'enregistrer un paiement.</small>
+                                        @endif
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-between">

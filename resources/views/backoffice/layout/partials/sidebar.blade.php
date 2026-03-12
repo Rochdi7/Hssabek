@@ -133,6 +133,16 @@
                                             <i class="isax isax-note-215"></i><span>Journal d'activité</span>
                                         </a>
                                     </li>
+                                    <li class="{{ request()->routeIs('sa.contact-messages.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.contact-messages.index') }}">
+                                            <i class="isax isax-sms"></i><span>Messages de contact</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('sa.newsletter.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.newsletter.index') }}">
+                                            <i class="isax isax-directbox-notif"></i><span>Newsletter</span>
+                                        </a>
+                                    </li>
                                     <li class="{{ request()->routeIs('sa.access.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.access.roles.index') }}">
                                             <i class="isax isax-shield-tick"></i><span>Rôles & Permissions</span>

@@ -244,6 +244,9 @@
                                                         @error('supplier_id')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
+                                                        @if ($suppliers->isEmpty())
+                                                            <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun fournisseur trouvé. <a href="{{ route('bo.purchases.suppliers.create') }}">Créer un fournisseur</a> avant de continuer.</small>
+                                                        @endif
                                                     </div>
                                                     <div id="bill-to-info" class="p-3 bg-light rounded border text-muted">
                                                         <p class="mb-0">Sélectionnez un fournisseur pour afficher
@@ -271,6 +274,9 @@
                                                 @error('warehouse_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                @if ($warehouses->isEmpty())
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun entrepôt trouvé. <a href="{{ route('bo.inventory.warehouses.create') }}">Créer un entrepôt</a> avant de continuer.</small>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

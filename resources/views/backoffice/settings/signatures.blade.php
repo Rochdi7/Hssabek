@@ -146,7 +146,12 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Image de la signature <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control @error('signature_image') is-invalid @enderror" name="signature_image" accept="image/*" required>
+                            <div class="mb-2">
+                                <img src="" alt="Aperçu" id="add-sig-preview" class="border"
+                                    style="max-height: 80px; object-fit: cover; display: none;">
+                            </div>
+                            <input type="file" class="form-control @error('signature_image') is-invalid @enderror" name="signature_image" accept="image/*" required
+                                onchange="if(this.files[0]){var r=new FileReader();r.onload=function(e){var p=document.getElementById('add-sig-preview');p.src=e.target.result;p.style.display='';};r.readAsDataURL(this.files[0]);}">
                             @error('signature_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="form-check">
@@ -183,12 +188,13 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Image de la signature</label>
-                                @if($signature->signature_url)
-                                    <div class="mb-2">
-                                        <img src="{{ $signature->signature_url }}" alt="{{ $signature->name }}" style="max-height: 60px;">
-                                    </div>
-                                @endif
-                                <input type="file" class="form-control" name="signature_image" accept="image/*">
+                                <div class="mb-2">
+                                    <img src="{{ $signature->signature_url ?? '' }}" alt="{{ $signature->name }}"
+                                        id="edit-sig-preview-{{ $signature->id }}" class="border"
+                                        style="max-height: 60px; object-fit: cover;{{ $signature->signature_url ? '' : ' display: none;' }}">
+                                </div>
+                                <input type="file" class="form-control" name="signature_image" accept="image/*"
+                                    onchange="if(this.files[0]){var r=new FileReader();r.onload=function(e){var p=document.getElementById('edit-sig-preview-{{ $signature->id }}');p.src=e.target.result;p.style.display='';};r.readAsDataURL(this.files[0]);}">
                                 <small class="text-muted">Laissez vide pour garder l'image actuelle.</small>
                             </div>
                             <div class="form-check">

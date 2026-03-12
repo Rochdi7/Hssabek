@@ -57,6 +57,9 @@
                                                     @endforeach
                                                 </select>
                                                 @error('product_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                                @if($products->isEmpty())
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun produit trouvé. <a href="{{ route('bo.catalog.products.create') }}">Créer un produit</a> avant de continuer.</small>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
@@ -71,6 +74,9 @@
                                                     @endforeach
                                                 </select>
                                                 @error('warehouse_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                                @if($warehouses->isEmpty())
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun entrepôt trouvé. <a href="{{ route('bo.inventory.warehouses.create') }}">Créer un entrepôt</a> avant de continuer.</small>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">

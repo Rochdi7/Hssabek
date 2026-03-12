@@ -461,3 +461,37 @@
                 End Page Content
             ========================= -->
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Live preview for all company image uploads
+            var imageFields = ['logo', 'dark_logo', 'mini_logo', 'dark_mini_logo', 'favicon', 'apple_icon'];
+            imageFields.forEach(function(fieldName) {
+                var input = document.querySelector('input[name="' + fieldName + '"]');
+                if (!input) return;
+
+                var previewContainer = input.closest('.row.align-items-center');
+                if (!previewContainer) return;
+
+                var previewImg = previewContainer.querySelector('.new-logo img');
+                if (!previewImg) return;
+
+                input.addEventListener('change', function() {
+                    var file = this.files[0];
+                    if (!file) return;
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert("L'image ne doit pas dépasser 5 Mo.");
+                        this.value = '';
+                        return;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+        });
+    </script>
+@endpush

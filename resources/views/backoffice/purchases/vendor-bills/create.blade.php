@@ -65,6 +65,9 @@
                                                                 @error('supplier_id')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
+                                                                @if ($suppliers->isEmpty())
+                                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun fournisseur trouvé. <a href="{{ route('bo.purchases.suppliers.create') }}">Créer un fournisseur</a> avant de continuer.</small>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
@@ -84,6 +87,7 @@
                                                                 @error('purchase_order_id')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
+                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Optionnel. Pour lier à un bon de commande, <a href="{{ route('bo.purchases.purchase-orders.create') }}">créez-en un d'abord</a>.</small>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">

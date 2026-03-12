@@ -19,6 +19,9 @@ Route::get('/features', [PageController::class, 'features'])->name('features');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'contactSend'])->name('contact.send');
 
+// Newsletter
+Route::post('/newsletter/subscribe', [PageController::class, 'newsletterSubscribe'])->name('newsletter.subscribe');
+
 // Legal pages
 Route::get('/conditions-utilisation', [PageController::class, 'terms'])->name('terms');
 Route::get('/politique-confidentialite', [PageController::class, 'privacy'])->name('privacy');

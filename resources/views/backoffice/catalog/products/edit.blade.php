@@ -75,24 +75,27 @@
                                         <span class="text-gray-9 fw-bold mb-2 d-flex">Image</span>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-xxl border border-dashed bg-light me-3 flex-shrink-0">
-                                                @if ($product->getFirstMediaUrl('product_image'))
-                                                    <div class="position-relative d-flex align-items-center">
-                                                        <img src="{{ $product->getFirstMediaUrl('product_image') }}"
-                                                            class="avatar avatar-xl" alt="{{ $product->name }}">
-                                                    </div>
-                                                @else
-                                                    <i class="isax isax-image text-primary fs-24"></i>
-                                                @endif
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <img src="{{ $product->getFirstMediaUrl('product_image') }}"
+                                                        class="avatar avatar-xl" alt="{{ $product->name }}" id="product-image-preview"
+                                                        style="object-fit: cover;{{ $product->getFirstMediaUrl('product_image') ? '' : ' display: none;' }}">
+                                                    <i class="isax isax-image text-primary fs-24" id="product-image-placeholder"
+                                                        style="{{ $product->getFirstMediaUrl('product_image') ? 'display: none;' : '' }}"></i>
+                                                    <a href="javascript:void(0);" id="product-image-delete"
+                                                        class="rounded-trash trash-top d-flex align-items-center justify-content-center"
+                                                        style="{{ $product->getFirstMediaUrl('product_image') ? '' : 'display:none !important;' }}"><i class="isax isax-trash"></i></a>
+                                                </div>
                                             </div>
                                             <div class="d-inline-flex flex-column align-items-start">
                                                 <div class="drag-upload-btn btn btn-sm btn-primary position-relative mb-2">
-                                                    <i class="isax isax-image me-1"></i>Téléverser une image
+                                                    <i class="isax isax-image me-1"></i>T&eacute;l&eacute;verser une image
                                                     <input type="file" class="form-control image-sign"
-                                                        name="product_image" accept="image/jpeg,image/png">
+                                                        name="product_image" id="product-image-input" accept="image/jpeg,image/png">
                                                 </div>
                                                 <span class="text-gray-9 fs-12">Format JPG ou PNG, max 5 Mo.</span>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="delete_product_image" id="delete-product-image-flag" value="0">
                                         @error('product_image')
                                             <div class="text-danger fs-12 mt-1">{{ $message }}</div>
                                         @enderror
@@ -493,6 +496,44 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // ── Image preview ──
+            var imgInput = document.getElementById('product-image-input');
+            var imgPreview = document.getElementById('product-image-preview');
+            var imgPlaceholder = document.getElementById('product-image-placeholder');
+            var imgDeleteBtn = document.getElementById('product-image-delete');
+            var imgDeleteFlag = document.getElementById('delete-product-image-flag');
+
+            if (imgInput) {
+                imgInput.addEventListener('change', function() {
+                    var file = this.files[0];
+                    if (!file) return;
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert("L'image ne doit pas dépasser 5 Mo.");
+                        this.value = '';
+                        return;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        imgPreview.src = e.target.result;
+                        imgPreview.style.display = '';
+                        imgPlaceholder.style.display = 'none';
+                        imgDeleteBtn.style.display = '';
+                        imgDeleteFlag.value = '0';
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                imgDeleteBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    imgPreview.src = '';
+                    imgPreview.style.display = 'none';
+                    imgPlaceholder.style.display = '';
+                    imgDeleteBtn.style.display = 'none';
+                    imgInput.value = '';
+                    imgDeleteFlag.value = '1';
+                });
+            }
+
             const productRadio = document.getElementById('item-type-product');
             const serviceRadio = document.getElementById('item-type-service');
             const productFields = document.querySelectorAll('.product-field');

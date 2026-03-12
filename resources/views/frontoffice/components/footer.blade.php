@@ -10,10 +10,12 @@
 				</div>
 				<div class="col-md-5">
 					<div class="email-form">
-						<form action="#">
-							<input type="email" class="form-control" placeholder="Adresse email">
-							<button type="submit" class="btn btn-primary">S'abonner</button>
+						<form id="newsletter-form" action="{{ route('newsletter.subscribe') }}" method="POST">
+							@csrf
+							<input type="email" name="email" class="form-control" placeholder="Adresse email" required>
+							<button type="submit" class="btn btn-primary" id="newsletter-btn">S'abonner</button>
 						</form>
+						<div id="newsletter-msg" class="mt-2 fw-medium" style="display:none;"></div>
 					</div>
 				</div>
 			</div>

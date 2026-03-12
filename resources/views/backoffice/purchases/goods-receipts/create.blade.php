@@ -44,6 +44,7 @@
                                                 @error('purchase_order_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Optionnel. Pour lier à un bon de commande, <a href="{{ route('bo.purchases.purchase-orders.create') }}">créez-en un d'abord</a>.</small>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
@@ -62,6 +63,9 @@
                                                 @error('warehouse_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                @if ($warehouses->isEmpty())
+                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun entrepôt trouvé. <a href="{{ route('bo.inventory.warehouses.create') }}">Créer un entrepôt</a> avant de continuer.</small>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">

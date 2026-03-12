@@ -74,14 +74,21 @@
                                         <span class="text-gray-9 fw-bold mb-2 d-flex">Image</span>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-xxl border border-dashed bg-light me-3 flex-shrink-0">
-                                                <i class="isax isax-image text-primary fs-24"></i>
+                                                <div class="position-relative d-flex align-items-center">
+                                                    <img src="" class="avatar avatar-xl" alt="Produit" id="product-image-preview"
+                                                        style="object-fit: cover; display: none;">
+                                                    <i class="isax isax-image text-primary fs-24" id="product-image-placeholder"></i>
+                                                    <a href="javascript:void(0);" id="product-image-delete"
+                                                        class="rounded-trash trash-top d-flex align-items-center justify-content-center"
+                                                        style="display:none !important;"><i class="isax isax-trash"></i></a>
+                                                </div>
                                             </div>
                                             <div class="d-inline-flex flex-column align-items-start">
                                                 <div class="drag-upload-btn btn btn-sm btn-primary position-relative mb-2">
                                                     <i class="isax isax-image me-1"></i>Importer une image
                                                     <input type="file"
                                                         class="form-control image-sign @error('product_image') is-invalid @enderror"
-                                                        name="product_image" accept="image/*">
+                                                        name="product_image" id="product-image-input" accept="image/*">
                                                 </div>
                                                 <span class="text-gray-9 fs-12">Format JPG ou PNG, max 5 Mo.</span>
                                                 @error('product_image')
@@ -469,6 +476,41 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // ── Image preview ──
+            var imgInput = document.getElementById('product-image-input');
+            var imgPreview = document.getElementById('product-image-preview');
+            var imgPlaceholder = document.getElementById('product-image-placeholder');
+            var imgDeleteBtn = document.getElementById('product-image-delete');
+
+            if (imgInput) {
+                imgInput.addEventListener('change', function() {
+                    var file = this.files[0];
+                    if (!file) return;
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert("L'image ne doit pas dépasser 5 Mo.");
+                        this.value = '';
+                        return;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        imgPreview.src = e.target.result;
+                        imgPreview.style.display = '';
+                        imgPlaceholder.style.display = 'none';
+                        imgDeleteBtn.style.display = '';
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                imgDeleteBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    imgPreview.src = '';
+                    imgPreview.style.display = 'none';
+                    imgPlaceholder.style.display = '';
+                    imgDeleteBtn.style.display = 'none';
+                    imgInput.value = '';
+                });
+            }
+
             const productRadio = document.getElementById('item-type-product');
             const serviceRadio = document.getElementById('item-type-service');
             const productFields = document.querySelectorAll('.product-field');
