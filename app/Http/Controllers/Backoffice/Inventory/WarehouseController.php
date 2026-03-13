@@ -46,7 +46,7 @@ class WarehouseController extends Controller
         Warehouse::create($data);
 
         return redirect()->route('bo.inventory.warehouses.index')
-            ->with('success', 'Entrepôt créé avec succès.');
+            ->with('success', __('Entrepôt créé avec succès.'));
     }
 
     public function show(Warehouse $warehouse)
@@ -78,7 +78,7 @@ class WarehouseController extends Controller
         $warehouse->update($data);
 
         return redirect()->route('bo.inventory.warehouses.index')
-            ->with('success', 'Entrepôt mis à jour avec succès.');
+            ->with('success', __('Entrepôt mis à jour avec succès.'));
     }
 
     public function destroy(Warehouse $warehouse)
@@ -87,12 +87,12 @@ class WarehouseController extends Controller
 
         if ($warehouse->productStocks()->where('quantity_on_hand', '>', 0)->exists()) {
             return redirect()->route('bo.inventory.warehouses.index')
-                ->with('error', 'Impossible de supprimer cet entrepôt : il contient encore du stock.');
+                ->with('error', __('Impossible de supprimer cet entrepôt : il contient encore du stock.'));
         }
 
         $warehouse->delete();
 
         return redirect()->route('bo.inventory.warehouses.index')
-            ->with('success', 'Entrepôt supprimé avec succès.');
+            ->with('success', __('Entrepôt supprimé avec succès.'));
     }
 }

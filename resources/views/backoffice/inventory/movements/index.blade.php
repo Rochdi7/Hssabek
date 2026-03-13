@@ -13,14 +13,14 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Mouvements de stock</h6>
+                    <h6>{{ __('Mouvements de stock') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'stock-movements'])
                     <div>
                         <a href="{{ route('bo.inventory.movements.create') }}"
                             class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau mouvement
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau mouvement') }}
                         </a>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un produit..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher un produit...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -68,13 +68,13 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-building-4 me-1"></i>Entrepôt : <span
+                                <i class="isax isax-building-4 me-1"></i>{{ __('Entrepôt :') }} <span
                                     class="fw-normal ms-1">{{ request('warehouse_id') ? $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? 'Tous' : 'Tous' }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('warehouse_id', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 @foreach ($warehouses as $warehouse)
                                     <li>
@@ -89,70 +89,70 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Type : <span class="fw-normal ms-1">
+                                <i class="isax isax-filter me-1"></i>{{ __('Type :') }} <span class="fw-normal ms-1">
                                     @switch(request('movement_type'))
                                         @case('stock_in')
-                                            Entrée
+                                            {{ __('Entrée') }}
                                         @break
 
                                         @case('stock_out')
-                                            Sortie
+                                            {{ __('Sortie') }}
                                         @break
 
                                         @case('adjustment_in')
-                                            Ajust. +
+                                            {{ __('Ajust. +') }}
                                         @break
 
                                         @case('adjustment_out')
-                                            Ajust. -
+                                            {{ __('Ajust. -') }}
                                         @break
 
                                         @case('transfer_in')
-                                            Trans. entrée
+                                            {{ __('Trans. entrée') }}
                                         @break
 
                                         @case('transfer_out')
-                                            Trans. sortie
+                                            {{ __('Trans. sortie') }}
                                         @break
 
                                         @case('purchase_in')
-                                            Achat
+                                            {{ __('Achat') }}
                                         @break
 
                                         @case('sale_out')
-                                            Vente
+                                            {{ __('Vente') }}
                                         @break
 
                                         @default
-                                            Tous
+                                            {{ __('Tous') }}
                                     @endswitch
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('movement_type', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'stock_in'])) }}"
-                                        class="dropdown-item">Entrée</a></li>
+                                        class="dropdown-item">{{ __('Entrée') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'stock_out'])) }}"
-                                        class="dropdown-item">Sortie</a></li>
+                                        class="dropdown-item">{{ __('Sortie') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'adjustment_in'])) }}"
-                                        class="dropdown-item">Ajustement +</a></li>
+                                        class="dropdown-item">{{ __('Ajustement +') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'adjustment_out'])) }}"
-                                        class="dropdown-item">Ajustement -</a></li>
+                                        class="dropdown-item">{{ __('Ajustement -') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'transfer_in'])) }}"
-                                        class="dropdown-item">Transfert entrée</a></li>
+                                        class="dropdown-item">{{ __('Transfert entrée') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'transfer_out'])) }}"
-                                        class="dropdown-item">Transfert sortie</a></li>
+                                        class="dropdown-item">{{ __('Transfert sortie') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'purchase_in'])) }}"
-                                        class="dropdown-item">Achat</a></li>
+                                        class="dropdown-item">{{ __('Achat') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'sale_out'])) }}"
-                                        class="dropdown-item">Vente</a></li>
+                                        class="dropdown-item">{{ __('Vente') }}</a></li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Produit', 'Entrepôt', 'Type', 'Quantité', 'Note', 'Par', 'Date'],
+                            'columns' => [__('Produit'), __('Entrepôt'), __('Type'), __('Quantité'), __('Note'), __('Par'), __('Date')],
                         ])
                     </div>
                 </div>
@@ -169,13 +169,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Produit</th>
-                            <th>Entrepôt</th>
-                            <th>Type</th>
-                            <th>Quantité</th>
-                            <th>Note</th>
-                            <th>Par</th>
-                            <th>Date</th>
+                            <th>{{ __('Produit') }}</th>
+                            <th>{{ __('Entrepôt') }}</th>
+                            <th>{{ __('Type') }}</th>
+                            <th>{{ __('Quantité') }}</th>
+                            <th>{{ __('Note') }}</th>
+                            <th>{{ __('Par') }}</th>
+                            <th>{{ __('Date') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -198,18 +198,18 @@
                                 <td>
                                     @php
                                         $typeLabels = [
-                                            'stock_in' => ['Entrée', 'badge-soft-success'],
-                                            'stock_out' => ['Sortie', 'badge-soft-danger'],
-                                            'adjustment_in' => ['Ajust. +', 'badge-soft-info'],
-                                            'adjustment_out' => ['Ajust. -', 'badge-soft-warning'],
-                                            'transfer_in' => ['Trans. entrée', 'badge-soft-success'],
-                                            'transfer_out' => ['Trans. sortie', 'badge-soft-danger'],
-                                            'return_in' => ['Retour +', 'badge-soft-success'],
-                                            'return_out' => ['Retour -', 'badge-soft-danger'],
-                                            'reserve' => ['Réservation', 'badge-soft-warning'],
-                                            'unreserve' => ['Libération', 'badge-soft-info'],
-                                            'purchase_in' => ['Achat', 'badge-soft-success'],
-                                            'sale_out' => ['Vente', 'badge-soft-danger'],
+                                            'stock_in' => [__('Entrée'), 'badge-soft-success'],
+                                            'stock_out' => [__('Sortie'), 'badge-soft-danger'],
+                                            'adjustment_in' => [__('Ajust. +'), 'badge-soft-info'],
+                                            'adjustment_out' => [__('Ajust. -'), 'badge-soft-warning'],
+                                            'transfer_in' => [__('Trans. entrée'), 'badge-soft-success'],
+                                            'transfer_out' => [__('Trans. sortie'), 'badge-soft-danger'],
+                                            'return_in' => [__('Retour +'), 'badge-soft-success'],
+                                            'return_out' => [__('Retour -'), 'badge-soft-danger'],
+                                            'reserve' => [__('Réservation'), 'badge-soft-warning'],
+                                            'unreserve' => [__('Libération'), 'badge-soft-info'],
+                                            'purchase_in' => [__('Achat'), 'badge-soft-success'],
+                                            'sale_out' => [__('Vente'), 'badge-soft-danger'],
                                         ];
                                         $label = $typeLabels[$movement->movement_type] ?? [
                                             $movement->movement_type,

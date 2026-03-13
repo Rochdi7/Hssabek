@@ -43,21 +43,21 @@ class StoreCustomerRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'type.required' => 'Le type de client est obligatoire.',
-            'type.in' => 'Le type de client doit être « Particulier » ou « Entreprise ».',
-            'name.required' => 'Le nom est obligatoire.',
-            'name.max' => 'Le nom ne doit pas dépasser 255 caractères.',
-            'email.email' => "L'adresse e-mail n'est pas valide.",
-            'email.unique' => 'Cette adresse e-mail est déjà utilisée par un autre client.',
-            'phone.max' => 'Le téléphone ne doit pas dépasser 30 caractères.',
-            'tax_id.unique' => "Ce numéro d'identification fiscale est déjà utilisé.",
-            'tax_id.max' => "L'identifiant fiscal ne doit pas dépasser 50 caractères.",
-            'payment_terms_days.integer' => 'Le délai de paiement doit être un nombre entier.',
-            'payment_terms_days.min' => 'Le délai de paiement ne peut pas être négatif.',
-            'payment_terms_days.max' => 'Le délai de paiement ne doit pas dépasser 365 jours.',
-            'status.required' => 'Le statut est obligatoire.',
-            'status.in' => 'Le statut doit être « Actif » ou « Inactif ».',
-            'notes.max' => 'Les notes ne doivent pas dépasser 2000 caractères.',
+            'type.required' => __('Le type de client est obligatoire.'),
+            'type.in' => __('Le type de client doit être « Particulier » ou « Entreprise ».'),
+            'name.required' => __('Le nom est obligatoire.'),
+            'name.max' => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'email.email' => __("L'adresse e-mail n'est pas valide."),
+            'email.unique' => __('Cette adresse e-mail est déjà utilisée par un autre client.'),
+            'phone.max' => __('Le téléphone ne doit pas dépasser 30 caractères.'),
+            'tax_id.unique' => __("Ce numéro d'identification fiscale est déjà utilisé."),
+            'tax_id.max' => __("L'identifiant fiscal ne doit pas dépasser 50 caractères."),
+            'payment_terms_days.integer' => __('Le délai de paiement doit être un nombre entier.'),
+            'payment_terms_days.min' => __('Le délai de paiement ne peut pas être négatif.'),
+            'payment_terms_days.max' => __('Le délai de paiement ne doit pas dépasser 365 jours.'),
+            'status.required' => __('Le statut est obligatoire.'),
+            'status.in' => __('Le statut doit être « Actif » ou « Inactif ».'),
+            'notes.max' => __('Les notes ne doivent pas dépasser 2000 caractères.'),
         ];
     }
 }

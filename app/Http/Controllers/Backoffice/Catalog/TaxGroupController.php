@@ -42,7 +42,7 @@ class TaxGroupController extends Controller
             }
         });
 
-        return redirect()->back()->with('success', 'Groupe de taxes ajouté avec succès.');
+        return redirect()->back()->with('success', __('Groupe de taxes ajouté avec succès.'));
     }
 
     public function update(UpdateTaxGroupRequest $request, TaxGroup $taxGroup)
@@ -68,7 +68,7 @@ class TaxGroupController extends Controller
             }
         });
 
-        return redirect()->back()->with('success', 'Groupe de taxes mis à jour avec succès.');
+        return redirect()->back()->with('success', __('Groupe de taxes mis à jour avec succès.'));
     }
 
     public function destroy(TaxGroup $taxGroup)
@@ -78,6 +78,6 @@ class TaxGroupController extends Controller
         $taxGroup->rates()->delete();
         $taxGroup->delete();
 
-        return redirect()->back()->with('success', 'Groupe de taxes supprimé avec succès.');
+        return redirect()->back()->with('success', __('Groupe de taxes supprimé avec succès.'));
     }
 }

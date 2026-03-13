@@ -5,7 +5,7 @@
         <div class="content content-two">
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Rappels de factures</h6>
+                    <h6>{{ __('Rappels de factures') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', [
@@ -14,7 +14,7 @@
                     <div>
                         <a href="{{ route('bo.pro.invoice-reminders.create') }}"
                             class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau rappel
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau rappel') }}
                         </a>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher par n° facture..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher par n° facture...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Facture', 'Client', 'Type', 'Canal', 'Planifié le', 'Statut'],
+                            'columns' => [__('Facture'), __('Client'), __('Type'), __('Canal'), __('Planifié le'), __('Statut')],
                         ])
                     </div>
                 </div>
@@ -59,12 +59,12 @@
                                 <div class="form-check form-check-md"><input class="form-check-input" type="checkbox"
                                         id="select-all"></div>
                             </th>
-                            <th>Facture</th>
-                            <th>Client</th>
-                            <th>Type</th>
-                            <th>Canal</th>
-                            <th>Planifié le</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Facture') }}</th>
+                            <th>{{ __('Client') }}</th>
+                            <th>{{ __('Type') }}</th>
+                            <th>{{ __('Canal') }}</th>
+                            <th>{{ __('Planifié le') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -80,38 +80,37 @@
                                 <td>
                                     @switch($reminder->type)
                                         @case('before_due')
-                                            Avant échéance
+                                            {{ __('Avant échéance') }}
                                         @break
 
                                         @case('on_due')
-                                            Jour d'échéance
+                                            {{ __("Jour d'échéance") }}
                                         @break
 
                                         @case('after_due')
-                                            Après échéance
+                                            {{ __('Après échéance') }}
                                         @break
 
                                         @default
                                             {{ ucfirst($reminder->type) }}
                                     @endswitch
                                 </td>
-                                <td>{{ $reminder->channel === 'email' ? 'E-mail' : ($reminder->channel === 'sms' ? 'SMS' : ucfirst($reminder->channel)) }}
+                                <td>{{ $reminder->channel === 'email' ? __('E-mail') : ($reminder->channel === 'sms' ? __('SMS') : ucfirst($reminder->channel)) }}
                                 </td>
                                 <td>{{ $reminder->scheduled_at ? \Carbon\Carbon::parse($reminder->scheduled_at)->format('d/m/Y H:i') : '—' }}
                                 </td>
                                 <td>
                                     @switch($reminder->status)
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En
-                                                attente</span>
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('En attente') }}</span>
                                         @break
 
                                         @case('sent')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Envoyé</span>
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Envoyé') }}</span>
                                         @break
 
                                         @case('failed')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Échoué</span>
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Échoué') }}</span>
                                         @break
                                     @endswitch
                                 </td>
@@ -121,14 +120,14 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ route('bo.pro.invoice-reminders.edit', $reminder) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a></li>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a></li>
                                         <li>
                                             <form method="POST"
                                                 action="{{ route('bo.pro.invoice-reminders.destroy', $reminder) }}">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
-                                                    type="submit" onclick="return confirm('Supprimer ce rappel ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
+                                                    type="submit" onclick="return confirm('{{ __('Supprimer ce rappel ?') }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}
                                                 </button>
                                             </form>
                                         </li>

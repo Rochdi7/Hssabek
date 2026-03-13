@@ -8,11 +8,11 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.sales.refunds.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Remboursements</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Remboursements') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Nouveau remboursement</h5>
+                                <h5 class="mb-3">{{ __('Nouveau remboursement') }}</h5>
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <ul class="mb-0">
@@ -29,11 +29,10 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Paiement <span
-                                                        class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Paiement') }} <span class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('payment_id') is-invalid @enderror"
                                                     name="payment_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($payments as $payment)
                                                         <option value="{{ $payment->id }}"
                                                             {{ old('payment_id') == $payment->id ? 'selected' : '' }}>
@@ -49,8 +48,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Montant <span
-                                                        class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Montant') }} <span class="text-danger ms-1">*</span></label>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control @error('amount') is-invalid @enderror"
                                                     name="amount" value="{{ old('amount') }}">
@@ -61,21 +59,21 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Réf. fournisseur de paiement</label>
+                                                <label class="form-label">{{ __('Réf. fournisseur de paiement') }}</label>
                                                 <div class="mb-2">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode"
                                                             id="ref_mode_manual" value="manual" checked
                                                             onchange="document.getElementById('provider_refund_id').value=''; document.getElementById('provider_refund_id').readOnly=false; document.getElementById('provider_refund_id').focus();">
-                                                        <label class="form-check-label" for="ref_mode_manual">Saisie
-                                                            manuelle</label>
+                                                        <label class="form-check-label" for="ref_mode_manual">{{ __('Saisie
+                                                            manuelle') }}</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode"
                                                             id="ref_mode_auto" value="auto"
                                                             onchange="document.getElementById('provider_refund_id').value='{{ $nextReference }}'; document.getElementById('provider_refund_id').readOnly=true;">
-                                                        <label class="form-check-label" for="ref_mode_auto">Générer
-                                                            automatiquement</label>
+                                                        <label class="form-check-label" for="ref_mode_auto">{{ __('Générer
+                                                            automatiquement') }}</label>
                                                     </div>
                                                 </div>
                                                 <input type="text" id="provider_refund_id"
@@ -88,7 +86,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Date de remboursement</label>
+                                                <label class="form-label">{{ __('Date de remboursement') }}</label>
                                                 <div class="input-group position-relative">
                                                     <input type="text"
                                                         class="form-control datetimepicker @error('refunded_at') is-invalid @enderror"
@@ -106,8 +104,8 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.sales.refunds.index') }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                            class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                     </div>
                                 </form>
                             </div>

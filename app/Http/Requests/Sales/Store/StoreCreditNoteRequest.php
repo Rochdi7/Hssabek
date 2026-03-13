@@ -38,15 +38,15 @@ class StoreCreditNoteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'customer_id.required' => 'Le client est obligatoire.',
-            'customer_id.exists' => 'Le client sélectionné est invalide.',
-            'invoice_id.exists' => 'La facture sélectionnée est invalide.',
-            'issue_date.required' => 'La date d\'émission est obligatoire.',
-            'items.required' => 'Au moins un article est obligatoire.',
-            'items.min' => 'Au moins un article est obligatoire.',
-            'items.*.label.required' => 'Le libellé de l\'article est obligatoire.',
-            'items.*.quantity.required' => 'La quantité est obligatoire.',
-            'items.*.unit_price.required' => 'Le prix unitaire est obligatoire.',
+            'customer_id.required' => __('Le client est obligatoire.'),
+            'customer_id.exists' => __('Le client sélectionné est invalide.'),
+            'invoice_id.exists' => __('La facture sélectionnée est invalide.'),
+            'issue_date.required' => __('La date d\'émission est obligatoire.'),
+            'items.required' => __('Au moins un article est obligatoire.'),
+            'items.min' => __('Au moins un article est obligatoire.'),
+            'items.*.label.required' => __('Le libellé de l\'article est obligatoire.'),
+            'items.*.quantity.required' => __('La quantité est obligatoire.'),
+            'items.*.unit_price.required' => __('Le prix unitaire est obligatoire.'),
         ];
     }
 }

@@ -34,16 +34,16 @@ class StoreSubscriptionInvoiceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'subscription_id.required'  => 'L\'abonnement est obligatoire.',
-            'subscription_id.exists'    => 'L\'abonnement sélectionné est invalide.',
-            'invoice_number.required'   => 'Le numéro de facture est obligatoire.',
-            'invoice_number.unique'     => 'Ce numéro de facture existe déjà.',
-            'amount.required'           => 'Le montant est obligatoire.',
-            'invoice_date.required'     => 'La date de facture est obligatoire.',
-            'due_date.required'         => 'La date d\'échéance est obligatoire.',
-            'due_date.after_or_equal'   => 'La date d\'échéance doit être postérieure ou égale à la date de facture.',
-            'status.required'           => 'Le statut est obligatoire.',
-            'status.in'                 => 'Le statut est invalide.',
+            'subscription_id.required'  => __('L\'abonnement est obligatoire.'),
+            'subscription_id.exists'    => __('L\'abonnement sélectionné est invalide.'),
+            'invoice_number.required'   => __('Le numéro de facture est obligatoire.'),
+            'invoice_number.unique'     => __('Ce numéro de facture existe déjà.'),
+            'amount.required'           => __('Le montant est obligatoire.'),
+            'invoice_date.required'     => __('La date de facture est obligatoire.'),
+            'due_date.required'         => __('La date d\'échéance est obligatoire.'),
+            'due_date.after_or_equal'   => __('La date d\'échéance doit être postérieure ou égale à la date de facture.'),
+            'status.required'           => __('Le statut est obligatoire.'),
+            'status.in'                 => __('Le statut est invalide.'),
         ];
     }
 }

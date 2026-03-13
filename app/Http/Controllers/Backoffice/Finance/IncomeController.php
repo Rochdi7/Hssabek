@@ -62,7 +62,7 @@ class IncomeController extends Controller
         ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.incomes.index')
-            ->with('success', 'Revenu enregistré avec succès.');
+            ->with('success', __('Revenu enregistré avec succès.'));
     }
 
     public function edit(Income $income)
@@ -87,7 +87,7 @@ class IncomeController extends Controller
         ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.incomes.index')
-            ->with('success', 'Revenu mis à jour avec succès.');
+            ->with('success', __('Revenu mis à jour avec succès.'));
     }
 
     public function destroy(Income $income)
@@ -99,6 +99,6 @@ class IncomeController extends Controller
         ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.incomes.index')
-            ->with('success', 'Revenu supprimé avec succès.');
+            ->with('success', __('Revenu supprimé avec succès.'));
     }
 }

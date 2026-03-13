@@ -34,10 +34,10 @@ class UpdateFinanceCategoryRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'name.required' => 'Le nom de la catégorie est obligatoire.',
-            'name.unique'   => 'Une catégorie avec ce nom existe déjà.',
-            'type.required' => 'Le type de catégorie est obligatoire.',
-            'type.in'       => 'Le type doit être "dépense" ou "revenu".',
+            'name.required' => __('Le nom de la catégorie est obligatoire.'),
+            'name.unique'   => __('Une catégorie avec ce nom existe déjà.'),
+            'type.required' => __('Le type de catégorie est obligatoire.'),
+            'type.in'       => __('Le type doit être "dépense" ou "revenu".'),
         ];
     }
 }

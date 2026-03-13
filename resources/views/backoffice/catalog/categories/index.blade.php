@@ -13,14 +13,13 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Cat&eacute;gories</h6>
+                    <h6>{{ __('Catégories') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'categories'])
                     <div>
                         <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                            data-bs-target="#add_category_modal"><i class="isax isax-add-circle5 me-1"></i>Nouvelle
-                            cat&eacute;gorie</a>
+                            data-bs-target="#add_category_modal"><i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle catégorie') }}</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +38,7 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Catégorie', 'Nombre de produits', 'Statut'],
+                            'columns' => [__('Catégorie'), __('Nombre de produits'), __('Statut')],
                         ])
                     </div>
                 </div>
@@ -49,14 +48,14 @@
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
                     {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                 </div>
             @endif
 
             @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
                     {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                 </div>
             @endif
 
@@ -70,9 +69,9 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Cat&eacute;gorie</th>
-                            <th class="no-sort">Nombre de produits</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Catégorie') }}</th>
+                            <th class="no-sort">{{ __('Nombre de produits') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -95,9 +94,9 @@
                                 <td>{{ $category->products_count }}</td>
                                 <td>
                                     @if ($category->is_active)
-                                        <span class="badge bg-success-transparent">Actif</span>
+                                        <span class="badge bg-success-transparent">{{ __('Actif') }}</span>
                                     @else
-                                        <span class="badge bg-danger-transparent">Inactif</span>
+                                        <span class="badge bg-danger-transparent">{{ __('Inactif') }}</span>
                                     @endif
                                 </td>
                                 <td class="action-item">
@@ -112,7 +111,7 @@
                                                 data-id="{{ $category->id }}" data-name="{{ $category->name }}"
                                                 data-is-active="{{ $category->is_active ? '1' : '0' }}"
                                                 data-update-url="{{ route('bo.catalog.categories.update', $category) }}"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);"
@@ -120,7 +119,7 @@
                                                 data-bs-toggle="modal" data-bs-target="#delete_category_modal"
                                                 data-id="{{ $category->id }}" data-name="{{ $category->name }}"
                                                 data-destroy-url="{{ route('bo.catalog.categories.destroy', $category) }}"><i
-                                                    class="isax isax-trash me-2"></i>Supprimer</a>
+                                                    class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                         </li>
                                     </ul>
                                 </td>
@@ -155,9 +154,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ajouter une cat&eacute;gorie</h4>
+                    <h4 class="modal-title">{{ __('Ajouter une catégorie') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('bo.catalog.categories.store') }}">
                     @csrf
@@ -166,10 +165,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom de la cat&eacute;gorie<span
+                                    <label class="form-label">{{ __('Nom de la catégorie') }}<span
                                             class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" placeholder="Ex : &Eacute;lectronique">
+                                        name="name" value="{{ old('name') }}" placeholder="{{ __('Ex : Électronique') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -179,14 +178,14 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                         id="add_is_active" {{ old('is_active', '1') == '1' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="add_is_active">Cat&eacute;gorie active</label>
+                                    <label class="form-check-label" for="add_is_active">{{ __('Catégorie active') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div>
                 </form>
             </div>
@@ -201,9 +200,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modifier la cat&eacute;gorie</h4>
+                    <h4 class="modal-title">{{ __('Modifier la catégorie') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="" id="edit_category_form">
                     @csrf
@@ -214,11 +213,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom de la cat&eacute;gorie<span
+                                    <label class="form-label">{{ __('Nom de la catégorie') }}<span
                                             class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                         name="name" id="edit_category_name" value="{{ old('name') }}"
-                                        placeholder="Ex : &Eacute;lectronique">
+                                        placeholder="{{ __('Ex : Électronique') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -228,14 +227,14 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                         id="edit_is_active">
-                                    <label class="form-check-label" for="edit_is_active">Cat&eacute;gorie active</label>
+                                    <label class="form-check-label" for="edit_is_active">{{ __('Catégorie active') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                     </div>
                 </form>
             </div>
@@ -253,16 +252,16 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Supprimer la cat&eacute;gorie</h6>
-                    <p class="mb-3">&Ecirc;tes-vous s&ucirc;r de vouloir supprimer <strong
+                    <h6 class="mb-1">{{ __('Supprimer la catégorie') }}</h6>
+                    <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer') }} <strong
                             id="delete_category_name"></strong> ?</p>
                     <div class="d-flex justify-content-center">
                         <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                            data-bs-dismiss="modal">Annuler</a>
+                            data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                         <form method="POST" action="" id="delete_category_form">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Oui, Supprimer</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Oui, Supprimer') }}</button>
                         </form>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ class CustomerContactController extends Controller
         $customer->contacts()->create($request->safe()->except('customer_id'));
 
         return redirect()->route('bo.crm.customers.show', $customer)
-            ->with('success', 'Contact ajouté avec succès.');
+            ->with('success', __('Contact ajouté avec succès.'));
     }
 
     public function update(UpdateCustomerContactRequest $request, CustomerContact $contact)
@@ -28,7 +28,7 @@ class CustomerContactController extends Controller
         $contact->update($request->validated());
 
         return redirect()->route('bo.crm.customers.show', $contact->customer_id)
-            ->with('success', 'Contact mis à jour avec succès.');
+            ->with('success', __('Contact mis à jour avec succès.'));
     }
 
     public function destroy(CustomerContact $contact)
@@ -40,6 +40,6 @@ class CustomerContactController extends Controller
         $contact->delete();
 
         return redirect()->route('bo.crm.customers.show', $customerId)
-            ->with('success', 'Contact supprimé avec succès.');
+            ->with('success', __('Contact supprimé avec succès.'));
     }
 }

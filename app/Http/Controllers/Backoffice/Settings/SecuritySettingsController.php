@@ -51,10 +51,10 @@ class SecuritySettingsController extends Controller
             ->delete();
 
         if ($deleted) {
-            return back()->with('success', 'La session a été révoquée avec succès.');
+            return back()->with('success', __('La session a été révoquée avec succès.'));
         }
 
-        return back()->with('error', 'Session introuvable.');
+        return back()->with('error', __('Session introuvable.'));
     }
 
     /**
@@ -69,7 +69,7 @@ class SecuritySettingsController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with('success', 'Votre compte a été désactivé. Connectez-vous pour le réactiver.');
+        return redirect()->route('login')->with('success', __('Votre compte a été désactivé. Connectez-vous pour le réactiver.'));
     }
 
     /**

@@ -20,7 +20,7 @@
                         <div class="col-xl-9 col-lg-8">
                             <div>
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Modèles d'email</h6>
+                                    <h6 class="mb-0">{{ __("Modèles d'email") }}</h6>
                                 </div>
                                 <div class="mb-3">
                                     <!-- Table Search -->
@@ -31,7 +31,7 @@
                                                     <i class="isax isax-search-normal"></i>
                                                 </span>
                                                 <input type="text" class="form-control form-control-sm bg-white"
-                                                    placeholder="Rechercher" id="email-template-search">
+                                                    placeholder="{{ __('Rechercher') }}" id="email-template-search">
                                             </div>
                                         </div>
                                         <div class="col-md-9">
@@ -39,7 +39,7 @@
                                                 <div>
                                                     <a href="#" class="btn btn-primary d-flex align-items-center"
                                                         data-bs-toggle="modal" data-bs-target="#add_modal"><i
-                                                            class="isax isax-add-circle5 me-1"></i>Nouveau modèle</a>
+                                                            class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau modèle') }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -49,14 +49,14 @@
                                     @if(session('success'))
                                         <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
                                             {{ session('success') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                                         </div>
                                     @endif
 
                                     @if(session('error'))
                                         <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
                                             {{ session('error') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                                         </div>
                                     @endif
 
@@ -65,9 +65,9 @@
                                         <table class="table border mb-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>Nom du modèle</th>
-                                                    <th>Créé le</th>
-                                                    <th>Statut</th>
+                                                    <th>{{ __('Nom du modèle') }}</th>
+                                                    <th>{{ __('Créé le') }}</th>
+                                                    <th>{{ __('Statut') }}</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -103,21 +103,21 @@
                                                                             class="dropdown-item d-flex align-items-center"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#view_email_{{ $template['id'] }}"><i
-                                                                                class="isax isax-eye me-2"></i>Aperçu</a>
+                                                                                class="isax isax-eye me-2"></i>{{ __('Aperçu') }}</a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="#"
                                                                             class="dropdown-item d-flex align-items-center"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#edit_modal_{{ $template['id'] }}"><i
-                                                                                class="isax isax-edit me-2"></i>Modifier</a>
+                                                                                class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0);"
                                                                             class="dropdown-item d-flex align-items-center"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#delete_modal_{{ $template['id'] }}"><i
-                                                                                class="isax isax-trash me-2"></i>Supprimer</a>
+                                                                                class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -125,7 +125,7 @@
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="4" class="text-center">Aucun modèle d'email trouvé.</td>
+                                                        <td colspan="4" class="text-center">{{ __("Aucun modèle d'email trouvé.") }}</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
@@ -157,8 +157,8 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Nouveau modèle d'email</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <h4 class="modal-title">{{ __("Nouveau modèle d'email") }}</h4>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('bo.settings.email-templates.store') }}">
                     @csrf
@@ -167,42 +167,42 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom du modèle <span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Nom du modèle') }} <span class="text-danger ms-1">*</span></label>
                                     <input type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
                                         value="{{ old('name') }}"
-                                        placeholder="Ex : E-mail de bienvenue">
+                                        placeholder="{{ __('Ex : E-mail de bienvenue') }}">
                                     @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Objet <span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Objet') }} <span class="text-danger ms-1">*</span></label>
                                     <input type="text"
                                         class="form-control @error('subject') is-invalid @enderror"
                                         name="subject"
                                         value="{{ old('subject') }}"
-                                        placeholder="Ex : Bienvenue sur notre plateforme">
+                                        placeholder="{{ __('Ex : Bienvenue sur notre plateforme') }}">
                                     @error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Contenu de l'email <span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __("Contenu de l'email") }} <span class="text-danger ms-1">*</span></label>
                                     <textarea
                                         class="form-control @error('body') is-invalid @enderror"
                                         name="body"
                                         rows="10"
-                                        placeholder="Saisissez le contenu HTML ou texte de l'email...">{{ old('body') }}</textarea>
+                                        placeholder="{{ __("Saisissez le contenu HTML ou texte de l'email...") }}">{{ old('body') }}</textarea>
                                     @error('body')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div>
                 </form>
             </div>
@@ -220,28 +220,28 @@
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Aperçu : {{ $template['name'] }}</h4>
-                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        <h4 class="modal-title">{{ __('Aperçu') }} : {{ $template['name'] }}</h4>
+                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Objet :</label>
+                            <label class="form-label fw-semibold">{{ __('Objet') }} :</label>
                             <p class="text-dark mb-0">{{ $template['subject'] }}</p>
                         </div>
                         <hr>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Contenu :</label>
+                            <label class="form-label fw-semibold">{{ __('Contenu') }} :</label>
                             <div class="border rounded p-3 bg-light">
                                 {!! nl2br(e($template['body'])) !!}
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-3 text-muted">
-                            <small><i class="isax isax-calendar me-1"></i> Créé le {{ \Carbon\Carbon::parse($template['created_at'])->format('d/m/Y à H:i') }}</small>
-                            <small><i class="isax isax-refresh me-1"></i> Modifié le {{ \Carbon\Carbon::parse($template['updated_at'])->format('d/m/Y à H:i') }}</small>
+                            <small><i class="isax isax-calendar me-1"></i> {{ __('Créé le') }} {{ \Carbon\Carbon::parse($template['created_at'])->format('d/m/Y à H:i') }}</small>
+                            <small><i class="isax isax-refresh me-1"></i> {{ __('Modifié le') }} {{ \Carbon\Carbon::parse($template['updated_at'])->format('d/m/Y à H:i') }}</small>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Fermer') }}</button>
                     </div>
                 </div>
             </div>
@@ -253,8 +253,8 @@
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Modifier le modèle</h4>
-                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        <h4 class="modal-title">{{ __('Modifier le modèle') }}</h4>
+                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                     </div>
                     <form method="POST" action="{{ route('bo.settings.email-templates.update', $template['id']) }}">
                         @csrf
@@ -265,7 +265,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Nom du modèle <span class="text-danger ms-1">*</span></label>
+                                        <label class="form-label">{{ __('Nom du modèle') }} <span class="text-danger ms-1">*</span></label>
                                         <input type="text"
                                             class="form-control"
                                             name="name"
@@ -274,7 +274,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Objet <span class="text-danger ms-1">*</span></label>
+                                        <label class="form-label">{{ __('Objet') }} <span class="text-danger ms-1">*</span></label>
                                         <input type="text"
                                             class="form-control"
                                             name="subject"
@@ -283,7 +283,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Contenu de l'email <span class="text-danger ms-1">*</span></label>
+                                        <label class="form-label">{{ __("Contenu de l'email") }} <span class="text-danger ms-1">*</span></label>
                                         <textarea
                                             class="form-control"
                                             name="body"
@@ -293,8 +293,8 @@
                             </div>
                         </div>
                         <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                         </div>
                     </form>
                 </div>
@@ -310,14 +310,14 @@
                         <div class="mb-3">
                             <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                         </div>
-                        <h6 class="mb-1">Supprimer le modèle</h6>
-                        <p class="mb-3">Êtes-vous sûr de vouloir supprimer « {{ $template['name'] }} » ?</p>
+                        <h6 class="mb-1">{{ __('Supprimer le modèle') }}</h6>
+                        <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer') }} « {{ $template['name'] }} » ?</p>
                         <div class="d-flex justify-content-center">
-                            <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
+                            <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                             <form method="POST" action="{{ route('bo.settings.email-templates.destroy', $template['id']) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-primary">Oui, Supprimer</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Oui, Supprimer') }}</button>
                             </form>
                         </div>
                     </div>

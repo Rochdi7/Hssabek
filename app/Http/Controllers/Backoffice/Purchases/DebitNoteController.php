@@ -69,7 +69,7 @@ class DebitNoteController extends Controller
         $debitNote = $this->debitNoteService->create($request->validated());
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
-            ->with('success', 'Note de débit créée avec succès.');
+            ->with('success', __('Note de débit créée avec succès.'));
     }
 
     public function show(DebitNote $debitNote)
@@ -107,7 +107,7 @@ class DebitNoteController extends Controller
         $this->debitNoteService->update($debitNote, $request->validated());
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
-            ->with('success', 'Note de débit mise à jour avec succès.');
+            ->with('success', __('Note de débit mise à jour avec succès.'));
     }
 
     public function apply(Request $request, DebitNote $debitNote)
@@ -128,7 +128,7 @@ class DebitNoteController extends Controller
         $this->debitNoteService->apply($debitNote, $validated['allocations']);
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
-            ->with('success', 'Note de débit appliquée avec succès.');
+            ->with('success', __('Note de débit appliquée avec succès.'));
     }
 
     public function destroy(DebitNote $debitNote)
@@ -139,7 +139,7 @@ class DebitNoteController extends Controller
         $debitNote->delete();
 
         return redirect()->route('bo.purchases.debit-notes.index')
-            ->with('success', 'Note de débit supprimée avec succès.');
+            ->with('success', __('Note de débit supprimée avec succès.'));
     }
 
     public function download(DebitNote $debitNote, PdfService $pdfService)
@@ -167,6 +167,6 @@ class DebitNoteController extends Controller
         ));
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
-            ->with('success', 'Note de débit envoyée au fournisseur par email.');
+            ->with('success', __('Note de débit envoyée au fournisseur par email.'));
     }
 }

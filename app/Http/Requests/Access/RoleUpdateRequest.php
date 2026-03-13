@@ -47,7 +47,7 @@ class RoleUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.unique' => 'Un rôle avec ce nom existe déjà.',
+            'name.unique' => __('Un rôle avec ce nom existe déjà.'),
         ];
     }
 }

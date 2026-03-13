@@ -37,15 +37,15 @@ class StoreIncomeRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'amount.required'        => 'Le montant est obligatoire.',
-            'amount.numeric'         => 'Le montant doit être un nombre.',
-            'amount.min'             => 'Le montant doit être supérieur à zéro.',
-            'income_date.required'   => 'La date du revenu est obligatoire.',
-            'payment_mode.required'  => 'Le mode de paiement est obligatoire.',
-            'payment_mode.in'        => 'Le mode de paiement est invalide.',
-            'bank_account_id.exists' => 'Le compte bancaire sélectionné est invalide.',
-            'customer_id.exists'     => 'Le client sélectionné est invalide.',
-            'category_id.exists'     => 'La catégorie sélectionnée est invalide.',
+            'amount.required'        => __('Le montant est obligatoire.'),
+            'amount.numeric'         => __('Le montant doit être un nombre.'),
+            'amount.min'             => __('Le montant doit être supérieur à zéro.'),
+            'income_date.required'   => __('La date du revenu est obligatoire.'),
+            'payment_mode.required'  => __('Le mode de paiement est obligatoire.'),
+            'payment_mode.in'        => __('Le mode de paiement est invalide.'),
+            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
+            'customer_id.exists'     => __('Le client sélectionné est invalide.'),
+            'category_id.exists'     => __('La catégorie sélectionnée est invalide.'),
         ];
     }
 }

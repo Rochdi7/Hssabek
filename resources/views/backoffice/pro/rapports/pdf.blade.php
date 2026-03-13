@@ -72,16 +72,16 @@
     <h1>{{ $report->title }}</h1>
     <div class="meta">
         @if($report->category)
-            Catégorie : {{ $report->category }} &nbsp;|&nbsp;
+            {{ __('Catégorie') }} : {{ $report->category }} &nbsp;|&nbsp;
         @endif
-        Créé par : {{ $report->creator->name ?? '—' }} &nbsp;|&nbsp;
-        Date : {{ $report->created_at->format('d/m/Y') }}
+        {{ __('Créé par') }} : {{ $report->creator->name ?? '—' }} &nbsp;|&nbsp;
+        {{ __('Date') }} : {{ $report->created_at->format('d/m/Y') }}
     </div>
     <div class="content">
         {!! $report->content !!}
     </div>
     <div class="footer">
-        {{ $report->title }} &mdash; Généré le {{ now()->format('d/m/Y à H:i') }}
+        {{ $report->title }} &mdash; {{ __('Généré le') }} {{ now()->format('d/m/Y à H:i') }}
     </div>
 </body>
 </html>

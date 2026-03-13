@@ -11,7 +11,7 @@
                     @endif
                 @endforeach
                 <label class="d-flex align-items-center gap-2 mb-0">
-                    Row Per Page
+                    {{ __('Lignes par page') }}
                     <select name="per_page" class="form-select form-select-sm" onchange="this.form.submit()">
                         @foreach ([10, 25, 50, 100] as $size)
                             <option value="{{ $size }}"
@@ -19,7 +19,7 @@
                             </option>
                         @endforeach
                     </select>
-                    Entries
+                    {{ __('entrées') }}
                 </label>
             </form>
         </div>

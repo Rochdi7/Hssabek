@@ -10,20 +10,20 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6 class="mb-0">Rapport des clients</h6>
+                    <h6 class="mb-0">{{ __('Rapport des clients') }}</h6>
                 </div>
                 <div class="my-xl-auto">
                     <div class="dropdown">
                         <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
+                            <i class="isax isax-export-1 me-1"></i>{{ __('Exporter') }}
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="javascript:void(0);">Télécharger en PDF</a>
+                                <a class="dropdown-item" href="javascript:void(0);">{{ __('Télécharger en PDF') }}</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:void(0);">Télécharger en Excel</a>
+                                <a class="dropdown-item" href="javascript:void(0);">{{ __('Télécharger en Excel') }}</a>
                             </li>
                         </ul>
                     </div>
@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <div>
-                                        <p class="mb-1">Total clients</p>
+                                        <p class="mb-1">{{ __('Total clients') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalCustomers) }}</h6>
                                     </div>
                                     <div>
@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <p class="fs-13 mb-0">
-                                    <span class="text-muted">Tous les clients actifs</span>
+                                    <span class="text-muted">{{ __('Tous les clients actifs') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <div>
-                                        <p class="mb-1">Nouveaux clients</p>
+                                        <p class="mb-1">{{ __('Nouveaux clients') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($newCustomers) }}</h6>
                                     </div>
                                     <div>
@@ -82,7 +82,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <div>
-                                        <p class="mb-1">Revenu total</p>
+                                        <p class="mb-1">{{ __('Revenu total') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalRevenue, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                     </div>
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                                 <p class="fs-13 mb-0">
-                                    <span class="text-muted">Période sélectionnée</span>
+                                    <span class="text-muted">{{ __('Période sélectionnée') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <div>
-                                        <p class="mb-1">Revenu moyen</p>
+                                        <p class="mb-1">{{ __('Revenu moyen') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($avgRevenue, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                     </div>
@@ -115,7 +115,7 @@
                                     </div>
                                 </div>
                                 <p class="fs-13 mb-0">
-                                    <span class="text-muted">Par client</span>
+                                    <span class="text-muted">{{ __('Par client') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -144,9 +144,9 @@
                             </span>
                         </div>
                         <button type="submit" class="btn btn-primary">
-                            <i class="isax isax-filter me-1"></i>Filtrer
+                            <i class="isax isax-filter me-1"></i>{{ __('Filtrer') }}
                         </button>
-                        <a href="{{ route('bo.reports.customers') }}" class="btn btn-outline-white">Réinitialiser</a>
+                        <a href="{{ route('bo.reports.customers') }}" class="btn btn-outline-white">{{ __('Réinitialiser') }}</a>
                     </div>
                 </form>
             </div>
@@ -156,7 +156,7 @@
                 <div class="col-lg-7">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Top 10 clients par revenu</h6>
+                            <h6 class="mb-0">{{ __('Top 10 clients par revenu') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="customers_top_chart" style="min-height: 300px;"></div>
@@ -166,7 +166,7 @@
                 <div class="col-lg-5">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Nouveaux clients par mois</h6>
+                            <h6 class="mb-0">{{ __('Nouveaux clients par mois') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="customers_new_chart" style="min-height: 300px;"></div>
@@ -185,13 +185,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Client</th>
-                            <th>Téléphone</th>
-                            <th>Solde dû</th>
-                            <th>Nb factures</th>
-                            <th>Revenu total</th>
-                            <th>Créé le</th>
-                            <th>Statut</th>
+                            <th>{{ __('Client') }}</th>
+                            <th>{{ __('Téléphone') }}</th>
+                            <th>{{ __('Solde dû') }}</th>
+                            <th>{{ __('Nb factures') }}</th>
+                            <th>{{ __('Revenu total') }}</th>
+                            <th>{{ __('Créé le') }}</th>
+                            <th>{{ __('Statut') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -221,17 +221,17 @@
                                 <td>{{ $customer->created_at?->format('d/m/Y') }}</td>
                                 <td>
                                     @if ($customer->status === 'active')
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Actif <i
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Actif') }} <i
                                                 class="isax isax-tick-circle ms-1"></i></span>
                                     @else
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Inactif <i
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Inactif') }} <i
                                                 class="isax isax-close-circle ms-1"></i></span>
                                     @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">Aucun client trouvé pour cette période.</td>
+                                <td colspan="8" class="text-center">{{ __('Aucun client trouvé pour cette période.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -268,7 +268,7 @@
                         fontFamily: 'inherit'
                     },
                     series: [{
-                        name: 'Revenu',
+                        name: {!! json_encode(__('Revenu')) !!},
                         data: values
                     }],
                     xaxis: {
@@ -319,7 +319,7 @@
                         fontFamily: 'inherit'
                     },
                     series: [{
-                        name: 'Nouveaux clients',
+                        name: {!! json_encode(__('Nouveaux clients')) !!},
                         data: data
                     }],
                     xaxis: {

@@ -12,14 +12,14 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Produits & Services</h6>
+                    <h6>{{ __('Produits & Services') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'products'])
                     <div>
                         <a href="{{ route('bo.catalog.products.create') }}"
                             class="btn btn-primary d-flex align-items-center"><i
-                                class="isax isax-add-circle5 me-1"></i>Nouveau</a>
+                                class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau') }}</a>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un produit ou service..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher un produit ou service...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -72,21 +72,21 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-category me-1"></i>Type : <span
+                                <i class="isax isax-category me-1"></i>{{ __('Type :') }} <span
                                     class="fw-normal ms-1">{{ request('item_type') === 'product' ? 'Produits' : (request('item_type') === 'service' ? 'Services' : 'Tous') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('item_type', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['item_type' => 'product'])) }}"
-                                        class="dropdown-item">Produits</a>
+                                        class="dropdown-item">{{ __('Produits') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['item_type' => 'service'])) }}"
-                                        class="dropdown-item">Services</a>
+                                        class="dropdown-item">{{ __('Services') }}/a>
                                 </li>
                             </ul>
                         </div>
@@ -94,13 +94,13 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Catégorie : <span
+                                <i class="isax isax-filter me-1"></i>{{ __('Catégorie :') }} <span
                                     class="fw-normal ms-1">{{ $categories->firstWhere('id', request('category_id'))?->name ?? 'Toutes' }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('category_id', 'page'))) }}"
-                                        class="dropdown-item">Toutes</a>
+                                        class="dropdown-item">{{ __('Toutes') }}</a>
                                 </li>
                                 @foreach ($categories as $category)
                                     <li>
@@ -114,21 +114,21 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Statut : <span
+                                <i class="isax isax-sort me-1"></i>{{ __('Statut :') }} <span
                                     class="fw-normal ms-1">{{ request('status') === 'active' ? 'Actif' : (request('status') === 'inactive' ? 'Inactif' : 'Tous') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('status', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['status' => 'active'])) }}"
-                                        class="dropdown-item">Actif</a>
+                                        class="dropdown-item">{{ __('Actif') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('page'), ['status' => 'inactive'])) }}"
-                                        class="dropdown-item">Inactif</a>
+                                        class="dropdown-item">{{ __('Inactif') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -136,13 +136,13 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-building-4 me-1"></i>Entrepôt : <span
+                                <i class="isax isax-building-4 me-1"></i>{{ __('Entrepôt :') }} <span
                                     class="fw-normal ms-1">{{ $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? 'Tous' }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.catalog.products.index', array_merge(request()->except('warehouse_id', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 @foreach ($warehouses as $wh)
                                     <li>
@@ -154,13 +154,13 @@
                         </div>
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'Produit / Service',
-                                'Type',
-                                'Catégorie',
-                                'Unité',
-                                'Quantité',
-                                'Prix de vente',
-                                'Statut',
+                                __('Produit / Service'),
+                                __('Type'),
+                                __('Catégorie'),
+                                __('Unité'),
+                                __('Quantité'),
+                                __('Prix de vente'),
+                                __('Statut'),
                             ],
                         ])
                     </div>
@@ -179,13 +179,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Produit / Service</th>
-                            <th>Type</th>
-                            <th>Catégorie</th>
-                            <th>Unité</th>
-                            <th>Quantité</th>
-                            <th>Prix de vente</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Produit / Service') }}</th>
+                            <th>{{ __('Type') }}</th>
+                            <th>{{ __('Catégorie') }}</th>
+                            <th>{{ __('Unité') }}</th>
+                            <th>{{ __('Quantité') }}</th>
+                            <th>{{ __('Prix de vente') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                             <th class="no-sort"></th>
                         </tr>
@@ -224,12 +224,10 @@
                                 <td>
                                     @if ($product->item_type === 'service')
                                         <span class="badge badge-soft-info d-inline-flex align-items-center">
-                                            <i class="isax isax-setting-25 me-1"></i>Service
-                                        </span>
+                                            <i class="isax isax-setting-25 me-1"></i>{{ __('Service') }}</span>
                                     @else
                                         <span class="badge badge-soft-primary d-inline-flex align-items-center">
-                                            <i class="isax isax-box-15 me-1"></i>Produit
-                                        </span>
+                                            <i class="isax isax-box-15 me-1"></i>{{ __('Produit') }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $product->category?->name ?? '—' }}</td>
@@ -238,12 +236,10 @@
                                 <td class="text-dark">{{ number_format($product->selling_price, 2, ',', ' ') }}</td>
                                 <td>
                                     @if ($product->is_active)
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Actif
-                                            <i class="isax isax-tick-circle ms-1"></i>
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Actif') }}<i class="isax isax-tick-circle ms-1"></i>
                                         </span>
                                     @else
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Inactif
-                                            <i class="isax isax-close-circle ms-1"></i>
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Inactif') }}<i class="isax isax-close-circle ms-1"></i>
                                         </span>
                                     @endif
                                 </td>
@@ -258,8 +254,7 @@
                                                 data-product-code="{{ $product->code ?? '' }}"
                                                 data-product-quantity="{{ number_format($product->stocks_sum_quantity_on_hand ?? $product->quantity, 2, ',', ' ') }}"
                                                 data-product-unit="{{ $product->unit?->abbreviation ?? ($product->unit?->name ?? '—') }}">
-                                                <i class="isax isax-document-sketch5 me-1"></i> Historique
-                                            </a>
+                                                <i class="isax isax-document-sketch5 me-1"></i>{{ __('Historique') }}</a>
                                             <a href="#"
                                                 class="btn btn-sm btn-soft-success border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular btn-stockin"
                                                 data-bs-toggle="modal" data-bs-target="#add_stockin"
@@ -268,8 +263,7 @@
                                                 data-product-code="{{ $product->code ?? '' }}"
                                                 data-unit="{{ $product->unit?->abbreviation ?? ($product->unit?->name ?? '—') }}"
                                                 data-quantity="{{ $product->stocks_sum_quantity_on_hand ?? $product->quantity ?? 0 }}">
-                                                <i class="isax isax-document-sketch5 me-1"></i> Stock In
-                                            </a>
+                                                <i class="isax isax-document-sketch5 me-1"></i>{{ __('Stock In') }}</a>
                                             <a href="#"
                                                 class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular btn-stockout"
                                                 data-bs-toggle="modal" data-bs-target="#add_stockout"
@@ -278,8 +272,7 @@
                                                 data-product-code="{{ $product->code ?? '' }}"
                                                 data-unit="{{ $product->unit?->abbreviation ?? ($product->unit?->name ?? '—') }}"
                                                 data-quantity="{{ $product->stocks_sum_quantity_on_hand ?? $product->quantity ?? 0 }}">
-                                                <i class="isax isax-document-sketch5 me-1"></i> Stock Out
-                                            </a>
+                                                <i class="isax isax-document-sketch5 me-1"></i>{{ __('Stock Out') }}</a>
                                         </div>
                                     @endif
                                 </td>
@@ -291,12 +284,12 @@
                                         <li>
                                             <a href="{{ route('bo.catalog.products.show', $product) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('bo.catalog.products.edit', $product) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
@@ -304,9 +297,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer {{ $product->item_type === 'service' ? 'ce service' : 'ce produit' }} ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
-                                                </button>
+                                                    onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer') }} {{ $product->item_type === 'service' ? __('ce service') : __('ce produit') }} ?')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                     </ul>
@@ -314,9 +306,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center text-muted py-4">
-                                    Aucun enregistrement trouvé.
-                                </td>
+                                <td colspan="9" class="text-center text-muted py-4">{{ __('Aucun enregistrement trouvé.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -342,7 +332,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Historique du stock</h4>
+                    <h4 class="modal-title">{{ __('Historique du stock') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
                         aria-label="Close"><i class="fa-solid fa-x"></i></button>
                 </div>
@@ -355,13 +345,13 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="text-end me-3">
-                                <span class="text-muted fs-12">Stock actuel</span>
+                                <span class="text-muted fs-12">{{ __('Stock actuel') }}</span>
                                 <h5 class="fw-bold mb-0 text-primary" id="history-current-stock">—</h5>
                             </div>
                             <button type="button" class="btn btn-outline-white me-3"><i
-                                    class="isax isax-document-like me-1"></i>Télécharger PDF</button>
+                                    class="isax isax-document-like me-1"></i>{{ __('Télécharger PDF') }}</button>
                             <button type="button" class="btn btn-outline-white"><i
-                                    class="isax isax-printer me-1"></i>Imprimer</button>
+                                    class="isax isax-printer me-1"></i>{{ __('Imprimer') }}</button>
                         </div>
                     </div>
                     <!-- Table List -->
@@ -369,16 +359,16 @@
                         <table class="table">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Entrepôt</th>
-                                    <th>Ajustement</th>
-                                    <th>Stock entrepôt</th>
-                                    <th class="no-sort">Raison</th>
+                                    <th>{{ __('Date') }}</th>
+                                    <th>{{ __('Entrepôt') }}</th>
+                                    <th>{{ __('Ajustement') }}</th>
+                                    <th>{{ __('Stock entrepôt') }}</th>
+                                    <th class="no-sort">{{ __('Raison') }}</th>
                                 </tr>
                             </thead>
                             <tbody id="history-table-body">
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted">Chargement...</td>
+                                    <td colspan="5" class="text-center text-muted">{{ __('Chargement...') }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -395,7 +385,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ajouter du stock</h4>
+                    <h4 class="modal-title">{{ __('Ajouter du stock') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
                         aria-label="Close"><i class="fa-solid fa-x"></i></button>
                 </div>
@@ -403,27 +393,27 @@
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Produit</label>
+                            <label class="form-label">{{ __('Produit') }}</label>
                             <input type="text" class="form-control" id="stockin-product-name" readonly>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Code</label>
+                                    <label class="form-label">{{ __('Code') }}</label>
                                     <input type="text" class="form-control" id="stockin-product-code" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Unité</label>
+                                    <label class="form-label">{{ __('Unité') }}</label>
                                     <input type="text" class="form-control" id="stockin-unit" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Entrepôt <span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Entrepôt') }}<span class="text-danger ms-1">*</span></label>
                                     <select class="form-select" name="warehouse_id" id="stockin-warehouse" required>
-                                        <option value="">Sélectionner</option>
+                                        <option value="">{{ __('Sélectionner') }}</option>
                                         @foreach ($warehouses as $warehouse)
                                             <option value="{{ $warehouse->id }}"
                                                 {{ $warehouse->is_default ? 'selected' : '' }}>{{ $warehouse->name }}
@@ -434,13 +424,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Stock actuel</label>
+                                    <label class="form-label">{{ __('Stock actuel') }}</label>
                                     <input type="text" class="form-control" id="stockin-current-qty" readonly>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Quantité à ajouter <span
+                                    <label class="form-label">{{ __('Quantité à ajouter') }}<span
                                             class="text-danger ms-1">*</span></label>
                                     <input type="number" step="0.001" min="0.001" class="form-control"
                                         name="quantity" required>
@@ -448,15 +438,15 @@
                             </div>
                             <div class="col-md-12">
                                 <div>
-                                    <label class="form-label">Notes</label>
+                                    <label class="form-label">{{ __('Notes') }}</label>
                                     <textarea class="form-control" name="note" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Ajouter la quantité</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Ajouter la quantité') }}</button>
                     </div>
                 </form>
             </div>
@@ -469,7 +459,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Retirer du stock</h4>
+                    <h4 class="modal-title">{{ __('Retirer du stock') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
                         aria-label="Close"><i class="fa-solid fa-x"></i></button>
                 </div>
@@ -477,27 +467,27 @@
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Produit</label>
+                            <label class="form-label">{{ __('Produit') }}</label>
                             <input type="text" class="form-control" id="stockout-product-name" readonly>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Code</label>
+                                    <label class="form-label">{{ __('Code') }}</label>
                                     <input type="text" class="form-control" id="stockout-product-code" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Unité</label>
+                                    <label class="form-label">{{ __('Unité') }}</label>
                                     <input type="text" class="form-control" id="stockout-unit" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Entrepôt <span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Entrepôt') }}<span class="text-danger ms-1">*</span></label>
                                     <select class="form-select" name="warehouse_id" id="stockout-warehouse" required>
-                                        <option value="">Sélectionner</option>
+                                        <option value="">{{ __('Sélectionner') }}</option>
                                         @foreach ($warehouses as $warehouse)
                                             <option value="{{ $warehouse->id }}"
                                                 {{ $warehouse->is_default ? 'selected' : '' }}>{{ $warehouse->name }}
@@ -508,13 +498,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Stock actuel</label>
+                                    <label class="form-label">{{ __('Stock actuel') }}</label>
                                     <input type="text" class="form-control" id="stockout-current-qty" readonly>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Quantité à retirer <span
+                                    <label class="form-label">{{ __('Quantité à retirer') }}<span
                                             class="text-danger ms-1">*</span></label>
                                     <input type="number" step="0.001" min="0.001" class="form-control"
                                         name="quantity" required>
@@ -522,15 +512,15 @@
                             </div>
                             <div class="col-md-12">
                                 <div>
-                                    <label class="form-label">Notes</label>
+                                    <label class="form-label">{{ __('Notes') }}</label>
                                     <textarea class="form-control" name="note" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Retirer la quantité</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Retirer la quantité') }}</button>
                     </div>
                 </form>
             </div>
@@ -557,7 +547,7 @@
                     document.getElementById('history-product-code').textContent = productCode;
                     document.getElementById('history-current-stock').textContent = productQuantity + ' ' + productUnit;
                     document.getElementById('history-table-body').innerHTML =
-                        '<tr><td colspan="5" class="text-center text-muted">Chargement...</td></tr>';
+                        '<tr><td colspan="5" class="text-center text-muted">{{ __('Chargement...') }}</td></tr>';
 
                     fetch(url)
                         .then(function(response) {
@@ -586,12 +576,12 @@
                                 });
                             } else {
                                 tbody.innerHTML =
-                                    '<tr><td colspan="5" class="text-center text-muted">Aucun mouvement trouvé.</td></tr>';
+                                    '<tr><td colspan="5" class="text-center text-muted">{{ __('Aucun mouvement trouvé.') }}</td></tr>';
                             }
                         })
                         .catch(function() {
                             document.getElementById('history-table-body').innerHTML =
-                                '<tr><td colspan="5" class="text-center text-danger">Erreur de chargement.</td></tr>';
+                                '<tr><td colspan="5" class="text-center text-danger">{{ __('Erreur de chargement.') }}</td></tr>';
                         });
                 });
             });

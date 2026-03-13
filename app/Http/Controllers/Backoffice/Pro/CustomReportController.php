@@ -52,7 +52,7 @@ class CustomReportController extends Controller
         ));
 
         return redirect()->route('bo.pro.rapports.show', $report)
-            ->with('success', 'Rapport créé avec succès.');
+            ->with('success', __('Rapport créé avec succès.'));
     }
 
     public function show(CustomReport $customReport)
@@ -78,7 +78,7 @@ class CustomReportController extends Controller
         $customReport->update($request->validated());
 
         return redirect()->route('bo.pro.rapports.show', $customReport)
-            ->with('success', 'Rapport mis à jour avec succès.');
+            ->with('success', __('Rapport mis à jour avec succès.'));
     }
 
     public function destroy(CustomReport $customReport)
@@ -88,7 +88,7 @@ class CustomReportController extends Controller
         $customReport->delete();
 
         return redirect()->route('bo.pro.rapports.index')
-            ->with('success', 'Rapport supprimé avec succès.');
+            ->with('success', __('Rapport supprimé avec succès.'));
     }
 
     public function exportPdf(CustomReport $customReport)

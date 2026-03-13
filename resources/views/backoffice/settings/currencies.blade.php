@@ -16,7 +16,7 @@
                         <div class="col-xl-9 col-lg-8">
                             <div>
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Devises & Taux de change</h6>
+                                    <h6 class="mb-0">{{ __('Devises & Taux de change') }}</h6>
                                 </div>
                                 <div class="mb-3">
                                     <!-- Start Table Search -->
@@ -27,7 +27,7 @@
                                                     <i class="isax isax-search-normal"></i>
                                                 </span>
                                                 <input type="text" class="form-control form-control-sm bg-white"
-                                                    placeholder="Rechercher" id="currency-search">
+                                                    placeholder="{{ __('Rechercher') }}" id="currency-search">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
@@ -35,7 +35,7 @@
                                                 <div>
                                                     <a href="#" class="btn btn-primary d-flex align-items-center"
                                                         data-bs-toggle="modal" data-bs-target="#add_currency_modal"><i
-                                                            class="isax isax-add-circle5 me-1"></i>Nouvelle devise</a>
+                                                            class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle devise') }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -45,14 +45,14 @@
                                     @if(session('success'))
                                         <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
                                             {{ session('success') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                                         </div>
                                     @endif
 
                                     @if(session('error'))
                                         <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
                                             {{ session('error') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                                         </div>
                                     @endif
 
@@ -61,12 +61,12 @@
                                         <table class="table mb-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>Devise</th>
-                                                    <th>Code</th>
-                                                    <th class="no-sort">Symbole</th>
-                                                    <th>Taux de change</th>
-                                                    <th class="no-sort">Par défaut</th>
-                                                    <th class="no-sort">Statut</th>
+                                                    <th>{{ __('Devise') }}</th>
+                                                    <th>{{ __('Code') }}</th>
+                                                    <th class="no-sort">{{ __('Symbole') }}</th>
+                                                    <th>{{ __('Taux de change') }}</th>
+                                                    <th class="no-sort">{{ __('Par défaut') }}</th>
+                                                    <th class="no-sort">{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -89,7 +89,7 @@
                                                             @else
                                                                 <form method="POST" action="{{ route('bo.settings.currencies.set-default', $exchangeRate->quoteCurrencyRelation->code) }}" class="d-inline">
                                                                     @csrf
-                                                                    <button type="submit" class="btn btn-link p-0 border-0" title="Définir par défaut">
+                                                                    <button type="submit" class="btn btn-link p-0 border-0" title="{{ __('Définir par défaut') }}">
                                                                         <i class="isax isax-star"></i>
                                                                     </button>
                                                                 </form>
@@ -109,20 +109,20 @@
                                                                     <a href="#"
                                                                         class="dropdown-item d-flex align-items-center"
                                                                         data-bs-toggle="modal" data-bs-target="#edit_modal_{{ $exchangeRate->id }}"><i
-                                                                            class="isax isax-edit me-2"></i>Modifier</a>
+                                                                            class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                                                 </li>
                                                                 <li>
                                                                     <a href="javascript:void(0);"
                                                                         class="dropdown-item d-flex align-items-center"
                                                                         data-bs-toggle="modal" data-bs-target="#delete_modal_{{ $exchangeRate->id }}"><i
-                                                                            class="isax isax-trash me-2"></i>Supprimer</a>
+                                                                            class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                                                 </li>
                                                             </ul>
                                                         </td>
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="7" class="text-center">Aucune devise trouvée.</td>
+                                                        <td colspan="7" class="text-center">{{ __('Aucune devise trouvée.') }}</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
@@ -151,8 +151,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ajouter une devise</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <h4 class="modal-title">{{ __('Ajouter une devise') }}</h4>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('bo.settings.currencies.store') }}">
                     @csrf
@@ -161,23 +161,23 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom de la devise<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Nom de la devise') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="text"
                                         class="form-control @error('name') is-invalid @enderror"
                                         name="name"
                                         value="{{ old('name') }}"
-                                        placeholder="Ex : Dollar américain">
+                                        placeholder="{{ __('Ex : Dollar américain') }}">
                                     @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Code<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Code') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="text"
                                         class="form-control @error('code') is-invalid @enderror"
                                         name="code"
                                         value="{{ old('code') }}"
-                                        placeholder="Ex : USD"
+                                        placeholder="{{ __('Ex : USD') }}"
                                         maxlength="3"
                                         style="text-transform: uppercase;">
                                     @error('code')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -185,38 +185,38 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Symbole<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Symbole') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="text"
                                         class="form-control @error('symbol') is-invalid @enderror"
                                         name="symbol"
                                         value="{{ old('symbol') }}"
-                                        placeholder="Ex : $">
+                                        placeholder="{{ __('Ex : $') }}">
                                     @error('symbol')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Taux de change<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Taux de change') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="number" step="any" min="0"
                                         class="form-control @error('rate') is-invalid @enderror"
                                         name="rate"
                                         value="{{ old('rate') }}"
-                                        placeholder="Ex : 10.5000">
+                                        placeholder="{{ __('Ex : 10.5000') }}">
                                     @error('rate')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                    <small class="form-text text-muted">Combien d'unités de cette devise pour 1 {{ $baseCurrency }}</small>
+                                    <small class="form-text text-muted">{{ __("Combien d'unités de cette devise pour 1") }} {{ $baseCurrency }}</small>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="is_default" value="1" id="add_is_default" {{ old('is_default') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="add_is_default">Définir comme devise par défaut</label>
+                                    <label class="form-check-label" for="add_is_default">{{ __('Définir comme devise par défaut') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div>
                 </form>
             </div>
@@ -234,8 +234,8 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Modifier le taux de change</h4>
-                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        <h4 class="modal-title">{{ __('Modifier le taux de change') }}</h4>
+                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                     </div>
                     <form method="POST" action="{{ route('bo.settings.currencies.update', $exchangeRate) }}">
                         @csrf
@@ -246,25 +246,25 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Devise</label>
+                                        <label class="form-label">{{ __('Devise') }}</label>
                                         <input type="text" class="form-control" value="{{ $exchangeRate->quoteCurrencyRelation->code }} - {{ $exchangeRate->quoteCurrencyRelation->name }} ({{ $exchangeRate->quoteCurrencyRelation->symbol }})" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Taux de change<span class="text-danger ms-1">*</span></label>
+                                        <label class="form-label">{{ __('Taux de change') }}<span class="text-danger ms-1">*</span></label>
                                         <input type="number" step="any" min="0"
                                             class="form-control @error('rate') is-invalid @enderror"
                                             name="rate"
                                             value="{{ old('rate', $exchangeRate->rate) }}"
-                                            placeholder="Ex : 10.5000">
+                                            placeholder="{{ __('Ex : 10.5000') }}">
                                         @error('rate')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                        <small class="form-text text-muted">Combien d'unités de {{ $exchangeRate->quoteCurrencyRelation->code }} pour 1 {{ $baseCurrency }}</small>
+                                        <small class="form-text text-muted">{{ __("Combien d'unités de") }} {{ $exchangeRate->quoteCurrencyRelation->code }} {{ __('pour 1') }} {{ $baseCurrency }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Date du taux</label>
+                                        <label class="form-label">{{ __('Date du taux') }}</label>
                                         <input type="text"
                                             class="form-control datetimepicker @error('date') is-invalid @enderror"
                                             name="date"
@@ -275,8 +275,8 @@
                             </div>
                         </div>
                         <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                         </div>
                     </form>
                 </div>
@@ -292,14 +292,14 @@
                         <div class="mb-3">
                             <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                         </div>
-                        <h6 class="mb-1">Supprimer la devise</h6>
-                        <p class="mb-3">Êtes-vous sûr de vouloir supprimer {{ $exchangeRate->quoteCurrencyRelation->code }} ({{ $exchangeRate->quoteCurrencyRelation->name }}) ?</p>
+                        <h6 class="mb-1">{{ __('Supprimer la devise') }}</h6>
+                        <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer') }} {{ $exchangeRate->quoteCurrencyRelation->code }} ({{ $exchangeRate->quoteCurrencyRelation->name }}) ?</p>
                         <div class="d-flex justify-content-center">
-                            <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
+                            <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                             <form method="POST" action="{{ route('bo.settings.currencies.destroy', $exchangeRate) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-primary">Oui, Supprimer</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Oui, Supprimer') }}</button>
                             </form>
                         </div>
                     </div>

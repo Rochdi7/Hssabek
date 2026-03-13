@@ -26,11 +26,11 @@ class UpdateMoneyTransferRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'from_bank_account_id.exists'  => 'Le compte source est invalide.',
-            'to_bank_account_id.exists'    => 'Le compte destination est invalide.',
-            'to_bank_account_id.different' => 'Le compte destination doit être différent du compte source.',
-            'amount.gt'                    => 'Le montant doit être supérieur à zéro.',
-            'transfer_date.date'           => 'La date du transfert n\'est pas valide.',
+            'from_bank_account_id.exists'  => __('Le compte source est invalide.'),
+            'to_bank_account_id.exists'    => __('Le compte destination est invalide.'),
+            'to_bank_account_id.different' => __('Le compte destination doit être différent du compte source.'),
+            'amount.gt'                    => __('Le montant doit être supérieur à zéro.'),
+            'transfer_date.date'           => __('La date du transfert n\'est pas valide.'),
         ];
     }
 }

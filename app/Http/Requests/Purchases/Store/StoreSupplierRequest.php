@@ -40,15 +40,15 @@ class StoreSupplierRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'name.required'              => 'Le nom du fournisseur est obligatoire.',
-            'name.max'                   => 'Le nom ne peut pas dépasser 255 caractères.',
-            'email.email'                => 'L\'adresse e-mail n\'est pas valide.',
-            'email.unique'               => 'Cette adresse e-mail est déjà utilisée par un autre fournisseur.',
-            'tax_id.unique'              => 'Cet identifiant fiscal est déjà utilisé par un autre fournisseur.',
-            'payment_terms_days.integer' => 'Le délai de paiement doit être un nombre entier.',
-            'payment_terms_days.min'     => 'Le délai de paiement ne peut pas être négatif.',
-            'status.required'            => 'Le statut est obligatoire.',
-            'status.in'                  => 'Le statut doit être actif ou inactif.',
+            'name.required'              => __('Le nom du fournisseur est obligatoire.'),
+            'name.max'                   => __('Le nom ne peut pas dépasser 255 caractères.'),
+            'email.email'                => __('L\'adresse e-mail n\'est pas valide.'),
+            'email.unique'               => __('Cette adresse e-mail est déjà utilisée par un autre fournisseur.'),
+            'tax_id.unique'              => __('Cet identifiant fiscal est déjà utilisé par un autre fournisseur.'),
+            'payment_terms_days.integer' => __('Le délai de paiement doit être un nombre entier.'),
+            'payment_terms_days.min'     => __('Le délai de paiement ne peut pas être négatif.'),
+            'status.required'            => __('Le statut est obligatoire.'),
+            'status.in'                  => __('Le statut doit être actif ou inactif.'),
         ];
     }
 }

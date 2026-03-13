@@ -27,10 +27,10 @@ class UpdateRecurringInvoiceRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'customer_id.exists'         => 'Le client sélectionné est invalide.',
-            'template_invoice_id.exists' => 'La facture modèle sélectionnée est invalide.',
-            'interval.in'               => 'L\'intervalle doit être : semaine, mois ou année.',
-            'end_at.after_or_equal'      => 'La date de fin doit être postérieure ou égale à la prochaine exécution.',
+            'customer_id.exists'         => __('Le client sélectionné est invalide.'),
+            'template_invoice_id.exists' => __('La facture modèle sélectionnée est invalide.'),
+            'interval.in'               => __('L\'intervalle doit être : semaine, mois ou année.'),
+            'end_at.after_or_equal'      => __('La date de fin doit être postérieure ou égale à la prochaine exécution.'),
         ];
     }
 }

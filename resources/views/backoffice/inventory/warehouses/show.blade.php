@@ -13,11 +13,11 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6><a href="{{ route('bo.inventory.warehouses.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>Entrepôts</a></h6>
+                    <h6><a href="{{ route('bo.inventory.warehouses.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>{{ __('Entrepôts') }}</a></h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <a href="{{ route('bo.inventory.warehouses.edit', $warehouse) }}" class="btn btn-primary d-flex align-items-center fs-14 fw-semibold">
-                        <i class="isax isax-edit-2 me-1"></i>Modifier
+                        <i class="isax isax-edit-2 me-1"></i>{{ __('Modifier') }}
                     </a>
                 </div>
             </div>
@@ -50,9 +50,9 @@
                                         </p>
                                         <h6 class="mb-2"> {{ $warehouse->name }}
                                             @if($warehouse->is_active)
-                                                <span class="badge badge-soft-success ms-1">Actif</span>
+                                                <span class="badge badge-soft-success ms-1">{{ __('Actif') }}</span>
                                             @else
-                                                <span class="badge badge-soft-danger ms-1">Inactif</span>
+                                                <span class="badge badge-soft-danger ms-1">{{ __('Inactif') }}</span>
                                             @endif
                                         </h6>
                                         @if($warehouse->address)
@@ -64,7 +64,7 @@
                                 </div>
                                 <a href="{{ route('bo.inventory.warehouses.edit', $warehouse) }}"
                                     class="btn btn-outline-white border border-1 border-grey border-sm bg-white"><i
-                                        class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> Modifier </a>
+                                        class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> {{ __('Modifier') }} </a>
                             </div>
 
                             <div class="card border-0 shadow shadow-none mb-0 bg-white">
@@ -73,17 +73,17 @@
                                         class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-0 m-0 list-unstyled">
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-box-1 fs-14 me-2"></i>Produits en stock</h6>
+                                                    class="isax isax-box-1 fs-14 me-2"></i>{{ __('Produits en stock') }}</h6>
                                             <p> {{ $warehouse->productStocks->count() }} </p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-tick-circle fs-14 me-2"></i>Par défaut</h6>
+                                                    class="isax isax-tick-circle fs-14 me-2"></i>{{ __('Par défaut') }}</h6>
                                             <p> {{ $warehouse->is_default ? 'Oui' : 'Non' }} </p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-calendar-1 fs-14 me-2"></i>Créé le</h6>
+                                                    class="isax isax-calendar-1 fs-14 me-2"></i>{{ __('Créé le') }}</h6>
                                             <p> {{ $warehouse->created_at->format('d/m/Y') }}</p>
                                         </li>
                                     </ul>
@@ -98,16 +98,16 @@
                     <!-- Start Stock Levels -->
                     <div class="card table-info">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Niveaux de stock</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Niveaux de stock') }}</h6>
                             <div class="table-responsive table-nowrap">
                                 <table class="table border m-0">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>Produit</th>
-                                            <th>Quantité en stock</th>
-                                            <th>Quantité réservée</th>
-                                            <th>Seuil de réapprovisionnement</th>
-                                            <th class="no-sort">État</th>
+                                            <th>{{ __('Produit') }}</th>
+                                            <th>{{ __('Quantité en stock') }}</th>
+                                            <th>{{ __('Quantité réservée') }}</th>
+                                            <th>{{ __('Seuil de réapprovisionnement') }}</th>
+                                            <th class="no-sort">{{ __('État') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -122,7 +122,7 @@
                                                 <td>{{ $stock->reorder_point ? number_format($stock->reorder_point, 2, ',', ' ') : '—' }}</td>
                                                 <td>
                                                     @if($stock->reorder_point && $stock->quantity_on_hand <= $stock->reorder_point)
-                                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Stock bas</span>
+                                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Stock bas') }}</span>
                                                     @else
                                                         <span class="badge badge-soft-success d-inline-flex align-items-center">OK</span>
                                                     @endif
@@ -131,7 +131,7 @@
                                         @empty
                                             <tr>
                                                 <td colspan="5" class="text-center py-3">
-                                                    <p class="text-muted mb-0">Aucun stock dans cet entrepôt.</p>
+                                                    <p class="text-muted mb-0">{{ __('Aucun stock dans cet entrepôt.') }}</p>
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -147,7 +147,7 @@
                     <!-- Start Recent Movements -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Mouvements récents</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Mouvements récents') }}</h6>
                             @forelse($warehouse->stockMovements->take(10) as $movement)
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <div>
@@ -163,7 +163,7 @@
                                     </div>
                                 </div>
                             @empty
-                                <p class="text-muted mb-0">Aucun mouvement récent.</p>
+                                <p class="text-muted mb-0">{{ __('Aucun mouvement récent.') }}</p>
                             @endforelse
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -172,22 +172,22 @@
                     <!-- Start Info -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Informations</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Informations') }}</h6>
                             <ul class="list-unstyled m-0 p-0">
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Produits en stock</span>
+                                    <span class="text-muted">{{ __('Produits en stock') }}</span>
                                     <span class="fw-semibold">{{ $warehouse->productStocks->count() }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Par défaut</span>
+                                    <span class="text-muted">{{ __('Par défaut') }}</span>
                                     <span class="fw-semibold">{{ $warehouse->is_default ? 'Oui' : 'Non' }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Créé le</span>
+                                    <span class="text-muted">{{ __('Créé le') }}</span>
                                     <span class="fw-semibold">{{ $warehouse->created_at->format('d/m/Y') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between">
-                                    <span class="text-muted">Dernière modification</span>
+                                    <span class="text-muted">{{ __('Dernière modification') }}</span>
                                     <span class="fw-semibold">{{ $warehouse->updated_at->format('d/m/Y') }}</span>
                                 </li>
                             </ul>

@@ -37,13 +37,13 @@ class UpdateDeliveryChallanRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'customer_id.exists'    => 'Le client sélectionné est invalide.',
-            'quote_id.exists'       => 'Le devis sélectionné est invalide.',
-            'invoice_id.exists'     => 'La facture sélectionnée est invalide.',
-            'challan_date.date'     => 'La date du bon de livraison n\'est pas valide.',
-            'due_date.after_or_equal' => 'La date d\'échéance doit être postérieure ou égale à la date du bon.',
-            'items.*.quantity.required' => 'La quantité est obligatoire pour chaque article.',
-            'items.*.quantity.min'      => 'La quantité doit être supérieure à 0.',
+            'customer_id.exists'    => __('Le client sélectionné est invalide.'),
+            'quote_id.exists'       => __('Le devis sélectionné est invalide.'),
+            'invoice_id.exists'     => __('La facture sélectionnée est invalide.'),
+            'challan_date.date'     => __('La date du bon de livraison n\'est pas valide.'),
+            'due_date.after_or_equal' => __('La date d\'échéance doit être postérieure ou égale à la date du bon.'),
+            'items.*.quantity.required' => __('La quantité est obligatoire pour chaque article.'),
+            'items.*.quantity.min'      => __('La quantité doit être supérieure à 0.'),
         ];
     }
 }

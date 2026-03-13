@@ -39,19 +39,19 @@ class StoreExpenseRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'amount.required'         => 'Le montant est obligatoire.',
-            'amount.numeric'          => 'Le montant doit être un nombre.',
-            'amount.min'              => 'Le montant doit être supérieur à zéro.',
-            'expense_date.required'   => 'La date de la dépense est obligatoire.',
-            'payment_mode.required'   => 'Le mode de paiement est obligatoire.',
-            'payment_mode.in'         => 'Le mode de paiement est invalide.',
-            'payment_status.required' => 'Le statut de paiement est obligatoire.',
-            'payment_status.in'       => 'Le statut de paiement est invalide.',
-            'bank_account_id.exists'  => 'Le compte bancaire sélectionné est invalide.',
-            'supplier_id.exists'      => 'Le fournisseur sélectionné est invalide.',
-            'category_id.exists'      => 'La catégorie sélectionnée est invalide.',
-            'paid_amount.min'         => 'Le montant payé doit être supérieur à zéro.',
-            'paid_amount.lt'          => 'Le montant payé doit être inférieur au montant total.',
+            'amount.required'         => __('Le montant est obligatoire.'),
+            'amount.numeric'          => __('Le montant doit être un nombre.'),
+            'amount.min'              => __('Le montant doit être supérieur à zéro.'),
+            'expense_date.required'   => __('La date de la dépense est obligatoire.'),
+            'payment_mode.required'   => __('Le mode de paiement est obligatoire.'),
+            'payment_mode.in'         => __('Le mode de paiement est invalide.'),
+            'payment_status.required' => __('Le statut de paiement est obligatoire.'),
+            'payment_status.in'       => __('Le statut de paiement est invalide.'),
+            'bank_account_id.exists'  => __('Le compte bancaire sélectionné est invalide.'),
+            'supplier_id.exists'      => __('Le fournisseur sélectionné est invalide.'),
+            'category_id.exists'      => __('La catégorie sélectionnée est invalide.'),
+            'paid_amount.min'         => __('Le montant payé doit être supérieur à zéro.'),
+            'paid_amount.lt'          => __('Le montant payé doit être inférieur au montant total.'),
         ];
     }
 }

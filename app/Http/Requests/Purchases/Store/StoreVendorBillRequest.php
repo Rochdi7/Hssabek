@@ -33,12 +33,12 @@ class StoreVendorBillRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'supplier_id.required'    => 'Le fournisseur est obligatoire.',
-            'supplier_id.exists'      => 'Le fournisseur sélectionné est invalide.',
-            'issue_date.required'     => 'La date d\'émission est obligatoire.',
-            'due_date.after_or_equal' => 'La date d\'échéance doit être postérieure ou égale à la date d\'émission.',
-            'subtotal.required'       => 'Le sous-total est obligatoire.',
-            'total.required'          => 'Le total est obligatoire.',
+            'supplier_id.required'    => __('Le fournisseur est obligatoire.'),
+            'supplier_id.exists'      => __('Le fournisseur sélectionné est invalide.'),
+            'issue_date.required'     => __('La date d\'émission est obligatoire.'),
+            'due_date.after_or_equal' => __('La date d\'échéance doit être postérieure ou égale à la date d\'émission.'),
+            'subtotal.required'       => __('Le sous-total est obligatoire.'),
+            'total.required'          => __('Le total est obligatoire.'),
         ];
     }
 }

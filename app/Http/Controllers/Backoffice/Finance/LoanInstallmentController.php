@@ -33,7 +33,7 @@ class LoanInstallmentController extends Controller
         }
 
         if ($installment->status === 'paid') {
-            return redirect()->back()->with('error', 'Cette échéance est déjà entièrement payée.');
+            return redirect()->back()->with('error', __('Cette échéance est déjà entièrement payée.'));
         }
 
         $validated = $request->validate([
@@ -52,7 +52,7 @@ class LoanInstallmentController extends Controller
         $this->loanService->payInstallment($installment, $validated);
 
         return redirect()->route('bo.finance.loans.installments.index', $loan)
-            ->with('success', 'Paiement de l\'échéance enregistré avec succès.');
+            ->with('success', __('Paiement de l\'échéance enregistré avec succès.'));
     }
 
     public function generate(Loan $loan)
@@ -62,6 +62,6 @@ class LoanInstallmentController extends Controller
         $this->loanService->generateInstallmentSchedule($loan);
 
         return redirect()->route('bo.finance.loans.installments.index', $loan)
-            ->with('success', 'Échéancier généré avec succès.');
+            ->with('success', __('Échéancier généré avec succès.'));
     }
 }

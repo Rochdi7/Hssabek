@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -24,16 +24,20 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
                                 <i class="isax isax-sort me-1"></i>Sort By : <span class="fw-normal ms-1">Latest</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
@@ -51,12 +55,16 @@
                 <!-- Start Filter Info -->
                 <div class="align-items-center gap-2 flex-wrap filter-info mt-3">
                     <h6 class="fs-13 fw-semibold">Filters</h6>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>Type Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>Status Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>Type
+                        Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>Status
+                        Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
                     <a href="#" class="link-danger fw-medium text-decoration-underline ms-md-1">Clear All</a>
                 </div>
                 <!-- End Filter Info -->
-                    
+
             </div>
             <!-- End Table Search -->
 
@@ -237,7 +245,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -245,15 +254,16 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Start Filter -->
     <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="offcanvas-body pt-3">
@@ -261,7 +271,9 @@
                 <div class="mb-3">
                     <label class="form-label">Type</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -313,7 +325,9 @@
                 <div class="mb-3">
                     <label class="form-label">Amount</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -327,7 +341,9 @@
                 <div class="mb-3">
                     <label class="form-label">Payment Mode</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -364,7 +380,9 @@
                 <div class="mb-3">
                     <label class="form-label">Status</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -391,7 +409,8 @@
                             <a href="#" class="btn btn-outline-white w-100">Reset</a>
                         </div>
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div>
                     </div>
                 </div>

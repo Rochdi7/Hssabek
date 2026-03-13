@@ -13,6 +13,6 @@ class PlanController extends Controller
 {
     public function __construct()
     {
-        abort(403, 'Plans are managed by SuperAdmin only.');
+        abort(403, __('Les plans sont gérés uniquement par le SuperAdmin.'));
     }
 }

@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,8 @@
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div>
-                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_modal"><i class="isax isax-add-circle5 me-1"></i>New Unit</a>
+                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#add_modal"><i class="isax isax-add-circle5 me-1"></i>New Unit</a>
                     </div>
                 </div>
             </div>
@@ -47,7 +48,8 @@
                     <tbody>
                         <tr>
                             <td>
-                                <h6 class="fs-14 fw-medium mb-0">Kilogram</h6></td>
+                                <h6 class="fs-14 fw-medium mb-0">Kilogram</h6>
+                            </td>
                             <td>kg</td>
                             <td>
                                 <div class="form-check form-switch">
@@ -60,17 +62,22 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6 class="fs-14 fw-medium mb-0">Gram</h6></td>
+                                <h6 class="fs-14 fw-medium mb-0">Gram</h6>
+                            </td>
                             <td>g</td>
                             <td>
                                 <div class="form-check form-switch">
@@ -83,17 +90,22 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6 class="fs-14 fw-medium mb-0">Liter</h6></td>
+                                <h6 class="fs-14 fw-medium mb-0">Liter</h6>
+                            </td>
                             <td>l</td>
                             <td>
                                 <div class="form-check form-switch">
@@ -106,17 +118,22 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6 class="fs-14 fw-medium mb-0">Millimetre</h6></td>
+                                <h6 class="fs-14 fw-medium mb-0">Millimetre</h6>
+                            </td>
                             <td>ml</td>
                             <td>
                                 <div class="form-check form-switch">
@@ -129,17 +146,22 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6 class="fs-14 fw-medium mb-0">Box</h6></td>
+                                <h6 class="fs-14 fw-medium mb-0">Box</h6>
+                            </td>
                             <td>bx</td>
                             <td>
                                 <div class="form-check form-switch">
@@ -152,17 +174,22 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6 class="fs-14 fw-medium mb-0">Pack</h6></td>
+                                <h6 class="fs-14 fw-medium mb-0">Pack</h6>
+                            </td>
                             <td>pk</td>
                             <td>
                                 <div class="form-check form-switch">
@@ -175,17 +202,22 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6 class="fs-14 fw-medium mb-0">Piece</h6></td>
+                                <h6 class="fs-14 fw-medium mb-0">Piece</h6>
+                            </td>
                             <td>pc</td>
                             <td>
                                 <div class="form-check form-switch">
@@ -198,10 +230,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="#" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -215,7 +251,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -223,6 +260,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->	
+            End Page Content
+        ========================= -->
 @endsection

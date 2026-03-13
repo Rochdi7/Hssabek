@@ -41,7 +41,7 @@ class BranchController extends Controller
         Branch::create($request->validated());
 
         return redirect()->route('bo.pro.branches.index')
-            ->with('success', 'Succursale créée avec succès.');
+            ->with('success', __('Succursale créée avec succès.'));
     }
 
     public function edit(Branch $branch)
@@ -58,7 +58,7 @@ class BranchController extends Controller
         $branch->update($request->validated());
 
         return redirect()->route('bo.pro.branches.index')
-            ->with('success', 'Succursale mise à jour avec succès.');
+            ->with('success', __('Succursale mise à jour avec succès.'));
     }
 
     public function destroy(Branch $branch)
@@ -68,6 +68,6 @@ class BranchController extends Controller
         $branch->delete();
 
         return redirect()->route('bo.pro.branches.index')
-            ->with('success', 'Succursale supprimée avec succès.');
+            ->with('success', __('Succursale supprimée avec succès.'));
     }
 }

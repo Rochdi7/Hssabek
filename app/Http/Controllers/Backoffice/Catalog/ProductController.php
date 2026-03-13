@@ -113,7 +113,7 @@ class ProductController extends Controller
         $label = ($data['item_type'] ?? 'product') === 'service' ? 'Service' : 'Produit';
 
         return redirect()->route('bo.catalog.products.index')
-            ->with('success', "$label créé avec succès.");
+            ->with('success', __("$label créé avec succès."));
     }
 
     public function show(Product $product)
@@ -217,7 +217,7 @@ class ProductController extends Controller
         $label = $product->item_type === 'service' ? 'Service' : 'Produit';
 
         return redirect()->route('bo.catalog.products.index')
-            ->with('success', "$label mis à jour avec succès.");
+            ->with('success', __("$label mis à jour avec succès."));
     }
 
     public function destroy(Product $product)
@@ -229,7 +229,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('bo.catalog.products.index')
-            ->with('success', "$label supprimé avec succès.");
+            ->with('success', __("$label supprimé avec succès."));
     }
 
     /**
@@ -306,7 +306,7 @@ class ProductController extends Controller
             );
 
             return redirect()->route('bo.catalog.products.index')
-                ->with('success', 'Stock ajouté avec succès pour "' . $product->name . '".');
+                ->with('success', __('Stock ajouté avec succès pour ":name".', ['name' => $product->name]));
         } catch (\DomainException $e) {
             return back()->withInput()->with('error', $e->getMessage());
         }
@@ -333,7 +333,7 @@ class ProductController extends Controller
             );
 
             return redirect()->route('bo.catalog.products.index')
-                ->with('success', 'Stock retiré avec succès pour "' . $product->name . '".');
+                ->with('success', __('Stock retiré avec succès pour ":name".', ['name' => $product->name]));
         } catch (\DomainException $e) {
             return back()->withInput()->with('error', $e->getMessage());
         }

@@ -63,7 +63,7 @@ class CompanySettingsController extends Controller
         }
 
         return redirect()->route('bo.settings.company.edit')
-            ->with('success', "Paramètres de l'entreprise mis à jour avec succès.");
+            ->with('success', __("Paramètres de l'entreprise mis à jour avec succès."));
     }
 
     private function handleBase64Image($tenant, string $collection, string $base64): void

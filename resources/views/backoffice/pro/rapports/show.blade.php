@@ -15,16 +15,16 @@
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
-                            <h6><a href="{{ route('bo.pro.rapports.index') }}"><i class="isax isax-arrow-left me-2"></i>Rapports</a></h6>
+                            <h6><a href="{{ route('bo.pro.rapports.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Rapports') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('bo.pro.rapports.export-pdf', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>Exporter PDF</a>
-                                <a href="{{ route('bo.pro.rapports.export-word', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-text me-1"></i>Exporter Word</a>
-                                <a href="{{ route('bo.pro.rapports.edit', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>Modifier</a>
+                                <a href="{{ route('bo.pro.rapports.export-pdf', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Exporter PDF') }}</a>
+                                <a href="{{ route('bo.pro.rapports.export-word', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-text me-1"></i>{{ __('Exporter Word') }}</a>
+                                <a href="{{ route('bo.pro.rapports.edit', $report) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                 <form method="POST" action="{{ route('bo.pro.rapports.destroy', $report) }}">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
-                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rapport ?')">
-                                        <i class="isax isax-trash me-1"></i>Supprimer
+                                        onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer ce rapport ?') }}')">
+                                        <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}
                                     </button>
                                 </form>
                             </div>
@@ -49,9 +49,9 @@
                                             <div class="d-flex align-items-center flex-wrap row-gap-3">
                                                 <div class="me-4">
                                                     @if($report->status === 'published')
-                                                        <span class="badge badge-soft-success">Publié</span>
+                                                        <span class="badge badge-soft-success">{{ __('Publié') }}</span>
                                                     @else
-                                                        <span class="badge badge-soft-secondary">Brouillon</span>
+                                                        <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -62,15 +62,15 @@
                                     <div class="row gy-3 position-relative z-1">
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">Détails du rapport</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Détails du rapport') }}</h6>
                                                 <div>
                                                     @if($report->category)
-                                                        <p class="mb-1">Catégorie : <span class="text-dark">{{ $report->category }}</span></p>
+                                                        <p class="mb-1">{{ __('Catégorie') }} : <span class="text-dark">{{ $report->category }}</span></p>
                                                     @endif
-                                                    <p class="mb-1">Créé par : <span class="text-dark">{{ $report->creator->name ?? '—' }}</span></p>
-                                                    <p class="mb-1">Date de création : <span class="text-dark">{{ $report->created_at->format('d/m/Y H:i') }}</span></p>
+                                                    <p class="mb-1">{{ __('Créé par') }} : <span class="text-dark">{{ $report->creator->name ?? '—' }}</span></p>
+                                                    <p class="mb-1">{{ __('Date de création') }} : <span class="text-dark">{{ $report->created_at->format('d/m/Y H:i') }}</span></p>
                                                     @if($report->updated_at->ne($report->created_at))
-                                                        <p class="mb-1">Dernière modification : <span class="text-dark">{{ $report->updated_at->format('d/m/Y H:i') }}</span></p>
+                                                        <p class="mb-1">{{ __('Dernière modification') }} : <span class="text-dark">{{ $report->updated_at->format('d/m/Y H:i') }}</span></p>
                                                     @endif
                                                 </div>
                                             </div>

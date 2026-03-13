@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,8 @@
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div id="reportrange" class="reportrange-picker d-flex align-items-center">
-                        <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
+                        <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">16 Apr
+                            25 - 16 Apr 25</span>
                     </div>
                 </div>
             </div>
@@ -37,10 +38,11 @@
                                     <i class="isax isax-dollar-circle fs-24"></i>
                                 </span>
                             </div>
-                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i class="isax isax-send me-1"></i>5.62%</span> from last month</p>
+                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i
+                                        class="isax isax-send me-1"></i>5.62%</span> from last month</p>
                         </div><!-- end card body -->
                         <div class="position-absolute start-0 bottom-0 z-n1">
-                            <img src="{{URL::asset('build/img/bg/income-report-1.svg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/bg/income-report-1.svg') }}" alt="img">
                         </div>
                     </div><!-- end card -->
                 </div><!-- end col -->
@@ -58,10 +60,11 @@
                                     <i class="isax isax-bag-2 fs-24"></i>
                                 </span>
                             </div>
-                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i class="isax isax-send me-1"></i>11.4%</span> from last month</p>
+                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i
+                                        class="isax isax-send me-1"></i>11.4%</span> from last month</p>
                         </div><!-- end card body -->
                         <div class="position-absolute start-0 bottom-0 z-n1">
-                            <img src="{{URL::asset('build/img/bg/income-report-2.svg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/bg/income-report-2.svg') }}" alt="img">
                         </div>
                     </div><!-- end card -->
                 </div>
@@ -80,10 +83,11 @@
                                     <i class="isax isax-wallet-3 fs-24"></i>
                                 </span>
                             </div>
-                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i class="isax isax-send me-1"></i>8.12%</span> from last month</p>
+                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i
+                                        class="isax isax-send me-1"></i>8.12%</span> from last month</p>
                         </div><!-- end card body -->
                         <div class="position-absolute start-0 bottom-0 z-n1">
-                            <img src="{{URL::asset('build/img/bg/income-report-3.svg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/bg/income-report-3.svg') }}" alt="img">
                         </div>
                     </div><!-- end card -->
                 </div>
@@ -102,10 +106,11 @@
                                     <i class="isax isax-wallet-money fs-24"></i>
                                 </span>
                             </div>
-                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i class="isax isax-send me-1"></i>7.45%</span> from last month</p>
+                            <p class="fs-13"><span class="text-success d-inline-flex align-items-center"><i
+                                        class="isax isax-send me-1"></i>7.45%</span> from last month</p>
                         </div><!-- end card body -->
                         <div class="position-absolute start-0 bottom-0 z-n1">
-                            <img src="{{URL::asset('build/img/bg/income-report-4.svg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/bg/income-report-4.svg') }}" alt="img">
                         </div>
                     </div><!-- end card -->
                 </div>
@@ -154,17 +159,22 @@
                                     <div class="mb-3 pb-2 border-bottom">
                                         <p class="text-dark mb-1">Amount <span class="float-end">$565</span></p>
                                         <p class="text-dark mb-1">GST (9%) <span class="float-end">$18</span></p>
-                                        <p class="text-dark mb-1">Amount <span class="text-danger float-end">- $18</span></p>
+                                        <p class="text-dark mb-1">Amount <span class="text-danger float-end">- $18</span>
+                                        </p>
                                     </div>
                                     <h6>Total (USD) <span class="float-end">$596</span></h6>
                                 </div>
                             </div>
                             <div class="row g-2">
                                 <div class="col pt-1">
-                                    <a href="javascript:void(0);" class="btn btn-primary w-100 d-flex align-items-center justify-content-center"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                    <a href="javascript:void(0);"
+                                        class="btn btn-primary w-100 d-flex align-items-center justify-content-center"><i
+                                            class="isax isax-money-send5 me-1"></i>Pay</a>
                                 </div>
                                 <div class="col pt-1">
-                                    <a href="javascript:void(0);" class="btn btn-dark w-100 d-flex align-items-center justify-content-center"><i class="isax isax-document-download5 me-1"></i>Download</a>
+                                    <a href="javascript:void(0);"
+                                        class="btn btn-dark w-100 d-flex align-items-center justify-content-center"><i
+                                            class="isax isax-document-download5 me-1"></i>Download</a>
                                 </div>
                             </div>
                         </div><!-- end card body -->
@@ -183,10 +193,14 @@
                                 <div id="radial-chart2" class="chart-set"></div>
                             </div>
                             <div class="d-flex align-items-center flex-wrap justify-content-center gap-2 mb-3">
-                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-success fs-11 me-1"></i>Paid</p>
-                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-primary fs-11 me-1"></i>Partially</p>
-                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-warning fs-11 me-1"></i>Unpaid</p>
-                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-pink fs-11 me-1"></i>Overdue</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                        class="fa-solid fa-square text-success fs-11 me-1"></i>Paid</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                        class="fa-solid fa-square text-primary fs-11 me-1"></i>Partially</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                        class="fa-solid fa-square text-warning fs-11 me-1"></i>Unpaid</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                        class="fa-solid fa-square text-pink fs-11 me-1"></i>Overdue</p>
                             </div>
                             <div class="border rounded p-2 mb-3">
                                 <div class="row g-2">
@@ -218,7 +232,9 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-between pt-1 gap-3">
                                 <p class="mb-0">Updated from the last transaction on Sunday, 24 Mar 2025</p>
-                                <a href="javascript:void(0);" class="btn btn-md rounded-2 bg-light flex-shrink-0 fs-16 text-gray-9 border"><i class="isax isax-refresh fs-16"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn btn-md rounded-2 bg-light flex-shrink-0 fs-16 text-gray-9 border"><i
+                                        class="isax isax-refresh fs-16"></i></a>
                             </div>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -233,38 +249,58 @@
                                 <h6 class="mb-1 pb-3 mb-3 border-bottom">Recent Activities</h6>
                                 <div class="recent-activities">
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1">Status Changed to <span class="text-gray-9 fw-semibold">Partially Paid</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>19 Jan 2025</p>
+                                            <p class="mb-1">Status Changed to <span
+                                                    class="text-gray-9 fw-semibold">Partially Paid</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>19 Jan 2025</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1"><span class="text-gray-9 fw-semibold">$300</span> Partial Amount Paid on <span class="text-gray-9 fw-semibold">Paypal</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
+                                            <p class="mb-1"><span class="text-gray-9 fw-semibold">$300</span> Partial
+                                                Amount Paid on <span class="text-gray-9 fw-semibold">Paypal</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1">New Expenses added <span class="text-gray-9 fw-semibold">#TR018756</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
+                                            <p class="mb-1">New Expenses added <span
+                                                    class="text-gray-9 fw-semibold">#TR018756</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>18 Jan 2025</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center pb-3">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1">Estimate Created <span class="text-gray-9 fw-semibold">#ES458789</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>17 Jan 2025</p>
+                                            <p class="mb-1">Estimate Created <span
+                                                    class="text-gray-9 fw-semibold">#ES458789</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>17 Jan 2025</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center pb-0">
-                                        <span class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i class="fa fa-circle fs-8 text-primary"></i></span>
+                                        <span
+                                            class="border z-1 border-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center bg-white p-1"><i
+                                                class="fa fa-circle fs-8 text-primary"></i></span>
                                         <div class="recent-activities-flow">
-                                            <p class="mb-1"><span class="text-gray-9 fw-semibold">$147</span> Partial Amount Paid on <span class="text-gray-9 fw-semibold">Stripe</span></p>
-                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i class="isax isax-calendar-25 me-1"></i>17 Jan 2025</p>
+                                            <p class="mb-1"><span class="text-gray-9 fw-semibold">$147</span> Partial
+                                                Amount Paid on <span class="text-gray-9 fw-semibold">Stripe</span></p>
+                                            <p class="mb-0 d-inline-flex align-items-center fs-13"><i
+                                                    class="isax isax-calendar-25 me-1"></i>17 Jan 2025</p>
                                         </div>
                                     </div>
                                 </div>
@@ -285,7 +321,8 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
                                 <h6 class="mb-1">Recent Invoices</h6>
-                                <a href="{{url('customer-invoices')}}" class="btn btn-sm btn-dark mb-1">View all Invoices</a>
+                                <a href="{{ url('customer-invoices') }}" class="btn btn-sm btn-dark mb-1">View all
+                                    Invoices</a>
                             </div>
                             <div class="table-responsive border recent-invoice-table table-nowrap">
                                 <table class="table m-0">
@@ -303,107 +340,142 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <a href="{{url('customer-invoice-details')}}" class="link-default">INV00025</a>
+                                                <a href="{{ url('customer-invoice-details') }}"
+                                                    class="link-default">INV00025</a>
                                             </td>
                                             <td class="text-dark">$10,000</td>
                                             <td>$5,000</td>
                                             <td>
-                                                <span class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i
+                                                        class="isax isax-tick-circle ms-1"></i></span>
                                             </td>
                                             <td class="text-dark">Cash</td>
                                             <td>04 Mar 2025</td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary d-inline-flex align-items-center"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                                <a href="javascript:void(0);"
+                                                    class="btn btn-sm btn-primary d-inline-flex align-items-center"><i
+                                                        class="isax isax-money-send5 me-1"></i>Pay</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('customer-invoice-details')}}" class="link-default">INV00024</a>
+                                                <a href="{{ url('customer-invoice-details') }}"
+                                                    class="link-default">INV00024</a>
                                             </td>
                                             <td class="text-dark">$25,750</td>
                                             <td>$10,750</td>
                                             <td>
-                                                <span class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">Unpaid<i class="isax isax-slash ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-warning badge-sm d-inline-flex align-items-center">Unpaid<i
+                                                        class="isax isax-slash ms-1"></i></span>
                                             </td>
                                             <td class="text-dark">Check</td>
                                             <td>20 Feb 2025</td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-soft-info d-inline-flex align-items-center border-0 text-gray-3"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                                <a href="javascript:void(0);"
+                                                    class="btn btn-sm btn-soft-info d-inline-flex align-items-center border-0 text-gray-3"><i
+                                                        class="isax isax-money-send5 me-1"></i>Pay</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('customer-invoice-details')}}" class="link-default">INV00023</a>
+                                                <a href="{{ url('customer-invoice-details') }}"
+                                                    class="link-default">INV00023</a>
                                             </td>
                                             <td class="text-dark">$1,20,500</td>
                                             <td>$60,000</td>
                                             <td>
-                                                <span class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-danger badge-sm d-inline-flex align-items-center">Cancelled<i
+                                                        class="isax isax-close-circle ms-1"></i></span>
                                             </td>
                                             <td class="text-dark">Check</td>
                                             <td>12 Nov 2024</td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary d-inline-flex align-items-center"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                                <a href="javascript:void(0);"
+                                                    class="btn btn-sm btn-primary d-inline-flex align-items-center"><i
+                                                        class="isax isax-money-send5 me-1"></i>Pay</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('customer-invoice-details')}}" class="link-default">INV00022</a>
+                                                <a href="{{ url('customer-invoice-details') }}"
+                                                    class="link-default">INV00022</a>
                                             </td>
                                             <td class="text-dark">$7,50,300</td>
                                             <td>$60,000</td>
                                             <td>
-                                                <span class="badge badge-soft-info badge-sm d-inline-flex align-items-center">Partially Paid<i class="isax isax-timer ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-info badge-sm d-inline-flex align-items-center">Partially
+                                                    Paid<i class="isax isax-timer ms-1"></i></span>
                                             </td>
                                             <td class="text-dark">Check</td>
                                             <td>25 Oct 2024</td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary d-inline-flex align-items-center"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                                <a href="javascript:void(0);"
+                                                    class="btn btn-sm btn-primary d-inline-flex align-items-center"><i
+                                                        class="isax isax-money-send5 me-1"></i>Pay</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('customer-invoice-details')}}" class="link-default">INV00016</a>
+                                                <a href="{{ url('customer-invoice-details') }}"
+                                                    class="link-default">INV00016</a>
                                             </td>
                                             <td class="text-dark">$9,99,999</td>
                                             <td>$4,00,000</td>
                                             <td>
-                                                <span class="badge badge-soft-info badge-sm d-inline-flex align-items-center">Partially Paid<i class="isax isax-timer ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-info badge-sm d-inline-flex align-items-center">Partially
+                                                    Paid<i class="isax isax-timer ms-1"></i></span>
                                             </td>
                                             <td class="text-dark">Cash</td>
                                             <td>18 Oct 2024</td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary d-inline-flex align-items-center"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                                <a href="javascript:void(0);"
+                                                    class="btn btn-sm btn-primary d-inline-flex align-items-center"><i
+                                                        class="isax isax-money-send5 me-1"></i>Pay</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="{{url('customer-invoice-details')}}" class="link-default">INV00015</a>
+                                                <a href="{{ url('customer-invoice-details') }}"
+                                                    class="link-default">INV00015</a>
                                             </td>
                                             <td class="text-dark">$87,650</td>
                                             <td>$40,000</td>
                                             <td>
-                                                <span class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-success badge-sm d-inline-flex align-items-center">Paid<i
+                                                        class="isax isax-tick-circle ms-1"></i></span>
                                             </td>
                                             <td class="text-dark">Check</td>
                                             <td>22 Sep 2024</td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-soft-info d-inline-flex align-items-center border-0 text-gray-3"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                                <a href="javascript:void(0);"
+                                                    class="btn btn-sm btn-soft-info d-inline-flex align-items-center border-0 text-gray-3"><i
+                                                        class="isax isax-money-send5 me-1"></i>Pay</a>
                                             </td>
                                         </tr>
                                         <tr class="border-white">
                                             <td>
-                                                <a href="{{url('customer-invoice-details')}}" class="link-default">INV00014</a>
+                                                <a href="{{ url('customer-invoice-details') }}"
+                                                    class="link-default">INV00014</a>
                                             </td>
                                             <td class="text-dark">$69,420</td>
                                             <td>$30,000</td>
                                             <td>
-                                                <span class="badge badge-soft-info badge-sm d-inline-flex align-items-center">Partially Paid<i class="isax isax-timer ms-1"></i></span>
+                                                <span
+                                                    class="badge badge-soft-info badge-sm d-inline-flex align-items-center">Partially
+                                                    Paid<i class="isax isax-timer ms-1"></i></span>
                                             </td>
                                             <td class="text-dark">Cash</td>
                                             <td>15 Sep 2024</td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary d-inline-flex align-items-center"><i class="isax isax-money-send5 me-1"></i>Pay</a>
+                                                <a href="javascript:void(0);"
+                                                    class="btn btn-sm btn-primary d-inline-flex align-items-center"><i
+                                                        class="isax isax-money-send5 me-1"></i>Pay</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -423,44 +495,56 @@
                                 <h6 class="fs-14 fw-semibold mb-3">Today</h6>
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img src="{{URL::asset('build/img/icons/paypal-icon.svg')}}" alt="img" class="img-fluid"></span>
+                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img
+                                                src="{{ URL::asset('build/img/icons/paypal-icon.svg') }}" alt="img"
+                                                class="img-fluid"></span>
                                         <div class="ms-2">
                                             <h6 class="fs-14 fw-semibold mb-1">Andrew James</h6>
                                             <p>#INV45478</p>
                                         </div>
                                     </div>
-                                    <span class="badge badge-soft-success badge-lg d-inline-flex align-items-center">+ $989.15</span>
+                                    <span class="badge badge-soft-success badge-lg d-inline-flex align-items-center">+
+                                        $989.15</span>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
                                     <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img src="{{URL::asset('build/img/icons/card-icon.svg')}}" alt="img" class="img-fluid"></span>
+                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img
+                                                src="{{ URL::asset('build/img/icons/card-icon.svg') }}" alt="img"
+                                                class="img-fluid"></span>
                                         <div class="ms-2">
                                             <h6 class="fs-14 fw-semibold mb-1">John Carter</h6>
                                             <p>#INV45477</p>
                                         </div>
                                     </div>
-                                    <span class="badge badge-soft-danger badge-lg d-inline-flex align-items-center">- $300.12</span>
+                                    <span class="badge badge-soft-danger badge-lg d-inline-flex align-items-center">-
+                                        $300.12</span>
                                 </div>
                                 <h6 class="fs-14 fw-semibold mb-3">Yesterday</h6>
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img src="{{URL::asset('build/img/icons/card-icon.svg')}}" alt="img" class="img-fluid"></span>
+                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img
+                                                src="{{ URL::asset('build/img/icons/card-icon.svg') }}" alt="img"
+                                                class="img-fluid"></span>
                                         <div class="ms-2">
                                             <h6 class="fs-14 fw-semibold mb-1">Sophia White</h6>
                                             <p>#INV45476</p>
                                         </div>
                                     </div>
-                                    <span class="badge badge-soft-success badge-lg d-inline-flex align-items-center">+ $669</span>
+                                    <span class="badge badge-soft-success badge-lg d-inline-flex align-items-center">+
+                                        $669</span>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img src="{{URL::asset('build/img/icons/card-icon.svg')}}" alt="img" class="img-fluid"></span>
+                                        <span class="avatar avatar-lg rounded-pill border bg-light p-2 flex-shrink-0"><img
+                                                src="{{ URL::asset('build/img/icons/card-icon.svg') }}" alt="img"
+                                                class="img-fluid"></span>
                                         <div class="ms-2">
                                             <h6 class="fs-14 fw-semibold mb-1">Daniel Martinez</h6>
                                             <p>#INV45475</p>
                                         </div>
                                     </div>
-                                    <span class="badge badge-soft-success badge-lg d-inline-flex align-items-center">+ $474.22</span>
+                                    <span class="badge badge-soft-success badge-lg d-inline-flex align-items-center">+
+                                        $474.22</span>
                                 </div>
                             </div>
                         </div><!-- end card body -->
@@ -474,7 +558,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -482,6 +567,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

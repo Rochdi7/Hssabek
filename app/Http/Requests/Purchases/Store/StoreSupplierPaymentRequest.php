@@ -31,17 +31,17 @@ class StoreSupplierPaymentRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'supplier_id.required'                   => 'Le fournisseur est obligatoire.',
-            'supplier_id.exists'                     => 'Le fournisseur sélectionné est invalide.',
-            'bank_account_id.exists'                 => 'Le compte bancaire sélectionné est invalide.',
-            'payment_method_id.exists'               => 'Le mode de paiement sélectionné est invalide.',
-            'amount.required'                        => 'Le montant est obligatoire.',
-            'amount.gt'                              => 'Le montant doit être supérieur à zéro.',
-            'paid_at.required'                       => 'La date du paiement est obligatoire.',
-            'allocations.*.vendor_bill_id.required'  => 'La facture fournisseur est obligatoire.',
-            'allocations.*.vendor_bill_id.exists'    => 'La facture fournisseur sélectionnée est invalide.',
-            'allocations.*.amount_applied.required'  => 'Le montant de l\'allocation est obligatoire.',
-            'allocations.*.amount_applied.min'       => 'Le montant de l\'allocation doit être supérieur à zéro.',
+            'supplier_id.required'                   => __('Le fournisseur est obligatoire.'),
+            'supplier_id.exists'                     => __('Le fournisseur sélectionné est invalide.'),
+            'bank_account_id.exists'                 => __('Le compte bancaire sélectionné est invalide.'),
+            'payment_method_id.exists'               => __('Le mode de paiement sélectionné est invalide.'),
+            'amount.required'                        => __('Le montant est obligatoire.'),
+            'amount.gt'                              => __('Le montant doit être supérieur à zéro.'),
+            'paid_at.required'                       => __('La date du paiement est obligatoire.'),
+            'allocations.*.vendor_bill_id.required'  => __('La facture fournisseur est obligatoire.'),
+            'allocations.*.vendor_bill_id.exists'    => __('La facture fournisseur sélectionnée est invalide.'),
+            'allocations.*.amount_applied.required'  => __('Le montant de l\'allocation est obligatoire.'),
+            'allocations.*.amount_applied.min'       => __('Le montant de l\'allocation doit être supérieur à zéro.'),
         ];
     }
 }

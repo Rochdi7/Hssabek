@@ -16,11 +16,11 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.pro.rapports.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Rapports</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Rapports') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Modifier le rapport</h5>
+                                <h5 class="mb-3">{{ __('Modifier le rapport') }}</h5>
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -39,7 +39,7 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-6 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Titre <span class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Titre') }} <span class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('title') is-invalid @enderror"
                                                     name="title"
@@ -51,10 +51,10 @@
                                         </div>
                                         <div class="col-lg-3 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Catégorie</label>
+                                                <label class="form-label">{{ __('Catégorie') }}</label>
                                                 <select class="form-select @error('category') is-invalid @enderror" name="category">
-                                                    <option value="">-- Sélectionner --</option>
-                                                    @foreach(['Général', 'Financier', 'Ventes', 'Achats', 'Inventaire', 'Autre'] as $cat)
+                                                    <option value="">-- {{ __('Sélectionner') }} --</option>
+                                                    @foreach([__('Général'), __('Financier'), __('Ventes'), __('Achats'), __('Inventaire'), __('Autre')] as $cat)
                                                         <option value="{{ $cat }}" {{ old('category', $report->category) === $cat ? 'selected' : '' }}>{{ $cat }}</option>
                                                     @endforeach
                                                 </select>
@@ -65,10 +65,10 @@
                                         </div>
                                         <div class="col-lg-3 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Statut <span class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Statut') }} <span class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('status') is-invalid @enderror" name="status">
-                                                    <option value="draft" {{ old('status', $report->status) === 'draft' ? 'selected' : '' }}>Brouillon</option>
-                                                    <option value="published" {{ old('status', $report->status) === 'published' ? 'selected' : '' }}>Publié</option>
+                                                    <option value="draft" {{ old('status', $report->status) === 'draft' ? 'selected' : '' }}>{{ __('Brouillon') }}</option>
+                                                    <option value="published" {{ old('status', $report->status) === 'published' ? 'selected' : '' }}>{{ __('Publié') }}</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Contenu <span class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Contenu') }} <span class="text-danger ms-1">*</span></label>
                                                 <textarea id="summernote" name="content" class="form-control @error('content') is-invalid @enderror">{!! old('content', $report->content) !!}</textarea>
                                                 @error('content')
                                                     <div class="text-danger mt-1 fs-12">{{ $message }}</div>
@@ -86,8 +86,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
-                                        <a href="{{ route('bo.pro.rapports.index') }}" class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                                        <a href="{{ route('bo.pro.rapports.index') }}" class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                                     </div>
                                 </form>
                             </div><!-- end card body -->

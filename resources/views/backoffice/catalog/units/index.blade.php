@@ -13,14 +13,13 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Unit&eacute;s</h6>
+                    <h6>{{ __('Unités') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'units'])
                     <div>
                         <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                            data-bs-target="#add_unit_modal"><i class="isax isax-add-circle5 me-1"></i>Nouvelle
-                            unit&eacute;</a>
+                            data-bs-target="#add_unit_modal"><i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle unité') }}</a>
                     </div>
                 </div>
             </div>
@@ -32,13 +31,13 @@
                         <span class="input-group-text bg-white border-end-0">
                             <i class="isax isax-search-normal fs-12"></i>
                         </span>
-                        <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="Rechercher"
+                        <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="{{ __('Rechercher') }}"
                             id="unit-search">
                     </div>
                 </div> <!-- end col -->
                 <div class="col-md-9 d-flex justify-content-end">
                     @include('backoffice.components.column-toggle', [
-                        'columns' => ['Nom', 'Abréviation', 'Nombre de produits'],
+                        'columns' => [__('Nom'), __('Abréviation'), __('Nombre de produits')],
                     ])
                 </div>
             </div> <!-- end row -->
@@ -46,14 +45,14 @@
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
                     {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                 </div>
             @endif
 
             @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
                     {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                 </div>
             @endif
 
@@ -61,9 +60,9 @@
                 <table class="table table-nowrap m-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Nom</th>
-                            <th class="no-sort">Abr&eacute;viation</th>
-                            <th class="no-sort">Nombre de produits</th>
+                            <th>{{ __('Nom') }}</th>
+                            <th class="no-sort">{{ __('Abréviation') }}</th>
+                            <th class="no-sort">{{ __('Nombre de produits') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -85,20 +84,20 @@
                                                 data-bs-toggle="modal" data-bs-target="#edit_unit_modal"
                                                 data-id="{{ $unit->id }}" data-name="{{ $unit->name }}"
                                                 data-short-name="{{ $unit->short_name }}"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
                                                 data-bs-toggle="modal" data-bs-target="#delete_unit_modal"
                                                 data-id="{{ $unit->id }}" data-name="{{ $unit->name }}"><i
-                                                    class="isax isax-trash me-2"></i>Supprimer</a>
+                                                    class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                         </li>
                                     </ul>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Aucune unit&eacute; trouv&eacute;e.</td>
+                                <td colspan="4" class="text-center">{{ __('Aucune unité trouvée.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -128,9 +127,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ajouter une unit&eacute;</h4>
+                    <h4 class="modal-title">{{ __('Ajouter une unité') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('bo.catalog.units.store') }}">
                     @csrf
@@ -139,9 +138,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Nom') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" placeholder="Ex : Kilogramme">
+                                        name="name" value="{{ old('name') }}" placeholder="{{ __('Ex : Kilogramme') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -149,10 +148,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Abr&eacute;viation<span
+                                    <label class="form-label">{{ __('Abréviation') }}<span
                                             class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('short_name') is-invalid @enderror"
-                                        name="short_name" value="{{ old('short_name') }}" placeholder="Ex : kg">
+                                        name="short_name" value="{{ old('short_name') }}" placeholder="{{ __('Ex : kg') }}">
                                     @error('short_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -161,8 +160,8 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div>
                 </form>
             </div>
@@ -177,9 +176,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modifier l'unit&eacute;</h4>
+                    <h4 class="modal-title">{{ __('Modifier l\'unité') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="" id="edit_unit_form">
                     @csrf
@@ -189,10 +188,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Nom') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                         name="name" id="edit_unit_name" value="{{ old('name') }}"
-                                        placeholder="Ex : Kilogramme">
+                                        placeholder="{{ __('Ex : Kilogramme') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -200,11 +199,11 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Abr&eacute;viation<span
+                                    <label class="form-label">{{ __('Abréviation') }}<span
                                             class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('short_name') is-invalid @enderror"
                                         name="short_name" id="edit_unit_short_name" value="{{ old('short_name') }}"
-                                        placeholder="Ex : kg">
+                                        placeholder="{{ __('Ex : kg') }}">
                                     @error('short_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -213,8 +212,8 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                     </div>
                 </form>
             </div>
@@ -232,16 +231,15 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Supprimer l'unit&eacute;</h6>
-                    <p class="mb-3" id="delete_unit_message">Etes-vous s&ucirc;r de vouloir supprimer cette unit&eacute;
-                        ?</p>
+                    <h6 class="mb-1">{{ __('Supprimer l\'unité') }}</h6>
+                    <p class="mb-3" id="delete_unit_message">{{ __('Êtes-vous sûr de vouloir supprimer cette unité ?') }}</p>
                     <div class="d-flex justify-content-center">
                         <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                            data-bs-dismiss="modal">Annuler</a>
+                            data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                         <form method="POST" action="" id="delete_unit_form">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Oui, Supprimer</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Oui, Supprimer') }}</button>
                         </form>
                     </div>
                 </div>

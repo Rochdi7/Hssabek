@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,8 @@
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -30,7 +31,8 @@
                         </ul>
                     </div>
                     <div>
-                        <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_modal">
+                        <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center"
+                            data-bs-toggle="modal" data-bs-target="#add_modal">
                             <i class="isax isax-add-circle5 me-1"></i>New User
                         </a>
                     </div>
@@ -43,16 +45,20 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown me-2">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
                                 <i class="isax isax-sort me-1"></i>Sort By : <span class="fw-normal ms-1">Latest</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
@@ -65,7 +71,9 @@
                             </ul>
                         </div>
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu">
@@ -117,8 +125,12 @@
                 </div>
                 <div class="align-items-center gap-2 flex-wrap filter-info mt-3">
                     <h6 class="fs-13 fw-semibold">Filters</h6>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">5</span>Users Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">5</span>Status Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">5</span>Users
+                        Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">5</span>Status
+                        Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
                     <a href="#" class="link-danger fw-medium text-decoration-underline ms-md-1">Clear All</a>
                 </div>
             </div>
@@ -150,11 +162,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-16.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-16.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Sarah Michelle</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Sarah Michelle</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -173,10 +188,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -189,11 +208,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-26.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-26.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Daniel Patrick</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Daniel Patrick</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -212,10 +234,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -228,11 +254,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-27.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-27.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Emily Lauren</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Emily Lauren</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -251,10 +280,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -267,11 +300,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-28.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-28.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Braun Kelton</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Braun Kelton</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -290,10 +326,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -306,11 +346,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-29.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-29.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Jessica Renee</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Jessica Renee</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -329,10 +372,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -345,11 +392,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-30.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-30.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Ryan Christopher</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Ryan
+                                                Christopher</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -368,10 +418,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -384,11 +438,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-24.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-24.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Abigail Harper</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Abigail Harper</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -407,10 +464,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -423,11 +484,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-31.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-31.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Michael Johnson</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Michael Johnson</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -446,10 +510,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -462,11 +530,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-32.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-32.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Madison Brooke</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Madison Brooke</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -485,10 +556,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -501,11 +576,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-33.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-33.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">William Andrew</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">William Andrew</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -524,10 +602,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -540,11 +622,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-34.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-34.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Victoria Celeste</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Victoria
+                                                Celeste</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -563,10 +648,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -579,11 +668,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-35.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-35.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Nathaniel Blake</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Nathaniel Blake</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -602,10 +694,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -618,11 +714,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-36.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-36.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Natalie Paige</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Natalie Paige</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -641,10 +740,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -657,11 +760,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/users/user-37.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/users/user-37.jpg') }}" class="rounded-circle"
+                                            alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Isabella Claire</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Isabella Claire</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -680,10 +786,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -697,7 +807,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -705,15 +816,16 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->		
+            End Page Content
+        ========================= -->
 
     <!-- Start Filter -->
     <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="offcanvas-body pt-3">
@@ -721,7 +833,9 @@
                 <div class="mb-3">
                     <label class="form-label">Users</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info p-3">
@@ -738,30 +852,39 @@
                                     <label class="d-inline-flex align-items-center text-gray-9">
                                         <input class="form-check-input select-all m-0 me-2" type="checkbox"> Select All
                                     </label>
-                                    <a href="javascript:void(0);" class="link-danger fw-medium text-decoration-underline">Reset</a>
+                                    <a href="javascript:void(0);"
+                                        class="link-danger fw-medium text-decoration-underline">Reset</a>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/users/user-16.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Sarah Michelle
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/users/user-16.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Sarah Michelle
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/users/user-26.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Daniel Patrick
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/users/user-26.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Daniel Patrick
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/users/user-27.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Emily Lauren
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/users/user-27.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Emily Lauren
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/users/user-28.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Braun Kelton
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/users/user-28.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Braun Kelton
                                     </label>
                                 </li>
                             </ul>
@@ -788,7 +911,9 @@
                 <div class="mb-3">
                     <label class="form-label">Status</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info p-2">
@@ -815,7 +940,8 @@
                             <a href="#" class="btn btn-outline-white w-100">Reset</a>
                         </div> <!-- end col -->
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div> <!-- end col -->
                     </div> <!-- end row -->
                 </div>

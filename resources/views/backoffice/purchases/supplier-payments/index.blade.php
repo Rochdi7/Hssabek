@@ -5,7 +5,7 @@
         <div class="content content-two">
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Paiements fournisseurs</h6>
+                    <h6>{{ __('Paiements fournisseurs') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', [
@@ -14,8 +14,7 @@
                     <div>
                         <a href="{{ route('bo.purchases.supplier-payments.create') }}"
                             class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau paiement
-                        </a>
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau paiement') }}</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +40,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un paiement..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher un paiement...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -51,12 +50,12 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'Référence',
-                                'Fournisseur',
-                                'Facture',
-                                'Montant',
-                                'Date de paiement',
-                                'Statut',
+                                __('Référence'),
+                                __('Fournisseur'),
+                                __('Facture'),
+                                __('Montant'),
+                                __('Date de paiement'),
+                                __('Statut'),
                             ],
                         ])
                     </div>
@@ -72,12 +71,12 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Référence</th>
-                            <th>Fournisseur</th>
-                            <th>Facture</th>
-                            <th>Montant</th>
-                            <th>Date de paiement</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Référence') }}</th>
+                            <th>{{ __('Fournisseur') }}</th>
+                            <th>{{ __('Facture') }}</th>
+                            <th>{{ __('Montant') }}</th>
+                            <th>{{ __('Date de paiement') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -97,23 +96,23 @@
                                 <td>
                                     @switch($payment->status)
                                         @case('succeeded')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Réussi</span>
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Réussi') }}</span>
                                         @break
 
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En attente</span>
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('En attente') }}</span>
                                         @break
 
                                         @case('failed')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Échoué</span>
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Échoué') }}</span>
                                         @break
 
                                         @case('refunded')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">Remboursé</span>
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Remboursé') }}</span>
                                         @break
 
                                         @case('cancelled')
-                                            <span class="badge badge-soft-secondary d-inline-flex align-items-center">Annulé</span>
+                                            <span class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Annulé') }}</span>
                                         @break
 
                                         @default
@@ -128,12 +127,12 @@
                                         <li>
                                             <a href="{{ route('bo.purchases.supplier-payments.show', $payment) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('bo.purchases.supplier-payments.edit', $payment) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
@@ -141,9 +140,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce paiement ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
-                                                </button>
+                                                    onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer ce paiement ?') }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                     </ul>

@@ -13,13 +13,13 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Dépenses</h6>
+                    <h6>{{ __('Dépenses') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'expenses'])
                     <div>
                         <a href="{{ route('bo.finance.expenses.create') }}" class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouvelle dépense
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle dépense') }}
                         </a>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher une dépense..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher une dépense...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -66,13 +66,13 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Catégorie : <span
-                                    class="fw-normal ms-1">{{ request('category_id') ? $categories->firstWhere('id', request('category_id'))?->name ?? 'Toutes' : 'Toutes' }}</span>
+                                <i class="isax isax-filter me-1"></i>{{ __('Catégorie :') }} <span
+                                    class="fw-normal ms-1">{{ request('category_id') ? $categories->firstWhere('id', request('category_id'))?->name ?? __('Toutes') : __('Toutes') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.finance.expenses.index', array_merge(request()->except('category_id', 'page'))) }}"
-                                        class="dropdown-item">Toutes</a>
+                                        class="dropdown-item">{{ __('Toutes') }}</a>
                                 </li>
                                 @foreach ($categories as $category)
                                     <li>
@@ -86,55 +86,55 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
+                                <i class="isax isax-filter me-1"></i>{{ __('Statut :') }} <span class="fw-normal ms-1">
                                     @switch(request('payment_status'))
                                         @case('paid')
-                                            Payée
+                                            {{ __('Payée') }}
                                         @break
 
                                         @case('unpaid')
-                                            Impayée
+                                            {{ __('Impayée') }}
                                         @break
 
                                         @case('partial')
-                                            Partielle
+                                            {{ __('Partielle') }}
                                         @break
 
                                         @default
-                                            Tous
+                                            {{ __('Tous') }}
                                     @endswitch
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.finance.expenses.index', array_merge(request()->except('payment_status', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.finance.expenses.index', array_merge(request()->except('page'), ['payment_status' => 'paid'])) }}"
-                                        class="dropdown-item">Payée</a>
+                                        class="dropdown-item">{{ __('Payée') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.finance.expenses.index', array_merge(request()->except('page'), ['payment_status' => 'unpaid'])) }}"
-                                        class="dropdown-item">Impayée</a>
+                                        class="dropdown-item">{{ __('Impayée') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.finance.expenses.index', array_merge(request()->except('page'), ['payment_status' => 'partial'])) }}"
-                                        class="dropdown-item">Partielle</a>
+                                        class="dropdown-item">{{ __('Partielle') }}</a>
                                 </li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'N° Dépense',
-                                'Date',
-                                'Catégorie',
-                                'Fournisseur',
-                                'Montant',
-                                'Payé',
-                                'Reste',
-                                'Mode de paiement',
-                                'Statut',
+                                __('N° Dépense'),
+                                __('Date'),
+                                __('Catégorie'),
+                                __('Fournisseur'),
+                                __('Montant'),
+                                __('Payé'),
+                                __('Reste'),
+                                __('Mode de paiement'),
+                                __('Statut'),
                             ],
                         ])
                     </div>
@@ -152,15 +152,15 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>N° Dépense</th>
-                            <th>Date</th>
-                            <th>Catégorie</th>
-                            <th>Fournisseur</th>
-                            <th>Montant</th>
-                            <th>Payé</th>
-                            <th>Reste</th>
-                            <th>Mode de paiement</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('N° Dépense') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Catégorie') }}</th>
+                            <th>{{ __('Fournisseur') }}</th>
+                            <th>{{ __('Montant') }}</th>
+                            <th>{{ __('Payé') }}</th>
+                            <th>{{ __('Reste') }}</th>
+                            <th>{{ __('Mode de paiement') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -175,7 +175,7 @@
                                 <td>
                                     <span class="fw-medium">{{ $expense->expense_number }}</span>
                                     @if ($expense->reference_number)
-                                        <br><small class="text-muted">Réf: {{ $expense->reference_number }}</small>
+                                        <br><small class="text-muted">{{ __('Réf:') }} {{ $expense->reference_number }}</small>
                                     @endif
                                 </td>
                                 <td>{{ \Carbon\Carbon::parse($expense->expense_date)->format('d/m/Y') }}</td>
@@ -191,37 +191,37 @@
                                 <td>
                                     @switch($expense->payment_mode)
                                         @case('cash')
-                                            Espèces
+                                            {{ __('Espèces') }}
                                         @break
 
                                         @case('bank_transfer')
-                                            Virement
+                                            {{ __('Virement') }}
                                         @break
 
                                         @case('card')
-                                            Carte
+                                            {{ __('Carte') }}
                                         @break
 
                                         @case('cheque')
-                                            Chèque
+                                            {{ __('Chèque') }}
                                         @break
 
                                         @default
-                                            Autre
+                                            {{ __('Autre') }}
                                     @endswitch
                                 </td>
                                 <td>
                                     @switch($expense->payment_status)
                                         @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Payée</span>
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }}</span>
                                         @break
 
                                         @case('partial')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">Partielle</span>
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('Partielle') }}</span>
                                         @break
 
                                         @default
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Impayée</span>
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Impayée') }}</span>
                                     @endswitch
                                 </td>
                                 <td class="action-item">
@@ -232,12 +232,12 @@
                                         <li>
                                             <a href="{{ route('bo.finance.expenses.show', $expense) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('bo.finance.expenses.edit', $expense) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
@@ -245,8 +245,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette dépense ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
+                                                    onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer cette dépense ?') }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}
                                                 </button>
                                             </form>
                                         </li>

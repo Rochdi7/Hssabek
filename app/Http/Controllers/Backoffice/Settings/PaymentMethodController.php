@@ -31,7 +31,7 @@ class PaymentMethodController extends Controller
         ]);
 
         return redirect()->route('bo.settings.payment-methods.index')
-            ->with('success', 'Mode de paiement ajouté avec succès.');
+            ->with('success', __('Mode de paiement ajouté avec succès.'));
     }
 
     public function update(Request $request, PaymentMethod $paymentMethod)
@@ -50,19 +50,19 @@ class PaymentMethodController extends Controller
         ]);
 
         return redirect()->route('bo.settings.payment-methods.index')
-            ->with('success', 'Mode de paiement mis à jour avec succès.');
+            ->with('success', __('Mode de paiement mis à jour avec succès.'));
     }
 
     public function destroy(PaymentMethod $paymentMethod)
     {
         if ($paymentMethod->payments()->exists()) {
             return redirect()->route('bo.settings.payment-methods.index')
-                ->with('error', 'Ce mode de paiement est utilisé par des paiements existants et ne peut pas être supprimé.');
+                ->with('error', __('Ce mode de paiement est utilisé par des paiements existants et ne peut pas être supprimé.'));
         }
 
         $paymentMethod->delete();
 
         return redirect()->route('bo.settings.payment-methods.index')
-            ->with('success', 'Mode de paiement supprimé avec succès.');
+            ->with('success', __('Mode de paiement supprimé avec succès.'));
     }
 }

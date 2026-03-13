@@ -26,13 +26,13 @@ class UpdateStockMovementRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'product_id.exists'      => 'Le produit sélectionné est invalide.',
-            'warehouse_id.exists'    => 'L\'entrepôt sélectionné est invalide.',
-            'movement_type.in'       => 'Le type de mouvement est invalide.',
-            'quantity.numeric'       => 'La quantité doit être un nombre.',
-            'quantity.min'           => 'La quantité doit être supérieure à zéro.',
-            'note.max'               => 'La note ne doit pas dépasser 1000 caractères.',
-            'moved_at.date'          => 'La date du mouvement n\'est pas valide.',
+            'product_id.exists'      => __('Le produit sélectionné est invalide.'),
+            'warehouse_id.exists'    => __('L\'entrepôt sélectionné est invalide.'),
+            'movement_type.in'       => __('Le type de mouvement est invalide.'),
+            'quantity.numeric'       => __('La quantité doit être un nombre.'),
+            'quantity.min'           => __('La quantité doit être supérieure à zéro.'),
+            'note.max'               => __('La note ne doit pas dépasser 1000 caractères.'),
+            'moved_at.date'          => __('La date du mouvement n\'est pas valide.'),
         ];
     }
 }

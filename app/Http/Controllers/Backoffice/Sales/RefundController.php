@@ -53,7 +53,7 @@ class RefundController extends Controller
         $this->service->createRefund($request->validated());
 
         return redirect()->route('bo.sales.refunds.index')
-            ->with('success', 'Remboursement enregistré avec succès.');
+            ->with('success', __('Remboursement enregistré avec succès.'));
     }
 
     public function show(Refund $refund)
@@ -83,7 +83,7 @@ class RefundController extends Controller
         $this->service->updateRefund($refund, $request->validated());
 
         return redirect()->route('bo.sales.refunds.index')
-            ->with('success', 'Remboursement mis à jour avec succès.');
+            ->with('success', __('Remboursement mis à jour avec succès.'));
     }
 
     public function destroy(Refund $refund)
@@ -93,6 +93,6 @@ class RefundController extends Controller
         $this->service->deleteRefund($refund);
 
         return redirect()->route('bo.sales.refunds.index')
-            ->with('success', 'Remboursement supprimé avec succès.');
+            ->with('success', __('Remboursement supprimé avec succès.'));
     }
 }

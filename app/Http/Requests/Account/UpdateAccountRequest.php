@@ -50,20 +50,20 @@ class UpdateAccountRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'   => 'Le nom est obligatoire.',
-            'name.max'        => 'Le nom ne doit pas dépasser 255 caractères.',
-            'email.required'  => "L'adresse e-mail est obligatoire.",
-            'email.email'     => "L'adresse e-mail n'est pas valide.",
-            'email.unique'    => 'Cette adresse e-mail est déjà utilisée.',
-            'phone.max'       => 'Le numéro de téléphone ne doit pas dépasser 30 caractères.',
-            'gender.in'       => 'Le genre sélectionné est invalide.',
-            'date_of_birth.date'   => 'La date de naissance n\'est pas valide.',
-            'date_of_birth.before' => 'La date de naissance doit être antérieure à aujourd\'hui.',
-            'address.max'     => "L'adresse ne doit pas dépasser 500 caractères.",
-            'country.max'     => 'Le pays ne doit pas dépasser 100 caractères.',
-            'state.max'       => 'La région ne doit pas dépasser 100 caractères.',
-            'city.max'        => 'La ville ne doit pas dépasser 100 caractères.',
-            'postal_code.max' => 'Le code postal ne doit pas dépasser 20 caractères.',
+            'name.required'   => __('Le nom est obligatoire.'),
+            'name.max'        => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'email.required'  => __("L'adresse e-mail est obligatoire."),
+            'email.email'     => __("L'adresse e-mail n'est pas valide."),
+            'email.unique'    => __('Cette adresse e-mail est déjà utilisée.'),
+            'phone.max'       => __('Le numéro de téléphone ne doit pas dépasser 30 caractères.'),
+            'gender.in'       => __('Le genre sélectionné est invalide.'),
+            'date_of_birth.date'   => __('La date de naissance n\'est pas valide.'),
+            'date_of_birth.before' => __('La date de naissance doit être antérieure à aujourd\'hui.'),
+            'address.max'     => __("L'adresse ne doit pas dépasser 500 caractères."),
+            'country.max'     => __('Le pays ne doit pas dépasser 100 caractères.'),
+            'state.max'       => __('La région ne doit pas dépasser 100 caractères.'),
+            'city.max'        => __('La ville ne doit pas dépasser 100 caractères.'),
+            'postal_code.max' => __('Le code postal ne doit pas dépasser 20 caractères.'),
         ];
     }
 }

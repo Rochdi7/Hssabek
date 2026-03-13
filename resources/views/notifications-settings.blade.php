@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -14,18 +14,20 @@
                     <div class="row settings-wrapper d-flex">
                         <!-- Start settings sidebar -->
                         @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @endcomponent
                         <!-- End settings sidebar -->
 
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3 pb-3 border-bottom">
                                 <h6 class="fw-bold mb-0">Notifications</h6>
                             </div>
-                            <form action="{{url('notifications-settings')}}">
+                            <form action="{{ url('notifications-settings') }}">
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-notification"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-notification"></i></span>
                                             General Notifications
                                         </h6>
                                         <div class="form-check form-switch">
@@ -48,7 +50,8 @@
                                                     <tr>
                                                         <td>
                                                             <h6 class="fs-13 fw-medium mb-1">System Updates</h6>
-                                                            <p class="fs-12">Get alerts for software updates and maintenance.</p>
+                                                            <p class="fs-12">Get alerts for software updates and
+                                                                maintenance.</p>
                                                         </td>
                                                         <td class="text-center">
                                                             <input class="form-check-input" type="checkbox" checked>
@@ -66,7 +69,8 @@
                                                     <tr>
                                                         <td>
                                                             <h6 class="fs-13 fw-medium mb-1">Security Alerts</h6>
-                                                            <p class="fs-12">Notify about login attempts, password changes.</p>
+                                                            <p class="fs-12">Notify about login attempts, password changes.
+                                                            </p>
                                                         </td>
                                                         <td class="text-center">
                                                             <input class="form-check-input" type="checkbox" checked>
@@ -89,7 +93,9 @@
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-shopping-cart"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-shopping-cart"></i></span>
                                             Sales Notifications
                                         </h6>
                                         <div class="form-check form-switch">
@@ -169,7 +175,9 @@
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-notification-status"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-notification-status"></i></span>
                                             Invoice Notifications
                                         </h6>
                                         <div class="form-check form-switch">
@@ -231,7 +239,9 @@
                                 <div class="border-bottom mb-3 pb-2">
                                     <div class="card-title-head d-flex align-items-center justify-content-between">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
-                                            <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-user-tag"></i></span> 
+                                            <span
+                                                class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
+                                                    class="isax isax-user-tag"></i></span>
                                             User Management
                                         </h6>
                                         <div class="form-check form-switch">
@@ -341,7 +351,8 @@
 
             <!-- Start Footer-->
             <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-                <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+                <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                    Rights Reserved</p>
                 <p class="text-dark">Version : 1.3.8</p>
             </div>
             <!-- End Footer-->
@@ -349,6 +360,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

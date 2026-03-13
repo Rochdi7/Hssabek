@@ -64,7 +64,7 @@ class SupplierPaymentController extends Controller
         $this->service->create($request->validated());
 
         return redirect()->route('bo.purchases.supplier-payments.index')
-            ->with('success', 'Paiement fournisseur enregistré avec succès.');
+            ->with('success', __('Paiement fournisseur enregistré avec succès.'));
     }
 
     public function show(SupplierPayment $supplierPayment)
@@ -100,7 +100,7 @@ class SupplierPaymentController extends Controller
         $supplierPayment->update($data);
 
         return redirect()->route('bo.purchases.supplier-payments.show', $supplierPayment)
-            ->with('success', 'Paiement fournisseur mis à jour avec succès.');
+            ->with('success', __('Paiement fournisseur mis à jour avec succès.'));
     }
 
     public function destroy(SupplierPayment $supplierPayment)
@@ -110,7 +110,7 @@ class SupplierPaymentController extends Controller
         $this->service->delete($supplierPayment);
 
         return redirect()->route('bo.purchases.supplier-payments.index')
-            ->with('success', 'Paiement fournisseur supprimé avec succès.');
+            ->with('success', __('Paiement fournisseur supprimé avec succès.'));
     }
 
     public function download(SupplierPayment $supplierPayment, PdfService $pdfService)

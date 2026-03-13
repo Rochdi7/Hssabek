@@ -94,6 +94,9 @@ Route::prefix('backoffice')
         // Protected routes
         Route::middleware(['auth', 'subscriptionActive'])->group(function () {
 
+            // Quick language switch from header
+            Route::post('/locale/switch', \App\Http\Controllers\Backoffice\LocaleSwitchController::class)->name('locale.switch');
+
             require __DIR__ . '/backoffice/dashboard.php';
             require __DIR__ . '/backoffice/settings.php';
             require __DIR__ . '/backoffice/users.php';

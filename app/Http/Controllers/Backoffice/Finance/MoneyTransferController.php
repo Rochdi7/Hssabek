@@ -71,7 +71,7 @@ class MoneyTransferController extends Controller
         });
 
         return redirect()->route('bo.finance.money-transfers.show', $transfer)
-            ->with('success', 'Transfert effectué avec succès.');
+            ->with('success', __('Transfert effectué avec succès.'));
     }
 
     public function show(MoneyTransfer $moneyTransfer)
@@ -131,7 +131,7 @@ class MoneyTransferController extends Controller
         });
 
         return redirect()->route('bo.finance.money-transfers.show', $moneyTransfer)
-            ->with('success', 'Transfert modifié avec succès.');
+            ->with('success', __('Transfert modifié avec succès.'));
     }
 
     public function destroy(MoneyTransfer $moneyTransfer)
@@ -149,6 +149,6 @@ class MoneyTransferController extends Controller
         });
 
         return redirect()->route('bo.finance.money-transfers.index')
-            ->with('success', 'Transfert supprimé avec succès.');
+            ->with('success', __('Transfert supprimé avec succès.'));
     }
 }

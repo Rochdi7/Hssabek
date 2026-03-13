@@ -15,7 +15,7 @@ class TaxCategoryController extends Controller
 
         TaxCategory::create($request->validated());
 
-        return redirect()->back()->with('success', 'Taux de taxe ajouté avec succès.');
+        return redirect()->back()->with('success', __('Taux de taxe ajouté avec succès.'));
     }
 
     public function update(UpdateTaxCategoryRequest $request, TaxCategory $taxCategory)
@@ -24,7 +24,7 @@ class TaxCategoryController extends Controller
 
         $taxCategory->update($request->validated());
 
-        return redirect()->back()->with('success', 'Taux de taxe mis à jour avec succès.');
+        return redirect()->back()->with('success', __('Taux de taxe mis à jour avec succès.'));
     }
 
     public function destroy(TaxCategory $taxCategory)
@@ -39,6 +39,6 @@ class TaxCategoryController extends Controller
 
         $taxCategory->delete();
 
-        return redirect()->back()->with('success', 'Taux de taxe supprimé avec succès.');
+        return redirect()->back()->with('success', __('Taux de taxe supprimé avec succès.'));
     }
 }

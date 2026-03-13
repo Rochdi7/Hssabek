@@ -49,7 +49,7 @@ class BankAccountController extends Controller
         BankAccount::create($data);
 
         return redirect()->route('bo.finance.bank-accounts.index')
-            ->with('success', 'Compte bancaire créé avec succès.');
+            ->with('success', __('Compte bancaire créé avec succès.'));
     }
 
     public function show(BankAccount $bankAccount)
@@ -79,7 +79,7 @@ class BankAccountController extends Controller
         $bankAccount->update($data);
 
         return redirect()->route('bo.finance.bank-accounts.index')
-            ->with('success', 'Compte bancaire mis à jour avec succès.');
+            ->with('success', __('Compte bancaire mis à jour avec succès.'));
     }
 
     public function destroy(BankAccount $bankAccount)
@@ -88,12 +88,12 @@ class BankAccountController extends Controller
 
         if ($bankAccount->expenses()->exists() || $bankAccount->incomes()->exists()) {
             return redirect()->route('bo.finance.bank-accounts.index')
-                ->with('error', 'Impossible de supprimer ce compte : il contient des transactions.');
+                ->with('error', __('Impossible de supprimer ce compte : il contient des transactions.'));
         }
 
         $bankAccount->delete();
 
         return redirect()->route('bo.finance.bank-accounts.index')
-            ->with('success', 'Compte bancaire supprimé avec succès.');
+            ->with('success', __('Compte bancaire supprimé avec succès.'));
     }
 }

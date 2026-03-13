@@ -13,14 +13,14 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Transferts entre comptes</h6>
+                    <h6>{{ __('Transferts entre comptes') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'money-transfers'])
                     <div>
                         <a href="{{ route('bo.finance.money-transfers.create') }}"
                             class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau transfert
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau transfert') }}
                         </a>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher par référence..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher par référence...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -64,52 +64,52 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
+                                <i class="isax isax-filter me-1"></i>{{ __('Statut :') }} <span class="fw-normal ms-1">
                                     @switch(request('status'))
                                         @case('completed')
-                                            Complété
+                                            {{ __('Complété') }}
                                         @break
 
                                         @case('pending')
-                                            En attente
+                                            {{ __('En attente') }}
                                         @break
 
                                         @case('cancelled')
-                                            Annulé
+                                            {{ __('Annulé') }}
                                         @break
 
                                         @default
-                                            Tous
+                                            {{ __('Tous') }}
                                     @endswitch
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.finance.money-transfers.index', array_merge(request()->except('status', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.finance.money-transfers.index', array_merge(request()->except('page'), ['status' => 'completed'])) }}"
-                                        class="dropdown-item">Complété</a>
+                                        class="dropdown-item">{{ __('Complété') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.finance.money-transfers.index', array_merge(request()->except('page'), ['status' => 'pending'])) }}"
-                                        class="dropdown-item">En attente</a>
+                                        class="dropdown-item">{{ __('En attente') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.finance.money-transfers.index', array_merge(request()->except('page'), ['status' => 'cancelled'])) }}"
-                                        class="dropdown-item">Annulé</a>
+                                        class="dropdown-item">{{ __('Annulé') }}</a>
                                 </li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'Date',
-                                'Compte source',
-                                'Compte destination',
-                                'Montant',
-                                'Référence',
-                                'Statut',
+                                __('Date'),
+                                __('Compte source'),
+                                __('Compte destination'),
+                                __('Montant'),
+                                __('Référence'),
+                                __('Statut'),
                             ],
                         ])
                     </div>
@@ -127,12 +127,12 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Date</th>
-                            <th>Compte source</th>
-                            <th>Compte destination</th>
-                            <th>Montant</th>
-                            <th>Référence</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Compte source') }}</th>
+                            <th>{{ __('Compte destination') }}</th>
+                            <th>{{ __('Montant') }}</th>
+                            <th>{{ __('Référence') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -166,16 +166,15 @@
                                 <td>
                                     @switch($transfer->status)
                                         @case('completed')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Complété</span>
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Complété') }}</span>
                                         @break
 
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En
-                                                attente</span>
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('En attente') }}</span>
                                         @break
 
                                         @case('cancelled')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Annulé</span>
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulé') }}</span>
                                         @break
                                     @endswitch
                                 </td>
@@ -187,7 +186,7 @@
                                         <li>
                                             <a href="{{ route('bo.finance.money-transfers.show', $transfer) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                     </ul>
                                 </td>

@@ -37,12 +37,12 @@ class UpdateCreditNoteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'customer_id.exists' => 'Le client sélectionné est invalide.',
-            'invoice_id.exists' => 'La facture sélectionnée est invalide.',
-            'items.min' => 'Au moins un article est obligatoire.',
-            'items.*.label.required_with' => 'Le libellé de l\'article est obligatoire.',
-            'items.*.quantity.required_with' => 'La quantité est obligatoire.',
-            'items.*.unit_price.required_with' => 'Le prix unitaire est obligatoire.',
+            'customer_id.exists' => __('Le client sélectionné est invalide.'),
+            'invoice_id.exists' => __('La facture sélectionnée est invalide.'),
+            'items.min' => __('Au moins un article est obligatoire.'),
+            'items.*.label.required_with' => __('Le libellé de l\'article est obligatoire.'),
+            'items.*.quantity.required_with' => __('La quantité est obligatoire.'),
+            'items.*.unit_price.required_with' => __('Le prix unitaire est obligatoire.'),
         ];
     }
 }

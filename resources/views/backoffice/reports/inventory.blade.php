@@ -10,19 +10,19 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6 class="mb-0">Rapport d'inventaire</h6>
+                    <h6 class="mb-0">{{ __("Rapport d'inventaire") }}</h6>
                 </div>
                 <div class="my-xl-auto">
                     <div class="dropdown">
                         <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
+                            <i class="isax isax-export-1 me-1"></i>{{ __('Exporter') }}
                         </a>
                         <ul class="dropdown-menu">
                             <li>
                                 <form method="POST" action="{{ route('bo.reports.inventory.export') }}">
                                     @csrf
-                                    <button class="dropdown-item" type="submit">Télécharger en CSV</button>
+                                    <button class="dropdown-item" type="submit">{{ __('Télécharger en CSV') }}</button>
                                 </form>
                             </li>
                         </ul>
@@ -46,7 +46,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-1">
                                 <div>
-                                    <p class="mb-1">Valeur totale</p>
+                                    <p class="mb-1">{{ __('Valeur totale') }}</p>
                                     <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalValue, 2, ',', ' ') }}
                                         {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                 </div>
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <p class="fs-13 mb-0">
-                                <span class="text-muted">Inventaire actif</span>
+                                <span class="text-muted">{{ __('Inventaire actif') }}</span>
                             </p>
                             <span class="position-absolute start-0 top-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-12.svg') }}" alt="">
@@ -71,8 +71,8 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-1">
                                 <div>
-                                    <p class="mb-1">Stock faible</p>
-                                    <h6 class="fs-16 fw-semibold mb-0">{{ $lowStockCount }} produits</h6>
+                                    <p class="mb-1">{{ __('Stock faible') }}</p>
+                                    <h6 class="fs-16 fw-semibold mb-0">{{ $lowStockCount }} {{ __('produits') }}</h6>
                                 </div>
                                 <div>
                                     <span class="avatar bg-success rounded">
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <p class="fs-13 mb-0">
-                                <span class="text-warning">Sous le seuil de réapprovisionnement</span>
+                                <span class="text-warning">{{ __('Sous le seuil de réapprovisionnement') }}</span>
                             </p>
                             <span class="position-absolute start-0 top-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-11.svg') }}" alt="">
@@ -95,8 +95,8 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-1">
                                 <div>
-                                    <p class="mb-1">Rupture de stock</p>
-                                    <h6 class="fs-16 fw-semibold mb-0">{{ $outOfStockCount }} produits</h6>
+                                    <p class="mb-1">{{ __('Rupture de stock') }}</p>
+                                    <h6 class="fs-16 fw-semibold mb-0">{{ $outOfStockCount }} {{ __('produits') }}</h6>
                                 </div>
                                 <div>
                                     <span class="avatar bg-warning rounded">
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <p class="fs-13 mb-0">
-                                <span class="text-danger">Quantité à zéro</span>
+                                <span class="text-danger">{{ __('Quantité à zéro') }}</span>
                             </p>
                             <span class="position-absolute start-0 top-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-10.svg') }}" alt="">
@@ -119,8 +119,8 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-1">
                                 <div>
-                                    <p class="mb-1">À réapprovisionner</p>
-                                    <h6 class="fs-16 fw-semibold mb-0">{{ $pendingReorders }} produits</h6>
+                                    <p class="mb-1">{{ __('À réapprovisionner') }}</p>
+                                    <h6 class="fs-16 fw-semibold mb-0">{{ $pendingReorders }} {{ __('produits') }}</h6>
                                 </div>
                                 <div>
                                     <span class="avatar bg-info rounded">
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                             <p class="fs-13 mb-0">
-                                <span class="text-info">Commandes nécessaires</span>
+                                <span class="text-info">{{ __('Commandes nécessaires') }}</span>
                             </p>
                             <span class="position-absolute start-0 top-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-09.svg') }}" alt="">
@@ -145,7 +145,7 @@
                 <div class="col-lg-5">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Valeur du stock par catégorie</h6>
+                            <h6 class="mb-0">{{ __('Valeur du stock par catégorie') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="inventory_category_chart" style="min-height: 300px;"></div>
@@ -155,7 +155,7 @@
                 <div class="col-lg-7">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Top 10 produits par valeur</h6>
+                            <h6 class="mb-0">{{ __('Top 10 produits par valeur') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="inventory_top_chart" style="min-height: 300px;"></div>
@@ -168,17 +168,17 @@
             @if ($lowStockItems->count() > 0)
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h6 class="mb-0">Alertes stock faible</h6>
+                        <h6 class="mb-0">{{ __('Alertes stock faible') }}</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-nowrap mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Produit</th>
-                                        <th>Entrepôt</th>
-                                        <th>Quantité</th>
-                                        <th>Seuil</th>
+                                        <th>{{ __('Produit') }}</th>
+                                        <th>{{ __('Entrepôt') }}</th>
+                                        <th>{{ __('Quantité') }}</th>
+                                        <th>{{ __('Seuil') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -211,13 +211,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Code</th>
-                            <th>Produit</th>
-                            <th>Catégorie</th>
-                            <th>Unité</th>
-                            <th class="no-sort">Quantité</th>
-                            <th class="no-sort">Prix de vente</th>
-                            <th class="no-sort">Prix d'achat</th>
+                            <th>{{ __('Code') }}</th>
+                            <th>{{ __('Produit') }}</th>
+                            <th>{{ __('Catégorie') }}</th>
+                            <th>{{ __('Unité') }}</th>
+                            <th class="no-sort">{{ __('Quantité') }}</th>
+                            <th class="no-sort">{{ __('Prix de vente') }}</th>
+                            <th class="no-sort">{{ __("Prix d'achat") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -250,7 +250,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">Aucun produit trouvé.</td>
+                                <td colspan="8" class="text-center">{{ __('Aucun produit trouvé.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -274,7 +274,7 @@
             // Stock value by category donut
             var catEl = document.querySelector('#inventory_category_chart');
             if (catEl) {
-                var catNames = {!! json_encode($stockByCategory->map(fn($c) => $c->category?->name ?? 'Non catégorisé')) !!};
+                var catNames = {!! json_encode($stockByCategory->map(fn($c) => $c->category?->name ?? __('Non catégorisé'))) !!};
                 var catValues = {!! json_encode($stockByCategory->pluck('total_value')->map(fn($v) => (float) $v)) !!};
                 if (catValues.length > 0) {
                     new ApexCharts(catEl, {
@@ -339,7 +339,7 @@
                             fontFamily: 'inherit'
                         },
                         series: [{
-                            name: 'Valeur',
+                            name: {!! json_encode(__('Valeur')) !!},
                             data: values
                         }],
                         xaxis: {

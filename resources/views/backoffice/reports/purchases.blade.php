@@ -11,20 +11,20 @@
             <!-- Start Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6 class="mb-0">Rapport des achats</h6>
+                    <h6 class="mb-0">{{ __('Rapport des achats') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="dropdown me-1">
                         <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
+                            <i class="isax isax-export-1 me-1"></i>{{ __('Exporter') }}
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="javascript:void(0);">Télécharger en PDF</a>
+                                <a class="dropdown-item" href="javascript:void(0);">{{ __('Télécharger en PDF') }}</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:void(0);">Télécharger en Excel</a>
+                                <a class="dropdown-item" href="javascript:void(0);">{{ __('Télécharger en Excel') }}</a>
                             </li>
                         </ul>
                     </div>
@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
-                                        <p class="mb-1 text-truncate">Total achats</p>
+                                        <p class="mb-1 text-truncate">{{ __('Total achats') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalPurchases, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                     </div>
@@ -59,7 +59,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
-                                        <p class="mb-1 text-truncate">Achats payés</p>
+                                        <p class="mb-1 text-truncate">{{ __('Achats payés') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($paidPurchases, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                     </div>
@@ -78,7 +78,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
-                                        <p class="mb-1 text-truncate">Achats en attente</p>
+                                        <p class="mb-1 text-truncate">{{ __('Achats en attente') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">
                                             {{ number_format($pendingPurchases, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
@@ -98,7 +98,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
-                                        <p class="mb-1 text-truncate">Achats annulés</p>
+                                        <p class="mb-1 text-truncate">{{ __('Achats annulés') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">
                                             {{ number_format($cancelledPurchases, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
@@ -137,9 +137,9 @@
                             </span>
                         </div>
                         <button type="submit" class="btn btn-primary">
-                            <i class="isax isax-filter me-1"></i>Filtrer
+                            <i class="isax isax-filter me-1"></i>{{ __('Filtrer') }}
                         </button>
-                        <a href="{{ route('bo.reports.purchases') }}" class="btn btn-outline-white">Réinitialiser</a>
+                        <a href="{{ route('bo.reports.purchases') }}" class="btn btn-outline-white">{{ __('Réinitialiser') }}</a>
                     </div>
                 </form>
             </div>
@@ -149,7 +149,7 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Évolution des achats par mois</h6>
+                            <h6 class="mb-0">{{ __('Évolution des achats par mois') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="purchases_monthly_chart" style="min-height: 300px;"></div>
@@ -159,7 +159,7 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Répartition par statut</h6>
+                            <h6 class="mb-0">{{ __('Répartition par statut') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="purchases_status_chart" style="min-height: 300px;"></div>
@@ -178,13 +178,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th class="no-sort">N°</th>
-                            <th>Date</th>
-                            <th>Fournisseur</th>
-                            <th>Total</th>
-                            <th>Payé</th>
-                            <th>Restant</th>
-                            <th class="no-sort">Statut</th>
+                            <th class="no-sort">{{ __('N°') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Fournisseur') }}</th>
+                            <th>{{ __('Total') }}</th>
+                            <th>{{ __('Payé') }}</th>
+                            <th>{{ __('Restant') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -215,7 +215,7 @@
                                 <td>
                                     @switch($bill->status)
                                         @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Payée <i
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }} <i
                                                     class="isax isax-tick-circle ms-1"></i></span>
                                         @break
 
@@ -229,7 +229,7 @@
                                         @break
 
                                         @case('cancelled')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Annulée <i
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulée') }} <i
                                                     class="isax isax-close-circle ms-1"></i></span>
                                         @break
 
@@ -241,8 +241,7 @@
                             </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center">Aucune facture fournisseur trouvée pour cette
-                                        période.</td>
+                                    <td colspan="8" class="text-center">{{ __('Aucune facture fournisseur trouvée pour cette période.') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -283,7 +282,7 @@
                             fontFamily: 'inherit'
                         },
                         series: [{
-                            name: 'Achats',
+                            name: {!! json_encode(__('Achats')) !!},
                             data: data
                         }],
                         xaxis: {
@@ -326,12 +325,12 @@
                 if (statusEl) {
                     var breakdown = @json($purchaseStatusBreakdown->map(fn($s) => (int) $s->count));
                     var statusLabels = {
-                        draft: 'Brouillon',
-                        sent: 'Envoyée',
-                        partial: 'Partielle',
-                        paid: 'Payée',
-                        cancelled: 'Annulée',
-                        overdue: 'En retard'
+                        draft: {!! json_encode(__('Brouillon')) !!},
+                        sent: {!! json_encode(__('Envoyée')) !!},
+                        partial: {!! json_encode(__('Partielle')) !!},
+                        paid: {!! json_encode(__('Payée')) !!},
+                        cancelled: {!! json_encode(__('Annulée')) !!},
+                        overdue: {!! json_encode(__('En retard')) !!}
                     };
                     var statusColors = {
                         draft: '#6c757d',

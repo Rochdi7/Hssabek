@@ -15,34 +15,31 @@
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
-                            <h6><a href="{{ route('bo.sales.invoices.index') }}"><i class="isax isax-arrow-left me-2"></i>Factures</a></h6>
+                            <h6><a href="{{ route('bo.sales.invoices.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Factures') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('bo.sales.invoices.download', $invoice) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>Télécharger PDF</a>
+                                <a href="{{ route('bo.sales.invoices.download', $invoice) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
                                 @if($invoice->status === 'draft')
                                     <a href="{{ route('bo.sales.invoices.edit', $invoice) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i
-                                            class="isax isax-edit me-1"></i>Modifier</a>
+                                            class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                     <form method="POST" action="{{ route('bo.sales.invoices.send', $invoice) }}" class="me-3">
                                         @csrf
                                         <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
-                                            <i class="isax isax-send-2 me-1"></i>Envoyer
-                                        </button>
+                                            <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}</button>
                                     </form>
                                 @endif
                                 @if(in_array($invoice->status, ['draft', 'sent', 'partial', 'overdue']))
                                     <form method="POST" action="{{ route('bo.sales.invoices.void', $invoice) }}">
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
-                                            onclick="return confirm('Êtes-vous sûr de vouloir annuler cette facture ?')">
-                                            <i class="isax isax-close-circle me-1"></i>Annuler
-                                        </button>
+                                            onclick="return confirm('{{ __("Êtes-vous sûr de vouloir annuler cette facture ?") }}')">
+                                            <i class="isax isax-close-circle me-1"></i>{{ __('Annuler') }}</button>
                                     </form>
                                 @endif
                                 <form method="POST" action="{{ route('bo.sales.invoices.destroy', $invoice) }}">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
-                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette facture ?')">
-                                        <i class="isax isax-trash me-1"></i>Supprimer
-                                    </button>
+                                        onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer cette facture ?") }}')">
+                                        <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}</button>
                                 </form>
                             </div>
                         </div>
@@ -62,18 +59,18 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between border-bottom flex-wrap mb-3 pb-2 position-relative z-1">
                                         <div class="mb-3">
-                                            <h4 class="mb-1">Facture</h4>
+                                            <h4 class="mb-1">{{ __('Facture') }}</h4>
                                             <div class="d-flex align-items-center flex-wrap row-gap-3">
                                                 <div class="me-4">
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $invoice->number }}</h6>
                                                     <p>
                                                         @switch($invoice->status)
-                                                            @case('draft') <span class="badge badge-soft-secondary">Brouillon</span> @break
-                                                            @case('sent') <span class="badge badge-soft-info">Envoyée</span> @break
-                                                            @case('partial') <span class="badge badge-soft-warning">Partiellement payée</span> @break
-                                                            @case('paid') <span class="badge badge-soft-success">Payée</span> @break
-                                                            @case('overdue') <span class="badge badge-soft-danger">En retard</span> @break
-                                                            @case('void') <span class="badge badge-soft-danger">Annulée</span> @break
+                                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
+                                                            @case('sent') <span class="badge badge-soft-info">{{ __('Envoyée') }}</span> @break
+                                                            @case('partial') <span class="badge badge-soft-warning">{{ __('Partiellement payée') }}</span> @break
+                                                            @case('paid') <span class="badge badge-soft-success">{{ __('Payée') }}</span> @break
+                                                            @case('overdue') <span class="badge badge-soft-danger">{{ __('En retard') }}</span> @break
+                                                            @case('void') <span class="badge badge-soft-danger">{{ __('Annulée') }}</span> @break
                                                         @endswitch
                                                     </p>
                                                 </div>
@@ -85,41 +82,41 @@
                                     <div class="row gy-3 position-relative z-1">
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">Détails de la facture</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Détails de la facture') }}</h6>
                                                 <div>
-                                                    <p class="mb-1">N° Facture : <span class="text-dark">{{ $invoice->number }}</span></p>
-                                                    <p class="mb-1">Date d'émission : <span class="text-dark">{{ $invoice->issue_date?->format('d/m/Y') }}</span></p>
+                                                    <p class="mb-1">{{ __('N° Facture') }} : <span class="text-dark">{{ $invoice->number }}</span></p>
+                                                    <p class="mb-1">{{ __('Date d\'émission') }} : <span class="text-dark">{{ $invoice->issue_date?->format('d/m/Y') }}</span></p>
                                                     @if($invoice->due_date)
-                                                        <p class="mb-1">Date d'échéance : <span class="text-dark">{{ $invoice->due_date->format('d/m/Y') }}</span></p>
+                                                        <p class="mb-1">{{ __('Date d\'échéance') }} : <span class="text-dark">{{ $invoice->due_date->format('d/m/Y') }}</span></p>
                                                     @endif
                                                     @if($invoice->reference_number)
-                                                        <p class="mb-1">Référence : <span class="text-dark">{{ $invoice->reference_number }}</span></p>
+                                                        <p class="mb-1">{{ __('Référence') }} : <span class="text-dark">{{ $invoice->reference_number }}</span></p>
                                                     @endif
-                                                    <p class="mb-1">Devise : <span class="text-dark">{{ $invoice->currency }}</span></p>
+                                                    <p class="mb-1">{{ __('Devise') }} : <span class="text-dark">{{ $invoice->currency }}</span></p>
                                                 </div>
                                             </div>
                                         </div><!-- end col -->
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">Client</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Client') }}</h6>
                                                 <div>
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $invoice->customer->name ?? '—' }}</h6>
                                                     @if($invoice->customer?->email)
-                                                        <p class="mb-1">Email : {{ $invoice->customer->email }}</p>
+                                                        <p class="mb-1">{{ __('Email') }} : {{ $invoice->customer->email }}</p>
                                                     @endif
                                                     @if($invoice->customer?->phone)
-                                                        <p class="mb-1">Tél : {{ $invoice->customer->phone }}</p>
+                                                        <p class="mb-1">{{ __('Tél') }} : {{ $invoice->customer->phone }}</p>
                                                     @endif
                                                 </div>
                                             </div>
                                         </div><!-- end col -->
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">Paiement</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Paiement') }}</h6>
                                                 <div>
-                                                    <p class="mb-1">Total : <span class="text-dark fw-semibold">{{ number_format($invoice->total, 2, ',', ' ') }} {{ $invoice->currency }}</span></p>
-                                                    <p class="mb-1">Payé : <span class="text-success fw-semibold">{{ number_format($invoice->amount_paid, 2, ',', ' ') }} {{ $invoice->currency }}</span></p>
-                                                    <p class="mb-1">Restant : <span class="text-danger fw-semibold">{{ number_format($invoice->amount_due, 2, ',', ' ') }} {{ $invoice->currency }}</span></p>
+                                                    <p class="mb-1">{{ __('Total') }} : <span class="text-dark fw-semibold">{{ number_format($invoice->total, 2, ',', ' ') }} {{ $invoice->currency }}</span></p>
+                                                    <p class="mb-1">{{ __('Payé') }} : <span class="text-success fw-semibold">{{ number_format($invoice->amount_paid, 2, ',', ' ') }} {{ $invoice->currency }}</span></p>
+                                                    <p class="mb-1">{{ __('Restant') }} : <span class="text-danger fw-semibold">{{ number_format($invoice->amount_due, 2, ',', ' ') }} {{ $invoice->currency }}</span></p>
                                                 </div>
                                             </div>
                                         </div><!-- end col -->
@@ -128,19 +125,19 @@
 
                                 </div>
                                 <div class="mb-3">
-                                    <h6 class="mb-3">Articles</h6>
+                                    <h6 class="mb-3">{{ __('Articles') }}</h6>
                                     <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                         <table class="table m-0">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Libellé</th>
-                                                    <th>Quantité</th>
-                                                    <th>Unité</th>
-                                                    <th>Prix unitaire</th>
-                                                    <th>Remise</th>
-                                                    <th>Taxe</th>
-                                                    <th>Montant</th>
+                                                    <th>{{ __('Libellé') }}</th>
+                                                    <th>{{ __('Quantité') }}</th>
+                                                    <th>{{ __('Unité') }}</th>
+                                                    <th>{{ __('Prix unitaire') }}</th>
+                                                    <th>{{ __('Remise') }}</th>
+                                                    <th>{{ __('Taxe') }}</th>
+                                                    <th>{{ __('Montant') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -176,14 +173,14 @@
 
                                 @if($invoice->charges->count() > 0)
                                     <div class="mb-3">
-                                        <h6 class="mb-3">Frais supplémentaires</h6>
+                                        <h6 class="mb-3">{{ __('Frais supplémentaires') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                             <table class="table m-0">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th>Libellé</th>
-                                                        <th>Montant</th>
-                                                        <th>Taxe</th>
+                                                        <th>{{ __('Libellé') }}</th>
+                                                        <th>{{ __('Montant') }}</th>
+                                                        <th>{{ __('Taxe') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -208,13 +205,13 @@
                                                 <div class="mb-3 p-4">
                                                     @if($invoice->terms)
                                                         <div class="mb-3">
-                                                            <h6 class="fs-14 fw-semibold mb-1">Conditions générales</h6>
+                                                            <h6 class="fs-14 fw-semibold mb-1">{{ __('Conditions générales') }}</h6>
                                                             <p>{{ $invoice->terms }}</p>
                                                         </div>
                                                     @endif
                                                     @if($invoice->notes)
                                                         <div>
-                                                            <h6 class="fs-14 fw-semibold mb-1">Notes</h6>
+                                                            <h6 class="fs-14 fw-semibold mb-1">{{ __('Notes') }}</h6>
                                                             <p>{{ $invoice->notes }}</p>
                                                         </div>
                                                     @endif
@@ -224,18 +221,18 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3 p-4">
                                                 <div class="d-flex align-items-center justify-content-between mb-3">
-                                                    <h6 class="fs-14 fw-semibold">Sous-total</h6>
+                                                    <h6 class="fs-14 fw-semibold">{{ __("Sous-total") }}</h6>
                                                     <h6 class="fs-14 fw-semibold">{{ number_format($invoice->subtotal, 2, ',', ' ') }}</h6>
                                                 </div>
                                                 @if($invoice->discount_total > 0)
                                                     <div class="d-flex align-items-center justify-content-between mb-3">
-                                                        <h6 class="fs-14 fw-semibold">Remise</h6>
+                                                        <h6 class="fs-14 fw-semibold">{{ __('Remise') }}</h6>
                                                         <h6 class="fs-14 fw-semibold text-danger">-{{ number_format($invoice->discount_total, 2, ',', ' ') }}</h6>
                                                     </div>
                                                 @endif
                                                 @if($invoice->tax_total > 0)
                                                     <div class="d-flex align-items-center justify-content-between mb-3">
-                                                        <h6 class="fs-14 fw-semibold">Taxe</h6>
+                                                        <h6 class="fs-14 fw-semibold">{{ __('Taxe') }}</h6>
                                                         <h6 class="fs-14 fw-semibold">{{ number_format($invoice->tax_total, 2, ',', ' ') }}</h6>
                                                     </div>
                                                 @endif
@@ -245,7 +242,7 @@
                                                 </div>
                                                 @if($invoice->total_in_words)
                                                     <div>
-                                                        <h6 class="fs-14 fw-semibold mb-1">Total en lettres</h6>
+                                                        <h6 class="fs-14 fw-semibold mb-1">{{ __('Total en lettres') }}</h6>
                                                         <p>{{ $invoice->total_in_words }}</p>
                                                     </div>
                                                 @endif
@@ -257,15 +254,15 @@
 
                                 @if($invoice->paymentAllocations->count() > 0)
                                     <div class="mb-3">
-                                        <h6 class="mb-3">Historique des paiements</h6>
+                                        <h6 class="mb-3">{{ __('Historique des paiements') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                             <table class="table m-0">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th>Date</th>
-                                                        <th>Méthode</th>
-                                                        <th>Référence</th>
-                                                        <th>Montant appliqué</th>
+                                                        <th>{{ __('Date') }}</th>
+                                                        <th>{{ __('Méthode') }}</th>
+                                                        <th>{{ __('Référence') }}</th>
+                                                        <th>{{ __('Montant appliqué') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -285,14 +282,14 @@
 
                                 @if($invoice->creditNoteApplications->count() > 0)
                                     <div class="mb-3">
-                                        <h6 class="mb-3">Avoirs appliqués</h6>
+                                        <h6 class="mb-3">{{ __('Avoirs appliqués') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                             <table class="table m-0">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th>N° Avoir</th>
-                                                        <th>Date</th>
-                                                        <th>Montant appliqué</th>
+                                                        <th>{{ __('N° Avoir') }}</th>
+                                                        <th>{{ __('Date') }}</th>
+                                                        <th>{{ __('Montant appliqué') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

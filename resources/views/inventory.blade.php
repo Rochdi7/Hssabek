@@ -1,9 +1,9 @@
 <?php $page = 'inventory'; ?>
 @extends('layout.mainlayout')
-@section('content') 
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
     <div class="page-wrapper">
 
         <!-- Start Content -->
@@ -16,7 +16,8 @@
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -29,7 +30,8 @@
                         </ul>
                     </div>
                     <div>
-                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_modal">
+                        <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#add_modal">
                             <i class="isax isax-add-circle5 me-1"></i>New Inventory
                         </a>
                     </div>
@@ -44,16 +46,20 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
                                 <i class="isax isax-sort me-1"></i>Sort By : <span class="fw-normal ms-1">Latest</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
@@ -66,7 +72,9 @@
                             </ul>
                         </div>
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu">
@@ -155,11 +163,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-01.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-01.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple iPhone 15</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple iPhone 15</a>
+                                        </h6>
                                     </div>
                                 </div>
                             </td>
@@ -172,13 +183,19 @@
                             <td class="text-dark">$98</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -189,10 +206,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -205,11 +226,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-02.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-02.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dell XPS 13 9310</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dell XPS 13
+                                                9310</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -222,13 +246,19 @@
                             <td class="text-dark">$24</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -239,10 +269,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -255,11 +289,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-03.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-03.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Bose QuietComfort 45</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Bose QuietComfort
+                                                45</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -272,13 +309,19 @@
                             <td class="text-dark">$58</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -289,10 +332,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -305,11 +352,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-04.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-04.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Nike Dri-FIT T-shirt</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Nike Dri-FIT
+                                                T-shirt</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -322,13 +372,19 @@
                             <td class="text-dark">$72</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -339,10 +395,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -355,11 +415,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-05.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-05.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Adidas Ultraboost 22 Running Shoe</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Adidas Ultraboost
+                                                22 Running Shoe</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -372,13 +435,19 @@
                             <td class="text-dark">$89</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -389,10 +458,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -405,11 +478,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-06.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-06.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Samsung French Door Refrigerator</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Samsung French Door
+                                                Refrigerator</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -422,13 +498,19 @@
                             <td class="text-dark">$115</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -439,10 +521,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -455,11 +541,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-07.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-07.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson V15 Detect  Vacuum Cleaner</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson V15 Detect
+                                                Vacuum Cleaner</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -472,13 +561,19 @@
                             <td class="text-dark">$240</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -489,10 +584,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -505,11 +604,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-08.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-08.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">HP Spectre x360 14</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">HP Spectre x360
+                                                14</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -522,13 +624,19 @@
                             <td class="text-dark">$525</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -539,10 +647,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -555,11 +667,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-09.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-09.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson Supersonic Hair Dryer</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Dyson Supersonic
+                                                Hair Dryer</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -572,13 +687,19 @@
                             <td class="text-dark">$750</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -589,10 +710,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -605,11 +730,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-10.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-10.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple AirPods Pro</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Apple AirPods
+                                                Pro</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -622,13 +750,19 @@
                             <td class="text-dark">$49</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -639,10 +773,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -655,11 +793,14 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="javascript:void(0);" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                        <img src="{{URL::asset('build/img/products/product-11.jpg')}}" class="rounded-circle" alt="img">
+                                    <a href="javascript:void(0);"
+                                        class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                        <img src="{{ URL::asset('build/img/products/product-11.jpg') }}"
+                                            class="rounded-circle" alt="img">
                                     </a>
                                     <div>
-                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Levi’s 501 Original Fit Jeans</a></h6>
+                                        <h6 class="fs-14 fw-medium mb-0"><a href="javascript:void(0);">Levi’s 501 Original
+                                                Fit Jeans</a></h6>
                                     </div>
                                 </div>
                             </td>
@@ -672,13 +813,19 @@
                             <td class="text-dark">$36</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#view_history">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-primary border-0 d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#view_history">
                                         <i class="isax isax-document-sketch5 me-1"></i> History
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockin">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-success border-0  d-inline-flex align-items-center me-1 fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockin">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock In
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular" data-bs-toggle="modal" data-bs-target="#add_stockout">
+                                    <a href="#"
+                                        class="btn btn-sm btn-soft-danger border-0 d-inline-flex align-items-center fs-12 fw-regular"
+                                        data-bs-toggle="modal" data-bs-target="#add_stockout">
                                         <i class="isax isax-document-sketch5 me-1"></i> Stock Out
                                     </a>
                                 </div>
@@ -689,10 +836,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -707,23 +858,25 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
-            <!-- End Footer -->
+        <!-- End Footer -->
 
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Start Filter -->
     <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="offcanvas-body pt-3">
@@ -731,7 +884,9 @@
                 <div class="mb-3">
                     <label class="form-label">Product/Service</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -748,42 +903,60 @@
                                     <label class="d-inline-flex align-items-center text-gray-9">
                                         <input class="form-check-input select-all m-0 me-2" type="checkbox"> Select All
                                     </label>
-                                    <a href="javascript:void(0);" class="link-danger fw-medium text-decoration-underline">Reset</a>
+                                    <a href="javascript:void(0);"
+                                        class="link-danger fw-medium text-decoration-underline">Reset</a>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-01.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Apple iPhone 15
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-01.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Apple iPhone 15
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-02.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Dell XPS 13 9310
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-02.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Dell XPS 13
+                                        9310
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-03.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Bose QuietComfort 45
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-03.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Bose
+                                        QuietComfort 45
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-04.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Nike Dri-FIT T-shirt
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-04.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Nike Dri-FIT
+                                        T-shirt
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-05.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Adidas Ultraboost 22 Running Shoe
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-05.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Adidas
+                                        Ultraboost 22 Running Shoe
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/products/product-06.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Samsung French Door Refrigerator
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/products/product-06.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Samsung French
+                                        Door Refrigerator
                                     </label>
                                 </li>
                             </ul>
@@ -826,7 +999,8 @@
                             <a href="#" class="btn btn-outline-white w-100">Reset</a>
                         </div>
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div>
                     </div>
                 </div>

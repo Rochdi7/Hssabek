@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -15,13 +15,16 @@
                 <div class="col-xxl-11 col-lg-11 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6><a href="{{url('credit-notes')}}"><i class="isax isax-arrow-left me-2"></i>Credit Notes</a></h6>
-                            <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#view_notes"><i class="isax isax-eye me-1"></i>Preview</a>
+                            <h6><a href="{{ url('credit-notes') }}"><i class="isax isax-arrow-left me-2"></i>Credit Notes</a>
+                            </h6>
+                            <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="modal" data-bs-target="#view_notes"><i
+                                    class="isax isax-eye me-1"></i>Preview</a>
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="mb-3">Credit Note Details</h6>
-                                <form action="{{url('credit-notes')}}">
+                                <form action="{{ url('credit-notes') }}">
                                     <div class="border-bottom mb-3 pb-1">
 
                                         <!-- start row -->
@@ -33,7 +36,8 @@
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Credit Note Id</label>
-                                                            <input type="text" class="form-control" placeholder="9876543" readonly="">
+                                                            <input type="text" class="form-control" placeholder="9876543"
+                                                                readonly="">
                                                         </div>
                                                     </div><!-- end col -->
                                                     <div class="col-md-6">
@@ -47,7 +51,9 @@
                                                             <div class="d-flex align-items-center justify-content-between">
                                                                 <label class="form-label">Customer Name</label>
                                                                 <a href="#" class="d-inline-flex align-items-center">
-                                                                    <i class="isax isax-add-circle5 text-primary me-1"></i>Add New
+                                                                    <i
+                                                                        class="isax isax-add-circle5 text-primary me-1"></i>Add
+                                                                    New
                                                                 </a>
                                                             </div>
                                                             <select class="select">
@@ -69,7 +75,9 @@
                                                     <div class="col-lg-6">
                                                         <label class="form-label">Credit Note Date</label>
                                                         <div class="input-group position-relative mb-3">
-                                                            <input type="text" class="form-control datetimepicker rounded-end" value="25-03-2025">
+                                                            <input type="text"
+                                                                class="form-control datetimepicker rounded-end"
+                                                                value="25-03-2025">
                                                             <span class="input-icon-addon fs-16 text-gray-9">
                                                                 <i class="isax isax-calendar-2"></i>
                                                             </span>
@@ -77,7 +85,9 @@
                                                     </div><!-- end col -->
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
-                                                            <a href="#" class="d-inline-flex align-items-center"><i class="isax isax-add-circle5 text-primary me-1"></i>Add Due Date</a>
+                                                            <a href="#" class="d-inline-flex align-items-center"><i
+                                                                    class="isax isax-add-circle5 text-primary me-1"></i>Add
+                                                                Due Date</a>
                                                         </div>
                                                     </div><!-- end col -->
                                                 </div>
@@ -89,9 +99,12 @@
                                                 <!-- start row -->
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <div class="border border-dashed bg-light rounded text-center p-3 mb-3">
-                                                            <img src="{{URL::asset('build/img/invoice-logo.svg')}}" class="invoice-logo-dark" alt="img">
-                                                            <img src="{{URL::asset('build/img/invoice-logo-white-2.svg')}}" class="invoice-logo-white" alt="img">
+                                                        <div
+                                                            class="border border-dashed bg-light rounded text-center p-3 mb-3">
+                                                            <img src="{{ URL::asset('build/img/invoice-logo.svg') }}"
+                                                                class="invoice-logo-dark" alt="img">
+                                                            <img src="{{ URL::asset('build/img/invoice-logo-white-2.svg') }}"
+                                                                class="invoice-logo-white" alt="img">
                                                         </div>
                                                     </div><!-- end col -->
                                                     <div class="col-lg-12">
@@ -120,13 +133,18 @@
                                                         </div>
                                                     </div><!-- end col -->
                                                     <div class="col-md-12">
-                                                        <div class="d-flex align-items-center justify-content-between border rounded p-2 mb-3">
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-between border rounded p-2 mb-3">
                                                             <div class="form-check form-switch me-4">
-                                                                <input class="form-check-input" type="checkbox" role="switch" id="enabe_tax" checked>
-                                                                <label class="form-check-label" for="enabe_tax">Enable Tax</label>
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    role="switch" id="enabe_tax" checked>
+                                                                <label class="form-check-label" for="enabe_tax">Enable
+                                                                    Tax</label>
                                                             </div>
                                                             <div>
-                                                                <a href="#" class="btn btn-icon btn-sm btn-soft-primary"><i class="isax isax-setting-2 fs-16"></i></a>
+                                                                <a href="#"
+                                                                    class="btn btn-icon btn-sm btn-soft-primary"><i
+                                                                        class="isax isax-setting-2 fs-16"></i></a>
                                                             </div>
                                                         </div>
                                                     </div><!-- end col -->
@@ -148,16 +166,20 @@
                                                         <h6 class="mb-3">Bill From</h6>
                                                         <div class="mb-3">
                                                             <label class="form-label">Billed By</label>
-                                                            <input type="text" class="form-control" value="Kanakku">
+                                                            <input type="text" class="form-control" value="Hssabek">
                                                         </div>
                                                         <div class="p-3 bg-light rounded border">
                                                             <div class="d-flex">
                                                                 <div class="me-3">
-                                                                    <span class="p-2 rounded border"><img src="{{URL::asset('build/img/logo-small.svg')}}" alt="image" class="img-fluid"></span>
+                                                                    <span class="p-2 rounded border"><img
+                                                                            src="{{ URL::asset('build/img/logo-small.svg') }}"
+                                                                            alt="image" class="img-fluid"></span>
                                                                 </div>
                                                                 <div>
-                                                                    <h6 class="fs-14 mb-1 fw-semibold">Kanakku Invoice Management</h6>
-                                                                    <p class="mb-1 fs-13">15 Hodges Mews, HP12 3JL, United Kingdom
+                                                                    <h6 class="fs-14 mb-1 fw-semibold">Hssabek Invoice
+                                                                        Management</h6>
+                                                                    <p class="mb-1 fs-13">15 Hodges Mews, HP12 3JL, United
+                                                                        Kingdom
                                                                     </p>
                                                                     <p class="mb-1 fs-13">Phone : +1 54664 75945</p>
                                                                     <p class="mb-1 fs-13">Email : info@example.com</p>
@@ -174,16 +196,21 @@
                                                         <h6 class="mb-3">Bill To</h6>
                                                         <div class="mb-3">
                                                             <label class="form-label">Customer Name</label>
-                                                            <input type="text" class="form-control" value="Timesquare Tech">
+                                                            <input type="text" class="form-control"
+                                                                value="Timesquare Tech">
                                                         </div>
                                                         <div class="p-3 bg-light rounded border">
                                                             <div class="d-flex">
                                                                 <div class="me-3">
-                                                                    <span><img src="{{URL::asset('build/img/icons/timesquare-icon.svg')}}" alt="image" class="img-fluid rounded"></span>
+                                                                    <span><img
+                                                                            src="{{ URL::asset('build/img/icons/timesquare-icon.svg') }}"
+                                                                            alt="image"
+                                                                            class="img-fluid rounded"></span>
                                                                 </div>
                                                                 <div>
                                                                     <h6 class="fs-14 mb-1 fw-semibold">Timesquare Tech</h6>
-                                                                    <p class="mb-1 fs-13">299 Star Trek Drive, Florida, 32405, USA
+                                                                    <p class="mb-1 fs-13">299 Star Trek Drive, Florida,
+                                                                        32405, USA
                                                                     </p>
                                                                     <p class="mb-1 fs-13">Phone : +1 54664 75945</p>
                                                                     <p class="mb-1 fs-13">Email : info@example.com</p>
@@ -208,13 +235,15 @@
                                                     <label class="form-label">Item Type</label>
                                                     <div class="d-flex align-items-center mb-3">
                                                         <div class="form-check me-3">
-                                                            <input class="form-check-input" type="radio" name="Radio" id="Radio-sm-1" checked="">
+                                                            <input class="form-check-input" type="radio" name="Radio"
+                                                                id="Radio-sm-1" checked="">
                                                             <label class="form-check-label" for="Radio-sm-1">
                                                                 Product
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="Radio" id="Radio-sm-2">
+                                                            <input class="form-check-input" type="radio" name="Radio"
+                                                                id="Radio-sm-2">
                                                             <label class="form-check-label" for="Radio-sm-2">
                                                                 Service
                                                             </label>
@@ -253,35 +282,45 @@
                                                 <tbody class="add-tbody">
                                                     <tr>
                                                         <td>
-                                                            <input type="text" class="form-control" value="Nike Jordon">
+                                                            <input type="text" class="form-control"
+                                                                value="Nike Jordon">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="1" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="1"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="Pcs" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="Pcs"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="$1360.00" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="$1360.00"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="0%" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="0%"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="18" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="18"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="$1358.00" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="$1358.00"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <a href="javascript:void(0);" class="text-danger remove-table"><i class="isax isax-close-circle"></i></a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="text-danger remove-table"><i
+                                                                        class="isax isax-close-circle"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" class="form-control" value="Enter Product Name">
+                                                            <input type="text" class="form-control"
+                                                                value="Enter Product Name">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control" value="0">
@@ -299,11 +338,14 @@
                                                             <input type="text" class="form-control" value="0">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="0" style="min-width: 66px;">
+                                                            <input type="text" class="form-control" value="0"
+                                                                style="min-width: 66px;">
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <a href="javascript:void(0);" class="text-danger remove-table"><i class="isax isax-close-circle"></i></a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="text-danger remove-table"><i
+                                                                        class="isax isax-close-circle"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -311,7 +353,8 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <a href="#" class="d-inline-flex align-items-center add-invoice-data"><i class="isax isax-add-circle5 text-primary me-1"></i>Add New</a>
+                                            <a href="#" class="d-inline-flex align-items-center add-invoice-data"><i
+                                                    class="isax isax-add-circle5 text-primary me-1"></i>Add New</a>
                                         </div>
                                     </div>
                                     <div class="border-bottom mb-3">
@@ -320,15 +363,31 @@
                                                 <div class="mb-3">
                                                     <h6 class="mb-3">Extra Information</h6>
                                                     <div>
-                                                        <ul class="nav nav-tabs nav-solid-primary tab-style-1 border-0 p-0 d-flex flex-wrap gap-3 mb-3" role="tablist">
+                                                        <ul class="nav nav-tabs nav-solid-primary tab-style-1 border-0 p-0 d-flex flex-wrap gap-3 mb-3"
+                                                            role="tablist">
                                                             <li class="nav-item" role="presentation">
-                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2" data-bs-toggle="tab" data-bs-target="#notes" aria-current="page" href="javascript:void(0);" aria-selected="false" role="tab" tabindex="-1"><i class="isax isax-document-text me-1"></i>Add Notes</a>
+                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2"
+                                                                    data-bs-toggle="tab" data-bs-target="#notes"
+                                                                    aria-current="page" href="javascript:void(0);"
+                                                                    aria-selected="false" role="tab"
+                                                                    tabindex="-1"><i
+                                                                        class="isax isax-document-text me-1"></i>Add
+                                                                    Notes</a>
                                                             </li>
                                                             <li class="nav-item" role="presentation">
-                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2" data-bs-toggle="tab" data-bs-target="#terms" href="javascript:void(0);" aria-selected="false" role="tab" tabindex="-1"><i class="isax isax-document me-1"></i>Add Terms &amp; Conditions</a>
+                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2"
+                                                                    data-bs-toggle="tab" data-bs-target="#terms"
+                                                                    href="javascript:void(0);" aria-selected="false"
+                                                                    role="tab" tabindex="-1"><i
+                                                                        class="isax isax-document me-1"></i>Add Terms &amp;
+                                                                    Conditions</a>
                                                             </li>
                                                             <li class="nav-item" role="presentation">
-                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2 active" data-bs-toggle="tab" data-bs-target="#bank" href="javascript:void(0);" aria-selected="true" role="tab"><i class="isax isax-bank me-1"></i>Bank Details</a>
+                                                                <a class="nav-link d-inline-flex align-items-center border fs-12 fw-semibold rounded-2 active"
+                                                                    data-bs-toggle="tab" data-bs-target="#bank"
+                                                                    href="javascript:void(0);" aria-selected="true"
+                                                                    role="tab"><i class="isax isax-bank me-1"></i>Bank
+                                                                    Details</a>
                                                             </li>
                                                         </ul>
                                                         <div class="tab-content">
@@ -340,15 +399,20 @@
                                                                 <label class="form-label">Terms &amp; Conditions</label>
                                                                 <textarea class="form-control"></textarea>
                                                             </div>
-                                                            <div class="tab-pane fade active show" id="bank" role="tabpanel">
+                                                            <div class="tab-pane fade active show" id="bank"
+                                                                role="tabpanel">
                                                                 <label class="form-label">Account</label>
                                                                 <select class="select">
                                                                     <option>Select</option>
                                                                     <option>Andrew - 5225655545555454 (Swiss Bank)</option>
-                                                                    <option>Mark Salween - 4654145644566 (International Bank)</option>
-                                                                    <option>Sophia Martinez - 7890123456789012 (Global Finance)</option>
-                                                                    <option>David Chen - 2345678901234567 (National Bank)</option>
-                                                                    <option>Emily Johnson - 3456789012345678 (Community Credit Union)</option>
+                                                                    <option>Mark Salween - 4654145644566 (International
+                                                                        Bank)</option>
+                                                                    <option>Sophia Martinez - 7890123456789012 (Global
+                                                                        Finance)</option>
+                                                                    <option>David Chen - 2345678901234567 (National Bank)
+                                                                    </option>
+                                                                    <option>Emily Johnson - 3456789012345678 (Community
+                                                                        Credit Union)</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -371,21 +435,27 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <a href="#" class="d-inline-flex align-items-center">
-                                                            <i class="isax isax-add-circle5 text-primary me-1"></i>Add Additional Charges
+                                                            <i class="isax isax-add-circle5 text-primary me-1"></i>Add
+                                                            Additional Charges
                                                         </a>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-between mb-3">
                                                         <h6 class="fs-14 fw-semibold">Discount</h6>
-                                                        <input type="text" class="form-control" value="0%" style="width: 106px;">
+                                                        <input type="text" class="form-control" value="0%"
+                                                            style="width: 106px;">
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
                                                         <div class="form-check form-switch me-4">
-                                                            <input class="form-check-input" type="checkbox" role="switch" id="require_check_2" checked="">
-                                                            <label class="form-check-label" for="require_check_2">Round Off Total</label>
+                                                            <input class="form-check-input" type="checkbox"
+                                                                role="switch" id="require_check_2" checked="">
+                                                            <label class="form-check-label" for="require_check_2">Round
+                                                                Off Total</label>
                                                         </div>
                                                         <h6 class="fs-14 fw-semibold">$596</h6>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
                                                         <h6>Total (USD)</h6>
                                                         <h6>$596</h6>
                                                     </div>
@@ -409,8 +479,11 @@
                                                         <label class="form-label">Signature Name</label>
                                                         <input type="text" class="form-control" value="Adrian">
                                                     </div>
-                                                    <div class="file-upload drag-file w-100 h-auto py-3 d-flex align-items-center justify-content-center flex-column">
-                                                        <span class="upload-img d-block"><i class="isax isax-image text-primary me-1"></i>Upload Signature</span>
+                                                    <div
+                                                        class="file-upload drag-file w-100 h-auto py-3 d-flex align-items-center justify-content-center flex-column">
+                                                        <span class="upload-img d-block"><i
+                                                                class="isax isax-image text-primary me-1"></i>Upload
+                                                            Signature</span>
                                                         <input type="file" accept="video/image">
                                                     </div>
                                                 </div>
@@ -434,7 +507,8 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -442,8 +516,8 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Start view notes -->
     <div class="modal fade" id="view_notes">
@@ -452,23 +526,28 @@
                 <div class="modal-body">
                     <div class="d-flex mb-3 pb-3 align-items-center justify-content-between border-bottom">
                         <h5 class="mb-0">Preview</h5>
-                        <button type="button" class="text-danger bg-transparent border-0 outline-0 p-0 lh-sm" data-bs-dismiss="modal" aria-label="Close">
+                        <button type="button" class="text-danger bg-transparent border-0 outline-0 p-0 lh-sm"
+                            data-bs-dismiss="modal" aria-label="Close">
                             <i class="isax isax-close-circle5 fs-16"></i>
                         </button>
                     </div>
                     <div>
                         <div class="d-flex align-items-center justify-content-end flex-wrap row-gap-3 mb-3">
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="#" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-like me-1"></i>Download PDF</a>
-                                <a href="#" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-message-notif me-1"></i>Send Email</a>
-                                <a href="#" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-printer me-1"></i>Print</a>
+                                <a href="#" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i
+                                        class="isax isax-document-like me-1"></i>Download PDF</a>
+                                <a href="#" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i
+                                        class="isax isax-message-notif me-1"></i>Send Email</a>
+                                <a href="#" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i
+                                        class="isax isax-printer me-1"></i>Print</a>
                             </div>
                         </div>
                         <div class="bg-light p-4 rounded position-relative mb-3">
                             <div class="position-absolute top-0 end-0">
-                                <img src="{{URL::asset('build/img/bg/card-bg.png')}}" alt="User Img">
+                                <img src="{{ URL::asset('build/img/bg/card-bg.png') }}" alt="User Img">
                             </div>
-                            <div class="d-flex align-items-center justify-content-between border-bottom flex-wrap mb-3 pb-2 position-relative z-1">
+                            <div
+                                class="d-flex align-items-center justify-content-between border-bottom flex-wrap mb-3 pb-2 position-relative z-1">
                                 <div class="mb-3">
                                     <h4 class="mb-1">Credit Notes</h4>
                                     <div class="d-flex align-items-center flex-wrap row-gap-3">
@@ -476,12 +555,15 @@
                                             <h6 class="fs-14 fw-semibold mb-1">Dreams Technologies Pvt Ltd.,</h6>
                                             <p>15 Hodges Mews, High Wycombe HP12 3JL, United Kingdom</p>
                                         </div>
-                                        <span><img src="{{URL::asset('build/img/icons/not-paid.png')}}" alt="User Img" width="48" height="48"></span>
+                                        <span><img src="{{ URL::asset('build/img/icons/not-paid.png') }}" alt="User Img"
+                                                width="48" height="48"></span>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <img src="{{URL::asset('build/img/invoice-logo.svg')}}" class="invoice-logo-dark" alt="img">
-                                    <img src="{{URL::asset('build/img/invoice-logo-white-2.svg')}}" class="invoice-logo-white" alt="img">
+                                    <img src="{{ URL::asset('build/img/invoice-logo.svg') }}" class="invoice-logo-dark"
+                                        alt="img">
+                                    <img src="{{ URL::asset('build/img/invoice-logo-white-2.svg') }}"
+                                        class="invoice-logo-white" alt="img">
                                 </div>
                             </div>
                             <div class="row gy-3 position-relative z-1">
@@ -490,9 +572,11 @@
                                         <h6 class="mb-2 fs-16 fw-semibold">Credit Notes Details</h6>
                                         <div>
                                             <p class="mb-1">Credit Note Id : <span class="text-dark">9876543</span></p>
-                                            <p class="mb-1">Credit Note Date : <span class="text-dark">25 Jan 2025</span></p>
+                                            <p class="mb-1">Credit Note Date : <span class="text-dark">25 Jan
+                                                    2025</span></p>
                                             <p class="mb-1">Due Date : <span class="text-dark">31 Jan 2025</span></p>
-                                            <p class="mb-1">Related Invoice :  <span class="text-primary">#INV00025</span></p>
+                                            <p class="mb-1">Related Invoice : <span
+                                                    class="text-primary">#INV00025</span></p>
                                             <span class="badge bg-danger">Due in 8 days</span>
                                         </div>
                                     </div>
@@ -501,7 +585,7 @@
                                     <div>
                                         <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                         <div>
-                                            <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                            <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                             <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                             <p class="mb-1">Phone : +1 54664 75945</p>
                                             <p class="mb-1">Email : info@example.com</p>
@@ -515,7 +599,9 @@
                                         <div class="bg-white rounded p-3">
                                             <div class="d-flex align-items-center mb-1">
                                                 <div class="me-2">
-                                                    <span><img src="{{URL::asset('build/img/icons/timesquare-icon.svg')}}" alt="image" class="img-fluid rounded"></span>
+                                                    <span><img
+                                                            src="{{ URL::asset('build/img/icons/timesquare-icon.svg') }}"
+                                                            alt="image" class="img-fluid rounded"></span>
                                                 </div>
                                                 <h6 class="fs-14 fw-semibold">Timesquare Tech</h6>
                                             </div>
@@ -595,15 +681,19 @@
                                     <div class="d-flex align-items-center flex-wrap row-gap-3 mb-3">
                                         <div class="me-3">
                                             <p class="mb-2">Scan to the pay</p>
-                                            <span><img src="{{URL::asset('build/img/icons/qr.png')}}" alt="User Img"></span>
+                                            <span><img src="{{ URL::asset('build/img/icons/qr.png') }}"
+                                                    alt="User Img"></span>
                                         </div>
                                         <div>
                                             <h6 class="mb-2">Bank Details</h6>
                                             <div>
                                                 <p class="mb-1">Bank Name : <span class="text-dark">ABC Bank</span></p>
-                                                <p class="mb-1">Account Number : <span class="text-dark">782459739212</span></p>
-                                                <p class="mb-1">IFSC Code : <span class="text-dark">ABC0001345</span></p>
-                                                <p class="mb-0">Payment Reference : <span class="text-dark">INV-20250220-001</span></p>
+                                                <p class="mb-1">Account Number : <span
+                                                        class="text-dark">782459739212</span></p>
+                                                <p class="mb-1">IFSC Code : <span class="text-dark">ABC0001345</span>
+                                                </p>
+                                                <p class="mb-0">Payment Reference : <span
+                                                        class="text-dark">INV-20250220-001</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -622,11 +712,13 @@
                                             <h6 class="fs-14 fw-semibold">SGST (9%)</h6>
                                             <h6 class="fs-14 fw-semibold">$18</h6>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
                                             <h6 class="fs-14 fw-semibold">Discount</h6>
                                             <h6 class="fs-14 fw-semibold text-danger">$18</h6>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
                                             <h6>Total (USD)</h6>
                                             <h6>$596</h6>
                                         </div>
@@ -647,26 +739,31 @@
                                     </div>
                                     <div>
                                         <h6 class="fs-14 fw-semibold mb-1">Notes</h6>
-                                        <p>All charges are final and include applicable taxes, fees, and additional costs</p>
+                                        <p>All charges are final and include applicable taxes, fees, and additional costs
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-5">
                                 <div class="text-lg-end mb-3">
-                                    <span><img src="{{URL::asset('build/img/icons/sign.png')}}" class="sign-dark" alt="img"></span>
+                                    <span><img src="{{ URL::asset('build/img/icons/sign.png') }}" class="sign-dark"
+                                            alt="img"></span>
                                     <h6 class="fs-14 fw-semibold mb-1">Ted M. Davis</h6>
                                     <p>Manager</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-light d-flex align-items-center justify-content-between p-4 rounded card-bg flex-wrap gap-2">
+                        <div
+                            class="bg-light d-flex align-items-center justify-content-between p-4 rounded card-bg flex-wrap gap-2">
                             <div>
                                 <h6 class="fs-14 fw-semibold mb-1">Dreams Technologies Pvt Ltd.,</h6>
                                 <p>15 Hodges Mews, High Wycombe HP12 3JL, United Kingdom</p>
                             </div>
                             <div>
-                                <img src="{{URL::asset('build/img/invoice-logo.svg')}}" class="invoice-logo-dark" alt="img">
-                                <img src="{{URL::asset('build/img/invoice-logo-white-2.svg')}}" class="invoice-logo-white" alt="img">
+                                <img src="{{ URL::asset('build/img/invoice-logo.svg') }}" class="invoice-logo-dark"
+                                    alt="img">
+                                <img src="{{ URL::asset('build/img/invoice-logo-white-2.svg') }}"
+                                    class="invoice-logo-white" alt="img">
                             </div>
                         </div>
                     </div>

@@ -5,14 +5,13 @@
         <div class="content content-two">
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Remboursements</h6>
+                    <h6>{{ __('Remboursements') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'refunds'])
                     <div>
                         <a href="{{ route('bo.sales.refunds.create') }}" class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau remboursement
-                        </a>
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau remboursement') }}</a>
                     </div>
                 </div>
             </div>
@@ -37,7 +36,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un remboursement..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher un remboursement...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -49,18 +48,18 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
+                                <i class="isax isax-filter me-1"></i>{{ __('Statut') }} : <span class="fw-normal ms-1">
                                     @switch(request('status'))
                                         @case('pending')
-                                            En attente
+                                            {{ __('En attente') }}
                                         @break
 
                                         @case('completed')
-                                            Complété
+                                            {{ __('Complété') }}
                                         @break
 
                                         @case('failed')
-                                            Échoué
+                                            {{ __('Échoué') }}
                                         @break
 
                                         @default
@@ -70,17 +69,17 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a href="{{ route('bo.sales.refunds.index', request()->except('status', 'page')) }}"
-                                        class="dropdown-item">Tous</a></li>
+                                        class="dropdown-item">{{ __('Tous') }}</a></li>
                                 <li><a href="{{ route('bo.sales.refunds.index', array_merge(request()->except('page'), ['status' => 'pending'])) }}"
-                                        class="dropdown-item">En attente</a></li>
+                                        class="dropdown-item">{{ __('En attente') }}</a></li>
                                 <li><a href="{{ route('bo.sales.refunds.index', array_merge(request()->except('page'), ['status' => 'completed'])) }}"
-                                        class="dropdown-item">Complété</a></li>
+                                        class="dropdown-item">{{ __('Complété') }}</a></li>
                                 <li><a href="{{ route('bo.sales.refunds.index', array_merge(request()->except('page'), ['status' => 'failed'])) }}"
-                                        class="dropdown-item">Échoué</a></li>
+                                        class="dropdown-item">{{ __('Échoué') }}</a></li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Paiement', 'Client', 'Montant', 'Date', 'Réf. fournisseur', 'Statut'],
+                            'columns' => [__('Paiement'), __('Client'), __('Montant'), __('Date'), __('Réf. fournisseur'), __('Statut')],
                         ])
                     </div>
                 </div>
@@ -95,12 +94,12 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Paiement</th>
-                            <th>Client</th>
-                            <th>Montant</th>
-                            <th>Date</th>
-                            <th>Réf. fournisseur</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Paiement') }}</th>
+                            <th>{{ __('Client') }}</th>
+                            <th>{{ __('Montant') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Réf. fournisseur') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -121,16 +120,16 @@
                                 <td>
                                     @switch($refund->status)
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En
-                                                attente</span>
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('En
+                                                attente') }}</span>
                                         @break
 
                                         @case('completed')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Complété</span>
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Complété') }}</span>
                                         @break
 
                                         @case('failed')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Échoué</span>
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Échoué') }}</span>
                                         @break
                                     @endswitch
                                 </td>
@@ -142,21 +141,20 @@
                                         <li>
                                             <a href="{{ route('bo.sales.refunds.show', $refund) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('bo.sales.refunds.edit', $refund) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST" action="{{ route('bo.sales.refunds.destroy', $refund) }}">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce remboursement ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
-                                                </button>
+                                                    onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer ce remboursement ?") }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                     </ul>

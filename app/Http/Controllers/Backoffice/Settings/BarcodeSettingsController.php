@@ -35,6 +35,6 @@ class BarcodeSettingsController extends Controller
         $setting->save();
 
         return redirect()->route('bo.settings.barcode.edit')
-            ->with('success', 'Paramètres de code-barres mis à jour avec succès.');
+            ->with('success', __('Paramètres de code-barres mis à jour avec succès.'));
     }
 }

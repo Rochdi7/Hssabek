@@ -6,7 +6,7 @@
 
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Méthodes de paiement fournisseur</h6>
+                    <h6>{{ __('Méthodes de paiement fournisseur') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div>
@@ -22,7 +22,7 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <input type="text" class="form-control" id="method-search" placeholder="Rechercher...">
+                                <input type="text" class="form-control" id="method-search" placeholder="{{ __('Rechercher...') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"><i
                                         class="isax isax-search-normal fs-12"></i></a>
                             </div>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Nom', 'Type', 'Statut'],
+                            'columns' => [__('Nom'), __('Type'), __('Statut')],
                         ])
                     </div>
                 </div>
@@ -39,14 +39,14 @@
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
                     {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                 </div>
             @endif
 
             @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
                     {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                 </div>
             @endif
 
@@ -59,9 +59,9 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Nom</th>
-                            <th>Type</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Nom') }}</th>
+                            <th>{{ __('Type') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -84,7 +84,7 @@
                                 <td>
                                     @switch($method->provider)
                                         @case('manual')
-                                            Manuel
+                                            {{ __('Manuel') }}
                                         @break
                                         @case('stripe')
                                             Stripe
@@ -93,14 +93,14 @@
                                             PayPal
                                         @break
                                         @default
-                                            Autre
+                                            {{ __('Autre') }}
                                     @endswitch
                                 </td>
                                 <td>
                                     @if ($method->is_active)
-                                        <span class="badge bg-success-transparent">Actif</span>
+                                        <span class="badge bg-success-transparent">{{ __('Actif') }}</span>
                                     @else
-                                        <span class="badge bg-danger-transparent">Inactif</span>
+                                        <span class="badge bg-danger-transparent">{{ __('Inactif') }}</span>
                                     @endif
                                 </td>
                                 <td class="action-item">
@@ -116,7 +116,7 @@
                                                 data-provider="{{ $method->provider }}"
                                                 data-is-active="{{ $method->is_active ? '1' : '0' }}"
                                                 data-update-url="{{ route('bo.purchases.supplier-payment-methods.update', $method) }}"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);"
@@ -124,14 +124,14 @@
                                                 data-bs-toggle="modal" data-bs-target="#delete_method_modal"
                                                 data-id="{{ $method->id }}" data-name="{{ $method->name }}"
                                                 data-destroy-url="{{ route('bo.purchases.supplier-payment-methods.destroy', $method) }}"><i
-                                                    class="isax isax-trash me-2"></i>Supprimer</a>
+                                                    class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                         </li>
                                     </ul>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-3">Aucune méthode de paiement trouvée.</td>
+                                <td colspan="5" class="text-center text-muted py-3">{{ __('Aucune méthode de paiement trouvée.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -154,9 +154,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ajouter une méthode de paiement</h4>
+                    <h4 class="modal-title">{{ __('Ajouter une méthode de paiement') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('bo.purchases.supplier-payment-methods.store') }}">
                     @csrf
@@ -165,9 +165,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Nom') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" placeholder="Ex : Virement bancaire">
+                                        name="name" value="{{ old('name') }}" placeholder="{{ __('Ex : Virement bancaire') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -175,12 +175,12 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Type<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Type') }}<span class="text-danger ms-1">*</span></label>
                                     <select class="form-select @error('provider') is-invalid @enderror" name="provider">
-                                        <option value="manual" {{ old('provider') == 'manual' ? 'selected' : '' }}>Manuel</option>
-                                        <option value="stripe" {{ old('provider') == 'stripe' ? 'selected' : '' }}>Stripe</option>
-                                        <option value="paypal" {{ old('provider') == 'paypal' ? 'selected' : '' }}>PayPal</option>
-                                        <option value="other" {{ old('provider') == 'other' ? 'selected' : '' }}>Autre</option>
+                                        <option value="manual" {{ old('provider') == 'manual' ? 'selected' : '' }}>{{ __('Manuel') }}</option>
+                                        <option value="stripe" {{ old('provider') == 'stripe' ? 'selected' : '' }}>{{ __('Stripe') }}/option>
+                                        <option value="paypal" {{ old('provider') == 'paypal' ? 'selected' : '' }}>{{ __('PayPal') }}/option>
+                                        <option value="other" {{ old('provider') == 'other' ? 'selected' : '' }}>{{ __('Autre') }}</option>
                                     </select>
                                     @error('provider')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -191,14 +191,14 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                         id="add_is_active" {{ old('is_active', '1') == '1' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="add_is_active">Méthode active</label>
+                                    <label class="form-check-label" for="add_is_active">{{ __('Méthode active') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div>
                 </form>
             </div>
@@ -212,9 +212,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modifier la méthode de paiement</h4>
+                    <h4 class="modal-title">{{ __('Modifier la méthode de paiement') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="" id="edit_method_form">
                     @csrf
@@ -225,10 +225,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Nom<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Nom') }}<span class="text-danger ms-1">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                         name="name" id="edit_method_name" value="{{ old('name') }}"
-                                        placeholder="Ex : Virement bancaire">
+                                        placeholder="{{ __('Ex : Virement bancaire') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -236,12 +236,12 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Type<span class="text-danger ms-1">*</span></label>
+                                    <label class="form-label">{{ __('Type') }}<span class="text-danger ms-1">*</span></label>
                                     <select class="form-select @error('provider') is-invalid @enderror" name="provider" id="edit_method_provider">
-                                        <option value="manual">Manuel</option>
-                                        <option value="stripe">Stripe</option>
-                                        <option value="paypal">PayPal</option>
-                                        <option value="other">Autre</option>
+                                        <option value="manual">{{ __('Manuel') }}</option>
+                                        <option value="stripe">{{ __('Stripe') }}/option>
+                                        <option value="paypal">{{ __('PayPal') }}/option>
+                                        <option value="other">{{ __('Autre') }}</option>
                                     </select>
                                     @error('provider')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -252,14 +252,14 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                         id="edit_is_active">
-                                    <label class="form-check-label" for="edit_is_active">Méthode active</label>
+                                    <label class="form-check-label" for="edit_is_active">{{ __('Méthode active') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                     </div>
                 </form>
             </div>
@@ -276,15 +276,15 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Supprimer la méthode de paiement</h6>
+                    <h6 class="mb-1">{{ __('Supprimer la méthode de paiement') }}</h6>
                     <p class="mb-3">Êtes-vous sûr de vouloir supprimer <strong id="delete_method_name"></strong> ?</p>
                     <div class="d-flex justify-content-center">
                         <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                            data-bs-dismiss="modal">Annuler</a>
+                            data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                         <form method="POST" action="" id="delete_method_form">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Oui, Supprimer</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Oui, Supprimer') }}</button>
                         </form>
                     </div>
                 </div>

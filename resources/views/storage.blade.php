@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
         <div class="content">
@@ -14,7 +14,7 @@
 
                         <!-- Start settings sidebar -->
                         @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @endcomponent
                         <!-- End settings sidebar -->
 
                         <div class="col-xl-9 col-lg-8">
@@ -31,13 +31,15 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div class="d-flex align-items-center">
                                                         <span class="avatar avatar-md bg-light rounded p-2 me-2">
-                                                            <img src="{{URL::asset('build/img/icons/storage-icon-01.svg')}}" class="img-fluid" alt="Img">
+                                                            <img src="{{ URL::asset('build/img/icons/storage-icon-01.svg') }}"
+                                                                class="img-fluid" alt="Img">
                                                         </span>
                                                         <p class="fw-medium text-dark">Local Storage</p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
                                                         <div class="form-check form-switch">
-                                                            <input type="checkbox" id="user1" class="form-check-input" role="switch" checked>
+                                                            <input type="checkbox" id="user1" class="form-check-input"
+                                                                role="switch" checked>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -54,14 +56,19 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div class="d-flex align-items-center">
                                                         <span class="avatar avatar-md bg-light rounded p-2 me-2">
-                                                            <img src="{{URL::asset('build/img/icons/storage-icon-02.svg')}}" class="img-fluid" alt="Img">
+                                                            <img src="{{ URL::asset('build/img/icons/storage-icon-02.svg') }}"
+                                                                class="img-fluid" alt="Img">
                                                         </span>
                                                         <p class="fw-medium text-dark">AWS</p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <a href="javascript:void(0);" class="btn btn-sm btn-light rounded-2 d-inline-flex align-items-center justify-content-center p-1 me-2" data-bs-toggle="modal" data-bs-target="#aws_modal"><i class="isax isax-setting-2 fs-14"></i></a>
+                                                        <a href="javascript:void(0);"
+                                                            class="btn btn-sm btn-light rounded-2 d-inline-flex align-items-center justify-content-center p-1 me-2"
+                                                            data-bs-toggle="modal" data-bs-target="#aws_modal"><i
+                                                                class="isax isax-setting-2 fs-14"></i></a>
                                                         <div class="form-check form-switch">
-                                                            <input type="checkbox" id="user2" class="form-check-input" role="switch" checked>
+                                                            <input type="checkbox" id="user2" class="form-check-input"
+                                                                role="switch" checked>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -82,13 +89,14 @@
 
         <!--Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

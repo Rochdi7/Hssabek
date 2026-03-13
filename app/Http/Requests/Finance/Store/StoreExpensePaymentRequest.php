@@ -26,13 +26,13 @@ class StoreExpensePaymentRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'amount.required'        => 'Le montant est obligatoire.',
-            'amount.numeric'         => 'Le montant doit être un nombre.',
-            'amount.min'             => 'Le montant doit être supérieur à zéro.',
-            'payment_date.required'  => 'La date du paiement est obligatoire.',
-            'payment_mode.required'  => 'Le mode de paiement est obligatoire.',
-            'payment_mode.in'        => 'Le mode de paiement est invalide.',
-            'bank_account_id.exists' => 'Le compte bancaire sélectionné est invalide.',
+            'amount.required'        => __('Le montant est obligatoire.'),
+            'amount.numeric'         => __('Le montant doit être un nombre.'),
+            'amount.min'             => __('Le montant doit être supérieur à zéro.'),
+            'payment_date.required'  => __('La date du paiement est obligatoire.'),
+            'payment_mode.required'  => __('Le mode de paiement est obligatoire.'),
+            'payment_mode.in'        => __('Le mode de paiement est invalide.'),
+            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
         ];
     }
 }

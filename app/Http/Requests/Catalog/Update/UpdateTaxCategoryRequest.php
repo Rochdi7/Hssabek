@@ -34,15 +34,15 @@ class UpdateTaxCategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Le nom de la taxe est obligatoire.',
-            'name.max'      => 'Le nom ne doit pas dépasser 255 caractères.',
-            'name.unique'   => 'Ce nom de taxe est déjà utilisé.',
-            'rate.required' => 'Le taux est obligatoire.',
-            'rate.numeric'  => 'Le taux doit être un nombre.',
-            'rate.min'      => 'Le taux ne peut pas être négatif.',
-            'rate.max'      => 'Le taux ne doit pas dépasser 100.',
-            'type.required' => 'Le type de taxe est obligatoire.',
-            'type.in'       => 'Le type doit être « Pourcentage » ou « Fixe ».',
+            'name.required' => __('Le nom de la taxe est obligatoire.'),
+            'name.max'      => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'name.unique'   => __('Ce nom de taxe est déjà utilisé.'),
+            'rate.required' => __('Le taux est obligatoire.'),
+            'rate.numeric'  => __('Le taux doit être un nombre.'),
+            'rate.min'      => __('Le taux ne peut pas être négatif.'),
+            'rate.max'      => __('Le taux ne doit pas dépasser 100.'),
+            'type.required' => __('Le type de taxe est obligatoire.'),
+            'type.in'       => __('Le type doit être « Pourcentage » ou « Fixe ».'),
         ];
     }
 }

@@ -25,16 +25,16 @@ class StoreCurrencyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Le nom de la devise est obligatoire.',
-            'name.max' => 'Le nom ne doit pas dépasser 100 caractères.',
-            'code.required' => 'Le code devise est obligatoire.',
-            'code.size' => 'Le code devise doit contenir exactement 3 caractères.',
-            'code.alpha' => 'Le code devise ne doit contenir que des lettres.',
-            'symbol.required' => 'Le symbole est obligatoire.',
-            'symbol.max' => 'Le symbole ne doit pas dépasser 10 caractères.',
-            'rate.required' => 'Le taux de change est obligatoire.',
-            'rate.numeric' => 'Le taux doit être un nombre.',
-            'rate.min' => 'Le taux doit être supérieur à zéro.',
+            'name.required' => __('Le nom de la devise est obligatoire.'),
+            'name.max' => __('Le nom ne doit pas dépasser 100 caractères.'),
+            'code.required' => __('Le code devise est obligatoire.'),
+            'code.size' => __('Le code devise doit contenir exactement 3 caractères.'),
+            'code.alpha' => __('Le code devise ne doit contenir que des lettres.'),
+            'symbol.required' => __('Le symbole est obligatoire.'),
+            'symbol.max' => __('Le symbole ne doit pas dépasser 10 caractères.'),
+            'rate.required' => __('Le taux de change est obligatoire.'),
+            'rate.numeric' => __('Le taux doit être un nombre.'),
+            'rate.min' => __('Le taux doit être supérieur à zéro.'),
         ];
     }
 }

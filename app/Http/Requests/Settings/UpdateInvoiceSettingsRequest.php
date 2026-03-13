@@ -28,12 +28,12 @@ class UpdateInvoiceSettingsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'invoice_prefix.max' => 'Le préfixe ne doit pas dépasser 20 caractères.',
-            'invoice_round_off.in' => "La valeur d'arrondi n'est pas valide.",
-            'invoice_terms.max' => 'Les conditions ne doivent pas dépasser 5000 caractères.',
-            'invoice_footer.max' => 'Le pied de page ne doit pas dépasser 2000 caractères.',
-            'payment_terms_days.min' => 'Le délai de paiement doit être positif.',
-            'payment_terms_days.max' => 'Le délai de paiement ne doit pas dépasser 365 jours.',
+            'invoice_prefix.max' => __('Le préfixe ne doit pas dépasser 20 caractères.'),
+            'invoice_round_off.in' => __("La valeur d'arrondi n'est pas valide."),
+            'invoice_terms.max' => __('Les conditions ne doivent pas dépasser 5000 caractères.'),
+            'invoice_footer.max' => __('Le pied de page ne doit pas dépasser 2000 caractères.'),
+            'payment_terms_days.min' => __('Le délai de paiement doit être positif.'),
+            'payment_terms_days.max' => __('Le délai de paiement ne doit pas dépasser 365 jours.'),
         ];
     }
 }

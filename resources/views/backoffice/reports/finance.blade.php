@@ -10,13 +10,13 @@
             <!-- Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6 class="mb-0">Rapport financier</h6>
+                    <h6 class="mb-0">{{ __('Rapport financier') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="dropdown me-1">
                         <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
+                            <i class="isax isax-export-1 me-1"></i>{{ __('Exporter') }}
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -24,7 +24,7 @@
                                     @csrf
                                     <input type="hidden" name="from" value="{{ $from }}">
                                     <input type="hidden" name="to" value="{{ $to }}">
-                                    <button class="dropdown-item" type="submit">Télécharger en CSV</button>
+                                    <button class="dropdown-item" type="submit">{{ __('Télécharger en CSV') }}</button>
                                 </form>
                             </li>
                         </ul>
@@ -46,7 +46,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div>
-                                    <p class="mb-1">Total revenus</p>
+                                    <p class="mb-1">{{ __('Total revenus') }}</p>
                                     <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalIncome, 2, ',', ' ') }}
                                         {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                 </div>
@@ -70,7 +70,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div>
-                                    <p class="mb-1">Total dépenses</p>
+                                    <p class="mb-1">{{ __('Total dépenses') }}</p>
                                     <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalExpenses, 2, ',', ' ') }}
                                         {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
                                 </div>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="bg-light py-2 px-3 rounded">
                                 <p class="fs-13 mb-0">
-                                    <span class="text-muted">Période sélectionnée</span>
+                                    <span class="text-muted">{{ __('Période sélectionnée') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div>
-                                    <p class="mb-1">Bénéfice net</p>
+                                    <p class="mb-1">{{ __('Bénéfice net') }}</p>
                                     <h6
                                         class="fs-16 fw-semibold mb-0 {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }}">
                                         {{ number_format($netProfit, 2, ',', ' ') }}
@@ -109,7 +109,7 @@
                             </div>
                             <div class="bg-light py-2 px-3 rounded">
                                 <p class="fs-13 mb-0">
-                                    <span class="text-muted">Revenus - Dépenses</span>
+                                    <span class="text-muted">{{ __('Revenus - Dépenses') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div>
-                                    <p class="mb-1">Catégories dépenses</p>
+                                    <p class="mb-1">{{ __('Catégories dépenses') }}</p>
                                     <h6 class="fs-16 fw-semibold mb-0">{{ $expensesByCategory->count() }}</h6>
                                 </div>
                                 <div>
@@ -132,7 +132,7 @@
                             </div>
                             <div class="bg-light py-2 px-3 rounded">
                                 <p class="fs-13 mb-0">
-                                    <span class="text-muted">Catégories actives</span>
+                                    <span class="text-muted">{{ __('Catégories actives') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -160,9 +160,9 @@
                             </span>
                         </div>
                         <button type="submit" class="btn btn-primary">
-                            <i class="isax isax-filter me-1"></i>Filtrer
+                            <i class="isax isax-filter me-1"></i>{{ __('Filtrer') }}
                         </button>
-                        <a href="{{ route('bo.reports.finance') }}" class="btn btn-outline-white">Réinitialiser</a>
+                        <a href="{{ route('bo.reports.finance') }}" class="btn btn-outline-white">{{ __('Réinitialiser') }}</a>
                     </div>
                 </form>
             </div>
@@ -172,7 +172,7 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Revenus vs Dépenses par mois</h6>
+                            <h6 class="mb-0">{{ __('Revenus vs Dépenses par mois') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="finance_monthly_chart" style="min-height: 300px;"></div>
@@ -182,7 +182,7 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Dépenses par catégorie</h6>
+                            <h6 class="mb-0">{{ __('Dépenses par catégorie') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="finance_category_chart" style="min-height: 300px;"></div>
@@ -195,22 +195,22 @@
             @if ($expensesByCategory->count() > 0)
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h6 class="mb-0">Dépenses par catégorie</h6>
+                        <h6 class="mb-0">{{ __('Dépenses par catégorie') }}</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-nowrap mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Catégorie</th>
-                                        <th>Total</th>
-                                        <th>% du total</th>
+                                        <th>{{ __('Catégorie') }}</th>
+                                        <th>{{ __('Total') }}</th>
+                                        <th>{{ __('% du total') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($expensesByCategory as $cat)
                                         <tr>
-                                            <td>{{ $cat->category?->name ?? 'Non catégorisé' }}</td>
+                                            <td>{{ $cat->category?->name ?? __('Non catégorisé') }}</td>
                                             <td class="text-dark">{{ number_format($cat->total, 2, ',', ' ') }}
                                                 {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
                                             </td>
@@ -229,22 +229,22 @@
             @if ($incomesByCategory->count() > 0)
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h6 class="mb-0">Revenus par catégorie</h6>
+                        <h6 class="mb-0">{{ __('Revenus par catégorie') }}</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-nowrap mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Catégorie</th>
-                                        <th>Total</th>
-                                        <th>% du total</th>
+                                        <th>{{ __('Catégorie') }}</th>
+                                        <th>{{ __('Total') }}</th>
+                                        <th>{{ __('% du total') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($incomesByCategory as $cat)
                                         <tr>
-                                            <td>{{ $cat->category?->name ?? 'Non catégorisé' }}</td>
+                                            <td>{{ $cat->category?->name ?? __('Non catégorisé') }}</td>
                                             <td class="text-dark">{{ number_format($cat->total, 2, ',', ' ') }}
                                                 {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
                                             </td>
@@ -269,12 +269,12 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>N° Dépense</th>
-                            <th>Catégorie</th>
-                            <th>Fournisseur</th>
-                            <th>Date</th>
-                            <th>Montant</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('N° Dépense') }}</th>
+                            <th>{{ __('Catégorie') }}</th>
+                            <th>{{ __('Fournisseur') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Montant') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -296,12 +296,12 @@
                                 <td>
                                     @switch($expense->payment_status)
                                         @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Payée <i
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }} <i
                                                     class="isax isax-tick-circle ms-1"></i></span>
                                         @break
 
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En attente <i
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('En attente') }} <i
                                                     class="isax isax-timer ms-1"></i></span>
                                         @break
 
@@ -313,7 +313,7 @@
                             </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Aucune dépense trouvée pour cette période.</td>
+                                    <td colspan="7" class="text-center">{{ __('Aucune dépense trouvée pour cette période.') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -375,11 +375,11 @@
                             fontFamily: 'inherit'
                         },
                         series: [{
-                                name: 'Revenus',
+                                name: {!! json_encode(__('Revenus')) !!},
                                 data: incomeSeries
                             },
                             {
-                                name: 'Dépenses',
+                                name: {!! json_encode(__('Dépenses')) !!},
                                 data: expenseSeries
                             }
                         ],
@@ -424,7 +424,7 @@
                 // Expense category donut
                 var catEl = document.querySelector('#finance_category_chart');
                 if (catEl) {
-                    var catNames = {!! json_encode($expensesByCategory->map(fn($c) => $c->category?->name ?? 'Non catégorisé')) !!};
+                    var catNames = {!! json_encode($expensesByCategory->map(fn($c) => $c->category?->name ?? __('Non catégorisé'))) !!};
                     var catValues = {!! json_encode($expensesByCategory->pluck('total')->map(fn($v) => (float) $v)) !!};
                     if (catValues.length > 0) {
                         new ApexCharts(catEl, {

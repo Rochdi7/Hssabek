@@ -8,11 +8,11 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.purchases.debit-notes.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Notes de débit</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Notes de débit') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Modifier la note de débit — {{ $debitNote->number }}</h5>
+                                <h5 class="mb-3">{{ __('Modifier la note de débit') }} — {{ $debitNote->number }}</h5>
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <ul class="mb-0">
@@ -28,11 +28,11 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Fournisseur <span
+                                                <label class="form-label">{{ __('Fournisseur') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('supplier_id') is-invalid @enderror"
                                                     name="supplier_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($suppliers as $supplier)
                                                         <option value="{{ $supplier->id }}"
                                                             {{ old('supplier_id', $debitNote->supplier_id) == $supplier->id ? 'selected' : '' }}>
@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Date <span
+                                                <label class="form-label">{{ __('Date') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control datetimepicker @error('debit_note_date') is-invalid @enderror"
@@ -59,18 +59,15 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Statut</label>
+                                                <label class="form-label">{{ __('Statut') }}</label>
                                                 <select class="form-select @error('status') is-invalid @enderror"
                                                     name="status">
                                                     <option value="draft"
-                                                        {{ old('status', $debitNote->status) === 'draft' ? 'selected' : '' }}>
-                                                        Brouillon</option>
+                                                        {{ old('status', $debitNote->status) === 'draft' ? 'selected' : '' }}>{{ __('Brouillon') }}</option>
                                                     <option value="sent"
-                                                        {{ old('status', $debitNote->status) === 'sent' ? 'selected' : '' }}>
-                                                        Envoyée</option>
+                                                        {{ old('status', $debitNote->status) === 'sent' ? 'selected' : '' }}>{{ __('Envoyée') }}</option>
                                                     <option value="applied"
-                                                        {{ old('status', $debitNote->status) === 'applied' ? 'selected' : '' }}>
-                                                        Appliquée</option>
+                                                        {{ old('status', $debitNote->status) === 'applied' ? 'selected' : '' }}>{{ __('Appliquée') }}</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -79,17 +76,17 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Référence</label>
+                                                <label class="form-label">{{ __('Référence') }}</label>
                                                 <div class="mb-2">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').focus();">
-                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                        <label class="form-check-label" for="ref_mode_manual">{{ __('Saisie manuelle') }}</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                        <label class="form-check-label" for="ref_mode_auto">{{ __('Générer automatiquement') }}</label>
                                                     </div>
                                                 </div>
                                                 <input type="text"
@@ -105,11 +102,11 @@
 
                                     {{-- Articles --}}
                                     <div class="border-top pt-3 mb-3">
-                                        <h6 class="mb-3">Articles</h6>
+                                        <h6 class="mb-3">{{ __('Articles') }}</h6>
                                         <div class="mb-3">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" id="enable_tax" name="enable_tax" value="1" checked>
-                                                <label class="form-check-label" for="enable_tax">Activer la taxe</label>
+                                                <label class="form-check-label" for="enable_tax">{{ __('Activer la taxe') }}</label>
                                             </div>
                                         </div>
                                         <div class="table-responsive rounded border-bottom-0 border mb-3">
@@ -117,10 +114,10 @@
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
                                                         <th style="width: 28%;">Libellé</th>
-                                                        <th style="width: 13%;">Quantité</th>
-                                                        <th style="width: 17%;">Prix unitaire</th>
-                                                        <th class="tax-col" style="width: 15%;">Taxe (%)</th>
-                                                        <th style="width: 17%;">Montant</th>
+                                                        <th style="width: 13%;">{{ __('Quantité') }}</th>
+                                                        <th style="width: 17%;">{{ __('Prix unitaire') }}</th>
+                                                        <th class="tax-col" style="width: 15%;">{{ __('Taxe (%)') }}</th>
+                                                        <th style="width: 17%;">{{ __('Montant') }}</th>
                                                         <th style="width: 10%;"></th>
                                                     </tr>
                                                 </thead>
@@ -137,7 +134,7 @@
                                                             }
                                                         @endphp
                                                         <tr class="item-row">
-                                                            <td><input type="text" name="items[{{ $i }}][label]" class="form-control" value="{{ $item['label'] ?? $item['product']['name'] ?? '' }}" placeholder="Libellé" required></td>
+                                                            <td><input type="text" name="items[{{ $i }}][label]" class="form-control" value="{{ $item['label'] ?? $item['product']['name'] ?? '' }}" placeholder="{{ __('Libellé') }}" required></td>
                                                             <td><input type="number" name="items[{{ $i }}][quantity]" class="form-control item-qty" value="{{ $item['quantity'] ?? 1 }}" min="0.001" step="0.001" required></td>
                                                             <td><input type="number" name="items[{{ $i }}][unit_price]" class="form-control item-price" value="{{ $item['unit_price'] ?? 0 }}" min="0" step="0.01" required></td>
                                                             <td class="tax-col">
@@ -177,40 +174,40 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <a href="javascript:void(0);" class="d-inline-flex align-items-center" id="add-item-btn"><i class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un article</a>
+                                            <a href="javascript:void(0);" class="d-inline-flex align-items-center" id="add-item-btn"><i class="isax isax-add-circle5 text-primary me-1"></i>{{ __('Ajouter un article') }}</a>
                                         </div>
                                     </div>
 
                                     {{-- Informations supplémentaires --}}
                                     <div class="border-top pt-3 mb-3">
-                                        <h6 class="mb-3">Informations supplémentaires</h6>
+                                        <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
                                         <div>
                                             <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">
                                                 <li class="nav-item me-2" role="presentation">
-                                                    <a class="nav-link active border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#notes" aria-current="page" href="javascript:void(0);"><i class="isax isax-document-text me-1"></i>Notes</a>
+                                                    <a class="nav-link active border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#notes" aria-current="page" href="javascript:void(0);"><i class="isax isax-document-text me-1"></i>{{ __('Notes') }}</a>
                                                 </li>
                                                 <li class="nav-item me-2" role="presentation">
-                                                    <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#terms" href="javascript:void(0);"><i class="isax isax-document me-1"></i>Conditions</a>
+                                                    <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#terms" href="javascript:void(0);"><i class="isax isax-document me-1"></i>{{ __('Conditions') }}</a>
                                                 </li>
                                                 <li class="nav-item me-2" role="presentation">
-                                                    <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#bank" href="javascript:void(0);"><i class="isax isax-bank me-1"></i>Coordonnées bancaires</a>
+                                                    <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#bank" href="javascript:void(0);"><i class="isax isax-bank me-1"></i>{{ __('Coordonnées bancaires') }}</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content">
                                                 <div class="tab-pane active show" id="notes" role="tabpanel">
-                                                    <label class="form-label">Notes additionnelles</label>
+                                                    <label class="form-label">{{ __('Notes additionnelles') }}</label>
                                                     <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
-                                                    <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                    <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }} <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                 </div>
                                                 <div class="tab-pane fade" id="terms" role="tabpanel">
-                                                    <label class="form-label">Conditions générales</label>
+                                                    <label class="form-label">{{ __('Conditions générales') }}</label>
                                                     <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
-                                                    <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                    <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }} <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                 </div>
                                                 <div class="tab-pane fade" id="bank" role="tabpanel">
-                                                    <label class="form-label">Compte bancaire</label>
+                                                    <label class="form-label">{{ __('Compte bancaire') }}</label>
                                                     <select class="select" name="bank_account_id">
-                                                        <option value="">Sélectionner</option>
+                                                        <option value="">{{ __('Sélectionner') }}</option>
                                                         @foreach ($bankAccounts as $ba)
                                                             <option value="{{ $ba->id }}"
                                                                 data-balance="{{ number_format($ba->current_balance, 2, ',', ' ') }}"
@@ -228,8 +225,8 @@
 
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.purchases.debit-notes.index') }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                            class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Mettre à jour') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -328,7 +325,7 @@
             const row = document.createElement('tr');
             row.className = 'item-row';
             row.innerHTML = `
-                <td><input type="text" name="items[${itemIndex}][label]" class="form-control" placeholder="Libellé" required></td>
+                <td><input type="text" name="items[${itemIndex}][label]" class="form-control" placeholder="{{ __('Libellé') }}" required></td>
                 <td><input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" required></td>
                 <td><input type="number" name="items[${itemIndex}][unit_price]" class="form-control item-price" value="0" min="0" step="0.01" required></td>
                 <td class="tax-col"><select name="items[${itemIndex}][tax_group_id]" class="form-select item-tax">${taxOpts}</select></td>

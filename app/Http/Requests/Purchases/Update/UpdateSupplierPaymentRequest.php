@@ -26,13 +26,13 @@ class UpdateSupplierPaymentRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'bank_account_id.exists'   => 'Le compte bancaire sélectionné est invalide.',
-            'payment_method_id.exists' => 'La méthode de paiement sélectionnée est invalide.',
-            'amount.gt'                => 'Le montant doit être supérieur à zéro.',
-            'amount.numeric'           => 'Le montant doit être un nombre valide.',
-            'paid_at.date'             => 'La date de paiement est invalide.',
-            'reference_number.max'     => 'La référence ne peut pas dépasser 120 caractères.',
-            'notes.max'                => 'Les notes ne peuvent pas dépasser 2000 caractères.',
+            'bank_account_id.exists'   => __('Le compte bancaire sélectionné est invalide.'),
+            'payment_method_id.exists' => __('La méthode de paiement sélectionnée est invalide.'),
+            'amount.gt'                => __('Le montant doit être supérieur à zéro.'),
+            'amount.numeric'           => __('Le montant doit être un nombre valide.'),
+            'paid_at.date'             => __('La date de paiement est invalide.'),
+            'reference_number.max'     => __('La référence ne peut pas dépasser 120 caractères.'),
+            'notes.max'                => __('Les notes ne peuvent pas dépasser 2000 caractères.'),
         ];
     }
 }

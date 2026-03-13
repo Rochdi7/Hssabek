@@ -1,6 +1,6 @@
 /*
 Author       : Dreamstechnologies
-Template Name: Kanakku - Bootstrap Admin Template
+Template Name: Hssabek - Bootstrap Admin Template
 */
 
 (function () {

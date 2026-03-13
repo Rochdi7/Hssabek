@@ -33,13 +33,13 @@ class StorePlanRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'          => 'Le nom du plan est obligatoire.',
-            'name.max'               => 'Le nom ne doit pas dépasser 255 caractères.',
-            'price.required'         => 'Le prix est obligatoire.',
-            'price.numeric'          => 'Le prix doit être un nombre.',
-            'price.min'              => 'Le prix ne peut pas être négatif.',
-            'billing_cycle.required' => 'Le cycle de facturation est obligatoire.',
-            'billing_cycle.in'       => 'Le cycle de facturation est invalide.',
+            'name.required'          => __('Le nom du plan est obligatoire.'),
+            'name.max'               => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'price.required'         => __('Le prix est obligatoire.'),
+            'price.numeric'          => __('Le prix doit être un nombre.'),
+            'price.min'              => __('Le prix ne peut pas être négatif.'),
+            'billing_cycle.required' => __('Le cycle de facturation est obligatoire.'),
+            'billing_cycle.in'       => __('Le cycle de facturation est invalide.'),
         ];
     }
 }

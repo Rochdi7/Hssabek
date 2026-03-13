@@ -26,7 +26,7 @@ class DeleteAccountController extends Controller
 
         if ($existing) {
             return redirect()->route('bo.settings.security.index')
-                ->with('error', 'Une demande de suppression est déjà en cours de traitement.');
+                ->with('error', __('Une demande de suppression est déjà en cours de traitement.'));
         }
 
         DeleteAccountRequest::create([
@@ -37,6 +37,6 @@ class DeleteAccountController extends Controller
         ]);
 
         return redirect()->route('bo.settings.security.index')
-            ->with('success', 'Votre demande de suppression de compte a été envoyée. Notre équipe vous contactera sous peu.');
+            ->with('success', __('Votre demande de suppression de compte a été envoyée. Notre équipe vous contactera sous peu.'));
     }
 }

@@ -34,7 +34,7 @@ class ProductCategoryController extends Controller
 
         ProductCategory::create($data);
 
-        return redirect()->back()->with('success', 'Catégorie ajoutée avec succès.');
+        return redirect()->back()->with('success', __('Catégorie ajoutée avec succès.'));
     }
 
     public function update(UpdateProductCategoryRequest $request, ProductCategory $category)
@@ -49,7 +49,7 @@ class ProductCategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->back()->with('success', 'Catégorie mise à jour avec succès.');
+        return redirect()->back()->with('success', __('Catégorie mise à jour avec succès.'));
     }
 
     public function destroy(ProductCategory $category)
@@ -64,6 +64,6 @@ class ProductCategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->back()->with('success', 'Catégorie supprimée avec succès.');
+        return redirect()->back()->with('success', __('Catégorie supprimée avec succès.'));
     }
 }

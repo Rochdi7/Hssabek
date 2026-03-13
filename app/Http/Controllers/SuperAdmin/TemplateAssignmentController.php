@@ -142,7 +142,7 @@ class TemplateAssignmentController extends Controller
         $count = count($request->input('tenant_ids'));
 
         return redirect()->route('sa.templates.show', $templateId)
-            ->with('success', "Modèle « {$template->name} » assigné à {$count} agence(s) avec succès.");
+            ->with('success', __("Modèle « {$template->name} » assigné à {$count} agence(s) avec succès."));
     }
 
     /**
@@ -167,7 +167,7 @@ class TemplateAssignmentController extends Controller
             ]);
 
         return redirect()->route('sa.templates.show', $templateId)
-            ->with('success', "Modèle « {$template->name} » retiré de l'agence « {$tenant->name} ».");
+            ->with('success', __("Modèle « {$template->name} » retiré de l'agence « {$tenant->name} »."));
     }
 
     /**
@@ -216,7 +216,7 @@ class TemplateAssignmentController extends Controller
         }
 
         return redirect()->route('sa.templates.show', $templateId)
-            ->with('success', "Modèle « {$template->name} » assigné à {$count} nouvelles agence(s).");
+            ->with('success', __("Modèle « {$template->name} » assigné à {$count} nouvelles agence(s)."));
     }
 
     /**
@@ -240,6 +240,6 @@ class TemplateAssignmentController extends Controller
         $status = $template->is_active ? 'désactivé' : 'activé';
 
         return redirect()->route('sa.templates.index')
-            ->with('success', "Modèle « {$template->name} » {$status} avec succès.");
+            ->with('success', __("Modèle « {$template->name} » {$status} avec succès."));
     }
 }

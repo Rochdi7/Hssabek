@@ -81,7 +81,7 @@ class PaymentController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.payments.index')
-            ->with('success', 'Paiement enregistré avec succès.');
+            ->with('success', __('Paiement enregistré avec succès.'));
     }
 
     public function show(Payment $payment)
@@ -111,7 +111,7 @@ class PaymentController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.payments.index')
-            ->with('success', 'Paiement modifié avec succès.');
+            ->with('success', __('Paiement modifié avec succès.'));
     }
 
     public function destroy(Payment $payment)
@@ -123,7 +123,7 @@ class PaymentController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.payments.index')
-            ->with('success', 'Paiement supprimé avec succès.');
+            ->with('success', __('Paiement supprimé avec succès.'));
     }
 
     public function download(Payment $payment, PdfService $pdfService)

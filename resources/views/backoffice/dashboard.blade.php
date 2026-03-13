@@ -8,33 +8,33 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Tableau de bord</h6>
+                    <h6>{{ __('Tableau de bord') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="dropdown me-1">
                         <a class="btn btn-primary d-flex align-items-center justify-content-center dropdown-toggle"
                             data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
-                            Créer
+                            {{ __('Créer') }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-start">
                             <li>
                                 <a href="{{ route('bo.sales.invoices.create') }}" class="dropdown-item d-flex align-items-center">
-                                    <i class="isax isax-document-text-1 me-2"></i>Facture
+                                    <i class="isax isax-document-text-1 me-2"></i>{{ __('Facture') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('bo.sales.quotes.create') }}" class="dropdown-item d-flex align-items-center">
-                                    <i class="isax isax-document-download me-2"></i>Devis
+                                    <i class="isax isax-document-download me-2"></i>{{ __('Devis') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('bo.purchases.purchase-orders.create') }}" class="dropdown-item d-flex align-items-center">
-                                    <i class="isax isax-document me-2"></i>Bon de commande
+                                    <i class="isax isax-document me-2"></i>{{ __('Bon de commande') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('bo.crm.customers.create') }}" class="dropdown-item d-flex align-items-center">
-                                    <i class="isax isax-user-add me-2"></i>Client
+                                    <i class="isax isax-user-add me-2"></i>{{ __('Client') }}
                                 </a>
                             </li>
                         </ul>
@@ -82,14 +82,14 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between border-bottom mb-2 pb-2">
                                 <div>
-                                    <p class="mb-1">Chiffre d'affaires (mois)</p>
+                                    <p class="mb-1">{{ __('Chiffre d\'affaires (mois)') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ number_format($revenueMtd, 2, ',', ' ') }} {{ $currency }}</h6>
                                 </div>
                                 <span class="avatar avatar-lg bg-primary text-white avatar-rounded">
                                     <i class="isax isax-receipt-item fs-16"></i>
                                 </span>
                             </div>
-                            <p class="fs-13 text-muted mb-0">Année : {{ number_format($revenueYtd, 2, ',', ' ') }} {{ $currency }}</p>
+                            <p class="fs-13 text-muted mb-0">{{ __('Année') }} : {{ number_format($revenueYtd, 2, ',', ' ') }} {{ $currency }}</p>
                         </div>
                         <div class="position-absolute end-0 bottom-0 z-n1">
                             <img src="{{ URL::asset('build/img/bg/card-bg-04.svg') }}" alt="img">
@@ -104,7 +104,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between border-bottom mb-2 pb-2">
                                 <div>
-                                    <p class="mb-1">Impayés en cours</p>
+                                    <p class="mb-1">{{ __('Impayés en cours') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ number_format($outstanding, 2, ',', ' ') }} {{ $currency }}</h6>
                                 </div>
                                 <span class="avatar avatar-lg bg-warning text-white avatar-rounded">
@@ -112,9 +112,9 @@
                                 </span>
                             </div>
                             @if($overdueCount > 0)
-                                <p class="fs-13 mb-0"><span class="text-danger d-inline-flex align-items-center"><i class="isax isax-close-circle me-1"></i>{{ $overdueCount }} facture(s) en retard</span></p>
+                                <p class="fs-13 mb-0"><span class="text-danger d-inline-flex align-items-center"><i class="isax isax-close-circle me-1"></i>{{ $overdueCount }} {{ __('facture(s) en retard') }}</span></p>
                             @else
-                                <p class="fs-13 text-muted mb-0">Aucune facture en retard</p>
+                                <p class="fs-13 text-muted mb-0">{{ __('Aucune facture en retard') }}</p>
                             @endif
                         </div>
                         <div class="position-absolute end-0 bottom-0 z-n1">
@@ -130,7 +130,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between border-bottom mb-2 pb-2">
                                 <div>
-                                    <p class="mb-1">Clients</p>
+                                    <p class="mb-1">{{ __('Clients') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ number_format($customerCount) }}</h6>
                                 </div>
                                 <span class="avatar avatar-lg bg-success text-white avatar-rounded">
@@ -138,7 +138,7 @@
                                 </span>
                             </div>
                             <p class="fs-13 mb-0">
-                                <a href="{{ route('bo.crm.customers.index') }}" class="text-primary">Voir tous les clients</a>
+                                <a href="{{ route('bo.crm.customers.index') }}" class="text-primary">{{ __('Voir tous les clients') }}</a>
                             </p>
                         </div>
                         <div class="position-absolute end-0 bottom-0 z-n1">
@@ -154,7 +154,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between border-bottom mb-2 pb-2">
                                 <div>
-                                    <p class="mb-1">Alertes stock bas</p>
+                                    <p class="mb-1">{{ __('Alertes stock bas') }}</p>
                                     <h6 class="fs-16 fw-semibold {{ $lowStockCount > 0 ? 'text-danger' : '' }}">{{ $lowStockCount }}</h6>
                                 </div>
                                 <span class="avatar avatar-lg {{ $lowStockCount > 0 ? 'bg-danger' : 'bg-info' }} text-white avatar-rounded">
@@ -163,10 +163,10 @@
                             </div>
                             @if($lowStockCount > 0)
                                 <p class="fs-13 mb-0">
-                                    <a href="{{ route('bo.reports.inventory') }}" class="text-danger">Voir les produits</a>
+                                    <a href="{{ route('bo.reports.inventory') }}" class="text-danger">{{ __('Voir les produits') }}</a>
                                 </p>
                             @else
-                                <p class="fs-13 text-muted mb-0">Stock suffisant</p>
+                                <p class="fs-13 text-muted mb-0">{{ __('Stock suffisant') }}</p>
                             @endif
                         </div>
                         <div class="position-absolute end-0 bottom-0 z-n1">
@@ -187,21 +187,21 @@
                     <div class="card flex-fill">
                         <div class="card-body pb-0">
                             <div class="mb-3 d-flex align-items-center justify-content-between">
-                                <h6 class="mb-1">Évolution du chiffre d'affaires</h6>
+                                <h6 class="mb-1">{{ __('Évolution du chiffre d\'affaires') }}</h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                                 <div>
                                     <div class="d-flex align-items-center flex-wrap gap-3">
                                         <div>
-                                            <p class="fs-13 mb-1">CA du mois</p>
+                                            <p class="fs-13 mb-1">{{ __('CA du mois') }}</p>
                                             <h6 class="fs-16 fw-semibold text-primary">{{ number_format($revenueMtd, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                         <div>
-                                            <p class="fs-13 mb-1">Encaissé</p>
+                                            <p class="fs-13 mb-1">{{ __('Encaissé') }}</p>
                                             <h6 class="fs-16 fw-semibold text-success">{{ number_format($collected, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                         <div>
-                                            <p class="fs-13 mb-1">Dépenses</p>
+                                            <p class="fs-13 mb-1">{{ __('Dépenses') }}</p>
                                             <h6 class="fs-16 fw-semibold text-danger">{{ number_format($expensesMtd, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
@@ -218,31 +218,31 @@
                     <div class="card flex-fill">
                         <div class="card-body">
                             <div class="mb-3 d-flex align-items-center justify-content-between">
-                                <h6 class="mb-1">Répartition des factures</h6>
+                                <h6 class="mb-1">{{ __('Répartition des factures') }}</h6>
                             </div>
                             <div id="invoice_status_chart" style="min-height: 220px;"></div>
                             <div class="d-flex align-items-center justify-content-around gap-3 mb-3">
-                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-primary fs-12 me-1"></i>Envoyées</p>
-                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-success fs-12 me-1"></i>Payées</p>
-                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-warning fs-12 me-1"></i>Partielles</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-primary fs-12 me-1"></i>{{ __('Envoyées') }}</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-success fs-12 me-1"></i>{{ __('Payées') }}</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i class="fa-solid fa-square text-warning fs-12 me-1"></i>{{ __('Partielles') }}</p>
                             </div>
                             <div class="border rounded p-2">
                                 <div class="row g-2">
                                     <div class="col d-flex border-end">
                                         <div class="text-center flex-fill">
-                                            <p class="fs-13 mb-1">Facturées</p>
+                                            <p class="fs-13 mb-1">{{ __('Facturées') }}</p>
                                             <h6 class="fs-16 fw-semibold">{{ number_format(($statusBreakdown->get('sent')?->total ?? 0) + ($statusBreakdown->get('partial')?->total ?? 0) + ($statusBreakdown->get('paid')?->total ?? 0), 2, ',', ' ') }}</h6>
                                         </div>
                                     </div>
                                     <div class="col d-flex border-end">
                                         <div class="text-center flex-fill">
-                                            <p class="fs-13 mb-1">Encaissées</p>
+                                            <p class="fs-13 mb-1">{{ __('Encaissées') }}</p>
                                             <h6 class="fs-16 fw-semibold">{{ number_format($statusBreakdown->get('paid')?->total ?? 0, 2, ',', ' ') }}</h6>
                                         </div>
                                     </div>
                                     <div class="col d-flex">
                                         <div class="text-center flex-fill">
-                                            <p class="fs-13 mb-1">En attente</p>
+                                            <p class="fs-13 mb-1">{{ __('En attente') }}</p>
                                             <h6 class="fs-16 fw-semibold">{{ number_format(($statusBreakdown->get('sent')?->total ?? 0) + ($statusBreakdown->get('partial')?->total ?? 0), 2, ',', ' ') }}</h6>
                                         </div>
                                     </div>
@@ -264,24 +264,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
-                                <h6 class="mb-1">Factures récentes</h6>
-                                <a href="{{ route('bo.sales.invoices.index') }}" class="btn btn-sm btn-dark mb-1">Voir tout</a>
+                                <h6 class="mb-1">{{ __('Factures récentes') }}</h6>
+                                <a href="{{ route('bo.sales.invoices.index') }}" class="btn btn-sm btn-dark mb-1">{{ __('Voir tout') }}</a>
                             </div>
                             <div class="table-responsive border table-nowrap">
                                 <table class="table m-0">
                                     <thead>
                                         <tr>
-                                            <th>Client</th>
-                                            <th>Montant</th>
-                                            <th>Échéance</th>
-                                            <th>Statut</th>
+                                            <th>{{ __('Client') }}</th>
+                                            <th>{{ __('Montant') }}</th>
+                                            <th>{{ __('Échéance') }}</th>
+                                            <th>{{ __('Statut') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
                                             $invoiceStatusLabels = [
-                                                'draft' => 'Brouillon', 'sent' => 'Envoyée', 'partial' => 'Partielle',
-                                                'paid' => 'Payée', 'overdue' => 'En retard', 'void' => 'Annulée',
+                                                'draft' => __('Brouillon'), 'sent' => __('Envoyée'), 'partial' => __('Partielle'),
+                                                'paid' => __('Payée'), 'overdue' => __('En retard'), 'void' => __('Annulée'),
                                             ];
                                             $invoiceStatusColors = [
                                                 'draft' => 'secondary', 'sent' => 'info', 'partial' => 'warning',
@@ -317,7 +317,7 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="4" class="text-center text-muted">Aucune facture récente.</td>
+                                            <td colspan="4" class="text-center text-muted">{{ __('Aucune facture récente.') }}</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
@@ -333,24 +333,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
-                                <h6 class="mb-1">Devis récents</h6>
-                                <a href="{{ route('bo.sales.quotes.index') }}" class="btn btn-sm btn-dark mb-1">Voir tout</a>
+                                <h6 class="mb-1">{{ __('Devis récents') }}</h6>
+                                <a href="{{ route('bo.sales.quotes.index') }}" class="btn btn-sm btn-dark mb-1">{{ __('Voir tout') }}</a>
                             </div>
                             <div class="table-responsive border table-nowrap">
                                 <table class="table m-0">
                                     <thead>
                                         <tr>
-                                            <th>Client</th>
-                                            <th>Date d'expiration</th>
-                                            <th>Montant</th>
-                                            <th>Statut</th>
+                                            <th>{{ __('Client') }}</th>
+                                            <th>{{ __('Date d\'expiration') }}</th>
+                                            <th>{{ __('Montant') }}</th>
+                                            <th>{{ __('Statut') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
                                             $quoteStatusLabels = [
-                                                'draft' => 'Brouillon', 'sent' => 'Envoyé', 'accepted' => 'Accepté',
-                                                'rejected' => 'Refusé', 'expired' => 'Expiré', 'cancelled' => 'Annulé',
+                                                'draft' => __('Brouillon'), 'sent' => __('Envoyé'), 'accepted' => __('Accepté'),
+                                                'rejected' => __('Refusé'), 'expired' => __('Expiré'), 'cancelled' => __('Annulé'),
                                             ];
                                             $quoteStatusColors = [
                                                 'draft' => 'secondary', 'sent' => 'info', 'accepted' => 'success',
@@ -386,7 +386,7 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="4" class="text-center text-muted">Aucun devis récent.</td>
+                                            <td colspan="4" class="text-center text-muted">{{ __('Aucun devis récent.') }}</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
@@ -406,16 +406,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
-                                <h6 class="mb-1">Meilleurs clients (année en cours)</h6>
-                                <a href="{{ route('bo.reports.customers') }}" class="btn btn-sm btn-dark mb-1">Voir le rapport</a>
+                                <h6 class="mb-1">{{ __('Meilleurs clients (année en cours)') }}</h6>
+                                <a href="{{ route('bo.reports.customers') }}" class="btn btn-sm btn-dark mb-1">{{ __('Voir le rapport') }}</a>
                             </div>
                             <div class="table-responsive border table-nowrap">
                                 <table class="table m-0">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Client</th>
-                                            <th class="text-end">Chiffre d'affaires</th>
+                                            <th>{{ __('Client') }}</th>
+                                            <th class="text-end">{{ __('Chiffre d\'affaires') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -434,7 +434,7 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="3" class="text-center text-muted">Aucune donnée disponible.</td>
+                                            <td colspan="3" class="text-center text-muted">{{ __('Aucune donnée disponible.') }}</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         new ApexCharts(revenueTrendEl, {
             chart: { type: 'area', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
-            series: [{ name: "Chiffre d'affaires", data: data }],
+            series: [{ name: {!! json_encode(__("Chiffre d'affaires")) !!}, data: data }],
             xaxis: { categories: formattedLabels },
             yaxis: {
                 labels: {
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var invoiceStatusEl = document.querySelector('#invoice_status_chart');
     if (invoiceStatusEl) {
         var breakdown = @json($statusBreakdown->map(fn($s) => (int)$s->count));
-        var statusLabels = { draft: 'Brouillon', sent: 'Envoyée', partial: 'Partielle', paid: 'Payée', overdue: 'En retard', void: 'Annulée' };
+        var statusLabels = { draft: {!! json_encode(__('Brouillon')) !!}, sent: {!! json_encode(__('Envoyée')) !!}, partial: {!! json_encode(__('Partielle')) !!}, paid: {!! json_encode(__('Payée')) !!}, overdue: {!! json_encode(__('En retard')) !!}, void: {!! json_encode(__('Annulée')) !!} };
         var statusColors = { draft: '#6c757d', sent: '#0dcaf0', partial: '#ffc107', paid: '#198754', overdue: '#dc3545', void: '#adb5bd' };
 
         var chartLabels = [];

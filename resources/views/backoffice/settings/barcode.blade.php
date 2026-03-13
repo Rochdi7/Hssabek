@@ -25,20 +25,20 @@
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Code-barres</h6>
+                                    <h6 class="mb-0">{{ __('Code-barres') }}</h6>
                                 </div>
 
                                 @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                                     </div>
                                 @endif
 
                                 @if (session('error'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         {{ session('error') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                                     </div>
                                 @endif
 
@@ -50,7 +50,7 @@
                                         <!-- start row -->
                                         <div class="row align-items-center">
                                             <div class="col-8">
-                                                <label class="form-label fw-medium mb-3">Afficher la date d'emballage</label>
+                                                <label class="form-label fw-medium mb-3">{{ __("Afficher la date d'emballage") }}</label>
                                             </div><!-- end col -->
                                             <div class="col-4 mb-3">
                                                 <div class="form-check form-switch d-flex justify-content-end">
@@ -65,7 +65,7 @@
                                         <!-- start row -->
                                         <div class="row align-items-center">
                                             <div class="col-md-8 col-sm-12">
-                                                <label class="form-label fw-medium mb-3">Libell&eacute; MRP</label>
+                                                <label class="form-label fw-medium mb-3">{{ __('Libellé MRP') }}</label>
                                             </div><!-- end col -->
                                             <div class="col-md-4 col-sm-12">
                                                 <div>
@@ -83,7 +83,7 @@
                                         <!-- start row -->
                                         <div class="row align-items-center">
                                             <div class="col-8">
-                                                <label class="form-label fw-medium mb-3">Afficher le nom du produit</label>
+                                                <label class="form-label fw-medium mb-3">{{ __('Afficher le nom du produit') }}</label>
                                             </div><!-- end col -->
                                             <div class="col-4 mb-3">
                                                 <div class="form-check form-switch d-flex justify-content-end">
@@ -98,7 +98,7 @@
                                         <!-- start row -->
                                         <div class="row align-items-center">
                                             <div class="col-md-8 col-sm-12">
-                                                <label class="form-label fw-medium mb-3">Taille de police du nom du produit</label>
+                                                <label class="form-label fw-medium mb-3">{{ __('Taille de police du nom du produit') }}</label>
                                             </div><!-- end col -->
                                             <div class="col-md-4 col-sm-12">
                                                 <div>
@@ -116,7 +116,7 @@
                                         <!-- start row -->
                                         <div class="row align-items-center">
                                             <div class="col-md-8 col-sm-12">
-                                                <label class="form-label fw-medium mb-3">Taille de police MRP</label>
+                                                <label class="form-label fw-medium mb-3">{{ __('Taille de police MRP') }}</label>
                                             </div><!-- end col -->
                                             <div class="col-md-4 col-sm-12">
                                                 <div>
@@ -134,7 +134,7 @@
                                         <!-- start row -->
                                         <div class="row align-items-center">
                                             <div class="col-md-8 col-sm-12">
-                                                <label class="form-label fw-medium mb-3">Taille du code-barres</label>
+                                                <label class="form-label fw-medium mb-3">{{ __('Taille du code-barres') }}</label>
                                             </div><!-- end col -->
                                             <div class="col-md-4 col-sm-12">
                                                 <div>
@@ -152,8 +152,8 @@
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-between settings-bottom-btn mt-0">
-                                        <button type="button" class="btn btn-outline-white me-2" onclick="window.location.reload()">Annuler</button>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        <button type="button" class="btn btn-outline-white me-2" onclick="window.location.reload()">{{ __('Annuler') }}</button>
+                                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                     </div>
 
                                 </form>

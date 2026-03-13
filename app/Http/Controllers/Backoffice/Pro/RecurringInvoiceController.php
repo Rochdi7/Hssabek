@@ -44,7 +44,7 @@ class RecurringInvoiceController extends Controller
         RecurringInvoice::create($request->validated());
 
         return redirect()->route('bo.pro.recurring-invoices.index')
-            ->with('success', 'Facture récurrente créée avec succès.');
+            ->with('success', __('Facture récurrente créée avec succès.'));
     }
 
     public function show(RecurringInvoice $recurringInvoice)
@@ -73,7 +73,7 @@ class RecurringInvoiceController extends Controller
         $recurringInvoice->update($request->validated());
 
         return redirect()->route('bo.pro.recurring-invoices.index')
-            ->with('success', 'Facture récurrente mise à jour avec succès.');
+            ->with('success', __('Facture récurrente mise à jour avec succès.'));
     }
 
     public function destroy(RecurringInvoice $recurringInvoice)
@@ -83,6 +83,6 @@ class RecurringInvoiceController extends Controller
         $recurringInvoice->delete();
 
         return redirect()->route('bo.pro.recurring-invoices.index')
-            ->with('success', 'Facture récurrente supprimée avec succès.');
+            ->with('success', __('Facture récurrente supprimée avec succès.'));
     }
 }

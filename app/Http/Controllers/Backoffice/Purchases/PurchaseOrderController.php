@@ -76,7 +76,7 @@ class PurchaseOrderController extends Controller
         $po = $this->purchaseOrderService->create($request->validated());
 
         return redirect()->route('bo.purchases.purchase-orders.show', $po)
-            ->with('success', 'Bon de commande créé avec succès.');
+            ->with('success', __('Bon de commande créé avec succès.'));
     }
 
     public function show(PurchaseOrder $purchaseOrder)
@@ -117,7 +117,7 @@ class PurchaseOrderController extends Controller
         $this->purchaseOrderService->update($purchaseOrder, $request->validated());
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
-            ->with('success', 'Bon de commande mis à jour avec succès.');
+            ->with('success', __('Bon de commande mis à jour avec succès.'));
     }
 
     public function destroy(PurchaseOrder $purchaseOrder)
@@ -127,7 +127,7 @@ class PurchaseOrderController extends Controller
         $purchaseOrder->delete();
 
         return redirect()->route('bo.purchases.purchase-orders.index')
-            ->with('success', 'Bon de commande supprimé avec succès.');
+            ->with('success', __('Bon de commande supprimé avec succès.'));
     }
 
     public function receive(Request $request, PurchaseOrder $purchaseOrder)
@@ -145,7 +145,7 @@ class PurchaseOrderController extends Controller
         $this->purchaseOrderService->receive($purchaseOrder);
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
-            ->with('success', 'Marchandises réceptionnées avec succès.');
+            ->with('success', __('Marchandises réceptionnées avec succès.'));
     }
 
     public function download(PurchaseOrder $purchaseOrder, PdfService $pdfService)
@@ -169,7 +169,7 @@ class PurchaseOrderController extends Controller
         $this->purchaseOrderService->transition($purchaseOrder, 'cancelled');
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
-            ->with('success', 'Bon de commande annulé.');
+            ->with('success', __('Bon de commande annulé.'));
     }
 
     public function send(PurchaseOrder $purchaseOrder)
@@ -185,6 +185,6 @@ class PurchaseOrderController extends Controller
         ));
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
-            ->with('success', 'Bon de commande envoyé au fournisseur par email.');
+            ->with('success', __('Bon de commande envoyé au fournisseur par email.'));
     }
 }

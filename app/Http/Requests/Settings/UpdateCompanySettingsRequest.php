@@ -46,11 +46,11 @@ class UpdateCompanySettingsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'company_name.required' => "Le nom de l'entreprise est obligatoire.",
-            'company_name.max' => "Le nom de l'entreprise ne doit pas dépasser 255 caractères.",
-            'company_email.email' => "L'adresse e-mail n'est pas valide.",
-            'company_phone.max' => 'Le téléphone ne doit pas dépasser 30 caractères.',
-            'company_website.url' => "L'URL du site web n'est pas valide.",
+            'company_name.required' => __("Le nom de l'entreprise est obligatoire."),
+            'company_name.max' => __("Le nom de l'entreprise ne doit pas dépasser 255 caractères."),
+            'company_email.email' => __("L'adresse e-mail n'est pas valide."),
+            'company_phone.max' => __('Le téléphone ne doit pas dépasser 30 caractères.'),
+            'company_website.url' => __("L'URL du site web n'est pas valide."),
         ];
     }
 }

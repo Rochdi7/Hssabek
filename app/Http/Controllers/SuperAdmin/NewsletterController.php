@@ -40,20 +40,20 @@ class NewsletterController extends Controller
 
         return redirect()
             ->route('sa.newsletter.index')
-            ->with('success', 'Abonné supprimé avec succès.');
+            ->with('success', __('Abonné supprimé avec succès.'));
     }
 
     public function toggleStatus(NewsletterSubscriber $subscriber): RedirectResponse
     {
         if ($subscriber->is_active) {
             $subscriber->unsubscribe();
-            $message = 'Abonné désactivé avec succès.';
+            $message = __('Abonné désactivé avec succès.');
         } else {
             $subscriber->update([
                 'is_active'       => true,
                 'unsubscribed_at' => null,
             ]);
-            $message = 'Abonné réactivé avec succès.';
+            $message = __('Abonné réactivé avec succès.');
         }
 
         return back()->with('success', $message);

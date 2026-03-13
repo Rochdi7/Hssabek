@@ -25,13 +25,13 @@ class UpdateCustomerContactRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Le nom du contact est obligatoire.',
-            'name.max' => 'Le nom du contact ne doit pas dépasser 255 caractères.',
-            'email.email' => "L'adresse e-mail du contact n'est pas valide.",
-            'email.max' => "L'adresse e-mail ne doit pas dépasser 255 caractères.",
-            'phone.max' => 'Le téléphone ne doit pas dépasser 30 caractères.',
-            'position.max' => 'Le poste ne doit pas dépasser 100 caractères.',
-            'is_primary.boolean' => 'Le champ « Contact principal » doit être vrai ou faux.',
+            'name.required' => __('Le nom du contact est obligatoire.'),
+            'name.max' => __('Le nom du contact ne doit pas dépasser 255 caractères.'),
+            'email.email' => __("L'adresse e-mail du contact n'est pas valide."),
+            'email.max' => __("L'adresse e-mail ne doit pas dépasser 255 caractères."),
+            'phone.max' => __('Le téléphone ne doit pas dépasser 30 caractères.'),
+            'position.max' => __('Le poste ne doit pas dépasser 100 caractères.'),
+            'is_primary.boolean' => __('Le champ « Contact principal » doit être vrai ou faux.'),
         ];
     }
 }

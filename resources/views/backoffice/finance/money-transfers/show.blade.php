@@ -13,7 +13,7 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6><a href="{{ route('bo.finance.money-transfers.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>Transferts entre comptes</a></h6>
+                    <h6><a href="{{ route('bo.finance.money-transfers.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>{{ __('Transferts entre comptes') }}</a></h6>
                 </div>
             </div>
             <!-- End Page Header -->
@@ -41,18 +41,18 @@
                                     </div>
                                     <div class="">
                                         <p class="text-primary fs-14 fw-medium mb-1">
-                                            {{ $moneyTransfer->reference_number ?? 'Sans référence' }}
+                                            {{ $moneyTransfer->reference_number ?? __('Sans référence') }}
                                         </p>
-                                        <h6 class="mb-2">Transfert du {{ \Carbon\Carbon::parse($moneyTransfer->transfer_date)->format('d/m/Y') }}
+                                        <h6 class="mb-2">{{ __('Transfert du') }} {{ \Carbon\Carbon::parse($moneyTransfer->transfer_date)->format('d/m/Y') }}
                                             @switch($moneyTransfer->status)
                                                 @case('completed')
-                                                    <span class="badge badge-soft-success ms-1">Complété</span>
+                                                    <span class="badge badge-soft-success ms-1">{{ __('Complété') }}</span>
                                                     @break
                                                 @case('pending')
-                                                    <span class="badge badge-soft-warning ms-1">En attente</span>
+                                                    <span class="badge badge-soft-warning ms-1">{{ __('En attente') }}</span>
                                                     @break
                                                 @case('cancelled')
-                                                    <span class="badge badge-soft-danger ms-1">Annulé</span>
+                                                    <span class="badge badge-soft-danger ms-1">{{ __('Annulé') }}</span>
                                                     @break
                                             @endswitch
                                         </h6>
@@ -68,7 +68,7 @@
                                 <div class="card-body border-0 shadow shadow-none">
                                     <div class="row">
                                         <div class="col-md-5 text-center">
-                                            <h6 class="mb-1 fs-14 fw-semibold"><i class="isax isax-bank fs-14 me-1"></i> Compte source</h6>
+                                            <h6 class="mb-1 fs-14 fw-semibold"><i class="isax isax-bank fs-14 me-1"></i> {{ __('Compte source') }}</h6>
                                             <p class="fw-medium mb-0">{{ $moneyTransfer->fromBankAccount->bank_name ?? '—' }}</p>
                                             <p class="text-muted fs-13 mb-0">{{ $moneyTransfer->fromBankAccount->account_number ?? '' }}</p>
                                         </div>
@@ -76,7 +76,7 @@
                                             <i class="isax isax-arrow-right fs-24 text-primary"></i>
                                         </div>
                                         <div class="col-md-5 text-center">
-                                            <h6 class="mb-1 fs-14 fw-semibold"><i class="isax isax-bank fs-14 me-1"></i> Compte destination</h6>
+                                            <h6 class="mb-1 fs-14 fw-semibold"><i class="isax isax-bank fs-14 me-1"></i> {{ __('Compte destination') }}</h6>
                                             <p class="fw-medium mb-0">{{ $moneyTransfer->toBankAccount->bank_name ?? '—' }}</p>
                                             <p class="text-muted fs-13 mb-0">{{ $moneyTransfer->toBankAccount->account_number ?? '' }}</p>
                                         </div>
@@ -94,32 +94,32 @@
                     <!-- Start Info -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Détails</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Détails') }}</h6>
                             <ul class="list-unstyled m-0 p-0">
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Montant</span>
+                                    <span class="text-muted">{{ __('Montant') }}</span>
                                     <span class="fw-semibold">{{ number_format($moneyTransfer->amount, 2, ',', ' ') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Date</span>
+                                    <span class="text-muted">{{ __('Date') }}</span>
                                     <span class="fw-semibold">{{ \Carbon\Carbon::parse($moneyTransfer->transfer_date)->format('d/m/Y') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Référence</span>
+                                    <span class="text-muted">{{ __('Référence') }}</span>
                                     <span class="fw-semibold">{{ $moneyTransfer->reference_number ?? '—' }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Statut</span>
+                                    <span class="text-muted">{{ __('Statut') }}</span>
                                     <span class="fw-semibold">
                                         @switch($moneyTransfer->status)
-                                            @case('completed') Complété @break
-                                            @case('pending') En attente @break
-                                            @case('cancelled') Annulé @break
+                                            @case('completed') {{ __('Complété') }} @break
+                                            @case('pending') {{ __('En attente') }} @break
+                                            @case('cancelled') {{ __('Annulé') }} @break
                                         @endswitch
                                     </span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Créé le</span>
+                                    <span class="text-muted">{{ __('Créé le') }}</span>
                                     <span class="fw-semibold">{{ $moneyTransfer->created_at->format('d/m/Y H:i') }}</span>
                                 </li>
                             </ul>
@@ -131,7 +131,7 @@
                     <!-- Start Notes -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Notes</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Notes') }}</h6>
                             <p class="mb-0">{{ $moneyTransfer->notes }}</p>
                         </div><!-- end card body -->
                     </div><!-- end card -->

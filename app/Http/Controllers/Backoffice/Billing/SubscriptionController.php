@@ -13,6 +13,6 @@ class SubscriptionController extends Controller
 {
     public function __construct()
     {
-        abort(403, 'Subscriptions are managed by SuperAdmin only.');
+        abort(403, __('Les abonnements sont gérés uniquement par le SuperAdmin.'));
     }
 }

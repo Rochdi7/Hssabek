@@ -86,7 +86,7 @@ class CreditNoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.credit-notes.index')
-            ->with('success', 'Avoir créé avec succès.');
+            ->with('success', __('Avoir créé avec succès.'));
     }
 
     public function show(CreditNote $creditNote)
@@ -141,7 +141,7 @@ class CreditNoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
-            ->with('success', 'Avoir mis à jour avec succès.');
+            ->with('success', __('Avoir mis à jour avec succès.'));
     }
 
     public function destroy(CreditNote $creditNote)
@@ -154,7 +154,7 @@ class CreditNoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.credit-notes.index')
-            ->with('success', 'Avoir supprimé avec succès.');
+            ->with('success', __('Avoir supprimé avec succès.'));
     }
 
     public function apply(Request $request, CreditNote $creditNote)
@@ -182,7 +182,7 @@ class CreditNoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
-            ->with('success', 'Avoir appliqué avec succès.');
+            ->with('success', __('Avoir appliqué avec succès.'));
     }
 
     public function download(CreditNote $creditNote, PdfService $pdfService)
@@ -210,6 +210,6 @@ class CreditNoteController extends Controller
         ));
 
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
-            ->with('success', 'Avoir envoyé au client par email.');
+            ->with('success', __('Avoir envoyé au client par email.'));
     }
 }

@@ -22,7 +22,7 @@
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Sécurité</h6>
+                                    <h6 class="mb-0">{{ __('Sécurité') }}</h6>
                                 </div>
 
                                 @if(session('success'))
@@ -46,12 +46,12 @@
                                             <i class="isax isax-lock-circle text-dark fs-24"></i>
                                         </span>
                                         <div>
-                                            <h5 class="fs-16 fw-semibold mb-1">Mot de passe</h5>
-                                            <p class="fs-14 mb-0">Dernière modification :
+                                            <h5 class="fs-16 fw-semibold mb-1">{{ __('Mot de passe') }}</h5>
+                                            <p class="fs-14 mb-0">{{ __('Dernière modification') }} :
                                                 @if($user->password_changed_at)
                                                     {{ $user->password_changed_at->translatedFormat('d M Y') }}
                                                 @else
-                                                    Jamais modifié
+                                                    {{ __('Jamais modifié') }}
                                                 @endif
                                             </p>
                                         </div>
@@ -71,19 +71,19 @@
                                             <i class="isax isax-sms-tracking text-dark fs-24"></i>
                                         </span>
                                         <div>
-                                            <h5 class="fs-16 fw-semibold mb-1">Vérification de l'email</h5>
+                                            <h5 class="fs-16 fw-semibold mb-1">{{ __("Vérification de l'email") }}</h5>
                                             <p class="fs-14 mb-0">{{ $user->email }}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         @if($user->email_verified_at)
-                                            <span class="badge badge-md badge-soft-success me-3">Vérifié le {{ $user->email_verified_at->translatedFormat('d M Y') }}<i
+                                            <span class="badge badge-md badge-soft-success me-3">{{ __('Vérifié le') }} {{ $user->email_verified_at->translatedFormat('d M Y') }}<i
                                                     class="isax isax-tick-circle ms-1"></i></span>
                                         @else
-                                            <span class="badge badge-md badge-soft-warning me-3">Non vérifié</span>
+                                            <span class="badge badge-md badge-soft-warning me-3">{{ __('Non vérifié') }}</span>
                                             <form method="POST" action="{{ route('verification.send') }}" class="d-inline">
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-outline-primary ms-2">Renvoyer</button>
+                                                <button type="submit" class="btn btn-sm btn-outline-primary ms-2">{{ __('Renvoyer') }}</button>
                                             </form>
                                         @endif
                                     </div>
@@ -97,8 +97,8 @@
                                             <i class="isax isax-device-message text-dark fs-24"></i>
                                         </span>
                                         <div>
-                                            <h5 class="fs-16 fw-semibold mb-1">Navigateurs et appareils</h5>
-                                            <p class="fs-14 mb-0">{{ $sessions->count() }} session(s) active(s)</p>
+                                            <h5 class="fs-16 fw-semibold mb-1">{{ __('Navigateurs et appareils') }}</h5>
+                                            <p class="fs-14 mb-0">{{ $sessions->count() }} {{ __('session(s) active(s)') }}</p>
                                         </div>
                                     </div>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#view_device"><span
@@ -114,8 +114,8 @@
                                             <i class="isax isax-close-circle text-dark fs-24"></i>
                                         </span>
                                         <div>
-                                            <h5 class="fs-16 fw-semibold mb-1">Désactiver le compte</h5>
-                                            <p class="fs-14 mb-0">Votre compte sera réactivé lorsque vous vous reconnecterez.</p>
+                                            <h5 class="fs-16 fw-semibold mb-1">{{ __('Désactiver le compte') }}</h5>
+                                            <p class="fs-14 mb-0">{{ __('Votre compte sera réactivé lorsque vous vous reconnecterez.') }}</p>
                                         </div>
                                     </div>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#deactivate_account_modal"><span
@@ -130,12 +130,12 @@
                                             <i class="isax isax-info-circle text-dark fs-24"></i>
                                         </span>
                                         <div>
-                                            <h5 class="fs-16 fw-semibold mb-1">Supprimer le compte</h5>
-                                            <p class="fs-14 mb-0">Votre compte sera définitivement supprimé.</p>
+                                            <h5 class="fs-16 fw-semibold mb-1">{{ __('Supprimer le compte') }}</h5>
+                                            <p class="fs-14 mb-0">{{ __('Votre compte sera définitivement supprimé.') }}</p>
                                         </div>
                                     </div>
                                     @if($pendingDeleteRequest)
-                                        <span class="badge badge-md badge-soft-warning">Demande en cours<i class="isax isax-clock ms-1"></i></span>
+                                        <span class="badge badge-md badge-soft-warning">{{ __('Demande en cours') }}<i class="isax isax-clock ms-1"></i></span>
                                     @else
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#delete_account_modal"><span
                                                 class="badge badge-soft-light text-dark d-inline-flex align-items-center"><i
@@ -162,8 +162,8 @@
             <div class="modal-content">
                 <!-- Start modal header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Changer le mot de passe</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <h4 class="modal-title">{{ __('Changer le mot de passe') }}</h4>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <!-- End modal header -->
                 <form method="POST" action="{{ route('bo.account.settings.password') }}">
@@ -171,7 +171,7 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Mot de passe actuel<span class="text-danger ms-1">*</span></label>
+                            <label class="form-label">{{ __('Mot de passe actuel') }}<span class="text-danger ms-1">*</span></label>
                             <div class="pass-group input-group">
                                 <span class="input-group-text border-end-0">
                                     <i class="isax isax-lock"></i>
@@ -182,7 +182,7 @@
                             </div>
                         </div>
                         <div class="mb-3" id="passwordInput">
-                            <label class="form-label">Nouveau mot de passe<span class="text-danger ms-1">*</span></label>
+                            <label class="form-label">{{ __('Nouveau mot de passe') }}<span class="text-danger ms-1">*</span></label>
                             <div class="pass-group input-group mb-3">
                                 <span class="input-group-text border-end-0">
                                     <i class="isax isax-lock"></i>
@@ -198,10 +198,10 @@
                                 <span id="heavy"></span>
                             </div>
                             <div id="passwordInfo" class="mb-2"></div>
-                            <p class="text-gray-5">Utilisez au moins 8 caractères avec un mélange de lettres, chiffres et symboles.</p>
+                            <p class="text-gray-5">{{ __('Utilisez au moins 8 caractères avec un mélange de lettres, chiffres et symboles.') }}</p>
                         </div>
                         <div>
-                            <label class="form-label">Confirmer le mot de passe<span class="text-danger ms-1">*</span></label>
+                            <label class="form-label">{{ __('Confirmer le mot de passe') }}<span class="text-danger ms-1">*</span></label>
                             <div class="pass-group input-group">
                                 <span class="input-group-text border-end-0">
                                     <i class="isax isax-lock"></i>
@@ -211,8 +211,8 @@
                         </div>
                     </div><!-- End modal body -->
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div><!-- End modal footer -->
                 </form>
             </div><!-- End modal content-->
@@ -226,8 +226,8 @@
             <div class="modal-content">
                 <!-- Start modal header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Navigateurs et appareils</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <h4 class="modal-title">{{ __('Navigateurs et appareils') }}</h4>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <!-- End modal header -->
                 <div class="modal-body">
@@ -236,9 +236,9 @@
                         <table class="table">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Appareil</th>
-                                    <th>Date</th>
-                                    <th>Adresse IP</th>
+                                    <th>{{ __('Appareil') }}</th>
+                                    <th>{{ __('Date') }}</th>
+                                    <th>{{ __('Adresse IP') }}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -248,7 +248,7 @@
                                         <td class="text-dark">
                                             {{ $session->device }}
                                             @if($session->is_current)
-                                                <span class="badge badge-soft-success ms-1">Session actuelle</span>
+                                                <span class="badge badge-soft-success ms-1">{{ __('Session actuelle') }}</span>
                                             @endif
                                         </td>
                                         <td>{{ $session->last_activity->translatedFormat('d M Y, H:i') }}</td>
@@ -267,7 +267,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">Aucune session active trouvée.</td>
+                                        <td colspan="4" class="text-center">{{ __('Aucune session active trouvée.') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -285,23 +285,23 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Désactiver le compte</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <h4 class="modal-title">{{ __('Désactiver le compte') }}</h4>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <div class="modal-body">
                     <div class="text-center mb-3">
                         <span class="avatar avatar-xl border bg-light mb-3">
                             <i class="isax isax-close-circle text-danger fs-36"></i>
                         </span>
-                        <h5 class="fw-semibold mb-2">Êtes-vous sûr ?</h5>
-                        <p class="fs-14">Cette action désactivera votre compte. Votre compte sera réactivé automatiquement lorsque vous vous reconnecterez.</p>
+                        <h5 class="fw-semibold mb-2">{{ __('Êtes-vous sûr ?') }}</h5>
+                        <p class="fs-14">{{ __('Cette action désactivera votre compte. Votre compte sera réactivé automatiquement lorsque vous vous reconnecterez.') }}</p>
                     </div>
                 </div>
                 <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                    <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
                     <form method="POST" action="{{ route('bo.settings.security.deactivate') }}">
                         @csrf
-                        <button type="submit" class="btn btn-danger">Désactiver mon compte</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Désactiver mon compte') }}</button>
                     </form>
                 </div>
             </div>
@@ -314,69 +314,69 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Supprimer le compte</h4>
-                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                    <h4 class="modal-title">{{ __('Supprimer le compte') }}</h4>
+                    <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('bo.settings.delete-account.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <p class="text-dark fw-semibold mb-0">Pourquoi souhaitez-vous supprimer votre compte ?</p>
-                            <p class="fs-13">Nous sommes désolés de vous voir partir ! Pour nous aider à nous améliorer, veuillez nous indiquer la raison de votre demande.</p>
+                            <p class="text-dark fw-semibold mb-0">{{ __('Pourquoi souhaitez-vous supprimer votre compte ?') }}</p>
+                            <p class="fs-13">{{ __('Nous sommes désolés de vous voir partir ! Pour nous aider à nous améliorer, veuillez nous indiquer la raison de votre demande.') }}</p>
                         </div>
                         <div>
                             <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" type="radio" name="reason_type" id="reason-1" value="no_longer_using">
                                 <div class="ms-2">
-                                    <p class="text-dark fw-semibold mb-0">Je n'utilise plus le service</p>
+                                    <p class="text-dark fw-semibold mb-0">{{ __("Je n'utilise plus le service") }}</p>
                                     <label class="form-check-label fs-13" for="reason-1">
-                                        Je n'ai plus besoin de ce service et ne l'utiliserai plus à l'avenir.
+                                        {{ __("Je n'ai plus besoin de ce service et ne l'utiliserai plus à l'avenir.") }}
                                     </label>
                                 </div>
                             </div>
                             <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" type="radio" name="reason_type" id="reason-2" value="privacy">
                                 <div class="ms-2">
-                                    <p class="text-dark fw-semibold mb-0">Préoccupations de confidentialité</p>
+                                    <p class="text-dark fw-semibold mb-0">{{ __('Préoccupations de confidentialité') }}</p>
                                     <label class="form-check-label fs-13" for="reason-2">
-                                        Je suis préoccupé par la gestion de mes données et je souhaite les supprimer.
+                                        {{ __('Je suis préoccupé par la gestion de mes données et je souhaite les supprimer.') }}
                                     </label>
                                 </div>
                             </div>
                             <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" type="radio" name="reason_type" id="reason-3" value="notifications">
                                 <div class="ms-2">
-                                    <p class="text-dark fw-semibold mb-0">Trop de notifications / e-mails</p>
+                                    <p class="text-dark fw-semibold mb-0">{{ __('Trop de notifications / e-mails') }}</p>
                                     <label class="form-check-label fs-13" for="reason-3">
-                                        Je suis submergé par le volume de notifications ou d'e-mails.
+                                        {{ __("Je suis submergé par le volume de notifications ou d'e-mails.") }}
                                     </label>
                                 </div>
                             </div>
                             <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" type="radio" name="reason_type" id="reason-4" value="poor_experience">
                                 <div class="ms-2">
-                                    <p class="text-dark fw-semibold mb-0">Mauvaise expérience utilisateur</p>
+                                    <p class="text-dark fw-semibold mb-0">{{ __('Mauvaise expérience utilisateur') }}</p>
                                     <label class="form-check-label fs-13" for="reason-4">
-                                        J'ai eu des difficultés à utiliser la plateforme et elle n'a pas répondu à mes attentes.
+                                        {{ __("J'ai eu des difficultés à utiliser la plateforme et elle n'a pas répondu à mes attentes.") }}
                                     </label>
                                 </div>
                             </div>
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="radio" name="reason_type" id="reason-5" value="other" checked>
                                 <label class="form-check-label text-dark fw-semibold" for="reason-5">
-                                    Autre (veuillez préciser)
+                                    {{ __('Autre (veuillez préciser)') }}
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <label class="form-label">Raison<span class="text-danger ms-1">*</span></label>
-                            <textarea class="form-control @error('reason_details') is-invalid @enderror" name="reason_details" rows="3" placeholder="Décrivez la raison..."></textarea>
+                            <label class="form-label">{{ __('Raison') }}<span class="text-danger ms-1">*</span></label>
+                            <textarea class="form-control @error('reason_details') is-invalid @enderror" name="reason_details" rows="3" placeholder="{{ __('Décrivez la raison...') }}"></textarea>
                             @error('reason_details')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Confirmer la suppression') }}</button>
                     </div>
                 </form>
             </div>
@@ -423,7 +423,7 @@
                     info.style.display = 'block';
 
                     if (hasWhitespace) {
-                        info.textContent = 'Les espaces ne sont pas autorisés';
+                        info.textContent = {!! json_encode(__('Les espaces ne sont pas autorisés')) !!};
                         info.style.color = '#FF0000';
                         return;
                     }
@@ -432,28 +432,28 @@
                     if (len >= 8 && hasLower && hasNumber && hasSpecial) {
                         [poor, weak, strong, heavy].forEach(function(el) { el.classList.add('active'); });
                         strengthBar.classList.add('heavy-active');
-                        info.textContent = 'Excellent ! Mot de passe sécurisé.';
+                        info.textContent = {!! json_encode(__('Excellent ! Mot de passe sécurisé.')) !!};
                         info.style.color = '#159F46';
                     }
                     // Strong: 8+ chars, lowercase AND (number or special)
                     else if (len >= 8 && hasLower && (hasNumber || hasSpecial)) {
                         [poor, weak, strong].forEach(function(el) { el.classList.add('active'); });
                         strengthBar.classList.add('strong-active');
-                        info.textContent = 'Presque ! Ajoutez un symbole spécial.';
+                        info.textContent = {!! json_encode(__('Presque ! Ajoutez un symbole spécial.')) !!};
                         info.style.color = '#1D9CFD';
                     }
                     // Weak/Average: 8+ chars, at least one condition
                     else if (len >= 8 && (hasLower || hasNumber || hasSpecial)) {
                         [poor, weak].forEach(function(el) { el.classList.add('active'); });
                         strengthBar.classList.add('avg-active');
-                        info.textContent = 'Moyen. Ajoutez des lettres et des chiffres.';
+                        info.textContent = {!! json_encode(__('Moyen. Ajoutez des lettres et des chiffres.')) !!};
                         info.style.color = '#FFB54A';
                     }
                     // Poor: anything else
                     else {
                         poor.classList.add('active');
                         strengthBar.classList.add('poor-active');
-                        info.textContent = 'Faible. Minimum 8 caractères requis.';
+                        info.textContent = {!! json_encode(__('Faible. Minimum 8 caractères requis.')) !!};
                         info.style.color = '#FF0000';
                     }
                 });

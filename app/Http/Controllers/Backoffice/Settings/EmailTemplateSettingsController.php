@@ -56,7 +56,7 @@ class EmailTemplateSettingsController extends Controller
         $setting->save();
 
         return redirect()->route('bo.settings.email-templates.index')
-            ->with('success', 'Modèle d\'email ajouté avec succès.');
+            ->with('success', __('Modèle d\'email ajouté avec succès.'));
     }
 
     public function update(Request $request, string $templateId)
@@ -94,7 +94,7 @@ class EmailTemplateSettingsController extends Controller
         $setting->save();
 
         return redirect()->route('bo.settings.email-templates.index')
-            ->with('success', 'Modèle d\'email mis à jour avec succès.');
+            ->with('success', __('Modèle d\'email mis à jour avec succès.'));
     }
 
     public function toggleStatus(string $templateId)
@@ -118,7 +118,7 @@ class EmailTemplateSettingsController extends Controller
         $setting->save();
 
         return redirect()->route('bo.settings.email-templates.index')
-            ->with('success', 'Statut du modèle mis à jour.');
+            ->with('success', __('Statut du modèle mis à jour.'));
     }
 
     public function destroy(string $templateId)
@@ -136,6 +136,6 @@ class EmailTemplateSettingsController extends Controller
         $setting->save();
 
         return redirect()->route('bo.settings.email-templates.index')
-            ->with('success', 'Modèle d\'email supprimé avec succès.');
+            ->with('success', __('Modèle d\'email supprimé avec succès.'));
     }
 }

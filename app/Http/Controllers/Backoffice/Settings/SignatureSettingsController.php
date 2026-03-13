@@ -34,7 +34,7 @@ class SignatureSettingsController extends Controller
         }
 
         return redirect()->route('bo.settings.signatures.index')
-            ->with('success', 'Signature ajoutée avec succès.');
+            ->with('success', __('Signature ajoutée avec succès.'));
     }
 
     public function update(UpdateSignatureRequest $request, Signature $signature)
@@ -53,7 +53,7 @@ class SignatureSettingsController extends Controller
         }
 
         return redirect()->route('bo.settings.signatures.index')
-            ->with('success', 'Signature mise à jour avec succès.');
+            ->with('success', __('Signature mise à jour avec succès.'));
     }
 
     public function toggleStatus(Signature $signature)
@@ -63,7 +63,7 @@ class SignatureSettingsController extends Controller
         ]);
 
         return redirect()->route('bo.settings.signatures.index')
-            ->with('success', 'Statut de la signature mis à jour.');
+            ->with('success', __('Statut de la signature mis à jour.'));
     }
 
     public function destroy(Signature $signature)
@@ -71,6 +71,6 @@ class SignatureSettingsController extends Controller
         $signature->delete();
 
         return redirect()->route('bo.settings.signatures.index')
-            ->with('success', 'Signature supprimée avec succès.');
+            ->with('success', __('Signature supprimée avec succès.'));
     }
 }

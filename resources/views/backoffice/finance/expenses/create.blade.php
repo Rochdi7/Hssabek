@@ -16,11 +16,11 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.finance.expenses.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Dépenses</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Dépenses') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Nouvelle dépense</h5>
+                                <h5 class="mb-3">{{ __('Nouvelle dépense') }}</h5>
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -36,12 +36,12 @@
                                 <form action="{{ route('bo.finance.expenses.store') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">Détails de la dépense</h6>
+                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">{{ __('Détails de la dépense') }}</h6>
                                     </div>
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Date de la dépense <span
+                                                <label class="form-label">{{ __('Date de la dépense') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <div class="input-group position-relative">
                                                     <input type="text"
@@ -59,27 +59,25 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Numéro de référence</label>
+                                                <label class="form-label">{{ __('Numéro de référence') }}</label>
                                                 <div class="mb-2">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode"
                                                             id="ref_mode_manual" value="manual" checked
                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
-                                                        <label class="form-check-label" for="ref_mode_manual">Saisie
-                                                            manuelle</label>
+                                                        <label class="form-check-label" for="ref_mode_manual">{{ __('Saisie manuelle') }}</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode"
                                                             id="ref_mode_auto" value="auto"
                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                        <label class="form-check-label" for="ref_mode_auto">Générer
-                                                            automatiquement</label>
+                                                        <label class="form-check-label" for="ref_mode_auto">{{ __('Générer automatiquement') }}</label>
                                                     </div>
                                                 </div>
                                                 <input type="text" id="reference_number"
                                                     class="form-control @error('reference_number') is-invalid @enderror"
                                                     name="reference_number" value="{{ old('reference_number') }}"
-                                                    placeholder="Ex: DEP-00001">
+                                                    placeholder="{{ __('Ex: DEP-00001') }}">
                                                 @error('reference_number')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -87,10 +85,10 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Catégorie</label>
+                                                <label class="form-label">{{ __('Catégorie') }}</label>
                                                 <select class="form-select @error('category_id') is-invalid @enderror"
                                                     name="category_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}"
                                                             {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -104,10 +102,10 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Fournisseur</label>
+                                                <label class="form-label">{{ __('Fournisseur') }}</label>
                                                 <select class="form-select @error('supplier_id') is-invalid @enderror"
                                                     name="supplier_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($suppliers as $supplier)
                                                         <option value="{{ $supplier->id }}"
                                                             {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
@@ -121,7 +119,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Montant <span
+                                                <label class="form-label">{{ __('Montant') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control @error('amount') is-invalid @enderror"
@@ -133,7 +131,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Devise</label>
+                                                <label class="form-label">{{ __('Devise') }}</label>
                                                 <input type="text" class="form-control"
                                                     value="{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}"
                                                     readonly disabled>
@@ -142,30 +140,30 @@
                                     </div>
 
                                     <div class="mb-3 mt-2">
-                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">Paiement</h6>
+                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">{{ __('Paiement') }}</h6>
                                     </div>
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Mode de paiement <span
+                                                <label class="form-label">{{ __('Mode de paiement') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('payment_mode') is-invalid @enderror"
                                                     name="payment_mode">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     <option value="cash"
-                                                        {{ old('payment_mode') === 'cash' ? 'selected' : '' }}>Espèces
+                                                        {{ old('payment_mode') === 'cash' ? 'selected' : '' }}>{{ __('Espèces') }}
                                                     </option>
                                                     <option value="bank_transfer"
                                                         {{ old('payment_mode') === 'bank_transfer' ? 'selected' : '' }}>
-                                                        Virement bancaire</option>
+                                                        {{ __('Virement bancaire') }}</option>
                                                     <option value="card"
-                                                        {{ old('payment_mode') === 'card' ? 'selected' : '' }}>Carte
+                                                        {{ old('payment_mode') === 'card' ? 'selected' : '' }}>{{ __('Carte') }}
                                                     </option>
                                                     <option value="cheque"
-                                                        {{ old('payment_mode') === 'cheque' ? 'selected' : '' }}>Chèque
+                                                        {{ old('payment_mode') === 'cheque' ? 'selected' : '' }}>{{ __('Chèque') }}
                                                     </option>
                                                     <option value="other"
-                                                        {{ old('payment_mode') === 'other' ? 'selected' : '' }}>Autre
+                                                        {{ old('payment_mode') === 'other' ? 'selected' : '' }}>{{ __('Autre') }}
                                                     </option>
                                                 </select>
                                                 @error('payment_mode')
@@ -175,20 +173,20 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Statut de paiement <span
+                                                <label class="form-label">{{ __('Statut de paiement') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('payment_status') is-invalid @enderror"
                                                     name="payment_status" id="payment_status"
                                                     onchange="togglePaidAmount()">
                                                     <option value="unpaid"
                                                         {{ old('payment_status', 'unpaid') === 'unpaid' ? 'selected' : '' }}>
-                                                        Impayée</option>
+                                                        {{ __('Impayée') }}</option>
                                                     <option value="paid"
-                                                        {{ old('payment_status') === 'paid' ? 'selected' : '' }}>Payée
+                                                        {{ old('payment_status') === 'paid' ? 'selected' : '' }}>{{ __('Payée') }}
                                                     </option>
                                                     <option value="partial"
                                                         {{ old('payment_status') === 'partial' ? 'selected' : '' }}>
-                                                        Partielle</option>
+                                                        {{ __('Partielle') }}</option>
                                                 </select>
                                                 @error('payment_status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -198,7 +196,7 @@
                                         <div class="col-lg-4 col-md-6" id="paid_amount_wrapper"
                                             style="{{ old('payment_status') === 'partial' ? '' : 'display:none;' }}">
                                             <div class="mb-3">
-                                                <label class="form-label">Montant payé <span
+                                                <label class="form-label">{{ __('Montant payé') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control @error('paid_amount') is-invalid @enderror"
@@ -209,16 +207,16 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                                 <small class="text-muted" id="reste_info" style="display:none;">
-                                                    Reste à payer : <strong id="reste_value">0,00</strong>
+                                                    {{ __('Reste à payer :') }} <strong id="reste_value">0,00</strong>
                                                 </small>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Compte bancaire</label>
+                                                <label class="form-label">{{ __('Compte bancaire') }}</label>
                                                 <select class="form-select @error('bank_account_id') is-invalid @enderror"
                                                     name="bank_account_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($bankAccounts as $bankAccount)
                                                         <option value="{{ $bankAccount->id }}"
                                                             data-balance="{{ number_format($bankAccount->current_balance, 2, ',', ' ') }}"
@@ -236,7 +234,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Description</label>
+                                                <label class="form-label">{{ __('Description') }}</label>
                                                 <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3">{{ old('description') }}</textarea>
                                                 @error('description')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -246,8 +244,8 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.finance.expenses.index') }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Enregistrer la dépense</button>
+                                            class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer la dépense') }}</button>
                                     </div>
                                 </form>
                             </div><!-- end card body -->

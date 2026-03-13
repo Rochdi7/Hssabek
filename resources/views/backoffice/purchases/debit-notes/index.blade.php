@@ -5,15 +5,14 @@
         <div class="content content-two">
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Notes de débit</h6>
+                    <h6>{{ __('Notes de débit') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'debit-notes'])
                     <div>
                         <a href="{{ route('bo.purchases.debit-notes.create') }}"
                             class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouvelle note de débit
-                        </a>
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle note de débit') }}</a>
                     </div>
                 </div>
             </div>
@@ -38,7 +37,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher une note de débit..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher une note de débit...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -50,38 +49,38 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
+                                <i class="isax isax-filter me-1"></i>{{ __('Statut :') }} <span class="fw-normal ms-1">
                                     @switch(request('status'))
                                         @case('draft')
-                                            Brouillon
+                                            {{ __('Brouillon') }}
                                         @break
 
                                         @case('sent')
-                                            Envoyée
+                                            {{ __('Envoyée') }}
                                         @break
 
                                         @case('applied')
-                                            Appliquée
+                                            {{ __('Appliquée') }}
                                         @break
 
                                         @default
-                                            Tous
+                                            {{ __('Tous') }}
                                     @endswitch
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a href="{{ route('bo.purchases.debit-notes.index', request()->except('status', 'page')) }}"
-                                        class="dropdown-item">Tous</a></li>
+                                        class="dropdown-item">{{ __('Tous') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.debit-notes.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">Brouillon</a></li>
+                                        class="dropdown-item">{{ __('Brouillon') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.debit-notes.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
-                                        class="dropdown-item">Envoyée</a></li>
+                                        class="dropdown-item">{{ __('Envoyée') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.debit-notes.index', array_merge(request()->except('page'), ['status' => 'applied'])) }}"
-                                        class="dropdown-item">Appliquée</a></li>
+                                        class="dropdown-item">{{ __('Appliquée') }}</a></li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['N° Note', 'Date', 'Fournisseur', 'Montant', 'Statut'],
+                            'columns' => [__('N° Note'), __('Date'), __('Fournisseur'), __('Montant'), __('Statut')],
                         ])
                     </div>
                 </div>
@@ -96,11 +95,11 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>N° Note</th>
-                            <th>Date</th>
-                            <th>Fournisseur</th>
-                            <th>Montant</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('N° Note') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Fournisseur') }}</th>
+                            <th>{{ __('Montant') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -120,15 +119,15 @@
                                     @switch($note->status)
                                         @case('draft')
                                             <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">Brouillon</span>
+                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
                                         @break
 
                                         @case('sent')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">Envoyée</span>
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Envoyée') }}</span>
                                         @break
 
                                         @case('applied')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Appliquée</span>
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Appliquée') }}</span>
                                         @break
                                     @endswitch
                                 </td>
@@ -140,12 +139,12 @@
                                         <li>
                                             <a href="{{ route('bo.purchases.debit-notes.show', $note) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('bo.purchases.debit-notes.edit', $note) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
@@ -153,9 +152,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette note de débit ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
-                                                </button>
+                                                    onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer cette note de débit ?') }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                     </ul>

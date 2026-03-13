@@ -43,7 +43,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('bo.access.roles.index')
-            ->with('success', 'Role created successfully.');
+            ->with('success', __('Rôle créé avec succès.'));
     }
 
     /**
@@ -60,7 +60,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('bo.access.roles.index')
-            ->with('success', 'Role updated successfully.');
+            ->with('success', __('Rôle mis à jour avec succès.'));
     }
 
     /**
@@ -75,7 +75,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('bo.access.roles.index')
-            ->with('success', 'Role deleted successfully.');
+            ->with('success', __('Rôle supprimé avec succès.'));
     }
 
     /**
@@ -132,7 +132,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('bo.access.roles.permissions', $role)
-            ->with('success', 'Permissions updated successfully.');
+            ->with('success', __('Permissions mises à jour avec succès.'));
     }
 
     /**

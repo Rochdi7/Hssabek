@@ -19,14 +19,14 @@
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Taux de taxes</h6>
+                                    <h6 class="mb-0">{{ __('Taux de taxes') }}</h6>
                                 </div>
 
                                 {{-- ========================================= --}}
                                 {{-- SECTION 1 : Taux de taxes (Tax Categories) --}}
                                 {{-- ========================================= --}}
                                 <div class="d-flex align-items-center mb-3">
-                                    <h6 class="fs-16 fw-semibold mb-0">Taux de taxes</h6>
+                                    <h6 class="fs-16 fw-semibold mb-0">{{ __('Taux de taxes') }}</h6>
                                 </div>
                                 <div class="mb-3">
                                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
@@ -36,17 +36,17 @@
                                                     <i class="isax isax-search-normal"></i>
                                                 </span>
                                                 <input type="text" class="form-control form-control-sm bg-white"
-                                                    placeholder="Rechercher" id="searchTaxRate">
+                                                    placeholder="{{ __('Rechercher') }}" id="searchTaxRate">
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center flex-wrap gap-2">
                                             @include('backoffice.components.column-toggle', [
-                                                'columns' => ['Nom', 'Taux', 'Type', 'Créé le', 'Statut'],
+                                                'columns' => [__('Nom'), __('Taux'), __('Type'), __('Créé le'), __('Statut')],
                                             ])
                                             <a href="javascript:void(0);" data-bs-toggle="modal"
                                                 data-bs-target="#add_tax_category_modal"
                                                 class="btn btn-primary d-flex align-items-center"><i
-                                                    class="isax isax-add-circle5 me-2"></i>Nouveau taux</a>
+                                                    class="isax isax-add-circle5 me-2"></i>{{ __('Nouveau taux') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -55,14 +55,14 @@
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Fermer"></button>
+                                            aria-label="{{ __('Fermer') }}"></button>
                                     </div>
                                 @endif
                                 @if (session('error'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         {{ session('error') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Fermer"></button>
+                                            aria-label="{{ __('Fermer') }}"></button>
                                     </div>
                                 @endif
 
@@ -70,11 +70,11 @@
                                     <table class="table border mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th class="no-sort">Nom</th>
-                                                <th>Taux</th>
-                                                <th>Type</th>
-                                                <th>Créé le</th>
-                                                <th>Statut</th>
+                                                <th class="no-sort">{{ __('Nom') }}</th>
+                                                <th>{{ __('Taux') }}</th>
+                                                <th>{{ __('Type') }}</th>
+                                                <th>{{ __('Créé le') }}</th>
+                                                <th>{{ __('Statut') }}</th>
                                                 <th class="no-sort"></th>
                                             </tr>
                                         </thead>
@@ -96,7 +96,7 @@
                                                         @if ($category->type === 'percentage')
                                                             <span class="badge bg-soft-primary">Pourcentage</span>
                                                         @else
-                                                            <span class="badge bg-soft-info">Fixe</span>
+                                                            <span class="badge bg-soft-info">{{ __('Fixe') }}</span>
                                                         @endif
                                                     </td>
                                                     <td>{{ $category->created_at->format('d M Y') }}</td>
@@ -123,7 +123,7 @@
                                                                     data-is-default="{{ $category->is_default ? '1' : '0' }}"
                                                                     data-is-active="{{ $category->is_active ? '1' : '0' }}"
                                                                     data-url="{{ route('bo.catalog.tax-categories.update', $category) }}"><i
-                                                                        class="isax isax-edit me-2"></i>Modifier</a>
+                                                                        class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                                             </li>
                                                             <li>
                                                                 <a href="javascript:void(0);"
@@ -133,14 +133,14 @@
                                                                     data-id="{{ $category->id }}"
                                                                     data-name="{{ $category->name }}"
                                                                     data-url="{{ route('bo.catalog.tax-categories.destroy', $category) }}"><i
-                                                                        class="isax isax-trash me-2"></i>Supprimer</a>
+                                                                        class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                                             </li>
                                                         </ul>
                                                     </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="6" class="text-center">Aucun taux de taxe trouvé.</td>
+                                                    <td colspan="6" class="text-center">{{ __('Aucun taux de taxe trouvé.') }}</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -156,7 +156,7 @@
                                 {{-- SECTION 2 : Groupes de taxes (Tax Groups) --}}
                                 {{-- ========================================= --}}
                                 <div class="d-flex align-items-center mb-3 mt-4">
-                                    <h6 class="fs-16 fw-semibold mb-0">Groupes de taxes</h6>
+                                    <h6 class="fs-16 fw-semibold mb-0">{{ __('Groupes de taxes') }}</h6>
                                 </div>
                                 <div class="mb-3">
                                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
@@ -166,14 +166,14 @@
                                                     <i class="isax isax-search-normal"></i>
                                                 </span>
                                                 <input type="text" class="form-control form-control-sm bg-white"
-                                                    placeholder="Rechercher" id="searchTaxGroup">
+                                                    placeholder="{{ __('Rechercher') }}" id="searchTaxGroup">
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center flex-wrap gap-2">
                                             <a href="javascript:void(0);" data-bs-toggle="modal"
                                                 data-bs-target="#add_tax_group_modal"
                                                 class="btn btn-primary d-flex align-items-center"><i
-                                                    class="isax isax-add-circle5 me-2"></i>Nouveau groupe</a>
+                                                    class="isax isax-add-circle5 me-2"></i>{{ __('Nouveau groupe') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -181,9 +181,9 @@
                                     <table class="table border mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th class="no-sort">Nom</th>
-                                                <th>Taux composants</th>
-                                                <th>Statut</th>
+                                                <th class="no-sort">{{ __('Nom') }}</th>
+                                                <th>{{ __('Taux composants') }}</th>
+                                                <th>{{ __('Statut') }}</th>
                                                 <th class="no-sort"></th>
                                             </tr>
                                         </thead>
@@ -200,7 +200,7 @@
                                                                 ({{ number_format($rate->rate, 2) }}%)
                                                             </span>
                                                         @empty
-                                                            <span class="text-muted">Aucun</span>
+                                                            <span class="text-muted">{{ __('Aucun') }}</span>
                                                         @endforelse
                                                     </td>
                                                     <td>
@@ -225,7 +225,7 @@
                                                                     data-is-active="{{ $group->is_active ? '1' : '0' }}"
                                                                     data-rates="{{ $group->rates->sortBy('position')->map(function ($r) {return ['name' => $r->name, 'rate' => $r->rate, 'position' => $r->position];})->values()->toJson() }}"
                                                                     data-url="{{ route('bo.catalog.tax-groups.update', $group) }}"><i
-                                                                        class="isax isax-edit me-2"></i>Modifier</a>
+                                                                        class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                                             </li>
                                                             <li>
                                                                 <a href="javascript:void(0);"
@@ -235,14 +235,14 @@
                                                                     data-id="{{ $group->id }}"
                                                                     data-name="{{ $group->name }}"
                                                                     data-url="{{ route('bo.catalog.tax-groups.destroy', $group) }}"><i
-                                                                        class="isax isax-trash me-2"></i>Supprimer</a>
+                                                                        class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                                             </li>
                                                         </ul>
                                                     </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="4" class="text-center">Aucun groupe de taxes trouvé.
+                                                    <td colspan="4" class="text-center">{{ __('Aucun groupe de taxes trouvé.') }}
                                                     </td>
                                                 </tr>
                                             @endforelse
@@ -282,9 +282,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ajouter un taux de taxe</h4>
+                    <h4 class="modal-title">{{ __('Ajouter un taux de taxe') }}</h4>
                     <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form action="{{ route('bo.catalog.tax-categories.store') }}" method="POST">
                     @csrf
@@ -309,12 +309,12 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Type <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Type') }}<span class="text-danger">*</span></label>
                             <select class="form-select @error('type', 'categoryStore') is-invalid @enderror"
                                 name="type">
                                 <option value="percentage" {{ old('type') === 'percentage' ? 'selected' : '' }}>
                                     Pourcentage</option>
-                                <option value="fixed" {{ old('type') === 'fixed' ? 'selected' : '' }}>Fixe</option>
+                                <option value="fixed" {{ old('type') === 'fixed' ? 'selected' : '' }}>{{ __('Fixe') }}</option>
                             </select>
                             @error('type', 'categoryStore')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -324,20 +324,20 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_default" value="1"
                                     id="add_cat_is_default" {{ old('is_default') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="add_cat_is_default">Définir par défaut</label>
+                                <label class="form-check-label" for="add_cat_is_default">{{ __('Définir par défaut') }}</label>
                             </div>
                         </div>
                         <div class="mb-0">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                     id="add_cat_is_active" {{ old('is_active', '1') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="add_cat_is_active">Actif</label>
+                                <label class="form-check-label" for="add_cat_is_active">{{ __('Actif') }}</label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Ajouter') }}</button>
                     </div>
                 </form>
             </div>
@@ -350,9 +350,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modifier le taux de taxe</h4>
+                    <h4 class="modal-title">{{ __('Modifier le taux de taxe') }}</h4>
                     <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form id="edit_tax_category_form" action="" method="POST">
                     @csrf
@@ -369,30 +369,30 @@
                                 id="edit_cat_rate" value="">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Type <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Type') }}<span class="text-danger">*</span></label>
                             <select class="form-select" name="type" id="edit_cat_type">
                                 <option value="percentage">Pourcentage</option>
-                                <option value="fixed">Fixe</option>
+                                <option value="fixed">{{ __('Fixe') }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_default" value="1"
                                     id="edit_cat_is_default">
-                                <label class="form-check-label" for="edit_cat_is_default">Définir par défaut</label>
+                                <label class="form-check-label" for="edit_cat_is_default">{{ __('Définir par défaut') }}</label>
                             </div>
                         </div>
                         <div class="mb-0">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                     id="edit_cat_is_active">
-                                <label class="form-check-label" for="edit_cat_is_active">Actif</label>
+                                <label class="form-check-label" for="edit_cat_is_active">{{ __('Actif') }}</label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div>
                 </form>
             </div>
@@ -408,16 +408,16 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Supprimer le taux de taxe</h6>
-                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer le taux <strong id="delete_cat_name"></strong> ?
+                    <h6 class="mb-1">{{ __('Supprimer le taux de taxe') }}</h6>
+                    <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer le taux') }} <strong id="delete_cat_name"></strong> ?
                     </p>
                     <div class="d-flex justify-content-center">
                         <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                            data-bs-dismiss="modal">Annuler</a>
+                            data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                         <form id="delete_tax_category_form" action="" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Oui, supprimer</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Oui, supprimer') }}</button>
                         </form>
                     </div>
                 </div>
@@ -435,18 +435,18 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ajouter un groupe de taxes</h4>
+                    <h4 class="modal-title">{{ __('Ajouter un groupe de taxes') }}</h4>
                     <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form action="{{ route('bo.catalog.tax-groups.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="_modal" value="add_tax_group_modal">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Nom du groupe <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Nom du groupe') }}<span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name', 'groupStore') is-invalid @enderror"
-                                name="name" value="{{ old('name') }}" placeholder="Ex : TVA composée">
+                                name="name" value="{{ old('name') }}" placeholder="{{ __('Ex : TVA composée') }}">
                             @error('name', 'groupStore')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -455,24 +455,24 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                     id="add_group_is_active" {{ old('is_active', '1') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="add_group_is_active">Actif</label>
+                                <label class="form-check-label" for="add_group_is_active">{{ __('Actif') }}</label>
                             </div>
                         </div>
                         <div class="mb-0">
-                            <label class="form-label">Sous-taxes <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Sous-taxes') }} <span class="text-danger">*</span></label>
                             <div id="add-group-rates-container">
                                 <div class="row mb-2 rate-row">
                                     <div class="col-4">
                                         <input type="text" class="form-control" name="rates[0][name]"
-                                            placeholder="Nom">
+                                            placeholder="{{ __('Nom') }}">
                                     </div>
                                     <div class="col-3">
                                         <input type="number" step="0.01" min="0" class="form-control"
-                                            name="rates[0][rate]" placeholder="Taux (%)">
+                                            name="rates[0][rate]" placeholder="{{ __('Taux (%)') }}">
                                     </div>
                                     <div class="col-3">
                                         <input type="number" min="0" class="form-control"
-                                            name="rates[0][position]" placeholder="Position" value="0">
+                                            name="rates[0][position]" placeholder="{{ __('Position') }}" value="0">
                                     </div>
                                     <div class="col-2 d-flex align-items-center">
                                         <a href="javascript:void(0);" class="text-danger remove-rate-row d-none"><i
@@ -485,13 +485,13 @@
                             @enderror
                             <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary mt-2"
                                 id="add-group-add-rate">
-                                <i class="isax isax-add-circle5 me-1"></i>Ajouter une sous-taxe
+                                <i class="isax isax-add-circle5 me-1"></i>{{ __('Ajouter une sous-taxe') }}
                             </a>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Ajouter') }}</button>
                     </div>
                 </form>
             </div>
@@ -504,16 +504,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modifier le groupe de taxes</h4>
+                    <h4 class="modal-title">{{ __('Modifier le groupe de taxes') }}</h4>
                     <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
+                        aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form id="edit_tax_group_form" action="" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Nom du groupe <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Nom du groupe') }}<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="name" id="edit_group_name"
                                 value="">
                         </div>
@@ -521,23 +521,23 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_active" value="1"
                                     id="edit_group_is_active">
-                                <label class="form-check-label" for="edit_group_is_active">Actif</label>
+                                <label class="form-check-label" for="edit_group_is_active">{{ __('Actif') }}</label>
                             </div>
                         </div>
                         <div class="mb-0">
-                            <label class="form-label">Sous-taxes <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Sous-taxes') }} <span class="text-danger">*</span></label>
                             <div id="edit-group-rates-container">
                                 {{-- Populated dynamically via JavaScript --}}
                             </div>
                             <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary mt-2"
                                 id="edit-group-add-rate">
-                                <i class="isax isax-add-circle5 me-1"></i>Ajouter une sous-taxe
+                                <i class="isax isax-add-circle5 me-1"></i>{{ __('Ajouter une sous-taxe') }}
                             </a>
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     </div>
                 </form>
             </div>
@@ -553,16 +553,16 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Supprimer le groupe de taxes</h6>
-                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer le groupe <strong
+                    <h6 class="mb-1">{{ __('Supprimer le groupe de taxes') }}</h6>
+                    <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer le groupe') }} <strong
                             id="delete_group_name"></strong> ?</p>
                     <div class="d-flex justify-content-center">
                         <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                            data-bs-dismiss="modal">Annuler</a>
+                            data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                         <form id="delete_tax_group_form" action="" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Oui, supprimer</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Oui, supprimer') }}</button>
                         </form>
                     </div>
                 </div>
@@ -741,15 +741,15 @@
                 row.innerHTML =
                     '<div class="col-4">' +
                     '<input type="text" class="form-control" name="rates[' + index +
-                    '][name]" placeholder="Nom" value="' + escapeHtml(name || '') + '">' +
+                    '][name]" placeholder="{{ __('Nom') }}" value="' + escapeHtml(name || '') + '">' +
                     '</div>' +
                     '<div class="col-3">' +
                     '<input type="number" step="0.01" min="0" class="form-control" name="rates[' + index +
-                    '][rate]" placeholder="Taux (%)" value="' + escapeHtml(String(rate || '')) + '">' +
+                    '][rate]" placeholder="{{ __('Taux (%)') }}" value="' + escapeHtml(String(rate || '')) + '">' +
                     '</div>' +
                     '<div class="col-3">' +
                     '<input type="number" min="0" class="form-control" name="rates[' + index +
-                    '][position]" placeholder="Position" value="' + escapeHtml(String(position || '0')) + '">' +
+                    '][position]" placeholder="{{ __('Position') }}" value="' + escapeHtml(String(position || '0')) + '">' +
                     '</div>' +
                     '<div class="col-2 d-flex align-items-center">' +
                     '<a href="javascript:void(0);" class="text-danger remove-rate-row' + (hideRemove ? ' d-none' :

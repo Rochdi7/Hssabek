@@ -102,7 +102,7 @@ class InvoiceController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.index')
-            ->with('success', 'Facture créée avec succès.');
+            ->with('success', __('Facture créée avec succès.'));
     }
 
     public function show(Invoice $invoice)
@@ -172,7 +172,7 @@ class InvoiceController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
-            ->with('success', 'Facture mise à jour avec succès.');
+            ->with('success', __('Facture mise à jour avec succès.'));
     }
 
     public function destroy(Invoice $invoice)
@@ -186,7 +186,7 @@ class InvoiceController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.index')
-            ->with('success', 'Facture supprimée avec succès.');
+            ->with('success', __('Facture supprimée avec succès.'));
     }
 
     public function download(Invoice $invoice, PdfService $pdfService)
@@ -216,7 +216,7 @@ class InvoiceController extends Controller
         ));
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
-            ->with('success', 'Facture envoyée au client par email.');
+            ->with('success', __('Facture envoyée au client par email.'));
     }
 
     public function void(Invoice $invoice)
@@ -228,6 +228,6 @@ class InvoiceController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
-            ->with('success', 'Facture annulée avec succès.');
+            ->with('success', __('Facture annulée avec succès.'));
     }
 }

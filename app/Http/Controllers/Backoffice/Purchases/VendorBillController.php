@@ -85,7 +85,7 @@ class VendorBillController extends Controller
         ]));
 
         return redirect()->route('bo.purchases.vendor-bills.show', $bill)
-            ->with('success', 'Facture fournisseur créée avec succès.');
+            ->with('success', __('Facture fournisseur créée avec succès.'));
     }
 
     public function show(VendorBill $vendorBill)
@@ -127,7 +127,7 @@ class VendorBillController extends Controller
         ]));
 
         return redirect()->route('bo.purchases.vendor-bills.show', $vendorBill)
-            ->with('success', 'Facture fournisseur mise à jour avec succès.');
+            ->with('success', __('Facture fournisseur mise à jour avec succès.'));
     }
 
     public function destroy(VendorBill $vendorBill)
@@ -136,7 +136,7 @@ class VendorBillController extends Controller
         $vendorBill->delete();
 
         return redirect()->route('bo.purchases.vendor-bills.index')
-            ->with('success', 'Facture fournisseur supprimée avec succès.');
+            ->with('success', __('Facture fournisseur supprimée avec succès.'));
     }
 
     public function download(VendorBill $vendorBill, PdfService $pdfService)
@@ -164,6 +164,6 @@ class VendorBillController extends Controller
         ));
 
         return redirect()->route('bo.purchases.vendor-bills.show', $vendorBill)
-            ->with('success', 'Facture fournisseur envoyée par email.');
+            ->with('success', __('Facture fournisseur envoyée par email.'));
     }
 }

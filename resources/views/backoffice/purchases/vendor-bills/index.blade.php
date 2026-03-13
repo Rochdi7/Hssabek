@@ -13,15 +13,14 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Factures fournisseur</h6>
+                    <h6>{{ __('Factures fournisseur') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'vendor-bills'])
                     <div>
                         <a href="{{ route('bo.purchases.vendor-bills.create') }}"
                             class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouvelle facture fournisseur
-                        </a>
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle facture fournisseur') }}</a>
                     </div>
                 </div>
             </div>
@@ -42,7 +41,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher une facture fournisseur..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher une facture fournisseur...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -57,51 +56,51 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
+                                <i class="isax isax-filter me-1"></i>{{ __('Statut :') }} <span class="fw-normal ms-1">
                                     @switch(request('status'))
                                         @case('draft')
-                                            Brouillon
+                                            {{ __('Brouillon') }}
                                         @break
 
                                         @case('posted')
-                                            Validée
+                                            {{ __('Validée') }}
                                         @break
 
                                         @case('paid')
-                                            Payée
+                                            {{ __('Payée') }}
                                         @break
 
                                         @case('void')
-                                            Annulée
+                                            {{ __('Annulée') }}
                                         @break
 
                                         @default
-                                            Tous
+                                            {{ __('Tous') }}
                                     @endswitch
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('status', 'page'))) }}"
-                                        class="dropdown-item">Tous</a></li>
+                                        class="dropdown-item">{{ __('Tous') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">Brouillon</a></li>
+                                        class="dropdown-item">{{ __('Brouillon') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'posted'])) }}"
-                                        class="dropdown-item">Validée</a></li>
+                                        class="dropdown-item">{{ __('Validée') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'paid'])) }}"
-                                        class="dropdown-item">Payée</a></li>
+                                        class="dropdown-item">{{ __('Payée') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'void'])) }}"
-                                        class="dropdown-item">Annulée</a></li>
+                                        class="dropdown-item">{{ __('Annulée') }}</a></li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'N°',
-                                'Fournisseur',
-                                "Date d'émission",
-                                'Échéance',
-                                'Total',
-                                'Restant dû',
-                                'Statut',
+                                __('N°'),
+                                __('Fournisseur'),
+                                __('Date d\'émission'),
+                                __('Échéance'),
+                                __('Total'),
+                                __('Restant dû'),
+                                __('Statut'),
                             ],
                         ])
                     </div>
@@ -119,13 +118,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>N°</th>
-                            <th>Fournisseur</th>
-                            <th>Date d'émission</th>
-                            <th>Échéance</th>
-                            <th>Total</th>
-                            <th>Restant dû</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('N°') }}</th>
+                            <th>{{ __('Fournisseur') }}</th>
+                            <th>{{ __('Date d\'émission') }}</th>
+                            <th>{{ __('Échéance') }}</th>
+                            <th>{{ __('Total') }}</th>
+                            <th>{{ __('Restant dû') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -160,20 +159,20 @@
                                     @switch($bill->status)
                                         @case('draft')
                                             <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">Brouillon</span>
+                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
                                         @break
 
                                         @case('posted')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">Validée</span>
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Validée') }}</span>
                                         @break
 
                                         @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Payée <i
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }}<i
                                                     class="isax isax-tick-circle ms-1"></i></span>
                                         @break
 
                                         @case('void')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Annulée</span>
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulée') }}</span>
                                         @break
                                     @endswitch
                                 </td>
@@ -185,13 +184,13 @@
                                         <li>
                                             <a href="{{ route('bo.purchases.vendor-bills.show', $bill) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         @if ($bill->status === 'draft')
                                             <li>
                                                 <a href="{{ route('bo.purchases.vendor-bills.edit', $bill) }}"
                                                     class="dropdown-item d-flex align-items-center"><i
-                                                        class="isax isax-edit me-2"></i>Modifier</a>
+                                                        class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                             </li>
                                         @endif
                                         <li>
@@ -200,9 +199,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette facture fournisseur ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
-                                                </button>
+                                                    onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer cette facture fournisseur ?') }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                     </ul>

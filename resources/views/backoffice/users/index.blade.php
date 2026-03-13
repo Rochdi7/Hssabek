@@ -13,13 +13,13 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Utilisateurs</h6>
+                    <h6>{{ __('Utilisateurs') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'users'])
                     <div>
                         <a href="{{ route('bo.users.invite') }}" class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Inviter un utilisateur
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Inviter un utilisateur') }}
                         </a>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <form action="{{ route('bo.users.index') }}" method="GET"
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <input type="text" name="search" class="form-control" placeholder="Rechercher..."
+                                <input type="text" name="search" class="form-control" placeholder="{{ __('Rechercher...') }}"
                                     value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
@@ -45,26 +45,25 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center fw-medium"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Trier par : <span class="fw-normal ms-1">Plus
-                                    récent</span>
+                                <i class="isax isax-sort me-1"></i>{{ __('Trier par :') }} <span class="fw-normal ms-1">{{ __('Plus récent') }}</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">Plus récent</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">{{ __('Plus récent') }}</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">Plus ancien</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">{{ __('Plus ancien') }}</a>
                                 </li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'Utilisateur',
-                                'Téléphone',
-                                'Rôle',
-                                'Dernière connexion',
-                                'Créé le',
-                                'Statut',
+                                __('Utilisateur'),
+                                __('Téléphone'),
+                                __('Rôle'),
+                                __('Dernière connexion'),
+                                __('Créé le'),
+                                __('Statut'),
                             ],
                         ])
                     </div>
@@ -75,16 +74,16 @@
             @if ($pendingInvitations->count() > 0)
                 <div class="card mb-3">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h6 class="fs-14 fw-semibold mb-0">Invitations en attente ({{ $pendingInvitations->count() }})</h6>
+                        <h6 class="fs-14 fw-semibold mb-0">{{ __('Invitations en attente') }} ({{ $pendingInvitations->count() }})</h6>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-nowrap mb-0">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>E-mail</th>
-                                        <th>Rôle</th>
-                                        <th>Expire le</th>
+                                        <th>{{ __('E-mail') }}</th>
+                                        <th>{{ __('Rôle') }}</th>
+                                        <th>{{ __('Expire le') }}</th>
                                         <th class="no-sort"></th>
                                     </tr>
                                 </thead>
@@ -101,8 +100,8 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                        onclick="return confirm('Annuler cette invitation ?')">
-                                                        <i class="isax isax-trash me-1"></i>Annuler
+                                                        onclick="return confirm('{{ __('Annuler cette invitation ?') }}')">
+                                                        <i class="isax isax-trash me-1"></i>{{ __('Annuler') }}
                                                     </button>
                                                 </form>
                                             </td>
@@ -125,12 +124,12 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Utilisateur</th>
-                            <th>Téléphone</th>
-                            <th>Rôle</th>
-                            <th>Dernière connexion</th>
-                            <th>Créé le</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Utilisateur') }}</th>
+                            <th>{{ __('Téléphone') }}</th>
+                            <th>{{ __('Rôle') }}</th>
+                            <th>{{ __('Dernière connexion') }}</th>
+                            <th>{{ __('Créé le') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -163,11 +162,11 @@
                                 <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                 <td>
                                     @if ($user->status === 'active')
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Actif
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Actif') }}
                                             <i class="isax isax-tick-circle ms-1"></i>
                                         </span>
                                     @else
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Bloqué
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Bloqué') }}
                                             <i class="isax isax-close-circle ms-1"></i>
                                         </span>
                                     @endif
@@ -180,7 +179,7 @@
                                         <li>
                                             <a href="{{ route('bo.users.edit', $user) }}"
                                                 class="dropdown-item d-flex align-items-center">
-                                                <i class="isax isax-edit me-2"></i>Modifier
+                                                <i class="isax isax-edit me-2"></i>{{ __('Modifier') }}
                                             </a>
                                         </li>
                                         @if ($user->status === 'active' && $user->id !== auth()->id())
@@ -189,7 +188,7 @@
                                                     @csrf
                                                     <button class="dropdown-item d-flex align-items-center text-warning"
                                                         type="submit">
-                                                        <i class="isax isax-slash me-2"></i>Désactiver
+                                                        <i class="isax isax-slash me-2"></i>{{ __('Désactiver') }}
                                                     </button>
                                                 </form>
                                             </li>
@@ -199,7 +198,7 @@
                                                     @csrf
                                                     <button class="dropdown-item d-flex align-items-center text-success"
                                                         type="submit">
-                                                        <i class="isax isax-tick-circle me-2"></i>Activer
+                                                        <i class="isax isax-tick-circle me-2"></i>{{ __('Activer') }}
                                                     </button>
                                                 </form>
                                             </li>

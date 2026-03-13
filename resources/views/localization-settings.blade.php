@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,7 @@
 
                         <!-- Start settings sidebar -->
                         @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @endcomponent
                         <!-- End settings sidebar -->
 
                         <div class="col-xl-9 col-lg-8">
@@ -25,13 +25,16 @@
                                 <h6 class="fw-bold mb-0">Localization</h6>
                             </div>
                             <div class="d-flex align-items-center mb-3">
-                                <span class="p-1 rounded-2 bg-dark text-white d-inline-flex align-items-center justify-content-center me-2"><i class="isax isax-info-circle"></i></span>
+                                <span
+                                    class="p-1 rounded-2 bg-dark text-white d-inline-flex align-items-center justify-content-center me-2"><i
+                                        class="isax isax-info-circle"></i></span>
                                 <h6 class="fw-semibold fs-16 mb-0 d-inline-flex align-items-center">Basic Information</h6>
                             </div>
                             <div class="row align-items-center row-gap-3 mb-3">
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Time Zone<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Time Zone<span class="text-danger ms-1">*</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -47,7 +50,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Start Week On<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Start Week On<span
+                                                class="text-danger ms-1">*</span></h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -65,7 +69,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Date Format<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Date Format<span class="text-danger ms-1">*</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -80,7 +85,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Time Format<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Time Format<span class="text-danger ms-1">*</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -94,7 +100,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Default Language<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Default Language<span
+                                                class="text-danger ms-1">*</span></h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -109,7 +116,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Language Switcher<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Language Switcher<span
+                                                class="text-danger ms-1">*</span></h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -122,14 +130,18 @@
                                 <div class="col-md-12">
                                     <div class="border-top mt-2 pt-4">
                                         <div class="d-flex align-items-center mb-3">
-                                            <span class="p-1 rounded-2 bg-dark text-white d-inline-flex align-items-center justify-content-center me-2"><i class="isax isax-dollar-square"></i></span>
-                                            <h5 class="fw-semibold fs-16 mb-0 d-inline-flex align-items-center">Currency Information</h5>
+                                            <span
+                                                class="p-1 rounded-2 bg-dark text-white d-inline-flex align-items-center justify-content-center me-2"><i
+                                                    class="isax isax-dollar-square"></i></span>
+                                            <h5 class="fw-semibold fs-16 mb-0 d-inline-flex align-items-center">Currency
+                                                Information</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Currency<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Currency<span class="text-danger ms-1">*</span>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -145,7 +157,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Currency Symbol <span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Currency Symbol <span
+                                                class="text-danger ms-1">*</span></h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -160,7 +173,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Currency Position<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Currency Position<span
+                                                class="text-danger ms-1">*</span></h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -175,7 +189,8 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Decimal Separator<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Decimal Separator<span
+                                                class="text-danger ms-1">*</span></h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -189,7 +204,8 @@
 
                                 <div class="col-xl-9 col-sm-7">
                                     <div class="setting-info">
-                                        <h6 class="fs-14 fw-medium mb-0">Thousand Separator<span class="text-danger ms-1">*</span></h6>
+                                        <h6 class="fs-14 fw-medium mb-0">Thousand Separator<span
+                                                class="text-danger ms-1">*</span></h6>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-sm-5 float-sm-end">
@@ -202,7 +218,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between settings-bottom-btn mt-0 border-top pt-3">
+                            <div
+                                class="d-flex align-items-center justify-content-between settings-bottom-btn mt-0 border-top pt-3">
                                 <button type="button" class="btn btn-outline-white btn-md me-2">Cancel</button>
                                 <button type="submit" class="btn btn-primary btn-md">Save Changes</button>
                             </div>
@@ -218,13 +235,14 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
-    </div>    
+    </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

@@ -117,7 +117,7 @@ class PlanController extends Controller
         Plan::create($data);
 
         return redirect()->route('sa.plans.index')
-            ->with('success', 'Le plan a été créé avec succès.');
+            ->with('success', __('Le plan a été créé avec succès.'));
     }
 
     /**
@@ -194,7 +194,7 @@ class PlanController extends Controller
         $plan->update($data);
 
         return redirect()->route('sa.plans.index')
-            ->with('success', "Le plan « {$plan->name} » a été mis à jour avec succès.");
+            ->with('success', __("Le plan « {$plan->name} » a été mis à jour avec succès."));
     }
 
     /**
@@ -204,13 +204,13 @@ class PlanController extends Controller
     {
         if ($plan->subscriptions()->where('status', 'active')->exists()) {
             return redirect()->route('sa.plans.index')
-                ->with('error', "Impossible de supprimer le plan « {$plan->name} » car il possède des abonnements actifs.");
+                ->with('error', __("Impossible de supprimer le plan « {$plan->name} » car il possède des abonnements actifs."));
         }
 
         $name = $plan->name;
         $plan->delete();
 
         return redirect()->route('sa.plans.index')
-            ->with('success', "Le plan « {$name} » a été supprimé avec succès.");
+            ->with('success', __("Le plan « {$name} » a été supprimé avec succès."));
     }
 }

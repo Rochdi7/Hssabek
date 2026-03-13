@@ -13,14 +13,13 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Factures</h6>
+                    <h6>{{ __('Factures') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'invoices'])
                     <div>
                         <a href="{{ route('bo.sales.invoices.create') }}" class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouvelle facture
-                        </a>
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle facture') }}</a>
                     </div>
                 </div>
             </div>
@@ -40,7 +39,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">Total factures</p>
+                                    <p class="mb-1">{{ __('Total factures') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ number_format($invoices->total(), 0, ',', ' ') }}</h6>
                                 </div>
                                 <div>
@@ -49,7 +48,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">Toutes les factures</p>
+                            <p class="fs-13 mb-0">{{ __('Toutes les factures') }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
                             </span>
@@ -61,7 +60,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">Payées</p>
+                                    <p class="mb-1">{{ __('Payées') }}</p>
                                     <h6 class="fs-16 fw-semibold text-success">
                                         {{ \App\Models\Sales\Invoice::where('status', 'paid')->count() }}</h6>
                                 </div>
@@ -71,7 +70,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">Factures payées</p>
+                            <p class="fs-13 mb-0">{{ __('Factures payées') }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
                             </span>
@@ -83,7 +82,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">En attente</p>
+                                    <p class="mb-1">{{ __('En attente') }}</p>
                                     <h6 class="fs-16 fw-semibold text-warning">
                                         {{ \App\Models\Sales\Invoice::whereIn('status', ['sent', 'partial'])->count() }}
                                     </h6>
@@ -94,7 +93,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">Factures en attente</p>
+                            <p class="fs-13 mb-0">{{ __('Factures en attente') }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
                             </span>
@@ -106,7 +105,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">En retard</p>
+                                    <p class="mb-1">{{ __('En retard') }}</p>
                                     <h6 class="fs-16 fw-semibold text-danger">
                                         {{ \App\Models\Sales\Invoice::where('status', 'overdue')->count() }}</h6>
                                 </div>
@@ -116,7 +115,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">Factures en retard</p>
+                            <p class="fs-13 mb-0">{{ __('Factures en retard') }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
                             </span>
@@ -134,7 +133,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher une facture..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher une facture...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -149,30 +148,30 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span class="fw-normal ms-1">
+                                <i class="isax isax-filter me-1"></i>{{ __('Statut') }} : <span class="fw-normal ms-1">
                                     @switch(request('status'))
                                         @case('draft')
-                                            Brouillon
+                                            {{ __('Brouillon') }}
                                         @break
 
                                         @case('sent')
-                                            Envoyée
+                                            {{ __('Envoyée') }}
                                         @break
 
                                         @case('partial')
-                                            Partielle
+                                            {{ __('Partielle') }}
                                         @break
 
                                         @case('paid')
-                                            Payée
+                                            {{ __('Payée') }}
                                         @break
 
                                         @case('overdue')
-                                            En retard
+                                            {{ __('En retard') }}
                                         @break
 
                                         @case('void')
-                                            Annulée
+                                            {{ __('Annulée') }}
                                         @break
 
                                         @default
@@ -183,36 +182,36 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', request()->except('status', 'page')) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">Brouillon</a>
+                                        class="dropdown-item">{{ __('Brouillon') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
-                                        class="dropdown-item">Envoyée</a>
+                                        class="dropdown-item">{{ __('Envoyée') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'partial'])) }}"
-                                        class="dropdown-item">Partiellement payée</a>
+                                        class="dropdown-item">{{ __('Partiellement payée') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'paid'])) }}"
-                                        class="dropdown-item">Payée</a>
+                                        class="dropdown-item">{{ __('Payée') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'overdue'])) }}"
-                                        class="dropdown-item">En retard</a>
+                                        class="dropdown-item">{{ __('En retard') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'void'])) }}"
-                                        class="dropdown-item">Annulée</a>
+                                        class="dropdown-item">{{ __('Annulée') }}</a>
                                 </li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['N°', 'Client', 'Date', 'Échéance', 'Total', 'Payé', 'Statut'],
+                            'columns' => [__('N°'), __('Client'), __('Date'), __('Échéance'), __('Total'), __('Payé'), __('Statut')],
                         ])
                     </div>
                 </div>
@@ -229,13 +228,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th class="no-sort">N°</th>
-                            <th>Client</th>
-                            <th>Date</th>
-                            <th>Échéance</th>
-                            <th>Total</th>
-                            <th>Payé</th>
-                            <th class="no-sort">Statut</th>
+                            <th class="no-sort">{{ __('N°') }}</th>
+                            <th>{{ __('Client') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Échéance') }}</th>
+                            <th>{{ __('Total') }}</th>
+                            <th>{{ __('Payé') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -271,31 +270,31 @@
                                     @switch($invoice->status)
                                         @case('draft')
                                             <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">Brouillon</span>
+                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
                                         @break
 
                                         @case('sent')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">Envoyée <i
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Envoyée') }} <i
                                                     class="isax isax-send-2 ms-1"></i></span>
                                         @break
 
                                         @case('partial')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">Partielle <i
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('Partielle') }} <i
                                                     class="isax isax-money-3 ms-1"></i></span>
                                         @break
 
                                         @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Payée <i
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }} <i
                                                     class="isax isax-tick-circle ms-1"></i></span>
                                         @break
 
                                         @case('overdue')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">En retard <i
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('En retard') }} <i
                                                     class="isax isax-information ms-1"></i></span>
                                         @break
 
                                         @case('void')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Annulée <i
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulée') }} <i
                                                     class="isax isax-close-circle ms-1"></i></span>
                                         @break
                                     @endswitch
@@ -308,13 +307,13 @@
                                         <li>
                                             <a href="{{ route('bo.sales.invoices.show', $invoice) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         @if ($invoice->status === 'draft')
                                             <li>
                                                 <a href="{{ route('bo.sales.invoices.edit', $invoice) }}"
                                                     class="dropdown-item d-flex align-items-center"><i
-                                                        class="isax isax-edit me-2"></i>Modifier</a>
+                                                        class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                             </li>
                                         @endif
                                         <li>
@@ -323,9 +322,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette facture ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
-                                                </button>
+                                                    onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer cette facture ?") }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                         @if ($invoice->status === 'draft')
@@ -335,8 +333,7 @@
                                                     @csrf
                                                     <button class="dropdown-item d-flex align-items-center"
                                                         type="submit">
-                                                        <i class="isax isax-send-2 me-2"></i>Envoyer
-                                                    </button>
+                                                        <i class="isax isax-send-2 me-2"></i>{{ __('Envoyer') }}</button>
                                                 </form>
                                             </li>
                                         @endif
@@ -347,9 +344,8 @@
                                                     @csrf
                                                     <button class="dropdown-item d-flex align-items-center text-danger"
                                                         type="submit"
-                                                        onclick="return confirm('Êtes-vous sûr de vouloir annuler cette facture ?')">
-                                                        <i class="isax isax-close-circle me-2"></i>Annuler
-                                                    </button>
+                                                        onclick="return confirm('{{ __("Êtes-vous sûr de vouloir annuler cette facture ?") }}')">
+                                                        <i class="isax isax-close-circle me-2"></i>{{ __('Annuler') }}</button>
                                                 </form>
                                             </li>
                                         @endif

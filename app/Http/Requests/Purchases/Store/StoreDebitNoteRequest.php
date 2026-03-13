@@ -38,17 +38,17 @@ class StoreDebitNoteRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'supplier_id.required'        => 'Le fournisseur est obligatoire.',
-            'supplier_id.exists'          => 'Le fournisseur sélectionné est invalide.',
-            'purchase_order_id.exists'    => 'Le bon de commande sélectionné est invalide.',
-            'vendor_bill_id.exists'       => 'La facture fournisseur sélectionnée est invalide.',
-            'debit_note_date.required'    => 'La date de la note de débit est obligatoire.',
-            'due_date.after_or_equal'     => 'La date d\'échéance doit être postérieure ou égale à la date de la note.',
-            'items.required'              => 'Au moins un article est obligatoire.',
-            'items.min'                   => 'Au moins un article est obligatoire.',
-            'items.*.label.required'      => 'Le libellé de l\'article est obligatoire.',
-            'items.*.quantity.required'   => 'La quantité est obligatoire.',
-            'items.*.unit_price.required' => 'Le prix unitaire est obligatoire.',
+            'supplier_id.required'        => __('Le fournisseur est obligatoire.'),
+            'supplier_id.exists'          => __('Le fournisseur sélectionné est invalide.'),
+            'purchase_order_id.exists'    => __('Le bon de commande sélectionné est invalide.'),
+            'vendor_bill_id.exists'       => __('La facture fournisseur sélectionnée est invalide.'),
+            'debit_note_date.required'    => __('La date de la note de débit est obligatoire.'),
+            'due_date.after_or_equal'     => __('La date d\'échéance doit être postérieure ou égale à la date de la note.'),
+            'items.required'              => __('Au moins un article est obligatoire.'),
+            'items.min'                   => __('Au moins un article est obligatoire.'),
+            'items.*.label.required'      => __('Le libellé de l\'article est obligatoire.'),
+            'items.*.quantity.required'   => __('La quantité est obligatoire.'),
+            'items.*.unit_price.required' => __('Le prix unitaire est obligatoire.'),
         ];
     }
 }

@@ -84,7 +84,7 @@ class CurrencySettingsController extends Controller
         }
 
         return redirect()->route('bo.settings.currencies.index')
-            ->with('success', 'Devise ajoutée avec succès.');
+            ->with('success', __('Devise ajoutée avec succès.'));
     }
 
     public function storeExchangeRate(StoreExchangeRateRequest $request)
@@ -103,7 +103,7 @@ class CurrencySettingsController extends Controller
         ]);
 
         return redirect()->route('bo.settings.currencies.index')
-            ->with('success', 'Taux de change ajouté avec succès.');
+            ->with('success', __('Taux de change ajouté avec succès.'));
     }
 
     public function update(UpdateExchangeRateRequest $request, ExchangeRate $exchangeRate)
@@ -114,7 +114,7 @@ class CurrencySettingsController extends Controller
         ]);
 
         return redirect()->route('bo.settings.currencies.index')
-            ->with('success', 'Taux de change mis à jour avec succès.');
+            ->with('success', __('Taux de change mis à jour avec succès.'));
     }
 
     public function destroy(ExchangeRate $exchangeRate)
@@ -122,7 +122,7 @@ class CurrencySettingsController extends Controller
         $exchangeRate->delete();
 
         return redirect()->route('bo.settings.currencies.index')
-            ->with('success', 'Devise supprimée avec succès.');
+            ->with('success', __('Devise supprimée avec succès.'));
     }
 
     public function setDefault(Currency $currency)
@@ -131,7 +131,7 @@ class CurrencySettingsController extends Controller
         $tenant->update(['default_currency' => $currency->code]);
 
         return redirect()->route('bo.settings.currencies.index')
-            ->with('success', 'Devise par défaut mise à jour avec succès.');
+            ->with('success', __('Devise par défaut mise à jour avec succès.'));
     }
 
     private function ensureCurrencyExists(string $code): void

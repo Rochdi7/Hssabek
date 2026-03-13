@@ -113,7 +113,7 @@ class TemplateCatalogController extends Controller
         ]);
 
         return redirect()->route('sa.template-catalog.index')
-            ->with('success', "Modèle « {$validated['name']} » créé avec succès.");
+            ->with('success', __("Modèle « {$validated['name']} » créé avec succès."));
     }
 
     public function edit(TemplateCatalog $template_catalog)
@@ -169,7 +169,7 @@ class TemplateCatalogController extends Controller
         ]);
 
         return redirect()->route('sa.template-catalog.index')
-            ->with('success', "Modèle « {$validated['name']} » mis à jour avec succès.");
+            ->with('success', __("Modèle « {$validated['name']} » mis à jour avec succès."));
     }
 
     public function destroy(TemplateCatalog $template_catalog)
@@ -178,6 +178,6 @@ class TemplateCatalogController extends Controller
         $template_catalog->delete();
 
         return redirect()->route('sa.template-catalog.index')
-            ->with('success', "Modèle « {$name} » supprimé avec succès.");
+            ->with('success', __("Modèle « {$name} » supprimé avec succès."));
     }
 }

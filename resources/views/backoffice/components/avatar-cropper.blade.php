@@ -24,7 +24,7 @@
     $previewId = $previewId ?? 'avatar-preview';
     $hasImage = $hasImage ?? false;
     $alt = $alt ?? 'Avatar';
-    $label = $label ?? 'Photo de profil';
+    $label = $label ?? __('Photo de profil');
     $required = $required ?? true;
     $uid = 'uploader-' . Str::random(6);
 @endphp
@@ -43,11 +43,11 @@
         </div>
         <div class="d-inline-flex flex-column align-items-start">
             <div class="drag-upload-btn btn btn-sm btn-primary position-relative mb-2">
-                <i class="isax isax-image me-1"></i>T&eacute;l&eacute;charger une image
+                <i class="isax isax-image me-1"></i>{{ __('Télécharger une image') }}
                 <input type="file" class="form-control image-sign" id="{{ $uid }}-file-input"
                     accept="image/jpeg,image/png,image/webp">
             </div>
-            <span class="text-gray-9 fs-12">Format JPG ou PNG, 5 Mo maximum.</span>
+            <span class="text-gray-9 fs-12">{{ __('Format JPG ou PNG, 5 Mo maximum.') }}</span>
             @error($inputName)
                 <span class="text-danger fs-12">{{ $message }}</span>
             @enderror
@@ -77,12 +77,12 @@
 
                 var validTypes = ['image/jpeg', 'image/png', 'image/webp'];
                 if (validTypes.indexOf(file.type) === -1) {
-                    alert('Seuls les formats JPG, PNG et WEBP sont accept\u00e9s.');
+                    alert({!! json_encode(__('Seuls les formats JPG, PNG et WEBP sont acceptés.')) !!});
                     this.value = '';
                     return;
                 }
                 if (file.size > 5 * 1024 * 1024) {
-                    alert("L'image ne doit pas d\u00e9passer 5 Mo.");
+                    alert({!! json_encode(__("L'image ne doit pas dépasser 5 Mo.")) !!});
                     this.value = '';
                     return;
                 }

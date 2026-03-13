@@ -41,7 +41,7 @@ class FinanceCategoryController extends Controller
         FinanceCategory::create($data);
 
         return redirect()->route('bo.finance.categories.index')
-            ->with('success', 'Catégorie créée avec succès.');
+            ->with('success', __('Catégorie créée avec succès.'));
     }
 
     public function edit(FinanceCategory $financeCategory)
@@ -61,7 +61,7 @@ class FinanceCategoryController extends Controller
         $financeCategory->update($data);
 
         return redirect()->route('bo.finance.categories.index')
-            ->with('success', 'Catégorie mise à jour avec succès.');
+            ->with('success', __('Catégorie mise à jour avec succès.'));
     }
 
     public function destroy(FinanceCategory $financeCategory)
@@ -70,12 +70,12 @@ class FinanceCategoryController extends Controller
 
         if ($financeCategory->expenses()->exists() || $financeCategory->incomes()->exists()) {
             return redirect()->route('bo.finance.categories.index')
-                ->with('error', 'Impossible de supprimer cette catégorie : elle est utilisée par des transactions.');
+                ->with('error', __('Impossible de supprimer cette catégorie : elle est utilisée par des transactions.'));
         }
 
         $financeCategory->delete();
 
         return redirect()->route('bo.finance.categories.index')
-            ->with('success', 'Catégorie supprimée avec succès.');
+            ->with('success', __('Catégorie supprimée avec succès.'));
     }
 }

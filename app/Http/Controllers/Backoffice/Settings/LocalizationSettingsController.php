@@ -28,14 +28,24 @@ class LocalizationSettingsController extends Controller
         $tenant = TenantContext::get();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
+        $data = $request->validated();
+
+        // Map 'locale' form field to 'language' key (used by SetTenantContext middleware)
+        if (isset($data['locale'])) {
+            $data['language'] = $data['locale'];
+            unset($data['locale']);
+        }
+
         $setting->localization_settings = array_merge(
             $setting->localization_settings ?? [],
-            $request->validated()
+            $data
         );
         $setting->save();
 
-        // Apply locale and timezone immediately
-        if ($request->filled('locale')) {
+        // Apply locale and timezone immediately for this request
+        if (isset($data['language'])) {
+            app()->setLocale($data['language']);
+        } elseif ($request->filled('locale')) {
             app()->setLocale($request->input('locale'));
         }
         if ($request->filled('timezone')) {
@@ -43,6 +53,6 @@ class LocalizationSettingsController extends Controller
         }
 
         return redirect()->route('bo.settings.locale.edit')
-            ->with('success', 'Paramètres de localisation mis à jour avec succès.');
+            ->with('success', __('Paramètres de localisation mis à jour avec succès.'));
     }
 }

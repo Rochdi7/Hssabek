@@ -8,7 +8,7 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.finance.loans.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Prêts</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Prêts') }}</a></h6>
                         </div>
 
                         @if (session('success'))
@@ -30,47 +30,47 @@
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <h5>
                                         @if ($loan->loan_type === 'given')
-                                            <span class="badge badge-soft-primary me-2">Prêt donné</span>
+                                            <span class="badge badge-soft-primary me-2">{{ __('Prêt donné') }}</span>
                                         @else
-                                            <span class="badge badge-soft-warning me-2">Prêt reçu</span>
+                                            <span class="badge badge-soft-warning me-2">{{ __('Prêt reçu') }}</span>
                                         @endif
                                         {{ $loan->reference_number }}
                                     </h5>
                                     <div class="d-flex gap-2">
                                         <a href="{{ route('bo.finance.loans.edit', $loan) }}"
                                             class="btn btn-sm btn-outline-primary">
-                                            <i class="isax isax-edit me-1"></i>Modifier
+                                            <i class="isax isax-edit me-1"></i>{{ __('Modifier') }}
                                         </a>
                                     </div>
                                 </div>
 
                                 <div class="row gx-3 mb-4">
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <label class="form-label text-muted">{{ $loan->loan_type === 'given' ? 'Emprunteur' : 'Prêteur' }}</label>
+                                        <label class="form-label text-muted">{{ $loan->loan_type === 'given' ? __('Emprunteur') : __('Prêteur') }}</label>
                                         <p class="fw-medium mb-0">{{ $loan->lender_name }}
                                             <small
-                                                class="text-muted">({{ $loan->lender_type === 'bank' ? 'Banque' : ($loan->lender_type === 'personal' ? 'Particulier' : 'Autre') }})</small>
+                                                class="text-muted">({{ $loan->lender_type === 'bank' ? __('Banque') : ($loan->lender_type === 'personal' ? __('Particulier') : __('Autre')) }})</small>
                                         </p>
                                     </div>
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <label class="form-label text-muted">Montant principal</label>
+                                        <label class="form-label text-muted">{{ __('Montant principal') }}</label>
                                         <p class="fw-semibold mb-0">
                                             {{ number_format($loan->principal_amount, 2, ',', ' ') }}</p>
                                     </div>
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <label class="form-label text-muted">Fréquence de paiement</label>
+                                        <label class="form-label text-muted">{{ __('Fréquence de paiement') }}</label>
                                         <p class="fw-medium mb-0">
                                             @switch($loan->payment_frequency)
                                                 @case('monthly')
-                                                    Mensuel
+                                                    {{ __('Mensuel') }}
                                                 @break
 
                                                 @case('quarterly')
-                                                    Trimestriel
+                                                    {{ __('Trimestriel') }}
                                                 @break
 
                                                 @case('yearly')
-                                                    Annuel
+                                                    {{ __('Annuel') }}
                                                 @break
 
                                                 @default
@@ -79,30 +79,30 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <label class="form-label text-muted">Date de début</label>
+                                        <label class="form-label text-muted">{{ __('Date de début') }}</label>
                                         <p class="fw-medium mb-0">
                                             {{ \Carbon\Carbon::parse($loan->start_date)->format('d/m/Y') }}</p>
                                     </div>
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <label class="form-label text-muted">Date de fin</label>
+                                        <label class="form-label text-muted">{{ __('Date de fin') }}</label>
                                         <p class="fw-medium mb-0">
                                             {{ $loan->end_date ? \Carbon\Carbon::parse($loan->end_date)->format('d/m/Y') : '—' }}
                                         </p>
                                     </div>
                                     <div class="col-lg-4 col-md-6 mb-3">
-                                        <label class="form-label text-muted">Statut</label>
+                                        <label class="form-label text-muted">{{ __('Statut') }}</label>
                                         <p class="mb-0">
                                             @switch($loan->status)
                                                 @case('active')
-                                                    <span class="badge badge-soft-success">Actif</span>
+                                                    <span class="badge badge-soft-success">{{ __('Actif') }}</span>
                                                 @break
 
                                                 @case('closed')
-                                                    <span class="badge badge-soft-info">Terminé</span>
+                                                    <span class="badge badge-soft-info">{{ __('Terminé') }}</span>
                                                 @break
 
                                                 @case('defaulted')
-                                                    <span class="badge badge-soft-danger">Défaut</span>
+                                                    <span class="badge badge-soft-danger">{{ __('Défaut') }}</span>
                                                 @break
                                             @endswitch
                                         </p>
@@ -116,19 +116,19 @@
                                             <div class="card-body py-3">
                                                 <div class="row text-center">
                                                     <div class="col-md-4">
-                                                        <label class="form-label text-muted mb-1">Montant total</label>
+                                                        <label class="form-label text-muted mb-1">{{ __('Montant total') }}</label>
                                                         <p class="fw-bold fs-5 mb-0">
                                                             {{ number_format($loan->total_amount, 2, ',', ' ') }}
                                                         </p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="form-label text-muted mb-1">Montant remboursé</label>
+                                                        <label class="form-label text-muted mb-1">{{ __('Montant remboursé') }}</label>
                                                         <p class="fw-bold fs-5 mb-0 text-success">
                                                             {{ number_format($loan->paid_amount, 2, ',', ' ') }}
                                                         </p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="form-label text-muted mb-1">Reste à payer</label>
+                                                        <label class="form-label text-muted mb-1">{{ __('Reste à payer') }}</label>
                                                         <p class="fw-bold fs-5 mb-0 {{ $loan->remaining_amount > 0 ? 'text-danger' : 'text-success' }}">
                                                             {{ number_format($loan->remaining_amount, 2, ',', ' ') }}
                                                         </p>
@@ -141,7 +141,7 @@
 
                                 @if ($loan->notes)
                                     <div class="mb-4">
-                                        <label class="form-label text-muted">Notes</label>
+                                        <label class="form-label text-muted">{{ __('Notes') }}</label>
                                         <p>{{ $loan->notes }}</p>
                                     </div>
                                 @endif
@@ -149,18 +149,18 @@
                                 <!-- Payment History -->
                                 @if ($loan->payments->count())
                                     <div class="d-flex align-items-center justify-content-between mb-3">
-                                        <h6 class="mb-0">Historique des remboursements</h6>
+                                        <h6 class="mb-0">{{ __('Historique des remboursements') }}</h6>
                                     </div>
                                     <div class="table-responsive mb-4">
                                         <table class="table table-nowrap">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th>N°</th>
-                                                    <th>Date</th>
-                                                    <th>Montant</th>
-                                                    <th>Mode</th>
-                                                    <th>Compte bancaire</th>
-                                                    <th>Note</th>
+                                                    <th>{{ __('Date') }}</th>
+                                                    <th>{{ __('Montant') }}</th>
+                                                    <th>{{ __('Mode') }}</th>
+                                                    <th>{{ __('Compte bancaire') }}</th>
+                                                    <th>{{ __('Note') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -174,11 +174,11 @@
                                                         </td>
                                                         <td>
                                                             @switch($payment->payment_mode)
-                                                                @case('cash') Espèces @break
-                                                                @case('bank_transfer') Virement @break
-                                                                @case('card') Carte @break
-                                                                @case('cheque') Chèque @break
-                                                                @default Autre
+                                                                @case('cash') {{ __('Espèces') }} @break
+                                                                @case('bank_transfer') {{ __('Virement') }} @break
+                                                                @case('card') {{ __('Carte') }} @break
+                                                                @case('cheque') {{ __('Chèque') }} @break
+                                                                @default {{ __('Autre') }}
                                                             @endswitch
                                                         </td>
                                                         <td>{{ $payment->bankAccount?->bank_name ?? '—' }}</td>
@@ -190,7 +190,7 @@
                                                                 @csrf @method('DELETE')
                                                                 <button type="submit"
                                                                     class="btn btn-sm btn-outline-danger"
-                                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce paiement ?')">
+                                                                    onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer ce paiement ?') }}')">
                                                                     <i class="isax isax-trash"></i>
                                                                 </button>
                                                             </form>
@@ -205,7 +205,7 @@
                                 <!-- Add Payment Form (only if remaining > 0) -->
                                 @if ($loan->remaining_amount > 0)
                                     <div class="border-top pt-4">
-                                        <h6 class="mb-3">Ajouter un remboursement</h6>
+                                        <h6 class="mb-3">{{ __('Ajouter un remboursement') }}</h6>
 
                                         @if ($errors->any())
                                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -223,7 +223,7 @@
                                             <div class="row gx-3">
                                                 <div class="col-lg-3 col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Montant <span class="text-danger ms-1">*</span></label>
+                                                        <label class="form-label">{{ __('Montant') }} <span class="text-danger ms-1">*</span></label>
                                                         <input type="number" step="0.01" min="0.01"
                                                             max="{{ $loan->remaining_amount }}"
                                                             class="form-control @error('amount') is-invalid @enderror"
@@ -233,13 +233,13 @@
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
                                                         <small class="text-muted">
-                                                            Max : <strong>{{ number_format($loan->remaining_amount, 2, ',', ' ') }}</strong>
+                                                            {{ __('Max :') }} <strong>{{ number_format($loan->remaining_amount, 2, ',', ' ') }}</strong>
                                                         </small>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Date du paiement <span class="text-danger ms-1">*</span></label>
+                                                        <label class="form-label">{{ __('Date du paiement') }} <span class="text-danger ms-1">*</span></label>
                                                         <div class="input-group position-relative">
                                                             <input type="text"
                                                                 class="form-control datetimepicker @error('payment_date') is-invalid @enderror"
@@ -256,14 +256,14 @@
                                                 </div>
                                                 <div class="col-lg-3 col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Mode de paiement <span class="text-danger ms-1">*</span></label>
+                                                        <label class="form-label">{{ __('Mode de paiement') }} <span class="text-danger ms-1">*</span></label>
                                                         <select class="form-select @error('payment_mode') is-invalid @enderror"
                                                             name="payment_mode">
-                                                            <option value="cash" {{ old('payment_mode') === 'cash' ? 'selected' : '' }}>Espèces</option>
-                                                            <option value="bank_transfer" {{ old('payment_mode') === 'bank_transfer' ? 'selected' : '' }}>Virement bancaire</option>
-                                                            <option value="card" {{ old('payment_mode') === 'card' ? 'selected' : '' }}>Carte</option>
-                                                            <option value="cheque" {{ old('payment_mode') === 'cheque' ? 'selected' : '' }}>Chèque</option>
-                                                            <option value="other" {{ old('payment_mode') === 'other' ? 'selected' : '' }}>Autre</option>
+                                                            <option value="cash" {{ old('payment_mode') === 'cash' ? 'selected' : '' }}>{{ __('Espèces') }}</option>
+                                                            <option value="bank_transfer" {{ old('payment_mode') === 'bank_transfer' ? 'selected' : '' }}>{{ __('Virement bancaire') }}</option>
+                                                            <option value="card" {{ old('payment_mode') === 'card' ? 'selected' : '' }}>{{ __('Carte') }}</option>
+                                                            <option value="cheque" {{ old('payment_mode') === 'cheque' ? 'selected' : '' }}>{{ __('Chèque') }}</option>
+                                                            <option value="other" {{ old('payment_mode') === 'other' ? 'selected' : '' }}>{{ __('Autre') }}</option>
                                                         </select>
                                                         @error('payment_mode')
                                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -272,10 +272,10 @@
                                                 </div>
                                                 <div class="col-lg-3 col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Compte bancaire</label>
+                                                        <label class="form-label">{{ __('Compte bancaire') }}</label>
                                                         <select class="form-select @error('bank_account_id') is-invalid @enderror"
                                                             name="bank_account_id">
-                                                            <option value="">— Sélectionner —</option>
+                                                            <option value="">{{ __('— Sélectionner —') }}</option>
                                                             @foreach ($bankAccounts as $bankAccount)
                                                                 <option value="{{ $bankAccount->id }}"
                                                                     data-balance="{{ number_format($bankAccount->current_balance, 2, ',', ' ') }}"
@@ -293,11 +293,11 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Note</label>
+                                                        <label class="form-label">{{ __('Note') }}</label>
                                                         <input type="text"
                                                             class="form-control @error('note') is-invalid @enderror"
                                                             name="note" value="{{ old('note') }}"
-                                                            placeholder="Note optionnelle...">
+                                                            placeholder="{{ __('Note optionnelle...') }}">
                                                         @error('note')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -305,10 +305,10 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">&nbsp;</label>
+                                                        <label class="form-label">{{ __('&nbsp;') }}</label>
                                                         <div>
                                                             <button type="submit" class="btn btn-primary">
-                                                                <i class="isax isax-money-send me-1"></i>Enregistrer le remboursement
+                                                                <i class="isax isax-money-send me-1"></i>{{ __('Enregistrer le remboursement') }}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -319,7 +319,7 @@
                                 @else
                                     <div class="border-top pt-4">
                                         <div class="alert alert-success mb-0">
-                                            <i class="isax isax-tick-circle me-2"></i>Ce prêt est entièrement remboursé.
+                                            <i class="isax isax-tick-circle me-2"></i>{{ __('Ce prêt est entièrement remboursé.') }}
                                         </div>
                                     </div>
                                 @endif

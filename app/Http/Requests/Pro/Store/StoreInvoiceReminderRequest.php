@@ -24,13 +24,13 @@ class StoreInvoiceReminderRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'invoice_id.required'   => 'La facture est obligatoire.',
-            'invoice_id.exists'     => 'La facture sélectionnée est invalide.',
-            'type.required'         => 'Le type de rappel est obligatoire.',
-            'type.in'               => 'Le type de rappel est invalide.',
-            'channel.required'      => 'Le canal de notification est obligatoire.',
-            'channel.in'            => 'Le canal de notification est invalide.',
-            'scheduled_at.required' => 'La date de planification est obligatoire.',
+            'invoice_id.required'   => __('La facture est obligatoire.'),
+            'invoice_id.exists'     => __('La facture sélectionnée est invalide.'),
+            'type.required'         => __('Le type de rappel est obligatoire.'),
+            'type.in'               => __('Le type de rappel est invalide.'),
+            'channel.required'      => __('Le canal de notification est obligatoire.'),
+            'channel.in'            => __('Le canal de notification est invalide.'),
+            'scheduled_at.required' => __('La date de planification est obligatoire.'),
         ];
     }
 }

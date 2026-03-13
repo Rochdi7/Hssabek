@@ -13,14 +13,13 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Clients</h6>
+                    <h6>{{ __('Clients') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'customers'])
                     <div>
                         <a href="{{ route('bo.crm.customers.create') }}" class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau client
-                        </a>
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau client') }}</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +40,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un client..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher un client...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -59,21 +58,21 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Statut : <span
-                                    class="fw-normal ms-1">{{ request('status') === 'active' ? 'Actif' : (request('status') === 'inactive' ? 'Inactif' : 'Tous') }}</span>
+                                <i class="isax isax-filter me-1"></i>{{ __('Statut') }} : <span
+                                    class="fw-normal ms-1">{{ request('status') === 'active' ? __('Actif') : (request('status') === 'inactive' ? __('Inactif') : __('Tous')) }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('status', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['status' => 'active'])) }}"
-                                        class="dropdown-item">Actif</a>
+                                        class="dropdown-item">{{ __('Actif') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['status' => 'inactive'])) }}"
-                                        class="dropdown-item">Inactif</a>
+                                        class="dropdown-item">{{ __('Inactif') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -81,26 +80,26 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Type : <span
-                                    class="fw-normal ms-1">{{ request('type') === 'individual' ? 'Particulier' : (request('type') === 'company' ? 'Entreprise' : 'Tous') }}</span>
+                                <i class="isax isax-sort me-1"></i>{{ __('Type') }} : <span
+                                    class="fw-normal ms-1">{{ request('type') === 'individual' ? __('Particulier') : (request('type') === 'company' ? __('Entreprise') : __('Tous')) }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('type', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['type' => 'individual'])) }}"
-                                        class="dropdown-item">Particulier</a>
+                                        class="dropdown-item">{{ __('Particulier') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.crm.customers.index', array_merge(request()->except('page'), ['type' => 'company'])) }}"
-                                        class="dropdown-item">Entreprise</a>
+                                        class="dropdown-item">{{ __('Entreprise') }}</a>
                                 </li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Client', 'Téléphone', 'Type', 'Factures', 'Créé le', 'Statut'],
+                            'columns' => [__('Client'), __('Téléphone'), __('Type'), __('Factures'), __('Créé le'), __('Statut')],
                         ])
                     </div>
                 </div>
@@ -117,12 +116,12 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Client</th>
-                            <th>Téléphone</th>
-                            <th>Type</th>
-                            <th class="no-sort">Factures</th>
-                            <th>Créé le</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('Client') }}</th>
+                            <th>{{ __('Téléphone') }}</th>
+                            <th>{{ __('Type') }}</th>
+                            <th class="no-sort">{{ __('Factures') }}</th>
+                            <th>{{ __('Créé le') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -154,17 +153,17 @@
                                 <td>{{ $customer->phone ?? '—' }}</td>
                                 <td>
                                     <span class="badge badge-soft-info d-inline-flex align-items-center">
-                                        {{ $customer->type === 'company' ? 'Entreprise' : 'Particulier' }}
+                                        {{ $customer->type === 'company' ? __('Entreprise') : __('Particulier') }}
                                     </span>
                                 </td>
                                 <td>{{ $customer->invoices_count }}</td>
                                 <td>{{ $customer->created_at->format('d/m/Y') }}</td>
                                 <td>
                                     @if ($customer->status === 'active')
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Actif <i
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Actif') }} <i
                                                 class="isax isax-tick-circle ms-1"></i></span>
                                     @else
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Inactif<i
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Inactif') }} <i
                                                 class="isax isax-close-circle ms-1"></i></span>
                                     @endif
                                 </td>
@@ -176,12 +175,12 @@
                                         <li>
                                             <a href="{{ route('bo.crm.customers.show', $customer) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>Voir</a>
+                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('bo.crm.customers.edit', $customer) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
@@ -189,9 +188,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
-                                                </button>
+                                                    onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer ce client ?") }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                     </ul>

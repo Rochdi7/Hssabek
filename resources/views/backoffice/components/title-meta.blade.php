@@ -9,12 +9,12 @@
         @else
             {{ ucwords(str_replace(['-', '_', '.'], ' ', $page ?? 'Dashboard')) }} |
         @endif
-        {{ config('app.name', 'Facturation') }}
+        {{ config('app.name', 'Hssabek') }}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="{{ config('app.name', 'Facturation') }} - Application de gestion et facturation SaaS">
-    <meta name="author" content="{{ config('app.name', 'Facturation') }}">
+        content="{{ config('app.name', 'Hssabek') }} — {{ __('Application de gestion et facturation SaaS') }}">
+    <meta name="author" content="{{ config('app.name', 'Hssabek') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('backoffice.layout.partials.head')

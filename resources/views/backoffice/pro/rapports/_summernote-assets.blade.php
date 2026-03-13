@@ -340,9 +340,9 @@
         }
 
         var paletteColors = [
-            { label: 'Aucune', colors: ['transparent'] },
-            { label: 'Basiques', colors: ['#ffffff','#f8f9fa','#e9ecef','#dee2e6','#ced4da','#adb5bd','#6c757d','#495057','#343a40','#212529'] },
-            { label: 'Couleurs', colors: ['#fff3cd','#fef3c7','#fde68a','#d1fae5','#a7f3d0','#6ee7b7','#dbeafe','#bfdbfe','#93c5fd','#e0e7ff','#c7d2fe','#a5b4fc','#fce7f3','#fbcfe8','#f9a8d4','#fee2e2','#fecaca','#fca5a5','#ffedd5','#fed7aa','#fdba74'] },
+            { label: {!! json_encode(__('Aucune')) !!}, colors: ['transparent'] },
+            { label: {!! json_encode(__('Basiques')) !!}, colors: ['#ffffff','#f8f9fa','#e9ecef','#dee2e6','#ced4da','#adb5bd','#6c757d','#495057','#343a40','#212529'] },
+            { label: {!! json_encode(__('Couleurs')) !!}, colors: ['#fff3cd','#fef3c7','#fde68a','#d1fae5','#a7f3d0','#6ee7b7','#dbeafe','#bfdbfe','#93c5fd','#e0e7ff','#c7d2fe','#a5b4fc','#fce7f3','#fbcfe8','#f9a8d4','#fee2e2','#fecaca','#fca5a5','#ffedd5','#fed7aa','#fdba74'] },
         ];
         var flatColors = ['transparent','#fff3cd','#d1fae5','#dbeafe','#fce7f3','#fee2e2','#ffedd5','#e0e7ff','#f8f9fa','#e9ecef','#fef3c7','#a7f3d0','#93c5fd','#f9a8d4','#fca5a5','#fdba74','#c7d2fe'];
 
@@ -358,7 +358,7 @@
         var HighlightButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-pencil" style="color:#fbbf24"></i>',
-                tooltip: 'Surligneur',
+                tooltip: {!! json_encode(__('Surligneur')) !!},
                 click: function() {
                     var sel = window.getSelection();
                     if (!sel.rangeCount) return;
@@ -374,7 +374,7 @@
         var UpperCaseButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<b style="font-size:11px">AB</b>',
-                tooltip: 'MAJUSCULES',
+                tooltip: {!! json_encode(__('MAJUSCULES')) !!},
                 click: function() {
                     var sel = window.getSelection();
                     if (!sel.rangeCount || sel.isCollapsed) return;
@@ -390,7 +390,7 @@
         var LowerCaseButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<b style="font-size:11px">ab</b>',
-                tooltip: 'minuscules',
+                tooltip: {!! json_encode(__('minuscules')) !!},
                 click: function() {
                     var sel = window.getSelection();
                     if (!sel.rangeCount || sel.isCollapsed) return;
@@ -406,7 +406,7 @@
         var SmallCapsButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<b style="font-size:11px;font-variant:small-caps">Sc</b>',
-                tooltip: 'Petites capitales',
+                tooltip: {!! json_encode(__('Petites capitales')) !!},
                 click: function() {
                     var sel = window.getSelection();
                     if (!sel.rangeCount || sel.isCollapsed) return;
@@ -422,9 +422,9 @@
         var LetterSpacingButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<span style="font-size:11px;letter-spacing:3px">AV</span>',
-                tooltip: 'Espacement des lettres',
+                tooltip: {!! json_encode(__('Espacement des lettres')) !!},
                 click: function() {
-                    var val = prompt('Espacement (ex: 1px, 2px, 3px, 0) :', '2px');
+                    var val = prompt({!! json_encode(__('Espacement (ex: 1px, 2px, 3px, 0) :')) !!}, '2px');
                     if (val === null) return;
                     var sel = window.getSelection();
                     if (!sel.rangeCount || sel.isCollapsed) return;
@@ -440,7 +440,7 @@
         var RtlButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<span style="font-size:11px">RTL</span>',
-                tooltip: 'Texte droite-à-gauche',
+                tooltip: {!! json_encode(__('Texte droite-à-gauche')) !!},
                 click: function() {
                     var n = getNode();
                     var $block = $(n).closest('p, div, li, h1, h2, h3, h4, h5, h6, td, th');
@@ -464,7 +464,7 @@
         var EmojiButton = function(ctx) {
             var $btn = $.summernote.ui.button({
                 contents: '<span style="font-size:15px">&#x1F600;</span>',
-                tooltip: 'Insérer un emoji',
+                tooltip: {!! json_encode(__('Insérer un emoji')) !!},
             }).render();
 
             // Prevent focus loss from editor when clicking the button
@@ -519,7 +519,7 @@
         var SpecialCharsButton = function(ctx) {
             var $btn = $.summernote.ui.button({
                 contents: '<span style="font-size:13px">\u03A9</span>',
-                tooltip: 'Caractères spéciaux',
+                tooltip: {!! json_encode(__('Caractères spéciaux')) !!},
             }).render();
 
             $btn.on('mousedown', function(e) {
@@ -561,7 +561,7 @@
         var DateStampButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-calendar"></i>',
-                tooltip: 'Insérer la date et heure',
+                tooltip: {!! json_encode(__('Insérer la date et heure')) !!},
                 click: function() {
                     var now = new Date();
                     var d = ('0'+now.getDate()).slice(-2)+'/'+('0'+(now.getMonth()+1)).slice(-2)+'/'+now.getFullYear();
@@ -575,7 +575,7 @@
         var PageBreakButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-minus"></i> <span style="font-size:11px">Page</span>',
-                tooltip: 'Saut de page (pour PDF)',
+                tooltip: {!! json_encode(__('Saut de page (pour PDF)')) !!},
                 click: function() {
                     ctx.invoke('editor.pasteHTML', '<hr class="sn-page-break"><p><br></p>');
                 }
@@ -588,7 +588,7 @@
                 $.summernote.ui.button({
                     className: 'dropdown-toggle',
                     contents: '<i class="note-icon-frame"></i> <span style="font-size:11px">Encadré</span>',
-                    tooltip: 'Insérer un encadré',
+                    tooltip: {!! json_encode(__('Insérer un encadré')) !!},
                     data: { toggle: 'dropdown' }
                 }),
                 $.summernote.ui.dropdown({
@@ -620,7 +620,7 @@
                 $.summernote.ui.button({
                     className: 'dropdown-toggle',
                     contents: '<span style="font-size:11px">― Ligne</span>',
-                    tooltip: 'Style de séparateur',
+                    tooltip: {!! json_encode(__('Style de séparateur')) !!},
                     data: { toggle: 'dropdown' }
                 }),
                 $.summernote.ui.dropdown({
@@ -642,7 +642,7 @@
         var TextBoxButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-frame"></i>',
-                tooltip: 'Zone de texte encadrée',
+                tooltip: {!! json_encode(__('Zone de texte encadrée')) !!},
                 click: function() {
                     ctx.invoke('editor.pasteHTML', '<div class="sn-textbox">Saisissez votre texte ici...</div><p><br></p>');
                 }
@@ -655,7 +655,7 @@
                 $.summernote.ui.button({
                     className: 'dropdown-toggle',
                     contents: '<i class="note-icon-align-justify"></i> <span style="font-size:11px">Colonnes</span>',
-                    tooltip: 'Mise en page colonnes',
+                    tooltip: {!! json_encode(__('Mise en page colonnes')) !!},
                     data: { toggle: 'dropdown' }
                 }),
                 $.summernote.ui.dropdown({
@@ -680,7 +680,7 @@
         var ChecklistButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<span style="font-size:12px">☑</span>',
-                tooltip: 'Liste à cocher',
+                tooltip: {!! json_encode(__('Liste à cocher')) !!},
                 click: function() {
                     ctx.invoke('editor.pasteHTML',
                         '<ul class="sn-checklist">' +
@@ -701,10 +701,10 @@
         var StyledTableButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-table"></i> <span style="font-size:11px">Tableau</span>',
-                tooltip: 'Insérer un tableau avec en-tête',
+                tooltip: {!! json_encode(__('Insérer un tableau avec en-tête')) !!},
                 click: function() {
-                    var rows = prompt('Nombre de lignes (sans en-tête) :', '3');
-                    var cols = prompt('Nombre de colonnes :', '3');
+                    var rows = prompt({!! json_encode(__('Nombre de lignes (sans en-tête) :')) !!}, '3');
+                    var cols = prompt({!! json_encode(__('Nombre de colonnes :')) !!}, '3');
                     if (!rows || !cols) return;
                     rows = parseInt(rows) || 3; cols = parseInt(cols) || 3;
                     var t = '<table style="'+TABLE_STYLE+'"><thead><tr>';
@@ -725,7 +725,7 @@
         var RowBgColorButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-magic"></i> <span style="font-size:11px">Fond ligne</span>',
-                tooltip: 'Couleur de fond de la ligne',
+                tooltip: {!! json_encode(__('Couleur de fond de la ligne')) !!},
                 className: 'btn-row-bg-color',
                 click: function() {
                     var $p = $(this).find('.row-color-palette');
@@ -748,7 +748,7 @@
         var CellBgColorButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-pencil"></i> <span style="font-size:11px">Fond cellule</span>',
-                tooltip: 'Couleur de fond de la cellule',
+                tooltip: {!! json_encode(__('Couleur de fond de la cellule')) !!},
                 className: 'btn-cell-bg-color',
                 click: function() {
                     var $p = $(this).find('.row-color-palette');
@@ -773,7 +773,7 @@
         // ── Add Row ──────────────────────────────────────
         var AddRowButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<i class="note-icon-row-below"></i>', tooltip: 'Ajouter une ligne',
+                contents: '<i class="note-icon-row-below"></i>', tooltip: {!! json_encode(__('Ajouter une ligne')) !!},
                 click: function() {
                     var $row = getRow();
                     if ($row.length) {
@@ -788,7 +788,7 @@
         // ── Add Column ───────────────────────────────────
         var AddColButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<i class="note-icon-col-after"></i>', tooltip: 'Ajouter une colonne',
+                contents: '<i class="note-icon-col-after"></i>', tooltip: {!! json_encode(__('Ajouter une colonne')) !!},
                 click: function() {
                     var $cell = getCell();
                     if ($cell.length) {
@@ -806,7 +806,7 @@
         // ── Delete Row ───────────────────────────────────
         var DeleteRowButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<i class="note-icon-row-remove"></i>', tooltip: 'Supprimer la ligne',
+                contents: '<i class="note-icon-row-remove"></i>', tooltip: {!! json_encode(__('Supprimer la ligne')) !!},
                 click: function() { var $r = getRow(); if ($r.length) $r.remove(); }
             }).render();
         };
@@ -814,7 +814,7 @@
         // ── Delete Column ────────────────────────────────
         var DeleteColButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<i class="note-icon-col-remove"></i>', tooltip: 'Supprimer la colonne',
+                contents: '<i class="note-icon-col-remove"></i>', tooltip: {!! json_encode(__('Supprimer la colonne')) !!},
                 click: function() {
                     var $cell = getCell();
                     if ($cell.length) {
@@ -828,7 +828,7 @@
         // ── Merge Cells ──────────────────────────────────
         var MergeCellsButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<span style="font-size:11px">⊞ Fusion</span>', tooltip: 'Fusionner avec cellule droite',
+                contents: '<span style="font-size:11px">⊞ Fusion</span>', tooltip: {!! json_encode(__('Fusionner avec cellule droite')) !!},
                 click: function() {
                     var $cell = getCell();
                     if ($cell.length) {
@@ -842,7 +842,7 @@
         // ── Split Cell ───────────────────────────────────
         var SplitCellButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<span style="font-size:11px">⊟ Scinder</span>', tooltip: 'Scinder la cellule',
+                contents: '<span style="font-size:11px">⊟ Scinder</span>', tooltip: {!! json_encode(__('Scinder la cellule')) !!},
                 click: function() {
                     var $cell = getCell();
                     if ($cell.length) {
@@ -861,7 +861,7 @@
         // ── Toggle Header ────────────────────────────────
         var ToggleHeaderButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<b style="font-size:11px">TH</b>', tooltip: 'Basculer en-tête',
+                contents: '<b style="font-size:11px">TH</b>', tooltip: {!! json_encode(__('Basculer en-tête')) !!},
                 click: function() {
                     var $cell = getCell();
                     if ($cell.length) {
@@ -880,16 +880,16 @@
         // ── Table Border Style ───────────────────────────
         var TableBorderButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<span style="font-size:11px">☐ Bordure</span>', tooltip: 'Style de bordure du tableau',
+                contents: '<span style="font-size:11px">☐ Bordure</span>', tooltip: {!! json_encode(__('Style de bordure du tableau')) !!},
                 click: function() {
                     var $popup = $(this).find('.sn-border-popup');
                     if ($popup.length) { $popup.toggleClass('show'); return; }
                     var opts = [
-                        { label: 'Solide', style: 'solid', color: '#d1d5db' },
-                        { label: 'Tirets', style: 'dashed', color: '#9ca3af' },
-                        { label: 'Points', style: 'dotted', color: '#9ca3af' },
-                        { label: 'Double', style: 'double', color: '#374151' },
-                        { label: 'Aucune', style: 'none', color: 'transparent' },
+                        { label: {!! json_encode(__('Solide')) !!}, style: 'solid', color: '#d1d5db' },
+                        { label: {!! json_encode(__('Tirets')) !!}, style: 'dashed', color: '#9ca3af' },
+                        { label: {!! json_encode(__('Points')) !!}, style: 'dotted', color: '#9ca3af' },
+                        { label: {!! json_encode(__('Double')) !!}, style: 'double', color: '#374151' },
+                        { label: {!! json_encode(__('Aucune')) !!}, style: 'none', color: 'transparent' },
                     ];
                     var html = '<div class="sn-border-popup show">';
                     opts.forEach(function(o) {
@@ -917,7 +917,7 @@
         // ── Table Border Color ───────────────────────────
         var TableBorderColorButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<span style="font-size:11px">🎨 Bordure</span>', tooltip: 'Couleur de bordure',
+                contents: '<span style="font-size:11px">🎨 Bordure</span>', tooltip: {!! json_encode(__('Couleur de bordure')) !!},
                 click: function() {
                     var $p = $(this).find('.row-color-palette');
                     if ($p.length) { $p.toggleClass('show'); return; }
@@ -945,7 +945,7 @@
         // ── Auto-fit Columns ─────────────────────────────
         var AutoFitButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<span style="font-size:11px">⇔ Auto</span>', tooltip: 'Colonnes égales',
+                contents: '<span style="font-size:11px">⇔ Auto</span>', tooltip: {!! json_encode(__('Colonnes égales')) !!},
                 click: function() {
                     var $t = getTable();
                     if ($t.length) {
@@ -962,7 +962,7 @@
         // ── Stripe Rows ─────────────────────────────────
         var StripeRowsButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<span style="font-size:11px">▤ Rayé</span>', tooltip: 'Alterner les couleurs de lignes',
+                contents: '<span style="font-size:11px">▤ Rayé</span>', tooltip: {!! json_encode(__('Alterner les couleurs de lignes')) !!},
                 click: function() {
                     var $t = getTable();
                     if ($t.length) {
@@ -985,7 +985,7 @@
         // ═══════════════════════════════════════════════════════════
         var ImageCenterButton = function(ctx) {
             return $.summernote.ui.button({
-                contents: '<i class="note-icon-align-center"></i>', tooltip: 'Centrer l\'image',
+                contents: '<i class="note-icon-align-center"></i>', tooltip: {!! json_encode(__('Centrer l\'image')) !!},
                 click: function() {
                     var $img = $(ctx.invoke('restoreTarget'));
                     if ($img.is('img')) {
@@ -1007,7 +1007,7 @@
         var PrintButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-pencil"></i> <span style="font-size:11px">Imprimer</span>',
-                tooltip: 'Imprimer le contenu',
+                tooltip: {!! json_encode(__('Imprimer le contenu')) !!},
                 click: function() {
                     var content = ctx.invoke('code');
                     var win = window.open('', '_blank');
@@ -1024,20 +1024,20 @@
         var FindReplaceButton = function(ctx) {
             return $.summernote.ui.button({
                 contents: '<i class="note-icon-magic"></i> <span style="font-size:11px">Chercher</span>',
-                tooltip: 'Chercher et remplacer (Ctrl+H)',
+                tooltip: {!! json_encode(__('Chercher et remplacer (Ctrl+H)')) !!},
                 click: function() {
                     var $editor = $(this).closest('.note-editor');
                     var $panel = $editor.find('.sn-find-replace');
                     if ($panel.length) { $panel.toggleClass('show'); return; }
                     var html = '<div class="sn-find-replace show">' +
-                        '<div style="font-weight:600;font-size:13px;margin-bottom:8px">Chercher et remplacer</div>' +
-                        '<input type="text" class="sn-fr-find" placeholder="Rechercher...">' +
-                        '<input type="text" class="sn-fr-replace" placeholder="Remplacer par...">' +
+                        '<div style="font-weight:600;font-size:13px;margin-bottom:8px">' + {!! json_encode(__('Chercher et remplacer')) !!} + '</div>' +
+                        '<input type="text" class="sn-fr-find" placeholder="' + {!! json_encode(__('Rechercher...')) !!} + '">' +
+                        '<input type="text" class="sn-fr-replace" placeholder="' + {!! json_encode(__('Remplacer par...')) !!} + '">' +
                         '<div class="sn-fr-count"></div>' +
                         '<div class="sn-fr-buttons">' +
-                        '<button class="sn-fr-btn-next">Suivant</button>' +
-                        '<button class="sn-fr-btn-replace">Remplacer</button>' +
-                        '<button class="sn-fr-btn-all primary">Tout remplacer</button>' +
+                        '<button class="sn-fr-btn-next">' + {!! json_encode(__('Suivant')) !!} + '</button>' +
+                        '<button class="sn-fr-btn-replace">' + {!! json_encode(__('Remplacer')) !!} + '</button>' +
+                        '<button class="sn-fr-btn-all primary">' + {!! json_encode(__('Tout remplacer')) !!} + '</button>' +
                         '<button class="sn-fr-btn-close">✕</button>' +
                         '</div></div>';
                     $editor.css('position','relative').append(html);
@@ -1083,7 +1083,7 @@
                         var text = $editable.text();
                         var escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                         var matches = (text.match(new RegExp(escaped, 'gi')) || []).length;
-                        $fr.find('.sn-fr-count').text(matches + ' occurrence(s)');
+                        $fr.find('.sn-fr-count').text(matches + ' ' + {!! json_encode(__('occurrence(s)')) !!});
                     });
                 }
             }).render();
@@ -1095,7 +1095,7 @@
                 $.summernote.ui.button({
                     className: 'dropdown-toggle',
                     contents: '<i class="note-icon-picture"></i> <span style="font-size:11px">Modèle</span>',
-                    tooltip: 'Insérer un modèle pré-défini',
+                    tooltip: {!! json_encode(__('Insérer un modèle pré-défini')) !!},
                     data: { toggle: 'dropdown' }
                 }),
                 $.summernote.ui.dropdown({
@@ -1136,7 +1136,7 @@
         // ═══════════════════════════════════════════════════════════
         $('#summernote').summernote({
             height: 550,
-            placeholder: 'Commencez à rédiger votre rapport ici...',
+            placeholder: {!! json_encode(__('Commencez à rédiger votre rapport ici...')) !!},
             tabsize: 2,
             dialogsInBody: true,
             disableDragAndDrop: false,
@@ -1266,15 +1266,15 @@
                     var $statusbar = $editor.find('.note-statusbar');
 
                     // ── Word count ───────────────────────
-                    var $wordCount = $('<div class="sn-word-count"><span class="wc-words">0 mots</span><span class="wc-chars">0 caractères</span></div>');
+                    var $wordCount = $('<div class="sn-word-count"><span class="wc-words">0 ' + {!! json_encode(__('mots')) !!} + '</span><span class="wc-chars">0 ' + {!! json_encode(__('caractères')) !!} + '</span></div>');
                     $statusbar.prepend($wordCount);
 
                     function updateWordCount() {
                         var text = $editable.text().trim();
                         var words = text ? text.split(/\s+/).length : 0;
                         var chars = text.length;
-                        $wordCount.find('.wc-words').text(words + ' mots');
-                        $wordCount.find('.wc-chars').text(chars + ' caractères');
+                        $wordCount.find('.wc-words').text(words + ' ' + {!! json_encode(__('mots')) !!});
+                        $wordCount.find('.wc-chars').text(chars + ' ' + {!! json_encode(__('caractères')) !!});
                     }
                     updateWordCount();
                     $editable.on('keyup paste', updateWordCount);
@@ -1327,8 +1327,8 @@
                     var $editor = $(this).siblings('.note-editor');
                     var text = $editor.find('.note-editable').text().trim();
                     var words = text ? text.split(/\s+/).length : 0;
-                    $editor.find('.wc-words').text(words + ' mots');
-                    $editor.find('.wc-chars').text(text.length + ' caractères');
+                    $editor.find('.wc-words').text(words + ' ' + {!! json_encode(__('mots')) !!});
+                    $editor.find('.wc-chars').text(text.length + ' ' + {!! json_encode(__('caractères')) !!});
                 }
             }
         });

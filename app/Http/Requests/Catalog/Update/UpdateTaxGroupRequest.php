@@ -35,14 +35,14 @@ class UpdateTaxGroupRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'          => 'Le nom du groupe de taxes est obligatoire.',
-            'name.max'               => 'Le nom ne doit pas dépasser 255 caractères.',
-            'name.unique'            => 'Ce nom de groupe est déjà utilisé.',
-            'rates.*.name.required_with' => 'Le nom de chaque taux est obligatoire.',
-            'rates.*.rate.required_with' => 'Le taux est obligatoire.',
-            'rates.*.rate.numeric'   => 'Le taux doit être un nombre.',
-            'rates.*.rate.min'       => 'Le taux ne peut pas être négatif.',
-            'rates.*.rate.max'       => 'Le taux ne doit pas dépasser 100.',
+            'name.required'          => __('Le nom du groupe de taxes est obligatoire.'),
+            'name.max'               => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'name.unique'            => __('Ce nom de groupe est déjà utilisé.'),
+            'rates.*.name.required_with' => __('Le nom de chaque taux est obligatoire.'),
+            'rates.*.rate.required_with' => __('Le taux est obligatoire.'),
+            'rates.*.rate.numeric'   => __('Le taux doit être un nombre.'),
+            'rates.*.rate.min'       => __('Le taux ne peut pas être négatif.'),
+            'rates.*.rate.max'       => __('Le taux ne doit pas dépasser 100.'),
         ];
     }
 }

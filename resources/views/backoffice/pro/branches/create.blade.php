@@ -8,11 +8,11 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.pro.branches.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Succursales</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Succursales') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Nouvelle succursale</h5>
+                                <h5 class="mb-3">{{ __('Nouvelle succursale') }}</h5>
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <ul class="mb-0">
@@ -28,7 +28,7 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Nom <span
+                                                <label class="form-label">{{ __('Nom') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('name') is-invalid @enderror" name="name"
@@ -40,10 +40,10 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Code</label>
+                                                <label class="form-label">{{ __('Code') }}</label>
                                                 <input type="text"
                                                     class="form-control @error('code') is-invalid @enderror" name="code"
-                                                    value="{{ old('code') }}" placeholder="Ex: SUC-01">
+                                                    value="{{ old('code') }}" placeholder="{{ __('Ex: SUC-01') }}">
                                                 @error('code')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">E-mail</label>
+                                                <label class="form-label">{{ __('E-mail') }}</label>
                                                 <input type="email"
                                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                                     value="{{ old('email') }}">
@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Téléphone</label>
+                                                <label class="form-label">{{ __('Téléphone') }}</label>
                                                 <input type="text"
                                                     class="form-control @error('phone') is-invalid @enderror" name="phone"
                                                     value="{{ old('phone') }}">
@@ -73,14 +73,14 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">N° identification fiscale</label>
+                                                <label class="form-label">{{ __('N° identification fiscale') }}</label>
                                                 <div class="input-group">
                                                     <input type="text" id="tax_id"
                                                         class="form-control @error('tax_id') is-invalid @enderror"
                                                         name="tax_id" value="{{ old('tax_id') }}">
                                                     <button class="btn btn-outline-primary" type="button"
                                                         onclick="document.getElementById('tax_id').value = 'IF' + Math.floor(100000 + Math.random() * 900000)"
-                                                        title="Générer automatiquement">
+                                                        title="{{ __('Générer automatiquement') }}">
                                                         <i class="isax isax-refresh"></i>
                                                     </button>
                                                     @error('tax_id')
@@ -91,13 +91,13 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Par défaut</label>
+                                                <label class="form-label">{{ __('Par défaut') }}</label>
                                                 <select class="form-select @error('is_default') is-invalid @enderror"
                                                     name="is_default">
                                                     <option value="0"
-                                                        {{ old('is_default', '0') === '0' ? 'selected' : '' }}>Non</option>
+                                                        {{ old('is_default', '0') === '0' ? 'selected' : '' }}>{{ __('Non') }}</option>
                                                     <option value="1"
-                                                        {{ old('is_default') === '1' ? 'selected' : '' }}>Oui</option>
+                                                        {{ old('is_default') === '1' ? 'selected' : '' }}>{{ __('Oui') }}</option>
                                                 </select>
                                                 @error('is_default')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -106,13 +106,13 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Active</label>
+                                                <label class="form-label">{{ __('Active') }}</label>
                                                 <select class="form-select @error('is_active') is-invalid @enderror"
                                                     name="is_active">
                                                     <option value="1"
-                                                        {{ old('is_active', '1') === '1' ? 'selected' : '' }}>Oui</option>
+                                                        {{ old('is_active', '1') === '1' ? 'selected' : '' }}>{{ __('Oui') }}</option>
                                                     <option value="0"
-                                                        {{ old('is_active') === '0' ? 'selected' : '' }}>Non</option>
+                                                        {{ old('is_active') === '0' ? 'selected' : '' }}>{{ __('Non') }}</option>
                                                 </select>
                                                 @error('is_active')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -122,8 +122,8 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.pro.branches.index') }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                            class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                     </div>
                                 </form>
                             </div>

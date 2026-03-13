@@ -24,14 +24,14 @@ class ContactRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'    => 'Veuillez saisir votre nom.',
-            'email.required'   => 'Veuillez saisir votre adresse email.',
-            'email.email'      => 'Veuillez saisir une adresse email valide.',
-            'subject.required' => 'Veuillez sélectionner un sujet.',
-            'subject.in'       => 'Le sujet sélectionné est invalide.',
-            'message.required' => 'Veuillez saisir votre message.',
-            'message.min'      => 'Votre message doit contenir au moins :min caractères.',
-            'message.max'      => 'Votre message ne peut pas dépasser :max caractères.',
+            'name.required'    => __('Veuillez saisir votre nom.'),
+            'email.required'   => __('Veuillez saisir votre adresse email.'),
+            'email.email'      => __('Veuillez saisir une adresse email valide.'),
+            'subject.required' => __('Veuillez sélectionner un sujet.'),
+            'subject.in'       => __('Le sujet sélectionné est invalide.'),
+            'message.required' => __('Veuillez saisir votre message.'),
+            'message.min'      => __('Votre message doit contenir au moins :min caractères.'),
+            'message.max'      => __('Votre message ne peut pas dépasser :max caractères.'),
         ];
     }
 }

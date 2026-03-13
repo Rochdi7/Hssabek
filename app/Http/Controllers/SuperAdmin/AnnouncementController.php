@@ -68,7 +68,7 @@ class AnnouncementController extends Controller
         }
 
         return redirect()->route('sa.announcements.index')
-            ->with('success', 'L\'annonce a été créée avec succès.');
+            ->with('success', __('L\'annonce a été créée avec succès.'));
     }
 
     public function edit(Announcement $announcement)
@@ -102,7 +102,7 @@ class AnnouncementController extends Controller
         ]);
 
         return redirect()->route('sa.announcements.index')
-            ->with('success', "L'annonce « {$announcement->title} » a été mise à jour avec succès.");
+            ->with('success', __("L'annonce « {$announcement->title} » a été mise à jour avec succès."));
     }
 
     public function destroy(Announcement $announcement)
@@ -111,6 +111,6 @@ class AnnouncementController extends Controller
         $announcement->delete();
 
         return redirect()->route('sa.announcements.index')
-            ->with('success', "L'annonce « {$title} » a été supprimée avec succès.");
+            ->with('success', __("L'annonce « {$title} » a été supprimée avec succès."));
     }
 }

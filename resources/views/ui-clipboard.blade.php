@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper cardhead">
 
@@ -32,9 +32,14 @@
                         <div class="card-body pb-3">
                             <div class="clipboard">
                                 <form class="form-horizontal">
-                                    <input type="text" class="form-control mb-3" id="input-copy" value="http://www.admin-dashboard.com">
-                                    <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);" data-clipboard-action="copy" data-clipboard-target="#input-copy"><i class="far fa-copy me-1"></i> Copy from Input</a>
-                                    <a class="mb-1 btn clip-btn btn-dark" href="javascript:void(0);" data-clipboard-action="cut" data-clipboard-target="#input-copy"><i class="fas fa-cut me-1"></i> Cut from Input</a>
+                                    <input type="text" class="form-control mb-3" id="input-copy"
+                                        value="http://www.admin-dashboard.com">
+                                    <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);"
+                                        data-clipboard-action="copy" data-clipboard-target="#input-copy"><i
+                                            class="far fa-copy me-1"></i> Copy from Input</a>
+                                    <a class="mb-1 btn clip-btn btn-dark" href="javascript:void(0);"
+                                        data-clipboard-action="cut" data-clipboard-target="#input-copy"><i
+                                            class="fas fa-cut me-1"></i> Cut from Input</a>
                                 </form>
                             </div>
                         </div><!-- end card body -->
@@ -48,8 +53,12 @@
                             <div class="clipboard">
                                 <form class="form-horizontal">
                                     <textarea class="form-control mb-3" rows="3" id="textarea-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</textarea>
-                                    <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);" data-clipboard-action="copy" data-clipboard-target="#textarea-copy"><i class="far fa-copy me-1"></i> Copy from Input</a>
-                                    <a class="mb-1 btn clip-btn btn-dark" href="javascript:void(0);" data-clipboard-action="cut" data-clipboard-target="#textarea-copy"><i class="fas fa-cut me-1"></i> Cut from Input</a>
+                                    <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);"
+                                        data-clipboard-action="copy" data-clipboard-target="#textarea-copy"><i
+                                            class="far fa-copy me-1"></i> Copy from Input</a>
+                                    <a class="mb-1 btn clip-btn btn-dark" href="javascript:void(0);"
+                                        data-clipboard-action="cut" data-clipboard-target="#textarea-copy"><i
+                                            class="fas fa-cut me-1"></i> Cut from Input</a>
                                 </form>
                             </div>
                         </div><!-- end card body -->
@@ -63,7 +72,9 @@
                             <div class="clipboard copy-txt">
                                 <p class="otp-pass">Here is your OTP <span id="paragraph-copy1">22991</span>.</p>
                                 <p class="mb-3">Please do not share it to anyone</p>
-                                <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);" data-clipboard-action="copy" data-clipboard-target="#paragraph-copy1"><i class="far fa-copy me-1"></i> Copy from Input</a>
+                                <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);"
+                                    data-clipboard-action="copy" data-clipboard-target="#paragraph-copy1"><i
+                                        class="far fa-copy me-1"></i> Copy from Input</a>
                             </div>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -74,9 +85,14 @@
                         </div><!-- end card header -->
                         <div class="card-body pb-3">
                             <div class="clipboard copy-txt">
-                                <p class="mb-3">Link -&gt; <span id="advanced-paragraph">http://www.example.com/example</span></p>
-                                <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);" data-clipboard-action="copy" data-clipboard-target="#advanced-paragraph"><i class="far fa-copy me-1"></i> Copy Link</a>
-                                <a class="mb-1 btn clip-btn btn-warning" href="javascript:void(0);" data-clipboard-action="copy" data-clipboard-text="2291"><i class="far fa-copy me-1"></i> Copy Hidden Code</a>
+                                <p class="mb-3">Link -&gt; <span
+                                        id="advanced-paragraph">http://www.example.com/example</span></p>
+                                <a class="mb-1 btn clip-btn btn-primary" href="javascript:void(0);"
+                                    data-clipboard-action="copy" data-clipboard-target="#advanced-paragraph"><i
+                                        class="far fa-copy me-1"></i> Copy Link</a>
+                                <a class="mb-1 btn clip-btn btn-warning" href="javascript:void(0);"
+                                    data-clipboard-action="copy" data-clipboard-text="2291"><i class="far fa-copy me-1"></i>
+                                    Copy Hidden Code</a>
                             </div>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -91,7 +107,11 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -99,6 +119,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

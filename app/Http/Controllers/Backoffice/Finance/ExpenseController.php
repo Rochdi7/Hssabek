@@ -64,7 +64,7 @@ class ExpenseController extends Controller
         ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.expenses.index')
-            ->with('success', 'Dépense enregistrée avec succès.');
+            ->with('success', __('Dépense enregistrée avec succès.'));
     }
 
     public function show(Expense $expense)
@@ -99,7 +99,7 @@ class ExpenseController extends Controller
         ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.expenses.index')
-            ->with('success', 'Dépense mise à jour avec succès.');
+            ->with('success', __('Dépense mise à jour avec succès.'));
     }
 
     public function addPayment(StoreExpensePaymentRequest $request, Expense $expense)
@@ -108,7 +108,7 @@ class ExpenseController extends Controller
 
         if ($expense->remaining_amount <= 0) {
             return redirect()->route('bo.finance.expenses.show', $expense)
-                ->with('error', 'Cette dépense est déjà entièrement payée.');
+                ->with('error', __('Cette dépense est déjà entièrement payée.'));
         }
 
         try {
@@ -116,7 +116,7 @@ class ExpenseController extends Controller
             ReportService::flushTenantCache();
 
             return redirect()->route('bo.finance.expenses.show', $expense)
-                ->with('success', 'Paiement enregistré avec succès.');
+                ->with('success', __('Paiement enregistré avec succès.'));
         } catch (\InvalidArgumentException $e) {
             return redirect()->route('bo.finance.expenses.show', $expense)
                 ->with('error', $e->getMessage());
@@ -132,6 +132,6 @@ class ExpenseController extends Controller
         ReportService::flushTenantCache();
 
         return redirect()->route('bo.finance.expenses.index')
-            ->with('success', 'Dépense supprimée avec succès.');
+            ->with('success', __('Dépense supprimée avec succès.'));
     }
 }

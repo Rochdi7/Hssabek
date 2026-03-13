@@ -42,7 +42,7 @@ class NotificationController extends Controller
 
         $notification->markAsRead();
 
-        return back()->with('success', 'Notification marquée comme lue.');
+        return back()->with('success', __('Notification marquée comme lue.'));
     }
 
     /**
@@ -52,7 +52,7 @@ class NotificationController extends Controller
     {
         $request->user()->unreadNotifications->markAsRead();
 
-        return back()->with('success', 'Toutes les notifications ont été marquées comme lues.');
+        return back()->with('success', __('Toutes les notifications ont été marquées comme lues.'));
     }
 
     /**
@@ -65,7 +65,7 @@ class NotificationController extends Controller
             ->findOrFail($id)
             ->delete();
 
-        return back()->with('success', 'Notification supprimée.');
+        return back()->with('success', __('Notification supprimée.'));
     }
 
     /**
@@ -75,6 +75,6 @@ class NotificationController extends Controller
     {
         $request->user()->notifications()->delete();
 
-        return back()->with('success', 'Toutes les notifications ont été supprimées.');
+        return back()->with('success', __('Toutes les notifications ont été supprimées.'));
     }
 }

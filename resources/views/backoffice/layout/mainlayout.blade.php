@@ -73,21 +73,22 @@
     $hideHeaderSidebar = $isFullscreen;
 @endphp
 <!DOCTYPE html>
+@php $isRtl = app()->getLocale() === 'ar'; @endphp
 @if ($layoutMini)
-    <html lang="en" data-layout="mini">
+    <html lang="{{ app()->getLocale() }}" @if($isRtl) dir="rtl" @endif data-layout="mini">
 @elseif ($layoutDark)
-    <html lang="en" data-bs-theme="dark" data-sidebar="light" data-color="primary" data-topbar="white"
+    <html lang="{{ app()->getLocale() }}" @if($isRtl) dir="rtl" @endif data-bs-theme="dark" data-sidebar="light" data-color="primary" data-topbar="white"
         data-layout="default" data-size="default" data-width="fluid">
 @elseif ($layoutRtl)
-    <html lang="en" dir="rtl">
+    <html lang="{{ app()->getLocale() }}" dir="rtl">
 @elseif ($layoutSingle)
-    <html lang="en" data-layout="single">
+    <html lang="{{ app()->getLocale() }}" @if($isRtl) dir="rtl" @endif data-layout="single">
 @elseif ($layoutTransparent)
-    <html lang="en" data-layout="transparent">
+    <html lang="{{ app()->getLocale() }}" @if($isRtl) dir="rtl" @endif data-layout="transparent">
 @elseif ($layoutWithoutHeader)
-    <html lang="en" data-layout="without-header">
+    <html lang="{{ app()->getLocale() }}" @if($isRtl) dir="rtl" @endif data-layout="without-header">
 @else
-    <html lang="en">
+    <html lang="{{ app()->getLocale() }}" @if($isRtl) dir="rtl" @endif>
 @endif
 
 @include('backoffice.components.title-meta')
@@ -107,6 +108,9 @@
                 @elseif ($layoutRtl)
 
                     <body class="layout-mode-rtl">
+                    @elseif ($isRtl)
+
+                        <body class="layout-mode-rtl">
                     @else
 
                         <body>

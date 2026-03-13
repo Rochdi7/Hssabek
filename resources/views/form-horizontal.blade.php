@@ -1,9 +1,9 @@
 <?php $page = 'form-horizontal'; ?>
 @extends('layout.mainlayout')
-@section('content') 
+@section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,9 +19,9 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                        
+
                         <li class="breadcrumb-item active">Form Horizontal</li>
                     </ol>
                 </div>
@@ -30,7 +30,7 @@
 
             <!-- start row -->
             <div class="row">
-            
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -78,11 +78,11 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card ">
                         <div class="card-header">
@@ -130,13 +130,13 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -164,13 +164,15 @@
                                             <label class="col-lg-3 form-label">Gender</label>
                                             <div class="col-lg-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="gender" id="gender_male" value="option1" checked>
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                        id="gender_male" value="option1" checked>
                                                     <label class="form-check-label" for="gender_male">
                                                         Male
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="gender" id="gender_female" value="option2">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                        id="gender_female" value="option2">
                                                     <label class="form-check-label" for="gender_female">
                                                         Female
                                                     </label>
@@ -264,12 +266,12 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -277,7 +279,7 @@
                             <h5 class="card-title">Two Column Horizontal Form 2</h5>
                         </div>
                         <div class="card-body">
-                        
+
                             <form action="#">
                                 <div class="row">
                                     <div class="col-xl-6">
@@ -326,12 +328,14 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <input type="text" placeholder="First Name" class="form-control">
+                                                            <input type="text" placeholder="First Name"
+                                                                class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <input type="text" placeholder="Last Name" class="form-control">
+                                                            <input type="text" placeholder="Last Name"
+                                                                class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -365,15 +369,18 @@
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" placeholder="ZIP code" class="form-control">
+                                                            <input type="text" placeholder="ZIP code"
+                                                                class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <input type="text" placeholder="State/Province" class="form-control">
+                                                            <input type="text" placeholder="State/Province"
+                                                                class="form-control">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" placeholder="City" class="form-control">
+                                                            <input type="text" placeholder="City"
+                                                                class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -385,12 +392,12 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
             </div>
-            
+
             <div class="row">
 
                 <div class="col-xl-6">
@@ -425,11 +432,11 @@
 
                                 <button type="submit" class="btn btn-primary">Sign in</button>
                             </form>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header">
@@ -439,22 +446,25 @@
                             <div class="row mb-3">
                                 <label for="colFormLabelSm" class="col-sm-2 form-label form-label-sm">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                                    <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
+                                        placeholder="col-form-label-sm">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="colFormLabel" class="col-sm-2 form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="colFormLabel" placeholder="col-form-label">
+                                    <input type="email" class="form-control" id="colFormLabel"
+                                        placeholder="col-form-label">
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="colFormLabelLg" class="col-sm-2 form-label form-label-lg">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="col-form-label-lg">
+                                    <input type="email" class="form-control form-control-lg" id="colFormLabelLg"
+                                        placeholder="col-form-label-lg">
                                 </div>
                             </div>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
@@ -471,13 +481,15 @@
                             <form class="row gy-2 gx-3 align-items-center mb-3">
                                 <div class="col-auto">
                                     <label class="visually-hidden" for="autoSizingInput">Name</label>
-                                    <input type="text" class="form-control" id="autoSizingInput" placeholder="Jane Doe">
+                                    <input type="text" class="form-control" id="autoSizingInput"
+                                        placeholder="Jane Doe">
                                 </div>
                                 <div class="col-auto">
                                     <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
                                     <div class="input-group">
                                         <div class="input-group-text">@</div>
-                                        <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Username">
+                                        <input type="text" class="form-control" id="autoSizingInputGroup"
+                                            placeholder="Username">
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -507,13 +519,15 @@
                             <form class="row gx-3 gy-2 align-items-center mt-0">
                                 <div class="col-sm-3">
                                     <label class="visually-hidden" for="specificSizeInputName">Name</label>
-                                    <input type="text" class="form-control" id="specificSizeInputName" placeholder="Jane Doe">
+                                    <input type="text" class="form-control" id="specificSizeInputName"
+                                        placeholder="Jane Doe">
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="visually-hidden" for="specificSizeInputGroupUsername">Username</label>
                                     <div class="input-group">
                                         <div class="input-group-text">@</div>
-                                        <input type="text" class="form-control" id="specificSizeInputGroupUsername" placeholder="Username">
+                                        <input type="text" class="form-control" id="specificSizeInputGroupUsername"
+                                            placeholder="Username">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -537,7 +551,7 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
-                            
+
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div> <!-- end col -->
@@ -548,15 +562,20 @@
         <!-- End Content -->
 
         <!-- Start Footer -->
-            <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+        <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

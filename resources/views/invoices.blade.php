@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -18,23 +18,24 @@
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="avatar-list-stacked me-1">
                         <span class="avatar avatar-rounded avatar-sm">
-                            <img src="{{URL::asset('build/img/profiles/avatar-05.jpg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/profiles/avatar-05.jpg') }}" alt="img">
                         </span>
                         <span class="avatar avatar-rounded avatar-sm">
-                            <img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}" alt="img">
                         </span>
                         <span class="avatar avatar-rounded avatar-sm">
-                            <img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}" alt="img">
                         </span>
                         <span class="avatar avatar-rounded avatar-sm">
-                            <img src="{{URL::asset('build/img/profiles/avatar-18.jpg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/profiles/avatar-18.jpg') }}" alt="img">
                         </span>
                         <span class="avatar avatar-rounded avatar-sm">
-                            <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" alt="img">
+                            <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}" alt="img">
                         </span>
                     </div>
                     <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -47,7 +48,7 @@
                         </ul>
                     </div>
                     <div>
-                        <a href="{{url('add-invoice')}}" class="btn btn-primary d-flex align-items-center">
+                        <a href="{{ url('add-invoice') }}" class="btn btn-primary d-flex align-items-center">
                             <i class="isax isax-add-circle5 me-1"></i>New Invoice
                         </a>
                     </div>
@@ -71,9 +72,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0"><span class="text-success"><i class="isax isax-send text-success me-1"></i>5.62%</span> from last month</p>
+                            <p class="fs-13 mb-0"><span class="text-success"><i
+                                        class="isax isax-send text-success me-1"></i>5.62%</span> from last month</p>
                             <span class="position-absolute end-0 bottom-0">
-                                <img src="{{URL::asset('build/img/bg/card-overlay-01.svg')}}" alt="User Img">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="User Img">
                             </span>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -92,9 +94,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0"><span class="text-success"><i class="isax isax-send text-success me-1"></i>11.4%</span> from last month</p>
+                            <p class="fs-13 mb-0"><span class="text-success"><i
+                                        class="isax isax-send text-success me-1"></i>11.4%</span> from last month</p>
                             <span class="position-absolute end-0 bottom-0">
-                                <img src="{{URL::asset('build/img/bg/card-overlay-02.svg')}}" alt="User Img">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="User Img">
                             </span>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -113,9 +116,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0"><span class="text-success"><i class="isax isax-send text-success me-1"></i>8.52%</span> from last month</p>
+                            <p class="fs-13 mb-0"><span class="text-success"><i
+                                        class="isax isax-send text-success me-1"></i>8.52%</span> from last month</p>
                             <span class="position-absolute end-0 bottom-0">
-                                <img src="{{URL::asset('build/img/bg/card-overlay-03.svg')}}" alt="User Img">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="User Img">
                             </span>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -134,26 +138,36 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0"><span class="text-danger"><i class="isax isax-received text-danger me-1"></i>7.45%</span> from last month</p>
+                            <p class="fs-13 mb-0"><span class="text-danger"><i
+                                        class="isax isax-received text-danger me-1"></i>7.45%</span> from last month</p>
                             <span class="position-absolute end-0 bottom-0">
-                                <img src="{{URL::asset('build/img/bg/card-overlay-04.svg')}}" alt="User Img">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="User Img">
                             </span>
                         </div><!-- end card body -->
                     </div><!-- end card -->
                 </div><!-- end col -->
             </div>
             <!-- end row -->
-                
+
             <ul class="nav nav-tabs nav-bordered mb-3">
-                <li class="nav-item"><a class="nav-link active" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab1">All</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab2">Paid</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab3">Overdue</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab4">Upcoming</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab5">Cancelled</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab6">Partially Paid</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab7">Unpaid</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab8">Refunded</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab" data-bs-target="#tab9">Draft</a></li>
+                <li class="nav-item"><a class="nav-link active" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab1">All</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab2">Paid</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab3">Overdue</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab4">Upcoming</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab5">Cancelled</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab6">Partially Paid</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab7">Unpaid</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab8">Refunded</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-bs-toggle="tab"
+                        data-bs-target="#tab9">Draft</a></li>
             </ul>
 
             <!-- Table Search Start -->
@@ -162,16 +176,20 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
                                 <i class="isax isax-sort me-1"></i>Sort By : <span class="fw-normal ms-1">Latest</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
@@ -184,7 +202,9 @@
                             </ul>
                         </div>
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu">
@@ -282,15 +302,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00025</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00025</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-28.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-28.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Emily Clark</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Emily Clark</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -298,7 +321,8 @@
                                     <td class="text-dark">$10,000</td>
                                     <td>$5,000</td>
                                     <td>
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Paid <i class="isax isax-tick-circle ms-1"></i></span>
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Paid <i
+                                                class="isax isax-tick-circle ms-1"></i></span>
                                     </td>
                                     <td class="text-dark">Cash</td>
                                     <td>04 Mar 2025</td>
@@ -308,22 +332,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -335,15 +373,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00024</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00024</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-29.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-29.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">John Carter</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">John Carter</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -351,7 +392,8 @@
                                     <td class="text-dark">$25,750</td>
                                     <td>$10,750</td>
                                     <td>
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Refunded<i class="isax isax-money-3 ms-1"></i></span>
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Refunded<i
+                                                class="isax isax-money-3 ms-1"></i></span>
                                     </td>
                                     <td class="text-dark">Check</td>
                                     <td>20 Feb 2025</td>
@@ -361,22 +403,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -388,15 +444,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00023</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00023</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Sophia White</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Sophia White</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -404,7 +463,8 @@
                                     <td class="text-dark">$50,125</td>
                                     <td>$20,000</td>
                                     <td>
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Cancelled<i
+                                                class="isax isax-close-circle ms-1"></i></span>
                                     </td>
                                     <td class="text-dark">Cash</td>
                                     <td>13 Feb 2025</td>
@@ -414,22 +474,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -441,15 +515,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00022</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00022</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Michael Johnson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Michael Johnson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -469,22 +546,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -496,15 +587,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00021</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00021</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-30.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-30.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Olivia Harris</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Olivia Harris</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -524,22 +618,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -551,15 +659,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00020</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00020</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">David Anderson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">David Anderson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -579,22 +690,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -606,15 +731,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00019</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00019</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-17.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-17.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Emma Lewis</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Emma Lewis</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -634,22 +762,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -661,15 +803,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00018</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00018</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-23.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-23.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Robert Thomas</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Robert Thomas</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -689,22 +834,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -716,15 +875,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00017</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00017</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-07.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-07.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Isabella Scott</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Isabella Scott</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -744,22 +906,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -771,15 +947,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00016</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00016</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-31.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-31.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Daniel Martinez</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Daniel Martinez</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -799,22 +978,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -826,15 +1019,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00015</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00015</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-08.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-08.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Charlotte Brown</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Charlotte Brown</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -854,22 +1050,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -881,15 +1091,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00014</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00014</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-10.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-10.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">William Parker</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">William Parker</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -909,22 +1122,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -936,15 +1163,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00013</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00013</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-18.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-18.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Mia Thompson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Mia Thompson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -964,22 +1194,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -991,15 +1235,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00012</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00012</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-26.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-26.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Amelia Robinson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Amelia Robinson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1019,22 +1266,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1072,15 +1333,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00025</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00025</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-28.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-28.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Emily Clark</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Emily Clark</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1088,7 +1352,8 @@
                                     <td class="text-dark">$10,000</td>
                                     <td>$5,000</td>
                                     <td>
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Paid <i class="isax isax-tick-circle ms-1"></i></span>
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Paid <i
+                                                class="isax isax-tick-circle ms-1"></i></span>
                                     </td>
                                     <td class="text-dark">Cash</td>
                                     <td>04 Mar 2025</td>
@@ -1098,22 +1363,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1125,15 +1404,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00020</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00020</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-16.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-16.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">David Anderson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">David Anderson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1153,22 +1435,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1180,15 +1476,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00015</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00015</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-08.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-08.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Charlotte Brown</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Charlotte Brown</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1208,22 +1507,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1261,15 +1574,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00021</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00021</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-30.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-30.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Olivia Harris</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Olivia Harris</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1289,22 +1605,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1316,15 +1646,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00016</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00016</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-31.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-31.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Daniel Martinez</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Daniel Martinez</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1344,22 +1677,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1397,15 +1744,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00016</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00016</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-31.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-31.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Daniel Martinez</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Daniel Martinez</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1425,22 +1775,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1478,15 +1842,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00023</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00023</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Sophia White</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Sophia White</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1494,7 +1861,8 @@
                                     <td class="text-dark">$50,125</td>
                                     <td>$20,000</td>
                                     <td>
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Cancelled<i
+                                                class="isax isax-close-circle ms-1"></i></span>
                                     </td>
                                     <td class="text-dark">Cash</td>
                                     <td>13 Feb 2025</td>
@@ -1504,22 +1872,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1531,15 +1913,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00018</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00018</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-23.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-23.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Robert Thomas</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Robert Thomas</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1559,22 +1944,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1586,15 +1985,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00013</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00013</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-18.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-18.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Mia Thompson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Mia Thompson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1614,22 +2016,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1667,15 +2083,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00022</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00022</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Michael Johnson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Michael Johnson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1683,7 +2102,8 @@
                                     <td class="text-dark">$75,900</td>
                                     <td>$50,000</td>
                                     <td>
-                                        <span class="badge badge-soft-info d-inline-flex align-items-center">Partially Paid
+                                        <span class="badge badge-soft-info d-inline-flex align-items-center">Partially
+                                            Paid
                                             <i class="isax isax-timer ms-1"></i>
                                         </span>
                                     </td>
@@ -1695,22 +2115,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1722,15 +2156,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00017</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00017</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-07.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-07.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Isabella Scott</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Isabella Scott</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1738,7 +2175,8 @@
                                     <td class="text-dark">$7,50,300</td>
                                     <td>$2,50,500</td>
                                     <td>
-                                        <span class="badge badge-soft-info d-inline-flex align-items-center">Partially Paid
+                                        <span class="badge badge-soft-info d-inline-flex align-items-center">Partially
+                                            Paid
                                             <i class="isax isax-timer ms-1"></i>
                                         </span>
                                     </td>
@@ -1750,22 +2188,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1777,15 +2229,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00012</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00012</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-26.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-26.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Amelia Robinson</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Amelia Robinson</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1793,7 +2248,8 @@
                                     <td class="text-dark">$2,10,000</td>
                                     <td>$1,50,000</td>
                                     <td>
-                                        <span class="badge badge-soft-info d-inline-flex align-items-center">Partially Paid
+                                        <span class="badge badge-soft-info d-inline-flex align-items-center">Partially
+                                            Paid
                                             <i class="isax isax-timer ms-1"></i>
                                         </span>
                                     </td>
@@ -1805,22 +2261,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1858,15 +2328,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00024</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00024</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-29.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-29.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">John Carter</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">John Carter</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1874,7 +2347,8 @@
                                     <td class="text-dark">$25,750</td>
                                     <td>$10,750</td>
                                     <td>
-                                        <span class="badge badge-soft-warning d-inline-flex align-items-center">Unpaid<i class="isax isax-slash ms-1"></i></span>
+                                        <span class="badge badge-soft-warning d-inline-flex align-items-center">Unpaid<i
+                                                class="isax isax-slash ms-1"></i></span>
                                     </td>
                                     <td class="text-dark">Check</td>
                                     <td>20 Feb 2025</td>
@@ -1884,22 +2358,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1911,15 +2399,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00019</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00019</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-17.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-17.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Emma Lewis</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Emma Lewis</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1939,22 +2430,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -1966,15 +2471,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00014</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00014</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-10.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-10.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">William Parker</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">William Parker</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -1994,22 +2502,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -2047,15 +2569,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00024</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00024</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-29.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-29.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">John Carter</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">John Carter</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -2063,7 +2588,8 @@
                                     <td class="text-dark">$25,750</td>
                                     <td>$10,750</td>
                                     <td>
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Refunded<i class="isax isax-money-3 ms-1"></i></span>
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">Refunded<i
+                                                class="isax isax-money-3 ms-1"></i></span>
                                     </td>
                                     <td class="text-dark">Check</td>
                                     <td>20 Feb 2025</td>
@@ -2073,22 +2599,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -2126,15 +2666,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{url('invoice-details')}}" class="link-default">INV00018</a>
+                                        <a href="{{ url('invoice-details') }}" class="link-default">INV00018</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{url('customer-details')}}" class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
-                                                <img src="{{URL::asset('build/img/profiles/avatar-23.jpg')}}" class="rounded-circle" alt="img">
+                                            <a href="{{ url('customer-details') }}"
+                                                class="avatar avatar-sm rounded-circle me-2 flex-shrink-0">
+                                                <img src="{{ URL::asset('build/img/profiles/avatar-23.jpg') }}"
+                                                    class="rounded-circle" alt="img">
                                             </a>
                                             <div>
-                                                <h6 class="fs-14 fw-medium mb-0"><a href="{{url('customer-details')}}">Robert Thomas</a></h6>
+                                                <h6 class="fs-14 fw-medium mb-0"><a
+                                                        href="{{ url('customer-details') }}">Robert Thomas</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -2154,22 +2697,36 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="{{url('edit-invoice')}}" class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                <a href="{{ url('edit-invoice') }}"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-edit me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                        class="isax isax-trash me-2"></i>Delete</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-send-2 me-2"></i>Resend</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-send-2 me-2"></i>Resend</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download me-2"></i>Download Invoices as PDF</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-document-download me-2"></i>Download Invoices as
+                                                    PDF</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-convert me-2"></i>Convert to Sales Return</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-convert me-2"></i>Convert to Sales Return</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-copy me-2"></i>Clone as Invoice</a>
+                                                <a href="javascript:void(0);"
+                                                    class="dropdown-item d-flex align-items-center"><i
+                                                        class="isax isax-copy me-2"></i>Clone as Invoice</a>
                                             </li>
                                         </ul>
                                     </td>
@@ -2186,7 +2743,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -2194,15 +2752,16 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Start Filter -->
     <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="offcanvas-body pt-3">
@@ -2210,7 +2769,9 @@
                 <div class="mb-3">
                     <label class="form-label">Customers</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -2227,36 +2788,46 @@
                                     <label class="d-inline-flex align-items-center text-gray-9">
                                         <input class="form-check-input select-all m-0 me-2" type="checkbox"> Select All
                                     </label>
-                                    <a href="javascript:void(0);" class="link-danger fw-medium text-decoration-underline">Reset</a>
+                                    <a href="javascript:void(0);"
+                                        class="link-danger fw-medium text-decoration-underline">Reset</a>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-28.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Emily Clark
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-28.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Emily Clark
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-29.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>John Carter
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-29.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>John Carter
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-12.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Sophia White
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-12.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Sophia White
                                     </label>
                                 </li>
                                 <li>
                                     <label class="dropdown-item px-2 d-flex align-items-center text-dark">
                                         <input class="form-check-input m-0 me-2" type="checkbox">
-                                        <span class="avatar avatar-sm rounded-circle me-2"><img src="{{URL::asset('build/img/profiles/avatar-06.jpg')}}" class="flex-shrink-0 rounded-circle" alt="img"></span>Sophia White
+                                        <span class="avatar avatar-sm rounded-circle me-2"><img
+                                                src="{{ URL::asset('build/img/profiles/avatar-06.jpg') }}"
+                                                class="flex-shrink-0 rounded-circle" alt="img"></span>Sophia White
                                     </label>
                                 </li>
                             </ul>
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <a href="javascript:void(0);" class="btn btn-outline-white w-100 close-filter">Cancel</a>
+                                    <a href="javascript:void(0);"
+                                        class="btn btn-outline-white w-100 close-filter">Cancel</a>
                                 </div>
                                 <div class="col-6">
                                     <a href="javascript:void(0);" class="btn btn-primary w-100">Select</a>
@@ -2277,7 +2848,9 @@
                 <div class="mb-3">
                     <label class="form-label">Amount</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -2317,7 +2890,9 @@
                 <div class="mb-3">
                     <label class="form-label">Status</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -2359,7 +2934,9 @@
                 <div>
                     <label class="form-label">Payment Mode</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -2400,7 +2977,8 @@
                             <a href="javascript:void(0);" class="btn btn-outline-white w-100">Reset</a>
                         </div>
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div>
                     </div>
                 </div>

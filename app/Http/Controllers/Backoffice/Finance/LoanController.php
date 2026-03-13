@@ -57,7 +57,7 @@ class LoanController extends Controller
         $this->loanService->create($data);
 
         return redirect()->route('bo.finance.loans.index')
-            ->with('success', 'Prêt enregistré avec succès.');
+            ->with('success', __('Prêt enregistré avec succès.'));
     }
 
     public function show(Loan $loan)
@@ -86,7 +86,7 @@ class LoanController extends Controller
         $this->loanService->update($loan, $request->validated());
 
         return redirect()->route('bo.finance.loans.show', $loan)
-            ->with('success', 'Prêt mis à jour avec succès.');
+            ->with('success', __('Prêt mis à jour avec succès.'));
     }
 
     public function addPayment(StoreLoanPaymentRequest $request, Loan $loan)
@@ -95,14 +95,14 @@ class LoanController extends Controller
 
         if ($loan->remaining_amount <= 0) {
             return redirect()->route('bo.finance.loans.show', $loan)
-                ->with('error', 'Ce prêt est déjà entièrement remboursé.');
+                ->with('error', __('Ce prêt est déjà entièrement remboursé.'));
         }
 
         try {
             $this->loanService->addPayment($loan, $request->validated());
 
             return redirect()->route('bo.finance.loans.show', $loan)
-                ->with('success', 'Paiement enregistré avec succès.');
+                ->with('success', __('Paiement enregistré avec succès.'));
         } catch (\InvalidArgumentException $e) {
             return redirect()->route('bo.finance.loans.show', $loan)
                 ->with('error', $e->getMessage());
@@ -120,7 +120,7 @@ class LoanController extends Controller
         $this->loanService->deletePayment($loan, $payment);
 
         return redirect()->route('bo.finance.loans.show', $loan)
-            ->with('success', 'Paiement supprimé avec succès.');
+            ->with('success', __('Paiement supprimé avec succès.'));
     }
 
     public function destroy(Loan $loan)
@@ -129,12 +129,12 @@ class LoanController extends Controller
 
         if ($loan->payments()->exists()) {
             return redirect()->route('bo.finance.loans.index')
-                ->with('error', 'Impossible de supprimer ce prêt : il contient des paiements enregistrés.');
+                ->with('error', __('Impossible de supprimer ce prêt : il contient des paiements enregistrés.'));
         }
 
         $this->loanService->delete($loan);
 
         return redirect()->route('bo.finance.loans.index')
-            ->with('success', 'Prêt supprimé avec succès.');
+            ->with('success', __('Prêt supprimé avec succès.'));
     }
 }

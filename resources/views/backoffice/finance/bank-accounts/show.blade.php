@@ -13,11 +13,11 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6><a href="{{ route('bo.finance.bank-accounts.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>Comptes bancaires</a></h6>
+                    <h6><a href="{{ route('bo.finance.bank-accounts.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>{{ __('Comptes bancaires') }}</a></h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <a href="{{ route('bo.finance.bank-accounts.edit', $bankAccount) }}" class="btn btn-primary d-flex align-items-center fs-14 fw-semibold">
-                        <i class="isax isax-edit-2 me-1"></i>Modifier
+                        <i class="isax isax-edit-2 me-1"></i>{{ __('Modifier') }}
                     </a>
                 </div>
             </div>
@@ -50,9 +50,9 @@
                                         </p>
                                         <h6 class="mb-2"> {{ $bankAccount->account_holder_name }}
                                             @if($bankAccount->is_active)
-                                                <span class="badge badge-soft-success ms-1">Actif</span>
+                                                <span class="badge badge-soft-success ms-1">{{ __('Actif') }}</span>
                                             @else
-                                                <span class="badge badge-soft-danger ms-1">Inactif</span>
+                                                <span class="badge badge-soft-danger ms-1">{{ __('Inactif') }}</span>
                                             @endif
                                         </h6>
                                         <p class="fs-14 fw-regular"><i class="isax isax-building fs-14 me-1 text-gray-9"></i>
@@ -63,7 +63,7 @@
                                 </div>
                                 <a href="{{ route('bo.finance.bank-accounts.edit', $bankAccount) }}"
                                     class="btn btn-outline-white border border-1 border-grey border-sm bg-white"><i
-                                        class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> Modifier </a>
+                                        class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> {{ __('Modifier') }} </a>
                             </div>
 
                             <div class="card border-0 shadow shadow-none mb-0 bg-white">
@@ -72,17 +72,17 @@
                                         class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-0 m-0 list-unstyled">
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-money-recive fs-14 me-2"></i>Solde actuel</h6>
+                                                    class="isax isax-money-recive fs-14 me-2"></i>{{ __('Solde actuel') }}</h6>
                                             <p class="fw-bold"> {{ number_format($bankAccount->current_balance, 2, ',', ' ') }} {{ $bankAccount->currency }} </p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-wallet-2 fs-14 me-2"></i>Solde d'ouverture</h6>
+                                                    class="isax isax-wallet-2 fs-14 me-2"></i>{{ __("Solde d'ouverture") }}</h6>
                                             <p> {{ number_format($bankAccount->opening_balance, 2, ',', ' ') }} {{ $bankAccount->currency }} </p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-calendar-1 fs-14 me-2"></i>Créé le</h6>
+                                                    class="isax isax-calendar-1 fs-14 me-2"></i>{{ __('Créé le') }}</h6>
                                             <p> {{ $bankAccount->created_at->format('d/m/Y') }}</p>
                                         </li>
                                     </ul>
@@ -97,16 +97,16 @@
                     <!-- Start Recent Expenses -->
                     <div class="card table-info">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Dépenses récentes</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Dépenses récentes') }}</h6>
                             <div class="table-responsive table-nowrap">
                                 <table class="table border m-0">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>N°</th>
-                                            <th>Date</th>
-                                            <th>Description</th>
-                                            <th>Montant</th>
-                                            <th>Statut</th>
+                                            <th>{{ __('N°') }}</th>
+                                            <th>{{ __('Date') }}</th>
+                                            <th>{{ __('Description') }}</th>
+                                            <th>{{ __('Montant') }}</th>
+                                            <th>{{ __('Statut') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -119,20 +119,20 @@
                                                 <td>
                                                     @switch($expense->payment_status)
                                                         @case('paid')
-                                                            <span class="badge badge-soft-success">Payée</span>
+                                                            <span class="badge badge-soft-success">{{ __('Payée') }}</span>
                                                             @break
                                                         @case('partial')
-                                                            <span class="badge badge-soft-warning">Partielle</span>
+                                                            <span class="badge badge-soft-warning">{{ __('Partielle') }}</span>
                                                             @break
                                                         @default
-                                                            <span class="badge badge-soft-danger">Impayée</span>
+                                                            <span class="badge badge-soft-danger">{{ __('Impayée') }}</span>
                                                     @endswitch
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
                                                 <td colspan="5" class="text-center py-3">
-                                                    <p class="text-muted mb-0">Aucune dépense récente.</p>
+                                                    <p class="text-muted mb-0">{{ __('Aucune dépense récente.') }}</p>
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -146,15 +146,15 @@
                     <!-- Start Recent Incomes -->
                     <div class="card table-info">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Revenus récents</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Revenus récents') }}</h6>
                             <div class="table-responsive table-nowrap">
                                 <table class="table border m-0">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>N°</th>
-                                            <th>Date</th>
-                                            <th>Description</th>
-                                            <th>Montant</th>
+                                            <th>{{ __('N°') }}</th>
+                                            <th>{{ __('Date') }}</th>
+                                            <th>{{ __('Description') }}</th>
+                                            <th>{{ __('Montant') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -168,7 +168,7 @@
                                         @empty
                                             <tr>
                                                 <td colspan="4" class="text-center py-3">
-                                                    <p class="text-muted mb-0">Aucun revenu récent.</p>
+                                                    <p class="text-muted mb-0">{{ __('Aucun revenu récent.') }}</p>
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -184,35 +184,35 @@
                     <!-- Start Info -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Informations</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Informations') }}</h6>
                             <ul class="list-unstyled m-0 p-0">
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Type de compte</span>
+                                    <span class="text-muted">{{ __('Type de compte') }}</span>
                                     <span class="fw-semibold">
                                         @switch($bankAccount->account_type)
-                                            @case('current') Courant @break
-                                            @case('savings') Épargne @break
-                                            @case('business') Professionnel @break
-                                            @default Autre
+                                            @case('current') {{ __('Courant') }} @break
+                                            @case('savings') {{ __('Épargne') }} @break
+                                            @case('business') {{ __('Professionnel') }} @break
+                                            @default {{ __('Autre') }}
                                         @endswitch
                                     </span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Devise</span>
+                                    <span class="text-muted">{{ __('Devise') }}</span>
                                     <span class="fw-semibold">{{ $bankAccount->currency }}</span>
                                 </li>
                                 @if($bankAccount->ifsc_code)
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Code IFSC / SWIFT</span>
+                                    <span class="text-muted">{{ __('Code IFSC / SWIFT') }}</span>
                                     <span class="fw-semibold">{{ $bankAccount->ifsc_code }}</span>
                                 </li>
                                 @endif
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Créé le</span>
+                                    <span class="text-muted">{{ __('Créé le') }}</span>
                                     <span class="fw-semibold">{{ $bankAccount->created_at->format('d/m/Y') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between">
-                                    <span class="text-muted">Dernière modification</span>
+                                    <span class="text-muted">{{ __('Dernière modification') }}</span>
                                     <span class="fw-semibold">{{ $bankAccount->updated_at->format('d/m/Y') }}</span>
                                 </li>
                             </ul>
@@ -224,7 +224,7 @@
                     <!-- Start Notes -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Notes</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Notes') }}</h6>
                             <p class="mb-0">{{ $bankAccount->notes }}</p>
                         </div><!-- end card body -->
                     </div><!-- end card -->

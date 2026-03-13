@@ -42,18 +42,18 @@ class StorePurchaseOrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'supplier_id.required'       => 'Le fournisseur est obligatoire.',
-            'supplier_id.exists'         => 'Le fournisseur sélectionné est invalide.',
-            'warehouse_id.required'      => 'L\'entrepôt est obligatoire.',
-            'warehouse_id.exists'        => 'L\'entrepôt sélectionné est invalide.',
-            'order_date.required'        => 'La date de commande est obligatoire.',
-            'expected_date.after_or_equal' => 'La date de livraison prévue doit être postérieure ou égale à la date de commande.',
-            'items.required'             => 'Au moins un article est obligatoire.',
-            'items.min'                  => 'Au moins un article est obligatoire.',
-            'items.*.label.required'     => 'Le libellé de l\'article est obligatoire.',
-            'items.*.quantity.required'  => 'La quantité est obligatoire.',
-            'items.*.quantity.min'       => 'La quantité doit être supérieure à zéro.',
-            'items.*.unit_cost.required' => 'Le coût unitaire est obligatoire.',
+            'supplier_id.required'       => __('Le fournisseur est obligatoire.'),
+            'supplier_id.exists'         => __('Le fournisseur sélectionné est invalide.'),
+            'warehouse_id.required'      => __('L\'entrepôt est obligatoire.'),
+            'warehouse_id.exists'        => __('L\'entrepôt sélectionné est invalide.'),
+            'order_date.required'        => __('La date de commande est obligatoire.'),
+            'expected_date.after_or_equal' => __('La date de livraison prévue doit être postérieure ou égale à la date de commande.'),
+            'items.required'             => __('Au moins un article est obligatoire.'),
+            'items.min'                  => __('Au moins un article est obligatoire.'),
+            'items.*.label.required'     => __('Le libellé de l\'article est obligatoire.'),
+            'items.*.quantity.required'  => __('La quantité est obligatoire.'),
+            'items.*.quantity.min'       => __('La quantité doit être supérieure à zéro.'),
+            'items.*.unit_cost.required' => __('Le coût unitaire est obligatoire.'),
         ];
     }
 }

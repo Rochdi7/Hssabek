@@ -37,11 +37,11 @@ class StoreSupplierPaymentMethodRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'name.required'  => 'Le nom de la méthode est obligatoire.',
-            'name.unique'    => 'Une méthode de paiement avec ce nom existe déjà.',
-            'name.max'       => 'Le nom ne peut pas dépasser 255 caractères.',
-            'provider.required' => 'Le type est obligatoire.',
-            'provider.in'    => 'Le type sélectionné est invalide.',
+            'name.required'  => __('Le nom de la méthode est obligatoire.'),
+            'name.unique'    => __('Une méthode de paiement avec ce nom existe déjà.'),
+            'name.max'       => __('Le nom ne peut pas dépasser 255 caractères.'),
+            'provider.required' => __('Le type est obligatoire.'),
+            'provider.in'    => __('Le type sélectionné est invalide.'),
         ];
     }
 }

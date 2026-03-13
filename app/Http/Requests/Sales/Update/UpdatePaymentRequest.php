@@ -21,8 +21,8 @@ class UpdatePaymentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'notes.string' => 'Les notes doivent être une chaîne de caractères.',
-            'notes.max' => 'Les notes ne doivent pas dépasser 2000 caractères.',
+            'notes.string' => __('Les notes doivent être une chaîne de caractères.'),
+            'notes.max' => __('Les notes ne doivent pas dépasser 2000 caractères.'),
         ];
     }
 }

@@ -13,13 +13,13 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Revenus</h6>
+                    <h6>{{ __('Revenus') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'incomes'])
                     <div>
                         <a href="{{ route('bo.finance.incomes.create') }}" class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau revenu
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau revenu') }}
                         </a>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un revenu..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher un revenu...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -63,13 +63,13 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-filter me-1"></i>Catégorie : <span
-                                    class="fw-normal ms-1">{{ request('category_id') ? $categories->firstWhere('id', request('category_id'))?->name ?? 'Toutes' : 'Toutes' }}</span>
+                                <i class="isax isax-filter me-1"></i>{{ __('Catégorie :') }} <span
+                                    class="fw-normal ms-1">{{ request('category_id') ? $categories->firstWhere('id', request('category_id'))?->name ?? __('Toutes') : __('Toutes') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.finance.incomes.index', array_merge(request()->except('category_id', 'page'))) }}"
-                                        class="dropdown-item">Toutes</a>
+                                        class="dropdown-item">{{ __('Toutes') }}</a>
                                 </li>
                                 @foreach ($categories as $category)
                                     <li>
@@ -81,13 +81,13 @@
                         </div>
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'N° Revenu',
-                                'Date',
-                                'Catégorie',
-                                'Client',
-                                'Montant',
-                                'Mode de paiement',
-                                'Compte bancaire',
+                                __('N° Revenu'),
+                                __('Date'),
+                                __('Catégorie'),
+                                __('Client'),
+                                __('Montant'),
+                                __('Mode de paiement'),
+                                __('Compte bancaire'),
                             ],
                         ])
                     </div>
@@ -105,13 +105,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>N° Revenu</th>
-                            <th>Date</th>
-                            <th>Catégorie</th>
-                            <th>Client</th>
-                            <th>Montant</th>
-                            <th>Mode de paiement</th>
-                            <th>Compte bancaire</th>
+                            <th>{{ __('N° Revenu') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Catégorie') }}</th>
+                            <th>{{ __('Client') }}</th>
+                            <th>{{ __('Montant') }}</th>
+                            <th>{{ __('Mode de paiement') }}</th>
+                            <th>{{ __('Compte bancaire') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -126,7 +126,7 @@
                                 <td>
                                     <span class="fw-medium">{{ $income->income_number }}</span>
                                     @if ($income->reference_number)
-                                        <br><small class="text-muted">Réf: {{ $income->reference_number }}</small>
+                                        <br><small class="text-muted">{{ __('Réf:') }} {{ $income->reference_number }}</small>
                                     @endif
                                 </td>
                                 <td>{{ \Carbon\Carbon::parse($income->income_date)->format('d/m/Y') }}</td>
@@ -137,23 +137,23 @@
                                 <td>
                                     @switch($income->payment_mode)
                                         @case('cash')
-                                            Espèces
+                                            {{ __('Espèces') }}
                                         @break
 
                                         @case('bank_transfer')
-                                            Virement
+                                            {{ __('Virement') }}
                                         @break
 
                                         @case('card')
-                                            Carte
+                                            {{ __('Carte') }}
                                         @break
 
                                         @case('cheque')
-                                            Chèque
+                                            {{ __('Chèque') }}
                                         @break
 
                                         @default
-                                            Autre
+                                            {{ __('Autre') }}
                                     @endswitch
                                 </td>
                                 <td>{{ $income->bankAccount->bank_name ?? '—' }}</td>
@@ -165,7 +165,7 @@
                                         <li>
                                             <a href="{{ route('bo.finance.incomes.edit', $income) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-edit me-2"></i>Modifier</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
@@ -173,8 +173,8 @@
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce revenu ?')">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer
+                                                    onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer ce revenu ?') }}')">
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}
                                                 </button>
                                             </form>
                                         </li>

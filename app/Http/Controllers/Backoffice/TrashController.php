@@ -182,7 +182,7 @@ class TrashController extends Controller
         $item->restore();
 
         return redirect()->route('bo.trash.index', ['type' => $type])
-            ->with('success', 'Élément restauré avec succès.');
+            ->with('success', __('Élément restauré avec succès.'));
     }
 
     public function forceDelete(Request $request, string $type, string $id)
@@ -199,7 +199,7 @@ class TrashController extends Controller
         $item->forceDelete();
 
         return redirect()->route('bo.trash.index', ['type' => $type])
-            ->with('success', 'Élément supprimé définitivement.');
+            ->with('success', __('Élément supprimé définitivement.'));
     }
 
     public function emptyType(Request $request, string $type)
@@ -212,6 +212,6 @@ class TrashController extends Controller
         $modelClass::onlyTrashed()->forceDelete();
 
         return redirect()->route('bo.trash.index', ['type' => $type])
-            ->with('success', 'Corbeille vidée pour cette catégorie.');
+            ->with('success', __('Corbeille vidée pour cette catégorie.'));
     }
 }

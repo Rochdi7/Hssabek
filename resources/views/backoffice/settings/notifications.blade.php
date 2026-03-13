@@ -19,14 +19,14 @@
 
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3 pb-3 border-bottom">
-                                <h6 class="fw-bold mb-0">Notifications</h6>
+                                <h6 class="fw-bold mb-0">{{ __('Notifications') }}</h6>
                             </div>
 
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success') }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Fermer"></button>
+                                        aria-label="{{ __('Fermer') }}"></button>
                                 </div>
                             @endif
 
@@ -34,7 +34,7 @@
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     {{ session('error') }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Fermer"></button>
+                                        aria-label="{{ __('Fermer') }}"></button>
                                 </div>
                             @endif
 
@@ -49,7 +49,7 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-notification"></i></span>
-                                            Notifications g&eacute;n&eacute;rales
+                                            {{ __('Notifications générales') }}
                                         </h6>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" name="general_enabled"
@@ -62,20 +62,18 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th class="fs-14">Modules </th>
-                                                        <th class="fs-14">Email</th>
-                                                        <th class="fs-14">SMS</th>
-                                                        <th class="fs-14">In App</th>
-                                                        <th class="fs-14">Whatsapp</th>
+                                                        <th class="fs-14">{{ __('Modules') }} </th>
+                                                        <th class="fs-14">{{ __('Email') }}</th>
+                                                        <th class="fs-14">{{ __('SMS') }}</th>
+                                                        <th class="fs-14">{{ __('In App') }}</th>
+                                                        <th class="fs-14">{{ __('Whatsapp') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <h6 class="fs-13 fw-medium mb-1">Mises &agrave; jour
-                                                                syst&egrave;me</h6>
-                                                            <p class="fs-12">Recevez des alertes pour les mises &agrave;
-                                                                jour logicielles et la maintenance.</p>
+                                                            <h6 class="fs-13 fw-medium mb-1">{{ __('Mises à jour système') }}</h6>
+                                                            <p class="fs-12">{{ __('Recevez des alertes pour les mises à jour logicielles et la maintenance.') }}</p>
                                                         </td>
                                                         <td class="text-center">
                                                             <input class="form-check-input" type="checkbox"
@@ -100,10 +98,8 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <h6 class="fs-13 fw-medium mb-1">Alertes de
-                                                                s&eacute;curit&eacute;</h6>
-                                                            <p class="fs-12">Notifications concernant les tentatives de
-                                                                connexion et les changements de mot de passe.</p>
+                                                            <h6 class="fs-13 fw-medium mb-1">{{ __('Alertes de sécurité') }}</h6>
+                                                            <p class="fs-12">{{ __('Notifications concernant les tentatives de connexion et les changements de mot de passe.') }}</p>
                                                         </td>
                                                         <td class="text-center">
                                                             <input class="form-check-input" type="checkbox"
@@ -139,7 +135,7 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-shopping-cart"></i></span>
-                                            Notifications des ventes
+                                            {{ __('Notifications des ventes') }}
                                         </h6>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" name="sales_enabled"
@@ -151,20 +147,19 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th class="fs-14">Modules </th>
-                                                    <th class="fs-14">Email</th>
-                                                    <th class="fs-14">SMS</th>
-                                                    <th class="fs-14">In App</th>
-                                                    <th class="fs-14">Whatsapp</th>
+                                                    <th class="fs-14">{{ __('Modules') }} </th>
+                                                    <th class="fs-14">{{ __('Email') }}</th>
+                                                    <th class="fs-14">{{ __('SMS') }}</th>
+                                                    <th class="fs-14">{{ __('In App') }}</th>
+                                                    <th class="fs-14">{{ __('Whatsapp') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Nouvelle vente enregistr&eacute;e
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Nouvelle vente enregistrée') }}
                                                         </h6>
-                                                        <p class="fs-12">Soyez notifi&eacute; lorsqu'une vente est
-                                                            effectu&eacute;e.</p>
+                                                        <p class="fs-12">{{ __("Soyez notifié lorsqu'une vente est effectuée.") }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -189,8 +184,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Paiements en attente</h6>
-                                                        <p class="fs-12">Alertes pour les factures en retard.</p>
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Paiements en attente') }}</h6>
+                                                        <p class="fs-12">{{ __('Alertes pour les factures en retard.') }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -215,8 +210,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Transactions</h6>
-                                                        <p class="fs-12">Confirmation lorsqu'un paiement est re&ccedil;u.
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Transactions') }}</h6>
+                                                        <p class="fs-12">{{ __("Confirmation lorsqu'un paiement est reçu.") }}
                                                         </p>
                                                     </td>
                                                     <td class="text-center">
@@ -252,7 +247,7 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-notification-status"></i></span>
-                                            Notifications de factures
+                                            {{ __('Notifications de factures') }}
                                         </h6>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" name="invoices_enabled"
@@ -264,20 +259,18 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th class="fs-14">Modules </th>
-                                                    <th class="fs-14">Email</th>
-                                                    <th class="fs-14">SMS</th>
-                                                    <th class="fs-14">In App</th>
-                                                    <th class="fs-14">Whatsapp</th>
+                                                    <th class="fs-14">{{ __('Modules') }} </th>
+                                                    <th class="fs-14">{{ __('Email') }}</th>
+                                                    <th class="fs-14">{{ __('SMS') }}</th>
+                                                    <th class="fs-14">{{ __('In App') }}</th>
+                                                    <th class="fs-14">{{ __('Whatsapp') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Nouvelle facture
-                                                            cr&eacute;&eacute;e</h6>
-                                                        <p class="fs-12">Alerte lorsqu'une nouvelle facture est
-                                                            g&eacute;n&eacute;r&eacute;e.</p>
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Nouvelle facture créée') }}</h6>
+                                                        <p class="fs-12">{{ __("Alerte lorsqu'une nouvelle facture est générée.") }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -302,10 +295,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Rappel d'&eacute;ch&eacute;ance de
-                                                            facture</h6>
-                                                        <p class="fs-12">Notification avant la date
-                                                            d'&eacute;ch&eacute;ance de la facture.</p>
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __("Rappel d'échéance de facture") }}</h6>
+                                                        <p class="fs-12">{{ __("Notification avant la date d'échéance de la facture.") }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -340,7 +331,7 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-user-tag"></i></span>
-                                            Gestion des utilisateurs
+                                            {{ __('Gestion des utilisateurs') }}
                                         </h6>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" name="users_enabled"
@@ -352,20 +343,19 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th class="fs-14">Modules </th>
-                                                    <th class="fs-14">Email</th>
-                                                    <th class="fs-14">SMS</th>
-                                                    <th class="fs-14">In App</th>
-                                                    <th class="fs-14">Whatsapp</th>
+                                                    <th class="fs-14">{{ __('Modules') }} </th>
+                                                    <th class="fs-14">{{ __('Email') }}</th>
+                                                    <th class="fs-14">{{ __('SMS') }}</th>
+                                                    <th class="fs-14">{{ __('In App') }}</th>
+                                                    <th class="fs-14">{{ __('Whatsapp') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Nouvel utilisateur ajout&eacute;
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Nouvel utilisateur ajouté') }}
                                                         </h6>
-                                                        <p class="fs-12">Notification lorsqu'un nouvel utilisateur est
-                                                            enregistr&eacute;.</p>
+                                                        <p class="fs-12">{{ __("Notification lorsqu'un nouvel utilisateur est enregistré.") }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -390,9 +380,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Retour des utilisateurs</h6>
-                                                        <p class="fs-12">Alertes pour les commentaires ou avis
-                                                            re&ccedil;us.</p>
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Retour des utilisateurs') }}</h6>
+                                                        <p class="fs-12">{{ __('Alertes pour les commentaires ou avis reçus.') }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -417,10 +406,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Changements de r&ocirc;les et
-                                                            permissions</h6>
-                                                        <p class="fs-12">Notification lorsque les r&ocirc;les des
-                                                            utilisateurs sont mis &agrave; jour.</p>
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Changements de rôles et permissions') }}</h6>
+                                                        <p class="fs-12">{{ __('Notification lorsque les rôles des utilisateurs sont mis à jour.') }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -445,9 +432,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="fs-13 fw-medium mb-1">Messages directs et mentions</h6>
-                                                        <p class="fs-12">Recevez des alertes lorsque vous &ecirc;tes
-                                                            mentionn&eacute; ou contact&eacute;.</p>
+                                                        <h6 class="fs-13 fw-medium mb-1">{{ __('Messages directs et mentions') }}</h6>
+                                                        <p class="fs-12">{{ __('Recevez des alertes lorsque vous êtes mentionné ou contacté.') }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <input class="form-check-input" type="checkbox"
@@ -482,7 +468,7 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-timer-1"></i></span>
-                                            Rappels automatiques de factures
+                                            {{ __('Rappels automatiques de factures') }}
                                         </h6>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox"
@@ -494,67 +480,61 @@
                                         <div class="row mb-3">
                                             <div class="col-md-12">
                                                 <p class="text-muted fs-12 mb-3">
-                                                    Configurez les rappels automatiques pour les factures impayées. Les
-                                                    rappels seront envoyés par email au client et une notification sera
-                                                    envoyée à votre entreprise.
+                                                    {{ __("Configurez les rappels automatiques pour les factures impayées. Les rappels seront envoyés par email au client et une notification sera envoyée à votre entreprise.") }}
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
-                                                <label class="form-label">Rappel avant échéance</label>
+                                                <label class="form-label">{{ __('Rappel avant échéance') }}</label>
                                                 <div class="input-group">
                                                     <input type="number" class="form-control"
                                                         name="reminder_settings[before_due_days]"
                                                         value="{{ old('reminder_settings.before_due_days', $settings->reminder_settings['before_due_days'] ?? 3) }}"
                                                         min="0" max="30" placeholder="3">
-                                                    <span class="input-group-text">jours avant</span>
+                                                    <span class="input-group-text">{{ __('jours avant') }}</span>
                                                 </div>
-                                                <small class="text-muted">Envoyer un rappel X jours avant la date
-                                                    d'échéance (0 = désactivé)</small>
+                                                <small class="text-muted">{{ __("Envoyer un rappel X jours avant la date d'échéance (0 = désactivé)") }}</small>
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label class="form-label">Rappel le jour d'échéance</label>
+                                                <label class="form-label">{{ __("Rappel le jour d'échéance") }}</label>
                                                 <div class="form-check form-switch mt-2">
                                                     <input class="form-check-input" type="checkbox"
                                                         name="reminder_settings[on_due]" value="1"
                                                         {{ old('reminder_settings.on_due', $settings->reminder_settings['on_due'] ?? true) ? 'checked' : '' }}>
-                                                    <label class="form-check-label">Activer</label>
+                                                    <label class="form-check-label">{{ __('Activer') }}</label>
                                                 </div>
-                                                <small class="text-muted">Envoyer un rappel le jour de l'échéance</small>
+                                                <small class="text-muted">{{ __("Envoyer un rappel le jour de l'échéance") }}</small>
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label class="form-label">Rappel après échéance</label>
+                                                <label class="form-label">{{ __('Rappel après échéance') }}</label>
                                                 <div class="input-group">
                                                     <input type="number" class="form-control"
                                                         name="reminder_settings[after_due_days]"
                                                         value="{{ old('reminder_settings.after_due_days', $settings->reminder_settings['after_due_days'] ?? 7) }}"
                                                         min="0" max="90" placeholder="7">
-                                                    <span class="input-group-text">jours après</span>
+                                                    <span class="input-group-text">{{ __('jours après') }}</span>
                                                 </div>
-                                                <small class="text-muted">Envoyer un rappel X jours après la date
-                                                    d'échéance (0 = désactivé)</small>
+                                                <small class="text-muted">{{ __("Envoyer un rappel X jours après la date d'échéance (0 = désactivé)") }}</small>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <label class="form-label">Notifier l'entreprise</label>
+                                                <label class="form-label">{{ __("Notifier l'entreprise") }}</label>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox"
                                                         name="reminder_settings[notify_company]" value="1"
                                                         {{ old('reminder_settings.notify_company', $settings->reminder_settings['notify_company'] ?? true) ? 'checked' : '' }}>
-                                                    <label class="form-check-label">Recevoir une notification système quand
-                                                        un rappel est envoyé</label>
+                                                    <label class="form-check-label">{{ __("Recevoir une notification système quand un rappel est envoyé") }}</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label class="form-label">Notifier l'entreprise par email</label>
+                                                <label class="form-label">{{ __("Notifier l'entreprise par email") }}</label>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox"
                                                         name="reminder_settings[notify_company_email]" value="1"
                                                         {{ old('reminder_settings.notify_company_email', $settings->reminder_settings['notify_company_email'] ?? false) ? 'checked' : '' }}>
-                                                    <label class="form-check-label">Recevoir une copie par email des
-                                                        rappels envoyés</label>
+                                                    <label class="form-check-label">{{ __('Recevoir une copie par email des rappels envoyés') }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -563,8 +543,8 @@
 
                                 <div class="d-flex align-items-center justify-content-between settings-bottom-btn mt-0">
                                     <button type="button" class="btn btn-outline-white me-2"
-                                        onclick="window.location.reload()">Annuler</button>
-                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        onclick="window.location.reload()">{{ __('Annuler') }}</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                 </div>
                             </form>
                         </div>

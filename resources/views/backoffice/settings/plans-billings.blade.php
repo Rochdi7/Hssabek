@@ -23,7 +23,7 @@
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Plans et facturation</h6>
+                                    <h6 class="mb-0">{{ __('Plans et facturation') }}</h6>
                                 </div>
 
                                 @if(session('success'))
@@ -43,12 +43,12 @@
                                 <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
                                     <i class="isax isax-clock fs-20 me-2"></i>
                                     <div>
-                                        <strong>Période d'essai gratuit</strong> —
+                                        <strong>{{ __("Période d'essai gratuit") }}</strong> —
                                         @if($trialDaysLeft > 0)
-                                            Il vous reste <strong>{{ $trialDaysLeft }} {{ $trialDaysLeft > 1 ? 'jours' : 'jour' }}</strong>
-                                            (expire le {{ $tenant->trial_ends_at->translatedFormat('d M Y') }}).
+                                            {{ __('Il vous reste') }} <strong>{{ $trialDaysLeft }} {{ $trialDaysLeft > 1 ? __('jours') : __('jour') }}</strong>
+                                            ({{ __('expire le') }} {{ $tenant->trial_ends_at->translatedFormat('d M Y') }}).
                                         @else
-                                            Votre essai gratuit expire <strong>aujourd'hui</strong>.
+                                            {{ __("Votre essai gratuit expire") }} <strong>{{ __("aujourd'hui") }}</strong>.
                                         @endif
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                 <div class="d-flex align-items-center mb-3">
                                     <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i
                                             class="isax isax-info-circle fs-14"></i></span>
-                                    <h6 class="fs-16 fw-semibold mb-0">Informations sur le plan actuel</h6>
+                                    <h6 class="fs-16 fw-semibold mb-0">{{ __('Informations sur le plan actuel') }}</h6>
                                 </div>
                                 <div class="mb-3 border-bottom">
                                     <div class="card shadow-none bg-light">
@@ -101,19 +101,19 @@
                                                                         cy="18" r="16"
                                                                         style="stroke-dasharray: {{ $circumference }}; stroke-dashoffset: {{ $dashOffset }};"></circle>
                                                                 </svg>
-                                                                <span class="fs-14">{{ $daysLeft }} {{ $daysLeft > 1 ? 'jours restants' : 'jour restant' }}</span>
+                                                                <span class="fs-14">{{ $daysLeft }} {{ $daysLeft > 1 ? __('jours restants') : __('jour restant') }}</span>
                                                             </div>
                                                         </div>
                                                         <div>
                                                             <span class="badge badge-md badge-soft-info">
                                                                 {{ number_format($currentSubscription->plan->price, 2) }} {{ $currentSubscription->plan->currency ?? 'MAD' }}
-                                                                / {{ $currentSubscription->plan->interval === 'yearly' ? 'an' : ($currentSubscription->plan->interval === 'monthly' ? 'mois' : $currentSubscription->plan->interval) }}
+                                                                / {{ $currentSubscription->plan->interval === 'yearly' ? __('an') : ($currentSubscription->plan->interval === 'monthly' ? __('mois') : $currentSubscription->plan->interval) }}
                                                             </span>
                                                         </div>
                                                     </div>
                                                 @else
                                                     <div class="text-center py-3">
-                                                        <p class="text-muted mb-0">Aucun abonnement actif</p>
+                                                        <p class="text-muted mb-0">{{ __('Aucun abonnement actif') }}</p>
                                                     </div>
                                                 @endif
                                             </div>
@@ -126,7 +126,7 @@
                                     <div class="d-flex align-items-center mb-3">
                                         <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i
                                                 class="isax isax-chart fs-14"></i></span>
-                                        <h6 class="fs-16 fw-semibold mb-0">Utilisation et limites</h6>
+                                        <h6 class="fs-16 fw-semibold mb-0">{{ __('Utilisation et limites') }}</h6>
                                     </div>
                                     <div class="row g-3 mb-3">
                                         @foreach($usageData as $key => $item)
@@ -137,12 +137,12 @@
                                                             <i class="isax {{ $item['icon'] }} fs-18 me-2 text-primary"></i>
                                                             <span class="fs-13 fw-semibold">{{ $item['label'] }}</span>
                                                             @if($item['monthly'])
-                                                                <span class="badge badge-soft-secondary ms-auto fs-10">Mensuel</span>
+                                                                <span class="badge badge-soft-secondary ms-auto fs-10">{{ __('Mensuel') }}</span>
                                                             @endif
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-between mb-1">
                                                             <span class="fs-13 text-muted">
-                                                                {{ $item['usage'] }} / {{ $item['limit'] !== null ? $item['limit'] : 'Illimité' }}
+                                                                {{ $item['usage'] }} / {{ $item['limit'] !== null ? $item['limit'] : __('Illimité') }}
                                                             </span>
                                                             @if($item['limit'] !== null)
                                                                 <span class="fs-12 fw-semibold {{ $item['percent'] >= 90 ? 'text-danger' : ($item['percent'] >= 70 ? 'text-warning' : 'text-success') }}">
@@ -176,7 +176,7 @@
                                     <div class="d-flex align-items-center mb-3">
                                         <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i
                                                 class="isax isax-transaction-minus fs-14"></i></span>
-                                        <h6 class="fs-16 fw-semibold mb-0">Historique des transactions</h6>
+                                        <h6 class="fs-16 fw-semibold mb-0">{{ __('Historique des transactions') }}</h6>
                                     </div>
                                     <div>
                                         <!-- Table List -->
@@ -184,11 +184,11 @@
                                             <table class="table border mb-0">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th>Nom du plan</th>
-                                                        <th>Montant</th>
-                                                        <th>Date d'achat</th>
-                                                        <th>Date de fin</th>
-                                                        <th>Statut</th>
+                                                        <th>{{ __('Nom du plan') }}</th>
+                                                        <th>{{ __('Montant') }}</th>
+                                                        <th>{{ __("Date d'achat") }}</th>
+                                                        <th>{{ __('Date de fin') }}</th>
+                                                        <th>{{ __('Statut') }}</th>
                                                         <th class="no-sort"></th>
                                                     </tr>
                                                 </thead>
@@ -205,25 +205,25 @@
                                                                 @switch($subscription->status)
                                                                     @case('active')
                                                                         <span
-                                                                            class="badge badge-soft-success d-inline-flex align-items-center">Actif
+                                                                            class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Actif') }}
                                                                             <i class="isax isax-tick-circle5 ms-1"></i>
                                                                         </span>
                                                                         @break
                                                                     @case('trialing')
                                                                         <span
-                                                                            class="badge badge-soft-info d-inline-flex align-items-center">En essai
+                                                                            class="badge badge-soft-info d-inline-flex align-items-center">{{ __('En essai') }}
                                                                             <i class="isax isax-clock ms-1"></i>
                                                                         </span>
                                                                         @break
                                                                     @case('cancelled')
                                                                         <span
-                                                                            class="badge badge-soft-danger d-inline-flex align-items-center">Annulé
+                                                                            class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulé') }}
                                                                             <i class="isax isax-close-circle ms-1"></i>
                                                                         </span>
                                                                         @break
                                                                     @case('past_due')
                                                                         <span
-                                                                            class="badge badge-soft-warning d-inline-flex align-items-center">En retard
+                                                                            class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('En retard') }}
                                                                             <i class="isax isax-warning-2 ms-1"></i>
                                                                         </span>
                                                                         @break
@@ -241,14 +241,14 @@
                                                                     <li>
                                                                         <a href="javascript:void(0);"
                                                                             class="dropdown-item d-flex align-items-center"><i
-                                                                                class="isax isax-eye me-2"></i>Voir</a>
+                                                                                class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                                                     </li>
                                                                 </ul>
                                                             </td>
                                                         </tr>
                                                     @empty
                                                         <tr>
-                                                            <td colspan="6" class="text-center">Aucun historique d'abonnement trouvé.</td>
+                                                            <td colspan="6" class="text-center">{{ __("Aucun historique d'abonnement trouvé.") }}</td>
                                                         </tr>
                                                     @endforelse
                                                 </tbody>

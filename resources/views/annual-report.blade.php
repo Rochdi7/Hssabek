@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,7 +17,8 @@
                 </div>
                 <div class="my-xl-auto">
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -51,11 +52,13 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
                                     <div class="progress-bar bg-success" style="width: 80%"></div>
                                 </div>
                                 <p class="fs-13 mb-0">
-                                    <span class="text-success"><i class="isax isax-send text-success me-1"></i>5.62%</span> from last month
+                                    <span class="text-success"><i class="isax isax-send text-success me-1"></i>5.62%</span>
+                                    from last month
                                 </p>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -74,11 +77,13 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
                                     <div class="progress-bar bg-success" style="width: 80%"></div>
                                 </div>
                                 <p class="fs-13 mb-0">
-                                    <span class="text-success"><i class="isax isax-send text-success me-1"></i>11.4%</span> from last month
+                                    <span class="text-success"><i class="isax isax-send text-success me-1"></i>11.4%</span>
+                                    from last month
                                 </p>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -97,11 +102,13 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
                                     <div class="progress-bar bg-success" style="width: 80%"></div>
                                 </div>
                                 <p class="fs-13 mb-0">
-                                    <span class="text-success"><i class="isax isax-send text-success me-1"></i>8.52%</span> from last month
+                                    <span class="text-success"><i class="isax isax-send text-success me-1"></i>8.52%</span>
+                                    from last month
                                 </p>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -120,11 +127,13 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress mb-2" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
                                     <div class="progress-bar bg-success" style="width: 80%"></div>
                                 </div>
                                 <p class="fs-13 mb-0">
-                                    <span class="text-danger"><i class="isax isax-received me-1"></i>7.45%</span> from last month
+                                    <span class="text-danger"><i class="isax isax-received me-1"></i>7.45%</span> from last
+                                    month
                                 </p>
                             </div><!-- end card body -->
                         </div>
@@ -147,7 +156,8 @@
                             <input type="text" class="form-control form-control-sm bg-white" placeholder="Search">
                         </div>
                         <div id="reportrange" class="reportrange-picker d-flex align-items-center">
-                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
+                            <i class="isax isax-calendar text-gray-5 fs-14 me-1"></i><span
+                                class="reportrange-picker-field">16 Apr 25 - 16 Apr 25</span>
                         </div>
                     </div>
                 </div>
@@ -311,7 +321,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -319,6 +330,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

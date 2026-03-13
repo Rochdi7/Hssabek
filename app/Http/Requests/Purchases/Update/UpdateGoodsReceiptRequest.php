@@ -30,11 +30,11 @@ class UpdateGoodsReceiptRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'purchase_order_id.exists'         => 'Le bon de commande sélectionné est invalide.',
-            'warehouse_id.exists'              => 'L\'entrepôt sélectionné est invalide.',
-            'items.*.product_id.required_with' => 'Le produit est obligatoire.',
-            'items.*.product_id.exists'        => 'Le produit sélectionné est invalide.',
-            'items.*.quantity.required_with'   => 'La quantité est obligatoire.',
+            'purchase_order_id.exists'         => __('Le bon de commande sélectionné est invalide.'),
+            'warehouse_id.exists'              => __('L\'entrepôt sélectionné est invalide.'),
+            'items.*.product_id.required_with' => __('Le produit est obligatoire.'),
+            'items.*.product_id.exists'        => __('Le produit sélectionné est invalide.'),
+            'items.*.quantity.required_with'   => __('La quantité est obligatoire.'),
         ];
     }
 }

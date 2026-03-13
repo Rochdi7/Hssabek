@@ -23,11 +23,11 @@ class UpdateSignatureRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Le nom de la signature est obligatoire.',
-            'name.max' => 'Le nom ne doit pas dépasser 255 caractères.',
-            'signature_image.image' => 'Le fichier doit être une image.',
-            'signature_image.mimes' => 'L\'image doit être au format JPG, PNG, SVG ou WebP.',
-            'signature_image.max' => 'L\'image ne doit pas dépasser 2 Mo.',
+            'name.required' => __('Le nom de la signature est obligatoire.'),
+            'name.max' => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'signature_image.image' => __('Le fichier doit être une image.'),
+            'signature_image.mimes' => __('L\'image doit être au format JPG, PNG, SVG ou WebP.'),
+            'signature_image.max' => __('L\'image ne doit pas dépasser 2 Mo.'),
         ];
     }
 }

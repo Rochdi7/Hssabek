@@ -31,9 +31,9 @@ class UpdateSubscriptionInvoiceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'amount.numeric' => 'Le montant doit être un nombre.',
-            'due_date.date'  => 'La date d\'échéance n\'est pas valide.',
-            'status.in'      => 'Le statut est invalide.',
+            'amount.numeric' => __('Le montant doit être un nombre.'),
+            'due_date.date'  => __('La date d\'échéance n\'est pas valide.'),
+            'status.in'      => __('Le statut est invalide.'),
         ];
     }
 }

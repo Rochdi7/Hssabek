@@ -63,6 +63,6 @@ class NotificationSettingsController extends Controller
         $setting->save();
 
         return redirect()->route('bo.settings.notifications.edit')
-            ->with('success', 'Paramètres de notifications mis à jour avec succès.');
+            ->with('success', __('Paramètres de notifications mis à jour avec succès.'));
     }
 }

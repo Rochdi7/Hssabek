@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -16,10 +16,10 @@
 
                     <!-- start row -->
                     <div class=" row settings-wrapper d-flex">
-                        
+
                         <!-- Start settings sidebar -->
                         @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @endcomponent
                         <!-- End settings sidebar -->
 
                         <div class="col-xl-9 col-lg-8">
@@ -27,7 +27,7 @@
                                 <div class="pb-3 border-bottom mb-3">
                                     <h6 class="mb-0">Barcode</h6>
                                 </div>
-                                <form action="{{url('barcode-settings')}}">
+                                <form action="{{ url('barcode-settings') }}">
                                     <div class="vh-100 border-bottom mb-3">
 
                                         <!-- start row -->
@@ -119,8 +119,10 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-back me-2 border">Cancel</a>
-                                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary">Save Changes</a>
+                                        <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                            class="btn btn-back me-2 border">Cancel</a>
+                                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary">Save
+                                            Changes</a>
                                     </div>
 
                                 </form>
@@ -138,13 +140,14 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
 
     </div>
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

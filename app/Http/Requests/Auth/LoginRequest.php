@@ -23,10 +23,10 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'L\'adresse e-mail est obligatoire.',
-            'email.email' => 'L\'adresse e-mail n\'est pas valide.',
-            'password.required' => 'Le mot de passe est obligatoire.',
-            'password.min' => 'Le mot de passe doit contenir au moins 6 caractères.',
+            'email.required' => __('L\'adresse e-mail est obligatoire.'),
+            'email.email' => __('L\'adresse e-mail n\'est pas valide.'),
+            'password.required' => __('Le mot de passe est obligatoire.'),
+            'password.min' => __('Le mot de passe doit contenir au moins 6 caractères.'),
         ];
     }
 }

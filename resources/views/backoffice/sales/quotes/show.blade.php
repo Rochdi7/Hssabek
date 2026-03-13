@@ -7,26 +7,24 @@
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
-                            <h6><a href="{{ route('bo.sales.quotes.index') }}"><i class="isax isax-arrow-left me-2"></i>Devis</a></h6>
+                            <h6><a href="{{ route('bo.sales.quotes.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Devis') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('bo.sales.quotes.download', $quote) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>Télécharger PDF</a>
+                                <a href="{{ route('bo.sales.quotes.download', $quote) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
                                 @if($quote->status === 'draft')
-                                    <a href="{{ route('bo.sales.quotes.edit', $quote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>Modifier</a>
+                                    <a href="{{ route('bo.sales.quotes.edit', $quote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                 @endif
                                 @if(in_array($quote->status, ['sent', 'accepted']))
                                     <form method="POST" action="{{ route('bo.sales.quotes.convert', $quote) }}" class="me-3">
                                         @csrf
                                         <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
-                                            <i class="isax isax-convert me-1"></i>Convertir en facture
-                                        </button>
+                                            <i class="isax isax-convert me-1"></i>{{ __('Convertir en facture') }}</button>
                                     </form>
                                 @endif
                                 <form method="POST" action="{{ route('bo.sales.quotes.destroy', $quote) }}">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
-                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce devis ?')">
-                                        <i class="isax isax-trash me-1"></i>Supprimer
-                                    </button>
+                                        onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer ce devis ?") }}')">
+                                        <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}</button>
                                 </form>
                             </div>
                         </div>
@@ -46,18 +44,18 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between border-bottom flex-wrap mb-3 pb-2 position-relative z-1">
                                         <div class="mb-3">
-                                            <h4 class="mb-1">Devis</h4>
+                                            <h4 class="mb-1">{{ __('Devis') }}</h4>
                                             <div class="d-flex align-items-center flex-wrap row-gap-3">
                                                 <div class="me-4">
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $quote->number }}</h6>
                                                     <p>
                                                         @switch($quote->status)
-                                                            @case('draft') <span class="badge badge-soft-secondary">Brouillon</span> @break
-                                                            @case('sent') <span class="badge badge-soft-info">Envoyé</span> @break
-                                                            @case('accepted') <span class="badge badge-soft-success">Accepté</span> @break
-                                                            @case('rejected') <span class="badge badge-soft-danger">Rejeté</span> @break
-                                                            @case('expired') <span class="badge badge-soft-warning">Expiré</span> @break
-                                                            @case('cancelled') <span class="badge badge-soft-danger">Annulé</span> @break
+                                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
+                                                            @case('sent') <span class="badge badge-soft-info">{{ __('Envoyé') }}</span> @break
+                                                            @case('accepted') <span class="badge badge-soft-success">{{ __('Accepté') }}</span> @break
+                                                            @case('rejected') <span class="badge badge-soft-danger">{{ __('Rejeté') }}</span> @break
+                                                            @case('expired') <span class="badge badge-soft-warning">{{ __('Expiré') }}</span> @break
+                                                            @case('cancelled') <span class="badge badge-soft-danger">{{ __('Annulé') }}</span> @break
                                                         @endswitch
                                                     </p>
                                                 </div>
@@ -68,39 +66,39 @@
                                     <div class="row gy-3 position-relative z-1">
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">Détails du devis</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Détails du devis') }}</h6>
                                                 <div>
-                                                    <p class="mb-1">N° Devis : <span class="text-dark">{{ $quote->number }}</span></p>
-                                                    <p class="mb-1">Date d'émission : <span class="text-dark">{{ $quote->issue_date?->format('d/m/Y') }}</span></p>
+                                                    <p class="mb-1">{{ __('N° Devis') }} : <span class="text-dark">{{ $quote->number }}</span></p>
+                                                    <p class="mb-1">{{ __('Date d\'émission') }} : <span class="text-dark">{{ $quote->issue_date?->format('d/m/Y') }}</span></p>
                                                     @if($quote->expiry_date)
-                                                        <p class="mb-1">Date d'expiration : <span class="text-dark">{{ $quote->expiry_date->format('d/m/Y') }}</span></p>
+                                                        <p class="mb-1">{{ __('Date d\'expiration') }} : <span class="text-dark">{{ $quote->expiry_date->format('d/m/Y') }}</span></p>
                                                     @endif
                                                     @if($quote->reference_number)
-                                                        <p class="mb-1">Référence : <span class="text-dark">{{ $quote->reference_number }}</span></p>
+                                                        <p class="mb-1">{{ __('Référence') }} : <span class="text-dark">{{ $quote->reference_number }}</span></p>
                                                     @endif
-                                                    <p class="mb-1">Devise : <span class="text-dark">{{ $quote->currency }}</span></p>
+                                                    <p class="mb-1">{{ __('Devise') }} : <span class="text-dark">{{ $quote->currency }}</span></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">Client</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Client') }}</h6>
                                                 <div>
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $quote->customer->name ?? '—' }}</h6>
                                                     @if($quote->customer?->email)
-                                                        <p class="mb-1">Email : {{ $quote->customer->email }}</p>
+                                                        <p class="mb-1">{{ __('Email') }} : {{ $quote->customer->email }}</p>
                                                     @endif
                                                     @if($quote->customer?->phone)
-                                                        <p class="mb-1">Tél : {{ $quote->customer->phone }}</p>
+                                                        <p class="mb-1">{{ __('Tél') }} : {{ $quote->customer->phone }}</p>
                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">Total</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Total') }}</h6>
                                                 <div>
-                                                    <p class="mb-1">Total : <span class="text-dark fw-semibold">{{ number_format($quote->total, 2, ',', ' ') }} {{ $quote->currency }}</span></p>
+                                                    <p class="mb-1">{{ __('Total') }} : <span class="text-dark fw-semibold">{{ number_format($quote->total, 2, ',', ' ') }} {{ $quote->currency }}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,19 +106,19 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <h6 class="mb-3">Articles</h6>
+                                    <h6 class="mb-3">{{ __('Articles') }}</h6>
                                     <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                         <table class="table m-0">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Libellé</th>
-                                                    <th>Quantité</th>
-                                                    <th>Unité</th>
-                                                    <th>Prix unitaire</th>
-                                                    <th>Remise</th>
-                                                    <th>Taxe</th>
-                                                    <th>Montant</th>
+                                                    <th>{{ __('Libellé') }}</th>
+                                                    <th>{{ __('Quantité') }}</th>
+                                                    <th>{{ __('Unité') }}</th>
+                                                    <th>{{ __('Prix unitaire') }}</th>
+                                                    <th>{{ __('Remise') }}</th>
+                                                    <th>{{ __('Taxe') }}</th>
+                                                    <th>{{ __('Montant') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -161,13 +159,13 @@
                                                 <div class="mb-3 p-4">
                                                     @if($quote->terms)
                                                         <div class="mb-3">
-                                                            <h6 class="fs-14 fw-semibold mb-1">Conditions générales</h6>
+                                                            <h6 class="fs-14 fw-semibold mb-1">{{ __('Conditions générales') }}</h6>
                                                             <p>{{ $quote->terms }}</p>
                                                         </div>
                                                     @endif
                                                     @if($quote->notes)
                                                         <div>
-                                                            <h6 class="fs-14 fw-semibold mb-1">Notes</h6>
+                                                            <h6 class="fs-14 fw-semibold mb-1">{{ __('Notes') }}</h6>
                                                             <p>{{ $quote->notes }}</p>
                                                         </div>
                                                     @endif
@@ -177,18 +175,18 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3 p-4">
                                                 <div class="d-flex align-items-center justify-content-between mb-3">
-                                                    <h6 class="fs-14 fw-semibold">Sous-total</h6>
+                                                    <h6 class="fs-14 fw-semibold">{{ __("Sous-total") }}</h6>
                                                     <h6 class="fs-14 fw-semibold">{{ number_format($quote->subtotal, 2, ',', ' ') }}</h6>
                                                 </div>
                                                 @if($quote->discount_total > 0)
                                                     <div class="d-flex align-items-center justify-content-between mb-3">
-                                                        <h6 class="fs-14 fw-semibold">Remise</h6>
+                                                        <h6 class="fs-14 fw-semibold">{{ __('Remise') }}</h6>
                                                         <h6 class="fs-14 fw-semibold text-danger">-{{ number_format($quote->discount_total, 2, ',', ' ') }}</h6>
                                                     </div>
                                                 @endif
                                                 @if($quote->tax_total > 0)
                                                     <div class="d-flex align-items-center justify-content-between mb-3">
-                                                        <h6 class="fs-14 fw-semibold">Taxe</h6>
+                                                        <h6 class="fs-14 fw-semibold">{{ __('Taxe') }}</h6>
                                                         <h6 class="fs-14 fw-semibold">{{ number_format($quote->tax_total, 2, ',', ' ') }}</h6>
                                                     </div>
                                                 @endif
@@ -203,15 +201,15 @@
 
                                 @if($quote->invoices->count() > 0)
                                     <div class="mb-3">
-                                        <h6 class="mb-3">Factures liées</h6>
+                                        <h6 class="mb-3">{{ __('Factures liées') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                             <table class="table m-0">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th>N° Facture</th>
-                                                        <th>Date</th>
-                                                        <th>Total</th>
-                                                        <th>Statut</th>
+                                                        <th>{{ __('N° Facture') }}</th>
+                                                        <th>{{ __('Date') }}</th>
+                                                        <th>{{ __('Total') }}</th>
+                                                        <th>{{ __('Statut') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -222,9 +220,9 @@
                                                             <td>{{ number_format($inv->total, 2, ',', ' ') }} {{ $inv->currency }}</td>
                                                             <td>
                                                                 @switch($inv->status)
-                                                                    @case('draft') <span class="badge badge-soft-secondary">Brouillon</span> @break
-                                                                    @case('sent') <span class="badge badge-soft-info">Envoyée</span> @break
-                                                                    @case('paid') <span class="badge badge-soft-success">Payée</span> @break
+                                                                    @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
+                                                                    @case('sent') <span class="badge badge-soft-info">{{ __('Envoyée') }}</span> @break
+                                                                    @case('paid') <span class="badge badge-soft-success">{{ __('Payée') }}</span> @break
                                                                     @default <span class="badge badge-soft-warning">{{ ucfirst($inv->status) }}</span>
                                                                 @endswitch
                                                             </td>

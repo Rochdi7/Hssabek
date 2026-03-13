@@ -73,7 +73,7 @@ class ActivityLogController extends Controller
         $activityLog->delete();
 
         return redirect()->route('sa.activity-logs.index')
-            ->with('success', 'L\'entrée du journal d\'activité a été supprimée avec succès.');
+            ->with('success', __('L\'entrée du journal d\'activité a été supprimée avec succès.'));
     }
 
     public function clear(Request $request)
@@ -89,6 +89,6 @@ class ActivityLogController extends Controller
         $deleted = ActivityLog::where('created_at', '<', $request->before_date)->delete();
 
         return redirect()->route('sa.activity-logs.index')
-            ->with('success', "{$deleted} entrées du journal ont été supprimées avec succès.");
+            ->with('success', __("{$deleted} entrées du journal ont été supprimées avec succès."));
     }
 }

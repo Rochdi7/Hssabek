@@ -77,7 +77,7 @@ class StockTransferController extends Controller
         });
 
         return redirect()->route('bo.inventory.transfers.show', $transfer)
-            ->with('success', 'Transfert créé avec succès.');
+            ->with('success', __('Transfert créé avec succès.'));
     }
 
     public function show(StockTransfer $transfer)
@@ -131,7 +131,7 @@ class StockTransferController extends Controller
         });
 
         return redirect()->route('bo.inventory.transfers.show', $transfer)
-            ->with('success', 'Transfert mis à jour avec succès.');
+            ->with('success', __('Transfert mis à jour avec succès.'));
     }
 
     public function execute(StockTransfer $transfer)
@@ -145,7 +145,7 @@ class StockTransferController extends Controller
             $this->stockService->transfer($transfer);
 
             return redirect()->route('bo.inventory.transfers.show', $transfer)
-                ->with('success', 'Transfert exécuté avec succès.');
+                ->with('success', __('Transfert exécuté avec succès.'));
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -158,6 +158,6 @@ class StockTransferController extends Controller
         $transfer->delete();
 
         return redirect()->route('bo.inventory.transfers.index')
-            ->with('success', 'Transfert supprimé avec succès.');
+            ->with('success', __('Transfert supprimé avec succès.'));
     }
 }

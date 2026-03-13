@@ -57,16 +57,16 @@ class UpdateInvoiceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'customer_id.exists' => 'Le client sélectionné est invalide.',
-            'items.min' => 'Au moins un article est obligatoire.',
-            'items.*.label.required_with' => 'Le libellé de l\'article est obligatoire.',
-            'items.*.quantity.required_with' => 'La quantité est obligatoire.',
-            'items.*.unit_price.required_with' => 'Le prix unitaire est obligatoire.',
-            'recurring_interval.required_if' => 'L\'intervalle de récurrence est obligatoire.',
-            'recurring_every.required_if' => 'La fréquence de récurrence est obligatoire.',
-            'recurring_next_run_at.required_if' => 'La date de première exécution est obligatoire pour la récurrence.',
-            'recurring_next_run_at.after_or_equal' => 'La date de première exécution doit être aujourd\'hui ou ultérieure.',
-            'recurring_end_at.after_or_equal' => 'La date de fin doit être postérieure ou égale à la date de première exécution.',
+            'customer_id.exists' => __('Le client sélectionné est invalide.'),
+            'items.min' => __('Au moins un article est obligatoire.'),
+            'items.*.label.required_with' => __('Le libellé de l\'article est obligatoire.'),
+            'items.*.quantity.required_with' => __('La quantité est obligatoire.'),
+            'items.*.unit_price.required_with' => __('Le prix unitaire est obligatoire.'),
+            'recurring_interval.required_if' => __('L\'intervalle de récurrence est obligatoire.'),
+            'recurring_every.required_if' => __('La fréquence de récurrence est obligatoire.'),
+            'recurring_next_run_at.required_if' => __('La date de première exécution est obligatoire pour la récurrence.'),
+            'recurring_next_run_at.after_or_equal' => __('La date de première exécution doit être aujourd\'hui ou ultérieure.'),
+            'recurring_end_at.after_or_equal' => __('La date de fin doit être postérieure ou égale à la date de première exécution.'),
         ];
     }
 }

@@ -27,13 +27,13 @@ class StoreRecurringInvoiceRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'customer_id.required'      => 'Le client est obligatoire.',
-            'customer_id.exists'        => 'Le client sélectionné est invalide.',
-            'template_invoice_id.exists' => 'La facture modèle sélectionnée est invalide.',
-            'interval.required'         => 'L\'intervalle de récurrence est obligatoire.',
-            'interval.in'               => 'L\'intervalle doit être : semaine, mois ou année.',
-            'next_run_at.required'      => 'La date de prochaine exécution est obligatoire.',
-            'end_at.after_or_equal'     => 'La date de fin doit être postérieure ou égale à la prochaine exécution.',
+            'customer_id.required'      => __('Le client est obligatoire.'),
+            'customer_id.exists'        => __('Le client sélectionné est invalide.'),
+            'template_invoice_id.exists' => __('La facture modèle sélectionnée est invalide.'),
+            'interval.required'         => __('L\'intervalle de récurrence est obligatoire.'),
+            'interval.in'               => __('L\'intervalle doit être : semaine, mois ou année.'),
+            'next_run_at.required'      => __('La date de prochaine exécution est obligatoire.'),
+            'end_at.after_or_equal'     => __('La date de fin doit être postérieure ou égale à la prochaine exécution.'),
         ];
     }
 }

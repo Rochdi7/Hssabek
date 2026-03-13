@@ -16,11 +16,11 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.crm.customers.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Clients</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Clients') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Nouveau client</h5>
+                                <h5 class="mb-3">{{ __('Nouveau client') }}</h5>
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -36,13 +36,12 @@
                                 <form action="{{ route('bo.crm.customers.store') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">Informations générales</h6>
+                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">{{ __('Informations générales') }}</h6>
                                     </div>
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Nom <span
-                                                        class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Nom') }} <span class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('name') is-invalid @enderror" name="name"
                                                     value="{{ old('name') }}">
@@ -53,7 +52,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">E-mail</label>
+                                                <label class="form-label">{{ __('E-mail') }}</label>
                                                 <input type="email"
                                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                                     value="{{ old('email') }}">
@@ -64,7 +63,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Téléphone</label>
+                                                <label class="form-label">{{ __('Téléphone') }}</label>
                                                 <input type="text"
                                                     class="form-control @error('phone') is-invalid @enderror" name="phone"
                                                     value="{{ old('phone') }}">
@@ -75,17 +74,14 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Type <span
-                                                        class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Type') }} <span class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('type') is-invalid @enderror"
                                                     name="type">
-                                                    <option value="">-- Sélectionner --</option>
+                                                    <option value="">{{ __('-- Sélectionner --') }}</option>
                                                     <option value="individual"
-                                                        {{ old('type') === 'individual' ? 'selected' : '' }}>Particulier
-                                                    </option>
+                                                        {{ old('type') === 'individual' ? 'selected' : '' }}>{{ __('Particulier') }}</option>
                                                     <option value="company"
-                                                        {{ old('type') === 'company' ? 'selected' : '' }}>Entreprise
-                                                    </option>
+                                                        {{ old('type') === 'company' ? 'selected' : '' }}>{{ __('Entreprise') }}</option>
                                                 </select>
                                                 @error('type')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -94,14 +90,14 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Identifiant fiscal</label>
+                                                <label class="form-label">{{ __('Identifiant fiscal') }}</label>
                                                 <div class="input-group">
                                                     <input type="text" id="tax_id"
                                                         class="form-control @error('tax_id') is-invalid @enderror"
                                                         name="tax_id" value="{{ old('tax_id') }}">
                                                     <button class="btn btn-outline-primary" type="button"
                                                         onclick="document.getElementById('tax_id').value = 'IF' + Math.floor(100000 + Math.random() * 900000)"
-                                                        title="Générer automatiquement">
+                                                        title="{{ __('Générer automatiquement') }}">
                                                         <i class="isax isax-refresh"></i>
                                                     </button>
                                                     @error('tax_id')
@@ -112,7 +108,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Devise</label>
+                                                <label class="form-label">{{ __('Devise') }}</label>
                                                 <input type="text" class="form-control"
                                                     value="{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}"
                                                     readonly disabled>
@@ -120,7 +116,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Délai de paiement (jours)</label>
+                                                <label class="form-label">{{ __('Délai de paiement (jours)') }}</label>
                                                 <input type="number"
                                                     class="form-control @error('payment_terms_days') is-invalid @enderror"
                                                     name="payment_terms_days" value="{{ old('payment_terms_days', 0) }}"
@@ -132,16 +128,13 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Statut <span
-                                                        class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Statut') }} <span class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('status') is-invalid @enderror"
                                                     name="status">
                                                     <option value="active"
-                                                        {{ old('status', 'active') === 'active' ? 'selected' : '' }}>Actif
-                                                    </option>
+                                                        {{ old('status', 'active') === 'active' ? 'selected' : '' }}>{{ __('Actif') }}</option>
                                                     <option value="inactive"
-                                                        {{ old('status') === 'inactive' ? 'selected' : '' }}>Inactif
-                                                    </option>
+                                                        {{ old('status') === 'inactive' ? 'selected' : '' }}>{{ __('Inactif') }}</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -150,7 +143,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Notes</label>
+                                                <label class="form-label">{{ __('Notes') }}</label>
                                                 <input type="text"
                                                     class="form-control @error('notes') is-invalid @enderror" name="notes"
                                                     value="{{ old('notes') }}">
@@ -162,8 +155,8 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.crm.customers.index') }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Créer le client</button>
+                                            class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Créer le client') }}</button>
                                     </div>
                                 </form>
                             </div><!-- end card body -->

@@ -38,14 +38,14 @@ class UpdateDebitNoteRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'supplier_id.exists'          => 'Le fournisseur sélectionné est invalide.',
-            'purchase_order_id.exists'    => 'Le bon de commande sélectionné est invalide.',
-            'vendor_bill_id.exists'       => 'La facture fournisseur sélectionnée est invalide.',
-            'debit_note_date.date'        => 'La date de la note de débit n\'est pas valide.',
-            'due_date.after_or_equal'     => 'La date d\'échéance doit être postérieure ou égale à la date de la note.',
-            'items.*.label.required_with' => 'Le libellé de l\'article est obligatoire.',
-            'items.*.quantity.required_with' => 'La quantité est obligatoire.',
-            'items.*.unit_price.required_with' => 'Le prix unitaire est obligatoire.',
+            'supplier_id.exists'          => __('Le fournisseur sélectionné est invalide.'),
+            'purchase_order_id.exists'    => __('Le bon de commande sélectionné est invalide.'),
+            'vendor_bill_id.exists'       => __('La facture fournisseur sélectionnée est invalide.'),
+            'debit_note_date.date'        => __('La date de la note de débit n\'est pas valide.'),
+            'due_date.after_or_equal'     => __('La date d\'échéance doit être postérieure ou égale à la date de la note.'),
+            'items.*.label.required_with' => __('Le libellé de l\'article est obligatoire.'),
+            'items.*.quantity.required_with' => __('La quantité est obligatoire.'),
+            'items.*.unit_price.required_with' => __('Le prix unitaire est obligatoire.'),
         ];
     }
 }

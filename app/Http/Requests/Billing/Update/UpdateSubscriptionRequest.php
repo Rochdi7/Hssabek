@@ -32,9 +32,9 @@ class UpdateSubscriptionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'plan_id.exists'  => 'Le plan sélectionné est invalide.',
-            'end_date.after'  => 'La date de fin doit être postérieure à la date de début.',
-            'status.in'       => 'Le statut est invalide.',
+            'plan_id.exists'  => __('Le plan sélectionné est invalide.'),
+            'end_date.after'  => __('La date de fin doit être postérieure à la date de début.'),
+            'status.in'       => __('Le statut est invalide.'),
         ];
     }
 }

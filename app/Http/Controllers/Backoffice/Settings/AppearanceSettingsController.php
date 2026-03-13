@@ -71,6 +71,6 @@ class AppearanceSettingsController extends Controller
         $setting->save();
 
         return redirect()->route('bo.settings.appearance.edit')
-            ->with('success', 'Paramètres d\'apparence mis à jour avec succès.');
+            ->with('success', __('Paramètres d\'apparence mis à jour avec succès.'));
     }
 }

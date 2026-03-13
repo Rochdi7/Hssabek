@@ -35,17 +35,17 @@ class StorePaymentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'customer_id.required' => 'Le client est obligatoire.',
-            'customer_id.exists' => 'Le client sélectionné est invalide.',
-            'amount.required' => 'Le montant est obligatoire.',
-            'amount.min' => 'Le montant doit être supérieur à 0.',
-            'payment_date.required' => 'La date de paiement est obligatoire.',
-            'allocations.required' => 'Au moins une allocation de facture est obligatoire.',
-            'allocations.min' => 'Au moins une allocation de facture est obligatoire.',
-            'allocations.*.invoice_id.required' => 'La facture est obligatoire pour chaque allocation.',
-            'allocations.*.invoice_id.exists' => 'La facture sélectionnée est invalide.',
-            'allocations.*.amount_applied.required' => 'Le montant appliqué est obligatoire.',
-            'allocations.*.amount_applied.min' => 'Le montant appliqué doit être supérieur à 0.',
+            'customer_id.required' => __('Le client est obligatoire.'),
+            'customer_id.exists' => __('Le client sélectionné est invalide.'),
+            'amount.required' => __('Le montant est obligatoire.'),
+            'amount.min' => __('Le montant doit être supérieur à 0.'),
+            'payment_date.required' => __('La date de paiement est obligatoire.'),
+            'allocations.required' => __('Au moins une allocation de facture est obligatoire.'),
+            'allocations.min' => __('Au moins une allocation de facture est obligatoire.'),
+            'allocations.*.invoice_id.required' => __('La facture est obligatoire pour chaque allocation.'),
+            'allocations.*.invoice_id.exists' => __('La facture sélectionnée est invalide.'),
+            'allocations.*.amount_applied.required' => __('Le montant appliqué est obligatoire.'),
+            'allocations.*.amount_applied.min' => __('Le montant appliqué doit être supérieur à 0.'),
         ];
     }
 }

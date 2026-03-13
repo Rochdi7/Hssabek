@@ -14,13 +14,12 @@
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
                     <h6><a href="{{ route('bo.catalog.products.index') }}"><i
-                                class="isax isax-arrow-left fs-16 me-2"></i>Produits & Services</a></h6>
+                                class="isax isax-arrow-left fs-16 me-2"></i>{{ __('Produits & Services') }}</a></h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <a href="{{ route('bo.catalog.products.edit', $product) }}"
                         class="btn btn-primary d-flex align-items-center fs-14 fw-semibold">
-                        <i class="isax isax-edit-2 me-1"></i>Modifier
-                    </a>
+                        <i class="isax isax-edit-2 me-1"></i>{{ __('Modifier') }}</a>
                 </div>
             </div>
             <!-- End Page Header -->
@@ -56,19 +55,17 @@
                                         <p class="text-primary fs-14 fw-medium mb-1">
                                             @if ($product->item_type === 'service')
                                                 <span class="badge badge-soft-info d-inline-flex align-items-center">
-                                                    <i class="isax isax-setting-25 me-1"></i>Service
-                                                </span>
+                                                    <i class="isax isax-setting-25 me-1"></i>{{ __('Service') }}</span>
                                             @else
                                                 <span class="badge badge-soft-primary d-inline-flex align-items-center">
-                                                    <i class="isax isax-box-15 me-1"></i>Produit
-                                                </span>
+                                                    <i class="isax isax-box-15 me-1"></i>{{ __('Produit') }}</span>
                                             @endif
                                         </p>
                                         <h6 class="mb-2">{{ $product->name }}
                                             @if ($product->is_active)
-                                                <span class="badge badge-soft-success ms-1">Actif</span>
+                                                <span class="badge badge-soft-success ms-1">{{ __('Actif') }}</span>
                                             @else
-                                                <span class="badge badge-soft-danger ms-1">Inactif</span>
+                                                <span class="badge badge-soft-danger ms-1">{{ __('Inactif') }}</span>
                                             @endif
                                         </h6>
                                         @if ($product->code || $product->sku)
@@ -81,8 +78,7 @@
                                 </div>
                                 <a href="{{ route('bo.catalog.products.edit', $product) }}"
                                     class="btn btn-outline-white border border-1 border-grey border-sm bg-white">
-                                    <i class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> Modifier
-                                </a>
+                                    <i class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i>{{ __('Modifier') }}</a>
                             </div>
 
                             <div class="card border-0 shadow shadow-none mb-0 bg-white">
@@ -91,22 +87,22 @@
                                         class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-0 m-0 list-unstyled">
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"><i
-                                                    class="isax isax-category-2 fs-14 me-2"></i>Catégorie</h6>
+                                                    class="isax isax-category-2 fs-14 me-2"></i>{{ __('Catégorie') }}</h6>
                                             <p>{{ $product->category?->name ?? '—' }}</p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"><i
-                                                    class="isax isax-ruler fs-14 me-2"></i>Unité</h6>
+                                                    class="isax isax-ruler fs-14 me-2"></i>{{ __('Unité') }}</h6>
                                             <p>{{ $product->unit?->name ?? '—' }}</p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"><i
-                                                    class="isax isax-money-4 fs-14 me-2"></i>Prix de vente</h6>
+                                                    class="isax isax-money-4 fs-14 me-2"></i>{{ __('Prix de vente') }}</h6>
                                             <p>{{ number_format($product->selling_price, 2, ',', ' ') }}</p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"><i
-                                                    class="isax isax-receipt-2 fs-14 me-2"></i>Taxe</h6>
+                                                    class="isax isax-receipt-2 fs-14 me-2"></i>{{ __('Taxe') }}</h6>
                                             <p>{{ $product->taxCategory?->name ?? '—' }}</p>
                                         </li>
                                     </ul>
@@ -123,21 +119,21 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="invoices-tab" data-bs-toggle="tab"
                                 data-bs-target="#invoices" type="button" role="tab">
-                                <i class="isax isax-receipt-item me-1"></i>Factures <span
+                                <i class="isax isax-receipt-item me-1"></i>{{ __('Factures') }}<span
                                     class="badge bg-primary ms-1">{{ $invoices->count() }}</span>
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="quotes-tab" data-bs-toggle="tab" data-bs-target="#quotes"
                                 type="button" role="tab">
-                                <i class="isax isax-document-text me-1"></i>Devis <span
+                                <i class="isax isax-document-text me-1"></i>{{ __('Devis') }} <span
                                     class="badge bg-primary ms-1">{{ $quotes->count() }}</span>
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="purchases-tab" data-bs-toggle="tab" data-bs-target="#purchases"
                                 type="button" role="tab">
-                                <i class="isax isax-shopping-cart me-1"></i>Commandes <span
+                                <i class="isax isax-shopping-cart me-1"></i>{{ __('Commandes') }} <span
                                     class="badge bg-primary ms-1">{{ $purchaseOrders->count() }}</span>
                             </button>
                         </li>
@@ -145,7 +141,7 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="stock-tab" data-bs-toggle="tab" data-bs-target="#stock"
                                     type="button" role="tab">
-                                    <i class="isax isax-box me-1"></i>Stock <span
+                                    <i class="isax isax-box me-1"></i>{{ __('Stock') }} <span
                                         class="badge bg-primary ms-1">{{ $stockMovements->count() }}</span>
                                 </button>
                             </li>
@@ -159,17 +155,17 @@
                         <div class="tab-pane fade show active" id="invoices" role="tabpanel">
                             <div class="card table-info">
                                 <div class="card-body">
-                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Factures contenant ce
-                                        {{ $product->item_type === 'service' ? 'service' : 'produit' }}</h6>
+                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Factures contenant ce') }}
+                                        {{ $product->item_type === 'service' ? __('service') : __('produit') }}</h6>
                                     <div class="table-responsive table-nowrap">
                                         <table class="table border m-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>N°</th>
-                                                    <th>Client</th>
-                                                    <th>Date</th>
-                                                    <th>Montant</th>
-                                                    <th>Statut</th>
+                                                    <th>{{ __('N°') }}</th>
+                                                    <th>{{ __('Client') }}</th>
+                                                    <th>{{ __('Date') }}</th>
+                                                    <th>{{ __('Montant') }}</th>
+                                                    <th>{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -197,12 +193,12 @@
                                                                     'cancelled' => 'dark',
                                                                 ];
                                                                 $statusLabels = [
-                                                                    'draft' => 'Brouillon',
-                                                                    'sent' => 'Envoyée',
-                                                                    'partial' => 'Partielle',
-                                                                    'paid' => 'Payée',
-                                                                    'overdue' => 'En retard',
-                                                                    'cancelled' => 'Annulée',
+                                                                    'draft' => __('Brouillon'),
+                                                                    'sent' => __('Envoyée'),
+                                                                    'partial' => __('Partielle'),
+                                                                    'paid' => __('Payée'),
+                                                                    'overdue' => __('En retard'),
+                                                                    'cancelled' => __('Annulée'),
                                                                 ];
                                                             @endphp
                                                             <span
@@ -220,8 +216,8 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="6" class="text-center py-3">
-                                                            <p class="text-muted mb-0">Aucune facture contenant ce
-                                                                {{ $product->item_type === 'service' ? 'service' : 'produit' }}.
+                                                            <p class="text-muted mb-0">{{ __('Aucune facture contenant ce') }}
+                                                                {{ $product->item_type === 'service' ? __('service') : __('produit') }}.
                                                             </p>
                                                         </td>
                                                     </tr>
@@ -237,17 +233,17 @@
                         <div class="tab-pane fade" id="quotes" role="tabpanel">
                             <div class="card table-info">
                                 <div class="card-body">
-                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Devis contenant ce
-                                        {{ $product->item_type === 'service' ? 'service' : 'produit' }}</h6>
+                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Devis contenant ce') }}
+                                        {{ $product->item_type === 'service' ? __('service') : __('produit') }}</h6>
                                     <div class="table-responsive table-nowrap">
                                         <table class="table border m-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>N°</th>
-                                                    <th>Client</th>
-                                                    <th>Date</th>
-                                                    <th>Montant</th>
-                                                    <th>Statut</th>
+                                                    <th>{{ __('N°') }}</th>
+                                                    <th>{{ __('Client') }}</th>
+                                                    <th>{{ __('Date') }}</th>
+                                                    <th>{{ __('Montant') }}</th>
+                                                    <th>{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -275,12 +271,12 @@
                                                                     'converted' => 'primary',
                                                                 ];
                                                                 $quoteStatusLabels = [
-                                                                    'draft' => 'Brouillon',
-                                                                    'sent' => 'Envoyé',
-                                                                    'accepted' => 'Accepté',
-                                                                    'declined' => 'Refusé',
-                                                                    'expired' => 'Expiré',
-                                                                    'converted' => 'Converti',
+                                                                    'draft' => __('Brouillon'),
+                                                                    'sent' => __('Envoyé'),
+                                                                    'accepted' => __('Accepté'),
+                                                                    'declined' => __('Refusé'),
+                                                                    'expired' => __('Expiré'),
+                                                                    'converted' => __('Converti'),
                                                                 ];
                                                             @endphp
                                                             <span
@@ -298,8 +294,8 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="6" class="text-center py-3">
-                                                            <p class="text-muted mb-0">Aucun devis contenant ce
-                                                                {{ $product->item_type === 'service' ? 'service' : 'produit' }}.
+                                                            <p class="text-muted mb-0">{{ __('Aucun devis contenant ce') }}
+                                                                {{ $product->item_type === 'service' ? __('service') : __('produit') }}.
                                                             </p>
                                                         </td>
                                                     </tr>
@@ -313,15 +309,15 @@
                             <!-- Delivery Challans -->
                             <div class="card table-info">
                                 <div class="card-body">
-                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Bons de livraison</h6>
+                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Bons de livraison') }}</h6>
                                     <div class="table-responsive table-nowrap">
                                         <table class="table border m-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>N°</th>
-                                                    <th>Client</th>
-                                                    <th>Date</th>
-                                                    <th>Statut</th>
+                                                    <th>{{ __('N°') }}</th>
+                                                    <th>{{ __('Client') }}</th>
+                                                    <th>{{ __('Date') }}</th>
+                                                    <th>{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -350,7 +346,7 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="5" class="text-center py-3">
-                                                            <p class="text-muted mb-0">Aucun bon de livraison.</p>
+                                                            <p class="text-muted mb-0">{{ __('Aucun bon de livraison.') }}</p>
                                                         </td>
                                                     </tr>
                                                 @endforelse
@@ -366,17 +362,17 @@
                             <!-- Purchase Orders -->
                             <div class="card table-info">
                                 <div class="card-body">
-                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Bons de commande fournisseur
+                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Bons de commande fournisseur') }}
                                     </h6>
                                     <div class="table-responsive table-nowrap">
                                         <table class="table border m-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>N°</th>
-                                                    <th>Fournisseur</th>
-                                                    <th>Date</th>
-                                                    <th>Montant</th>
-                                                    <th>Statut</th>
+                                                    <th>{{ __('N°') }}</th>
+                                                    <th>{{ __('Fournisseur') }}</th>
+                                                    <th>{{ __('Date') }}</th>
+                                                    <th>{{ __('Montant') }}</th>
+                                                    <th>{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -419,7 +415,7 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="6" class="text-center py-3">
-                                                            <p class="text-muted mb-0">Aucun bon de commande.</p>
+                                                            <p class="text-muted mb-0">{{ __('Aucun bon de commande.') }}</p>
                                                         </td>
                                                     </tr>
                                                 @endforelse
@@ -432,16 +428,16 @@
                             <!-- Goods Receipts -->
                             <div class="card table-info">
                                 <div class="card-body">
-                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Bons de réception</h6>
+                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Bons de réception') }}</h6>
                                     <div class="table-responsive table-nowrap">
                                         <table class="table border m-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>N°</th>
-                                                    <th>Fournisseur</th>
-                                                    <th>Entrepôt</th>
-                                                    <th>Date</th>
-                                                    <th>Statut</th>
+                                                    <th>{{ __('N°') }}</th>
+                                                    <th>{{ __('Fournisseur') }}</th>
+                                                    <th>{{ __('Entrepôt') }}</th>
+                                                    <th>{{ __('Date') }}</th>
+                                                    <th>{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -471,7 +467,7 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="6" class="text-center py-3">
-                                                            <p class="text-muted mb-0">Aucun bon de réception.</p>
+                                                            <p class="text-muted mb-0">{{ __('Aucun bon de réception.') }}</p>
                                                         </td>
                                                     </tr>
                                                 @endforelse
@@ -484,16 +480,16 @@
                             <!-- Debit Notes -->
                             <div class="card table-info">
                                 <div class="card-body">
-                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Notes de débit</h6>
+                                    <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Notes de débit') }}</h6>
                                     <div class="table-responsive table-nowrap">
                                         <table class="table border m-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>N°</th>
-                                                    <th>Fournisseur</th>
-                                                    <th>Date</th>
-                                                    <th>Montant</th>
-                                                    <th>Statut</th>
+                                                    <th>{{ __('N°') }}</th>
+                                                    <th>{{ __('Fournisseur') }}</th>
+                                                    <th>{{ __('Date') }}</th>
+                                                    <th>{{ __('Montant') }}</th>
+                                                    <th>{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
                                             </thead>
@@ -524,7 +520,7 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="6" class="text-center py-3">
-                                                            <p class="text-muted mb-0">Aucune note de débit.</p>
+                                                            <p class="text-muted mb-0">{{ __('Aucune note de débit.') }}</p>
                                                         </td>
                                                     </tr>
                                                 @endforelse
@@ -541,15 +537,15 @@
                                 <!-- Stock by Warehouse -->
                                 <div class="card table-info">
                                     <div class="card-body">
-                                        <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Stock par entrepôt</h6>
+                                        <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Stock par entrepôt') }}</h6>
                                         <div class="table-responsive table-nowrap">
                                             <table class="table border m-0">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th>Entrepôt</th>
-                                                        <th>Quantité en stock</th>
-                                                        <th>Réservée</th>
-                                                        <th>Disponible</th>
+                                                        <th>{{ __('Entrepôt') }}</th>
+                                                        <th>{{ __('Quantité en stock') }}</th>
+                                                        <th>{{ __('Réservée') }}</th>
+                                                        <th>{{ __('Disponible') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -568,7 +564,7 @@
                                                     @empty
                                                         <tr>
                                                             <td colspan="4" class="text-center py-3">
-                                                                <p class="text-muted mb-0">Aucun stock enregistré.</p>
+                                                                <p class="text-muted mb-0">{{ __('Aucun stock enregistré.') }}</p>
                                                             </td>
                                                         </tr>
                                                     @endforelse
@@ -581,17 +577,16 @@
                                 <!-- Stock Movements -->
                                 <div class="card table-info">
                                     <div class="card-body">
-                                        <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Mouvements de stock
-                                            récents</h6>
+                                        <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Mouvements de stock récents') }}</h6>
                                         <div class="table-responsive table-nowrap">
                                             <table class="table border m-0">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th>Date</th>
-                                                        <th>Type</th>
-                                                        <th>Entrepôt</th>
-                                                        <th>Quantité</th>
-                                                        <th>Note</th>
+                                                        <th>{{ __('Date') }}</th>
+                                                        <th>{{ __('Type') }}</th>
+                                                        <th>{{ __('Entrepôt') }}</th>
+                                                        <th>{{ __('Quantité') }}</th>
+                                                        <th>{{ __('Note') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -602,31 +597,31 @@
                                                                 @php
                                                                     $movementTypes = [
                                                                         'stock_in' => [
-                                                                            'label' => 'Entrée',
+                                                                            'label' => __('Entrée'),
                                                                             'color' => 'success',
                                                                         ],
                                                                         'stock_out' => [
-                                                                            'label' => 'Sortie',
+                                                                            'label' => __('Sortie'),
                                                                             'color' => 'danger',
                                                                         ],
                                                                         'adjustment' => [
-                                                                            'label' => 'Ajustement',
+                                                                            'label' => __('Ajustement'),
                                                                             'color' => 'warning',
                                                                         ],
                                                                         'transfer_in' => [
-                                                                            'label' => 'Transfert entrant',
+                                                                            'label' => __('Transfert entrant'),
                                                                             'color' => 'info',
                                                                         ],
                                                                         'transfer_out' => [
-                                                                            'label' => 'Transfert sortant',
+                                                                            'label' => __('Transfert sortant'),
                                                                             'color' => 'primary',
                                                                         ],
                                                                         'reserve' => [
-                                                                            'label' => 'Réservation',
+                                                                            'label' => __('Réservation'),
                                                                             'color' => 'secondary',
                                                                         ],
                                                                         'unreserve' => [
-                                                                            'label' => 'Libération',
+                                                                            'label' => __('Libération'),
                                                                             'color' => 'secondary',
                                                                         ],
                                                                     ];
@@ -650,7 +645,7 @@
                                                     @empty
                                                         <tr>
                                                             <td colspan="5" class="text-center py-3">
-                                                                <p class="text-muted mb-0">Aucun mouvement de stock.</p>
+                                                                <p class="text-muted mb-0">{{ __('Aucun mouvement de stock.') }}</p>
                                                             </td>
                                                         </tr>
                                                     @endforelse
@@ -669,8 +664,8 @@
                     <!-- Start Description -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Description</h6>
-                            <p class="text-truncate line-clamb-3">{{ $product->description ?? 'Aucune description.' }}</p>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Description') }}</h6>
+                            <p class="text-truncate line-clamb-3">{{ $product->description ?? __('Aucune description.') }}</p>
                         </div><!-- end card body -->
                     </div><!-- end card -->
                     <!-- End Description -->
@@ -678,54 +673,54 @@
                     <!-- Start Info -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Informations</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Informations') }}</h6>
                             <ul class="list-unstyled m-0 p-0">
                                 @if ($product->item_type === 'product')
                                     <li class="d-flex align-items-center justify-content-between mb-3">
-                                        <span class="text-muted">Quantité totale</span>
+                                        <span class="text-muted">{{ __('Quantité totale') }}</span>
                                         <span
                                             class="fw-semibold">{{ number_format($product->quantity ?? 0, 2, ',', ' ') }}
                                             {{ $product->unit?->abbreviation ?? '' }}</span>
                                     </li>
                                     <li class="d-flex align-items-center justify-content-between mb-3">
-                                        <span class="text-muted">Alerte stock</span>
+                                        <span class="text-muted">{{ __('Alerte stock') }}</span>
                                         <span
                                             class="fw-semibold">{{ $product->alert_quantity ? number_format($product->alert_quantity, 2, ',', ' ') : '—' }}</span>
                                     </li>
                                 @endif
                                 @if ($product->item_type === 'service')
                                     <li class="d-flex align-items-center justify-content-between mb-3">
-                                        <span class="text-muted">Type de facturation</span>
+                                        <span class="text-muted">{{ __('Type de facturation') }}</span>
                                         <span
-                                            class="fw-semibold">{{ $product->billing_type === 'hourly' ? 'À l\'heure' : 'Forfait' }}</span>
+                                            class="fw-semibold">{{ $product->billing_type === 'hourly' ? __('À l\'heure') : __('Forfait') }}</span>
                                     </li>
                                     @if ($product->billing_type === 'hourly')
                                         <li class="d-flex align-items-center justify-content-between mb-3">
-                                            <span class="text-muted">Tarif horaire</span>
+                                            <span class="text-muted">{{ __('Tarif horaire') }}</span>
                                             <span
                                                 class="fw-semibold">{{ number_format($product->hourly_rate ?? 0, 2, ',', ' ') }}</span>
                                         </li>
                                     @endif
                                 @endif
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Prix d'achat</span>
+                                    <span class="text-muted">{{ __('Prix d\'achat') }}</span>
                                     <span
                                         class="fw-semibold">{{ number_format($product->purchase_price ?? 0, 2, ',', ' ') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Factures</span>
+                                    <span class="text-muted">{{ __('Factures') }}</span>
                                     <span class="fw-semibold">{{ $invoices->count() }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Devis</span>
+                                    <span class="text-muted">{{ __('Devis') }}</span>
                                     <span class="fw-semibold">{{ $quotes->count() }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Créé le</span>
+                                    <span class="text-muted">{{ __('Créé le') }}</span>
                                     <span class="fw-semibold">{{ $product->created_at->format('d/m/Y') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between">
-                                    <span class="text-muted">Dernière modification</span>
+                                    <span class="text-muted">{{ __('Dernière modification') }}</span>
                                     <span class="fw-semibold">{{ $product->updated_at->format('d/m/Y') }}</span>
                                 </li>
                             </ul>
@@ -737,7 +732,7 @@
                         <!-- Start Barcode -->
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Code-barres</h6>
+                                <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Code-barres') }}</h6>
                                 <p class="text-center fs-18 fw-medium font-monospace">{{ $product->barcode }}</p>
                             </div><!-- end card body -->
                         </div><!-- end card -->

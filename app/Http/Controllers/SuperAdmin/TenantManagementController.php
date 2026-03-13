@@ -119,7 +119,7 @@ class TenantManagementController extends Controller
         });
 
         return redirect()->route('sa.tenants.index')
-            ->with('success', "Le tenant « {$tenant->name} » a été créé avec succès.");
+            ->with('success', __("Le tenant « {$tenant->name} » a été créé avec succès."));
     }
 
     /**
@@ -172,7 +172,7 @@ class TenantManagementController extends Controller
         }
 
         return redirect()->route('sa.tenants.index')
-            ->with('success', "Le tenant « {$tenant->name} » a été mis à jour avec succès.");
+            ->with('success', __("Le tenant « {$tenant->name} » a été mis à jour avec succès."));
     }
 
     /**
@@ -184,7 +184,7 @@ class TenantManagementController extends Controller
         $tenant->delete();
 
         return redirect()->route('sa.tenants.index')
-            ->with('success', "Le tenant « {$name} » a été supprimé avec succès.");
+            ->with('success', __("Le tenant « {$name} » a été supprimé avec succès."));
     }
 
     /**
@@ -195,7 +195,7 @@ class TenantManagementController extends Controller
         $tenant->update(['status' => 'suspended']);
 
         return redirect()->route('sa.tenants.index')
-            ->with('success', "Le tenant « {$tenant->name} » a été suspendu.");
+            ->with('success', __("Le tenant « {$tenant->name} » a été suspendu."));
     }
 
     /**
@@ -206,7 +206,7 @@ class TenantManagementController extends Controller
         $tenant->update(['status' => 'active']);
 
         return redirect()->route('sa.tenants.index')
-            ->with('success', "Le tenant « {$tenant->name} » a été activé.");
+            ->with('success', __("Le tenant « {$tenant->name} » a été activé."));
     }
 
     /**
@@ -240,7 +240,7 @@ class TenantManagementController extends Controller
 
         if (!$subscription || !$subscription->plan) {
             return redirect()->route('sa.tenants.usage', $tenant)
-                ->with('error', 'Aucun abonnement actif trouvé pour ce tenant.');
+                ->with('error', __('Aucun abonnement actif trouvé pour ce tenant.'));
         }
 
         $validated = $request->validate([
@@ -263,7 +263,7 @@ class TenantManagementController extends Controller
         $subscription->plan->update($validated);
 
         return redirect()->route('sa.tenants.usage', $tenant)
-            ->with('success', "Les limites du plan « {$subscription->plan->name} » ont été mises à jour.");
+            ->with('success', __("Les limites du plan « {$subscription->plan->name} » ont été mises à jour."));
     }
 
     /**

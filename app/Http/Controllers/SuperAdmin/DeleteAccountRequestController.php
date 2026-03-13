@@ -36,7 +36,7 @@ class DeleteAccountRequestController extends Controller
         }
 
         return redirect()->route('sa.delete-requests.index')
-            ->with('success', "Demande confirmée. Le compte « {$tenant->name} » a été désactivé.");
+            ->with('success', __("Demande confirmée. Le compte « {$tenant->name} » a été désactivé."));
     }
 
     public function cancel(Request $request, DeleteAccountRequest $deleteRequest)
@@ -49,6 +49,6 @@ class DeleteAccountRequestController extends Controller
         ]);
 
         return redirect()->route('sa.delete-requests.index')
-            ->with('success', 'Demande de suppression annulée.');
+            ->with('success', __('Demande de suppression annulée.'));
     }
 }

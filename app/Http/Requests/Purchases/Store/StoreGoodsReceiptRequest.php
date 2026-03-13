@@ -30,15 +30,15 @@ class StoreGoodsReceiptRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'purchase_order_id.exists'    => 'Le bon de commande sélectionné est invalide.',
-            'warehouse_id.required'       => 'L\'entrepôt est obligatoire.',
-            'warehouse_id.exists'         => 'L\'entrepôt sélectionné est invalide.',
-            'items.required'              => 'Au moins un article est obligatoire.',
-            'items.min'                   => 'Au moins un article est obligatoire.',
-            'items.*.product_id.required' => 'Le produit est obligatoire.',
-            'items.*.product_id.exists'   => 'Le produit sélectionné est invalide.',
-            'items.*.quantity.required'   => 'La quantité est obligatoire.',
-            'items.*.quantity.min'        => 'La quantité doit être supérieure à zéro.',
+            'purchase_order_id.exists'    => __('Le bon de commande sélectionné est invalide.'),
+            'warehouse_id.required'       => __('L\'entrepôt est obligatoire.'),
+            'warehouse_id.exists'         => __('L\'entrepôt sélectionné est invalide.'),
+            'items.required'              => __('Au moins un article est obligatoire.'),
+            'items.min'                   => __('Au moins un article est obligatoire.'),
+            'items.*.product_id.required' => __('Le produit est obligatoire.'),
+            'items.*.product_id.exists'   => __('Le produit sélectionné est invalide.'),
+            'items.*.quantity.required'   => __('La quantité est obligatoire.'),
+            'items.*.quantity.min'        => __('La quantité doit être supérieure à zéro.'),
         ];
     }
 }

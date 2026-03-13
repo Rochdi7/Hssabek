@@ -16,7 +16,7 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.catalog.products.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Produits</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Produits') }}</a></h6>
                         </div>
 
                         @if ($errors->any())
@@ -39,23 +39,21 @@
                                  ═══════════════════════════════════════════════ --}}
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h6 class="mb-3">Type d'article</h6>
+                                    <h6 class="mb-3">{{ __('Type d\'article') }}</h6>
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input @error('item_type') is-invalid @enderror"
                                                 type="radio" name="item_type" id="item-type-product" value="product"
                                                 {{ old('item_type', 'product') === 'product' ? 'checked' : '' }}>
                                             <label class="form-check-label fw-medium" for="item-type-product">
-                                                <i class="isax isax-box-15 me-1"></i> Produit
-                                            </label>
+                                                <i class="isax isax-box-15 me-1"></i>{{ __('Produit') }}</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input @error('item_type') is-invalid @enderror"
                                                 type="radio" name="item_type" id="item-type-service" value="service"
                                                 {{ old('item_type') === 'service' ? 'checked' : '' }}>
                                             <label class="form-check-label fw-medium" for="item-type-service">
-                                                <i class="isax isax-setting-25 me-1"></i> Service
-                                            </label>
+                                                <i class="isax isax-setting-25 me-1"></i>{{ __('Service') }}</label>
                                         </div>
                                     </div>
                                     @error('item_type')
@@ -69,9 +67,9 @@
                                  ═══════════════════════════════════════════════ --}}
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h6 class="mb-3">Informations de base</h6>
+                                    <h6 class="mb-3">{{ __('Informations de base') }}</h6>
                                     <div class="mb-3">
-                                        <span class="text-gray-9 fw-bold mb-2 d-flex">Image</span>
+                                        <span class="text-gray-9 fw-bold mb-2 d-flex">{{ __('Image') }}</span>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-xxl border border-dashed bg-light me-3 flex-shrink-0">
                                                 <div class="position-relative d-flex align-items-center">
@@ -85,12 +83,11 @@
                                             </div>
                                             <div class="d-inline-flex flex-column align-items-start">
                                                 <div class="drag-upload-btn btn btn-sm btn-primary position-relative mb-2">
-                                                    <i class="isax isax-image me-1"></i>Importer une image
-                                                    <input type="file"
+                                                    <i class="isax isax-image me-1"></i>{{ __('Importer une image') }}<input type="file"
                                                         class="form-control image-sign @error('product_image') is-invalid @enderror"
                                                         name="product_image" id="product-image-input" accept="image/*">
                                                 </div>
-                                                <span class="text-gray-9 fs-12">Format JPG ou PNG, max 5 Mo.</span>
+                                                <span class="text-gray-9 fs-12">{{ __('Format JPG ou PNG, max 5 Mo.') }}</span>
                                                 @error('product_image')
                                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                                 @enderror
@@ -100,10 +97,10 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Nom<span class="text-danger ms-1">*</span></label>
+                                                <label class="form-label">{{ __('Nom') }}<span class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('name') is-invalid @enderror" name="name"
-                                                    value="{{ old('name') }}" placeholder="Nom du produit / service">
+                                                    value="{{ old('name') }}" placeholder="{{ __('Nom du produit / service') }}">
                                                 @error('name')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -111,14 +108,14 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Code<span
+                                                <label class="form-label">{{ __('Code') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <div class="input-group">
                                                     <input type="text" id="product-code"
                                                         class="form-control @error('code') is-invalid @enderror" name="code"
                                                         value="{{ old('code') }}" placeholder="CODE-001">
                                                     <button class="btn btn-outline-primary" type="button" id="btn-generate-code"
-                                                        title="Générer automatiquement">
+                                                        title="{{ __('Générer automatiquement') }}">
                                                         <i class="isax isax-refresh"></i>
                                                     </button>
                                                     @error('code')
@@ -129,13 +126,13 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">SKU</label>
+                                                <label class="form-label">{{ __('SKU') }}</label>
                                                 <div class="input-group">
                                                     <input type="text" id="product-sku"
                                                         class="form-control @error('sku') is-invalid @enderror" name="sku"
-                                                        value="{{ old('sku') }}" placeholder="SKU (optionnel)">
+                                                        value="{{ old('sku') }}" placeholder="{{ __('SKU (optionnel)') }}">
                                                     <button class="btn btn-outline-primary" type="button" id="btn-generate-sku"
-                                                        title="Générer depuis le nom">
+                                                        title="{{ __('Générer depuis le nom') }}">
                                                         <i class="isax isax-refresh"></i>
                                                     </button>
                                                     @error('sku')
@@ -146,10 +143,10 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Catégorie</label>
+                                                <label class="form-label">{{ __('Catégorie') }}</label>
                                                 <select class="select @error('category_id') is-invalid @enderror"
                                                     name="category_id">
-                                                    <option value="">Sélectionner</option>
+                                                    <option value="">{{ __('Sélectionner') }}</option>
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}"
                                                             {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -163,10 +160,10 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Unité</label>
+                                                <label class="form-label">{{ __('Unité') }}</label>
                                                 <select class="select @error('unit_id') is-invalid @enderror"
                                                     name="unit_id">
-                                                    <option value="">Sélectionner</option>
+                                                    <option value="">{{ __('Sélectionner') }}</option>
                                                     @foreach ($units as $unit)
                                                         <option value="{{ $unit->id }}"
                                                             {{ old('unit_id') == $unit->id ? 'selected' : '' }}>
@@ -180,10 +177,10 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Taxe</label>
+                                                <label class="form-label">{{ __('Taxe') }}</label>
                                                 <select class="select @error('tax_category_id') is-invalid @enderror"
                                                     name="tax_category_id">
-                                                    <option value="">Sélectionner</option>
+                                                    <option value="">{{ __('Sélectionner') }}</option>
                                                     @foreach ($taxCategories as $taxCategory)
                                                         <option value="{{ $taxCategory->id }}"
                                                             {{ old('tax_category_id') == $taxCategory->id ? 'selected' : '' }}>
@@ -204,37 +201,30 @@
                                  ═══════════════════════════════════════════════ --}}
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h6 class="mb-3">Tarification</h6>
+                                    <h6 class="mb-3">{{ __('Tarification') }}</h6>
                                     <div class="row gx-3">
                                         {{-- Service-only: Billing Type --}}
                                         <div class="col-lg-4 col-md-6 service-field"
                                             style="{{ old('item_type', 'product') === 'product' ? 'display:none' : '' }}">
                                             <div class="mb-3">
-                                                <label class="form-label">Type de facturation<span
+                                                <label class="form-label">{{ __('Type de facturation') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('billing_type') is-invalid @enderror"
                                                     name="billing_type">
                                                     <option value="one_time"
-                                                        {{ old('billing_type', 'one_time') === 'one_time' ? 'selected' : '' }}>
-                                                        Unique (forfait)</option>
+                                                        {{ old('billing_type', 'one_time') === 'one_time' ? 'selected' : '' }}>{{ __('Unique (forfait)') }}</option>
                                                     <option value="hourly"
-                                                        {{ old('billing_type') === 'hourly' ? 'selected' : '' }}>À l'heure
-                                                    </option>
+                                                        {{ old('billing_type') === 'hourly' ? 'selected' : '' }}>{{ __('À l\'heure') }}</option>
                                                     <option value="daily"
-                                                        {{ old('billing_type') === 'daily' ? 'selected' : '' }}>À la
-                                                        journée</option>
+                                                        {{ old('billing_type') === 'daily' ? 'selected' : '' }}>{{ __('À la journée') }}</option>
                                                     <option value="weekly"
-                                                        {{ old('billing_type') === 'weekly' ? 'selected' : '' }}>À la
-                                                        semaine</option>
+                                                        {{ old('billing_type') === 'weekly' ? 'selected' : '' }}>{{ __('À la semaine') }}</option>
                                                     <option value="monthly"
-                                                        {{ old('billing_type') === 'monthly' ? 'selected' : '' }}>Au mois
-                                                    </option>
+                                                        {{ old('billing_type') === 'monthly' ? 'selected' : '' }}>{{ __('Au mois') }}</option>
                                                     <option value="yearly"
-                                                        {{ old('billing_type') === 'yearly' ? 'selected' : '' }}>À l'année
-                                                    </option>
+                                                        {{ old('billing_type') === 'yearly' ? 'selected' : '' }}>{{ __('À l\'année') }}</option>
                                                     <option value="per_project"
-                                                        {{ old('billing_type') === 'per_project' ? 'selected' : '' }}>Par
-                                                        projet</option>
+                                                        {{ old('billing_type') === 'per_project' ? 'selected' : '' }}>{{ __('Par projet') }}</option>
                                                 </select>
                                                 @error('billing_type')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -246,7 +236,7 @@
                                         <div class="col-lg-4 col-md-6 service-field hourly-field"
                                             style="{{ old('item_type', 'product') === 'product' || !in_array(old('billing_type'), ['hourly', 'daily']) ? 'display:none' : '' }}">
                                             <div class="mb-3">
-                                                <label class="form-label">Taux horaire</label>
+                                                <label class="form-label">{{ __('Taux horaire') }}</label>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control @error('hourly_rate') is-invalid @enderror"
                                                     name="hourly_rate" value="{{ old('hourly_rate') }}"
@@ -261,7 +251,7 @@
                                         <div class="col-lg-4 col-md-6 service-field hourly-field"
                                             style="{{ old('item_type', 'product') === 'product' || !in_array(old('billing_type'), ['hourly', 'daily']) ? 'display:none' : '' }}">
                                             <div class="mb-3">
-                                                <label class="form-label">Heures estimées</label>
+                                                <label class="form-label">{{ __('Heures estimées') }}</label>
                                                 <input type="number" step="1" min="0"
                                                     class="form-control @error('estimated_hours') is-invalid @enderror"
                                                     name="estimated_hours" value="{{ old('estimated_hours') }}"
@@ -274,7 +264,7 @@
 
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Prix de vente<span
+                                                <label class="form-label">{{ __('Prix de vente') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control @error('selling_price') is-invalid @enderror"
@@ -287,7 +277,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Prix d'achat</label>
+                                                <label class="form-label">{{ __('Prix d\'achat') }}</label>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control @error('purchase_price') is-invalid @enderror"
                                                     name="purchase_price" value="{{ old('purchase_price') }}"
@@ -299,7 +289,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Devise</label>
+                                                <label class="form-label">{{ __('Devise') }}</label>
                                                 <input type="text" class="form-control"
                                                     value="{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}"
                                                     readonly disabled>
@@ -311,18 +301,15 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Type de remise</label>
+                                                <label class="form-label">{{ __('Type de remise') }}</label>
                                                 <select class="select @error('discount_type') is-invalid @enderror"
                                                     name="discount_type">
                                                     <option value="none"
-                                                        {{ old('discount_type', 'none') === 'none' ? 'selected' : '' }}>
-                                                        Aucune</option>
+                                                        {{ old('discount_type', 'none') === 'none' ? 'selected' : '' }}>{{ __('Aucune') }}</option>
                                                     <option value="percentage"
-                                                        {{ old('discount_type') === 'percentage' ? 'selected' : '' }}>
-                                                        Pourcentage (%)</option>
+                                                        {{ old('discount_type') === 'percentage' ? 'selected' : '' }}>{{ __('Pourcentage (%)') }}</option>
                                                     <option value="fixed"
-                                                        {{ old('discount_type') === 'fixed' ? 'selected' : '' }}>Fixe
-                                                    </option>
+                                                        {{ old('discount_type') === 'fixed' ? 'selected' : '' }}>{{ __('Fixe') }}</option>
                                                 </select>
                                                 @error('discount_type')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -331,7 +318,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Valeur de la remise</label>
+                                                <label class="form-label">{{ __('Valeur de la remise') }}</label>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control @error('discount_value') is-invalid @enderror"
                                                     name="discount_value" value="{{ old('discount_value') }}"
@@ -346,11 +333,11 @@
                                         <div class="col-lg-4 col-md-6 service-field"
                                             style="{{ old('item_type', 'product') === 'product' ? 'display:none' : '' }}">
                                             <div class="mb-3">
-                                                <label class="form-label">Code SAC</label>
+                                                <label class="form-label">{{ __('Code SAC') }}</label>
                                                 <input type="text"
                                                     class="form-control @error('sac_code') is-invalid @enderror"
                                                     name="sac_code" value="{{ old('sac_code') }}"
-                                                    placeholder="Code comptable service">
+                                                    placeholder="{{ __('Code comptable service') }}">
                                                 @error('sac_code')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -366,11 +353,11 @@
                             <div class="card mb-3 product-field"
                                 style="{{ old('item_type') === 'service' ? 'display:none' : '' }}">
                                 <div class="card-body">
-                                    <h6 class="mb-3"><i class="isax isax-building-45 me-1"></i>Inventaire</h6>
+                                    <h6 class="mb-3"><i class="isax isax-building-45 me-1"></i>{{ __('Inventaire') }}</h6>
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Quantité</label>
+                                                <label class="form-label">{{ __('Quantité') }}</label>
                                                 <input type="number" step="1" min="0"
                                                     class="form-control @error('quantity') is-invalid @enderror"
                                                     name="quantity" value="{{ old('quantity') }}" placeholder="0">
@@ -381,7 +368,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Quantité d'alerte</label>
+                                                <label class="form-label">{{ __('Quantité d\'alerte') }}</label>
                                                 <input type="number" step="1" min="0"
                                                     class="form-control @error('alert_quantity') is-invalid @enderror"
                                                     name="alert_quantity" value="{{ old('alert_quantity') }}"
@@ -393,7 +380,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Code-barres</label>
+                                                <label class="form-label">{{ __('Code-barres') }}</label>
                                                 <input type="text"
                                                     class="form-control @error('barcode') is-invalid @enderror"
                                                     name="barcode" value="{{ old('barcode') }}" placeholder="EAN / UPC">
@@ -422,13 +409,13 @@
                                  ═══════════════════════════════════════════════ --}}
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h6 class="mb-3">Description & Statut</h6>
+                                    <h6 class="mb-3">{{ __('Description & Statut') }}</h6>
                                     <div class="row gx-3">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Description</label>
+                                                <label class="form-label">{{ __('Description') }}</label>
                                                 <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="4"
-                                                    placeholder="Décrivez votre produit ou service...">{{ old('description') }}</textarea>
+                                                    placeholder="{{ __('Décrivez votre produit ou service...') }}">{{ old('description') }}</textarea>
                                                 @error('description')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -440,7 +427,7 @@
                                                     <input class="form-check-input" type="checkbox" name="is_active"
                                                         id="is-active" value="1"
                                                         {{ old('is_active', '1') ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="is-active">Actif</label>
+                                                    <label class="form-check-label" for="is-active">{{ __('Actif') }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -453,8 +440,8 @@
                                  ═══════════════════════════════════════════════ --}}
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <a href="{{ route('bo.catalog.products.index') }}"
-                                    class="btn btn-outline-white">Annuler</a>
-                                <button type="submit" class="btn btn-primary">Créer</button>
+                                    class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                <button type="submit" class="btn btn-primary">{{ __('Créer') }}</button>
                             </div>
 
                         </form>
@@ -487,7 +474,7 @@
                     var file = this.files[0];
                     if (!file) return;
                     if (file.size > 5 * 1024 * 1024) {
-                        alert("L'image ne doit pas dépasser 5 Mo.");
+                        alert("{{ __('L\'image ne doit pas dépasser 5 Mo.') }}");
                         this.value = '';
                         return;
                     }

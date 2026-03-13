@@ -27,11 +27,11 @@ class UpdateInvoiceReminderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'invoice_id.exists'  => 'La facture sélectionnée est invalide.',
-            'type.in'            => 'Le type de rappel est invalide.',
-            'channel.in'         => 'Le canal de notification est invalide.',
-            'status.in'          => 'Le statut est invalide.',
-            'scheduled_at.date'  => 'La date de planification n\'est pas valide.',
+            'invoice_id.exists'  => __('La facture sélectionnée est invalide.'),
+            'type.in'            => __('Le type de rappel est invalide.'),
+            'channel.in'         => __('Le canal de notification est invalide.'),
+            'status.in'          => __('Le statut est invalide.'),
+            'scheduled_at.date'  => __('La date de planification n\'est pas valide.'),
         ];
     }
 }

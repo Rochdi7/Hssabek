@@ -27,7 +27,7 @@ class UnitController extends Controller
 
         Unit::create($request->validated());
 
-        return redirect()->back()->with('success', 'Unité ajoutée avec succès.');
+        return redirect()->back()->with('success', __('Unité ajoutée avec succès.'));
     }
 
     public function update(UpdateUnitRequest $request, Unit $unit)
@@ -36,7 +36,7 @@ class UnitController extends Controller
 
         $unit->update($request->validated());
 
-        return redirect()->back()->with('success', 'Unité mise à jour avec succès.');
+        return redirect()->back()->with('success', __('Unité mise à jour avec succès.'));
     }
 
     public function destroy(Unit $unit)
@@ -51,6 +51,6 @@ class UnitController extends Controller
 
         $unit->delete();
 
-        return redirect()->back()->with('success', 'Unité supprimée avec succès.');
+        return redirect()->back()->with('success', __('Unité supprimée avec succès.'));
     }
 }

@@ -50,7 +50,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('sa.access.roles.index')
-            ->with('success', 'Role created successfully.');
+            ->with('success', __('Role created successfully.'));
     }
 
     /**
@@ -65,7 +65,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('sa.access.roles.index')
-            ->with('success', 'Role updated successfully.');
+            ->with('success', __('Role updated successfully.'));
     }
 
     /**
@@ -77,7 +77,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('sa.access.roles.index')
-            ->with('success', 'Role deleted successfully.');
+            ->with('success', __('Role deleted successfully.'));
     }
 
     /**
@@ -119,7 +119,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('sa.access.roles.permissions', $role)
-            ->with('success', 'Permissions updated successfully.');
+            ->with('success', __('Permissions updated successfully.'));
     }
 
     /**
@@ -149,7 +149,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('sa.access.permissions.index')
-            ->with('success', 'Permission created successfully.');
+            ->with('success', __('Permission created successfully.'));
     }
 
     /**
@@ -163,7 +163,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('sa.access.permissions.index')
-            ->with('success', 'Permission updated successfully.');
+            ->with('success', __('Permission updated successfully.'));
     }
 
     /**
@@ -175,7 +175,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('sa.access.permissions.index')
-            ->with('success', 'Permission deleted successfully.');
+            ->with('success', __('Permission deleted successfully.'));
     }
 
     /**

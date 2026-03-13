@@ -21,8 +21,8 @@ class ResendVerificationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'L\'adresse e-mail est obligatoire.',
-            'email.email' => 'L\'adresse e-mail n\'est pas valide.',
+            'email.required' => __('L\'adresse e-mail est obligatoire.'),
+            'email.email' => __('L\'adresse e-mail n\'est pas valide.'),
         ];
     }
 }

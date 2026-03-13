@@ -1,14 +1,14 @@
 {{--
     Column Toggle Dropdown Component
     Usage: @include('backoffice.components.column-toggle', ['columns' => ['Nom', 'E-mail', 'Statut']])
-    
+
     - $columns: array of visible column names (excluding checkbox & actions columns)
     - The component auto-targets the closest .table-responsive table
 --}}
 <div class="dropdown column-toggle-dropdown">
     <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
         data-bs-toggle="dropdown" data-bs-auto-close="outside">
-        <i class="isax isax-grid-3 me-1"></i>Colonnes
+        <i class="isax isax-grid-3 me-1"></i>{{ __('Colonnes') }}
     </a>
     <ul class="dropdown-menu dropdown-menu-end">
         @foreach ($columns as $index => $colName)

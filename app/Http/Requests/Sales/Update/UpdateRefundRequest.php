@@ -23,11 +23,11 @@ class UpdateRefundRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'amount.required'     => 'Le montant est obligatoire.',
-            'amount.gt'           => 'Le montant doit être supérieur à zéro.',
-            'status.required'     => 'Le statut est obligatoire.',
-            'status.in'           => 'Le statut est invalide.',
-            'refunded_at.required' => 'La date du remboursement est obligatoire.',
+            'amount.required'     => __('Le montant est obligatoire.'),
+            'amount.gt'           => __('Le montant doit être supérieur à zéro.'),
+            'status.required'     => __('Le statut est obligatoire.'),
+            'status.in'           => __('Le statut est invalide.'),
+            'refunded_at.required' => __('La date du remboursement est obligatoire.'),
         ];
     }
 }

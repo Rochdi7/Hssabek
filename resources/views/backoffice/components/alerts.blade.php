@@ -6,7 +6,7 @@
             <div class="d-flex align-items-center">
                 <i class="isax isax-tick-circle me-2"></i>
                 <div>
-                    <strong>Success!</strong> {{ session('success') }}
+                    <strong>{{ __('Succès !') }}</strong> {{ session('success') }}
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -19,7 +19,7 @@
             <div class="d-flex align-items-center">
                 <i class="isax isax-close-circle me-2"></i>
                 <div>
-                    <strong>Error!</strong> {{ session('error') }}
+                    <strong>{{ __('Erreur !') }}</strong> {{ session('error') }}
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -32,7 +32,7 @@
             <div class="d-flex align-items-center">
                 <i class="isax isax-warning-2 me-2"></i>
                 <div>
-                    <strong>Warning!</strong> {{ session('warning') }}
+                    <strong>{{ __('Attention !') }}</strong> {{ session('warning') }}
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -45,7 +45,7 @@
             <div class="d-flex align-items-center">
                 <i class="isax isax-info-circle me-2"></i>
                 <div>
-                    <strong>Info!</strong> {{ session('info') }}
+                    <strong>{{ __('Info !') }}</strong> {{ session('info') }}
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

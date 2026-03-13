@@ -33,16 +33,16 @@ class StoreStockMovementRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'product_id.required'    => 'Le produit est obligatoire.',
-            'product_id.exists'      => 'Le produit sélectionné est invalide.',
-            'warehouse_id.required'  => 'L\'entrepôt est obligatoire.',
-            'warehouse_id.exists'    => 'L\'entrepôt sélectionné est invalide.',
-            'movement_type.required' => 'Le type de mouvement est obligatoire.',
-            'movement_type.in'       => 'Le type de mouvement est invalide.',
-            'quantity.required'      => 'La quantité est obligatoire.',
-            'quantity.numeric'       => 'La quantité doit être un nombre.',
-            'quantity.min'           => 'La quantité doit être supérieure à zéro.',
-            'note.max'              => 'La note ne doit pas dépasser 1000 caractères.',
+            'product_id.required'    => __('Le produit est obligatoire.'),
+            'product_id.exists'      => __('Le produit sélectionné est invalide.'),
+            'warehouse_id.required'  => __('L\'entrepôt est obligatoire.'),
+            'warehouse_id.exists'    => __('L\'entrepôt sélectionné est invalide.'),
+            'movement_type.required' => __('Le type de mouvement est obligatoire.'),
+            'movement_type.in'       => __('Le type de mouvement est invalide.'),
+            'quantity.required'      => __('La quantité est obligatoire.'),
+            'quantity.numeric'       => __('La quantité doit être un nombre.'),
+            'quantity.min'           => __('La quantité doit être supérieure à zéro.'),
+            'note.max'              => __('La note ne doit pas dépasser 1000 caractères.'),
         ];
     }
 }

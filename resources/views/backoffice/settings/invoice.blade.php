@@ -18,7 +18,7 @@
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Paramètres de facturation</h6>
+                                    <h6 class="mb-0">{{ __('Paramètres de facturation') }}</h6>
                                 </div>
                                 <form action="{{ route('bo.settings.invoice.update') }}" method="POST">
                                     @csrf
@@ -31,15 +31,15 @@
                                                 'inputName'   => 'cropped_invoice_image',
                                                 'previewId'   => 'invoice-image-preview',
                                                 'hasImage'    => $tenant->hasMedia('invoice_image'),
-                                                'label'       => 'Image de facture',
+                                                'label'       => __('Image de facture'),
                                                 'required'    => false,
                                             ])
                                         </div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">Modèle PDF</label>
-                                            <p class="text-muted fs-12 mb-0">Le modèle utilisé pour générer les PDF de vos documents.</p>
+                                            <label class="form-label fw-medium">{{ __('Modèle PDF') }}</label>
+                                            <p class="text-muted fs-12 mb-0">{{ __('Le modèle utilisé pour générer les PDF de vos documents.') }}</p>
                                         </div>
                                         <div class="col-md-4 col-sm-12 text-end">
                                             @php
@@ -49,13 +49,13 @@
                                             @endphp
                                             <span class="badge bg-primary-transparent text-primary fs-12 me-2">{{ $currentName }}</span>
                                             <a href="{{ route('bo.settings.invoice-templates.index') }}" class="btn btn-sm btn-outline-primary">
-                                                <i class="isax isax-document-text me-1"></i>Gérer les modèles
+                                                <i class="isax isax-document-text me-1"></i>{{ __('Gérer les modèles') }}
                                             </a>
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">Préfixe de facture</label>
+                                            <label class="form-label fw-medium">{{ __('Préfixe de facture') }}</label>
                                         </div>
                                         <div class="col-md-4 col-sm-12">
                                             <div class="mb-3">
@@ -69,12 +69,12 @@
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">Arrondi de facture</label>
+                                            <label class="form-label fw-medium">{{ __('Arrondi de facture') }}</label>
                                         </div>
                                         <div class="col-md-3 col-sm-12">
                                             <div class="mb-3 d-flex align-items-center">
                                                 <select class="form-select @error('invoice_round_off') is-invalid @enderror" name="invoice_round_off">
-                                                    <option value="0" {{ old('invoice_round_off', $settings->invoice_settings['invoice_round_off'] ?? '') == '0' ? 'selected' : '' }}>Aucun</option>
+                                                    <option value="0" {{ old('invoice_round_off', $settings->invoice_settings['invoice_round_off'] ?? '') == '0' ? 'selected' : '' }}>{{ __('Aucun') }}</option>
                                                     <option value="5" {{ old('invoice_round_off', $settings->invoice_settings['invoice_round_off'] ?? '') == '5' ? 'selected' : '' }}>5</option>
                                                     <option value="10" {{ old('invoice_round_off', $settings->invoice_settings['invoice_round_off'] ?? '') == '10' ? 'selected' : '' }}>10</option>
                                                 </select>
@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">Afficher les détails de l'entreprise</label>
+                                            <label class="form-label fw-medium">{{ __("Afficher les détails de l'entreprise") }}</label>
                                         </div>
                                         <div class="col-md-4 col-sm-12">
                                             <div class="form-check form-check-sm form-switch text-end">
@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="row align-items-center mt-3">
                                         <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">Délai de paiement (jours)</label>
+                                            <label class="form-label fw-medium">{{ __('Délai de paiement (jours)') }}</label>
                                         </div>
                                         <div class="col-md-4 col-sm-12">
                                             <div class="mb-3">
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-md-4 col-sm-12">
-                                            <label class="form-label fw-medium">Conditions de facturation</label>
+                                            <label class="form-label fw-medium">{{ __('Conditions de facturation') }}</label>
                                         </div>
                                         <div class="col-md-8 col-sm-12">
                                             <div class="mb-3">
@@ -124,7 +124,7 @@
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-md-4 col-sm-12">
-                                            <label class="form-label fw-medium">Pied de page de facture</label>
+                                            <label class="form-label fw-medium">{{ __('Pied de page de facture') }}</label>
                                         </div>
                                         <div class="col-md-8 col-sm-12">
                                             <div class="mb-3">
@@ -135,8 +135,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between settings-bottom-btn mt-3">
-                                        <button type="button" class="btn btn-outline-white me-2" onclick="window.location.reload()">Annuler</button>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        <button type="button" class="btn btn-outline-white me-2" onclick="window.location.reload()">{{ __('Annuler') }}</button>
+                                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -158,4 +158,3 @@
            End Page Content
           ========================= -->
 @endsection
-

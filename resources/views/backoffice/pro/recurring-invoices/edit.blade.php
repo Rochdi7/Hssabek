@@ -8,11 +8,11 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.pro.recurring-invoices.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Factures récurrentes</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Factures récurrentes') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Modifier la facture récurrente</h5>
+                                <h5 class="mb-3">{{ __('Modifier la facture récurrente') }}</h5>
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <ul class="mb-0">
@@ -29,11 +29,11 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Client <span
+                                                <label class="form-label">{{ __('Client') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('customer_id') is-invalid @enderror"
                                                     name="customer_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">— {{ __('Sélectionner') }} —</option>
                                                     @foreach ($customers as $customer)
                                                         <option value="{{ $customer->id }}"
                                                             {{ old('customer_id', $recurringInvoice->customer_id) == $customer->id ? 'selected' : '' }}>
@@ -47,12 +47,12 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Facture modèle <span
+                                                <label class="form-label">{{ __('Facture modèle') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select
                                                     class="form-select @error('template_invoice_id') is-invalid @enderror"
                                                     name="template_invoice_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">— {{ __('Sélectionner') }} —</option>
                                                     @foreach ($invoices as $invoice)
                                                         <option value="{{ $invoice->id }}"
                                                             {{ old('template_invoice_id', $recurringInvoice->template_invoice_id) == $invoice->id ? 'selected' : '' }}>
@@ -66,19 +66,19 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Intervalle <span
+                                                <label class="form-label">{{ __('Intervalle') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('interval') is-invalid @enderror"
                                                     name="interval">
                                                     <option value="week"
                                                         {{ old('interval', $recurringInvoice->interval) === 'week' ? 'selected' : '' }}>
-                                                        Semaine</option>
+                                                        {{ __('Semaine') }}</option>
                                                     <option value="month"
                                                         {{ old('interval', $recurringInvoice->interval) === 'month' ? 'selected' : '' }}>
-                                                        Mois</option>
+                                                        {{ __('Mois') }}</option>
                                                     <option value="year"
                                                         {{ old('interval', $recurringInvoice->interval) === 'year' ? 'selected' : '' }}>
-                                                        Année</option>
+                                                        {{ __('Année') }}</option>
                                                 </select>
                                                 @error('interval')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Tous les (nombre) <span
+                                                <label class="form-label">{{ __('Tous les (nombre)') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="number" min="1"
                                                     class="form-control @error('every') is-invalid @enderror" name="every"
@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Prochaine exécution <span
+                                                <label class="form-label">{{ __('Prochaine exécution') }} <span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control datetimepicker @error('next_run_at') is-invalid @enderror"
@@ -112,12 +112,12 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Date de fin</label>
+                                                <label class="form-label">{{ __('Date de fin') }}</label>
                                                 <input type="text"
                                                     class="form-control datetimepicker @error('end_at') is-invalid @enderror"
                                                     name="end_at"
                                                     value="{{ old('end_at', $recurringInvoice->end_at instanceof \Carbon\Carbon ? $recurringInvoice->end_at->format('d-m-Y') : $recurringInvoice->end_at) }}"
-                                                    placeholder="Laisser vide = sans fin">
+                                                    placeholder="{{ __('Laisser vide = sans fin') }}">
                                                 @error('end_at')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -125,18 +125,18 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Statut</label>
+                                                <label class="form-label">{{ __('Statut') }}</label>
                                                 <select class="form-select @error('status') is-invalid @enderror"
                                                     name="status">
                                                     <option value="active"
                                                         {{ old('status', $recurringInvoice->status) === 'active' ? 'selected' : '' }}>
-                                                        Actif</option>
+                                                        {{ __('Actif') }}</option>
                                                     <option value="paused"
                                                         {{ old('status', $recurringInvoice->status) === 'paused' ? 'selected' : '' }}>
-                                                        En pause</option>
+                                                        {{ __('En pause') }}</option>
                                                     <option value="cancelled"
                                                         {{ old('status', $recurringInvoice->status) === 'cancelled' ? 'selected' : '' }}>
-                                                        Annulé</option>
+                                                        {{ __('Annulé') }}</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -146,8 +146,8 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.pro.recurring-invoices.index') }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                            class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Mettre à jour') }}</button>
                                     </div>
                                 </form>
                             </div>

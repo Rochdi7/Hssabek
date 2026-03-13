@@ -15,7 +15,7 @@
                         @endcomponent
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-4 pb-4 border-bottom">
-                                <h6 class="fw-bold mb-0">Paramètres de l'entreprise</h6>
+                                <h6 class="fw-bold mb-0">{{ __("Paramètres de l'entreprise") }}</h6>
                             </div>
                             <form action="{{ route('bo.settings.company.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -26,14 +26,14 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-info-circle"></i></span>
-                                            Informations générales
+                                            {{ __('Informations générales') }}
                                         </h6>
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-6 col-lg-6 col-md-4">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Nom de l'entreprise <span class="text-danger">*</span>
+                                                    {{ __("Nom de l'entreprise") }} <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="text" class="form-control @error('company_name') is-invalid @enderror"
                                                     name="company_name"
@@ -44,7 +44,7 @@
                                         <div class="col-xl-6 col-lg-6 col-md-4">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Adresse e-mail
+                                                    {{ __('Adresse e-mail') }}
                                                 </label>
                                                 <input type="email" class="form-control @error('company_email') is-invalid @enderror"
                                                     name="company_email"
@@ -55,7 +55,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Téléphone
+                                                    {{ __('Téléphone') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('company_phone') is-invalid @enderror"
                                                     name="company_phone"
@@ -66,7 +66,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Fax
+                                                    {{ __('Fax') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('company_fax') is-invalid @enderror"
                                                     name="company_fax"
@@ -77,7 +77,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Site web
+                                                    {{ __('Site web') }}
                                                 </label>
                                                 <input type="url" class="form-control @error('company_website') is-invalid @enderror"
                                                     name="company_website"
@@ -88,7 +88,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    N° d'identification fiscale
+                                                    {{ __("N° d'identification fiscale") }}
                                                 </label>
                                                 <div class="input-group">
                                                     <input type="text" id="tax_id"
@@ -97,7 +97,7 @@
                                                         value="{{ old('tax_id', $settings->company_settings['tax_id'] ?? '') }}">
                                                     <button class="btn btn-outline-primary" type="button"
                                                         onclick="document.getElementById('tax_id').value = 'IF' + Math.floor(100000 + Math.random() * 900000)"
-                                                        title="Générer automatiquement">
+                                                        title="{{ __('Générer automatiquement') }}">
                                                         <i class="isax isax-refresh"></i>
                                                     </button>
                                                     @error('tax_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -107,7 +107,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    N° registre de commerce
+                                                    {{ __('N° registre de commerce') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('registration_number') is-invalid @enderror"
                                                     name="registration_number"
@@ -125,7 +125,7 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-image"></i></span>
-                                            Images de l'entreprise
+                                            {{ __("Images de l'entreprise") }}
                                         </h6>
                                     </div>
 
@@ -135,8 +135,8 @@
                                             <div class="row gy-3 align-items-center">
                                                 <div class="col-lg-6">
                                                     <div class="logo-info">
-                                                        <h6 class="fs-14 fw-medium mb-1">Logo</h6>
-                                                        <p class="fs-12">Téléchargez le logo de votre entreprise</p>
+                                                        <h6 class="fs-14 fw-medium mb-1">{{ __('Logo') }}</h6>
+                                                        <p class="fs-12">{{ __('Téléchargez le logo de votre entreprise') }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -146,10 +146,10 @@
                                                                 <div class="image-upload mb-1">
                                                                     <input type="file" name="logo" accept="image/*">
                                                                     <div class="image-uploads">
-                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                        <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
                                                                     </div>
                                                                 </div>
-                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                                <span class="fs-12">{{ __('Taille recommandée : 250 px × 100 px') }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -158,7 +158,7 @@
                                         </div>
                                         <div class="col-xl-3">
                                             <div class="new-logo ms-xl-auto bg-light border">
-                                                <img src="{{ $tenant->logo_url }}" alt="Logo">
+                                                <img src="{{ $tenant->logo_url }}" alt="{{ __('Logo') }}">
                                                 @if($tenant->hasMedia('logo'))
                                                     <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
                                                         onclick="document.getElementById('delete_logo').value='1'"><i class="isax isax-trash"></i></a>
@@ -174,8 +174,8 @@
                                             <div class="row gy-3 align-items-center">
                                                 <div class="col-lg-6">
                                                     <div class="logo-info">
-                                                        <h6 class="fs-14 fw-medium mb-1">Logo sombre</h6>
-                                                        <p class="fs-12">Téléchargez le logo sombre de votre entreprise</p>
+                                                        <h6 class="fs-14 fw-medium mb-1">{{ __('Logo sombre') }}</h6>
+                                                        <p class="fs-12">{{ __('Téléchargez le logo sombre de votre entreprise') }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -185,10 +185,10 @@
                                                                 <div class="image-upload mb-1">
                                                                     <input type="file" name="dark_logo" accept="image/*">
                                                                     <div class="image-uploads">
-                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                        <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
                                                                     </div>
                                                                 </div>
-                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                                <span class="fs-12">{{ __('Taille recommandée : 250 px × 100 px') }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -198,12 +198,12 @@
                                         <div class="col-xl-3">
                                             <div class="new-logo ms-xl-auto bg-dark border">
                                                 @if($tenant->dark_logo_url)
-                                                    <img src="{{ $tenant->dark_logo_url }}" alt="Logo sombre">
+                                                    <img src="{{ $tenant->dark_logo_url }}" alt="{{ __('Logo sombre') }}">
                                                     <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
                                                         onclick="document.getElementById('delete_dark_logo').value='1'"><i class="isax isax-trash"></i></a>
                                                     <input type="hidden" name="delete_dark_logo" id="delete_dark_logo" value="0">
                                                 @else
-                                                    <img src="{{ asset('build/img/settings/company-setting-2.svg') }}" alt="Logo sombre">
+                                                    <img src="{{ asset('build/img/settings/company-setting-2.svg') }}" alt="{{ __('Logo sombre') }}">
                                                 @endif
                                             </div>
                                         </div>
@@ -215,8 +215,8 @@
                                             <div class="row gy-3 align-items-center">
                                                 <div class="col-lg-6">
                                                     <div class="logo-info">
-                                                        <h6 class="fs-14 fw-medium mb-1">Mini Logo</h6>
-                                                        <p class="fs-12">Téléchargez le mini logo de votre entreprise</p>
+                                                        <h6 class="fs-14 fw-medium mb-1">{{ __('Mini Logo') }}</h6>
+                                                        <p class="fs-12">{{ __('Téléchargez le mini logo de votre entreprise') }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -226,10 +226,10 @@
                                                                 <div class="image-upload mb-1">
                                                                     <input type="file" name="mini_logo" accept="image/*">
                                                                     <div class="image-uploads">
-                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                        <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
                                                                     </div>
                                                                 </div>
-                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                                <span class="fs-12">{{ __('Taille recommandée : 250 px × 100 px') }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -239,12 +239,12 @@
                                         <div class="col-xl-3">
                                             <div class="new-logo ms-xl-auto bg-light border">
                                                 @if($tenant->mini_logo_url)
-                                                    <img src="{{ $tenant->mini_logo_url }}" alt="Mini Logo">
+                                                    <img src="{{ $tenant->mini_logo_url }}" alt="{{ __('Mini Logo') }}">
                                                     <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
                                                         onclick="document.getElementById('delete_mini_logo').value='1'"><i class="isax isax-trash"></i></a>
                                                     <input type="hidden" name="delete_mini_logo" id="delete_mini_logo" value="0">
                                                 @else
-                                                    <img src="{{ asset('build/img/settings/company-setting-1.svg') }}" alt="Mini Logo">
+                                                    <img src="{{ asset('build/img/settings/company-setting-1.svg') }}" alt="{{ __('Mini Logo') }}">
                                                 @endif
                                             </div>
                                         </div>
@@ -256,8 +256,8 @@
                                             <div class="row gy-3 align-items-center">
                                                 <div class="col-lg-6">
                                                     <div class="logo-info">
-                                                        <h6 class="fs-14 fw-medium mb-1">Mini Logo sombre</h6>
-                                                        <p class="fs-12">Téléchargez le mini logo sombre de votre entreprise</p>
+                                                        <h6 class="fs-14 fw-medium mb-1">{{ __('Mini Logo sombre') }}</h6>
+                                                        <p class="fs-12">{{ __('Téléchargez le mini logo sombre de votre entreprise') }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -267,10 +267,10 @@
                                                                 <div class="image-upload mb-1">
                                                                     <input type="file" name="dark_mini_logo" accept="image/*">
                                                                     <div class="image-uploads">
-                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                        <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
                                                                     </div>
                                                                 </div>
-                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                                <span class="fs-12">{{ __('Taille recommandée : 250 px × 100 px') }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -280,12 +280,12 @@
                                         <div class="col-xl-3">
                                             <div class="new-logo ms-xl-auto bg-dark border">
                                                 @if($tenant->dark_mini_logo_url)
-                                                    <img src="{{ $tenant->dark_mini_logo_url }}" alt="Mini Logo sombre">
+                                                    <img src="{{ $tenant->dark_mini_logo_url }}" alt="{{ __('Mini Logo sombre') }}">
                                                     <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
                                                         onclick="document.getElementById('delete_dark_mini_logo').value='1'"><i class="isax isax-trash"></i></a>
                                                     <input type="hidden" name="delete_dark_mini_logo" id="delete_dark_mini_logo" value="0">
                                                 @else
-                                                    <img src="{{ asset('build/img/settings/company-setting-4.svg') }}" alt="Mini Logo sombre">
+                                                    <img src="{{ asset('build/img/settings/company-setting-4.svg') }}" alt="{{ __('Mini Logo sombre') }}">
                                                 @endif
                                             </div>
                                         </div>
@@ -297,8 +297,8 @@
                                             <div class="row gy-3 align-items-center">
                                                 <div class="col-lg-6">
                                                     <div class="logo-info">
-                                                        <h6 class="fs-14 fw-medium mb-1">Favicon</h6>
-                                                        <p class="fs-12">Téléchargez le favicon de votre entreprise</p>
+                                                        <h6 class="fs-14 fw-medium mb-1">{{ __('Favicon') }}</h6>
+                                                        <p class="fs-12">{{ __('Téléchargez le favicon de votre entreprise') }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -308,10 +308,10 @@
                                                                 <div class="image-upload mb-1">
                                                                     <input type="file" name="favicon" accept="image/*">
                                                                     <div class="image-uploads">
-                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                        <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
                                                                     </div>
                                                                 </div>
-                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                                <span class="fs-12">{{ __('Taille recommandée : 250 px × 100 px') }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -321,12 +321,12 @@
                                         <div class="col-xl-3">
                                             <div class="new-logo ms-xl-auto bg-light border">
                                                 @if($tenant->favicon_url)
-                                                    <img src="{{ $tenant->favicon_url }}" alt="Favicon">
+                                                    <img src="{{ $tenant->favicon_url }}" alt="{{ __('Favicon') }}">
                                                     <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
                                                         onclick="document.getElementById('delete_favicon').value='1'"><i class="isax isax-trash"></i></a>
                                                     <input type="hidden" name="delete_favicon" id="delete_favicon" value="0">
                                                 @else
-                                                    <img src="{{ asset('build/img/settings/company-setting-3.svg') }}" alt="Favicon">
+                                                    <img src="{{ asset('build/img/settings/company-setting-3.svg') }}" alt="{{ __('Favicon') }}">
                                                 @endif
                                             </div>
                                         </div>
@@ -338,8 +338,8 @@
                                             <div class="row gy-3 align-items-center">
                                                 <div class="col-lg-6">
                                                     <div class="logo-info">
-                                                        <h6 class="fs-14 fw-medium mb-1">Icône Apple</h6>
-                                                        <p class="fs-12">Téléchargez l'icône Apple de votre entreprise</p>
+                                                        <h6 class="fs-14 fw-medium mb-1">{{ __('Icône Apple') }}</h6>
+                                                        <p class="fs-12">{{ __("Téléchargez l'icône Apple de votre entreprise") }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -349,10 +349,10 @@
                                                                 <div class="image-upload mb-1">
                                                                     <input type="file" name="apple_icon" accept="image/*">
                                                                     <div class="image-uploads">
-                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                        <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
                                                                     </div>
                                                                 </div>
-                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                                <span class="fs-12">{{ __('Taille recommandée : 250 px × 100 px') }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -362,12 +362,12 @@
                                         <div class="col-xl-3">
                                             <div class="new-logo ms-xl-auto bg-light border">
                                                 @if($tenant->apple_icon_url)
-                                                    <img src="{{ $tenant->apple_icon_url }}" alt="Icône Apple">
+                                                    <img src="{{ $tenant->apple_icon_url }}" alt="{{ __('Icône Apple') }}">
                                                     <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
                                                         onclick="document.getElementById('delete_apple_icon').value='1'"><i class="isax isax-trash"></i></a>
                                                     <input type="hidden" name="delete_apple_icon" id="delete_apple_icon" value="0">
                                                 @else
-                                                    <img src="{{ asset('build/img/settings/company-setting-3.svg') }}" alt="Icône Apple">
+                                                    <img src="{{ asset('build/img/settings/company-setting-3.svg') }}" alt="{{ __('Icône Apple') }}">
                                                 @endif
                                             </div>
                                         </div>
@@ -380,14 +380,14 @@
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-map"></i></span>
-                                            Adresse
+                                            {{ __('Adresse') }}
                                         </h6>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Adresse
+                                                    {{ __('Adresse') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('address') is-invalid @enderror"
                                                     name="address"
@@ -398,7 +398,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Pays
+                                                    {{ __('Pays') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('country') is-invalid @enderror"
                                                     name="country"
@@ -409,7 +409,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Région / Province
+                                                    {{ __('Région / Province') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('state') is-invalid @enderror"
                                                     name="state"
@@ -420,7 +420,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Ville
+                                                    {{ __('Ville') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('city') is-invalid @enderror"
                                                     name="city"
@@ -431,7 +431,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Code postal
+                                                    {{ __('Code postal') }}
                                                 </label>
                                                 <input type="text" class="form-control @error('postal_code') is-invalid @enderror"
                                                     name="postal_code"
@@ -442,8 +442,8 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between settings-bottom-btn mt-0">
-                                    <button type="button" class="btn btn-outline-white me-2" onclick="window.location.reload()">Annuler</button>
-                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    <button type="button" class="btn btn-outline-white me-2" onclick="window.location.reload()">{{ __('Annuler') }}</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                 </div>
                             </form>
                         </div>
@@ -481,7 +481,7 @@
                     var file = this.files[0];
                     if (!file) return;
                     if (file.size > 5 * 1024 * 1024) {
-                        alert("L'image ne doit pas dépasser 5 Mo.");
+                        alert({!! json_encode(__("L'image ne doit pas dépasser 5 Mo.")) !!});
                         this.value = '';
                         return;
                     }

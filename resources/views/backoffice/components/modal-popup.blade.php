@@ -620,7 +620,7 @@
                                     <div>
                                         <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                         <div>
-                                            <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                            <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                             <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                             <p class="mb-1">Phone : +1 54664 75945</p>
                                             <p class="mb-1">Email : info@example.com</p>
@@ -1855,7 +1855,7 @@
                                     <div>
                                         <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                         <div>
-                                            <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                            <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                             <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                             <p class="mb-1">Phone : +1 54664 75945</p>
                                             <p class="mb-1">Email : info@example.com</p>
@@ -4246,7 +4246,7 @@
                             <div class="col-md-12">
                                 <div>
                                     <label class="form-label">Sitemap URL <span class="text-danger">*</span></label>
-                                    <input type="text" value="https://localhost/Kanakku" class="form-control">
+                                    <input type="text" value="https://localhost/Hssabek" class="form-control">
                                 </div>
                             </div>                                
                         </div>							
@@ -4612,7 +4612,7 @@
                                                         <div>
                                                             <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                                             <div>
-                                                                <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                                                <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                                                 <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                                                 <p class="mb-1">Phone : +1 54664 75945</p>
                                                                 <p class="mb-1">Email : info@example.com</p>
@@ -9814,7 +9814,7 @@
                                     <div>
                                         <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                         <div>
-                                            <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                            <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                             <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                             <p class="mb-1">Phone : +1 54664 75945</p>
                                             <p class="mb-1">Email : info@example.com</p>
@@ -11570,7 +11570,7 @@
                                                             <div>
                                                                 <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                                                 <div>
-                                                                    <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                                                    <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                                                     <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                                                     <p class="mb-1">Phone : +1 54664 75945</p>
                                                                     <p class="mb-1">Email : info@example.com</p>
@@ -17208,7 +17208,7 @@
                                                 <div>
                                                     <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                                     <div>                                                                   
-                                                        <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                                        <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                                         <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                                         <p class="mb-1">Phone : +1 54664 75945</p>
                                                         <p class="mb-1">Email : info@example.com</p>
@@ -18429,7 +18429,7 @@
                                                         <div>
                                                             <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                                             <div>
-                                                                <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                                                <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                                                 <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                                                 <p class="mb-1">Phone : +1 54664 75945</p>
                                                                 <p class="mb-1">Email : info@example.com</p>
@@ -19574,7 +19574,7 @@
                                     <div>
                                         <h6 class="mb-2 fs-16 fw-semibold">Billing From</h6>
                                         <div>
-                                            <h6 class="fs-14 fw-semibold mb-1">Kanakku Invoice Management</h6>
+                                            <h6 class="fs-14 fw-semibold mb-1">Hssabek Invoice Management</h6>
                                             <p class="mb-1">15 Hodges Mews, HP12 3JL, United Kingdom</p>
                                             <p class="mb-1">Phone : +1 54664 75945</p>
                                             <p class="mb-1">Email : info@example.com</p>

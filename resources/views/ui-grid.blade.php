@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,9 +19,9 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">Grid System</li>
                     </ol>
                 </div>
@@ -37,7 +37,8 @@
                         </div>
                         <div class="card-body">
                             <p class="text-muted">
-                                See how aspects of the Bootstrap grid system work across multiple devices with a handy table.
+                                See how aspects of the Bootstrap grid system work across multiple devices with a handy
+                                table.
                             </p>
 
                             <div class="table-responsive">
@@ -73,7 +74,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th class="text-nowrap" scope="row">Container <code class="fw-normal">max-width</code></th>
+                                            <th class="text-nowrap" scope="row">Container <code
+                                                    class="fw-normal">max-width</code></th>
                                             <td>None (auto)</td>
                                             <td>540px</td>
                                             <td>720px</td>
@@ -311,15 +313,20 @@
         <!-- End container -->
 
         <!-- Start Footer -->
-            <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+        <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
+            <p class="text-dark mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved
+            </p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

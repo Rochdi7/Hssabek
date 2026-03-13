@@ -8,19 +8,19 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.finance.loans.show', $loan) }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Retour au prêt</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Retour au prêt') }}</a></h6>
                         </div>
 
                         <div class="card">
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Échéancier — {{ $loan->reference_number ?? $loan->lender_name }}</h5>
+                                <h5 class="mb-0">{{ __('Échéancier') }} — {{ $loan->reference_number ?? $loan->lender_name }}</h5>
                                 <div class="d-flex gap-2">
                                     @if($loan->installments->isEmpty() || $loan->installments->where('status', 'paid')->isEmpty())
                                         <form method="POST" action="{{ route('bo.finance.loans.installments.generate', $loan) }}">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-outline-primary"
-                                                onclick="return confirm('Régénérer l\'échéancier ? Les échéances non payées seront recalculées.')">
-                                                <i class="isax isax-refresh me-1"></i>Générer l'échéancier
+                                                onclick="return confirm('{{ __("Régénérer l\'échéancier ? Les échéances non payées seront recalculées.") }}')">
+                                                <i class="isax isax-refresh me-1"></i>{{ __("Générer l'échéancier") }}
                                             </button>
                                         </form>
                                     @endif
@@ -31,25 +31,25 @@
                                 <div class="row mb-4">
                                     <div class="col-md-3">
                                         <div class="border rounded p-3 text-center">
-                                            <p class="text-muted mb-1 fs-13">Montant total</p>
+                                            <p class="text-muted mb-1 fs-13">{{ __('Montant total') }}</p>
                                             <h5 class="mb-0">{{ number_format($loan->total_amount, 2, ',', ' ') }}</h5>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="border rounded p-3 text-center">
-                                            <p class="text-muted mb-1 fs-13">Solde restant</p>
+                                            <p class="text-muted mb-1 fs-13">{{ __('Solde restant') }}</p>
                                             <h5 class="mb-0 text-danger">{{ number_format($loan->remaining_balance, 2, ',', ' ') }}</h5>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="border rounded p-3 text-center">
-                                            <p class="text-muted mb-1 fs-13">Échéances payées</p>
+                                            <p class="text-muted mb-1 fs-13">{{ __('Échéances payées') }}</p>
                                             <h5 class="mb-0 text-success">{{ $loan->installments->where('status', 'paid')->count() }} / {{ $loan->installments->count() }}</h5>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="border rounded p-3 text-center">
-                                            <p class="text-muted mb-1 fs-13">En retard</p>
+                                            <p class="text-muted mb-1 fs-13">{{ __('En retard') }}</p>
                                             <h5 class="mb-0 {{ $loan->installments->where('status', 'overdue')->count() > 0 ? 'text-danger' : '' }}">
                                                 {{ $loan->installments->where('status', 'overdue')->count() }}
                                             </h5>
@@ -63,14 +63,14 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>N°</th>
-                                                <th>Date d'échéance</th>
-                                                <th>Principal</th>
-                                                <th>Intérêts</th>
-                                                <th>Total</th>
-                                                <th>Payé</th>
-                                                <th>Restant</th>
-                                                <th>Statut</th>
-                                                <th class="text-end">Actions</th>
+                                                <th>{{ __('Date d\'échéance') }}</th>
+                                                <th>{{ __('Principal') }}</th>
+                                                <th>{{ __('Intérêts') }}</th>
+                                                <th>{{ __('Total') }}</th>
+                                                <th>{{ __('Payé') }}</th>
+                                                <th>{{ __('Restant') }}</th>
+                                                <th>{{ __('Statut') }}</th>
+                                                <th class="text-end">{{ __('Actions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -86,16 +86,16 @@
                                                     <td>
                                                         @switch($installment->status)
                                                             @case('paid')
-                                                                <span class="badge badge-soft-success">Payée</span>
+                                                                <span class="badge badge-soft-success">{{ __('Payée') }}</span>
                                                                 @break
                                                             @case('partial')
-                                                                <span class="badge badge-soft-info">Partiel</span>
+                                                                <span class="badge badge-soft-info">{{ __('Partiel') }}</span>
                                                                 @break
                                                             @case('pending')
-                                                                <span class="badge badge-soft-warning">En attente</span>
+                                                                <span class="badge badge-soft-warning">{{ __('En attente') }}</span>
                                                                 @break
                                                             @case('overdue')
-                                                                <span class="badge badge-soft-danger">En retard</span>
+                                                                <span class="badge badge-soft-danger">{{ __('En retard') }}</span>
                                                                 @break
                                                         @endswitch
                                                     </td>
@@ -105,12 +105,12 @@
                                                                 class="btn btn-sm btn-primary"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#payModal-{{ $installment->id }}">
-                                                                <i class="isax isax-money-send me-1"></i>Payer
+                                                                <i class="isax isax-money-send me-1"></i>{{ __('Payer') }}
                                                             </button>
                                                         @else
                                                             <span class="text-muted fs-13">
                                                                 @if($installment->paid_at)
-                                                                    Payée le {{ \Carbon\Carbon::parse($installment->paid_at)->format('d/m/Y') }}
+                                                                    {{ __('Payée le') }} {{ \Carbon\Carbon::parse($installment->paid_at)->format('d/m/Y') }}
                                                                 @endif
                                                             </span>
                                                         @endif
@@ -119,9 +119,9 @@
                                             @empty
                                                 <tr>
                                                     <td colspan="9" class="text-center text-muted py-4">
-                                                        Aucune échéance n'a été générée pour ce prêt.
+                                                        {{ __("Aucune échéance n'a été générée pour ce prêt.") }}
                                                         <br>
-                                                        <small>Cliquez sur "Générer l'échéancier" pour créer les échéances.</small>
+                                                        <small>{{ __('Cliquez sur "Générer l\'échéancier" pour créer les échéances.') }}</small>
                                                     </td>
                                                 </tr>
                                             @endforelse
@@ -147,35 +147,35 @@
                     <form method="POST" action="{{ route('bo.finance.loans.installments.pay', [$loan, $installment]) }}">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title">Payer l'échéance n°{{ $installment->installment_number }}</h5>
+                            <h5 class="modal-title">{{ __("Payer l'échéance n°") }}{{ $installment->installment_number }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label class="form-label text-muted">Montant dû</label>
+                                <label class="form-label text-muted">{{ __('Montant dû') }}</label>
                                 <p class="fw-semibold">{{ number_format($installment->remaining_amount, 2, ',', ' ') }}</p>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Montant à payer <span class="text-danger">*</span></label>
+                                <label class="form-label">{{ __('Montant à payer') }} <span class="text-danger">*</span></label>
                                 <input type="number" step="0.01" min="0.01"
                                     max="{{ $installment->remaining_amount }}"
                                     class="form-control" name="amount"
                                     value="{{ $installment->remaining_amount }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Date de paiement <span class="text-danger">*</span></label>
+                                <label class="form-label">{{ __('Date de paiement') }} <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" name="payment_date"
                                     value="{{ now()->format('Y-m-d') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" name="notes" rows="2" placeholder="Notes optionnelles..."></textarea>
+                                <label class="form-label">{{ __('Notes') }}</label>
+                                <textarea class="form-control" name="notes" rows="2" placeholder="{{ __('Notes optionnelles...') }}"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
                             <button type="submit" class="btn btn-primary">
-                                <i class="isax isax-tick-circle me-1"></i>Enregistrer le paiement
+                                <i class="isax isax-tick-circle me-1"></i>{{ __('Enregistrer le paiement') }}
                             </button>
                         </div>
                     </form>

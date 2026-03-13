@@ -33,7 +33,7 @@ class UserInvitationController extends Controller
         if ($existingUser) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Cet utilisateur existe déjà dans votre organisation.');
+                ->with('error', __('Cet utilisateur existe déjà dans votre organisation.'));
         }
 
         // Cancel any existing pending invitation for this email
@@ -53,7 +53,7 @@ class UserInvitationController extends Controller
         dispatch(new SendUserInvitationJob($invitation));
 
         return redirect()->route('bo.users.index')
-            ->with('success', "Invitation envoyée à {$request->email}.");
+            ->with('success', __("Invitation envoyée à {$request->email}."));
     }
 
     public function destroy(UserInvitation $invitation)
@@ -63,7 +63,7 @@ class UserInvitationController extends Controller
         $invitation->delete();
 
         return redirect()->route('bo.users.index')
-            ->with('success', "L'invitation a été annulée.");
+            ->with('success', __("L'invitation a été annulée."));
     }
 
     /**
@@ -121,6 +121,6 @@ class UserInvitationController extends Controller
         auth()->login($user);
 
         return redirect()->route('bo.dashboard')
-            ->with('success', 'Bienvenue ! Votre compte a été créé avec succès.');
+            ->with('success', __('Bienvenue ! Votre compte a été créé avec succès.'));
     }
 }

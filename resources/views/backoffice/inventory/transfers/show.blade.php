@@ -13,26 +13,26 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6><a href="{{ route('bo.inventory.transfers.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>Transferts de stock</a></h6>
+                    <h6><a href="{{ route('bo.inventory.transfers.index') }}"><i class="isax isax-arrow-left fs-16 me-2"></i>{{ __('Transferts de stock') }}</a></h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @if($transfer->status === 'draft')
                         <a href="{{ route('bo.inventory.transfers.edit', $transfer) }}" class="btn btn-outline-white d-flex align-items-center fs-14 fw-semibold">
-                            <i class="isax isax-edit-2 me-1"></i>Modifier
+                            <i class="isax isax-edit-2 me-1"></i>{{ __('Modifier') }}
                         </a>
                         <form method="POST" action="{{ route('bo.inventory.transfers.execute', $transfer) }}" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-primary d-flex align-items-center fs-14 fw-semibold"
-                                onclick="return confirm('Êtes-vous sûr de vouloir exécuter ce transfert ? Cette action est irréversible.')">
-                                <i class="isax isax-tick-circle me-1"></i>Exécuter le transfert
+                                onclick="return confirm('{{ __('Êtes-vous sûr de vouloir exécuter ce transfert ? Cette action est irréversible.') }}')">
+                                <i class="isax isax-tick-circle me-1"></i>{{ __('Exécuter le transfert') }}
                             </button>
                         </form>
                     @endif
                     <form method="POST" action="{{ route('bo.inventory.transfers.destroy', $transfer) }}" class="d-inline">
                         @csrf @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger d-flex align-items-center fs-14 fw-semibold"
-                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce transfert ?')">
-                            <i class="isax isax-trash me-1"></i>Supprimer
+                            onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer ce transfert ?') }}')">
+                            <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}
                         </button>
                     </form>
                 </div>
@@ -69,21 +69,21 @@
                                     </div>
                                     <div class="">
                                         <p class="text-primary fs-14 fw-medium mb-1">
-                                            {{ $transfer->number ?? 'Sans numéro' }}
+                                            {{ $transfer->number ?? __('Sans numéro') }}
                                         </p>
-                                        <h6 class="mb-2">Transfert de stock
+                                        <h6 class="mb-2">{{ __('Transfert de stock') }}
                                             @switch($transfer->status)
                                                 @case('draft')
-                                                    <span class="badge badge-soft-warning ms-1">Brouillon</span>
+                                                    <span class="badge badge-soft-warning ms-1">{{ __('Brouillon') }}</span>
                                                     @break
                                                 @case('in_transit')
-                                                    <span class="badge badge-soft-info ms-1">En transit</span>
+                                                    <span class="badge badge-soft-info ms-1">{{ __('En transit') }}</span>
                                                     @break
                                                 @case('received')
-                                                    <span class="badge badge-soft-success ms-1">Reçu</span>
+                                                    <span class="badge badge-soft-success ms-1">{{ __('Reçu') }}</span>
                                                     @break
                                                 @case('cancelled')
-                                                    <span class="badge badge-soft-danger ms-1">Annulé</span>
+                                                    <span class="badge badge-soft-danger ms-1">{{ __('Annulé') }}</span>
                                                     @break
                                             @endswitch
                                         </h6>
@@ -92,7 +92,7 @@
                                 @if($transfer->status === 'draft')
                                     <a href="{{ route('bo.inventory.transfers.edit', $transfer) }}"
                                         class="btn btn-outline-white border border-1 border-grey border-sm bg-white"><i
-                                            class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> Modifier </a>
+                                            class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> {{ __('Modifier') }} </a>
                                 @endif
                             </div>
 
@@ -102,17 +102,17 @@
                                         class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-0 m-0 list-unstyled">
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-building-4 fs-14 me-2"></i>Source</h6>
+                                                    class="isax isax-building-4 fs-14 me-2"></i>{{ __('Source') }}</h6>
                                             <p> {{ $transfer->fromWarehouse->name ?? '—' }} </p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-arrow-right-1 fs-14 me-2"></i>Destination</h6>
+                                                    class="isax isax-arrow-right-1 fs-14 me-2"></i>{{ __('Destination') }}</h6>
                                             <p> {{ $transfer->toWarehouse->name ?? '—' }} </p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-box-1 fs-14 me-2"></i>Produits</h6>
+                                                    class="isax isax-box-1 fs-14 me-2"></i>{{ __('Produits') }}</h6>
                                             <p> {{ $transfer->items->count() }} </p>
                                         </li>
                                     </ul>
@@ -127,13 +127,13 @@
                     <!-- Start Items Table -->
                     <div class="card table-info">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Produits du transfert</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Produits du transfert') }}</h6>
                             <div class="table-responsive table-nowrap">
                                 <table class="table border m-0">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>Produit</th>
-                                            <th>Quantité</th>
+                                            <th>{{ __('Produit') }}</th>
+                                            <th>{{ __('Quantité') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -148,7 +148,7 @@
                                         @empty
                                             <tr>
                                                 <td colspan="2" class="text-center py-3">
-                                                    <p class="text-muted mb-0">Aucun produit dans ce transfert.</p>
+                                                    <p class="text-muted mb-0">{{ __('Aucun produit dans ce transfert.') }}</p>
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -165,48 +165,48 @@
                     <!-- Start Info -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Informations</h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Informations') }}</h6>
                             <ul class="list-unstyled m-0 p-0">
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Numéro</span>
+                                    <span class="text-muted">{{ __('Numéro') }}</span>
                                     <span class="fw-semibold">{{ $transfer->number ?? '—' }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Statut</span>
+                                    <span class="text-muted">{{ __('Statut') }}</span>
                                     <span class="fw-semibold">
                                         @switch($transfer->status)
-                                            @case('draft') Brouillon @break
-                                            @case('in_transit') En transit @break
-                                            @case('received') Reçu @break
-                                            @case('cancelled') Annulé @break
+                                            @case('draft') {{ __('Brouillon') }} @break
+                                            @case('in_transit') {{ __('En transit') }} @break
+                                            @case('received') {{ __('Reçu') }} @break
+                                            @case('cancelled') {{ __('Annulé') }} @break
                                         @endswitch
                                     </span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Entrepôt source</span>
+                                    <span class="text-muted">{{ __('Entrepôt source') }}</span>
                                     <span class="fw-semibold">{{ $transfer->fromWarehouse->name ?? '—' }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Entrepôt destination</span>
+                                    <span class="text-muted">{{ __('Entrepôt destination') }}</span>
                                     <span class="fw-semibold">{{ $transfer->toWarehouse->name ?? '—' }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Créé par</span>
+                                    <span class="text-muted">{{ __('Créé par') }}</span>
                                     <span class="fw-semibold">{{ $transfer->createdBy->name ?? '—' }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">Créé le</span>
+                                    <span class="text-muted">{{ __('Créé le') }}</span>
                                     <span class="fw-semibold">{{ $transfer->created_at->format('d/m/Y H:i') }}</span>
                                 </li>
                                 @if($transfer->shipped_at)
                                     <li class="d-flex align-items-center justify-content-between mb-3">
-                                        <span class="text-muted">Expédié le</span>
+                                        <span class="text-muted">{{ __('Expédié le') }}</span>
                                         <span class="fw-semibold">{{ $transfer->shipped_at->format('d/m/Y H:i') }}</span>
                                     </li>
                                 @endif
                                 @if($transfer->received_at)
                                     <li class="d-flex align-items-center justify-content-between mb-3">
-                                        <span class="text-muted">Reçu le</span>
+                                        <span class="text-muted">{{ __('Reçu le') }}</span>
                                         <span class="fw-semibold">{{ $transfer->received_at->format('d/m/Y H:i') }}</span>
                                     </li>
                                 @endif
@@ -219,7 +219,7 @@
                     @if($transfer->notes)
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Notes</h6>
+                                <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Notes') }}</h6>
                                 <p class="mb-0">{{ $transfer->notes }}</p>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -230,20 +230,20 @@
                     @if($transfer->status === 'draft')
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">Actions</h6>
+                                <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Actions') }}</h6>
                                 <div class="d-grid gap-2">
                                     <form method="POST" action="{{ route('bo.inventory.transfers.execute', $transfer) }}">
                                         @csrf
                                         <button type="submit" class="btn btn-primary w-100"
-                                            onclick="return confirm('Êtes-vous sûr de vouloir exécuter ce transfert ? Cette action est irréversible.')">
-                                            <i class="isax isax-tick-circle me-1"></i>Exécuter le transfert
+                                            onclick="return confirm('{{ __('Êtes-vous sûr de vouloir exécuter ce transfert ? Cette action est irréversible.') }}')">
+                                            <i class="isax isax-tick-circle me-1"></i>{{ __('Exécuter le transfert') }}
                                         </button>
                                     </form>
                                     <form method="POST" action="{{ route('bo.inventory.transfers.destroy', $transfer) }}">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger w-100"
-                                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce transfert ?')">
-                                            <i class="isax isax-trash me-1"></i>Supprimer le transfert
+                                            onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer ce transfert ?') }}')">
+                                            <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }} le transfert
                                         </button>
                                     </form>
                                 </div>

@@ -18,7 +18,7 @@
                     <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                         <div>
                             <h6><a href="{{ route('bo.purchases.vendor-bills.index') }}" class="d-flex align-items-center"><i
-                                        class="isax isax-arrow-left me-2"></i>Factures fournisseur</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Factures fournisseur') }}</a></h6>
                         </div>
                     </div>
                     <!-- End Breadcrumb -->
@@ -41,7 +41,7 @@
                             <div class="card-body">
                                 <div class="top-content">
                                     <div class="purchase-header mb-3">
-                                        <h6>Détails de la facture fournisseur</h6>
+                                        <h6>{{ __('Détails de la facture fournisseur') }}</h6>
                                     </div>
                                     <div>
                                         <div class="row justify-content-between">
@@ -50,12 +50,12 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Fournisseur <span
+                                                                <label class="form-label">{{ __('Fournisseur') }}<span
                                                                         class="text-danger">*</span></label>
                                                                 <select
                                                                     class="form-select @error('supplier_id') is-invalid @enderror"
                                                                     name="supplier_id" required>
-                                                                    <option value="">-- Sélectionner --</option>
+                                                                    <option value="">{{ __('-- Sélectionner --') }}</option>
                                                                     @foreach ($suppliers as $supplier)
                                                                         <option value="{{ $supplier->id }}"
                                                                             {{ old('supplier_id', $selectedPO?->supplier_id) == $supplier->id ? 'selected' : '' }}>
@@ -66,17 +66,17 @@
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
                                                                 @if ($suppliers->isEmpty())
-                                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun fournisseur trouvé. <a href="{{ route('bo.purchases.suppliers.create') }}">Créer un fournisseur</a> avant de continuer.</small>
+                                                                    <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>{{ __('Aucun fournisseur trouvé.') }}<a href="{{ route('bo.purchases.suppliers.create') }}">{{ __('Créer un fournisseur') }}</a> avant de continuer.</small>
                                                                 @endif
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Bon de commande associé</label>
+                                                                <label class="form-label">{{ __('Bon de commande associé') }}</label>
                                                                 <select
                                                                     class="form-select @error('purchase_order_id') is-invalid @enderror"
                                                                     name="purchase_order_id">
-                                                                    <option value="">-- Aucun --</option>
+                                                                    <option value="">{{ __('-- Aucun --') }}</option>
                                                                     @foreach ($purchaseOrders as $po)
                                                                         <option value="{{ $po->id }}"
                                                                             {{ old('purchase_order_id', $selectedPO?->id) == $po->id ? 'selected' : '' }}>
@@ -87,12 +87,12 @@
                                                                 @error('purchase_order_id')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
-                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Optionnel. Pour lier à un bon de commande, <a href="{{ route('bo.purchases.purchase-orders.create') }}">créez-en un d'abord</a>.</small>
+                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>{{ __('Optionnel. Pour lier à un bon de commande,') }} <a href="{{ route('bo.purchases.purchase-orders.create') }}">{{ __('créez-en un d\'abord') }}</a>.</small>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Date d'émission <span
+                                                                <label class="form-label">{{ __('Date d\'émission') }}<span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text"
                                                                     class="form-control datetimepicker @error('issue_date') is-invalid @enderror"
@@ -106,7 +106,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Date d'échéance</label>
+                                                                <label class="form-label">{{ __('Date d\'échéance') }}</label>
                                                                 <input type="text"
                                                                     class="form-control datetimepicker @error('due_date') is-invalid @enderror"
                                                                     name="due_date" value="{{ old('due_date') }}">
@@ -123,7 +123,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Devise</label>
+                                                                <label class="form-label">{{ __('Devise') }}</label>
                                                                 <input type="text" class="form-control"
                                                                     value="{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}"
                                                                     readonly disabled>
@@ -131,17 +131,17 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Référence externe</label>
+                                                                <label class="form-label">{{ __('Référence externe') }}</label>
                                                                 <div class="mb-2">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio" name="ref_ext_mode" id="ref_ext_manual" value="manual" checked
                                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
-                                                                        <label class="form-check-label" for="ref_ext_manual">Saisie manuelle</label>
+                                                                        <label class="form-check-label" for="ref_ext_manual">{{ __('Saisie manuelle') }}</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio" name="ref_ext_mode" id="ref_ext_auto" value="auto"
                                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                                        <label class="form-check-label" for="ref_ext_auto">Générer automatiquement</label>
+                                                                        <label class="form-check-label" for="ref_ext_auto">{{ __('Générer automatiquement') }}</label>
                                                                     </div>
                                                                 </div>
                                                                 <input type="text" id="reference_number"
@@ -162,34 +162,34 @@
 
                                 {{-- Informations supplémentaires --}}
                                 <div class="border-top pt-3 mb-3">
-                                    <h6 class="mb-3">Informations supplémentaires</h6>
+                                    <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
                                     <div>
                                         <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">
                                             <li class="nav-item me-2" role="presentation">
-                                                <a class="nav-link active border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#notes" aria-current="page" href="javascript:void(0);"><i class="isax isax-document-text me-1"></i>Notes</a>
+                                                <a class="nav-link active border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#notes" aria-current="page" href="javascript:void(0);"><i class="isax isax-document-text me-1"></i>{{ __('Notes') }}</a>
                                             </li>
                                             <li class="nav-item me-2" role="presentation">
-                                                <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#terms" href="javascript:void(0);"><i class="isax isax-document me-1"></i>Conditions</a>
+                                                <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#terms" href="javascript:void(0);"><i class="isax isax-document me-1"></i>{{ __('Conditions') }}</a>
                                             </li>
                                             <li class="nav-item me-2" role="presentation">
-                                                <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#bank" href="javascript:void(0);"><i class="isax isax-bank me-1"></i>Coordonnées bancaires</a>
+                                                <a class="nav-link border fs-12 fw-semibold rounded" data-bs-toggle="tab" data-bs-target="#bank" href="javascript:void(0);"><i class="isax isax-bank me-1"></i>{{ __('Coordonnées bancaires') }}</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane active show" id="notes" role="tabpanel">
-                                                <label class="form-label">Notes additionnelles</label>
+                                                <label class="form-label">{{ __('Notes additionnelles') }}</label>
                                                 <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
-                                                <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }} <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                             </div>
                                             <div class="tab-pane fade" id="terms" role="tabpanel">
-                                                <label class="form-label">Conditions générales</label>
+                                                <label class="form-label">{{ __('Conditions générales') }}</label>
                                                 <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
-                                                <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>Modifiable depuis <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres de facturation</a></small>
+                                                <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }} <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                             </div>
                                             <div class="tab-pane fade" id="bank" role="tabpanel">
-                                                <label class="form-label">Compte bancaire</label>
+                                                <label class="form-label">{{ __('Compte bancaire') }}</label>
                                                 <select class="select" name="bank_account_id">
-                                                    <option value="">Sélectionner</option>
+                                                    <option value="">{{ __('Sélectionner') }}</option>
                                                     @foreach ($bankAccounts as $ba)
                                                         <option value="{{ $ba->id }}"
                                                             data-balance="{{ number_format($ba->current_balance, 2, ',', ' ') }}"
@@ -213,7 +213,7 @@
                                             <ul class="mb-0 ps-0 list-unstyled">
                                                 <li class="mb-3">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">Sous-total <span
+                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">{{ __('Sous-total') }}<span
                                                                 class="text-danger">*</span></p>
                                                         <div style="width:160px;">
                                                             <input type="number"
@@ -229,7 +229,7 @@
                                                 </li>
                                                 <li class="mb-3">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">Taxes</p>
+                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">{{ __('Taxes') }}</p>
                                                         <div style="width:160px;">
                                                             <input type="number"
                                                                 class="form-control form-control-sm text-end @error('tax_total') is-invalid @enderror"
@@ -244,7 +244,7 @@
                                                 </li>
                                                 <li class="mt-3 pb-3 border-bottom border-gray">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <h6>Total <span class="text-danger">*</span></h6>
+                                                        <h6>{{ __('Total') }}<span class="text-danger">*</span></h6>
                                                         <div style="width:160px;">
                                                             <input type="number"
                                                                 class="form-control form-control-sm text-end fw-bold @error('total') is-invalid @enderror"
@@ -265,8 +265,8 @@
                             <div class="card-footer">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <a href="{{ route('bo.purchases.vendor-bills.index') }}"
-                                        class="btn btn-outline-white">Annuler</a>
-                                    <button type="submit" class="btn btn-primary">Créer la facture fournisseur</button>
+                                        class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                    <button type="submit" class="btn btn-primary">{{ __('Créer la facture fournisseur') }}</button>
                                 </div>
                             </div>
                         </div>

@@ -24,13 +24,13 @@
 
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3 pb-3 border-bottom">
-                                <h6 class="fw-bold mb-0">Apparence</h6>
+                                <h6 class="fw-bold mb-0">{{ __('Apparence') }}</h6>
                             </div>
 
                             @if(session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Fermer') }}"></button>
                                 </div>
                             @endif
 
@@ -56,8 +56,8 @@
                                     <div class="row align-items-center">
                                         <div class="col-xl-4 col-md-4">
                                             <div class="setting-info mb-3">
-                                                <h6 class="fs-14 mb-1 fw-semibold">Sélectionner le thème</h6>
-                                                <span>Choisissez le thème du site</span>
+                                                <h6 class="fs-14 mb-1 fw-semibold">{{ __('Sélectionner le thème') }}</h6>
+                                                <span>{{ __('Choisissez le thème du site') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-md-8">
@@ -72,7 +72,7 @@
                                                                     <img src="{{ URL::asset('build/img/theme/light.jpg') }}"
                                                                         class="img-fluid rounded" alt="theme">
                                                                 </div>
-                                                                <p class="text-center fw-medium text-truncate">Clair</p>
+                                                                <p class="text-center fw-medium text-truncate">{{ __('Clair') }}</p>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -87,7 +87,7 @@
                                                                     <img src="{{ URL::asset('build/img/theme/dark.jpg') }}"
                                                                         class="img-fluid rounded" alt="theme">
                                                                 </div>
-                                                                <p class="text-center fw-medium text-truncate">Sombre</p>
+                                                                <p class="text-center fw-medium text-truncate">{{ __('Sombre') }}</p>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -102,7 +102,7 @@
                                                                     <img src="{{ URL::asset('build/img/theme/automatic.jpg') }}"
                                                                         class="img-fluid rounded" alt="theme">
                                                                 </div>
-                                                                <p class="text-center fw-medium text-truncate">Automatique</p>
+                                                                <p class="text-center fw-medium text-truncate">{{ __('Automatique') }}</p>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -115,8 +115,8 @@
                                     <div class="row align-items-center justify-content-between mb-3">
                                         <div class="col-xl-4 col-md-4">
                                             <div class="">
-                                                <h6 class="fs-14 mb-1 fw-semibold">Police de caractères</h6>
-                                                <span>Sélectionnez la police du site</span>
+                                                <h6 class="fs-14 mb-1 fw-semibold">{{ __('Police de caractères') }}</h6>
+                                                <span>{{ __('Sélectionnez la police du site') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-xl-3 col-md-4">
@@ -591,8 +591,8 @@
 
                                 <div
                                     class="text-end settings-bottom-btn mt-0 border-top d-flex align-items-center justify-content-between pt-4 mb-3">
-                                    <button type="button" id="resetAppearance" class="btn btn-outline-white btn-md me-2"><i class="ti ti-restore me-1"></i>Réinitialiser</button>
-                                    <button type="submit" class="btn btn-primary btn-md">Enregistrer</button>
+                                    <button type="button" id="resetAppearance" class="btn btn-outline-white btn-md me-2"><i class="ti ti-restore me-1"></i>{{ __('Réinitialiser') }}</button>
+                                    <button type="submit" class="btn btn-primary btn-md">{{ __('Enregistrer') }}</button>
                                 </div>
 
                             </form>

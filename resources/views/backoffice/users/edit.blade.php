@@ -11,11 +11,11 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Modifier l'utilisateur</h6>
+                    <h6>{{ __("Modifier l'utilisateur") }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <a href="{{ route('bo.users.index') }}" class="btn btn-outline-white d-flex align-items-center">
-                        <i class="isax isax-arrow-left me-1"></i>Retour
+                        <i class="isax isax-arrow-left me-1"></i>{{ __('Retour') }}
                     </a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="col-xl-8 col-lg-10">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="fs-14 fw-semibold mb-0">Informations de l'utilisateur</h6>
+                            <h6 class="fs-14 fw-semibold mb-0">{{ __("Informations de l'utilisateur") }}</h6>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('bo.users.update', $user) }}">
@@ -35,7 +35,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Nom <span class="text-danger">*</span></label>
+                                            <label class="form-label">{{ __('Nom') }} <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                                 name="name" value="{{ old('name', $user->name) }}">
                                             @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -43,13 +43,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">E-mail</label>
+                                            <label class="form-label">{{ __('E-mail') }}</label>
                                             <input type="email" class="form-control" value="{{ $user->email }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Téléphone</label>
+                                            <label class="form-label">{{ __('Téléphone') }}</label>
                                             <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                                 name="phone" value="{{ old('phone', $user->phone) }}">
                                             @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -57,13 +57,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Statut</label>
+                                            <label class="form-label">{{ __('Statut') }}</label>
                                             @if($user->status === 'active')
-                                                <span class="badge badge-soft-success d-flex align-items-center" style="width:fit-content; padding: 6px 12px;">Actif
+                                                <span class="badge badge-soft-success d-flex align-items-center" style="width:fit-content; padding: 6px 12px;">{{ __('Actif') }}
                                                     <i class="isax isax-tick-circle ms-1"></i>
                                                 </span>
                                             @else
-                                                <span class="badge badge-soft-danger d-flex align-items-center" style="width:fit-content; padding: 6px 12px;">Bloqué
+                                                <span class="badge badge-soft-danger d-flex align-items-center" style="width:fit-content; padding: 6px 12px;">{{ __('Bloqué') }}
                                                     <i class="isax isax-close-circle ms-1"></i>
                                                 </span>
                                             @endif
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Rôles</label>
+                                            <label class="form-label">{{ __('Rôles') }}</label>
                                             @foreach($roles as $role)
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="roles[]"
@@ -88,15 +88,15 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Dernière connexion</label>
+                                            <label class="form-label">{{ __('Dernière connexion') }}</label>
                                             <p class="mb-0">{{ $user->last_login_at?->format('d/m/Y à H:i') ?? '—' }}</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-between mt-3">
-                                    <a href="{{ route('bo.users.index') }}" class="btn btn-outline-white">Annuler</a>
-                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    <a href="{{ route('bo.users.index') }}" class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                 </div>
                             </form>
                         </div>

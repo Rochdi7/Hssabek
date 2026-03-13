@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                    Start Page Content
-                ========================= -->
+                        Start Page Content
+                    ========================= -->
 
     <div class="container-fuild">
         <div class="w-100 overflow-hidden position-relative flex-wrap d-block vh-100">
@@ -15,7 +15,8 @@
                         @csrf
                         <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
                             <div class=" mx-auto mb-5 text-center">
-                                <img src="{{ URL::asset('build/img/logo.svg') }}" class="img-fluid" alt="Logo">
+                                <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
+                                    alt="Logo">
                             </div>
                             <!-- card start -->
                             <div class="card border-0 p-lg-3 shadow-lg rounded-2">
@@ -94,6 +95,6 @@
     </div>
 
     <!-- ========================
-                    End Page Content
-                ========================= -->
+                        End Page Content
+                    ========================= -->
 @endsection

@@ -17,7 +17,7 @@ class CustomerAddressController extends Controller
         $customer->addresses()->create($request->safe()->except('customer_id'));
 
         return redirect()->route('bo.crm.customers.show', $customer)
-            ->with('success', 'Adresse ajoutée avec succès.');
+            ->with('success', __('Adresse ajoutée avec succès.'));
     }
 
     public function update(UpdateCustomerAddressRequest $request, CustomerAddress $address)
@@ -28,7 +28,7 @@ class CustomerAddressController extends Controller
         $address->update($request->validated());
 
         return redirect()->route('bo.crm.customers.show', $address->customer_id)
-            ->with('success', 'Adresse mise à jour avec succès.');
+            ->with('success', __('Adresse mise à jour avec succès.'));
     }
 
     public function destroy(CustomerAddress $address)
@@ -40,6 +40,6 @@ class CustomerAddressController extends Controller
         $address->delete();
 
         return redirect()->route('bo.crm.customers.show', $customerId)
-            ->with('success', 'Adresse supprimée avec succès.');
+            ->with('success', __('Adresse supprimée avec succès.'));
     }
 }

@@ -27,9 +27,9 @@ class UpdateBranchRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.max'    => 'Le nom ne doit pas dépasser 120 caractères.',
-            'code.max'    => 'Le code ne doit pas dépasser 50 caractères.',
-            'email.email' => 'L\'adresse e-mail n\'est pas valide.',
+            'name.max'    => __('Le nom ne doit pas dépasser 120 caractères.'),
+            'code.max'    => __('Le code ne doit pas dépasser 50 caractères.'),
+            'email.email' => __('L\'adresse e-mail n\'est pas valide.'),
         ];
     }
 }

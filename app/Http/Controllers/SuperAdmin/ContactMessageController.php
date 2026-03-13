@@ -54,7 +54,7 @@ class ContactMessageController extends Controller
 
         $contactMessage->update(['status' => $request->status]);
 
-        return back()->with('success', 'Statut mis à jour avec succès.');
+        return back()->with('success', __('Statut mis à jour avec succès.'));
     }
 
     public function destroy(ContactMessage $contactMessage): RedirectResponse
@@ -63,6 +63,6 @@ class ContactMessageController extends Controller
 
         return redirect()
             ->route('sa.contact-messages.index')
-            ->with('success', 'Message supprimé avec succès.');
+            ->with('success', __('Message supprimé avec succès.'));
     }
 }

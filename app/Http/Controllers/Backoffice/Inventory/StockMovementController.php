@@ -62,7 +62,7 @@ class StockMovementController extends Controller
             );
 
             return redirect()->route('bo.inventory.movements.index')
-                ->with('success', 'Mouvement de stock enregistré avec succès.');
+                ->with('success', __('Mouvement de stock enregistré avec succès.'));
         } catch (\DomainException $e) {
             return back()->withInput()->with('error', $e->getMessage());
         }

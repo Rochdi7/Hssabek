@@ -11,13 +11,13 @@
             <!-- Start Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6 class="mb-0">Rapport des ventes</h6>
+                    <h6 class="mb-0">{{ __('Rapport des ventes') }}</h6>
                 </div>
                 <div class="my-xl-auto">
                     <div class="dropdown">
                         <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
+                            <i class="isax isax-export-1 me-1"></i>{{ __('Exporter') }}
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -25,7 +25,7 @@
                                     @csrf
                                     <input type="hidden" name="from" value="{{ $from }}">
                                     <input type="hidden" name="to" value="{{ $to }}">
-                                    <button class="dropdown-item" type="submit">Télécharger en CSV</button>
+                                    <button class="dropdown-item" type="submit">{{ __('Télécharger en CSV') }}</button>
                                 </form>
                             </li>
                         </ul>
@@ -49,7 +49,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <p class="mb-1">Chiffre d'affaires</p>
+                                        <p class="mb-1">{{ __("Chiffre d'affaires") }}</p>
                                         <h6 class="fs-16 fw-semibold mb-2">
                                             {{ number_format($summary->total_revenue ?? 0, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
@@ -75,10 +75,10 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <p class="mb-1">Factures</p>
+                                        <p class="mb-1">{{ __('Factures') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-2">{{ $summary->invoice_count ?? 0 }}</h6>
                                         <p class="text-truncate">
-                                            <span class="text-muted">Période sélectionnée</span>
+                                            <span class="text-muted">{{ __('Période sélectionnée') }}</span>
                                         </p>
                                     </div>
                                     <div>
@@ -99,13 +99,13 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <p class="mb-1">Encaissé</p>
+                                        <p class="mb-1">{{ __('Encaissé') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-2">
                                             {{ number_format($summary->collected ?? 0, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
                                         </h6>
                                         <p class="text-truncate">
-                                            <span class="text-muted">Paiements reçus</span>
+                                            <span class="text-muted">{{ __('Paiements reçus') }}</span>
                                         </p>
                                     </div>
                                     <div>
@@ -126,13 +126,13 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <p class="mb-1 text-truncate">Impayé</p>
+                                        <p class="mb-1 text-truncate">{{ __('Impayé') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-2 text-truncate">
                                             {{ number_format($summary->outstanding ?? 0, 2, ',', ' ') }}
                                             {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
                                         </h6>
                                         <p class="text-truncate">
-                                            <span class="text-danger">Montant restant dû</span>
+                                            <span class="text-danger">{{ __('Montant restant dû') }}</span>
                                         </p>
                                     </div>
                                     <div>
@@ -172,9 +172,9 @@
                             </span>
                         </div>
                         <button type="submit" class="btn btn-primary">
-                            <i class="isax isax-filter me-1"></i>Filtrer
+                            <i class="isax isax-filter me-1"></i>{{ __('Filtrer') }}
                         </button>
-                        <a href="{{ route('bo.reports.sales') }}" class="btn btn-outline-white">Réinitialiser</a>
+                        <a href="{{ route('bo.reports.sales') }}" class="btn btn-outline-white">{{ __('Réinitialiser') }}</a>
                     </div>
                 </form>
             </div>
@@ -184,7 +184,7 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Évolution du chiffre d'affaires</h6>
+                            <h6 class="mb-0">{{ __("Évolution du chiffre d'affaires") }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="sales_revenue_chart" style="min-height: 300px;"></div>
@@ -194,7 +194,7 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Répartition par statut</h6>
+                            <h6 class="mb-0">{{ __('Répartition par statut') }}</h6>
                         </div>
                         <div class="card-body">
                             <div id="sales_status_chart" style="min-height: 300px;"></div>
@@ -207,7 +207,7 @@
             @if ($topCustomers->count() > 0)
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h6 class="mb-0">Top 10 clients</h6>
+                        <h6 class="mb-0">{{ __('Top 10 clients') }}</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -215,8 +215,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Client</th>
-                                        <th>Total</th>
+                                        <th>{{ __('Client') }}</th>
+                                        <th>{{ __('Total') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -246,13 +246,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>N° Facture</th>
-                            <th>Client</th>
-                            <th>Date</th>
-                            <th>Total</th>
-                            <th>Payé</th>
-                            <th>Restant</th>
-                            <th class="no-sort">Statut</th>
+                            <th>{{ __('N° Facture') }}</th>
+                            <th>{{ __('Client') }}</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Total') }}</th>
+                            <th>{{ __('Payé') }}</th>
+                            <th>{{ __('Restant') }}</th>
+                            <th class="no-sort">{{ __('Statut') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -283,7 +283,7 @@
                                 <td>
                                     @switch($invoice->status)
                                         @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Payée <i
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }} <i
                                                     class="isax isax-tick-circle ms-1"></i></span>
                                         @break
 
@@ -295,7 +295,7 @@
                                         @break
 
                                         @case('overdue')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">En retard <i
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('En retard') }} <i
                                                     class="isax isax-close-circle ms-1"></i></span>
                                         @break
 
@@ -307,7 +307,7 @@
                             </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center">Aucune facture trouvée pour cette période.</td>
+                                    <td colspan="8" class="text-center">{{ __('Aucune facture trouvée pour cette période.') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -348,7 +348,7 @@
                             fontFamily: 'inherit'
                         },
                         series: [{
-                            name: "Chiffre d'affaires",
+                            name: {!! json_encode(__("Chiffre d'affaires")) !!},
                             data: data
                         }],
                         xaxis: {
@@ -391,13 +391,13 @@
                 if (statusEl) {
                     var breakdown = @json($statusBreakdown->map(fn($s) => (int) $s->count));
                     var statusLabels = {
-                        draft: 'Brouillon',
-                        sent: 'Envoyée',
-                        partial: 'Partielle',
-                        paid: 'Payée',
-                        overdue: 'En retard',
-                        cancelled: 'Annulée',
-                        void: 'Annulée'
+                        draft: {!! json_encode(__('Brouillon')) !!},
+                        sent: {!! json_encode(__('Envoyée')) !!},
+                        partial: {!! json_encode(__('Partielle')) !!},
+                        paid: {!! json_encode(__('Payée')) !!},
+                        overdue: {!! json_encode(__('En retard')) !!},
+                        cancelled: {!! json_encode(__('Annulée')) !!},
+                        void: {!! json_encode(__('Annulée')) !!}
                     };
                     var statusColors = {
                         draft: '#6c757d',

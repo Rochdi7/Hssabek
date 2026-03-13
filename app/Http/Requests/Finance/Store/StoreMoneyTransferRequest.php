@@ -34,14 +34,14 @@ class StoreMoneyTransferRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'from_bank_account_id.required' => 'Le compte source est obligatoire.',
-            'from_bank_account_id.exists'   => 'Le compte source est invalide.',
-            'to_bank_account_id.required'   => 'Le compte destination est obligatoire.',
-            'to_bank_account_id.exists'     => 'Le compte destination est invalide.',
-            'to_bank_account_id.different'  => 'Le compte destination doit être différent du compte source.',
-            'amount.required'               => 'Le montant est obligatoire.',
-            'amount.gt'                     => 'Le montant doit être supérieur à zéro.',
-            'transfer_date.required'        => 'La date du transfert est obligatoire.',
+            'from_bank_account_id.required' => __('Le compte source est obligatoire.'),
+            'from_bank_account_id.exists'   => __('Le compte source est invalide.'),
+            'to_bank_account_id.required'   => __('Le compte destination est obligatoire.'),
+            'to_bank_account_id.exists'     => __('Le compte destination est invalide.'),
+            'to_bank_account_id.different'  => __('Le compte destination doit être différent du compte source.'),
+            'amount.required'               => __('Le montant est obligatoire.'),
+            'amount.gt'                     => __('Le montant doit être supérieur à zéro.'),
+            'transfer_date.required'        => __('La date du transfert est obligatoire.'),
         ];
     }
 }

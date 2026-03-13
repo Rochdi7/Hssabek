@@ -13,18 +13,18 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Corbeille</h6>
-                    <p class="text-muted mb-0">{{ $totalTrashed }} élément(s) supprimé(s)</p>
+                    <h6>{{ __('Corbeille') }}</h6>
+                    <p class="text-muted mb-0">{{ $totalTrashed }} {{ __('élément(s) supprimé(s)') }}</p>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @if ($items->total() > 0)
                         <div>
                             <form method="POST" action="{{ route('bo.trash.empty', $selectedType) }}"
-                                onsubmit="return confirm('Êtes-vous sûr de vouloir vider définitivement la corbeille pour cette catégorie ? Cette action est irréversible.')">
+                                onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir vider définitivement la corbeille pour cette catégorie ? Cette action est irréversible.') }}')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger d-flex align-items-center">
-                                    <i class="isax isax-trash me-1"></i>Vider la corbeille
+                                    <i class="isax isax-trash me-1"></i>{{ __('Vider la corbeille') }}
                                 </button>
                             </form>
                         </div>
@@ -71,7 +71,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <input type="hidden" name="type" value="{{ $selectedType }}">
                             <div class="search-input">
-                                <input type="text" name="search" class="form-control" placeholder="Rechercher..."
+                                <input type="text" name="search" class="form-control" placeholder="{{ __('Rechercher...') }}"
                                     value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
@@ -81,7 +81,7 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Référence', 'Détail', 'Supprimé le'],
+                            'columns' => [__('Référence'), __('Détail'), __('Supprimé le')],
                         ])
                     </div>
                 </div>
@@ -98,9 +98,9 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th>Référence</th>
-                            <th>Détail</th>
-                            <th>Supprimé le</th>
+                            <th>{{ __('Référence') }}</th>
+                            <th>{{ __('Détail') }}</th>
+                            <th>{{ __('Supprimé le') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -136,19 +136,19 @@
                                                 action="{{ route('bo.trash.restore', [$selectedType, $item->id]) }}">
                                                 @csrf
                                                 <button class="dropdown-item d-flex align-items-center" type="submit">
-                                                    <i class="isax isax-refresh me-2"></i>Restaurer
+                                                    <i class="isax isax-refresh me-2"></i>{{ __('Restaurer') }}
                                                 </button>
                                             </form>
                                         </li>
                                         <li>
                                             <form method="POST"
                                                 action="{{ route('bo.trash.force-delete', [$selectedType, $item->id]) }}"
-                                                onsubmit="return confirm('Êtes-vous sûr ? Cette action est irréversible.')">
+                                                onsubmit="return confirm('{{ __('Êtes-vous sûr ? Cette action est irréversible.') }}')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit">
-                                                    <i class="isax isax-trash me-2"></i>Supprimer définitivement
+                                                    <i class="isax isax-trash me-2"></i>{{ __('Supprimer définitivement') }}
                                                 </button>
                                             </form>
                                         </li>
@@ -160,7 +160,7 @@
                                 <td colspan="100%">
                                     <div class="text-center py-4">
                                         <i class="isax isax-trash fs-1 text-muted d-block mb-2"></i>
-                                        <p class="text-muted mb-0">La corbeille est vide pour cette catégorie.</p>
+                                        <p class="text-muted mb-0">{{ __('La corbeille est vide pour cette catégorie.') }}</p>
                                     </div>
                                 </td>
                             </tr>

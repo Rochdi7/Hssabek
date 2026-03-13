@@ -22,10 +22,10 @@ class UpdateExchangeRateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'rate.required' => 'Le taux de change est obligatoire.',
-            'rate.numeric' => 'Le taux doit être un nombre.',
-            'rate.min' => 'Le taux doit être supérieur à zéro.',
-            'date.date' => 'La date doit être une date valide.',
+            'rate.required' => __('Le taux de change est obligatoire.'),
+            'rate.numeric' => __('Le taux doit être un nombre.'),
+            'rate.min' => __('Le taux doit être supérieur à zéro.'),
+            'date.date' => __('La date doit être une date valide.'),
         ];
     }
 }

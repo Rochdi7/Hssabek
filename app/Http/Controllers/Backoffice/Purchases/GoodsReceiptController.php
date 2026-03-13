@@ -58,7 +58,7 @@ class GoodsReceiptController extends Controller
         $receipt = $this->goodsReceiptService->create($request->validated());
 
         return redirect()->route('bo.purchases.goods-receipts.show', $receipt)
-            ->with('success', 'Réception de marchandises enregistrée avec succès.');
+            ->with('success', __('Réception de marchandises enregistrée avec succès.'));
     }
 
     public function show(GoodsReceipt $goodsReceipt)
@@ -91,7 +91,7 @@ class GoodsReceiptController extends Controller
         $this->goodsReceiptService->update($goodsReceipt, $request->validated());
 
         return redirect()->route('bo.purchases.goods-receipts.show', $goodsReceipt)
-            ->with('success', 'Réception de marchandises mise à jour avec succès.');
+            ->with('success', __('Réception de marchandises mise à jour avec succès.'));
     }
 
     public function destroy(GoodsReceipt $goodsReceipt)
@@ -102,7 +102,7 @@ class GoodsReceiptController extends Controller
         $goodsReceipt->delete();
 
         return redirect()->route('bo.purchases.goods-receipts.index')
-            ->with('success', 'Réception de marchandises supprimée avec succès.');
+            ->with('success', __('Réception de marchandises supprimée avec succès.'));
     }
 
     public function confirm(GoodsReceipt $goodsReceipt)
@@ -116,7 +116,7 @@ class GoodsReceiptController extends Controller
         }
 
         return redirect()->route('bo.purchases.goods-receipts.show', $goodsReceipt)
-            ->with('success', 'Réception confirmée — le stock a été mis à jour.');
+            ->with('success', __('Réception confirmée — le stock a été mis à jour.'));
     }
 
     public function download(GoodsReceipt $goodsReceipt, PdfService $pdfService)

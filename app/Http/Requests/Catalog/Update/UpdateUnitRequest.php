@@ -47,12 +47,12 @@ class UpdateUnitRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'name.required'       => "Le nom de l'unité est obligatoire.",
-            'name.max'            => 'Le nom ne doit pas dépasser 255 caractères.',
-            'name.unique'         => "Ce nom d'unité est déjà utilisé.",
-            'short_name.required' => "L'abréviation est obligatoire.",
-            'short_name.max'      => "L'abréviation ne doit pas dépasser 10 caractères.",
-            'short_name.unique'   => 'Cette abréviation est déjà utilisée.',
+            'name.required'       => __("Le nom de l'unité est obligatoire."),
+            'name.max'            => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'name.unique'         => __("Ce nom d'unité est déjà utilisé."),
+            'short_name.required' => __("L'abréviation est obligatoire."),
+            'short_name.max'      => __("L'abréviation ne doit pas dépasser 10 caractères."),
+            'short_name.unique'   => __('Cette abréviation est déjà utilisée.'),
         ];
     }
 }

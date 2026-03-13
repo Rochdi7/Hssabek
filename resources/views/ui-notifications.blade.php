@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -36,21 +36,27 @@
                             <h4 class="header-title">Bootstrap Toasts</h4>
                         </div>
                         <div class="card-body">
-                            <p class="text-muted">Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.</p>
+                            <p class="text-muted">Push notifications to your visitors with a toast, a lightweight and easily
+                                customizable alert message.</p>
 
                             <!-- start row -->
                             <div class="row">
                                 <div class="col-md-6">
                                     <h5 class="mb-2">Basic</h5>
-                                    <p class="text-muted">Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your “toasted” content and strongly encourage a dismiss button.</p>
+                                    <p class="text-muted">Toasts are as flexible as you need and have very little required
+                                        markup. At a minimum, we require a single element to contain your “toasted” content
+                                        and strongly encourage a dismiss button.</p>
                                     <div class="p-3">
 
-                                        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast fade show" role="alert" aria-live="assertive"
+                                            aria-atomic="true">
                                             <div class="toast-header">
-                                                <img src="{{URL::asset('build/img/logo-small.svg')}}" alt="brand-logo" height="16" class="me-1">
+                                                <img src="{{ URL::asset('build/img/logo-small.svg') }}" alt="brand-logo"
+                                                    height="16" class="me-1">
                                                 <strong class="me-auto">Admin</strong>
                                                 <small>11 mins ago</small>
-                                                <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="toast-body">
                                                 Hello, world! This is a toast message.
@@ -63,15 +69,20 @@
                                 <!-- end col -->
                                 <div class="col-md-6">
                                     <h5 class="mb-2">Translucent</h5>
-                                    <p class="text-muted">Toasts are slightly translucent, too, so they blend over whatever they might appear over. For browsers that support the backdrop-filter CSS property, we’ll also attempt to blur the elements under a toast.</p>
+                                    <p class="text-muted">Toasts are slightly translucent, too, so they blend over whatever
+                                        they might appear over. For browsers that support the backdrop-filter CSS property,
+                                        we’ll also attempt to blur the elements under a toast.</p>
 
                                     <div class="p-3 bg-light bg-opacity-50">
-                                        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast fade show" role="alert" aria-live="assertive"
+                                            aria-atomic="true">
                                             <div class="toast-header">
-                                                <img src="{{URL::asset('build/img/logo-small.svg')}}" alt="brand-logo" height="16" class="me-1">
+                                                <img src="{{ URL::asset('build/img/logo-small.svg') }}" alt="brand-logo"
+                                                    height="16" class="me-1">
                                                 <strong class="me-auto">Admin</strong>
                                                 <small>11 mins ago</small>
-                                                <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="toast-body">
                                                 Hello, world! This is a toast message.
@@ -88,19 +99,24 @@
                             <div class="row">
                                 <div class="col-md-6 mt-4">
                                     <h5 class="mb-2">Stacking</h5>
-                                    <p class="text-muted">When you have multiple toasts, we default to vertiaclly stacking them in a readable manner.</p>
+                                    <p class="text-muted">When you have multiple toasts, we default to vertiaclly stacking
+                                        them in a readable manner.</p>
                                     <div class="p-3">
-                                        <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+                                        <div aria-live="polite" aria-atomic="true"
+                                            style="position: relative; min-height: 200px;">
                                             <!-- Position it -->
                                             <div class="toast-container" style="position: absolute; top: 0; right: 0;">
 
                                                 <!-- Then put toasts within -->
-                                                <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="toast fade show" role="alert" aria-live="assertive"
+                                                    aria-atomic="true">
                                                     <div class="toast-header">
-                                                        <img src="{{URL::asset('build/img/logo-small.svg')}}" alt="brand-logo" height="16" class="me-1">
+                                                        <img src="{{ URL::asset('build/img/logo-small.svg') }}"
+                                                            alt="brand-logo" height="16" class="me-1">
                                                         <strong class="me-auto">Admin</strong>
                                                         <small class="text-muted">just now</small>
-                                                        <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                        <button type="button" class="ms-2 btn-close"
+                                                            data-bs-dismiss="toast" aria-label="Close"></button>
                                                     </div>
                                                     <div class="toast-body">
                                                         See? Just like this.
@@ -108,12 +124,15 @@
                                                 </div>
                                                 <!--end toast-->
 
-                                                <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="toast fade show" role="alert" aria-live="assertive"
+                                                    aria-atomic="true">
                                                     <div class="toast-header">
-                                                        <img src="{{URL::asset('build/img/logo-small.svg')}}" alt="brand-logo" height="16" class="me-1">
+                                                        <img src="{{ URL::asset('build/img/logo-small.svg') }}"
+                                                            alt="brand-logo" height="16" class="me-1">
                                                         <strong class="me-auto">Admin</strong>
                                                         <small class="text-muted">2 seconds ago</small>
-                                                        <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                        <button type="button" class="ms-2 btn-close"
+                                                            data-bs-dismiss="toast" aria-label="Close"></button>
                                                     </div>
                                                     <div class="toast-body">
                                                         Heads up, toasts will stack automatically
@@ -126,18 +145,26 @@
                                 </div><!-- end col -->
                                 <div class="col-md-6 mt-4">
                                     <h5 class="mb-2">Placement</h5>
-                                    <p class="text-muted">Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If you’re only ever going to show one toast at a time, put the positioning styles right on the
-                                        <code>.toast</code>.</p>
+                                    <p class="text-muted">Place toasts with custom CSS as you need them. The top right is
+                                        often used for notifications, as is the top middle. If you’re only ever going to
+                                        show one toast at a time, put the positioning styles right on the
+                                        <code>.toast</code>.
+                                    </p>
                                     <div class="p-3">
-                                        <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+                                        <div aria-live="polite" aria-atomic="true"
+                                            class="d-flex justify-content-center align-items-center"
+                                            style="min-height: 200px;">
 
                                             <!-- Then put toasts within -->
-                                            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-toggle="toast">
+                                            <div class="toast fade show" role="alert" aria-live="assertive"
+                                                aria-atomic="true" data-bs-toggle="toast">
                                                 <div class="toast-header">
-                                                    <img src="{{URL::asset('build/img/logo-small.svg')}}" alt="brand-logo" height="16" class="me-1">
+                                                    <img src="{{ URL::asset('build/img/logo-small.svg') }}"
+                                                        alt="brand-logo" height="16" class="me-1">
                                                     <strong class="me-auto">Admin</strong>
                                                     <small>11 mins ago</small>
-                                                    <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                    <button type="button" class="ms-2 btn-close" data-bs-dismiss="toast"
+                                                        aria-label="Close"></button>
                                                 </div>
                                                 <div class="toast-body">
                                                     Hello, world! This is a toast message.
@@ -164,23 +191,28 @@
                             <h4 class="header-title">Custom content</h4>
                         </div>
                         <div class="card-body">
-                            <p class="text-muted">Alternatively, you can also add additional controls and components to toasts.</p>
+                            <p class="text-muted">Alternatively, you can also add additional controls and components to
+                                toasts.</p>
 
-                            <div class="toast show align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast show align-items-center mb-3" role="alert" aria-live="assertive"
+                                aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
                                         Hello, world! This is a toast message.
                                     </div>
-                                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                                        aria-label="Close"></button>
                                 </div>
                             </div>
 
-                            <div class="toast show align-items-center text-white bg-primary border-0 mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast show align-items-center text-white bg-primary border-0 mb-3" role="alert"
+                                aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
                                         Hello, world! This is a toast message.
                                     </div>
-                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                        data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
                             </div>
 
@@ -190,7 +222,8 @@
                                     <div class="mt-2 pt-2 border-top">
                                         <button type="button" class="btn btn-primary btn-sm">Take action
                                         </button>
-                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="toast">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +234,8 @@
                                     <div class="mt-2 pt-2 border-top">
                                         <button type="button" class="btn btn-light btn-sm">Take action
                                         </button>
-                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="toast">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +250,9 @@
                             <h4 class="header-title">Placement</h4>
                         </div>
                         <div class="card-body">
-                            <p class="text-muted">Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If you’re only ever going to show one toast at a time, put the positioning styles right on the
+                            <p class="text-muted">Place toasts with custom CSS as you need them. The top right is often
+                                used for notifications, as is the top middle. If you’re only ever going to show one toast at
+                                a time, put the positioning styles right on the
                                 <code>.toast</code>.
                             </p>
                             <form>
@@ -241,11 +277,13 @@
                                     </select>
                                 </div>
                             </form>
-                            <div aria-live="polite" aria-atomic="true" class="bg-light position-relative bd-example-toasts" style="min-height:294px">
+                            <div aria-live="polite" aria-atomic="true"
+                                class="bg-light position-relative bd-example-toasts" style="min-height:294px">
                                 <div class="toast-container position-absolute p-3" id="toastPlacement">
                                     <div class="toast show">
                                         <div class="toast-header">
-                                            <img src="{{URL::asset('build/img/logo-small.svg')}}" alt="brand-logo" height="16" class="me-1">
+                                            <img src="{{ URL::asset('build/img/logo-small.svg') }}" alt="brand-logo"
+                                                height="16" class="me-1">
                                             <strong class="me-auto">Admin</strong>
                                             <small>11 mins ago</small>
                                         </div>
@@ -266,7 +304,12 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-title mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-title mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved
+            </p>
             <p class="text-title">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -274,6 +317,6 @@
     </div>
 
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 @endsection

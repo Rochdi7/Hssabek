@@ -74,7 +74,7 @@ class AccountSettingsController extends Controller
 
         return redirect()
             ->route('bo.account.settings.edit')
-            ->with('success', 'Paramètres du compte mis à jour avec succès.');
+            ->with('success', __('Paramètres du compte mis à jour avec succès.'));
     }
 
     /**
@@ -91,7 +91,7 @@ class AccountSettingsController extends Controller
 
         return redirect()
             ->route('bo.settings.security.index')
-            ->with('success', 'Mot de passe mis à jour avec succès.');
+            ->with('success', __('Mot de passe mis à jour avec succès.'));
     }
 
     /**
@@ -128,7 +128,7 @@ class AccountSettingsController extends Controller
 
         return redirect()
             ->route('bo.account.settings.edit')
-            ->with('success', 'Photo de profil mise à jour avec succès.');
+            ->with('success', __('Photo de profil mise à jour avec succès.'));
     }
 
     /**
@@ -142,6 +142,6 @@ class AccountSettingsController extends Controller
 
         return redirect()
             ->route('bo.account.settings.edit')
-            ->with('success', 'Photo de profil supprimée.');
+            ->with('success', __('Photo de profil supprimée.'));
     }
 }

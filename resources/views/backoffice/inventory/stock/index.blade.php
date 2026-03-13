@@ -13,7 +13,7 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Niveaux de stock</h6>
+                    <h6>{{ __('Niveaux de stock') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'products'])
@@ -43,7 +43,7 @@
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Rechercher un produit..." value="{{ request('search') }}">
+                                    placeholder="{{ __('Rechercher un produit...') }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -62,13 +62,13 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-building-4 me-1"></i>Entrepôt : <span
+                                <i class="isax isax-building-4 me-1"></i>{{ __('Entrepôt :') }} <span
                                     class="fw-normal ms-1">{{ request('warehouse_id') ? $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? 'Tous' : 'Tous' }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a href="{{ route('bo.inventory.stock.index', array_merge(request()->except('warehouse_id', 'page'))) }}"
-                                        class="dropdown-item">Tous</a>
+                                        class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 @foreach ($warehouses as $warehouse)
                                     <li>
@@ -97,26 +97,26 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Trier par : <span class="fw-normal ms-1">Récent</span>
+                                <i class="isax isax-sort me-1"></i>{{ __('Trier par :') }} <span class="fw-normal ms-1">{{ __('Récent') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">Récent</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">{{ __('Récent') }}</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">Ancien</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">{{ __('Ancien') }}</a>
                                 </li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
                             'columns' => [
-                                'Produit',
-                                'Code',
-                                'Entrepôt',
-                                'Quantité en stock',
-                                'Quantité réservée',
-                                'Seuil de réappro.',
-                                'État',
+                                __('Produit'),
+                                __('Code'),
+                                __('Entrepôt'),
+                                __('Quantité en stock'),
+                                __('Quantité réservée'),
+                                __('Seuil de réappro.'),
+                                __('État'),
                             ],
                         ])
                     </div>
@@ -134,13 +134,13 @@
                                     <input class="form-check-input" type="checkbox" id="select-all">
                                 </div>
                             </th>
-                            <th class="no-sort">Produit</th>
-                            <th class="no-sort">Code</th>
-                            <th class="no-sort">Entrepôt</th>
-                            <th>Quantité en stock</th>
-                            <th>Quantité réservée</th>
-                            <th>Seuil de réappro.</th>
-                            <th class="no-sort">État</th>
+                            <th class="no-sort">{{ __('Produit') }}</th>
+                            <th class="no-sort">{{ __('Code') }}</th>
+                            <th class="no-sort">{{ __('Entrepôt') }}</th>
+                            <th>{{ __('Quantité en stock') }}</th>
+                            <th>{{ __('Quantité réservée') }}</th>
+                            <th>{{ __('Seuil de réappro.') }}</th>
+                            <th class="no-sort">{{ __('État') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -173,7 +173,7 @@
                                 </td>
                                 <td>
                                     @if ($stock->reorder_point && $stock->quantity_on_hand <= $stock->reorder_point)
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">Stock bas <i
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Stock bas') }} <i
                                                 class="isax isax-warning-2 ms-1"></i></span>
                                     @else
                                         <span class="badge badge-soft-success d-inline-flex align-items-center">OK <i

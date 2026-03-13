@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -19,15 +19,15 @@
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        
+
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Base UI</a></li>
-                        
+
                         <li class="breadcrumb-item active">List Group</li>
                     </ol>
                 </div>
             </div>
             <!-- End Page Header -->
-            
+
             <!-- start row -->
             <div class="row">
                 <div class="col-xl-4">
@@ -38,8 +38,10 @@
 
                         <div class="card-body">
 
-                            <p class="text-muted">The most basic list group is an unordered list with list items and the proper classes. Build upon it with the options that follow, or with your own CSS as needed.</p>
-                            
+                            <p class="text-muted">The most basic list group is an unordered list with list items and the
+                                proper classes. Build upon it with the options that follow, or with your own CSS as needed.
+                            </p>
+
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <i class="ti ti-brand-slack me-1 align-middle fs-18"></i> Slack Collaboration
@@ -66,8 +68,9 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Add <code>.active</code> to a <code>.list-group-item</code> to indicate the current active selection.</p>
-                            
+                            <p class="text-muted">Add <code>.active</code> to a <code>.list-group-item</code> to indicate
+                                the current active selection.</p>
+
                             <ul class="list-group">
                                 <li class="list-group-item active">
                                     <i class="ti ti-brand-slack me-1 align-middle fs-18"></i> Slack Collaboration
@@ -100,7 +103,7 @@
                             <p>Add <code>.disabled</code> to a <code>.list-group-item</code> to make it
                                 <em>appear</em> disabled.
                             </p>
-                            
+
                             <ul class="list-group">
                                 <li class="list-group-item disabled" aria-disabled="true">
                                     <i class="ti ti-brand-slack me-1 align-middle fs-18"></i> Slack Collaboration
@@ -144,7 +147,7 @@
                                     <i class="ti ti-brand-slack me-1 align-middle fs-18"></i> Slack Collaboration
                                 </a>
                                 <a href="#" class="list-group-item list-group-item-action">
-                                    <i class="ti ti-brand-nextcloud me-1 align-middle fs-18"></i> Nextcloud File Sharing 
+                                    <i class="ti ti-brand-nextcloud me-1 align-middle fs-18"></i> Nextcloud File Sharing
                                 </a>
                                 <button type="button" class="list-group-item list-group-item-action">
                                     <i class="ti ti-brand-zoom me-1 align-middle fs-18"></i> Zoom Video Meetings
@@ -152,7 +155,8 @@
                                 <button type="button" class="list-group-item list-group-item-action">
                                     <i class="ti ti-brand-notion me-1 align-middle fs-18"></i> Notion Workspace
                                 </button>
-                                <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">
+                                <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1"
+                                    aria-disabled="true">
                                     <i class="ti ti-brand-stripe me-1 align-middle fs-18"></i> Stripe Billing System
                                 </a>
                             </div>
@@ -171,11 +175,16 @@
                                 borders and rounded corners to render list group items edge-to-edge in a parent
                                 container (e.g., cards).</p>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><i class="ti ti-brand-slack me-1 align-middle fs-18"></i> Slack Collaboration</li>
-                                <li class="list-group-item"><i class="ti ti-brand-nextcloud me-1 align-middle fs-18"></i> Nextcloud File Sharing</li>
-                                <li class="list-group-item"><i class="ti ti-brand-zoom me-1 align-middle fs-18"></i> Zoom Video Meetings</li>
-                                <li class="list-group-item"><i class="ti ti-brand-notion me-1 align-middle fs-18"></i> Notion Workspace</li>
-                                <li class="list-group-item"><i class="ti ti-brand-stripe me-1 align-middle fs-18"></i> Stripe Billing System</li>
+                                <li class="list-group-item"><i class="ti ti-brand-slack me-1 align-middle fs-18"></i> Slack
+                                    Collaboration</li>
+                                <li class="list-group-item"><i class="ti ti-brand-nextcloud me-1 align-middle fs-18"></i>
+                                    Nextcloud File Sharing</li>
+                                <li class="list-group-item"><i class="ti ti-brand-zoom me-1 align-middle fs-18"></i> Zoom
+                                    Video Meetings</li>
+                                <li class="list-group-item"><i class="ti ti-brand-notion me-1 align-middle fs-18"></i>
+                                    Notion Workspace</li>
+                                <li class="list-group-item"><i class="ti ti-brand-stripe me-1 align-middle fs-18"></i>
+                                    Stripe Billing System</li>
                             </ul>
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -232,12 +241,14 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Use contextual classes to style list items with a stateful background and color.</p>
+                            <p class="text-muted">Use contextual classes to style list items with a stateful background and
+                                color.</p>
 
                             <ul class="list-group">
                                 <li class="list-group-item">Dapibus ac facilisis in</li>
                                 <li class="list-group-item list-group-item-primary">A simple primary list group item</li>
-                                <li class="list-group-item list-group-item-secondary">A simple secondary list group item</li>
+                                <li class="list-group-item list-group-item-secondary">A simple secondary list group item
+                                </li>
                                 <li class="list-group-item list-group-item-success">A simple success list group item</li>
                                 <li class="list-group-item list-group-item-danger">A simple danger list group item</li>
                                 <li class="list-group-item list-group-item-warning">A simple warning list group item</li>
@@ -256,18 +267,29 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Use contextual classes to style list items with a stateful background and color.</p>
+                            <p class="text-muted">Use contextual classes to style list items with a stateful background and
+                                color.</p>
 
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action">Darius ac facilities in</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">A simple primary list group item</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">A simple secondary list group item</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-success">A simple success list group item</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-danger">A simple danger list group item</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">A simple warning list group item</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-info">A simple info list group item</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-light">A simple light list group item</a>
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-dark">A simple dark list group item</a>
+                                <a href="#" class="list-group-item list-group-item-action">Darius ac facilities
+                                    in</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">A
+                                    simple primary list group item</a>
+                                <a href="#"
+                                    class="list-group-item list-group-item-action list-group-item-secondary">A simple
+                                    secondary list group item</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-success">A
+                                    simple success list group item</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-danger">A
+                                    simple danger list group item</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">A
+                                    simple warning list group item</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-info">A
+                                    simple info list group item</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-light">A
+                                    simple light list group item</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-dark">A
+                                    simple dark list group item</a>
                             </div>
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -280,7 +302,8 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Add nearly any HTML within, even for linked list groups like the one below, with the help of flexbox utilities.</p>
+                            <p class="text-muted">Add nearly any HTML within, even for linked list groups like the one
+                                below, with the help of flexbox utilities.</p>
 
                             <div class="list-group">
                                 <a href="#" class="list-group-item list-group-item-action active">
@@ -288,7 +311,8 @@
                                         <h5 class="fs-16 mb-1">List group item heading</h5>
                                         <small>3 days ago</small>
                                     </div>
-                                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
+                                        eget risus varius blandit.</p>
                                     <small>Donec id elit non mi porta.</small>
                                 </a>
                                 <a href="#" class="list-group-item list-group-item-action">
@@ -296,7 +320,8 @@
                                         <h5 class="fs-16 mb-1">List group item heading</h5>
                                         <small class="text-muted">3 days ago</small>
                                     </div>
-                                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
+                                        eget risus varius blandit.</p>
                                     <small class="text-muted">Donec id elit non mi porta.</small>
                                 </a>
                                 <a href="#" class="list-group-item list-group-item-action">
@@ -304,7 +329,8 @@
                                         <h5 class="fs-16 mb-1">List group item heading</h5>
                                         <small class="text-muted">3 days ago</small>
                                     </div>
-                                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
+                                        eget risus varius blandit.</p>
                                     <small class="text-muted">Donec id elit non mi porta.</small>
                                 </a>
                             </div>
@@ -324,7 +350,10 @@
                         </div>
 
                         <div class="card-body">
-                            <p>Add <code>.list-group-horizontal</code> to change the layout of list group items from vertical to horizontal across all breakpoints. Alternatively, choose a responsive variant <code>.list-group-horizontal-{sm|md|lg|xl|xxl}</code> to make a list group horizontal starting at that breakpoint’s <code>min-width</code>.</p>
+                            <p>Add <code>.list-group-horizontal</code> to change the layout of list group items from
+                                vertical to horizontal across all breakpoints. Alternatively, choose a responsive variant
+                                <code>.list-group-horizontal-{sm|md|lg|xl|xxl}</code> to make a list group horizontal
+                                starting at that breakpoint’s <code>min-width</code>.</p>
 
                             <ul class="list-group list-group-horizontal mb-3">
                                 <li class="list-group-item">
@@ -367,7 +396,7 @@
                     </div>
                     <!-- end card -->
                 </div> <!-- end col -->
-                
+
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-header">
@@ -375,7 +404,8 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="text-muted">Add badges to any list group item to show unread counts, activity, and more with the help of some utilities.</p>
+                            <p class="text-muted">Add badges to any list group item to show unread counts, activity, and
+                                more with the help of some utilities.</p>
 
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -420,22 +450,26 @@
 
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                                    <input class="form-check-input me-1" type="checkbox" value=""
+                                        id="firstCheckbox">
                                     <label class="form-check-label" for="firstCheckbox">First checkbox</label>
                                 </li>
                                 <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                                    <input class="form-check-input me-1" type="checkbox" value=""
+                                        id="secondCheckbox">
                                     <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
                                 </li>
                             </ul>
 
                             <ul class="list-group mt-2">
                                 <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
+                                    <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                        value="" id="firstRadio" checked>
                                     <label class="form-check-label" for="firstRadio">First radio</label>
                                 </li>
                                 <li class="list-group-item">
-                                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
+                                    <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                        value="" id="secondRadio">
                                     <label class="form-check-label" for="secondRadio">Second radio</label>
                                 </li>
                             </ul>
@@ -444,20 +478,25 @@
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-            
+
         </div>
         <!-- End Content -->
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-title mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-title mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved
+            </p>
             <p class="text-title">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
 
     </div>
-    
+
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

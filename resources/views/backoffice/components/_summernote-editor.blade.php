@@ -195,7 +195,7 @@
             $('#{{ $editorId }}').summernote({
                 lang: 'fr-FR',
                 height: {{ $height }},
-                placeholder: 'Rédigez votre contenu ici...',
+                placeholder: {!! json_encode(__('Rédigez votre contenu ici...')) !!},
                 tabsize: 2,
                 toolbar: [
                     ['style', ['style']],
@@ -212,37 +212,37 @@
                 styleTags: [
                     'p',
                     {
-                        title: 'Titre 1',
+                        title: {!! json_encode(__('Titre 1')) !!},
                         tag: 'h1',
                         className: '',
                         value: 'h1'
                     },
                     {
-                        title: 'Titre 2',
+                        title: {!! json_encode(__('Titre 2')) !!},
                         tag: 'h2',
                         className: '',
                         value: 'h2'
                     },
                     {
-                        title: 'Titre 3',
+                        title: {!! json_encode(__('Titre 3')) !!},
                         tag: 'h3',
                         className: '',
                         value: 'h3'
                     },
                     {
-                        title: 'Titre 4',
+                        title: {!! json_encode(__('Titre 4')) !!},
                         tag: 'h4',
                         className: '',
                         value: 'h4'
                     },
                     {
-                        title: 'Citation',
+                        title: {!! json_encode(__('Citation')) !!},
                         tag: 'blockquote',
                         className: '',
                         value: 'blockquote'
                     },
                     {
-                        title: 'Code',
+                        title: {!! json_encode(__('Code')) !!},
                         tag: 'pre',
                         className: '',
                         value: 'pre'

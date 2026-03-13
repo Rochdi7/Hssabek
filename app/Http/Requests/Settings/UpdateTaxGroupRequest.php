@@ -24,12 +24,12 @@ class UpdateTaxGroupRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Le nom du groupe de taxes est obligatoire.',
-            'rates.required' => 'Au moins un taux est requis.',
-            'rates.min' => 'Au moins un taux est requis.',
-            'rates.*.name.required' => 'Le nom du taux est obligatoire.',
-            'rates.*.rate.required' => 'Le taux est obligatoire.',
-            'rates.*.rate.numeric' => 'Le taux doit être un nombre.',
+            'name.required' => __('Le nom du groupe de taxes est obligatoire.'),
+            'rates.required' => __('Au moins un taux est requis.'),
+            'rates.min' => __('Au moins un taux est requis.'),
+            'rates.*.name.required' => __('Le nom du taux est obligatoire.'),
+            'rates.*.rate.required' => __('Le taux est obligatoire.'),
+            'rates.*.rate.numeric' => __('Le taux doit être un nombre.'),
         ];
     }
 }

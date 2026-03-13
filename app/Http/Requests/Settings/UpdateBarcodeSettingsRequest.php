@@ -26,11 +26,11 @@ class UpdateBarcodeSettingsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'mrp_label.max' => 'Le libellé MRP ne doit pas dépasser 50 caractères.',
-            'product_name_font_size.integer' => 'La taille de la police doit être un nombre entier.',
-            'product_name_font_size.min' => 'La taille de la police doit être au minimum 8.',
-            'mrp_font_size.integer' => 'La taille de la police doit être un nombre entier.',
-            'barcode_size.integer' => 'La taille du code-barres doit être un nombre entier.',
+            'mrp_label.max' => __('Le libellé MRP ne doit pas dépasser 50 caractères.'),
+            'product_name_font_size.integer' => __('La taille de la police doit être un nombre entier.'),
+            'product_name_font_size.min' => __('La taille de la police doit être au minimum 8.'),
+            'mrp_font_size.integer' => __('La taille de la police doit être un nombre entier.'),
+            'barcode_size.integer' => __('La taille du code-barres doit être un nombre entier.'),
         ];
     }
 }

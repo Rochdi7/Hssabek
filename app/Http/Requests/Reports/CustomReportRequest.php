@@ -24,13 +24,13 @@ class CustomReportRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required'   => 'Le titre est obligatoire.',
-            'title.max'        => 'Le titre ne doit pas dépasser 255 caractères.',
-            'content.required' => 'Le contenu du rapport est obligatoire.',
-            'content.max'      => 'Le contenu est trop volumineux.',
-            'category.max'     => 'La catégorie ne doit pas dépasser 100 caractères.',
-            'status.required'  => 'Le statut est obligatoire.',
-            'status.in'        => 'Le statut doit être « Brouillon » ou « Publié ».',
+            'title.required'   => __('Le titre est obligatoire.'),
+            'title.max'        => __('Le titre ne doit pas dépasser 255 caractères.'),
+            'content.required' => __('Le contenu du rapport est obligatoire.'),
+            'content.max'      => __('Le contenu est trop volumineux.'),
+            'category.max'     => __('La catégorie ne doit pas dépasser 100 caractères.'),
+            'status.required'  => __('Le statut est obligatoire.'),
+            'status.in'        => __('Le statut doit être « Brouillon » ou « Publié ».'),
         ];
     }
 }

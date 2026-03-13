@@ -33,10 +33,10 @@ class UpdatePlanRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.max'               => 'Le nom ne doit pas dépasser 255 caractères.',
-            'price.numeric'          => 'Le prix doit être un nombre.',
-            'price.min'              => 'Le prix ne peut pas être négatif.',
-            'billing_cycle.in'       => 'Le cycle de facturation est invalide.',
+            'name.max'               => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'price.numeric'          => __('Le prix doit être un nombre.'),
+            'price.min'              => __('Le prix ne peut pas être négatif.'),
+            'billing_cycle.in'       => __('Le cycle de facturation est invalide.'),
         ];
     }
 }

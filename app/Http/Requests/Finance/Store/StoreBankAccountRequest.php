@@ -35,15 +35,15 @@ class StoreBankAccountRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'account_holder_name.required' => 'Le nom du titulaire est obligatoire.',
-            'account_number.required'      => 'Le numéro de compte est obligatoire.',
-            'account_number.unique'        => 'Ce numéro de compte existe déjà.',
-            'bank_name.required'           => 'Le nom de la banque est obligatoire.',
-            'account_type.required'        => 'Le type de compte est obligatoire.',
-            'account_type.in'              => 'Le type de compte est invalide.',
-            'opening_balance.required'     => 'Le solde d\'ouverture est obligatoire.',
-            'opening_balance.numeric'      => 'Le solde d\'ouverture doit être un nombre.',
-            'opening_balance.min'          => 'Le solde d\'ouverture ne peut pas être négatif.',
+            'account_holder_name.required' => __('Le nom du titulaire est obligatoire.'),
+            'account_number.required'      => __('Le numéro de compte est obligatoire.'),
+            'account_number.unique'        => __('Ce numéro de compte existe déjà.'),
+            'bank_name.required'           => __('Le nom de la banque est obligatoire.'),
+            'account_type.required'        => __('Le type de compte est obligatoire.'),
+            'account_type.in'              => __('Le type de compte est invalide.'),
+            'opening_balance.required'     => __('Le solde d\'ouverture est obligatoire.'),
+            'opening_balance.numeric'      => __('Le solde d\'ouverture doit être un nombre.'),
+            'opening_balance.min'          => __('Le solde d\'ouverture ne peut pas être négatif.'),
         ];
     }
 }

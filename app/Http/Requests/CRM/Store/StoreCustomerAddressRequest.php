@@ -34,19 +34,19 @@ class StoreCustomerAddressRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'customer_id.required' => 'Le client est obligatoire.',
-            'customer_id.exists' => "Le client sélectionné n'existe pas.",
-            'type.required' => "Le type d'adresse est obligatoire.",
-            'type.in' => "Le type d'adresse doit être « Facturation » ou « Livraison ».",
-            'line1.required' => "L'adresse (ligne 1) est obligatoire.",
-            'line1.max' => "L'adresse (ligne 1) ne doit pas dépasser 255 caractères.",
-            'line2.max' => "L'adresse (ligne 2) ne doit pas dépasser 255 caractères.",
-            'city.required' => 'La ville est obligatoire.',
-            'city.max' => 'La ville ne doit pas dépasser 100 caractères.',
-            'region.max' => 'La région ne doit pas dépasser 100 caractères.',
-            'postal_code.max' => 'Le code postal ne doit pas dépasser 20 caractères.',
-            'country.required' => 'Le pays est obligatoire.',
-            'country.max' => 'Le pays ne doit pas dépasser 100 caractères.',
+            'customer_id.required' => __('Le client est obligatoire.'),
+            'customer_id.exists' => __("Le client sélectionné n'existe pas."),
+            'type.required' => __("Le type d'adresse est obligatoire."),
+            'type.in' => __("Le type d'adresse doit être « Facturation » ou « Livraison »."),
+            'line1.required' => __("L'adresse (ligne 1) est obligatoire."),
+            'line1.max' => __("L'adresse (ligne 1) ne doit pas dépasser 255 caractères."),
+            'line2.max' => __("L'adresse (ligne 2) ne doit pas dépasser 255 caractères."),
+            'city.required' => __('La ville est obligatoire.'),
+            'city.max' => __('La ville ne doit pas dépasser 100 caractères.'),
+            'region.max' => __('La région ne doit pas dépasser 100 caractères.'),
+            'postal_code.max' => __('Le code postal ne doit pas dépasser 20 caractères.'),
+            'country.required' => __('Le pays est obligatoire.'),
+            'country.max' => __('Le pays ne doit pas dépasser 100 caractères.'),
         ];
     }
 }

@@ -23,10 +23,10 @@ class UpdatePasswordRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'current_password.required'         => 'Le mot de passe actuel est obligatoire.',
-            'current_password.current_password'  => 'Le mot de passe actuel est incorrect.',
-            'password.required'                  => 'Le nouveau mot de passe est obligatoire.',
-            'password.confirmed'                 => 'La confirmation du mot de passe ne correspond pas.',
+            'current_password.required'         => __('Le mot de passe actuel est obligatoire.'),
+            'current_password.current_password'  => __('Le mot de passe actuel est incorrect.'),
+            'password.required'                  => __('Le nouveau mot de passe est obligatoire.'),
+            'password.confirmed'                 => __('La confirmation du mot de passe ne correspond pas.'),
         ];
     }
 }

@@ -72,7 +72,7 @@ class DeliveryChallanController extends Controller
         $challan = $this->deliveryChallanService->create($request->validated());
 
         return redirect()->route('bo.sales.delivery-challans.show', $challan)
-            ->with('success', 'Bon de livraison créé avec succès.');
+            ->with('success', __('Bon de livraison créé avec succès.'));
     }
 
     public function show(DeliveryChallan $deliveryChallan)
@@ -113,7 +113,7 @@ class DeliveryChallanController extends Controller
         $this->deliveryChallanService->update($deliveryChallan, $request->validated());
 
         return redirect()->route('bo.sales.delivery-challans.show', $deliveryChallan)
-            ->with('success', 'Bon de livraison mis à jour avec succès.');
+            ->with('success', __('Bon de livraison mis à jour avec succès.'));
     }
 
     public function destroy(DeliveryChallan $deliveryChallan)
@@ -124,7 +124,7 @@ class DeliveryChallanController extends Controller
         $deliveryChallan->delete();
 
         return redirect()->route('bo.sales.delivery-challans.index')
-            ->with('success', 'Bon de livraison supprimé avec succès.');
+            ->with('success', __('Bon de livraison supprimé avec succès.'));
     }
 
     public function download(DeliveryChallan $deliveryChallan, PdfService $pdfService)
@@ -146,6 +146,6 @@ class DeliveryChallanController extends Controller
         ));
 
         return redirect()->route('bo.sales.delivery-challans.show', $deliveryChallan)
-            ->with('success', 'Bon de livraison envoyé au client par email.');
+            ->with('success', __('Bon de livraison envoyé au client par email.'));
     }
 }

@@ -13,6 +13,6 @@ class SubscriptionInvoiceController extends Controller
 {
     public function __construct()
     {
-        abort(403, 'Subscription invoices are managed by SuperAdmin only.');
+        abort(403, __('Les factures d\'abonnement sont gérées uniquement par le SuperAdmin.'));
     }
 }

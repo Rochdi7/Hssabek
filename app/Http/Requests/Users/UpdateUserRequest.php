@@ -31,11 +31,11 @@ class UpdateUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Le nom est obligatoire.',
-            'name.max' => 'Le nom ne doit pas dépasser 255 caractères.',
-            'phone.max' => 'Le téléphone ne doit pas dépasser 30 caractères.',
-            'roles.array' => 'Les rôles doivent être un tableau.',
-            'roles.*.exists' => "Le rôle sélectionné n'existe pas.",
+            'name.required' => __('Le nom est obligatoire.'),
+            'name.max' => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'phone.max' => __('Le téléphone ne doit pas dépasser 30 caractères.'),
+            'roles.array' => __('Les rôles doivent être un tableau.'),
+            'roles.*.exists' => __("Le rôle sélectionné n'existe pas."),
         ];
     }
 }

@@ -8,7 +8,7 @@
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6><a href="{{ route('bo.purchases.goods-receipts.index') }}"><i
-                                        class="isax isax-arrow-left me-2"></i>Réceptions de marchandises</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Réceptions de marchandises') }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
@@ -31,11 +31,11 @@
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Bon de commande <span
+                                                <label class="form-label">{{ __('Bon de commande') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('purchase_order_id') is-invalid @enderror"
                                                     name="purchase_order_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($purchaseOrders as $po)
                                                         <option value="{{ $po->id }}"
                                                             {{ old('purchase_order_id', $goodsReceipt->purchase_order_id) == $po->id ? 'selected' : '' }}>
@@ -50,11 +50,11 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Entrepôt <span
+                                                <label class="form-label">{{ __('Entrepôt') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('warehouse_id') is-invalid @enderror"
                                                     name="warehouse_id">
-                                                    <option value="">— Sélectionner —</option>
+                                                    <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($warehouses as $warehouse)
                                                         <option value="{{ $warehouse->id }}"
                                                             {{ old('warehouse_id', $goodsReceipt->warehouse_id) == $warehouse->id ? 'selected' : '' }}>
@@ -68,7 +68,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Date de réception <span
+                                                <label class="form-label">{{ __('Date de réception') }}<span
                                                         class="text-danger ms-1">*</span></label>
                                                 <input type="text"
                                                     class="form-control datetimepicker @error('received_at') is-invalid @enderror"
@@ -81,17 +81,17 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Référence</label>
+                                                <label class="form-label">{{ __('Référence') }}</label>
                                                 <div class="mb-2">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').focus();">
-                                                        <label class="form-check-label" for="ref_mode_manual">Saisie manuelle</label>
+                                                        <label class="form-check-label" for="ref_mode_manual">{{ __('Saisie manuelle') }}</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                        <label class="form-check-label" for="ref_mode_auto">Générer automatiquement</label>
+                                                        <label class="form-check-label" for="ref_mode_auto">{{ __('Générer automatiquement') }}</label>
                                                     </div>
                                                 </div>
                                                 <input type="text"
@@ -105,19 +105,19 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Statut</label>
+                                                <label class="form-label">{{ __('Statut') }}</label>
                                                 <p class="form-control-plaintext">
                                                     @if($goodsReceipt->status === 'draft')
-                                                        <span class="badge badge-soft-secondary">Brouillon</span>
+                                                        <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span>
                                                     @elseif($goodsReceipt->status === 'received')
-                                                        <span class="badge badge-soft-success">Reçue</span>
+                                                        <span class="badge badge-soft-success">{{ __('Reçue') }}</span>
                                                     @endif
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Notes</label>
+                                                <label class="form-label">{{ __('Notes') }}</label>
                                                 <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" rows="3">{{ old('notes', $goodsReceipt->notes) }}</textarea>
                                                 @error('notes')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -128,13 +128,13 @@
 
                                     {{-- Articles --}}
                                     <div class="border-top pt-3 mb-3">
-                                        <h6 class="mb-3">Articles reçus</h6>
+                                        <h6 class="mb-3">{{ __('Articles reçus') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border mb-3">
                                             <table class="table table-nowrap add-table m-0" id="items-table" style="table-layout: fixed; width: 100%;">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th style="width: 50%;">Produit <span class="text-danger">*</span></th>
-                                                        <th style="width: 35%;">Quantité reçue <span class="text-danger">*</span></th>
+                                                        <th style="width: 50%;">{{ __('Produit') }}<span class="text-danger">*</span></th>
+                                                        <th style="width: 35%;">{{ __('Quantité reçue') }}<span class="text-danger">*</span></th>
                                                         <th style="width: 15%;"></th>
                                                     </tr>
                                                 </thead>
@@ -143,7 +143,7 @@
                                                         <tr class="item-row">
                                                             <td>
                                                                 <select name="items[{{ $i }}][product_id]" class="form-select" required>
-                                                                    <option value="">— Produit —</option>
+                                                                    <option value="">{{ __('— Produit —') }}</option>
                                                                     @foreach ($products as $product)
                                                                         <option value="{{ $product->id }}" {{ ($item['product_id'] ?? '') == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
                                                                     @endforeach
@@ -161,14 +161,14 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <a href="javascript:void(0);" class="d-inline-flex align-items-center" id="add-item-btn"><i class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un article</a>
+                                            <a href="javascript:void(0);" class="d-inline-flex align-items-center" id="add-item-btn"><i class="isax isax-add-circle5 text-primary me-1"></i>{{ __('Ajouter un article') }}</a>
                                         </div>
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                         <a href="{{ route('bo.purchases.goods-receipts.index') }}"
-                                            class="btn btn-outline-white">Annuler</a>
-                                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                            class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                        <button type="submit" class="btn btn-primary">{{ __('Mettre à jour') }}</button>
                                     </div>
                                 </form>
                             </div>

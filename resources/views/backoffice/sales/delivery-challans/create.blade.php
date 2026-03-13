@@ -23,7 +23,7 @@
                     <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                         <div>
                             <h6><a href="{{ route('bo.sales.delivery-challans.index') }}" class="d-flex align-items-center"><i
-                                        class="isax isax-arrow-left me-2"></i>Bons de livraison</a></h6>
+                                        class="isax isax-arrow-left me-2"></i>{{ __('Bons de livraison') }}</a></h6>
                         </div>
                     </div>
                     <!-- End Breadcrumb -->
@@ -46,7 +46,7 @@
                             <div class="card-body">
                                 <div class="top-content">
                                     <div class="purchase-header mb-3">
-                                        <h6>Détails du bon de livraison</h6>
+                                        <h6>{{ __('Détails du bon de livraison') }}</h6>
                                     </div>
                                     <div>
 
@@ -57,14 +57,14 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">N° Bon de livraison</label>
+                                                                <label class="form-label">{{ __('N° Bon de livraison') }}</label>
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Généré automatiquement" readonly>
+                                                                    placeholder="{{ __('Généré automatiquement') }}" readonly>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Référence</label>
+                                                                <label class="form-label">{{ __('Référence') }}</label>
                                                                 <div class="mb-2">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
@@ -72,7 +72,7 @@
                                                                             value="manual" checked
                                                                             onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
                                                                         <label class="form-check-label"
-                                                                            for="ref_mode_manual">Saisie manuelle</label>
+                                                                            for="ref_mode_manual">{{ __('Saisie manuelle') }}</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
@@ -80,15 +80,15 @@
                                                                             value="auto"
                                                                             onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
                                                                         <label class="form-check-label"
-                                                                            for="ref_mode_auto">Générer
-                                                                            automatiquement</label>
+                                                                            for="ref_mode_auto">{{ __('Générer
+                                                                            automatiquement') }}</label>
                                                                     </div>
                                                                 </div>
                                                                 <input type="text" name="reference_number"
                                                                     id="reference_number"
                                                                     class="form-control @error('reference_number') is-invalid @enderror"
                                                                     value="{{ old('reference_number') }}"
-                                                                    placeholder="Ex: BLI-00001">
+                                                                    placeholder="{{ __("Ex: BLI-00001") }}">
                                                                 @error('reference_number')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
@@ -96,7 +96,7 @@
                                                         </div>
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Date du bon de livraison</label>
+                                                                <label class="form-label">{{ __('Date du bon de livraison') }}</label>
                                                                 <div class="input-group position-relative">
                                                                     <input type="text" name="challan_date"
                                                                         class="form-control datetimepicker rounded-end @error('challan_date') is-invalid @enderror"
@@ -113,10 +113,10 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Facture liée</label>
+                                                                <label class="form-label">{{ __('Facture liée') }}</label>
                                                                 <select name="invoice_id"
                                                                     class="select @error('invoice_id') is-invalid @enderror">
-                                                                    <option value="">Sélectionner une facture</option>
+                                                                    <option value="">{{ __('Sélectionner une facture') }}</option>
                                                                     @foreach ($invoices as $invoice)
                                                                         <option value="{{ $invoice->id }}"
                                                                             {{ old('invoice_id') == $invoice->id ? 'selected' : '' }}>
@@ -154,7 +154,7 @@
                                                             <div class="row gx-3">
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label">Statut</label>
+                                                                        <label class="form-label">{{ __('Statut') }}</label>
                                                                         <select class="select" name="status">
                                                                             <option value="draft"
                                                                                 {{ old('status') === 'draft' ? 'selected' : '' }}>
@@ -174,7 +174,7 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label">Devise</label>
+                                                                        <label class="form-label">{{ __('Devise') }}</label>
                                                                         <input type="text" class="form-control"
                                                                             value="{{ $currency }}" readonly disabled>
                                                                     </div>
@@ -189,8 +189,8 @@
                                                                             role="switch" id="enabe_tax"
                                                                             {{ old('enable_tax', '1') == '1' ? 'checked' : '' }}>
                                                                         <label class="form-check-label"
-                                                                            for="enabe_tax">Activer
-                                                                            la taxe</label>
+                                                                            for="enabe_tax">{{ __('Activer
+                                                                            la taxe') }}</label>
                                                                     </div>
                                                                 </div>
                                                                 <div>
@@ -216,11 +216,11 @@
                                         <div class="col-md-6">
                                             <div class="card box-shadow-0">
                                                 <div class="card-header border-0 pb-0">
-                                                    <h6>Expédié par</h6>
+                                                    <h6>{{ __('Expédié par') }}</h6>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Entreprise</label>
+                                                        <label class="form-label">{{ __('Entreprise') }}</label>
                                                         <input type="text" class="form-control"
                                                             value="{{ $tenant->name ?? '' }}" readonly disabled>
                                                     </div>
@@ -230,23 +230,21 @@
                                         <div class="col-md-6">
                                             <div class="card box-shadow-0">
                                                 <div class="card-header border-0 pb-0">
-                                                    <h6>Livrer à</h6>
+                                                    <h6>{{ __('Livrer à') }}</h6>
                                                 </div>
                                                 <div class="card-body">
                                                     <div>
                                                         <div class="d-flex align-items-center justify-content-between">
-                                                            <label class="form-label">Client <span
-                                                                    class="text-danger">*</span></label>
+                                                            <label class="form-label">{{ __('Client') }} <span class="text-danger">*</span></label>
                                                             <a href="{{ route('bo.crm.customers.create') }}"
                                                                 class="d-flex align-items-center">
                                                                 <i
-                                                                    class="isax isax-add-circle5 text-primary me-1"></i>Ajouter
-                                                            </a>
+                                                                    class="isax isax-add-circle5 text-primary me-1"></i>{{ __('Ajouter') }}</a>
                                                         </div>
                                                         <div class="mb-3">
                                                             <select name="customer_id"
                                                                 class="select @error('customer_id') is-invalid @enderror">
-                                                                <option value="">Sélectionner un client</option>
+                                                                <option value="">{{ __('Sélectionner un client') }}</option>
                                                                 @foreach ($customers as $customer)
                                                                     <option value="{{ $customer->id }}"
                                                                         {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
@@ -257,7 +255,7 @@
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                             @if ($customers->isEmpty())
-                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>Aucun client trouvé. <a href="{{ route('bo.crm.customers.create') }}">Créer un client</a> avant de continuer.</small>
+                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>{{ __('Aucun client trouvé.') }} <a href="{{ route('bo.crm.customers.create') }}">{{ __('Créer un client') }}</a> {{ __('avant de continuer.') }}</small>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -271,36 +269,36 @@
 
                                 <div class="items-details">
                                     <div class="purchase-header mb-3">
-                                        <h6>Articles & Détails</h6>
+                                        <h6>{{ __('Articles & Détails') }}</h6>
                                     </div>
 
                                     <!-- start row -->
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="mb-3">
-                                                <h6 class="fs-14 mb-1">Type d'article</h6>
+                                                <h6 class="fs-14 mb-1">{{ __('Type d\'article') }}</h6>
                                                 <div class="d-flex align-items-center gap-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
                                                             name="item_type_filter" id="Radio-sm-3" value="product"
                                                             checked>
                                                         <label class="form-check-label" for="Radio-sm-3">
-                                                            Produit
+                                                            {{ __('Produit') }}
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
                                                             name="item_type_filter" id="Radio-sm-4" value="service">
                                                         <label class="form-check-label" for="Radio-sm-4">
-                                                            Service
+                                                            {{ __('Service') }}
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Produits/Services</label>
+                                                <label class="form-label">{{ __('Produits/Services') }}</label>
                                                 <select class="select" id="product-select">
-                                                    <option value="">Sélectionner</option>
+                                                    <option value="">{{ __('Sélectionner') }}</option>
                                                     @foreach ($products as $product)
                                                         <option value="{{ $product->id }}"
                                                             data-name="{{ $product->name }}"
@@ -322,10 +320,10 @@
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th style="width: 28%;">Produit/Service</th>
-                                                    <th style="width: 13%;">Quantité</th>
-                                                    <th style="width: 17%;">Prix unitaire</th>
-                                                    <th style="width: 15%;" class="tax-col">Taxe (%)</th>
-                                                    <th style="width: 17%;">Montant</th>
+                                                    <th style="width: 13%;">{{ __('Quantité') }}</th>
+                                                    <th style="width: 17%;">{{ __('Prix unitaire') }}</th>
+                                                    <th style="width: 15%;" class="tax-col">{{ __('Taxe (%)') }}</th>
+                                                    <th style="width: 17%;">{{ __('Montant') }}</th>
                                                     <th style="width: 10%;"></th>
                                                 </tr>
                                             </thead>
@@ -338,7 +336,7 @@
                                                         <input type="text" name="items[0][label]"
                                                             class="form-control item-label"
                                                             value="{{ old('items.0.label') }}"
-                                                            placeholder="Nom de l'article">
+                                                            placeholder="{{ __('Nom de l\'article') }}">
                                                     </td>
                                                     <td>
                                                         <input type="number" name="items[0][quantity]"
@@ -356,7 +354,7 @@
                                                         <select name="items[0][tax_group_id]" class="form-select item-tax">
                                                             <option value="" data-rate="0" data-type="">0%</option>
                                                             @if($taxCategories->count())
-                                                            <optgroup label="Taux de taxes">
+                                                            <optgroup label="{{ __('Taux de taxes') }}">
                                                                 @foreach ($taxCategories as $tc)
                                                                     <option value="cat_{{ $tc->id }}" data-rate="{{ $tc->rate }}" data-type="category">
                                                                         {{ $tc->name }} ({{ $tc->rate }}%)
@@ -365,7 +363,7 @@
                                                             </optgroup>
                                                             @endif
                                                             @if($taxGroups->count())
-                                                            <optgroup label="Groupes de taxes">
+                                                            <optgroup label="{{ __('Groupes de taxes') }}">
                                                                 @foreach ($taxGroups as $tg)
                                                                     <option value="{{ $tg->id }}" data-rate="{{ $tg->rates->sum('rate') }}" data-type="group">
                                                                         {{ $tg->name }} ({{ $tg->rates->sum('rate') }}%)
@@ -389,8 +387,8 @@
                                     <div>
                                         <a href="javascript:void(0);" class="d-inline-flex align-items-center"
                                             id="add-item-btn"><i
-                                                class="isax isax-add-circle5 text-primary me-1"></i>Ajouter un
-                                            article</a>
+                                                class="isax isax-add-circle5 text-primary me-1"></i>{{ __('Ajouter un
+                                            article') }}</a>
                                     </div>
                                 </div>
 
@@ -400,52 +398,52 @@
                                     <div class="row">
                                         <div class="col-md-7">
                                             <div class="mb-3">
-                                                <h6 class="mb-3">Informations supplémentaires</h6>
+                                                <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
                                                 <div>
                                                     <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">
                                                         <li class="nav-item me-2" role="presentation">
                                                             <a class="nav-link active border fs-12 fw-semibold rounded"
                                                                 data-bs-toggle="tab" data-bs-target="#notes"
                                                                 aria-current="page" href="javascript:void(0);"><i
-                                                                    class="isax isax-document-text me-1"></i>Notes</a>
+                                                                    class="isax isax-document-text me-1"></i>{{ __('Notes') }}</a>
                                                         </li>
                                                         <li class="nav-item me-2" role="presentation">
                                                             <a class="nav-link border fs-12 fw-semibold rounded"
                                                                 data-bs-toggle="tab" data-bs-target="#terms"
                                                                 href="javascript:void(0);"><i
-                                                                    class="isax isax-document me-1"></i>Conditions</a>
+                                                                    class="isax isax-document me-1"></i>{{ __('Conditions') }}</a>
                                                         </li>
                                                         <li class="nav-item me-2" role="presentation">
                                                             <a class="nav-link border fs-12 fw-semibold rounded"
                                                                 data-bs-toggle="tab" data-bs-target="#bank"
                                                                 href="javascript:void(0);"><i
-                                                                    class="isax isax-bank me-1"></i>Coordonnées
-                                                                bancaires</a>
+                                                                    class="isax isax-bank me-1"></i>{{ __('Coordonnées
+                                                                bancaires') }}</a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
                                                         <div class="tab-pane active show" id="notes" role="tabpanel">
-                                                            <label class="form-label">Notes
-                                                                additionnelles</label>
+                                                            <label class="form-label">{{ __('Notes
+                                                                additionnelles') }}</label>
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
-                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                    class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
                                                                 <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
                                                                     de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
-                                                            <label class="form-label">Conditions
-                                                                générales</label>
+                                                            <label class="form-label">{{ __('Conditions
+                                                                générales') }}</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
-                                                                    class="isax isax-setting-2 me-1"></i>Modifiable depuis
+                                                                    class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
                                                                 <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
                                                                     de facturation</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
-                                                            <label class="form-label">Compte bancaire</label>
+                                                            <label class="form-label">{{ __('Compte bancaire') }}</label>
                                                             <select class="select" name="bank_account_id">
-                                                                <option value="">Sélectionner</option>
+                                                                <option value="">{{ __('Sélectionner') }}</option>
                                                                 @foreach ($bankAccounts as $ba)
                                                                     <option value="{{ $ba->id }}"
                                                                         data-balance="{{ number_format($ba->current_balance, 2, ',', ' ') }}"
@@ -467,13 +465,13 @@
                                             <ul class="mb-0 ps-0 list-unstyled">
                                                 <li class="mb-3">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">Sous-total</p>
+                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">{{ __('Sous-total') }}</p>
                                                         <h6 class="fs-14" id="display-subtotal">0,00</h6>
                                                     </div>
                                                 </li>
                                                 <li class="mb-3" id="tax-total-row">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">Taxe</p>
+                                                        <p class="fw-semibold fs-14 text-gray-9 mb-0">{{ __('Taxe') }}</p>
                                                         <h6 class="fs-14" id="display-tax">0,00</h6>
                                                     </div>
                                                 </li>
@@ -493,8 +491,8 @@
 
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a href="{{ route('bo.sales.delivery-challans.index') }}"
-                                    class="btn btn-outline-white">Annuler</a>
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    class="btn btn-outline-white">{{ __('Annuler') }}</a>
+                                <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                             </div><!-- end card footer -->
                         </form>
                     </div><!-- end card -->
@@ -553,14 +551,14 @@
             addBtn.addEventListener('click', function() {
                 let taxOpts = '<option value="" data-rate="0" data-type="">0%</option>';
                 if (taxCategories.length) {
-                    taxOpts += '<optgroup label="Taux de taxes">';
+                    taxOpts += '<optgroup label="{{ __('Taux de taxes') }}">';
                     taxCategories.forEach(tc => {
                         taxOpts += `<option value="cat_${tc.id}" data-rate="${tc.rate}" data-type="category">${tc.name} (${tc.rate}%)</option>`;
                     });
                     taxOpts += '</optgroup>';
                 }
                 if (taxGroups.length) {
-                    taxOpts += '<optgroup label="Groupes de taxes">';
+                    taxOpts += '<optgroup label="{{ __('Groupes de taxes') }}">';
                     taxGroups.forEach(tg => {
                         const rate = tg.rates ? tg.rates.reduce((sum, r) => sum + parseFloat(r.rate), 0) : 0;
                         taxOpts += `<option value="${tg.id}" data-rate="${rate}" data-type="group">${tg.name} (${rate}%)</option>`;
@@ -573,7 +571,7 @@
                 row.innerHTML = `
                     <td>
                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="Nom de l'article">
+                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Nom de l\'article') }}">
                     </td>
                     <td>
                         <input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" required>

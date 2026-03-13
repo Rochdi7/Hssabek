@@ -2,9 +2,9 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
-    
+            Start Page Content
+        ========================= -->
+
     <div class="page-wrapper">
 
         <!-- Start Content -->
@@ -17,7 +17,8 @@
                 </div>
                 <div class="my-xl-auto d-flex align-items-center gap-2">
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -30,7 +31,8 @@
                         </ul>
                     </div>
 
-                    <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_expence"><i class="isax isax-add-circle5 me-1"></i>New Expense</a>
+                    <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                        data-bs-target="#add_expence"><i class="isax isax-add-circle5 me-1"></i>New Expense</a>
                 </div>
             </div>
             <!-- End Page Header -->
@@ -42,16 +44,20 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
-                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
+                        <a class="btn btn-outline-white fw-normal d-inline-flex align-items-center"
+                            href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#customcanvas">
                             <i class="isax isax-filter me-1"></i>Filter
                         </a>
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center fw-medium" data-bs-toggle="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center fw-medium"
+                                data-bs-toggle="dropdown">
                                 <i class="isax isax-sort me-1"></i>Sort By : <span class="fw-normal ms-1">Latest</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
@@ -64,7 +70,9 @@
                             </ul>
                         </div>
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu">
@@ -132,8 +140,12 @@
                 <!-- Filter Info -->
                 <div class="align-items-center gap-2 flex-wrap filter-info mt-3">
                     <h6 class="fs-13 fw-semibold">Filters</h6>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>Status Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
-                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>$10,000 - $25,500<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>Status
+                        Selected<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
+                    <span class="tag bg-light border rounded-1 fs-12 text-dark badge"><span
+                            class="num-count d-inline-flex align-items-center justify-content-center bg-success fs-10 me-1">1</span>$10,000
+                        - $25,500<span class="ms-1 tag-close"><i class="fa-solid fa-x fs-10"></i></span></span>
                     <a href="#" class="link-danger fw-medium text-decoration-underline ms-md-1">Clear All</a>
                 </div>
                 <!-- /Filter Info -->
@@ -174,7 +186,9 @@
                             <td>PO-202402-012</td>
                             <td>Payment for raw materials</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$10,000</p>
@@ -184,7 +198,9 @@
                                 <p class="text-dark">Cash</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm badge-sm">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                <span
+                                    class="badge badge-soft-success d-inline-flex align-items-center badge-sm badge-sm">Paid<i
+                                        class="isax isax-tick-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -192,16 +208,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -217,7 +240,9 @@
                             <td>INV00025</td>
                             <td>Purchase of packaging materials</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$25,750</p>
@@ -227,7 +252,8 @@
                                 <p class="text-dark">Cheque</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i class="isax isax-timer ms-1"></i></span>
+                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i
+                                        class="isax isax-timer ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -235,16 +261,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -260,7 +293,9 @@
                             <td>PO-202401-011</td>
                             <td>Payment for electronic components</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$50,125</p>
@@ -270,7 +305,8 @@
                                 <p class="text-dark">Paypal</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i
+                                        class="isax isax-close-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -278,16 +314,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -303,7 +346,9 @@
                             <td>REF12345</td>
                             <td>Social media ad campaign</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$75,900</p>
@@ -313,7 +358,8 @@
                                 <p class="text-dark">Bank Transfer</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i
+                                        class="isax isax-tick-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -321,16 +367,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -346,7 +399,9 @@
                             <td>REF18294</td>
                             <td>Business trip for sales meeting</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$99,999</p>
@@ -356,7 +411,8 @@
                                 <p class="text-dark">Stripe</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i class="isax isax-timer ms-1"></i></span>
+                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i
+                                        class="isax isax-timer ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -364,16 +420,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -389,7 +452,9 @@
                             <td>PO-202412-010</td>
                             <td>Wholesale purchase of inventory</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$1,20,500</p>
@@ -399,7 +464,8 @@
                                 <p class="text-dark">Cash</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i
+                                        class="isax isax-close-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -407,16 +473,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -432,7 +505,9 @@
                             <td>UTI20241219</td>
                             <td>Electricity bill</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$2,50,000</p>
@@ -442,7 +517,8 @@
                                 <p class="text-dark">Cheque</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i
+                                        class="isax isax-tick-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -450,16 +526,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -475,7 +558,9 @@
                             <td>PO-202411-008</td>
                             <td>Purchase of office furniture</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$5,00,750</p>
@@ -485,7 +570,8 @@
                                 <p class="text-dark">Paypal</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i class="isax isax-timer ms-1"></i></span>
+                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i
+                                        class="isax isax-timer ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -493,16 +579,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -518,7 +611,9 @@
                             <td>PO-202411-007</td>
                             <td>Purchase of manufacturing tools</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$7,50,300</p>
@@ -528,7 +623,8 @@
                                 <p class="text-dark">Bank Transfer</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i
+                                        class="isax isax-close-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -536,16 +632,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -561,7 +664,9 @@
                             <td>REF17420</td>
                             <td>Server maintenance costs</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$9,99,999</p>
@@ -571,7 +676,8 @@
                                 <p class="text-dark">Stripe</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i
+                                        class="isax isax-tick-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -579,16 +685,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -604,7 +717,9 @@
                             <td>REF16302</td>
                             <td>Digital marketing campaign</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$87,650</p>
@@ -614,7 +729,8 @@
                                 <p class="text-dark">Cheque</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i class="isax isax-timer ms-1"></i></span>
+                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i
+                                        class="isax isax-timer ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -622,16 +738,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -647,7 +770,9 @@
                             <td>REF15035</td>
                             <td>Equipment repairs and servicing</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$69,420</p>
@@ -657,7 +782,8 @@
                                 <p class="text-dark">Paypal</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i class="isax isax-close-circle ms-1"></i></span>
+                                <span class="badge badge-soft-danger d-inline-flex align-items-center badge-sm">Cancelled<i
+                                        class="isax isax-close-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -665,16 +791,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -690,7 +823,9 @@
                             <td>REF14710</td>
                             <td>Renovation of office workspace</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$33,210</p>
@@ -700,7 +835,8 @@
                                 <p class="text-dark">Bank Transfer</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i class="isax isax-tick-circle ms-1"></i></span>
+                                <span class="badge badge-soft-success d-inline-flex align-items-center badge-sm">Paid<i
+                                        class="isax isax-tick-circle ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -708,16 +844,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -733,7 +876,9 @@
                             <td>INV00020</td>
                             <td>Bulk order freight costs</td>
                             <td>
-                                <a href="javascript:void(0);" class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i class="isax isax-document-text5 fs-12"></i></a>
+                                <a href="javascript:void(0);"
+                                    class="btn p-1 bg-light text-dark d-inline-flex align-item-center justify-content-center"><i
+                                        class="isax isax-document-text5 fs-12"></i></a>
                             </td>
                             <td>
                                 <p class="text-dark">$2,10,000</p>
@@ -743,7 +888,8 @@
                                 <p class="text-dark">Cash</p>
                             </td>
                             <td>
-                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i class="isax isax-timer ms-1"></i></span>
+                                <span class="badge badge-soft-warning d-inline-flex align-items-center badge-sm">Pending<i
+                                        class="isax isax-timer ms-1"></i></span>
                             </td>
                             <td class="action-item">
                                 <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -751,16 +897,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#details_expense"><i class="isax isax-eye me-2"></i>View</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#details_expense"><i
+                                                class="isax isax-eye me-2"></i>View</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);"
+                                            class="dropdown-item d-flex d-flex align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#edit_expence"><i class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="isax isax-document-download4 me-2"></i>Download</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i
+                                                class="isax isax-document-download4 me-2"></i>Download</a>
                                     </li>
                                 </ul>
                             </td>
@@ -775,7 +928,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -783,15 +937,16 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 
     <!-- Start Filter -->
     <div class="offcanvas offcanvas-offset offcanvas-end" tabindex="-1" id="customcanvas">
         <div class="offcanvas-header d-block pb-0">
             <div class="border-bottom d-flex align-items-center justify-content-between pb-3">
                 <h6 class="offcanvas-title">Filter</h6>
-                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"><i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="offcanvas-body pt-3">
@@ -799,7 +954,9 @@
                 <div class="mb-3">
                     <label class="form-label">Amount</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -813,7 +970,9 @@
                 <div class="mb-3">
                     <label class="form-label">Payment Mode</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -865,7 +1024,9 @@
                 <div>
                     <label class="form-label">Status</label>
                     <div class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                        <a href="javascript:void(0);"
+                            class="dropdown-toggle btn btn-lg bg-light  d-flex align-items-center justify-content-start fs-13 fw-normal border"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                             Select
                         </a>
                         <div class="dropdown-menu shadow-lg w-100 dropdown-info">
@@ -892,7 +1053,8 @@
                             <a href="#" class="btn btn-outline-white w-100">Reset</a>
                         </div>
                         <div class="col-6">
-                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100" id="filter-submit">Submit</button>
+                            <button data-bs-dismiss="offcanvas" class="btn btn-primary w-100"
+                                id="filter-submit">Submit</button>
                         </div>
                     </div>
                 </div>

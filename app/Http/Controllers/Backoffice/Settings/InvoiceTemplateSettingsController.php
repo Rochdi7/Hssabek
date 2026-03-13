@@ -132,7 +132,7 @@ class InvoiceTemplateSettingsController extends Controller
 
         if (!$catalogTemplate) {
             return redirect()->route('bo.settings.invoice-templates.index')
-                ->with('error', 'Modèle invalide.');
+                ->with('error', __('Modèle invalide.'));
         }
 
         $tenant = TenantContext::get();
@@ -155,7 +155,7 @@ class InvoiceTemplateSettingsController extends Controller
 
             if (!$hasAccess) {
                 return redirect()->route('bo.settings.invoice-templates.index')
-                    ->with('error', 'Vous n\'avez pas accès à ce modèle.');
+                    ->with('error', __('Vous n\'avez pas accès à ce modèle.'));
             }
         }
 
@@ -178,7 +178,7 @@ class InvoiceTemplateSettingsController extends Controller
         $docLabel = self::DOCUMENT_TYPES[$docType] ?? $docType;
 
         return redirect()->route('bo.settings.invoice-templates.index')
-            ->with('success', "Modèle \"{$catalogTemplate->name}\" activé par défaut pour les {$docLabel}.");
+            ->with('success', __("Modèle \"{$catalogTemplate->name}\" activé par défaut pour les {$docLabel}."));
     }
 
     public function preview(Request $request, string $template)
@@ -259,7 +259,7 @@ class InvoiceTemplateSettingsController extends Controller
 
         if (!$catalogTemplate) {
             return redirect()->route('bo.settings.invoice-templates.index')
-                ->with('error', 'Modèle introuvable.');
+                ->with('error', __('Modèle introuvable.'));
         }
 
         // Check if already owned or purchased
@@ -277,7 +277,7 @@ class InvoiceTemplateSettingsController extends Controller
 
         if ($alreadyOwned || $alreadyPurchased) {
             return redirect()->route('bo.settings.invoice-templates.index')
-                ->with('error', 'Vous possédez déjà ce modèle.');
+                ->with('error', __('Vous possédez déjà ce modèle.'));
         }
 
         // Redirect to WhatsApp for payment

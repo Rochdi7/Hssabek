@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -17,15 +17,15 @@
 
                         <!-- Start settings sidebar -->
                         @component('components.settings-sidebar')
-                        @endcomponent                        
+                        @endcomponent
                         <!-- End settings sidebar -->
-                         
+
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
                                     <h6 class="mb-0">Bank Accounts</h6>
                                 </div>
-                                <form action="{{url('bank-accounts')}}">
+                                <form action="{{ url('bank-accounts') }}">
                                     <div class="mb-3">
                                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                                             <div class="d-flex align-items-center flex-wrap gap-2">
@@ -33,11 +33,15 @@
                                                     <span class="input-icon-addon">
                                                         <i class="isax isax-search-normal"></i>
                                                     </span>
-                                                    <input type="text" class="form-control form-control-sm bg-white" placeholder="Search">
+                                                    <input type="text" class="form-control form-control-sm bg-white"
+                                                        placeholder="Search">
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center flex-wrap gap-2">
-                                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_bank_settings" class="btn btn-primary d-flex align-items-center"><i class="isax isax-add-circle5 me-2"></i>New Bank Account</a>
+                                                <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                    data-bs-target="#add_bank_settings"
+                                                    class="btn btn-primary d-flex align-items-center"><i
+                                                        class="isax isax-add-circle5 me-2"></i>New Bank Account</a>
                                             </div>
                                         </div>
                                     </div>
@@ -65,7 +69,8 @@
                                                     <td>021000021</td>
                                                     <td>
                                                         <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" role="switch" checked="">
+                                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                                checked="">
                                                         </div>
                                                     </td>
                                                     <td class="action-item">
@@ -74,10 +79,17 @@
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_bank_settings"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#edit_bank_settings"><i
+                                                                        class="isax isax-edit me-2"></i>Edit</a>
                                                             </li>
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                        class="isax isax-trash me-2"></i>Delete</a>
                                                             </li>
                                                         </ul>
                                                     </td>
@@ -92,7 +104,8 @@
                                                     <td>121000358</td>
                                                     <td>
                                                         <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" role="switch" checked="">
+                                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                                checked="">
                                                         </div>
                                                     </td>
                                                     <td class="action-item">
@@ -101,10 +114,17 @@
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_bank_settings"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#edit_bank_settings"><i
+                                                                        class="isax isax-edit me-2"></i>Edit</a>
                                                             </li>
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                        class="isax isax-trash me-2"></i>Delete</a>
                                                             </li>
                                                         </ul>
                                                     </td>
@@ -128,10 +148,17 @@
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_bank_settings"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#edit_bank_settings"><i
+                                                                        class="isax isax-edit me-2"></i>Edit</a>
                                                             </li>
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                                        class="isax isax-trash me-2"></i>Delete</a>
                                                             </li>
                                                         </ul>
                                                     </td>
@@ -146,7 +173,8 @@
                                                     <td>123000220</td>
                                                     <td>
                                                         <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" role="switch" checked="">
+                                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                                checked="">
                                                         </div>
                                                     </td>
                                                     <td class="action-item">
@@ -155,10 +183,18 @@
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_bank_settings"><i class="isax isax-edit me-2"></i>Edit</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#edit_bank_settings"><i
+                                                                        class="isax isax-edit me-2"></i>Edit</a>
                                                             </li>
                                                             <li>
-                                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#delete_modal"><i
+                                                                        class="isax isax-trash me-2"></i>Delete</a>
                                                             </li>
                                                         </ul>
                                                     </td>
@@ -180,7 +216,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -188,6 +225,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

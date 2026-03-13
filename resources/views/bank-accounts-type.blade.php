@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper">
 
@@ -13,11 +13,13 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6 class="d-flex align-items-center"><a href="{{url('bank-accounts')}}"> <i class="isax isax-arrow-left me-2 fs-14"></i>Bank Accounts</a></h6>
+                    <h6 class="d-flex align-items-center"><a href="{{ url('bank-accounts') }}"> <i
+                                class="isax isax-arrow-left me-2 fs-14"></i>Bank Accounts</a></h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             <i class="isax isax-export-1 me-1"></i>Export
                         </a>
                         <ul class="dropdown-menu">
@@ -29,7 +31,8 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="#" class="btn btn-primary d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#add_modal">
+                    <a href="#" class="btn btn-primary d-flex align-items-center justify-content-center"
+                        data-bs-toggle="modal" data-bs-target="#add_modal">
                         <i class="isax isax-add-circle5 me-1"></i>New Account Type
                     </a>
                 </div>
@@ -43,14 +46,17 @@
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
-                                <a href="javascript:void(0);" class="btn-searchset"><i class="isax isax-search-normal fs-12"></i></a>
+                                <a href="javascript:void(0);" class="btn-searchset"><i
+                                        class="isax isax-search-normal fs-12"></i></a>
                             </div>
                         </div>
 
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="dropdown me-2">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown">
                                 <i class="isax isax-sort me-1"></i>Sort By : <span class="fw-normal ms-1">Latest</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
@@ -63,7 +69,9 @@
                             </ul>
                         </div>
                         <div class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <a href="javascript:void(0);"
+                                class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
+                                data-bs-toggle="dropdown" data-bs-auto-close="outside">
                                 <i class="isax isax-grid-3 me-1"></i>Column
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-lg">
@@ -127,10 +135,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -153,10 +165,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -179,10 +195,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="isax isax-edit me-2"></i>Edit</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
+                                                class="isax isax-edit me-2"></i>Edit</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="isax isax-trash me-2"></i>Delete</a>
+                                        <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#delete_modal"><i
+                                                class="isax isax-trash me-2"></i>Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -197,7 +217,8 @@
 
         <!-- Start Footer-->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-dark mb-0">&copy; 2025 <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All
+                Rights Reserved</p>
             <p class="text-dark">Version : 1.3.8</p>
         </div>
         <!-- End Footer-->
@@ -205,6 +226,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

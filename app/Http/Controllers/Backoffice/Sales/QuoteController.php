@@ -94,7 +94,7 @@ class QuoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.quotes.index')
-            ->with('success', 'Devis créé avec succès.');
+            ->with('success', __('Devis créé avec succès.'));
     }
 
     public function show(Quote $quote)
@@ -159,7 +159,7 @@ class QuoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.quotes.show', $quote)
-            ->with('success', 'Devis mis à jour avec succès.');
+            ->with('success', __('Devis mis à jour avec succès.'));
     }
 
     public function destroy(Quote $quote)
@@ -173,7 +173,7 @@ class QuoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.quotes.index')
-            ->with('success', 'Devis supprimé avec succès.');
+            ->with('success', __('Devis supprimé avec succès.'));
     }
 
     public function download(Quote $quote, PdfService $pdfService)
@@ -203,7 +203,7 @@ class QuoteController extends Controller
         ));
 
         return redirect()->route('bo.sales.quotes.show', $quote)
-            ->with('success', 'Devis envoyé au client par email.');
+            ->with('success', __('Devis envoyé au client par email.'));
     }
 
     public function convertToInvoice(Quote $quote)
@@ -221,6 +221,6 @@ class QuoteController extends Controller
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
-            ->with('success', 'Devis converti en facture avec succès.');
+            ->with('success', __('Devis converti en facture avec succès.'));
     }
 }

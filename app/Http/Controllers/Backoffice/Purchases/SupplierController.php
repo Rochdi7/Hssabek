@@ -48,7 +48,7 @@ class SupplierController extends Controller
         Supplier::create($request->validated());
 
         return redirect()->route('bo.purchases.suppliers.index')
-            ->with('success', 'Fournisseur créé avec succès.');
+            ->with('success', __('Fournisseur créé avec succès.'));
     }
 
     public function show(Supplier $supplier)
@@ -77,7 +77,7 @@ class SupplierController extends Controller
         $supplier->update($request->validated());
 
         return redirect()->route('bo.purchases.suppliers.index')
-            ->with('success', 'Fournisseur mis à jour avec succès.');
+            ->with('success', __('Fournisseur mis à jour avec succès.'));
     }
 
     public function destroy(Supplier $supplier)
@@ -87,6 +87,6 @@ class SupplierController extends Controller
         $supplier->delete();
 
         return redirect()->route('bo.purchases.suppliers.index')
-            ->with('success', 'Fournisseur supprimé avec succès.');
+            ->with('success', __('Fournisseur supprimé avec succès.'));
     }
 }

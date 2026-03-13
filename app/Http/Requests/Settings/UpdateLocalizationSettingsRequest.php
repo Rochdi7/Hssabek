@@ -25,11 +25,11 @@ class UpdateLocalizationSettingsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'locale.in' => 'La langue sélectionnée est invalide.',
-            'timezone.max' => 'Le fuseau horaire ne doit pas dépasser 50 caractères.',
-            'currency.size' => 'La devise doit contenir exactement 3 caractères.',
-            'date_format.max' => 'Le format de date est invalide.',
-            'time_format.in' => "Le format d'heure doit être 12 ou 24.",
+            'locale.in' => __('La langue sélectionnée est invalide.'),
+            'timezone.max' => __('Le fuseau horaire ne doit pas dépasser 50 caractères.'),
+            'currency.size' => __('La devise doit contenir exactement 3 caractères.'),
+            'date_format.max' => __('Le format de date est invalide.'),
+            'time_format.in' => __("Le format d'heure doit être 12 ou 24."),
         ];
     }
 }

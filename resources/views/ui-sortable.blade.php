@@ -2,8 +2,8 @@
 @extends('layout.mainlayout')
 @section('content')
     <!-- ========================
-        Start Page Content
-    ========================= -->
+            Start Page Content
+        ========================= -->
 
     <div class="page-wrapper cardhead">
 
@@ -157,12 +157,24 @@
                         </div> <!-- end card-header -->
                         <div class="card-body">
                             <ol class="list-group sortable-list list-item-numbered" id="sorting-with-handle">
-                                <li class="list-group-item"><i class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Analyze market trends.</li>
-                                <li class="list-group-item"><i class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Edit video content.</li>
-                                <li class="list-group-item"><i class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Plan social media calendar.</li>
-                                <li class="list-group-item"><i class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Update company policies.</li>
-                                <li class="list-group-item"><i class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Compile sales reports.</li>
-                                <li class="list-group-item"><i class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Schedule client calls.</li>
+                                <li class="list-group-item"><i
+                                        class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Analyze market
+                                    trends.</li>
+                                <li class="list-group-item"><i
+                                        class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Edit video content.
+                                </li>
+                                <li class="list-group-item"><i
+                                        class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Plan social media
+                                    calendar.</li>
+                                <li class="list-group-item"><i
+                                        class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Update company
+                                    policies.</li>
+                                <li class="list-group-item"><i
+                                        class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Compile sales
+                                    reports.</li>
+                                <li class="list-group-item"><i
+                                        class="fas fa-arrows-alt me-2 text-dark fs-16 handle lh-1"></i>Schedule client
+                                    calls.</li>
                             </ol>
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
@@ -357,7 +369,12 @@
 
         <!-- Start Footer -->
         <div class="footer d-sm-flex align-items-center justify-content-between bg-white py-2 px-4 border-top">
-            <p class="text-title mb-0">&copy; <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0);" class="link-primary">Kanakku</a>, All Rights Reserved</p>
+            <p class="text-title mb-0">&copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> <a href="javascript:void(0);" class="link-primary">Hssabek</a>, All Rights
+                Reserved
+            </p>
             <p class="text-title">Version : 1.3.8</p>
         </div>
         <!-- End Footer -->
@@ -365,6 +382,6 @@
     </div>
 
     <!-- ========================
-        End Page Content
-    ========================= -->
+            End Page Content
+        ========================= -->
 @endsection

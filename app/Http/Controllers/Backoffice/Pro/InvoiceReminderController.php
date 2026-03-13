@@ -49,7 +49,7 @@ class InvoiceReminderController extends Controller
         InvoiceReminder::create($data);
 
         return redirect()->route('bo.pro.invoice-reminders.index')
-            ->with('success', 'Rappel de facture créé avec succès.');
+            ->with('success', __('Rappel de facture créé avec succès.'));
     }
 
     public function edit(InvoiceReminder $invoiceReminder)
@@ -68,7 +68,7 @@ class InvoiceReminderController extends Controller
         $invoiceReminder->update($request->validated());
 
         return redirect()->route('bo.pro.invoice-reminders.index')
-            ->with('success', 'Rappel de facture mis à jour avec succès.');
+            ->with('success', __('Rappel de facture mis à jour avec succès.'));
     }
 
     public function destroy(InvoiceReminder $invoiceReminder)
@@ -78,6 +78,6 @@ class InvoiceReminderController extends Controller
         $invoiceReminder->delete();
 
         return redirect()->route('bo.pro.invoice-reminders.index')
-            ->with('success', 'Rappel de facture supprimé avec succès.');
+            ->with('success', __('Rappel de facture supprimé avec succès.'));
     }
 }

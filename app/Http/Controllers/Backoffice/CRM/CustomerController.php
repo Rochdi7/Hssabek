@@ -52,7 +52,7 @@ class CustomerController extends Controller
         Customer::create($request->validated());
 
         return redirect()->route('bo.crm.customers.index')
-            ->with('success', 'Client créé avec succès.');
+            ->with('success', __('Client créé avec succès.'));
     }
 
     public function show(Customer $customer)
@@ -83,7 +83,7 @@ class CustomerController extends Controller
         $customer->update($request->validated());
 
         return redirect()->route('bo.crm.customers.index')
-            ->with('success', 'Client mis à jour avec succès.');
+            ->with('success', __('Client mis à jour avec succès.'));
     }
 
     public function destroy(Customer $customer)
@@ -93,6 +93,6 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect()->route('bo.crm.customers.index')
-            ->with('success', 'Client supprimé avec succès.');
+            ->with('success', __('Client supprimé avec succès.'));
     }
 }

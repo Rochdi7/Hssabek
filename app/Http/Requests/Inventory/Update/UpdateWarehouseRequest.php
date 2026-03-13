@@ -36,12 +36,12 @@ class UpdateWarehouseRequest extends BaseFormRequest
     protected function baseMessages(): array
     {
         return [
-            'name.required' => 'Le nom de l\'entrepôt est obligatoire.',
-            'name.max'      => 'Le nom ne doit pas dépasser 255 caractères.',
-            'name.unique'   => 'Un entrepôt avec ce nom existe déjà.',
-            'code.max'      => 'Le code ne doit pas dépasser 50 caractères.',
-            'code.unique'   => 'Un entrepôt avec ce code existe déjà.',
-            'address.max'   => 'L\'adresse ne doit pas dépasser 500 caractères.',
+            'name.required' => __('Le nom de l\'entrepôt est obligatoire.'),
+            'name.max'      => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'name.unique'   => __('Un entrepôt avec ce nom existe déjà.'),
+            'code.max'      => __('Le code ne doit pas dépasser 50 caractères.'),
+            'code.unique'   => __('Un entrepôt avec ce code existe déjà.'),
+            'address.max'   => __('L\'adresse ne doit pas dépasser 500 caractères.'),
         ];
     }
 }

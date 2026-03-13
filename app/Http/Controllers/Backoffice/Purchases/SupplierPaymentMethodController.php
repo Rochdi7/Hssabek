@@ -30,7 +30,7 @@ class SupplierPaymentMethodController extends Controller
         SupplierPaymentMethod::create($request->validated());
 
         return redirect()->route('bo.purchases.supplier-payment-methods.index')
-            ->with('success', 'Méthode de paiement ajoutée avec succès.');
+            ->with('success', __('Méthode de paiement ajoutée avec succès.'));
     }
 
     public function update(UpdateSupplierPaymentMethodRequest $request, SupplierPaymentMethod $supplierPaymentMethod)
@@ -40,7 +40,7 @@ class SupplierPaymentMethodController extends Controller
         $supplierPaymentMethod->update($request->validated());
 
         return redirect()->route('bo.purchases.supplier-payment-methods.index')
-            ->with('success', 'Méthode de paiement modifiée avec succès.');
+            ->with('success', __('Méthode de paiement modifiée avec succès.'));
     }
 
     public function destroy(SupplierPaymentMethod $supplierPaymentMethod)
@@ -49,12 +49,12 @@ class SupplierPaymentMethodController extends Controller
 
         if ($supplierPaymentMethod->payments()->exists()) {
             return redirect()->route('bo.purchases.supplier-payment-methods.index')
-                ->with('error', 'Impossible de supprimer cette méthode : elle est utilisée par un ou plusieurs paiements.');
+                ->with('error', __('Impossible de supprimer cette méthode : elle est utilisée par un ou plusieurs paiements.'));
         }
 
         $supplierPaymentMethod->delete();
 
         return redirect()->route('bo.purchases.supplier-payment-methods.index')
-            ->with('success', 'Méthode de paiement supprimée avec succès.');
+            ->with('success', __('Méthode de paiement supprimée avec succès.'));
     }
 }

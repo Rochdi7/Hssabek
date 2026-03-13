@@ -60,6 +60,6 @@ class InvoiceSettingsController extends Controller
         }
 
         return redirect()->route('bo.settings.invoice.edit')
-            ->with('success', 'Paramètres de facturation mis à jour avec succès.');
+            ->with('success', __('Paramètres de facturation mis à jour avec succès.'));
     }
 }

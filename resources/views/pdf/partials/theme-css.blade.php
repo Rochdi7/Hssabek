@@ -1,4 +1,4 @@
-{{-- Embedded Bootstrap + Kanakku theme CSS subset for DomPDF rendering --}}
+{{-- Embedded Bootstrap + Hssabek theme CSS subset for DomPDF rendering --}}
 <style>
     /* ─── Reset & Base ─────────────────────────────────────────── */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -97,7 +97,7 @@
     .fw-semibold { font-weight: 600 !important; }
     .fw-bold { font-weight: 700 !important; }
 
-    /* ─── Font Sizes (Kanakku) ─────────────────────────────────── */
+    /* ─── Font Sizes (Hssabek) ─────────────────────────────────── */
     .fs-10 { font-size: 0.75em !important; }
     .fs-12 { font-size: 0.75rem !important; }
     .fs-13 { font-size: 0.8125rem; }
@@ -156,15 +156,15 @@
     /* ─── Image ────────────────────────────────────────────────── */
     .img-fluid { max-width: 100% !important; height: auto !important; }
 
-    /* ─── Border Dashed (Kanakku) ──────────────────────────────── */
+    /* ─── Border Dashed (Hssabek) ──────────────────────────────── */
     .border-dashed { border-bottom: 1px dashed #dee2e6; }
 
-    /* ─── Invoice Wrapper (Kanakku) ────────────────────────────── */
+    /* ─── Invoice Wrapper (Hssabek) ────────────────────────────── */
     .invoice-wrapper { padding: 40px; }
     .invoice-wrapper .invoice-tables thead tr th { padding: 10px 16px; }
     .invoice-wrapper .invoice-tables .border-bottom-transparent { border-bottom: transparent; }
 
-    /* ─── Invoice Dark (Kanakku) ───────────────────────────────── */
+    /* ─── Invoice Dark (Hssabek) ───────────────────────────────── */
     .invoice-dark .bg-gray-9 { background: #212529; }
     .invoice-dark h2, .invoice-dark h3, .invoice-dark h4, .invoice-dark h5, .invoice-dark h6, .invoice-dark p, .invoice-dark span { color: #fff !important; }
     .invoice-dark table tr { border-color: #6c757d !important; }
@@ -173,10 +173,10 @@
     .invoice-dark .thead-dark th { background: #343a40 !important; }
     .invoice-dark .border-bottom { border-color: #6c757d !important; }
 
-    /* ─── Invoice Design 6 (Kanakku) ───────────────────────────── */
+    /* ─── Invoice Design 6 (Hssabek) ───────────────────────────── */
     .invoice-design-6 { background: linear-gradient(270.14deg, #DDCEFF -0.04%, #DBECFF 100%); border-radius: 14px 77px 14px 14px; }
 
-    /* ─── Inv Details (Kanakku) ─────────────────────────────────── */
+    /* ─── Inv Details (Hssabek) ─────────────────────────────────── */
     .inv-details { position: relative; }
     .inv-date-no { font-size: 18px; color: #3F4254; background: linear-gradient(320deg, #7539FF 0%, #7539FF 100%); padding: 14px 20px 15px; min-width: 300px; }
     .inv-date-rest { font-size: 18px; color: #3F4254; background: linear-gradient(320deg, #141414 0%, #141414 100%); padding: 14px 20px 15px; min-width: 300px; }
@@ -184,18 +184,18 @@
     .triangle-right { width: 56px; height: 49px; border-top: 30px solid transparent; border-right: 58px solid #F7F8F9; border-bottom: 26px solid transparent; position: absolute; top: 0; right: 0; }
     .triangle-left { width: 56px; height: 49px; border-top: 30px solid transparent; border-left: 58px solid #fff; border-bottom: 26px solid transparent; position: absolute; top: 0; left: 0; }
 
-    /* ─── Inv Medical (Kanakku) ─────────────────────────────────── */
+    /* ─── Inv Medical (Hssabek) ─────────────────────────────────── */
     .inv-medical { padding: 36px 120px 36px 30px; z-index: 0; }
     .inv-medical span { z-index: -1; }
 
-    /* ─── Invoice Five Details (Kanakku) ───────────────────────── */
+    /* ─── Invoice Five Details (Hssabek) ───────────────────────── */
     .invoice-five-details { gap: 24px; padding: 50px 0; }
     .invoice-five-details .gradient-block { width: 629px; height: 36px; background: linear-gradient(320deg, #DDCEFF 0%, #DBECFF 100%); border-radius: 59px; }
 
-    /* ─── Ribbon Hotel (Kanakku) ───────────────────────────────── */
+    /* ─── Ribbon Hotel (Hssabek) ───────────────────────────────── */
     .ribbon-hotel { background-color: #7539FF; clip-path: polygon(100% 100%, 8% 100%, 0% 0%, 100% 0%); padding: 48px; text-align: center; border-start-end-radius: 4px; border-end-end-radius: 4px; }
 
-    /* ─── Invoice Table 2 (Kanakku) ────────────────────────────── */
+    /* ─── Invoice Table 2 (Hssabek) ────────────────────────────── */
     .invoice-table2 { border-collapse: collapse; }
     .invoice-table2 th { border: 10px solid white !important; padding: 8px !important; }
     .invoice-table2 tbody tr th, .invoice-table2 tbody tr td { border-collapse: collapse; border: 10px solid white !important; }
@@ -205,7 +205,7 @@
     .invoice-table2 .thead-3 th { border-top: 1px solid !important; border-bottom: 1px solid !important; }
     .invoice-table2 .tbody-3 tr td { border: 0 !important; padding: 10px 5px; }
 
-    /* ─── Receipt Page (Kanakku) ───────────────────────────────── */
+    /* ─── Receipt Page (Hssabek) ───────────────────────────────── */
     .receipt-page p { font-size: 10px; }
     .receipt-page .card { width: 340px; }
     .receipt-page .card .retail-receipt { display: flex; align-items: center; }
@@ -215,7 +215,7 @@
     .receipt-page .card .receipt-header thead tr th { border-top: 1px dashed #dee2e6 !important; border-bottom: 1px dashed #dee2e6 !important; margin-bottom: 10px; }
     .receipt-page .border-dashed { border-bottom: 1px dashed #dee2e6; }
 
-    /* ─── Activity Feed (Kanakku) ──────────────────────────────── */
+    /* ─── Activity Feed (Hssabek) ──────────────────────────────── */
     .activity-feed { list-style: none; margin-bottom: 0; padding: 20px; position: relative; }
     .activity-feed .feed-item { border-left: 2px dashed #dee2e6; padding-bottom: 19px; padding-left: 20px; position: relative; }
     .activity-feed .feed-item:last-child { border-color: transparent; padding-bottom: 0; }
@@ -225,7 +225,7 @@
     .invoice-wrapper .activity-feed .feed-item::after { display: none; }
     .invoice-wrapper .activity-feed .feed-item::before { left: -6px; width: 10px; height: 10px; border: 1px solid #fff; background: #0d6efd; }
 
-    /* ─── Ribbon (Kanakku) ─────────────────────────────────────── */
+    /* ─── Ribbon (Hssabek) ─────────────────────────────────────── */
     .invoice-wrapper .ribbon-tittle { background: #0d6efd; clip-path: polygon(100% 100%, 0% 100%, 0 0, 80% 0); }
     .invoice-wrapper .ribbon-tittle .ribbon-text { padding: 20px 0 20px 18px; }
 

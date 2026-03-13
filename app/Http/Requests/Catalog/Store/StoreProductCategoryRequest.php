@@ -33,10 +33,10 @@ class StoreProductCategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Le nom de la catégorie est obligatoire.',
-            'name.max'      => 'Le nom ne doit pas dépasser 255 caractères.',
-            'name.unique'   => 'Ce nom de catégorie est déjà utilisé.',
-            'slug.unique'   => 'Ce slug est déjà utilisé.',
+            'name.required' => __('Le nom de la catégorie est obligatoire.'),
+            'name.max'      => __('Le nom ne doit pas dépasser 255 caractères.'),
+            'name.unique'   => __('Ce nom de catégorie est déjà utilisé.'),
+            'slug.unique'   => __('Ce slug est déjà utilisé.'),
         ];
     }
 }

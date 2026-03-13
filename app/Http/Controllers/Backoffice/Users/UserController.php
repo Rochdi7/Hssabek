@@ -65,7 +65,7 @@ class UserController extends Controller
         }
 
         return redirect()->route('bo.users.index')
-            ->with('success', 'Utilisateur mis à jour avec succès.');
+            ->with('success', __('Utilisateur mis à jour avec succès.'));
     }
 
     public function activate(User $user)
@@ -75,7 +75,7 @@ class UserController extends Controller
         $user->update(['status' => 'active']);
 
         return redirect()->route('bo.users.index')
-            ->with('success', "L'utilisateur « {$user->name} » a été activé.");
+            ->with('success', __("L'utilisateur « {$user->name} » a été activé."));
     }
 
     public function deactivate(User $user)
@@ -85,6 +85,6 @@ class UserController extends Controller
         $user->update(['status' => 'blocked']);
 
         return redirect()->route('bo.users.index')
-            ->with('success', "L'utilisateur « {$user->name} » a été désactivé.");
+            ->with('success', __("L'utilisateur « {$user->name} » a été désactivé."));
     }
 }
