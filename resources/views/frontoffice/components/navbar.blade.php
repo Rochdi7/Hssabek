@@ -29,24 +29,51 @@
                 </div>
                 <ul class="main-nav navbar-nav" id="scroll-nav">
                     <li class="nav-item"><a href="{{ route('home') }}"
-                            class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Accueil</a></li>
+                            class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">{{ __('Accueil') }}</a></li>
                     <li class="nav-item"><a href="{{ route('features') }}"
-                            class="nav-link {{ request()->routeIs('features') ? 'active' : '' }}">Fonctionnalités</a>
+                            class="nav-link {{ request()->routeIs('features') ? 'active' : '' }}">{{ __('Fonctionnalités') }}</a>
                     </li>
                     <li class="nav-item"><a href="{{ route('pricing') }}"
-                            class="nav-link {{ request()->routeIs('pricing') ? 'active' : '' }}">Tarifs</a></li>
+                            class="nav-link {{ request()->routeIs('pricing') ? 'active' : '' }}">{{ __('Tarifs') }}</a></li>
                     <li class="nav-item"><a href="{{ route('contact') }}"
-                            class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a></li>
+                            class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">{{ __('Contact') }}</a></li>
                 </ul>
             </div>
             <ul class="nav header-navbar-rht">
+                <!-- Language Switcher -->
+                <li class="nav-item dropdown me-0">
+                    <a class="btn btn-lg btn-white border border-1 border-light dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe me-1"></i>
+                        {{ app()->getLocale() === 'ar' ? 'العربية' : 'Français' }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <form method="POST" action="{{ route('locale.switch') }}">
+                                @csrf
+                                <input type="hidden" name="locale" value="fr">
+                                <button type="submit" class="dropdown-item {{ app()->getLocale() === 'fr' ? 'active' : '' }}">
+                                    🇫🇷 Français
+                                </button>
+                            </form>
+                        </li>
+                        <li>
+                            <form method="POST" action="{{ route('locale.switch') }}">
+                                @csrf
+                                <input type="hidden" name="locale" value="ar">
+                                <button type="submit" class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}">
+                                    🇸🇦 العربية
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item me-0">
                     <a class="btn btn-lg btn-white border border-1 border-light" href="{{ route('login') }}"><i
-                            class="isax isax-lock-15 fs-13 fw-bold me-2"></i>Connexion</a>
+                            class="isax isax-lock-15 fs-13 fw-bold me-2"></i>{{ __('Connexion') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-lg btn-primary" href="{{ route('register') }}"><i
-                            class="isax isax-user fs-13 fw-bold me-2"></i>Inscription</a>
+                            class="isax isax-user fs-13 fw-bold me-2"></i>{{ __('Inscription') }}</a>
                 </li>
             </ul>
         </nav>

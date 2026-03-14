@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'plan.limit' => \App\Http\Middleware\CheckPlanLimit::class,
             'subscriptionActive' => \App\Http\Middleware\EnsureActiveSubscription::class,
             'setSuperAdminLocale' => \App\Http\Middleware\SetSuperAdminLocale::class,
+            'setFrontofficeLocale' => \App\Http\Middleware\SetFrontofficeLocale::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

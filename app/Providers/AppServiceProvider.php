@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Load additional JSON translation files from subdirectories
         $this->app['translator']->addJsonPath(lang_path('documentation'));
+        $this->app['translator']->addJsonPath(lang_path('frontoffice'));
 
         // Resolve factories by model base name (flat factory directory)
         Factory::guessFactoryNamesUsing(function (string $modelName) {

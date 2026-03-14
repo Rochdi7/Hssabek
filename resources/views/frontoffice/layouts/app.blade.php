@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,7 +117,7 @@
 					$msg.removeClass('text-success').addClass('text-danger').text(msg).show();
 				},
 				complete: function() {
-					$btn.prop('disabled', false).text("S'abonner");
+					$btn.prop('disabled', false).text("{{ __("S'abonner") }}");
 				}
 			});
 		});
