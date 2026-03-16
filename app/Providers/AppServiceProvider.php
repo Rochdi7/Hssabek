@@ -52,8 +52,8 @@ class AppServiceProvider extends ServiceProvider
                 return true; // Super admin — full access
             }
 
-            if ($user->hasRole('admin')) {
-                return true; // Tenant admin — full access within tenant
+            if ($user->hasRole('admin') || $user->hasRole('owner')) {
+                return true; // Tenant admin/owner — full access within tenant
             }
 
             return null; // Let policies/permissions decide

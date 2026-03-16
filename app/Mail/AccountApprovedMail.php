@@ -18,7 +18,6 @@ class AccountApprovedMail extends Mailable
         public readonly User $user,
         public readonly Tenant $tenant,
         public readonly string $password,
-        public readonly string $domain,
     ) {}
 
     public function envelope(): Envelope
@@ -36,7 +35,6 @@ class AccountApprovedMail extends Mailable
                 'user'     => $this->user,
                 'tenant'   => $this->tenant,
                 'password' => $this->password,
-                'domain'   => $this->domain,
             ],
         );
     }

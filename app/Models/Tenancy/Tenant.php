@@ -19,19 +19,17 @@ class Tenant extends Model implements HasMedia
         'status',
         'timezone',
         'default_currency',
+        'forme_juridique',
+        'setup_completed',
         'has_free_trial',
         'trial_ends_at',
     ];
 
     protected $casts = [
+        'setup_completed' => 'boolean',
         'has_free_trial' => 'boolean',
         'trial_ends_at' => 'datetime',
     ];
-
-    public function domains(): HasMany
-    {
-        return $this->hasMany(TenantDomain::class);
-    }
 
     public function users(): HasMany
     {

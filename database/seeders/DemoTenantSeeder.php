@@ -13,7 +13,7 @@ use App\Services\Tenancy\TenantContext;
 use Illuminate\Database\Seeder;
 
 /**
- * Seeds a demo tenant with domain, users, roles, and subscription.
+ * Seeds a demo tenant with users, roles, and subscription.
  * Intended for local development / staging only.
  */
 class DemoTenantSeeder extends Seeder
@@ -32,22 +32,7 @@ class DemoTenantSeeder extends Seeder
             ]
         );
 
-        // 2) Register local development domains
-        $localDomains = [
-            'localhost',
-            '127.0.0.1',
-            'localhost:8000',
-            '127.0.0.1:8000',
-        ];
-
-        foreach ($localDomains as $index => $domain) {
-            $tenant->domains()->firstOrCreate(
-                ['domain' => $domain],
-                ['is_primary' => ($index === 0)]
-            );
-        }
-
-        // 3) Create tenant settings
+        // 2) Create tenant settings
         TenantSetting::firstOrCreate(
             ['tenant_id' => $tenant->id],
             [

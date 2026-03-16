@@ -63,7 +63,7 @@
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-building-4 me-1"></i>{{ __('Entrepôt :') }} <span
-                                    class="fw-normal ms-1">{{ request('warehouse_id') ? $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? 'Tous' : 'Tous' }}</span>
+                                    class="fw-normal ms-1">{{ request('warehouse_id') ? $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? __('Tous') : __('Tous') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -83,12 +83,12 @@
                             @if (request('low_stock'))
                                 <a href="{{ route('bo.inventory.stock.index', request()->except('low_stock', 'page')) }}"
                                     class="btn btn-danger d-inline-flex align-items-center">
-                                    <i class="isax isax-warning-2 me-1"></i>Stock bas (actif)
+                                    <i class="isax isax-warning-2 me-1"></i>{{ __('Stock bas (actif)') }}
                                 </a>
                             @else
                                 <a href="{{ route('bo.inventory.stock.index', array_merge(request()->except('page'), ['low_stock' => 1])) }}"
                                     class="btn btn-outline-white d-inline-flex align-items-center">
-                                    <i class="isax isax-warning-2 me-1"></i>Stock bas
+                                    <i class="isax isax-warning-2 me-1"></i>{{ __('Stock bas') }}
                                 </a>
                             @endif
                         </div>
@@ -176,7 +176,7 @@
                                         <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Stock bas') }} <i
                                                 class="isax isax-warning-2 ms-1"></i></span>
                                     @else
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">OK <i
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('OK') }} <i
                                                 class="isax isax-tick-circle ms-1"></i></span>
                                     @endif
                                 </td>

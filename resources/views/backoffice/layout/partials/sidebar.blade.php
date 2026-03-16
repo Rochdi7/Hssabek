@@ -445,7 +445,7 @@
                                     {{-- Corbeille --}}
                                     <li class="{{ request()->routeIs('bo.trash.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.trash.index') }}">
-                                            <i class="isax isax-trash5"></i><span>{{ __('Corbeille') }}</span>
+                                            <i class="ti ti-trash"></i><span>{{ __('Corbeille') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -457,7 +457,7 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('bo.account.settings.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.account.settings.edit') }}">
-                                            <i class="isax isax-user-edit5"></i><span>{{ __('Mon compte') }}</span>
+                                            <i class="ti ti-user-circle"></i><span>{{ __('Mon compte') }}</span>
                                         </a>
                                     </li>
                                     <li class="{{ request()->routeIs('bo.settings.company.*') ? 'active' : '' }}">

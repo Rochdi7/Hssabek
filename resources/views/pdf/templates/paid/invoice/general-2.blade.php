@@ -73,7 +73,7 @@
                     </div>
                 </div> <!-- end col -->
             </div> <!-- end row -->
-            @if(!empty($company['ice']) || !empty($company['rc']))
+            @if(!empty($company['ice']) || !empty($company['rc']) || !empty($company['cnss']) || !empty($company['patente']) || !empty($company['numero_ae']))
             <div class="row">
                 @if(!empty($company['ice']))
                 <div class="col-md-3">
@@ -88,6 +88,38 @@
                     <div class="mb-3">
                         <span class="d-block mb-1">RC :</span>
                         <p class="text-dark">{{ $company['rc'] }}</p>
+                    </div>
+                </div>
+                @endif
+                @if(!empty($company['cnss']))
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <span class="d-block mb-1">CNSS :</span>
+                        <p class="text-dark">{{ $company['cnss'] }}</p>
+                    </div>
+                </div>
+                @endif
+                @if(!empty($company['patente']))
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <span class="d-block mb-1">Patente :</span>
+                        <p class="text-dark">{{ $company['patente'] }}</p>
+                    </div>
+                </div>
+                @endif
+                @if(!empty($company['numero_ae']))
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <span class="d-block mb-1">N° AE :</span>
+                        <p class="text-dark">{{ $company['numero_ae'] }}</p>
+                    </div>
+                </div>
+                @endif
+                @if(!empty($company['cin']))
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <span class="d-block mb-1">CIN :</span>
+                        <p class="text-dark">{{ $company['cin'] }}</p>
                     </div>
                 </div>
                 @endif

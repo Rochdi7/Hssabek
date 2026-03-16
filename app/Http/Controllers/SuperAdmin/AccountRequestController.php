@@ -11,7 +11,6 @@ use App\Models\System\AccountRequest;
 use App\Models\Tenancy\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -53,13 +52,10 @@ class AccountRequestController extends Controller
     public function approve(Request $request, AccountRequest $accountRequest)
     {
         $validated = $request->validate([
-            'domain'         => 'required|string|max:255|unique:tenant_domains,domain',
             'password'       => 'required|string|min:8',
             'plan_id'        => 'required|exists:plans,id',
             'admin_notes'    => 'nullable|string|max:2000',
         ], [
-            'domain.required'   => 'Le sous-domaine est obligatoire.',
-            'domain.unique'     => 'Ce sous-domaine est déjà utilisé.',
             'password.required' => 'Le mot de passe est obligatoire.',
             'password.min'      => 'Le mot de passe doit contenir au moins :min caractères.',
             'plan_id.required'  => 'Veuillez sélectionner un plan.',
@@ -86,30 +82,24 @@ class AccountRequestController extends Controller
                 'default_currency' => 'MAD',
             ]);
 
-            // 2. Create primary domain
-            $tenant->domains()->create([
-                'domain'     => $validated['domain'],
-                'is_primary' => true,
-            ]);
-
-            // 3. Create owner user
+            // 2. Create owner user
             $owner = $tenant->users()->create([
                 'name'              => $accountRequest->contact_name,
                 'email'             => $accountRequest->contact_email,
-                'password'          => Hash::make($plainPassword),
+                'password'          => $plainPassword,
                 'status'            => 'active',
                 'email_verified_at' => now(),
             ]);
 
-            // 4. Assign owner role
+            // 3. Assign admin role (full access to tenant)
             if (class_exists(\Spatie\Permission\Models\Role::class)) {
                 $role = \App\Models\Tenancy\Role::firstOrCreate(
-                    ['name' => 'owner', 'guard_name' => 'web', 'tenant_id' => $tenant->id]
+                    ['name' => 'admin', 'guard_name' => 'web', 'tenant_id' => $tenant->id]
                 );
                 $owner->assignRole($role);
             }
 
-            // 5. Create subscription
+            // 4. Create subscription
             $plan = Plan::findOrFail($validated['plan_id']);
             Subscription::create([
                 'tenant_id'  => $tenant->id,
@@ -120,10 +110,10 @@ class AccountRequestController extends Controller
                 'ends_at'    => null,
             ]);
 
-            // 6. Seed default finance categories
+            // 5. Seed default finance categories
             $this->seedFinanceCategoriesForTenant($tenant);
 
-            // 7. Update account request status
+            // 6. Update account request status
             $accountRequest->update([
                 'status'      => 'approved',
                 'handled_by'  => auth()->id(),
@@ -138,7 +128,7 @@ class AccountRequestController extends Controller
         try {
             $owner = $tenant->users()->first();
             Mail::to($accountRequest->contact_email)
-                ->send(new AccountApprovedMail($owner, $tenant, $plainPassword, $validated['domain']));
+                ->send(new AccountApprovedMail($owner, $tenant, $plainPassword));
         } catch (\Exception $e) {
             Log::warning('Account approved email failed to send', ['error' => $e->getMessage()]);
         }
@@ -192,10 +182,20 @@ class AccountRequestController extends Controller
         ];
 
         foreach ($categories as $category) {
-            FinanceCategory::firstOrCreate(
-                ['tenant_id' => $tenant->id, 'name' => $category['name'], 'type' => $category['type']],
-                ['is_active' => true]
-            );
+            $existing = FinanceCategory::withoutGlobalScopes()
+                ->where('tenant_id', $tenant->id)
+                ->where('name', $category['name'])
+                ->where('type', $category['type'])
+                ->first();
+
+            if (! $existing) {
+                $fc = new FinanceCategory();
+                $fc->tenant_id = $tenant->id;
+                $fc->name = $category['name'];
+                $fc->type = $category['type'];
+                $fc->is_active = true;
+                $fc->save();
+            }
         }
     }
 }

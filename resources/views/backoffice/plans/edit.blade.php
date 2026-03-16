@@ -16,7 +16,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Informations du plan</h5>
+                    <h5 class="card-title">{{ __('Informations du plan') }}</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('sa.plans.update', $plan) }}" method="POST">
@@ -87,7 +87,7 @@
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">Mettre à jour</button>
-                            <a href="{{ route('sa.plans.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                            <a href="{{ route('sa.plans.index') }}" class="btn btn-outline-secondary">{{ __('Annuler') }}</a>
                         </div>
                     </form>
                 </div>

@@ -13,7 +13,7 @@
                         <div class="col-xl-9 col-lg-8">
                             <div class="mb-3">
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">Paramètres du compte</h6>
+                                    <h6 class="mb-0">{{ __('Paramètres du compte') }}</h6>
                                 </div>
 
                                 {{-- Success / Error alerts --}}
@@ -36,7 +36,7 @@
                                     <div class="d-flex align-items-center mb-3">
                                         <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i
                                                 class="isax isax-info-circle fs-14"></i></span>
-                                        <h6 class="fs-16 fw-semibold mb-0">Informations générales</h6>
+                                        <h6 class="fs-16 fw-semibold mb-0">{{ __('Informations générales') }}</h6>
                                     </div>
 
                                     @include('backoffice.components.avatar-cropper', [
@@ -128,7 +128,7 @@
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="bg-dark avatar avatar-sm me-2 flex-shrink-0"><i
                                                     class="isax isax-info-circle fs-14"></i></span>
-                                            <h6 class="fs-16 fw-semibold mb-0">Informations d'adresse</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ __("Informations d'adresse") }}</h6>
                                         </div>
                                         <div class="row gx-3">
                                             <div class="col-lg-12">
@@ -200,8 +200,8 @@
                                     {{-- ── Action buttons ── --}}
                                     <div class="d-flex align-items-center justify-content-between">
                                         <button type="button" class="btn btn-outline-white"
-                                            onclick="window.location.reload()">Annuler</button>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                            onclick="window.location.reload()">{{ __('Annuler') }}</button>
+                                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                                     </div>
                                 </form>
                             </div>

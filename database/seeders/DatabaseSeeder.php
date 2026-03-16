@@ -28,7 +28,10 @@ class DatabaseSeeder extends Seeder
             // 6) Finance categories for all tenants
             FinanceCategorySeeder::class,
 
-            // 7) Fake data for all CRUD operations (customers, products, invoices, etc.)
+            // 7) Default production data (units, payment methods, taxes, sequences, currencies, etc.)
+            TenantDefaultsSeeder::class,
+
+            // 8) Fake data for all CRUD operations (customers, products, invoices, etc.)
             // FakeDataSeeder::class,
         ]);
     }

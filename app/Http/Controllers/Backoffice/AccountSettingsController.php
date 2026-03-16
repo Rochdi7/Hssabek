@@ -85,7 +85,7 @@ class AccountSettingsController extends Controller
         $user = Auth::user();
 
         $user->update([
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'password_changed_at' => now(),
         ]);
 

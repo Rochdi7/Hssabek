@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Nouveau Plan</h4>
+                <h4 class="modal-title">{{ __('Nouveau Plan') }}</h4>
                 <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
             </div>
             <form method="POST" action="{{ route('sa.plans.store') }}">
@@ -13,7 +13,7 @@
                 <input type="hidden" name="_modal" value="add_plan">
                 <div class="modal-body">
                     {{-- Basic Info --}}
-                    <h6 class="fs-14 fw-bold mb-3">Informations générales</h6>
+                    <h6 class="fs-14 fw-bold mb-3">{{ __("Informations générales") }}</h6>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -108,8 +108,8 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                    <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                 </div>
             </form>
         </div>
@@ -127,7 +127,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modifier le Plan</h4>
+                    <h4 class="modal-title">{{ __('Modifier le Plan') }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('sa.plans.update', $plan) }}">
@@ -135,7 +135,7 @@
                     @method('PUT')
                     <div class="modal-body">
                         {{-- Basic Info --}}
-                        <h6 class="fs-14 fw-bold mb-3">Informations générales</h6>
+                        <h6 class="fs-14 fw-bold mb-3">{{ __("Informations générales") }}</h6>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -222,8 +222,8 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                     </div>
                 </form>
             </div>
@@ -265,7 +265,7 @@
                                             </div>
                                             <div>
                                                 <a href="javascript:void(0);" class="btn btn-outline-white d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_plan_{{ $plan->id }}">
-                                                    <i class="isax isax-edit me-1"></i>Modifier
+                                                    <i class="isax isax-edit me-1"></i>{{ __('Modifier') }}
                                                 </a>
                                             </div>
                                         </div>
@@ -435,14 +435,14 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Supprimer le Plan</h6>
+                    <h6 class="mb-1">{{ __('Supprimer le Plan') }}</h6>
                     <p class="mb-3">Êtes-vous sûr de vouloir supprimer « {{ $plan->name }} » ?</p>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
+                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                         <form method="POST" action="{{ route('sa.plans.destroy', $plan) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Oui, Supprimer</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Oui, Supprimer') }}</button>
                         </form>
                     </div>
                 </div>

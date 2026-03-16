@@ -6,7 +6,6 @@ use App\Models\Finance\BankAccount;
 use App\Models\Tenancy\Tenant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class MoneyTransferControllerTest extends TestCase
@@ -21,9 +20,6 @@ class MoneyTransferControllerTest extends TestCase
         parent::setUp();
 
         ['tenant' => $this->tenant, 'user' => $this->adminUser] = $this->createTenantWithAdmin();
-
-        $domain = $this->tenant->domains()->where('is_primary', true)->value('domain');
-        URL::forceRootUrl('http://' . $domain);
     }
 
     private function payload(BankAccount $from, BankAccount $to, float $amount): array

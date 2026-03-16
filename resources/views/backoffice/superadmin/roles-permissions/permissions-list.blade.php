@@ -16,7 +16,7 @@
                     <h6>
                         <a href="{{ route('sa.access.roles.index') }}">
                             <i class="isax isax-arrow-left me-1"></i>
-                            {{ __('Roles & Permissions') }}
+                            {{ __('Rôles & Permissions') }}
                         </a>
                     </h6>
                 </div>
@@ -24,7 +24,7 @@
                     <div>
                         <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                             data-bs-target="#add_permission_modal">
-                            <i class="isax isax-add-circle5 me-1"></i>{{ __('New Permission') }}
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle permission') }}
                         </a>
                     </div>
                 </div>
@@ -98,14 +98,14 @@
                                                                             class="dropdown-item d-flex align-items-center"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#edit_perm_modal_{{ $permission->id }}"><i
-                                                                                class="isax isax-edit me-2"></i>{{ __('Edit') }}</a>
+                                                                                class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="javascript:void(0);"
                                                                             class="dropdown-item d-flex align-items-center"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#delete_perm_modal_{{ $permission->id }}"><i
-                                                                                class="isax isax-trash me-2"></i>{{ __('Delete') }}</a>
+                                                                                class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                                                     </li>
                                                                 </ul>
                                                             </td>
@@ -141,22 +141,22 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('New Permission') }}</h5>
+                    <h5 class="modal-title">{{ __('Nouvelle permission') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="POST" action="{{ route('sa.access.permissions.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">{{ __('Permission Name') }}</label>
+                            <label class="form-label">{{ __('Nom de la permission') }}</label>
                             <input type="text" class="form-control" name="name" required
-                                placeholder="{{ __('e.g. sales.invoices.create') }}">
-                            <small class="text-muted">{{ __('Format: group.module.action') }}</small>
+                                placeholder="{{ __('ex: sales.invoices.create') }}">
+                            <small class="text-muted">{{ __('Format : groupe.module.action') }}</small>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Créer') }}</button>
                     </div>
                 </form>
             </div>
@@ -172,7 +172,7 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">{{ __('Edit Permission') }}</h5>
+                                <h5 class="modal-title">{{ __('Modifier la permission') }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <form method="POST" action="{{ route('sa.access.permissions.update', $permission) }}">
@@ -180,16 +180,16 @@
                                 @method('PUT')
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <label class="form-label">{{ __('Permission Name') }}</label>
+                                        <label class="form-label">{{ __('Nom de la permission') }}</label>
                                         <input type="text" class="form-control" name="name"
                                             value="{{ $permission->name }}" required>
-                                        <small class="text-muted">{{ __('Format: group.module.action') }}</small>
+                                        <small class="text-muted">{{ __('Format : groupe.module.action') }}</small>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-white"
-                                        data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                                    <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+                                        data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Mettre à jour') }}</button>
                                 </div>
                             </form>
                         </div>
@@ -201,20 +201,20 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">{{ __('Delete Permission') }}</h5>
+                                <h5 class="modal-title">{{ __('Supprimer la permission') }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <p>{{ __('Are you sure you want to delete') }} <strong>{{ $permission->name }}</strong>?</p>
-                                <p class="text-danger small">{{ __('This will remove it from all roles.') }}</p>
+                                <p>{{ __('Êtes-vous sûr de vouloir supprimer') }} <strong>{{ $permission->name }}</strong>?</p>
+                                <p class="text-danger small">{{ __('Cela la supprimera de tous les rôles.') }}</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-white"
-                                    data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                                    data-bs-dismiss="modal">{{ __('Annuler') }}</button>
                                 <form method="POST" action="{{ route('sa.access.permissions.destroy', $permission) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                                    <button type="submit" class="btn btn-danger">{{ __('Supprimer') }}</button>
                                 </form>
                             </div>
                         </div>

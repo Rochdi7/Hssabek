@@ -5,7 +5,6 @@ namespace Tests\Feature\Sales;
 use App\Models\CRM\Customer;
 use App\Models\Sales\Invoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class InvoiceControllerTest extends TestCase
@@ -19,8 +18,6 @@ class InvoiceControllerTest extends TestCase
     {
         parent::setUp();
         ['tenant' => $this->tenant, 'user' => $this->adminUser] = $this->createTenantWithAdmin();
-        $domain = $this->tenant->domains()->where('is_primary', true)->value('domain');
-        URL::forceRootUrl('http://' . $domain);
     }
 
     public function test_index_lists_invoices(): void

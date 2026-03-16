@@ -54,13 +54,13 @@
                                                     name="status">
                                                     <option value="pending"
                                                         {{ old('status', $refund->status) === 'pending' ? 'selected' : '' }}>
-                                                        En attente</option>
+                                                        {{ __('En attente') }}</option>
                                                     <option value="completed"
                                                         {{ old('status', $refund->status) === 'completed' ? 'selected' : '' }}>
-                                                        Complété</option>
+                                                        {{ __('Complété') }}</option>
                                                     <option value="failed"
                                                         {{ old('status', $refund->status) === 'failed' ? 'selected' : '' }}>
-                                                        Échoué</option>
+                                                        {{ __('Échoué') }}</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>

@@ -168,8 +168,7 @@
                                         @break
 
                                         @case('partially_received')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">Partiellement
-                                                reçu</span>
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('Partiellement reçu') }}</span>
                                         @break
 
                                         @case('received')

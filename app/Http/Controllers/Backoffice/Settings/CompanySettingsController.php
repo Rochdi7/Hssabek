@@ -31,19 +31,37 @@ class CompanySettingsController extends Controller
         $tenant = TenantContext::get();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
-        // Exclude image fields from company_settings JSON
+        // Exclude image fields and forme_juridique (stored on tenant) from company_settings JSON
         $imageFields = array_merge(
             self::IMAGE_COLLECTIONS,
             array_map(fn($c) => "delete_{$c}", self::IMAGE_COLLECTIONS),
-            ['cropped_logo', 'cropped_logo_deleted']
+            ['cropped_logo', 'cropped_logo_deleted', 'forme_juridique']
         );
         $companyData = $request->safe()->except($imageFields);
+
+        // Cast assujetti_tva to boolean
+        if (isset($companyData['assujetti_tva'])) {
+            $companyData['assujetti_tva'] = (bool) $companyData['assujetti_tva'];
+        }
+
+        // Sync rc alias for PDF templates (they use $company['rc'])
+        if (isset($companyData['registration_number'])) {
+            $companyData['rc'] = $companyData['registration_number'];
+        }
+
+        // Store forme_juridique in company_settings too (for PDF access)
+        $companyData['forme_juridique'] = $request->input('forme_juridique');
 
         $setting->company_settings = array_merge(
             $setting->company_settings ?? [],
             $companyData
         );
         $setting->save();
+
+        // Update forme_juridique on tenant
+        if ($request->filled('forme_juridique')) {
+            $tenant->update(['forme_juridique' => $request->input('forme_juridique')]);
+        }
 
         // Handle cropped logo (base64 from avatar-cropper component, if still used)
         if ($request->filled('cropped_logo')) {

@@ -23,8 +23,7 @@
                     <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                         <div>
                             <h6><a href="{{ route('bo.purchases.purchase-orders.index') }}"
-                                    class="d-flex align-items-center"><i class="isax isax-arrow-left me-2"></i>Bons de
-                                    commande</a></h6>
+                                    class="d-flex align-items-center"><i class="isax isax-arrow-left me-2"></i>{{ __('Bons de commande') }}</a></h6>
                         </div>
                         <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                             <div class="me-1">
@@ -55,7 +54,7 @@
                             <div class="card-body">
                                 <div class="top-content">
                                     <div class="purchase-header mb-3">
-                                        <h6>Modifier le bon de commande — {{ $purchaseOrder->number }}</h6>
+                                        <h6>{{ __('Modifier le bon de commande') }} — {{ $purchaseOrder->number }}</h6>
                                     </div>
                                     <div>
                                         <!-- start row -->
@@ -70,7 +69,7 @@
                                                                 <select name="supplier_id"
                                                                     class="select @error('supplier_id') is-invalid @enderror"
                                                                     required>
-                                                                    <option value="">Sélectionner un fournisseur
+                                                                    <option value="">{{ __('Sélectionner un fournisseur') }}
                                                                     </option>
                                                                     @foreach ($suppliers as $supplier)
                                                                         <option value="{{ $supplier->id }}"
@@ -85,7 +84,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Réf. fournisseur</label>
+                                                                <label class="form-label">{{ __('Réf. fournisseur') }}</label>
                                                                 <div class="mb-2">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
@@ -129,7 +128,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Date de livraison prévue</label>
+                                                                <label class="form-label">{{ __('Date de livraison prévue') }}</label>
                                                                 <div class="input-group position-relative">
                                                                     <input type="text"
                                                                         class="form-control datetimepicker rounded-end @error('expected_date') is-invalid @enderror"
@@ -206,11 +205,11 @@
                                         <div class="col-md-6">
                                             <div class="card box-shadow-0">
                                                 <div class="card-header border-0 pb-0">
-                                                    <h6>Commandé par</h6>
+                                                    <h6>{{ __('Commandé par') }}</h6>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="mb-3">
-                                                        <label class="form-label">Entreprise</label>
+                                                        <label class="form-label">{{ __('Entreprise') }}</label>
                                                         <input type="text" class="form-control"
                                                             value="{{ $tenant->name ?? '' }}" readonly disabled>
                                                     </div>
@@ -228,13 +227,13 @@
                                                                     <p class="mb-0">{{ $tenant->address }}</p>
                                                                 @endif
                                                                 @if ($tenant->phone)
-                                                                    <p class="mb-0">Tél : {{ $tenant->phone }}</p>
+                                                                    <p class="mb-0">{{ __('Tél') }} : {{ $tenant->phone }}</p>
                                                                 @endif
                                                                 @if ($tenant->email)
-                                                                    <p class="mb-0">Email : {{ $tenant->email }}</p>
+                                                                    <p class="mb-0">{{ __('Email') }} : {{ $tenant->email }}</p>
                                                                 @endif
                                                                 @if ($tenant->tax_id)
-                                                                    <p class="text-dark mb-0">ICE : {{ $tenant->tax_id }}
+                                                                    <p class="text-dark mb-0">{{ __('ICE') }} : {{ $tenant->tax_id }}
                                                                     </p>
                                                                 @endif
                                                             </div>
@@ -250,7 +249,7 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <div id="bill-to-info" class="p-3 bg-light rounded border text-muted">
-                                                        <p class="mb-0">Informations du fournisseur sélectionné</p>
+                                                        <p class="mb-0">{{ __('Informations du fournisseur sélectionné') }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -282,7 +281,7 @@
 
                                 <div class="items-details">
                                     <div class="purchase-header mb-3">
-                                        <h6>Articles & Détails</h6>
+                                        <h6>{{ __('Articles & Détails') }}</h6>
                                     </div>
 
                                     <!-- start row -->
@@ -305,7 +304,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Produits / Services</label>
+                                                <label class="form-label">{{ __('Produits / Services') }}</label>
                                                 <select class="select" id="product-selector">
                                                     <option value="">{{ __('Sélectionner') }}</option>
                                                     @foreach ($products as $product)
@@ -327,7 +326,7 @@
                                         <table class="table table-nowrap add-table mb-0" id="items-table" style="table-layout: fixed; width: 100%;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
-                                                    <th style="width: 28%;">Produit / Libellé</th>
+                                                    <th style="width: 28%;">{{ __('Produit / Libellé') }}</th>
                                                     <th style="width: 13%;">{{ __('Quantité') }}</th>
                                                     <th style="width: 17%;">{{ __('Coût unitaire') }}</th>
                                                     <th class="tax-col" style="width: 15%;">{{ __('Taxe (%)') }}</th>
@@ -345,7 +344,7 @@
                                                                 required>
                                                             <select class="form-select form-select-sm mt-1"
                                                                 name="items[{{ $idx }}][product_id]">
-                                                                <option value="">-- Produit (optionnel) --</option>
+                                                                <option value="">{{ __('-- Produit (optionnel) --') }}</option>
                                                                 @foreach ($products as $product)
                                                                     <option value="{{ $product->id }}"
                                                                         {{ old("items.{$idx}.product_id", $item->product_id) == $product->id ? 'selected' : '' }}>
@@ -367,7 +366,7 @@
                                                             <select name="items[{{ $idx }}][tax_group_id]" class="form-select item-tax">
                                                                 <option value="" data-rate="0" data-type="">0%</option>
                                                                 @if($taxCategories->count())
-                                                                <optgroup label="Taux de taxes">
+                                                                <optgroup label="{{ __('Taux de taxes') }}">
                                                                     @foreach ($taxCategories as $tc)
                                                                         <option value="cat_{{ $tc->id }}" data-rate="{{ $tc->rate }}" data-type="category"
                                                                             {{ old("items.{$idx}.tax_group_id", $item->tax_group_id) == 'cat_'.$tc->id ? 'selected' : '' }}>
@@ -377,7 +376,7 @@
                                                                 </optgroup>
                                                                 @endif
                                                                 @if($taxGroups->count())
-                                                                <optgroup label="Groupes de taxes">
+                                                                <optgroup label="{{ __('Groupes de taxes') }}">
                                                                     @foreach ($taxGroups as $tg)
                                                                         <option value="{{ $tg->id }}" data-rate="{{ $tg->rates->sum('rate') }}" data-type="group"
                                                                             {{ old("items.{$idx}.tax_group_id", $item->tax_group_id) == $tg->id ? 'selected' : '' }}>
@@ -435,13 +434,12 @@
                                                             <a class="nav-link border fs-12 fw-semibold rounded"
                                                                 data-bs-toggle="tab" data-bs-target="#bank"
                                                                 href="javascript:void(0);"><i
-                                                                    class="isax isax-bank me-1"></i>Coordonnées
-                                                                bancaires</a>
+                                                                    class="isax isax-bank me-1"></i>{{ __('Coordonnées bancaires') }}</a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
                                                         <div class="tab-pane active show" id="notes" role="tabpanel">
-                                                            <label class="form-label">Notes supplémentaires</label>
+                                                            <label class="form-label">{{ __('Notes supplémentaires') }}</label>
                                                             <textarea class="form-control bg-light" name="notes" rows="3" readonly>{{ $defaultFooter }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }} <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
@@ -487,7 +485,7 @@
                                                 </li>
                                                 <li class="mt-3 pb-3 border-bottom border-gray">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <h6>Total ({{ $currency }})</h6>
+                                                        <h6>{{ __('Total') }} ({{ $currency }})</h6>
                                                         <h6 id="display-total">0,00</h6>
                                                     </div>
                                                 </li>
@@ -579,7 +577,7 @@
                 const cost = opt.dataset.cost || 0;
                 const tax = opt.dataset.tax || 20;
 
-                let productOptions = '<option value="">-- Produit (optionnel) --</option>';
+                let productOptions = '<option value="">{{ __('-- Produit (optionnel) --') }}</option>';
                 productsJson.forEach(p => {
                     const selected = p.id == opt.value ? ' selected' : '';
                     productOptions += `<option value="${p.id}"${selected}>${p.name}</option>`;
@@ -612,7 +610,7 @@
             });
 
             document.getElementById('add-item-btn').addEventListener('click', function() {
-                let productOptions = '<option value="">-- Produit (optionnel) --</option>';
+                let productOptions = '<option value="">{{ __('-- Produit (optionnel) --') }}</option>';
                 productsJson.forEach(p => {
                     productOptions += `<option value="${p.id}">${p.name}</option>`;
                 });

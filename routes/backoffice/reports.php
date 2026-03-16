@@ -52,4 +52,12 @@ Route::prefix('reports')->as('reports.')->group(function () {
         ->middleware(['permission:reports.inventory.view', 'plan.limit:exports_per_month', 'throttle:report-export'])
         ->name('inventory.export');
 
+    Route::post('purchases/export', [PurchaseReportController::class, 'export'])
+        ->middleware(['permission:reports.purchases.view', 'plan.limit:exports_per_month', 'throttle:report-export'])
+        ->name('purchases.export');
+
+    Route::post('customers/export', [CustomerReportController::class, 'export'])
+        ->middleware(['permission:reports.customers.view', 'plan.limit:exports_per_month', 'throttle:report-export'])
+        ->name('customers.export');
+
 });

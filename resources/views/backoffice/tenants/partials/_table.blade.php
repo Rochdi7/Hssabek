@@ -7,12 +7,10 @@
                         <input class="form-check-input" type="checkbox" id="select-all">
                     </div>
                 </th>
-                <th class="no-sort">Nom</th>
-                <th class="no-sort">Slug</th>
-                <th class="no-sort">Domaine</th>
-                <th>Utilisateurs</th>
-                <th>Créé le</th>
-                <th class="no-sort">Statut</th>
+                <th class="no-sort">{{ __('Nom') }}</th>
+                <th>{{ __('Utilisateurs') }}</th>
+                <th>{{ __('Créé le') }}</th>
+                <th class="no-sort">{{ __('Statut') }}</th>
                 <th class="no-sort"></th>
             </tr>
         </thead>
@@ -45,21 +43,19 @@
                             </div>
                         </div>
                     </td>
-                    <td><code>{{ $tenant->slug }}</code></td>
-                    <td>{{ $tenant->domains->first()?->domain ?? '—' }}</td>
                     <td>{{ $tenant->users_count ?? 0 }}</td>
                     <td>{{ $tenant->created_at->format('d/m/Y') }}</td>
                     <td>
                         @if ($tenant->status === 'active')
-                            <span class="badge badge-soft-success d-inline-flex align-items-center">Actif
+                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Actif') }}
                                 <i class="isax isax-tick-circle ms-1"></i>
                             </span>
                         @elseif($tenant->status === 'suspended')
-                            <span class="badge badge-soft-warning d-inline-flex align-items-center">Suspendu
+                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('Suspendu') }}
                                 <i class="isax isax-slash ms-1"></i>
                             </span>
                         @else
-                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Inactif
+                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Inactif') }}
                                 <i class="isax isax-close-circle ms-1"></i>
                             </span>
                         @endif

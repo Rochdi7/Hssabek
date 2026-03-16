@@ -360,7 +360,7 @@
                                                                         %</option>
                                                                     <option value="fixed"
                                                                         {{ old("items.{$i}.discount_type", $item->discount_type) == 'fixed' ? 'selected' : '' }}>
-                                                                        Fixe</option>
+                                                                        {{ __('Fixe') }}</option>
                                                                 </select>
                                                                 <input type="number"
                                                                     name="items[{{ $i }}][discount_value]"
@@ -463,16 +463,14 @@
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">{{ __('Conditions générales') }}</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">{{ __('Compte bancaire') }}</label>

@@ -3,12 +3,10 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\Tenancy\Tenant;
-use App\Models\Tenancy\TenantDomain;
 use App\Models\Tenancy\TenantSetting;
 use App\Models\User;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -16,7 +14,6 @@ class AuthenticationTest extends TestCase
     use RefreshDatabase;
 
     private Tenant $tenant;
-    private string $domain;
 
     protected function setUp(): void
     {
@@ -30,23 +27,11 @@ class AuthenticationTest extends TestCase
             'default_currency' => 'MAD',
         ]);
 
-        $this->domain = 'auth-test.facturation.test';
-
-        TenantDomain::create([
-            'tenant_id' => $this->tenant->id,
-            'domain' => $this->domain,
-            'is_primary' => true,
-        ]);
-
         TenantSetting::create([
             'tenant_id' => $this->tenant->id,
         ]);
 
         TenantContext::set($this->tenant);
-
-        // Force URL root to tenant domain so test HTTP calls
-        // resolve the correct host in the middleware
-        URL::forceRootUrl('http://' . $this->domain);
     }
 
     private function createTenantUser(array $overrides = []): User

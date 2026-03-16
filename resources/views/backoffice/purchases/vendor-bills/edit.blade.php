@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <div class="top-content">
                                     <div class="purchase-header mb-3">
-                                        <h6>Modifier la facture fournisseur — {{ $vendorBill->number }}</h6>
+                                        <h6>{{ __('Modifier la facture fournisseur') }} — {{ $vendorBill->number }}</h6>
                                     </div>
                                     <div>
                                         <div class="row justify-content-between">

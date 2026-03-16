@@ -9,13 +9,11 @@ use App\Models\System\UserInvitation;
 use App\Models\Tenancy\Permission;
 use App\Models\Tenancy\Role;
 use App\Models\Tenancy\Tenant;
-use App\Models\Tenancy\TenantDomain;
 use App\Models\Tenancy\TenantSetting;
 use App\Models\User;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -40,21 +38,11 @@ class UserInvitationTest extends TestCase
             'has_free_trial'   => false,
         ]);
 
-        $domain = 'test-company.localhost';
-
-        TenantDomain::create([
-            'tenant_id'  => $this->tenant->id,
-            'domain'     => $domain,
-            'is_primary' => true,
-        ]);
-
         TenantSetting::withoutGlobalScopes()->create([
             'tenant_id' => $this->tenant->id,
         ]);
 
         TenantContext::set($this->tenant);
-
-        URL::forceRootUrl('http://' . $domain);
 
         $plan = Plan::firstOrCreate(
             ['code' => 'test-plan'],

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Avoir AV-2026-0001</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #333; line-height: 1.6; }
+
+        /* ── Left accent stripe ─────────────────────────────── */
+        .page {
+            padding: 0 0 30px 0;
+            position: relative;
+        }
+        .left-stripe {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: #2563eb;
+        }
+
+        /* ── Header bar ─────────────────────────────────────── */
+        .header-bar {
+            background: #2563eb;
+            padding: 20px 40px 20px 46px;
+            margin-bottom: 0;
+        }
+        .header-bar table { width: 100%; }
+        .header-bar td { vertical-align: middle; }
+        .header-bar .doc-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: right;
+            letter-spacing: 1px;
+        }
+        .header-bar .company-name-white {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* ── Content wrapper ────────────────────────────────── */
+        .content { padding: 25px 40px 0 46px; }
+
+        /* ── Company info ───────────────────────────────────── */
+        .info-row { width: 100%; margin-bottom: 22px; }
+        .info-row td { vertical-align: top; }
+        .company-detail {
+            font-size: 10px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* ── Doc meta card ──────────────────────────────────── */
+        .doc-meta-card {
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px 18px;
+        }
+        .doc-meta-card table { width: 100%; }
+        .doc-meta-card td {
+            font-size: 10px;
+            color: #555;
+            padding: 2px 0;
+        }
+        .doc-meta-card td.meta-label {
+            font-weight: bold;
+            color: #333;
+            width: 45%;
+        }
+
+        /* ── Status badge ───────────────────────────────────── */
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .badge-draft { background: #e9ecef; color: #495057; }
+        .badge-issued { background: #cff4fc; color: #055160; }
+        .badge-applied { background: #d1e7dd; color: #0f5132; }
+        .badge-partially_applied { background: #fff3cd; color: #664d03; }
+        .badge-void { background: #e9ecef; color: #6c757d; }
+
+        /* ── Section divider ────────────────────────────────── */
+        .section-divider {
+            border: none;
+            height: 2px;
+            background: #2563eb;
+            opacity: 0.15;
+            margin: 18px 0;
+            border-radius: 2px;
+        }
+
+        /* ── Customer block ─────────────────────────────────── */
+        .customer-card {
+            background: #f8f9fa;
+            border-left: 4px solid #2563eb;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin-bottom: 22px;
+        }
+        .customer-card .label {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: #2563eb;
+            letter-spacing: 0.8px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .customer-card .name {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 3px;
+            color: #1a202c;
+        }
+        .customer-card .detail {
+            font-size: 10px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* ── Items table ────────────────────────────────────── */
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 22px; border-radius: 8px; overflow: hidden; }
+        .items-table th {
+            background: #2563eb;
+            color: #ffffff;
+            padding: 10px 12px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-weight: bold;
+        }
+        .items-table th:first-child { text-align: left; }
+        .items-table td {
+            padding: 10px 12px;
+            font-size: 10px;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .items-table tbody tr:nth-child(even) td { background: #f8f9fa; }
+        .items-table tbody tr:nth-child(odd) td { background: #ffffff; }
+        .items-table tbody tr:last-child td { border-bottom: none; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+
+        /* ── Totals ─────────────────────────────────────────── */
+        .totals-wrapper { width: 100%; margin-bottom: 22px; }
+        .totals-table { width: 300px; margin-left: auto; border-collapse: collapse; }
+        .totals-table td {
+            padding: 6px 12px;
+            font-size: 11px;
+        }
+        .totals-table .label-cell { color: #555; }
+        .totals-table .value-cell { text-align: right; color: #333; }
+        .totals-table .total-row td {
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            background: #2563eb;
+            padding: 10px 12px;
+        }
+        .totals-table .total-row td:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+        .totals-table .total-row td:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+        .totals-table .sub-row td {
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        /* ── Notes card ─────────────────────────────────────── */
+        .notes-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-top: 20px;
+            font-size: 10px;
+            color: #555;
+            border-left: 4px solid #2563eb;
+        }
+        .notes-card strong { color: #333; }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <div class="left-stripe"></div>
+
+    <div class="header-bar">
+        <table>
+            <tr>
+                <td style="width: 60%;">
+                    <table><tr>
+                        <td>
+
+                                    <img src="../../../../../../public/assets/images/logo/logo-wide-cropped.svg" alt="logo" style="max-height: 50px; max-width: 200px; margin-right: 12px; object-fit: contain;">
+
+                        </td>
+                        <td>
+                            <span class="company-name-white">Ma Société SARL</span>
+                        </td>
+                    </tr></table>
+                </td>
+                <td style="width: 40%;">
+                    <div class="doc-title">AVOIR</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content">
+
+        <table class="info-row">
+            <tr>
+                <td style="width: 55%;">
+                    <div class="company-detail">
+                        123 Avenue Mohammed V<br>
+                        Casablanca
+                        20000
+                        Maroc
+                        <br>Tél : +212 5 22 00 00 00
+                        <br>Email : contact@masociete.ma
+                        <br>IF : 12345678
+                        <br>ICE : 001234567000012
+                        <br>RC : RC 12345
+                    </div>
+                </td>
+                <td style="width: 45%;">
+                    <div class="doc-meta-card">
+                        <table>
+                            <tr>
+                                <td class="meta-label">N°</td>
+                                <td>AV-2026-0001</td>
+                            </tr>
+                            <tr>
+                                <td class="meta-label">Date</td>
+                                <td>15/03/2026</td>
+                            </tr>
+
+                            <tr>
+                                <td class="meta-label">Réf.</td>
+                                <td>REF-001</td>
+                            </tr>
+
+                            <tr>
+                                <td class="meta-label">Facture</td>
+                                <td>FAC-2026-0001</td>
+                            </tr>
+
+                            <tr>
+                                <td class="meta-label">Statut</td>
+                                <td><span class="badge badge-sent">Émis</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <hr class="section-divider">
+
+        <div class="customer-card">
+            <div class="label">Client</div>
+            <div class="name">Client Exemple SARL</div>
+            <div class="detail">
+                client@exemple.ma<br>
+                +212 6 00 00 00 00<br>
+                IF : 87654321
+            </div>
+        </div>
+
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 40%;">Désignation</th>
+                    <th class="text-center" style="width: 10%;">Qté</th>
+                    <th class="text-right" style="width: 15%;">Prix unit.</th>
+
+                        <th class="text-right" style="width: 10%;">TVA</th>
+
+                    <th class="text-right" style="width: 15%;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <strong>Service de consultation</strong>
+
+                            <br><span style="color: #888; font-size: 9px;">Description du service</span>
+
+                    </td>
+                    <td class="text-center">2</td>
+                    <td class="text-right">1 500,00</td>
+
+                        <td class="text-right">20,00%</td>
+
+                    <td class="text-right">3 600,00</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="totals-wrapper">
+            <table class="totals-table">
+                <tr class="sub-row">
+                    <td class="label-cell">Sous-total</td>
+                    <td class="value-cell">3 000,00 MAD</td>
+                </tr>
+
+                <tr class="sub-row">
+                    <td class="label-cell">TVA</td>
+                    <td class="value-cell">600,00 MAD</td>
+                </tr>
+
+                <tr class="sub-row">
+                    <td class="label-cell">Arrondi</td>
+                    <td class="value-cell">0,00 MAD</td>
+                </tr>
+
+                <tr class="total-row">
+                    <td>Total Avoir</td>
+                    <td style="text-align: right;">3 600,00 MAD</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="notes-card">
+            <strong>Notes :</strong><br>
+            Merci pour votre confiance.<br>Paiement à 30 jours.
+        </div>
+
+        </div>
+
+    <!-- Signature -->
+    <table style="width: 100%; margin-top: 40px;">
+        <tr>
+            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
+                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
+                    Signature du client
+                </div>
+            </td>
+            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
+                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
+                    Cachet et signature
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

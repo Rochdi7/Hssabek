@@ -16,7 +16,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Informations du plan</h5>
+                    <h5 class="card-title">{{ __('Informations du plan') }}</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('sa.plans.store') }}" method="POST">
@@ -34,7 +34,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Code <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('code') is-invalid @enderror"
-                                           name="code" value="{{ old('code') }}" required>
+                                           name="code" value="{{ old('code') }}" required id="plan-code" readonly>
                                     @error('code')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
@@ -85,8 +85,8 @@
                             </div>
                         </div>
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            <a href="{{ route('sa.plans.index') }}" class="btn btn-outline-secondary">Annuler</a>
+                            <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                            <a href="{{ route('sa.plans.index') }}" class="btn btn-outline-secondary">{{ __('Annuler') }}</a>
                         </div>
                     </form>
                 </div>
@@ -94,3 +94,25 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameInput = document.querySelector('input[name="name"]');
+        const codeInput = document.getElementById('plan-code');
+
+        if (nameInput && codeInput) {
+            nameInput.addEventListener('input', function() {
+                codeInput.value = nameInput.value
+                    .toLowerCase()
+                    .trim()
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/[\s]+/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-|-$/g, '');
+            });
+        }
+    });
+</script>
+@endpush

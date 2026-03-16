@@ -68,6 +68,30 @@
                                     </div>
                                 </div>
                                 @endif
+                                @if(!empty($company['cnss']))
+                                <div class="col-md-6">
+                                    <div class="mb-2">
+                                        <span class="d-block mb-1">CNSS :</span>
+                                        <p class="text-dark">{{ $company['cnss'] }}</p>
+                                    </div>
+                                </div>
+                                @endif
+                                @if(!empty($company['patente']))
+                                <div class="col-md-6">
+                                    <div class="mb-2">
+                                        <span class="d-block mb-1">Patente :</span>
+                                        <p class="text-dark">{{ $company['patente'] }}</p>
+                                    </div>
+                                </div>
+                                @endif
+                                @if(!empty($company['numero_ae']))
+                                <div class="col-md-6">
+                                    <div class="mb-2">
+                                        <span class="d-block mb-1">N° AE :</span>
+                                        <p class="text-dark">{{ $company['numero_ae'] }}</p>
+                                    </div>
+                                </div>
+                                @endif
                                 <div class="col-md-12">
                                     @if(!empty($company['address']))
                                     <div>

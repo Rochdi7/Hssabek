@@ -6,7 +6,6 @@ use Database\Factories\PurchaseOrderFactory;
 use Database\Factories\SupplierFactory;
 use Database\Factories\WarehouseFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class PurchaseOrderControllerTest extends TestCase
@@ -20,8 +19,6 @@ class PurchaseOrderControllerTest extends TestCase
     {
         parent::setUp();
         ['tenant' => $this->tenant, 'user' => $this->adminUser] = $this->createTenantWithAdmin();
-        $domain = $this->tenant->domains()->where('is_primary', true)->value('domain');
-        URL::forceRootUrl('http://' . $domain);
     }
 
     public function test_index_lists_purchase_orders(): void

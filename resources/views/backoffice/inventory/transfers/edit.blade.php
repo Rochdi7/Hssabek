@@ -15,7 +15,7 @@
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6><a href="{{ route('bo.inventory.transfers.show', $transfer) }}"><i class="isax isax-arrow-left me-2"></i>Transfert {{ $transfer->number }}</a></h6>
+                            <h6><a href="{{ route('bo.inventory.transfers.show', $transfer) }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Transfert') }} {{ $transfer->number }}</a></h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
@@ -127,7 +127,7 @@
 
                                     <div class="mb-4">
                                         <button type="button" class="btn btn-outline-primary btn-sm" id="add-item">
-                                            <i class="isax isax-add-circle me-1"></i>Ajouter un produit
+                                            <i class="isax isax-add-circle me-1"></i>{{ __('Ajouter un produit') }}
                                         </button>
                                     </div>
 

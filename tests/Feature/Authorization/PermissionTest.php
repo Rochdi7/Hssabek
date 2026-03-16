@@ -5,7 +5,6 @@ namespace Tests\Feature\Authorization;
 use App\Models\CRM\Customer;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class PermissionTest extends TestCase
@@ -16,12 +15,6 @@ class PermissionTest extends TestCase
     {
         $data = $this->createTenantWithAdmin();
         TenantContext::set($data['tenant']);
-
-        // Force URL root to the tenant domain so middleware resolves correctly
-        $domain = $data['tenant']->domains()->first();
-        if ($domain) {
-            URL::forceRootUrl('http://' . $domain->domain);
-        }
 
         return $data;
     }

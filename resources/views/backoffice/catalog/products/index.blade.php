@@ -73,7 +73,7 @@
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-category me-1"></i>{{ __('Type :') }} <span
-                                    class="fw-normal ms-1">{{ request('item_type') === 'product' ? 'Produits' : (request('item_type') === 'service' ? 'Services' : 'Tous') }}</span>
+                                    class="fw-normal ms-1">{{ request('item_type') === 'product' ? __('Produits') : (request('item_type') === 'service' ? __('Services') : __('Tous')) }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -95,7 +95,7 @@
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>{{ __('Catégorie :') }} <span
-                                    class="fw-normal ms-1">{{ $categories->firstWhere('id', request('category_id'))?->name ?? 'Toutes' }}</span>
+                                    class="fw-normal ms-1">{{ $categories->firstWhere('id', request('category_id'))?->name ?? __('Toutes') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -115,7 +115,7 @@
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-sort me-1"></i>{{ __('Statut :') }} <span
-                                    class="fw-normal ms-1">{{ request('status') === 'active' ? 'Actif' : (request('status') === 'inactive' ? 'Inactif' : 'Tous') }}</span>
+                                    class="fw-normal ms-1">{{ request('status') === 'active' ? __('Actif') : (request('status') === 'inactive' ? __('Inactif') : __('Tous')) }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -137,7 +137,7 @@
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-building-4 me-1"></i>{{ __('Entrepôt :') }} <span
-                                    class="fw-normal ms-1">{{ $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? 'Tous' }}</span>
+                                    class="fw-normal ms-1">{{ $warehouses->firstWhere('id', request('warehouse_id'))?->name ?? __('Tous') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>

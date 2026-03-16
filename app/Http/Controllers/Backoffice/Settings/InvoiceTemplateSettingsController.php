@@ -310,6 +310,7 @@ class InvoiceTemplateSettingsController extends Controller
 
     /**
      * Generate a preview PDF for the given document type using the latest available document.
+     * Falls back to a sample document when no real data exists.
      */
     private function generatePreviewPdf(PdfService $pdfService, string $docType): ?string
     {
@@ -345,6 +346,144 @@ class InvoiceTemplateSettingsController extends Controller
 
         $doc = $modelClass::with($relations)->latest()->first();
 
-        return $doc ? $pdfService->generatePdfContent($doc, $resolvedDocType) : null;
+        if ($doc) {
+            return $pdfService->generatePdfContent($doc, $resolvedDocType);
+        }
+
+        // No real document exists — render with a sample object
+        return $this->generateSamplePreviewPdf($pdfService, $resolvedDocType);
+    }
+
+    /**
+     * Build a sample (in-memory) document for template preview when no real data exists.
+     */
+    private function generateSamplePreviewPdf(PdfService $pdfService, string $docType): string
+    {
+        $tenant = TenantContext::get();
+        $settings = $tenant?->settings;
+        $currency = $tenant?->default_currency ?? 'MAD';
+
+        $view = $this->callResolveView($pdfService, $docType);
+
+        // Build sample items collection
+        $sampleItems = collect([
+            (object) [
+                'label'        => 'Produit exemple A',
+                'description'  => 'Description du produit',
+                'quantity'     => 2,
+                'unit_price'   => 150.00,
+                'tax_rate'     => 20.00,
+                'line_subtotal'=> 300.00,
+                'line_tax'     => 60.00,
+                'line_total'   => 360.00,
+                'discount'     => 0,
+                'position'     => 1,
+                'product'      => null,
+                'unit'         => null,
+                'taxGroup'     => null,
+            ],
+            (object) [
+                'label'        => 'Service exemple B',
+                'description'  => null,
+                'quantity'     => 1,
+                'unit_price'   => 500.00,
+                'tax_rate'     => 20.00,
+                'line_subtotal'=> 500.00,
+                'line_tax'     => 100.00,
+                'line_total'   => 600.00,
+                'discount'     => 0,
+                'position'     => 2,
+                'product'      => null,
+                'unit'         => null,
+                'taxGroup'     => null,
+            ],
+        ]);
+
+        $sampleCustomer = (object) [
+            'name'  => 'Client Exemple SARL',
+            'email' => 'contact@exemple.ma',
+            'phone' => '+212 600 000 000',
+        ];
+
+        $sampleSupplier = (object) [
+            'name'  => 'Fournisseur Exemple SARL',
+            'email' => 'fournisseur@exemple.ma',
+            'phone' => '+212 600 000 000',
+        ];
+
+        $now = now();
+
+        // Common fields shared by most document types
+        $base = [
+            'number'             => 'APERÇU-0001',
+            'reference_number'   => null,
+            'issue_date'         => $now,
+            'date'               => $now,
+            'due_date'           => $now->copy()->addDays(30),
+            'status'             => 'draft',
+            'subtotal'           => 800.00,
+            'discount_total'     => 0,
+            'tax_total'          => 160.00,
+            'total'              => 960.00,
+            'round_off'          => 0,
+            'enable_tax'         => true,
+            'amount_paid'        => 0,
+            'amount_due'         => 960.00,
+            'total_in_words'     => 'Neuf cent soixante dirhams',
+            'notes'              => 'Ceci est un aperçu du modèle avec des données fictives.',
+            'terms'              => 'Paiement à 30 jours.',
+            'bill_to_snapshot'   => ['name' => 'Client Exemple SARL', 'address' => '123 Rue Exemple', 'city' => 'Casablanca', 'postal_code' => '20000', 'country' => 'Maroc'],
+            'bank_details_snapshot' => [],
+            'items'              => $sampleItems,
+            'charges'            => collect(),
+            'customer'           => $sampleCustomer,
+            'supplier'           => $sampleSupplier,
+            'invoice'            => null,
+            'quote'              => null,
+            'vendorBill'         => null,
+            'purchaseOrder'      => null,
+            'goodsReceipt'       => null,
+            'paymentMethod'      => null,
+            'allocations'        => collect(),
+            'warehouse'          => null,
+            'creator'            => null,
+        ];
+
+        $doc = (object) $base;
+
+        // Map document type to the variable name expected by PdfService::buildData()
+        $varNameMap = [
+            'purchase_order'           => 'purchaseOrder',
+            'credit_note'              => 'creditNote',
+            'delivery_challan'         => 'deliveryChallan',
+            'debit_note'               => 'debitNote',
+            'vendor_bill'              => 'vendorBill',
+            'supplier_payment'         => 'supplierPayment',
+            'supplier_payment_receipt' => 'supplierPayment',
+            'payment_receipt'          => 'payment',
+            'goods_receipt'            => 'goodsReceipt',
+        ];
+        $varName = $varNameMap[$docType] ?? $docType;
+
+        $data = [
+            'tenant'    => $tenant,
+            'settings'  => $settings,
+            'currency'  => $currency,
+            'signature' => null,
+            $varName    => $doc,
+        ];
+
+        return \Barryvdh\DomPDF\Facade\Pdf::loadView($view, $data)->setPaper('a4', 'portrait')->output();
+    }
+
+    /**
+     * Call PdfService::resolveView() via reflection (private method).
+     */
+    private function callResolveView(PdfService $pdfService, string $docType): string
+    {
+        $ref = new \ReflectionMethod($pdfService, 'resolveView');
+        $ref->setAccessible(true);
+
+        return $ref->invoke($pdfService, $docType);
     }
 }

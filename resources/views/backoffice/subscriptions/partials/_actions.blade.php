@@ -6,17 +6,17 @@
         <li>
             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
                 data-bs-toggle="modal" data-bs-target="#view_subscription_{{ $subscription->id }}"><i
-                    class="isax isax-eye me-2"></i>Voir</a>
+                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
         </li>
         <li>
             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
                 data-bs-toggle="modal" data-bs-target="#edit_subscription_{{ $subscription->id }}"><i
-                    class="isax isax-edit me-2"></i>Modifier</a>
+                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
         </li>
         <li>
             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center text-danger"
                 data-bs-toggle="modal" data-bs-target="#delete_subscription_{{ $subscription->id }}"><i
-                    class="isax isax-trash me-2"></i>Supprimer</a>
+                    class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
         </li>
     </ul>
 </td>

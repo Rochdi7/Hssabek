@@ -5,7 +5,6 @@ namespace Tests\Feature\Settings;
 use App\Models\Tenancy\TenantSetting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -16,9 +15,6 @@ class InvoiceTemplateSettingsTest extends TestCase
     public function test_preview_does_not_persist_default_template_selection(): void
     {
         ['tenant' => $tenant, 'user' => $user] = $this->createTenantWithAdmin();
-
-        $domain = $tenant->domains()->where('is_primary', true)->value('domain');
-        URL::forceRootUrl('http://' . $domain);
 
         $settings = TenantSetting::where('tenant_id', $tenant->id)->firstOrFail();
         $settings->invoice_settings = [

@@ -74,15 +74,10 @@ require __DIR__ . '/auth.php';
 
 Route::prefix('backoffice')
     ->as('bo.')
-    ->middleware([
-        'web',
-        'identifyTenant',
-        'tenantActive',
-        'setTenantContext',
-    ])
+    ->middleware(['web'])
     ->group(function () {
 
-        // Auth routes
+        // Auth routes (no tenant context needed)
         require __DIR__ . '/backoffice/auth.php';
 
         // Public invitation accept (no auth required)
@@ -91,8 +86,8 @@ Route::prefix('backoffice')
         Route::post('/accept-invitation/{token}', [\App\Http\Controllers\Backoffice\Users\UserInvitationController::class, 'acceptStore'])
             ->name('invitation.accept.store');
 
-        // Protected routes
-        Route::middleware(['auth', 'subscriptionActive'])->group(function () {
+        // Protected routes — tenant identified from authenticated user
+        Route::middleware(['auth', 'identifyTenant', 'tenantActive', 'setTenantContext', 'subscriptionActive'])->group(function () {
 
             // Quick language switch from header
             Route::post('/locale/switch', \App\Http\Controllers\Backoffice\LocaleSwitchController::class)->name('locale.switch');

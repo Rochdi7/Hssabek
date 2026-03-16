@@ -304,17 +304,17 @@
                                                                         </p>
                                                                     @endif
                                                                     @if ($creditNote->customer->phone)
-                                                                        <p class="mb-0">Tél :
+                                                                        <p class="mb-0">{{ __('Tél') }} :
                                                                             {{ $creditNote->customer->phone }}
                                                                         </p>
                                                                     @endif
                                                                     @if ($creditNote->customer->email)
-                                                                        <p class="mb-0">Email :
+                                                                        <p class="mb-0">{{ __('Email') }} :
                                                                             {{ $creditNote->customer->email }}
                                                                         </p>
                                                                     @endif
                                                                     @if ($creditNote->customer->tax_id)
-                                                                        <p class="text-dark mb-0">ICE :
+                                                                        <p class="text-dark mb-0">{{ __('ICE') }} :
                                                                             {{ $creditNote->customer->tax_id }}
                                                                         </p>
                                                                     @endif
@@ -462,16 +462,14 @@
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">{{ __('Conditions générales') }}</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">{{ __('Compte bancaire') }}</label>

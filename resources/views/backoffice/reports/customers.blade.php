@@ -20,10 +20,12 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="javascript:void(0);">{{ __('Télécharger en PDF') }}</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:void(0);">{{ __('Télécharger en Excel') }}</a>
+                                <form method="POST" action="{{ route('bo.reports.customers.export') }}">
+                                    @csrf
+                                    <input type="hidden" name="from" value="{{ $from }}">
+                                    <input type="hidden" name="to" value="{{ $to }}">
+                                    <button class="dropdown-item" type="submit">{{ __('Télécharger en CSV') }}</button>
+                                </form>
                             </li>
                         </ul>
                     </div>

@@ -13,27 +13,14 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Roles & Permission</h6>
+                    <h6>{{ __('Rôles & Permissions') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <div class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Export
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Download as PDF</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Download as Excel</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'roles'])
                     <div>
                         <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center"
                             data-bs-toggle="modal" data-bs-target="#add_modal">
-                            <i class="isax isax-add-circle5 me-1"></i>New Role
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau rôle') }}
                         </a>
                     </div>
                 </div>
@@ -64,14 +51,14 @@
                             <span class="input-group-text bg-white border-end-0">
                                 <i class="isax isax-search-normal fs-12"></i>
                             </span>
-                            <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="Search"
+                            <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="{{ __('Rechercher...') }}"
                                 name="search" value="{{ request('search') }}">
                         </div>
                     </form>
                 </div><!-- end col -->
                 <div class="col-md-9 d-flex justify-content-end">
                     @include('backoffice.components.column-toggle', [
-                        'columns' => ['Role', 'Create On'],
+                        'columns' => [__('Rôle'), __('Créé le')],
                     ])
                 </div>
             </div>
@@ -82,8 +69,8 @@
                 <table class="table border mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Role</th>
-                            <th>Create On</th>
+                            <th>{{ __('Rôle') }}</th>
+                            <th>{{ __('Créé le') }}</th>
                             <th class="no-sort"></th>
                             <th class="no-sort"></th>
                         </tr>
@@ -96,7 +83,7 @@
                                 <td>
                                     <a href="{{ route('bo.access.roles.permissions', $role) }}"
                                         class="btn btn-outline-white d-inline-flex align-items-center">
-                                        <i class="isax isax-shield-tick me-1"></i> Permissions
+                                        <i class="isax isax-shield-tick me-1"></i> {{ __('Permissions') }}
                                     </a>
                                 </td>
                                 <td class="action-item">
@@ -107,19 +94,19 @@
                                         <li>
                                             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
                                                 data-bs-toggle="modal" data-bs-target="#edit_modal_{{ $role->id }}"><i
-                                                    class="isax isax-edit me-2"></i>Edit</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
                                                 data-bs-toggle="modal" data-bs-target="#delete_modal_{{ $role->id }}"><i
-                                                    class="isax isax-trash me-2"></i>Delete</a>
+                                                    class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                         </li>
                                     </ul>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted py-4">No roles found.</td>
+                                <td colspan="4" class="text-center text-muted py-4">{{ __('Aucun rôle trouvé.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -146,21 +133,21 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">New Role</h5>
+                    <h5 class="modal-title">{{ __('Nouveau rôle') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="POST" action="{{ route('bo.access.roles.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Role Name</label>
+                            <label class="form-label">{{ __('Nom du rôle') }}</label>
                             <input type="text" class="form-control" name="name" required
-                                placeholder="Enter role name">
+                                placeholder="{{ __('Entrez le nom du rôle') }}">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Créer') }}</button>
                     </div>
                 </form>
             </div>
@@ -174,7 +161,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Role</h5>
+                        <h5 class="modal-title">{{ __('Modifier le rôle') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form method="POST" action="{{ route('bo.access.roles.update', $role) }}">
@@ -182,14 +169,14 @@
                         @method('PUT')
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label class="form-label">Role Name</label>
+                                <label class="form-label">{{ __('Nom du rôle') }}</label>
                                 <input type="text" class="form-control" name="name" value="{{ $role->name }}"
                                     required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Mettre à jour') }}</button>
                         </div>
                     </form>
                 </div>
@@ -201,18 +188,18 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Delete Role</h5>
+                        <h5 class="modal-title">{{ __('Supprimer le rôle') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete the role <strong>{{ ucfirst($role->name) }}</strong>?</p>
+                        <p>{{ __('Êtes-vous sûr de vouloir supprimer le rôle') }} <strong>{{ ucfirst($role->name) }}</strong> ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
                         <form method="POST" action="{{ route('bo.access.roles.destroy', $role) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">{{ __('Supprimer') }}</button>
                         </form>
                     </div>
                 </div>

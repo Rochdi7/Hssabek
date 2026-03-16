@@ -15,7 +15,7 @@
                     <h6>
                         <a href="{{ route('bo.access.roles.index') }}">
                             <i class="isax isax-arrow-left me-1"></i>
-                            Roles
+                            {{ __('Rôles') }}
                         </a>
                     </h6>
                 </div>
@@ -24,7 +24,7 @@
                         <a href="javascript:void(0);"
                             class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            Role : <span class="fw-normal ms-1">{{ ucfirst($role->name) }}</span>
+                            {{ __('Rôle') }} : <span class="fw-normal ms-1">{{ ucfirst($role->name) }}</span>
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-end">
                             @foreach ($roles as $r)
@@ -76,12 +76,12 @@
                                             <table class="table border mb-0">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th class="w-50">Module</th>
-                                                        <th>Create</th>
-                                                        <th>Edit</th>
-                                                        <th>Delete</th>
-                                                        <th>View</th>
-                                                        <th>Allow All</th>
+                                                        <th class="w-50">{{ __('Module') }}</th>
+                                                        <th>{{ __('Créer') }}</th>
+                                                        <th>{{ __('Modifier') }}</th>
+                                                        <th>{{ __('Supprimer') }}</th>
+                                                        <th>{{ __('Voir') }}</th>
+                                                        <th>{{ __('Tout autoriser') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -125,7 +125,7 @@
 
                 <div class="mt-3 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">
-                        <i class="isax isax-tick-circle me-1"></i>Save Permissions
+                        <i class="isax isax-tick-circle me-1"></i>{{ __('Enregistrer les permissions') }}
                     </button>
                 </div>
             </form>
