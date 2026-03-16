@@ -143,7 +143,7 @@
 
                                     <div class="mb-4">
                                         <button type="button" class="btn btn-outline-primary btn-sm" id="add-item">
-                                            <i class="isax isax-add-circle me-1"></i>Ajouter un produit
+                                            <i class="isax isax-add-circle me-1"></i>{{ __('Ajouter un produit') }}
                                         </button>
                                     </div>
 

@@ -15,12 +15,12 @@
                     <h6>
                         <a href="{{ route('bo.access.roles.index') }}">
                             <i class="isax isax-arrow-left me-1"></i>
-                            Roles & Permissions
+                            {{ __('Rôles & Permissions') }}
                         </a>
                     </h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <span class="badge bg-info">Read-Only — Permissions are managed by Super Admin</span>
+                    <span class="badge bg-info">{{ __('Lecture seule — Les permissions sont gérées par le Super Admin') }}</span>
                 </div>
             </div>
             <!-- End Breadcrumb -->
@@ -50,10 +50,10 @@
                                         <table class="table border mb-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th class="w-50">Permission</th>
-                                                    <th>Group</th>
-                                                    <th>Module</th>
-                                                    <th>Action</th>
+                                                    <th class="w-50">{{ __('Permission') }}</th>
+                                                    <th>{{ __('Groupe') }}</th>
+                                                    <th>{{ __('Module') }}</th>
+                                                    <th>{{ __('Action') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

@@ -1,5 +1,5 @@
 /*
-Author       : Dreamstechnologies
+Author       : codesommet
 Template Name: Hssabek - Bootstrap Admin Template
 */
 
@@ -60,7 +60,8 @@ Template Name: Hssabek - Bootstrap Admin Template
 		}
 	}
 
-	// Datatable
+	// Datatable — suppress alert dialogs on errors (log to console instead)
+	$.fn.dataTable.ext.errMode = 'none';
 	if($('.datatable').length > 0) {
 		$('.datatable').DataTable({
 			"bFilter": true,

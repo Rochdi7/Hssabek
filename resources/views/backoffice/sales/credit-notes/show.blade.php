@@ -61,7 +61,7 @@
                                                 <p class="mb-1">{{ __('Date d\'émission') }} : <span class="text-dark">{{ $creditNote->issue_date?->format('d/m/Y') }}</span></p>
                                                 <p class="mb-1">{{ __('Devise') }} : <span class="text-dark">{{ $creditNote->currency }}</span></p>
                                                 @if($creditNote->invoice)
-                                                    <p class="mb-1">Facture liée : <a href="{{ route('bo.sales.invoices.show', $creditNote->invoice) }}">{{ $creditNote->invoice->number }}</a></p>
+                                                    <p class="mb-1">{{ __('Facture liée') }} : <a href="{{ route('bo.sales.invoices.show', $creditNote->invoice) }}">{{ $creditNote->invoice->number }}</a></p>
                                                 @endif
                                             </div>
                                         </div>

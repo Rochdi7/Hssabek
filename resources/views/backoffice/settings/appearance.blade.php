@@ -147,7 +147,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#layoutsetting" aria-expanded="true">
-                                                            Select Layouts <i class="ti ti-circle-chevron-up ms-auto text-primary"></i>
+                                                            Select Layouts 
                                                         </button>
                                                     </h2>
                                                     <div id="layoutsetting" class="accordion-collapse collapse show">
@@ -232,7 +232,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarsetting" aria-expanded="true">
-                                                            Layout Width <i class="ti ti-circle-chevron-up ms-auto text-primary"></i>
+                                                            Layout Width 
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarsetting" class="accordion-collapse collapse show">
@@ -257,7 +257,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarcolorsetting" aria-expanded="true">
-                                                            Sidebar Color <i class="ti ti-circle-chevron-up ms-auto text-primary"></i>
+                                                            Sidebar Color 
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarcolorsetting" class="accordion-collapse collapse show">
@@ -356,7 +356,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sizesetting" aria-expanded="true">
-                                                            Sidebar Size <i class="ti ti-circle-chevron-up ms-auto text-primary"></i>
+                                                            Sidebar Size 
                                                         </button>
                                                     </h2>
                                                     <div id="sizesetting" class="accordion-collapse collapse show">
@@ -409,7 +409,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#colorsetting" aria-expanded="true">
-                                                            Top Bar Color <i class="ti ti-circle-chevron-up ms-auto text-primary"></i>
+                                                            Top Bar Color 
                                                         </button>
                                                     </h2>
                                                     <div id="colorsetting" class="accordion-collapse collapse show">
@@ -486,7 +486,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarbgsetting" aria-expanded="true">
-                                                            Sidebar Background <i class="ti ti-circle-chevron-up ms-auto text-primary"></i>
+                                                            Sidebar Background 
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarbgsetting" class="accordion-collapse collapse show">
@@ -546,7 +546,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarcolor" aria-expanded="true">
-                                                            Theme Colors <i class="ti ti-circle-chevron-up ms-auto text-primary"></i>
+                                                            Theme Colors 
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarcolor" class="accordion-collapse collapse show">

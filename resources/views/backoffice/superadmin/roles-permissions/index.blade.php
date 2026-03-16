@@ -13,33 +13,20 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>{{ __('Roles & Permission') }}</h6>
+                    <h6>{{ __('Rôles & Permissions') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <div class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>{{ __('Export') }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">{{ __('Download as PDF') }}</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">{{ __('Download as Excel') }}</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'roles'])
                     <div>
                         <a href="{{ route('sa.access.permissions.index') }}"
                             class="btn btn-outline-white d-flex align-items-center">
-                            <i class="isax isax-shield-tick me-1"></i>{{ __('Manage Permissions') }}
+                            <i class="isax isax-shield-tick me-1"></i>{{ __('Gérer les permissions') }}
                         </a>
                     </div>
                     <div>
                         <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center"
                             data-bs-toggle="modal" data-bs-target="#add_modal">
-                            <i class="isax isax-add-circle5 me-1"></i>{{ __('New Role') }}
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau rôle') }}
                         </a>
                     </div>
                 </div>
@@ -70,7 +57,7 @@
                             <span class="input-group-text bg-white border-end-0">
                                 <i class="isax isax-search-normal fs-12"></i>
                             </span>
-                            <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="{{ __('Search') }}"
+                            <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="{{ __('Rechercher...') }}"
                                 name="search" value="{{ request('search') }}">
                             @if (request('tenant_id'))
                                 <input type="hidden" name="tenant_id" value="{{ request('tenant_id') }}">
@@ -84,7 +71,7 @@
                             <input type="hidden" name="search" value="{{ request('search') }}">
                         @endif
                         <select name="tenant_id" class="form-select mb-3" onchange="this.form.submit()">
-                            <option value="">{{ __('All Tenants (+ Global)') }}</option>
+                            <option value="">{{ __('Tous les Tenants (+ Global)') }}</option>
                             @foreach ($tenants as $tenant)
                                 <option value="{{ $tenant->id }}"
                                     {{ request('tenant_id') == $tenant->id ? 'selected' : '' }}>
@@ -96,7 +83,7 @@
                 </div>
                 <div class="col-md-6 d-flex justify-content-end align-items-start">
                     @include('backoffice.components.column-toggle', [
-                        'columns' => [__('Role'), __('Tenant'), __('Create On')],
+                        'columns' => [__('Rôle'), __('Tenant'), __('Créé le')],
                     ])
                 </div>
             </div>
@@ -107,9 +94,9 @@
                 <table class="table border mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>{{ __('Role') }}</th>
+                            <th>{{ __('Rôle') }}</th>
                             <th>{{ __('Tenant') }}</th>
-                            <th>{{ __('Create On') }}</th>
+                            <th>{{ __('Créé le') }}</th>
                             <th class="no-sort"></th>
                             <th class="no-sort"></th>
                         </tr>
@@ -141,20 +128,20 @@
                                         <li>
                                             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
                                                 data-bs-toggle="modal" data-bs-target="#edit_modal_{{ $role->id }}"><i
-                                                    class="isax isax-edit me-2"></i>{{ __('Edit') }}</a>
+                                                    class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#delete_modal_{{ $role->id }}"><i
-                                                    class="isax isax-trash me-2"></i>{{ __('Delete') }}</a>
+                                                    class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</a>
                                         </li>
                                     </ul>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">{{ __('No roles found.') }}</td>
+                                <td colspan="5" class="text-center text-muted py-4">{{ __('Aucun rôle trouvé.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -181,21 +168,21 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('New Role') }}</h5>
+                    <h5 class="modal-title">{{ __('Nouveau rôle') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="POST" action="{{ route('sa.access.roles.store') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">{{ __('Role Name') }}</label>
+                            <label class="form-label">{{ __('Nom du rôle') }}</label>
                             <input type="text" class="form-control" name="name" required
-                                placeholder="{{ __('Enter role name') }}">
+                                placeholder="{{ __('Entrez le nom du rôle') }}">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">{{ __('Tenant (leave empty for global)') }}</label>
+                            <label class="form-label">{{ __('Tenant (laisser vide pour global)') }}</label>
                             <select name="tenant_id" class="form-select">
-                                <option value="">{{ __('Global (no tenant)') }}</option>
+                                <option value="">{{ __('Global (aucun tenant)') }}</option>
                                 @foreach ($tenants as $tenant)
                                     <option value="{{ $tenant->id }}">{{ $tenant->name }}</option>
                                 @endforeach
@@ -203,8 +190,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Créer') }}</button>
                     </div>
                 </form>
             </div>
@@ -218,7 +205,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ __('Edit Role') }}</h5>
+                        <h5 class="modal-title">{{ __('Modifier le rôle') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form method="POST" action="{{ route('sa.access.roles.update', $role) }}">
@@ -226,14 +213,14 @@
                         @method('PUT')
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label class="form-label">{{ __('Role Name') }}</label>
+                                <label class="form-label">{{ __('Nom du rôle') }}</label>
                                 <input type="text" class="form-control" name="name" value="{{ $role->name }}"
                                     required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">{{ __('Tenant') }}</label>
                                 <select name="tenant_id" class="form-select">
-                                    <option value="">{{ __('Global (no tenant)') }}</option>
+                                    <option value="">{{ __('Global (aucun tenant)') }}</option>
                                     @foreach ($tenants as $tenant)
                                         <option value="{{ $tenant->id }}"
                                             {{ $role->tenant_id == $tenant->id ? 'selected' : '' }}>
@@ -244,8 +231,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                            <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+                            <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Mettre à jour') }}</button>
                         </div>
                     </form>
                 </div>
@@ -257,18 +244,18 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ __('Delete Role') }}</h5>
+                        <h5 class="modal-title">{{ __('Supprimer le rôle') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ __('Are you sure you want to delete the role') }} <strong>{{ ucfirst($role->name) }}</strong>?</p>
+                        <p>{{ __('Êtes-vous sûr de vouloir supprimer le rôle') }} <strong>{{ ucfirst($role->name) }}</strong>?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
                         <form method="POST" action="{{ route('sa.access.roles.destroy', $role) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                            <button type="submit" class="btn btn-danger">{{ __('Supprimer') }}</button>
                         </form>
                     </div>
                 </div>

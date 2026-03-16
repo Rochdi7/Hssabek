@@ -4,7 +4,6 @@ namespace Tests\Feature\Purchases;
 
 use Database\Factories\SupplierFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class SupplierControllerTest extends TestCase
@@ -18,8 +17,6 @@ class SupplierControllerTest extends TestCase
     {
         parent::setUp();
         ['tenant' => $this->tenant, 'user' => $this->adminUser] = $this->createTenantWithAdmin();
-        $domain = $this->tenant->domains()->where('is_primary', true)->value('domain');
-        URL::forceRootUrl('http://' . $domain);
     }
 
     public function test_index_lists_suppliers(): void

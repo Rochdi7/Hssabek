@@ -7,12 +7,12 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="mb-3">
-                    <h6><a href="{{url('invoice-templates')}}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
+                    <h6><a href="{{ url('invoice-templates') }}"><i class="isax isax-arrow-left me-1"></i>Back</a></h6>
                 </div>
                 <div class="pb-3 mb-3 border-bottom border-3 border-light">
                     <div class="d-flex align-items-center justify-content-between bg-light flex-wrap p-3 rounded">
                         <div>
-                            <img src="{{URL::asset('build/img/invoice-logo.svg')}}" class="mb-2" alt="">
+                            <img src="{{ URL::asset('build/img/invoice-logo.svg') }}" class="mb-2" alt="">
                         </div>
                         <div class="text-end">
                             <h6 class="text-primary fw-bold mb-2">UNIVERSITY NAME</h6>
@@ -82,7 +82,8 @@
                     <div>
                         <p class="mb-1 fw-bold d-block">Bill To :</p>
                         <span class="mb-1 fw-noraml text-dark d-block">Walter Roberson</span>
-                        <span class="mb-1 fw-noraml text-dark d-block">299 Star Trek Drive, Panama City, Florida, 32405, USA.</span>
+                        <span class="mb-1 fw-noraml text-dark d-block">299 Star Trek Drive, Panama City, Florida, 32405,
+                            USA.</span>
                         <span class="mb-1 fw-noraml text-dark d-block">walter@gmail.com</span>
                         <span class="mb-1 fw-noraml text-dark d-block">+45 5421 4523</span>
                     </div>
@@ -149,7 +150,8 @@
                 <div class="row">
                     <div class="col-md-9">
                         <p class="mb-1 fw-normal">Important Note :</p>
-                        <span class="mb-1 fw-noraml text-dark">Delivery dates are not guaranteed and Seller has no liability for damages that may be incurred due to any delay.</span>
+                        <span class="mb-1 fw-noraml text-dark">Delivery dates are not guaranteed and Seller has no liability
+                            for damages that may be incurred due to any delay.</span>
                     </div>
                     <div class="col-md-3">
                         <div class="">
@@ -198,14 +200,15 @@
                     </div>
                     <div class="col-md-3">
                         <div class="text-end mb-3">
-                            <p class="mb-1">For Dreamstechnologies</p>
-                            <span><img src="{{URL::asset('build/img/icons/sign-01.png')}}" alt=""></span>
+                            <p class="mb-1">For codesommet</p>
+                            <span><img src="{{ URL::asset('build/img/icons/sign-01.png') }}" alt=""></span>
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-center mb-3">
                         <div>
                             <h6 class="mb-2 fs-16 text-center">Terms & Conditions : </h6>
-                            <p class="mb-0 fs-13">1. We are not the manufactures, company will stand for warrenty as per their terms and conditions. </p>
+                            <p class="mb-0 fs-13">1. We are not the manufactures, company will stand for warrenty as per
+                                their terms and conditions. </p>
                         </div>
                     </div>
                 </div>

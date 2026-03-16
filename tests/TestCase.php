@@ -5,7 +5,6 @@ namespace Tests;
 use App\Models\Billing\Plan;
 use App\Models\Billing\Subscription;
 use App\Models\Tenancy\Tenant;
-use App\Models\Tenancy\TenantDomain;
 use App\Models\Tenancy\TenantSetting;
 use App\Models\User;
 use App\Services\Tenancy\TenantContext;
@@ -29,12 +28,6 @@ abstract class TestCase extends BaseTestCase
             'status' => 'active',
             'timezone' => 'UTC',
             'default_currency' => 'MAD',
-        ]);
-
-        TenantDomain::create([
-            'tenant_id' => $tenant->id,
-            'domain' => fake()->unique()->domainWord() . '.facturation.test',
-            'is_primary' => true,
         ]);
 
         TenantSetting::create([

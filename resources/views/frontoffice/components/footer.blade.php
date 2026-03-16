@@ -25,7 +25,7 @@
 				<div class="col-lg-4">
 					<div class="template-info">
 						<div class="footer-logo mb-3">
-							<a href="{{ route('home') }}"><img src="{{ url('build/img/footer-logo.svg') }}" alt="{{ config('app.name') }}"></a>
+							<a href="{{ route('home') }}"><img src="{{ asset('assets/images/logo/logo-wide-white-cropped.svg') }}" alt="{{ config('app.name') }}"></a>
 						</div>
 						<p class="fw-medium">{{ config('app.name') }} {{ __('est une solution complète de facturation et gestion commerciale pour votre entreprise.') }}</p>
 					</div>

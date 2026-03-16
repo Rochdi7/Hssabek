@@ -10,27 +10,14 @@
             <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-4">
                 <div>
-                    <h6>Tenants</h6>
+                    <h6>{{ __('Tenants') }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en PDF</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en Excel</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'tenants'])
                     <div>
                         <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                             data-bs-target="#add_tenant">
-                            <i class="isax isax-add-circle5 me-1"></i>Nouveau Tenant
+                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau Tenant') }}
                         </a>
                     </div>
                 </div>
@@ -49,7 +36,7 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <p class="mb-1">Total Tenants</p>
+                                    <p class="mb-1">{{ __('Total Tenants') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ $totalTenants }}</h6>
                                 </div>
                             </div>
@@ -66,7 +53,7 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <p class="mb-1">Tenants Actifs</p>
+                                    <p class="mb-1">{{ __('Tenants Actifs') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ $activeTenants }}</h6>
                                 </div>
                             </div>
@@ -83,7 +70,7 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <p class="mb-1">Tenants Inactifs</p>
+                                    <p class="mb-1">{{ __('Tenants Inactifs') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ $inactiveTenants }}</h6>
                                 </div>
                             </div>
@@ -96,12 +83,12 @@
                             <div class="d-flex align-items-center pb-0">
                                 <div class="me-2">
                                     <span class="avatar avatar-lg bg-primary-subtle">
-                                        <i class="isax isax-map5 text-primary fs-28"></i>
+                                        <i class="isax isax-people5 text-primary fs-28"></i>
                                     </span>
                                 </div>
                                 <div>
-                                    <p class="mb-1">Total Domaines</p>
-                                    <h6 class="fs-16 fw-semibold">{{ $totalDomains }}</h6>
+                                    <p class="mb-1">{{ __('Total Utilisateurs') }}</p>
+                                    <h6 class="fs-16 fw-semibold">{{ $tenants->sum('users_count') }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -126,20 +113,19 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center fw-medium"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Trier par : <span class="fw-normal ms-1">Plus
-                                    récent</span>
+                                <i class="isax isax-sort me-1"></i>{{ __('Trier par :') }} <span class="fw-normal ms-1">{{ __('Plus récent') }}</span>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end">
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">Plus récent</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">{{ __('Plus récent') }}</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">Plus ancien</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">{{ __('Plus ancien') }}</a>
                                 </li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Nom', 'Slug', 'Domaine', 'Utilisateurs', 'Créé le', 'Statut'],
+                            'columns' => [__('Nom'), __('Slug'), __('Domaine'), __('Utilisateurs'), __('Créé le'), __('Statut')],
                         ])
                     </div>
                 </div>

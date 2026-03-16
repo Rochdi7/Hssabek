@@ -243,7 +243,7 @@
                                         @csrf @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger w-100"
                                             onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer ce transfert ?') }}')">
-                                            <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }} le transfert
+                                            <i class="isax isax-trash me-1"></i>{{ __('Supprimer le transfert') }}
                                         </button>
                                     </form>
                                 </div>

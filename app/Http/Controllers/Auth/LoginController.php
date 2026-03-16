@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\System\LoginLog;
+use App\Models\Tenancy\Tenant;
 use App\Scopes\TenantScope;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
@@ -28,138 +29,55 @@ class LoginController extends Controller
         $ip = $request->ip();
         $userAgent = $request->userAgent();
 
-        // Resolve tenant from app container (set by SetTenantContext middleware)
-        $tenant = app()->has('tenant') ? app('tenant') : $request->attributes->get('tenant');
-
-        // First check if user is super admin (tenant_id = NULL)
-        // Must bypass TenantScope: the middleware already set TenantContext for
-        // this domain (e.g. localhost), which would filter out superadmin (tenant_id IS NULL).
+        // Single-domain SaaS: find the user by email across all tenants
         $user = \App\Models\User::withoutGlobalScope(TenantScope::class)
             ->where('email', $credentials['email'])
-            ->whereNull('tenant_id')
             ->first();
 
-        if ($user) {
-            // SUPER ADMIN LOGIN (no tenant required)
-            // Temporarily clear TenantContext so Auth::attempt doesn't apply
-            // the tenant scope when resolving the user from the provider.
-            $savedTenant = TenantContext::get();
-            TenantContext::forget();
+        if (!$user) {
+            LoginLog::create([
+                'tenant_id' => null,
+                'user_id' => null,
+                'email' => $credentials['email'],
+                'ip' => $ip,
+                'user_agent' => $userAgent,
+                'status' => 'failed',
+                'message' => 'User not found',
+            ]);
 
-            $authResult = Auth::attempt(
-                ['email' => $credentials['email'], 'password' => $credentials['password']],
-                $request->boolean('remember')
-            );
+            return back()
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => __('Les identifiants fournis ne correspondent à aucun compte.')]);
+        }
 
-            if (!$authResult) {
-                // Restore tenant context before returning
-                if ($savedTenant) {
-                    TenantContext::set($savedTenant);
-                }
+        // Check if tenant is active (for tenant users)
+        if ($user->tenant_id) {
+            $tenant = Tenant::find($user->tenant_id);
+
+            if (!$tenant || $tenant->status !== 'active') {
+                $status = $tenant?->status ?? 'unknown';
                 LoginLog::create([
-                    'tenant_id' => null,
+                    'tenant_id' => $user->tenant_id,
                     'user_id' => null,
                     'email' => $credentials['email'],
                     'ip' => $ip,
                     'user_agent' => $userAgent,
-                    'status' => 'failed',
-                    'message' => 'Invalid credentials',
-                ]);
-
-                return back()
-                    ->withInput($request->only('email'))
-                    ->withErrors(['email' => 'The provided credentials do not match our records.']);
-            }
-
-            // Restore tenant context after successful super admin auth
-            if ($savedTenant) {
-                TenantContext::set($savedTenant);
-            }
-
-            // Check user status after successful auth attempt
-            $authenticatedUser = Auth::user();
-            if ($authenticatedUser->status !== 'active') {
-                Auth::logout();
-
-                LoginLog::create([
-                    'tenant_id' => null,
-                    'user_id' => $authenticatedUser->id,
-                    'email' => $credentials['email'],
-                    'ip' => $ip,
-                    'user_agent' => $userAgent,
                     'status' => 'blocked',
-                    'message' => sprintf('User account is %s', $authenticatedUser->status),
+                    'message' => sprintf('Tenant status is %s', $status),
                 ]);
 
                 return back()
                     ->withInput($request->only('email'))
-                    ->withErrors(['email' => "Your account is {$authenticatedUser->status}. Please contact support."]);
+                    ->withErrors(['email' => __("Le compte de votre entreprise est :status. Veuillez contacter le support.", ['status' => $status])]);
             }
-
-            // Update login info
-            $authenticatedUser->update([
-                'last_login_at' => now(),
-                'last_login_ip' => $ip,
-            ]);
-
-            // Log successful login
-            LoginLog::create([
-                'tenant_id' => null,
-                'user_id' => $authenticatedUser->id,
-                'email' => $credentials['email'],
-                'ip' => $ip,
-                'user_agent' => $userAgent,
-                'status' => 'success',
-                'message' => null,
-            ]);
-
-            $request->session()->regenerate();
-            session()->flash('success', __('Bienvenue :name! Vous êtes connecté avec succès.', ['name' => $authenticatedUser->name]));
-
-            return redirect()->route('sa.dashboard');
         }
 
-        // TENANT USER LOGIN (requires tenant)
-        if (!$tenant) {
+        // Clear TenantContext so Auth::attempt works for both super admins and tenant users
+        TenantContext::forget();
+
+        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
             LoginLog::create([
-                'tenant_id' => null,
-                'user_id' => null,
-                'email' => $credentials['email'],
-                'ip' => $ip,
-                'user_agent' => $userAgent,
-                'status' => 'blocked',
-                'message' => 'Tenant not found for this domain',
-            ]);
-
-            return back()
-                ->withInput($request->only('email'))
-                ->withErrors(['email' => 'The email address is not associated with this tenant.']);
-        }
-
-        // Check if tenant is active
-        if ($tenant->status !== 'active') {
-            LoginLog::create([
-                'tenant_id' => $tenant->id,
-                'user_id' => null,
-                'email' => $credentials['email'],
-                'ip' => $ip,
-                'user_agent' => $userAgent,
-                'status' => 'blocked',
-                'message' => sprintf('Tenant status is %s', $tenant->status),
-            ]);
-
-            return back()
-                ->withInput($request->only('email'))
-                ->withErrors(['email' => "This tenant account is {$tenant->status}. Please contact support."]);
-        }
-
-        // Attempt to authenticate tenant user
-        // Add tenant_id to credentials to ensure user belongs to this tenant
-        $tenantCredentials = array_merge($credentials, ['tenant_id' => $tenant->id]);
-
-        if (!Auth::attempt($tenantCredentials, $request->boolean('remember'))) {
-            LoginLog::create([
-                'tenant_id' => $tenant->id,
+                'tenant_id' => $user->tenant_id,
                 'user_id' => null,
                 'email' => $credentials['email'],
                 'ip' => $ip,
@@ -170,16 +88,17 @@ class LoginController extends Controller
 
             return back()
                 ->withInput($request->only('email'))
-                ->withErrors(['email' => 'The provided credentials do not match our records.']);
+                ->withErrors(['email' => __('Les identifiants fournis ne correspondent à aucun compte.')]);
         }
 
-        // Check user status after successful auth attempt
         $authenticatedUser = Auth::user();
+
+        // Check user status
         if ($authenticatedUser->status !== 'active') {
             Auth::logout();
 
             LoginLog::create([
-                'tenant_id' => $tenant->id,
+                'tenant_id' => $authenticatedUser->tenant_id,
                 'user_id' => $authenticatedUser->id,
                 'email' => $credentials['email'],
                 'ip' => $ip,
@@ -190,7 +109,15 @@ class LoginController extends Controller
 
             return back()
                 ->withInput($request->only('email'))
-                ->withErrors(['email' => "Your account is {$authenticatedUser->status}. Please contact support."]);
+                ->withErrors(['email' => __("Votre compte est :status. Veuillez contacter le support.", ['status' => $authenticatedUser->status])]);
+        }
+
+        // Set tenant context for tenant users
+        if ($authenticatedUser->tenant_id) {
+            $tenant = Tenant::find($authenticatedUser->tenant_id);
+            if ($tenant) {
+                TenantContext::set($tenant);
+            }
         }
 
         // Update login info
@@ -201,7 +128,7 @@ class LoginController extends Controller
 
         // Log successful login
         LoginLog::create([
-            'tenant_id' => $tenant->id,
+            'tenant_id' => $authenticatedUser->tenant_id,
             'user_id' => $authenticatedUser->id,
             'email' => $credentials['email'],
             'ip' => $ip,
@@ -212,6 +139,11 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
         session()->flash('success', __('Bienvenue :name! Vous êtes connecté avec succès.', ['name' => $authenticatedUser->name]));
+
+        // Redirect based on user type
+        if ($authenticatedUser->tenant_id === null || $authenticatedUser->hasRole('super_admin')) {
+            return redirect()->route('sa.dashboard');
+        }
 
         return redirect()->route('bo.dashboard');
     }

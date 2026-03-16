@@ -11,8 +11,7 @@
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <div>
                         <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                            data-bs-target="#add_method_modal"><i class="isax isax-add-circle5 me-1"></i>Nouvelle
-                            méthode</a>
+                            data-bs-target="#add_method_modal"><i class="isax isax-add-circle5 me-1"></i>{{ __('Nouvelle méthode') }}</a>
                     </div>
                 </div>
             </div>
@@ -277,7 +276,7 @@
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
                     <h6 class="mb-1">{{ __('Supprimer la méthode de paiement') }}</h6>
-                    <p class="mb-3">Êtes-vous sûr de vouloir supprimer <strong id="delete_method_name"></strong> ?</p>
+                    <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer') }} <strong id="delete_method_name"></strong> ?</p>
                     <div class="d-flex justify-content-center">
                         <a href="javascript:void(0);" class="btn btn-outline-white me-3"
                             data-bs-dismiss="modal">{{ __('Annuler') }}</a>

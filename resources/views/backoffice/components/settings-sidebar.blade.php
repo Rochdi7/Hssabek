@@ -64,14 +64,14 @@
                                                         class="{{ request()->routeIs('bo.settings.invoice-templates.*') ? 'active' : '' }}">{{ __('Modèles de documents') }}</a></li>
                                                 <li><a href="{{ route('bo.catalog.tax-rates.index') }}"
                                                         class="{{ request()->routeIs('bo.catalog.tax-rates.*', 'bo.catalog.tax-categories.*', 'bo.catalog.tax-groups.*') ? 'active' : '' }}">{{ __('Taux de taxes') }}</a></li>
-                                                <li><a href="javascript:void(0);" class="d-flex align-items-center">{{ __("Modèles d'email") }}
-                                                        <span class="badge bg-soft-warning text-warning ms-2" style="font-size: 10px;">{{ __('Bientôt') }}</span></a></li>
                                                 <li><a href="{{ route('bo.settings.signatures.index') }}"
                                                         class="{{ request()->routeIs('bo.settings.signatures.*') ? 'active' : '' }}">{{ __('Signatures électroniques') }}</a></li>
-                                                <li><a href="javascript:void(0);" class="d-flex align-items-center">{{ __('Code-barres') }}
-                                                        <span class="badge bg-soft-warning text-warning ms-2" style="font-size: 10px;">{{ __('Bientôt') }}</span></a></li>
                                                 <li><a href="{{ route('bo.settings.payment-methods.index') }}"
                                                         class="{{ request()->routeIs('bo.settings.payment-methods.*') ? 'active' : '' }}">{{ __('Modes de paiement') }}</a></li>
+                                                <li><a href="javascript:void(0);" class="d-flex align-items-center">{{ __("Modèles d'email") }}
+                                                        <span class="badge bg-soft-warning text-warning ms-2" style="font-size: 10px;">{{ __('Bientôt') }}</span></a></li>
+                                                <li><a href="javascript:void(0);" class="d-flex align-items-center">{{ __('Code-barres') }}
+                                                        <span class="badge bg-soft-warning text-warning ms-2" style="font-size: 10px;">{{ __('Bientôt') }}</span></a></li>
                                             </ul>
                                         </li>
 

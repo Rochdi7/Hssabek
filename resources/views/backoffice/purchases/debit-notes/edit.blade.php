@@ -113,7 +113,7 @@
                                             <table class="table table-nowrap add-table m-0" id="items-table" style="table-layout: fixed; width: 100%;">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th style="width: 28%;">Libellé</th>
+                                                        <th style="width: 28%;">{{ __('Libellé') }}</th>
                                                         <th style="width: 13%;">{{ __('Quantité') }}</th>
                                                         <th style="width: 17%;">{{ __('Prix unitaire') }}</th>
                                                         <th class="tax-col" style="width: 15%;">{{ __('Taxe (%)') }}</th>
@@ -141,7 +141,7 @@
                                                                 <select name="items[{{ $i }}][tax_group_id]" class="form-select item-tax">
                                                                     <option value="" data-rate="0" data-type="">0%</option>
                                                                     @if($taxCategories->count())
-                                                                    <optgroup label="Taux de taxes">
+                                                                    <optgroup label="{{ __('Taux de taxes') }}">
                                                                         @foreach ($taxCategories as $tc)
                                                                             <option value="cat_{{ $tc->id }}" data-rate="{{ $tc->rate }}" data-type="category"
                                                                                 {{ $selectedTaxValue == 'cat_' . $tc->id ? 'selected' : '' }}>
@@ -151,7 +151,7 @@
                                                                     </optgroup>
                                                                     @endif
                                                                     @if($taxGroups->count())
-                                                                    <optgroup label="Groupes de taxes">
+                                                                    <optgroup label="{{ __('Groupes de taxes') }}">
                                                                         @foreach ($taxGroups as $tg)
                                                                             <option value="{{ $tg->id }}" data-rate="{{ $tg->rates->sum('rate') }}" data-type="group"
                                                                                 {{ $selectedTaxValue == $tg->id ? 'selected' : '' }}>

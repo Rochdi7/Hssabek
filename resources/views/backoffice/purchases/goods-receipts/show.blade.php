@@ -13,7 +13,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
-                                    <h5>Réception — {{ $goodsReceipt->number }}</h5>
+                                    <h5>{{ __('Réception') }} — {{ $goodsReceipt->number }}</h5>
                                     <div class="d-flex gap-2">
                                         @if ($goodsReceipt->status === 'draft')
                                             <form action="{{ route('bo.purchases.goods-receipts.confirm', $goodsReceipt) }}" method="POST"

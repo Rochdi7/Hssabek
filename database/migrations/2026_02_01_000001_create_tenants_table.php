@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->enum('status', ['active', 'suspended', 'cancelled'])->default('active');
             $table->string('timezone')->default('Africa/Casablanca');
             $table->char('default_currency', 3)->default('MAD');
+            $table->boolean('setup_completed')->default(false);
+            $table->string('forme_juridique', 30)->nullable();
             $table->boolean('has_free_trial')->default(false);
             $table->dateTime('trial_ends_at')->nullable();
             $table->timestamps();

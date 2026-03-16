@@ -58,7 +58,7 @@
                                         </h6>
                                         <p class="fs-14 fw-regular">
                                             <i class="isax isax-money-send fs-14 me-1 text-gray-9"></i>
-                                            Montant : <strong>{{ number_format($moneyTransfer->amount, 2, ',', ' ') }}</strong>
+                                            {{ __('Montant') }} : <strong>{{ number_format($moneyTransfer->amount, 2, ',', ' ') }}</strong>
                                         </p>
                                     </div>
                                 </div>

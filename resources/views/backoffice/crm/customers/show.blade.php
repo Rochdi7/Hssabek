@@ -63,7 +63,7 @@
                                 </div>
                                 <a href="{{ route('bo.crm.customers.edit', $customer) }}"
                                     class="btn btn-outline-white border border-1 border-grey border-sm bg-white"><i
-                                        class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> Modifier </a>
+                                        class="isax isax-edit-2 fs-13 fw-semibold text-dark me-1"></i> {{ __('Modifier') }} </a>
                             </div>
 
                             <div class="card border-0 shadow shadow-none mb-0 bg-white">
@@ -179,7 +179,7 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th>{{ __('Nom') }}</th>
-                                            <th>E-mail</th>
+                                            <th>{{ __('E-mail') }}</th>
                                             <th>{{ __('Téléphone') }}</th>
                                             <th>{{ __('Poste') }}</th>
                                             <th>{{ __('Principal') }}</th>
@@ -238,7 +238,7 @@
                     <!-- Start Invoices -->
                     <div class="card table-info">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> Factures récentes </h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> {{ __('Factures récentes') }} </h6>
                             <div class="table-responsive table-nowrap">
                                 <table class="table border m-0">
                                     <thead class="table-light">
@@ -280,7 +280,7 @@
                     <!-- Start Notes -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> Notes </h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> {{ __('Notes') }} </h6>
                             <p class="text-truncate line-clamb-3"> {{ $customer->notes ?? __('Aucune note.') }} </p>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -289,7 +289,7 @@
                     <!-- Start Info -->
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> Informations </h6>
+                            <h6 class="pb-3 mb-3 border-1 border-bottom border-gray"> {{ __('Informations') }} </h6>
                             <ul class="list-unstyled m-0 p-0">
                                 <li class="d-flex align-items-center justify-content-between mb-3">
                                     <span class="text-muted">{{ __('Délai de paiement') }}</span>

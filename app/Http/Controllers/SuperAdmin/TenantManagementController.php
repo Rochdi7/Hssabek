@@ -5,12 +5,11 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Billing\Subscription;
 use App\Models\Tenancy\Tenant;
-use App\Models\Tenancy\TenantDomain;
 use App\Models\User;
+use App\Models\Billing\Plan;
 use App\Services\Billing\PlanLimitService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class TenantManagementController extends Controller
@@ -20,7 +19,7 @@ class TenantManagementController extends Controller
      */
     public function index(Request $request)
     {
-        $tenants = Tenant::with(['domains', 'subscriptions.plan', 'subscriptions.invoices'])
+        $tenants = Tenant::with(['subscriptions.plan', 'subscriptions.invoices'])
             ->withCount('users')
             ->orderByDesc('created_at')
             ->paginate(20);
@@ -28,14 +27,14 @@ class TenantManagementController extends Controller
         $totalTenants = Tenant::count();
         $activeTenants = Tenant::where('status', 'active')->count();
         $inactiveTenants = Tenant::where('status', '!=', 'active')->count();
-        $totalDomains = TenantDomain::count();
+        $plans = Plan::where('is_active', true)->orderBy('price')->get();
 
         return view('backoffice.tenants.index', compact(
             'tenants',
             'totalTenants',
             'activeTenants',
             'inactiveTenants',
-            'totalDomains'
+            'plans'
         ));
     }
 
@@ -54,8 +53,6 @@ class TenantManagementController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:100|unique:tenants,slug|alpha_dash',
-            'domain' => 'required|string|max:255|unique:tenant_domains,domain',
             'status' => 'required|in:active,suspended,cancelled',
             'timezone' => 'nullable|string|max:50',
             'default_currency' => 'nullable|string|size:3',
@@ -65,15 +62,24 @@ class TenantManagementController extends Controller
             'owner_name' => 'required|string|max:255',
             'owner_email' => 'required|email|max:255|unique:users,email',
             'owner_password' => 'required|string|min:8|confirmed',
+            'plan_id' => 'required|exists:plans,id',
         ], [
             'trial_ends_at.required_if' => "La date de fin d'essai est obligatoire lorsque l'essai gratuit est activé.",
         ]);
 
-        $tenant = DB::transaction(function () use ($validated, $request) {
+        // Auto-generate slug from name
+        $slug = Str::slug($validated['name']);
+        $baseSlug = $slug;
+        $i = 1;
+        while (Tenant::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $i++;
+        }
+
+        $tenant = DB::transaction(function () use ($validated, $request, $slug) {
             // Create the tenant
             $tenant = Tenant::create([
                 'name' => $validated['name'],
-                'slug' => $validated['slug'],
+                'slug' => $slug,
                 'status' => $validated['status'],
                 'timezone' => $validated['timezone'] ?? 'Africa/Casablanca',
                 'default_currency' => $validated['default_currency'] ?? 'MAD',
@@ -86,25 +92,19 @@ class TenantManagementController extends Controller
                 $this->saveCroppedLogo($tenant, $request->input('cropped_logo'));
             }
 
-            // Create primary domain
-            $tenant->domains()->create([
-                'domain' => $validated['domain'],
-                'is_primary' => true,
-            ]);
-
             // Create owner account
             $owner = $tenant->users()->create([
                 'name' => $validated['owner_name'],
                 'email' => $validated['owner_email'],
-                'password' => Hash::make($validated['owner_password']),
+                'password' => $validated['owner_password'],
                 'status' => 'active',
                 'email_verified_at' => now(),
             ]);
 
-            // Assign owner role if it exists
+            // Assign admin role (full access to tenant)
             if (class_exists(\Spatie\Permission\Models\Role::class)) {
                 $role = \App\Models\Tenancy\Role::firstOrCreate(
-                    ['name' => 'owner', 'guard_name' => 'web', 'tenant_id' => $tenant->id]
+                    ['name' => 'admin', 'guard_name' => 'web', 'tenant_id' => $tenant->id]
                 );
                 $owner->assignRole($role);
             }
@@ -112,8 +112,16 @@ class TenantManagementController extends Controller
             // Seed default finance categories for the new tenant
             $this->seedFinanceCategoriesForTenant($tenant);
 
-            // Note: Free templates are accessible to all tenants by default (is_free=true)
-            // No need to attach them - only purchased/premium templates need tenant_templates records
+            // Create subscription for the tenant
+            Subscription::create([
+                'tenant_id' => $tenant->id,
+                'plan_id'   => $validated['plan_id'],
+                'status'    => $tenant->has_free_trial ? 'trialing' : 'active',
+                'quantity'  => 1,
+                'starts_at' => now(),
+                'ends_at'   => null,
+                'trial_ends_at' => $tenant->has_free_trial ? $tenant->trial_ends_at : null,
+            ]);
 
             return $tenant;
         });
@@ -127,7 +135,7 @@ class TenantManagementController extends Controller
      */
     public function show(Tenant $tenant)
     {
-        $tenant->load('domains', 'users', 'settings');
+        $tenant->load('users', 'settings');
 
         return view('backoffice.tenants.show', compact('tenant'));
     }
@@ -147,7 +155,6 @@ class TenantManagementController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:100|alpha_dash|unique:tenants,slug,' . $tenant->id,
             'status' => 'required|in:active,suspended,cancelled',
             'timezone' => 'nullable|string|max:50',
             'default_currency' => 'nullable|string|size:3',
@@ -155,13 +162,36 @@ class TenantManagementController extends Controller
             'trial_ends_at' => 'required_if:has_free_trial,1|nullable|date',
             'cropped_logo' => 'nullable|string',
             'cropped_logo_deleted' => 'nullable|string',
+            'owner_password' => 'nullable|string|min:8|confirmed',
         ], [
             'trial_ends_at.required_if' => "La date de fin d'essai est obligatoire lorsque l'essai gratuit est activé.",
+            'owner_password.min' => "Le mot de passe doit contenir au moins 8 caractères.",
+            'owner_password.confirmed' => "La confirmation du mot de passe ne correspond pas.",
         ]);
 
         $validated['has_free_trial'] = $request->boolean('has_free_trial');
 
-        unset($validated['cropped_logo'], $validated['cropped_logo_deleted']);
+        // Update owner password if provided
+        if (! empty($validated['owner_password'])) {
+            $owner = $tenant->users()->oldest()->first();
+            if ($owner) {
+                $owner->update(['password' => $validated['owner_password']]);
+            }
+        }
+
+        unset($validated['cropped_logo'], $validated['cropped_logo_deleted'], $validated['owner_password']);
+
+        // Re-generate slug if name changed
+        if ($tenant->name !== $validated['name']) {
+            $newSlug = Str::slug($validated['name']);
+            $baseSlug = $newSlug;
+            $counter = 1;
+            while (Tenant::where('slug', $newSlug)->where('id', '!=', $tenant->id)->exists()) {
+                $newSlug = $baseSlug . '-' . $counter++;
+            }
+            $validated['slug'] = $newSlug;
+        }
+
         $tenant->update($validated);
 
         // Handle logo: upload new or delete existing
@@ -296,13 +326,11 @@ class TenantManagementController extends Controller
     private function seedFinanceCategoriesForTenant(Tenant $tenant): void
     {
         $categories = [
-            // Income categories
             ['name' => 'Ventes - Paiements Clients', 'type' => 'income'],
             ['name' => 'Ventes - Produits', 'type' => 'income'],
             ['name' => 'Ventes - Services', 'type' => 'income'],
             ['name' => 'Revenus - Intérêts', 'type' => 'income'],
             ['name' => 'Revenus - Autres', 'type' => 'income'],
-            // Expense categories
             ['name' => 'Achats - Paiements Fournisseurs', 'type' => 'expense'],
             ['name' => 'Achats - Matières premières', 'type' => 'expense'],
             ['name' => 'Achats - Marchandises', 'type' => 'expense'],
@@ -319,14 +347,20 @@ class TenantManagementController extends Controller
         ];
 
         foreach ($categories as $category) {
-            \App\Models\Finance\FinanceCategory::firstOrCreate(
-                [
-                    'tenant_id' => $tenant->id,
-                    'name' => $category['name'],
-                    'type' => $category['type'],
-                ],
-                ['is_active' => true]
-            );
+            $existing = \App\Models\Finance\FinanceCategory::withoutGlobalScopes()
+                ->where('tenant_id', $tenant->id)
+                ->where('name', $category['name'])
+                ->where('type', $category['type'])
+                ->first();
+
+            if (! $existing) {
+                $fc = new \App\Models\Finance\FinanceCategory();
+                $fc->tenant_id = $tenant->id;
+                $fc->name = $category['name'];
+                $fc->type = $category['type'];
+                $fc->is_active = true;
+                $fc->save();
+            }
         }
     }
 }

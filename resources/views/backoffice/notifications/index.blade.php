@@ -7,13 +7,13 @@
 
             <!-- Start Breadcrumb -->
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <h6>Centre de notifications</h6>
+                <h6>{{ __('Centre de notifications') }}</h6>
                 <div class="d-flex gap-2">
                     @if ($notifications->where('read_at', null)->count() > 0)
                         <form method="POST" action="{{ route('bo.notifications.markAllRead') }}">
                             @csrf
                             <button type="submit" class="btn btn-sm btn-outline-primary">
-                                <i class="ti ti-bell-check me-1"></i>Tout marquer comme lu
+                                <i class="ti ti-bell-check me-1"></i>{{ __('Tout marquer comme lu') }}
                             </button>
                         </form>
                     @endif
@@ -21,7 +21,7 @@
                         <form method="POST" action="{{ route('bo.notifications.destroyAll') }}">
                             @csrf
                             <button type="submit" class="btn btn-sm btn-outline-danger">
-                                <i class="ti ti-trash me-1"></i>Tout supprimer
+                                <i class="ti ti-trash me-1"></i>{{ __('Tout supprimer') }}
                             </button>
                         </form>
                     @endif
@@ -42,7 +42,7 @@
                     <button class="nav-link active d-flex align-items-center justify-content-center" id="system-tab"
                         data-bs-toggle="tab" data-bs-target="#system-notifications" type="button" role="tab">
                         <i class="isax isax-notification me-2"></i>
-                        Notifications système
+                        {{ __('Notifications système') }}
                         @if ($systemNotifications->where('read_at', null)->count() > 0)
                             <span
                                 class="badge bg-primary ms-2">{{ $systemNotifications->where('read_at', null)->count() }}</span>
@@ -53,7 +53,7 @@
                     <button class="nav-link d-flex align-items-center justify-content-center" id="announcements-tab"
                         data-bs-toggle="tab" data-bs-target="#admin-announcements" type="button" role="tab">
                         <i class="isax isax-message-text me-2"></i>
-                        Annonces de l'administrateur
+                        {{ __('Annonces de l\'administrateur') }}
                         @if ($announcements->count() > 0)
                             <span class="badge bg-info ms-2">{{ $announcements->count() }}</span>
                         @endif
@@ -101,7 +101,7 @@
                                                 action="{{ route('bo.notifications.markAsRead', $notification->id) }}">
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-outline-info"
-                                                    data-bs-toggle="tooltip" title="Marquer comme lu">
+                                                    data-bs-toggle="tooltip" title="{{ __('Marquer comme lu') }}">
                                                     <i class="ti ti-bell-check"></i>
                                                 </button>
                                             </form>
@@ -111,7 +111,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                data-bs-toggle="tooltip" title="Supprimer">
+                                                data-bs-toggle="tooltip" title="{{ __('Supprimer') }}">
                                                 <i class="ti ti-trash"></i>
                                             </button>
                                         </form>
@@ -123,7 +123,7 @@
                         <div class="card mb-0">
                             <div class="card-body text-center py-5">
                                 <i class="isax isax-notification fs-48 text-muted d-block mb-3"></i>
-                                <p class="text-muted mb-0">Aucune notification système pour le moment.</p>
+                                <p class="text-muted mb-0">{{ __('Aucune notification système pour le moment.') }}</p>
                             </div>
                         </div>
                     @endforelse
@@ -172,19 +172,19 @@
                                                     class="badge bg-soft-{{ $announcement->type ?? 'info' }} text-{{ $announcement->type ?? 'info' }} fs-10">
                                                     @switch($announcement->type)
                                                         @case('warning')
-                                                            Avertissement
+                                                            {{ __('Attention') }}
                                                         @break
 
                                                         @case('danger')
-                                                            Urgent
+                                                            {{ __('Urgent') }}
                                                         @break
 
                                                         @case('success')
-                                                            Succès
+                                                            {{ __('Succès') }}
                                                         @break
 
                                                         @default
-                                                            Information
+                                                            {{ __('Information') }}
                                                     @endswitch
                                                 </span>
                                             </div>
@@ -199,7 +199,7 @@
                                         @if ($announcement->expires_at)
                                             <div class="mt-2">
                                                 <small class="text-muted">
-                                                    <i class="ti ti-calendar-off me-1"></i>Expire le
+                                                    <i class="ti ti-calendar-off me-1"></i>{{ __('Expire le') }}
                                                     {{ $announcement->expires_at->format('d/m/Y à H:i') }}
                                                 </small>
                                             </div>
@@ -212,7 +212,7 @@
                             <div class="card mb-0">
                                 <div class="card-body text-center py-5">
                                     <i class="isax isax-message-text fs-48 text-muted d-block mb-3"></i>
-                                    <p class="text-muted mb-0">Aucune annonce de l'administrateur pour le moment.</p>
+                                    <p class="text-muted mb-0">{{ __('Aucune annonce de l\'administrateur pour le moment.') }}</p>
                                 </div>
                             </div>
                         @endforelse

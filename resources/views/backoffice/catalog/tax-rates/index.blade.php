@@ -94,7 +94,7 @@
                                                     </td>
                                                     <td>
                                                         @if ($category->type === 'percentage')
-                                                            <span class="badge bg-soft-primary">Pourcentage</span>
+                                                            <span class="badge bg-soft-primary">{{ __('Pourcentage') }}</span>
                                                         @else
                                                             <span class="badge bg-soft-info">{{ __('Fixe') }}</span>
                                                         @endif
@@ -291,7 +291,7 @@
                     <input type="hidden" name="_modal" value="add_tax_category_modal">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Nom de la taxe <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Nom de la taxe') }} <span class="text-danger">*</span></label>
                             <input type="text"
                                 class="form-control @error('name', 'categoryStore') is-invalid @enderror" name="name"
                                 value="{{ old('name') }}" placeholder="Ex : TVA">
@@ -300,7 +300,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Taux <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Taux') }} <span class="text-danger">*</span></label>
                             <input type="number" step="0.01" min="0"
                                 class="form-control @error('rate', 'categoryStore') is-invalid @enderror" name="rate"
                                 value="{{ old('rate') }}" placeholder="Ex : 20.00">
@@ -313,7 +313,7 @@
                             <select class="form-select @error('type', 'categoryStore') is-invalid @enderror"
                                 name="type">
                                 <option value="percentage" {{ old('type') === 'percentage' ? 'selected' : '' }}>
-                                    Pourcentage</option>
+                                    {{ __('Pourcentage') }}</option>
                                 <option value="fixed" {{ old('type') === 'fixed' ? 'selected' : '' }}>{{ __('Fixe') }}</option>
                             </select>
                             @error('type', 'categoryStore')
@@ -359,19 +359,19 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Nom de la taxe <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Nom de la taxe') }} <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="name" id="edit_cat_name"
                                 value="">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Taux <span class="text-danger">*</span></label>
+                            <label class="form-label">{{ __('Taux') }} <span class="text-danger">*</span></label>
                             <input type="number" step="0.01" min="0" class="form-control" name="rate"
                                 id="edit_cat_rate" value="">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">{{ __('Type') }}<span class="text-danger">*</span></label>
                             <select class="form-select" name="type" id="edit_cat_type">
-                                <option value="percentage">Pourcentage</option>
+                                <option value="percentage">{{ __('Pourcentage') }}</option>
                                 <option value="fixed">{{ __('Fixe') }}</option>
                             </select>
                         </div>

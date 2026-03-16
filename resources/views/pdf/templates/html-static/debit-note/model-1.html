@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Note de débit DN-2026-0001</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #333; line-height: 1.5; }
+        .page { padding: 30px 40px; }
+
+        .header-table { width: 100%; margin-bottom: 25px; }
+        .header-table td { vertical-align: top; }
+        .company-name { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
+        .company-detail { font-size: 10px; color: #555; line-height: 1.6; }
+        .doc-title { font-size: 22px; font-weight: bold; color: #2563eb; margin-bottom: 8px; text-align: right; }
+        .doc-meta { font-size: 10px; color: #555; text-align: right; line-height: 1.8; }
+        .doc-meta strong { color: #333; }
+
+        .supplier-block { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 12px 15px; margin-bottom: 20px; }
+        .supplier-block .label { font-size: 9px; text-transform: uppercase; color: #888; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .supplier-block .name { font-size: 13px; font-weight: bold; margin-bottom: 2px; }
+        .supplier-block .detail { font-size: 10px; color: #555; }
+
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 3px; font-size: 9px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; }
+        .badge-draft { background: #e9ecef; color: #495057; }
+        .badge-issued { background: #cff4fc; color: #055160; }
+        .badge-applied { background: #d1e7dd; color: #0f5132; }
+        .badge-partially_applied { background: #fff3cd; color: #664d03; }
+        .badge-void { background: #e9ecef; color: #6c757d; }
+
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .items-table th { background: #2563eb; color: #fff; padding: 8px 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
+        .items-table th:first-child { text-align: left; border-radius: 4px 0 0 0; }
+        .items-table th:last-child { border-radius: 0 4px 0 0; }
+        .items-table td { padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 10px; }
+        .items-table tr:last-child td { border-bottom: none; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+
+        .totals-wrapper { width: 100%; margin-bottom: 20px; }
+        .totals-table { width: 280px; margin-left: auto; }
+        .totals-table td { padding: 5px 10px; font-size: 11px; }
+        .totals-table .total-row td { font-size: 14px; font-weight: bold; border-top: 2px solid #2563eb; padding-top: 8px; color: #2563eb; }
+
+        .notes-block { margin-top: 25px; padding: 10px 15px; background: #f8f9fa; border-left: 3px solid #2563eb; font-size: 10px; color: #555; }
+        .notes-block strong { color: #333; }
+
+        .bank-block { margin-top: 15px; font-size: 10px; color: #555; }
+        .bank-block strong { color: #333; }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <table class="header-table">
+        <tr>
+            <td style="width: 55%;">
+
+                        <img src="../../../../../../public/assets/images/logo/logo-wide-cropped.svg" alt="logo" style="max-height: 50px; max-width: 200px; margin-bottom: 8px; object-fit: contain;">
+
+                <div class="company-name">Ma Société SARL</div>
+                <div class="company-detail">
+                    123 Avenue Mohammed V<br>
+                    Casablanca
+                    20000
+                    Maroc
+                    <br>Tél : +212 5 22 00 00 00
+                    <br>Email : contact@masociete.ma
+                    <br>IF : 12345678
+                    <br>ICE : 001234567000012
+                    <br>RC : RC 12345
+                </div>
+            </td>
+            <td style="width: 45%;">
+                <div class="doc-title">NOTE DE DÉBIT</div>
+                <div class="doc-meta">
+                    <strong>N°</strong> DN-2026-0001<br>
+                    <strong>Date :</strong> <br>
+
+                        <strong>Échéance :</strong> 15/04/2026<br>
+
+                        <strong>Réf :</strong> REF-001<br>
+
+                        <strong>Facture fournisseur :</strong> <br>
+
+                    <span class="badge badge-sent">Émis</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="supplier-block">
+        <div class="label">Fournisseur</div>
+        <div class="name">Client Exemple SARL</div>
+        <div class="detail">
+            45 Rue de la Liberté<br>
+            Rabat
+            <br>client@exemple.ma
+            <br>+212 6 00 00 00 00
+            <br>IF : 87654321
+        </div>
+    </div>
+
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 35%;">Désignation</th>
+                <th class="text-center" style="width: 10%;">Qté</th>
+                <th class="text-right" style="width: 15%;">Coût unit.</th>
+
+                    <th class="text-right" style="width: 10%;">TVA</th>
+
+                <th class="text-right" style="width: 15%;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>1</td>
+                <td>
+                    <strong>Service de consultation</strong>
+
+                        <br><span style="color: #888; font-size: 9px;">Description du service</span>
+
+                </td>
+                <td class="text-center">2</td>
+                <td class="text-right"></td>
+
+                    <td class="text-right">20,00%</td>
+
+                <td class="text-right">3 600,00</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="totals-wrapper">
+        <table class="totals-table">
+            <tr>
+                <td>Sous-total</td>
+                <td class="text-right">3 000,00 MAD</td>
+            </tr>
+
+            <tr>
+                <td>Remise</td>
+                <td class="text-right">-0,00 MAD</td>
+            </tr>
+
+            <tr>
+                <td>TVA</td>
+                <td class="text-right">600,00 MAD</td>
+            </tr>
+
+            <tr>
+                <td>Arrondi</td>
+                <td class="text-right">0,00 MAD</td>
+            </tr>
+
+            <tr class="total-row">
+                <td>Total Note de débit</td>
+                <td class="text-right">3 600,00 MAD</td>
+            </tr>
+        </table>
+    </div>
+
+    <p style="font-size: 10px; color: #555; font-style: italic; margin-bottom: 15px;">
+        Arrêtée la présente note de débit à la somme de : <strong>Trois mille six cents dirhams</strong>
+    </p>
+
+    <div class="bank-block">
+        <strong>Coordonnées bancaires :</strong><br>
+        Banque : Attijariwafa Bank<br>
+        Titulaire : Ma Société SARL<br>
+        RIB : 007 780 0001234567890123 45<br>
+        IBAN : MA64 007 780 0001234567890123 45<br>
+        SWIFT : BCMAMAMC
+    </div>
+
+    <div class="notes-block">
+        <strong>Notes :</strong><br>
+        Merci pour votre confiance.<br>Paiement à 30 jours.
+    </div>
+
+    <div class="notes-block" style="margin-top: 10px;">
+        <strong>Conditions :</strong><br>
+        Conditions générales de vente applicables.<br>Tout retard de paiement entraînera des pénalités.
+    </div>
+
+    <!-- Signature -->
+    <table style="width: 100%; margin-top: 40px;">
+        <tr>
+            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
+                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
+                    Signature du client
+                </div>
+            </td>
+            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
+                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
+                    Cachet et signature
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ app()->getLocale() }}">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,6 +37,136 @@
 
 		<!-- Landing CSS -->
 		<link rel="stylesheet" href="{{ url('build/css/landing.css') }}">
+
+		@if(app()->getLocale() === 'ar')
+		<style>
+			/* ===== RTL for Arabic — text direction only, layout stays LTR ===== */
+
+			/* --- Base text direction --- */
+			h1, h2, h3, h4, h5, h6, p, li, span, a, label, td, th, dt, dd,
+			.section-title, .section-text, .footer-content, .footer-widget,
+			.template-info, .copy-right, .footer-bottom-widget,
+			.banner-content, .feature-content, .pricing-card,
+			.card-body, .card-header, .card-footer,
+			.about-content, .counter-content, .faq-content,
+			.contact-content, .hero-content, .breadcrumb-item,
+			.dropdown-item, .dropdown-menu, .nav-link,
+			input, textarea, select, .form-control, .form-label,
+			.invalid-feedback, .alert,
+			.managing-info, .empowerment-page-info, .saas-information,
+			.module-card, .packages-card, .software-sec-info {
+				direction: rtl;
+				text-align: right;
+			}
+
+			/* --- Keep centered elements centered --- */
+			.text-center, .text-center h1, .text-center h2, .text-center h3,
+			.text-center h4, .text-center h5, .text-center h6, .text-center p,
+			.text-center span, .text-center a,
+			.section-title.text-center, .text-center .section-title {
+				text-align: center !important;
+			}
+
+			/* --- Section headings (flexbox centered) --- */
+			.section-heading { direction: ltr; }
+			.section-heading h2, .section-heading p, .section-heading span,
+			.section-heading .title-badge {
+				direction: rtl;
+				text-align: center !important;
+			}
+			/* Section heading inside FAQ (left-aligned, not centered) */
+			.faq-section .col-lg-5 .section-heading h2,
+			.faq-section .col-lg-5 .section-heading p,
+			.faq-section .col-lg-5 .section-heading span,
+			.faq-section .col-lg-5 .section-heading .title-badge,
+			.software-sec-info .section-heading h2,
+			.software-sec-info .section-heading p,
+			.software-sec-info .section-heading span,
+			.software-sec-info .section-heading .title-badge {
+				text-align: right !important;
+			}
+
+			/* --- Centered flex containers stay LTR --- */
+			.d-flex.justify-content-center { direction: ltr; }
+
+			/* --- Navbar: layout LTR, text RTL --- */
+			.header-nav, .main-nav, .header-navbar-rht { direction: ltr; }
+			.main-nav > li > a, .header-navbar-rht .btn,
+			.header-navbar-rht .dropdown-item { direction: rtl; }
+
+			/* --- Dropdown menus --- */
+			.dropdown-menu { text-align: right; }
+			.header-navbar-rht .dropdown-menu { left: 0; right: auto; }
+
+			/* --- Icon + text spacing (flip me-X to ms-X) --- */
+			.btn .me-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
+			.btn .me-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+			.btn .ms-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+			li i.me-1, li i.me-2 { margin-right: 0 !important; }
+			li i.me-1 { margin-left: 0.25rem !important; }
+			li i.me-2 { margin-left: 0.5rem !important; }
+
+			/* --- Banner info list (checkmarks) --- */
+			.banner-info-list li { margin-right: 0; margin-left: 40px; }
+			.banner-info-list li:last-child { margin-left: 0; }
+			.banner-info-list li i { margin-right: 0; margin-left: 8px; }
+
+			/* --- App cards (icon left of text) --- */
+			.app-card .app-icon { margin-right: 0; margin-left: 16px; }
+
+			/* --- Plan features list (icon + text) --- */
+			.plan-features li i { margin-right: 0; margin-left: 8px; }
+
+			/* --- Inner page feature list --- */
+			.inner-page-features li i { margin-right: 0; margin-left: 8px; }
+
+			/* --- Business info list (checkmarks) --- */
+			.bussiness-info li i { margin-right: 0 !important; margin-left: 8px !important; }
+
+			/* --- FAQ accordion icon: move from right to left --- */
+			.faq-set .faq-card h4 a { padding-right: 0; padding-left: 30px; }
+			.faq-set .faq-card h4 a::before { right: auto; left: 0; }
+
+			/* --- Management cards (software section) --- */
+			.management-types .mnaging-icon { margin-right: 0; margin-left: 16px; }
+
+			/* --- Module cards --- */
+			.module-card .module-icon { margin-bottom: 16px; }
+
+			/* --- Stats (counter sup) --- */
+			.app-more-info li h4 sup { margin-left: 0; margin-right: 8px; }
+
+			/* --- Footer --- */
+			.footer-middle .row { direction: ltr; }
+			.footer-widget ul { padding-right: 0; list-style: none; }
+
+			/* --- Form inputs --- */
+			.email-form input { direction: rtl; }
+			.form-control, .form-select { text-align: right; }
+
+			/* --- Tab buttons (features/pricing tabs) --- */
+			.nav-pills .nav-link, .inner-tab-button .nav-link { direction: rtl; text-align: right; }
+
+			/* --- Connect CTA section centered --- */
+			.connect-with-us .section-title h2,
+			.connect-with-us .section-title p {
+				text-align: center !important;
+			}
+
+			/* --- Pricing package header fix --- */
+			.package-header { direction: ltr; }
+			.package-header h4, .package-header h6 { direction: rtl; text-align: right; }
+
+			/* --- Start business section centered --- */
+			.start-bussiness .section-title h2,
+			.start-bussiness .section-title p {
+				text-align: center !important;
+			}
+
+			/* --- Counter section --- */
+			.counter { direction: ltr; }
+		</style>
+		@endif
 
 		@stack('styles')
 	</head>

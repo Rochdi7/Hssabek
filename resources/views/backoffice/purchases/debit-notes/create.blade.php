@@ -133,7 +133,7 @@
                                                             <select name="items[0][tax_group_id]" class="form-select item-tax">
                                                                 <option value="" data-rate="0" data-type="">0%</option>
                                                                 @if($taxCategories->count())
-                                                                <optgroup label="Taux de taxes">
+                                                                <optgroup label="{{ __('Taux de taxes') }}">
                                                                     @foreach ($taxCategories as $tc)
                                                                         <option value="cat_{{ $tc->id }}" data-rate="{{ $tc->rate }}" data-type="category">
                                                                             {{ $tc->name }} ({{ $tc->rate }}%)
@@ -142,7 +142,7 @@
                                                                 </optgroup>
                                                                 @endif
                                                                 @if($taxGroups->count())
-                                                                <optgroup label="Groupes de taxes">
+                                                                <optgroup label="{{ __('Groupes de taxes') }}">
                                                                     @foreach ($taxGroups as $tg)
                                                                         <option value="{{ $tg->id }}" data-rate="{{ $tg->rates->sum('rate') }}" data-type="group">
                                                                             {{ $tg->name }} ({{ $tg->rates->sum('rate') }}%)

@@ -16,20 +16,7 @@
                     <h6>Gestion des Plans</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <div class="dropdown me-1">
-                        <a href="javascript:void(0);" class="btn btn-outline-white d-inline-flex align-items-center"
-                            data-bs-toggle="dropdown">
-                            <i class="isax isax-export-1 me-1"></i>Exporter
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en PDF</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Télécharger en Excel</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @include('backoffice.components.export-dropdown', ['exportType' => 'plans'])
                     <div>
                         <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center"
                             data-bs-toggle="modal" data-bs-target="#add_plan"><i

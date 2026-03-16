@@ -135,7 +135,7 @@
                                         <table class="table table-nowrap">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th>N°</th>
+                                                    <th>{{ __('N°') }}</th>
                                                     <th>{{ __('Date') }}</th>
                                                     <th>{{ __('Montant') }}</th>
                                                     <th>{{ __('Mode') }}</th>

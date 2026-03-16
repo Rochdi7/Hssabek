@@ -125,13 +125,19 @@
                     <span class="mb-1">Société :</span>
                     <span class="mb-1">IF :</span>
                     <span class="mb-1">ICE :</span>
-                    <span>RC :</span>
+                    <span class="mb-1">RC :</span>
+                    @if(!empty($company['cnss']))<span class="mb-1">CNSS :</span>@endif
+                    @if(!empty($company['patente']))<span class="mb-1">Patente :</span>@endif
+                    @if(!empty($company['numero_ae']))<span class="mb-1">N° AE :</span>@endif
                 </div>
                 <div class="d-flex flex-column text-end">
                     <span class="text-dark mb-1">{{ $company['company_name'] ?? $tenant?->name ?? '' }}</span>
                     <span class="text-dark mb-1">{{ $company['tax_id'] ?? '' }}</span>
                     <span class="text-dark mb-1">{{ $company['ice'] ?? '' }}</span>
                     <span class="text-dark mb-1">{{ $company['rc'] ?? '' }}</span>
+                    @if(!empty($company['cnss']))<span class="text-dark mb-1">{{ $company['cnss'] }}</span>@endif
+                    @if(!empty($company['patente']))<span class="text-dark mb-1">{{ $company['patente'] }}</span>@endif
+                    @if(!empty($company['numero_ae']))<span class="text-dark mb-1">{{ $company['numero_ae'] }}</span>@endif
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-3">Modifier la réception — {{ $goodsReceipt->number }}</h5>
+                                <h5 class="mb-3">{{ __('Modifier la réception') }} — {{ $goodsReceipt->number }}</h5>
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <ul class="mb-0">

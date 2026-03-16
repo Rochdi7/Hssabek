@@ -220,6 +220,7 @@
                 @endphp
                 <div class="company-name">{{ $company['company_name'] ?? $tenant?->name ?? '' }}</div>
                 <div class="company-detail">
+                    @if(!empty($company['forme_juridique'])) @php $formeLabels = ['sarl'=>'SARL','sarl_au'=>'SARL AU','sa'=>'SA','snc'=>'SNC','scs'=>'SCS','sca'=>'SCA','auto_entrepreneur'=>'Auto-Entrepreneur','ei'=>'Entreprise Individuelle','cooperative'=>'Coopérative']; @endphp {{ $formeLabels[$company['forme_juridique']] ?? strtoupper($company['forme_juridique']) }}@if(!empty($company['capital_social'])) au capital de {{ number_format($company['capital_social'], 2, ',', ' ') }} DH @endif<br>@endif
                     @if(!empty($company['address'])) {{ $company['address'] }}<br> @endif
                     @if(!empty($company['city'])) {{ $company['city'] }} @endif
                     @if(!empty($company['postal_code'])) {{ $company['postal_code'] }} @endif
@@ -227,6 +228,12 @@
                     @if(!empty($company['phone'])) <br>{{ $company['phone'] }} @endif
                     @if(!empty($company['email'])) <br>{{ $company['email'] }} @endif
                     @if(!empty($company['tax_id'])) <br>IF : {{ $company['tax_id'] }} @endif
+                    @if(!empty($company['ice'])) <br>ICE : {{ $company['ice'] }} @endif
+                    @if(!empty($company['rc'])) <br>RC : {{ $company['rc'] }} @endif
+                    @if(!empty($company['cnss'])) <br>CNSS : {{ $company['cnss'] }} @endif
+                    @if(!empty($company['patente'])) <br>Patente : {{ $company['patente'] }} @endif
+                    @if(!empty($company['numero_ae'])) <br>N° AE : {{ $company['numero_ae'] }} @endif
+                    @if(!empty($company['cin'])) <br>CIN : {{ $company['cin'] }} @endif
                 </div>
             </td>
             <td style="width: 45%;">

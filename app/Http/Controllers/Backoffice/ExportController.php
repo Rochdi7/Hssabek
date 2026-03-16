@@ -31,6 +31,10 @@ use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Models\Sales\Quote;
 use App\Models\Sales\Refund;
+use App\Models\Billing\Plan;
+use App\Models\Billing\Subscription;
+use App\Models\Tenancy\Role;
+use App\Models\Tenancy\Tenant;
 use App\Models\User;
 use App\Exports\GenericListExport;
 use App\Services\System\ListExportService;
@@ -621,6 +625,65 @@ class ExportController extends Controller
                     'scheduled_at'          => 'Date prévue',
                     'sent_at'               => 'Date envoi',
                     'status'                => 'Statut',
+                ],
+            ],
+
+            // ─── Billing (SuperAdmin) ──────────────────────────
+            'subscriptions' => [
+                'model'      => Subscription::class,
+                'title'      => 'Liste des Abonnements',
+                'filename'   => 'abonnements',
+                'with'       => ['plan', 'tenant'],
+                'searchable' => ['tenant.name', 'plan.name'],
+                'filters'    => ['status' => 'status'],
+                'columns'    => [
+                    'tenant.name' => 'Tenant',
+                    'plan.name'   => 'Plan',
+                    'status'      => 'Statut',
+                    'starts_at'   => 'Début',
+                    'ends_at'     => 'Fin',
+                ],
+            ],
+
+            'plans' => [
+                'model'      => Plan::class,
+                'title'      => 'Liste des Plans',
+                'filename'   => 'plans',
+                'searchable' => ['name', 'code'],
+                'filters'    => ['is_active' => 'is_active'],
+                'columns'    => [
+                    'name'      => 'Nom',
+                    'code'      => 'Code',
+                    'interval'  => 'Intervalle',
+                    'price'     => 'Prix',
+                    'currency'  => 'Devise',
+                    'is_active' => 'Actif',
+                ],
+            ],
+
+            'tenants' => [
+                'model'      => Tenant::class,
+                'title'      => 'Liste des Tenants',
+                'filename'   => 'tenants',
+                'searchable' => ['name', 'slug'],
+                'filters'    => ['status' => 'status'],
+                'columns'    => [
+                    'name'             => 'Nom',
+                    'slug'             => 'Slug',
+                    'status'           => 'Statut',
+                    'default_currency' => 'Devise',
+                    'created_at'       => 'Date création',
+                ],
+            ],
+
+            'roles' => [
+                'model'      => Role::class,
+                'title'      => 'Liste des Rôles',
+                'filename'   => 'roles',
+                'searchable' => ['name'],
+                'columns'    => [
+                    'name'       => 'Nom',
+                    'guard_name' => 'Guard',
                 ],
             ],
         ];

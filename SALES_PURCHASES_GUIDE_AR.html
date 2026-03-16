@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>دليل شامل لفهم نماذج المبيعات والمشتريات</title>
+<style>
+@page {
+  size: A4;
+  margin: 1.5cm 2cm;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  direction: rtl;
+  text-align: right;
+  line-height: 1.8;
+  color: #1a1a1a;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 40px;
+  background: #fff;
+  font-size: 14px;
+}
+h1 {
+  color: #1e3a5f;
+  border-bottom: 3px solid #1e3a5f;
+  padding-bottom: 10px;
+  font-size: 26px;
+  page-break-before: avoid;
+}
+h2 {
+  color: #2c5282;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 6px;
+  margin-top: 30px;
+  font-size: 20px;
+}
+h3 {
+  color: #2d3748;
+  font-size: 16px;
+  margin-top: 18px;
+}
+h4 {
+  color: #4a5568;
+  font-size: 14px;
+}
+p, li { color: #2d3748; }
+code {
+  background: #f0f4f8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  direction: ltr;
+  display: inline-block;
+  color: #c7254e;
+}
+pre {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  direction: rtl;
+  text-align: right;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+th {
+  background: #1e3a5f;
+  color: white;
+  padding: 10px 14px;
+  text-align: right;
+  font-weight: 600;
+}
+td {
+  padding: 8px 14px;
+  border: 1px solid #e2e8f0;
+}
+tr:nth-child(even) { background: #f7fafc; }
+tr:hover { background: #edf2f7; }
+ul, ol { padding-right: 24px; }
+li { margin-bottom: 4px; }
+hr {
+  border: none;
+  border-top: 2px solid #e2e8f0;
+  margin: 30px 0;
+}
+strong { color: #1a202c; }
+.intro {
+  background: linear-gradient(135deg, #ebf8ff 0%, #f0fff4 100%);
+  padding: 20px 24px;
+  border-radius: 10px;
+  border-right: 4px solid #2c5282;
+  margin-bottom: 24px;
+}
+.warning-box {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-right: 4px solid #e53e3e;
+}
+.highlight-box {
+  background: #fffff0;
+  border: 1px solid #fefcbf;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-right: 4px solid #d69e2e;
+}
+.star-section {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  padding: 20px 24px;
+  border-radius: 10px;
+  border-right: 4px solid #d97706;
+  margin: 20px 0;
+}
+.comparison-table th { background: #2d3748; }
+.section-sales { border-right: 4px solid #38a169; padding-right: 16px; }
+.section-purchases { border-right: 4px solid #3182ce; padding-right: 16px; }
+.page-break { page-break-before: always; }
+@media print {
+  body { padding: 0; font-size: 12px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 17px; }
+  h3 { font-size: 14px; }
+  pre { font-size: 11px; }
+  .no-print { display: none; }
+}
+.print-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #1e3a5f;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.print-btn:hover { background: #2c5282; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">📄 حفظ كـ PDF</button>
+
+<h1>دليل شامل لفهم نماذج المبيعات والمشتريات 🛒📦</h1>
+
+<div class="intro">
+<h2 style="margin-top:0; border:none;">مقدمة</h2>
+<p>هذا الدليل يشرح كل النماذج (Models) المتعلقة بالمبيعات (Ventes/Sales) والمشتريات (Achats/Purchases) في مشروع الفوترة.<br>
+سنشرح كل نموذج بالتفصيل مع أمثلة عملية من الحياة الواقعية.</p>
+</div>
+
+<hr>
+
+<h1>الجزء الأول: المبيعات (Ventes / Sales) 💰</h1>
+
+<h2>المسار العام لعملية البيع</h2>
+<pre>
+عرض سعر (Quote) ──► فاتورة (Invoice) ──► إشعار تسليم (Delivery Challan)
+                                │
+                                ├──► دفعة (Payment) ──► استرجاع (Refund)
+                                │
+                                └──► إشعار دائن/أفوار (Credit Note)
+</pre>
+
+<hr>
+
+<div class="section-sales">
+<h2>1. عرض السعر — Quote (Devis)</h2>
+
+<h3>ما هو؟</h3>
+<p>عرض السعر هو وثيقة تُرسل للزبون قبل البيع. تقول له فيها: "هذه هي المنتجات/الخدمات التي تريدها، وهذا هو السعر".</p>
+
+<h3>مثال من الحياة الواقعية:</h3>
+<p>زبون يتصل بك ويقول: "أريد 10 كراسي مكتب و 5 طاولات". أنت ترسل له عرض سعر فيه:</p>
+<ul>
+<li>10 كراسي × 500 دج = 5,000 دج</li>
+<li>5 طاولات × 1,200 دج = 6,000 دج</li>
+<li>المجموع: 11,000 دج</li>
+</ul>
+
+<h3>الحالات الممكنة (Status):</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code> (مسودة)</td><td>لم يُرسل بعد، يمكنك تعديله</td></tr>
+<tr><td><code>sent</code> (مُرسل)</td><td>أرسلته للزبون وتنتظر رده</td></tr>
+<tr><td><code>accepted</code> (مقبول)</td><td>الزبون وافق ← يمكنك إنشاء فاتورة</td></tr>
+<tr><td><code>rejected</code> (مرفوض)</td><td>الزبون رفض العرض</td></tr>
+<tr><td><code>expired</code> (منتهي الصلاحية)</td><td>انتهت مدة العرض ولم يرد الزبون</td></tr>
+<tr><td><code>cancelled</code> (ملغى)</td><td>أنت ألغيت العرض</td></tr>
+</table>
+
+<h3>الحقول المهمة:</h3>
+<ul>
+<li><code>customer_id</code> — الزبون المعني</li>
+<li><code>number</code> — رقم العرض (فريد لكل مؤسسة)</li>
+<li><code>issue_date</code> — تاريخ الإنشاء</li>
+<li><code>expiry_date</code> — تاريخ انتهاء الصلاحية</li>
+<li><code>subtotal</code> — المجموع قبل الضريبة</li>
+<li><code>tax_total</code> — مبلغ الضريبة</li>
+<li><code>total</code> — المجموع الكلي</li>
+<li><code>bill_from_snapshot</code> — معلومات المؤسسة (JSON)</li>
+<li><code>bill_to_snapshot</code> — معلومات الزبون (JSON)</li>
+</ul>
+
+<h3>عناصر عرض السعر — QuoteItem</h3>
+<p>كل سطر في عرض السعر هو <code>QuoteItem</code>:</p>
+<ul>
+<li><code>product_id</code> — المنتج</li>
+<li><code>quantity</code> — الكمية</li>
+<li><code>unit_price</code> — سعر الوحدة</li>
+<li><code>discount_type</code> / <code>discount_value</code> — نوع ومبلغ الخصم</li>
+<li><code>tax_rate</code> — نسبة الضريبة</li>
+<li><code>line_total</code> — مجموع السطر</li>
+</ul>
+
+<h3>مصاريف إضافية — QuoteCharge</h3>
+<p>مصاريف إضافية مثل التوصيل أو التركيب:</p>
+<ul>
+<li><code>label</code> — اسم المصروف (مثلا: "مصاريف التوصيل")</li>
+<li><code>amount</code> — المبلغ</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="section-sales">
+<h2>2. الفاتورة — Invoice (Facture)</h2>
+
+<h3>ما هي؟</h3>
+<p>الفاتورة هي الوثيقة الرسمية والقانونية التي تطلب فيها من الزبون دفع المال. هي أهم وثيقة في النظام.</p>
+
+<h3>مثال:</h3>
+<p>بعد قبول الزبون لعرض السعر، تُنشئ فاتورة. الفاتورة تحتوي نفس العناصر لكنها ملزمة قانونياً.</p>
+
+<h3>الحالات الممكنة (Status):</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code> (مسودة)</td><td>لم تُرسل بعد</td></tr>
+<tr><td><code>sent</code> (مُرسلة)</td><td>أرسلتها للزبون</td></tr>
+<tr><td><code>partial</code> (دفع جزئي)</td><td>الزبون دفع جزءاً من المبلغ</td></tr>
+<tr><td><code>paid</code> (مدفوعة)</td><td>الزبون دفع كل المبلغ</td></tr>
+<tr><td><code>overdue</code> (متأخرة)</td><td>تجاوز تاريخ الاستحقاق ولم يدفع</td></tr>
+<tr><td><code>void</code> (ملغاة)</td><td>الفاتورة ملغاة</td></tr>
+</table>
+
+<h3>الحقول الخاصة بالفاتورة:</h3>
+<ul>
+<li><code>quote_id</code> — عرض السعر الأصلي (إن وُجد)</li>
+<li><code>due_date</code> — تاريخ الاستحقاق (آخر أجل للدفع)</li>
+<li><code>amount_paid</code> — المبلغ المدفوع حتى الآن</li>
+<li><code>amount_due</code> — المبلغ المتبقي</li>
+<li><code>sent_at</code> — تاريخ الإرسال</li>
+<li><code>paid_at</code> — تاريخ الدفع الكامل</li>
+</ul>
+
+<h3>العلاقات المهمة:</h3>
+<pre>
+الفاتورة ──► عناصر الفاتورة (InvoiceItem) — أسطر المنتجات
+         ──► مصاريف الفاتورة (InvoiceCharge) — مصاريف إضافية
+         ──► الدفعات (PaymentAllocation) — المدفوعات المرتبطة
+         ──► إشعارات دائنة (CreditNote) — الأفوارات
+         ──► إشعار تسليم (DeliveryChallan) — وثيقة التسليم
+</pre>
+</div>
+
+<hr>
+
+<div class="section-sales">
+<h2>3. إشعار التسليم — Delivery Challan (Bon de livraison)</h2>
+
+<h3>ما هو؟</h3>
+<p>وثيقة ترافق البضاعة عند تسليمها للزبون. ليست فاتورة، بل إثبات أن البضاعة خرجت من المخزن ووصلت للزبون.</p>
+
+<h3>مثال:</h3>
+<p>بعد إنشاء الفاتورة، ترسل البضاعة مع سائق. السائق يحمل معه إشعار التسليم الذي يوقعه الزبون عند الاستلام.</p>
+
+<h3>الحالات:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code> (مسودة)</td><td>قيد التحضير</td></tr>
+<tr><td><code>issued</code> (صادر)</td><td>تم إصداره وجاهز للتسليم</td></tr>
+<tr><td><code>delivered</code> (مُسلّم)</td><td>الزبون استلم البضاعة</td></tr>
+<tr><td><code>cancelled</code> (ملغى)</td><td>ألغي</td></tr>
+</table>
+
+<h3>العلاقات:</h3>
+<ul>
+<li>مرتبط بالزبون (<code>customer_id</code>)</li>
+<li>يمكن ربطه بعرض سعر (<code>quote_id</code>) أو فاتورة (<code>invoice_id</code>)</li>
+<li>له عناصر (<code>DeliveryChallanItem</code>) ومصاريف (<code>DeliveryChallanCharge</code>)</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="section-sales">
+<h2>4. الدفعة — Payment (Paiement)</h2>
+
+<h3>ما هي؟</h3>
+<p>تسجيل المبلغ الذي دفعه الزبون. يمكن أن يدفع الزبون الفاتورة كاملة أو على عدة دفعات.</p>
+
+<h3>مثال:</h3>
+<p>فاتورة بمبلغ 100,000 دج. الزبون يدفع 60,000 دج اليوم والباقي بعد شهر.</p>
+<ul>
+<li>الدفعة الأولى: 60,000 دج</li>
+<li>الدفعة الثانية: 40,000 دج</li>
+</ul>
+
+<h3>الحالات:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>pending</code> (معلقة)</td><td>في الانتظار</td></tr>
+<tr><td><code>succeeded</code> (ناجحة)</td><td>تمت بنجاح</td></tr>
+<tr><td><code>failed</code> (فاشلة)</td><td>فشلت</td></tr>
+<tr><td><code>refunded</code> (مُسترجعة)</td><td>تم استرجاع المبلغ</td></tr>
+<tr><td><code>cancelled</code> (ملغاة)</td><td>ألغيت</td></tr>
+</table>
+
+<h3>توزيع الدفعات — PaymentAllocation</h3>
+<p>هذا النموذج يربط بين الدفعة والفاتورة:</p>
+<ul>
+<li>دفعة واحدة يمكن أن تُوزع على عدة فواتير</li>
+<li>مثال: زبون عنده فاتورتان (50,000 + 30,000)، يدفع 80,000 ← يتم التوزيع تلقائياً</li>
+</ul>
+
+<h3>الحقول:</h3>
+<ul>
+<li><code>customer_id</code> — الزبون</li>
+<li><code>payment_method_id</code> — طريقة الدفع (نقداً، تحويل بنكي، شيك...)</li>
+<li><code>bank_account_id</code> — الحساب البنكي</li>
+<li><code>amount</code> — المبلغ المدفوع</li>
+<li><code>payment_date</code> — تاريخ الدفع</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="section-sales">
+<h2>5. الاسترجاع — Refund (Remboursement)</h2>
+
+<h3>ما هو؟</h3>
+<p>عندما تُرجع المال للزبون بعد أن دفع. يرتبط دائماً بدفعة سابقة.</p>
+
+<h3>مثال:</h3>
+<p>زبون دفع 50,000 دج. اكتشفت أنك حاسبته زيادة 5,000 دج. ترجع له 5,000 دج كـ Refund.</p>
+
+<h3>الحالات:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>pending</code></td><td>قيد المعالجة</td></tr>
+<tr><td><code>succeeded</code></td><td>تم الاسترجاع بنجاح</td></tr>
+<tr><td><code>failed</code></td><td>فشل الاسترجاع</td></tr>
+</table>
+
+<h3>الحقول:</h3>
+<ul>
+<li><code>payment_id</code> — الدفعة الأصلية</li>
+<li><code>amount</code> — المبلغ المُسترجع</li>
+<li><code>refunded_at</code> — تاريخ الاسترجاع</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="star-section">
+<h2>6. ⭐ الإشعار الدائن / الأفوار — Credit Note (Avoir)</h2>
+
+<h3>❓ ما هو الأفوار (Avoir)؟</h3>
+<p><strong>الأفوار هو وثيقة رسمية تُصدرها لتخفيض مبلغ فاتورة سبق إصدارها.</strong></p>
+<p>فكّر فيه كـ "فاتورة عكسية" أو "فاتورة سالبة". بدل أن تطلب مالاً من الزبون، أنت تعترف أنك مدين له بمبلغ معين.</p>
+
+<h3>🤔 متى نستخدم الأفوار؟</h3>
+
+<h4>الحالة 1: إرجاع بضاعة</h4>
+<p>الزبون اشترى 10 كراسي وأرجع 2 لأنها معيبة.</p>
+<ul>
+<li>الفاتورة الأصلية: 10 × 500 = 5,000 دج</li>
+<li>الأفوار: 2 × 500 = 1,000 دج</li>
+<li>النتيجة: الزبون يدفع فقط 4,000 دج</li>
+</ul>
+
+<h4>الحالة 2: خطأ في السعر</h4>
+<p>حاسبت الزبون 600 دج للوحدة بدل 500 دج.</p>
+<ul>
+<li>الفاتورة الأصلية: 10 × 600 = 6,000 دج</li>
+<li>الأفوار: 10 × 100 = 1,000 دج (فرق السعر)</li>
+<li>النتيجة: الزبون يدفع 5,000 دج فقط</li>
+</ul>
+
+<h4>الحالة 3: خدمة لم تُقدم</h4>
+<p>فوترت الزبون خدمة صيانة لكن لم تقم بها. → أفوار بقيمة الخدمة</p>
+
+<h4>الحالة 4: خصم بعد الفوترة</h4>
+<p>الزبون اشترى كمية كبيرة وتستحق خصماً لم يكن في الفاتورة.</p>
+</div>
+
+<div class="warning-box">
+<h3>⚠️ لماذا لا نحذف الفاتورة ببساطة؟</h3>
+<p><strong>لأن القانون يمنع ذلك!</strong> 🚫</p>
+<p>في المحاسبة والقانون التجاري:</p>
+<ol>
+<li><strong>الفاتورة المُصدرة لا يمكن حذفها أو تعديلها</strong> — لأنها وثيقة قانونية</li>
+<li><strong>الأفوار هو الطريقة القانونية الوحيدة</strong> لتصحيح فاتورة</li>
+<li><strong>للمراجعة الضريبية</strong> — المفتش يريد رؤية الفاتورة الأصلية + الأفوار</li>
+<li><strong>للمحاسبة</strong> — كل عملية يجب أن يكون لها أثر</li>
+</ol>
+</div>
+
+<h3>الحالات الممكنة:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code> (مسودة)</td><td>قيد الإنشاء</td></tr>
+<tr><td><code>issued</code> (صادر)</td><td>تم إصداره رسمياً</td></tr>
+<tr><td><code>applied</code> (مُطبق)</td><td>تم خصمه من فاتورة</td></tr>
+<tr><td><code>void</code> (ملغى)</td><td>ملغى</td></tr>
+</table>
+
+<h3>الحقول:</h3>
+<ul>
+<li><code>customer_id</code> — الزبون</li>
+<li><code>invoice_id</code> — الفاتورة الأصلية (اختياري)</li>
+<li><code>number</code> — رقم الأفوار (فريد)</li>
+<li><code>issue_date</code> — تاريخ الإصدار</li>
+<li><code>subtotal</code> — المجموع قبل الضريبة</li>
+<li><code>tax_total</code> — مبلغ الضريبة</li>
+<li><code>total</code> — المجموع الكلي</li>
+</ul>
+
+<h3>عناصر الأفوار — CreditNoteItem</h3>
+<ul>
+<li><code>label</code> — وصف (مثلا: "إرجاع كرسي معيب")</li>
+<li><code>quantity</code> — الكمية</li>
+<li><code>unit_price</code> — سعر الوحدة</li>
+<li><code>tax_rate</code> — نسبة الضريبة</li>
+<li><code>line_total</code> — مجموع السطر</li>
+</ul>
+
+<h3>تطبيق الأفوار — CreditNoteApplication</h3>
+<p>هذا هو الجزء المهم: <strong>كيف يُخصم الأفوار من الفاتورة</strong></p>
+<pre>
+أفوار (1,000 دج) ──── CreditNoteApplication ────► فاتورة (5,000 دج)
+                        amount_applied: 1,000
+                        applied_at: 2024-01-15
+
+النتيجة: الفاتورة المتبقية = 4,000 دج
+</pre>
+<p>أفوار واحد يمكن أن يُطبق على عدة فواتير:</p>
+<pre>
+أفوار (3,000 دج) ──► فاتورة 1 (2,000 دج) ← application: 2,000
+                  ──► فاتورة 2 (5,000 دج) ← application: 1,000
+</pre>
+
+<h3>طريقة الدفع (PaymentMethod)</h3>
+<ul>
+<li><code>name</code> — اسم الطريقة (نقداً، تحويل بنكي، شيك، بطاقة بنكية...)</li>
+<li><code>provider</code> — المزود (إن وُجد)</li>
+<li><code>is_active</code> — نشطة أم لا</li>
+</ul>
+
+<hr class="page-break">
+
+<h1>الجزء الثاني: المشتريات (Achats / Purchases) 📦</h1>
+
+<h2>المسار العام لعملية الشراء</h2>
+<pre>
+أمر شراء (Purchase Order) ──► استلام بضاعة (Goods Receipt) ──► فاتورة المورد (Vendor Bill)
+                                                                        │
+                                                                        ├──► دفعة للمورد (Supplier Payment)
+                                                                        │
+                                                                        └──► إشعار مدين (Debit Note)
+</pre>
+
+<hr>
+
+<div class="section-purchases">
+<h2>7. المورد — Supplier (Fournisseur)</h2>
+
+<h3>ما هو؟</h3>
+<p>الشخص أو الشركة التي تشتري منها البضاعة أو الخدمات.</p>
+
+<h3>الحقول:</h3>
+<ul>
+<li><code>name</code> — اسم المورد</li>
+<li><code>email</code> — البريد الإلكتروني</li>
+<li><code>phone</code> — الهاتف</li>
+<li><code>tax_id</code> — الرقم الجبائي</li>
+<li><code>payment_terms_days</code> — مهلة الدفع (بالأيام)</li>
+<li><code>status</code> — نشط (<code>active</code>) أو غير نشط (<code>inactive</code>)</li>
+</ul>
+
+<h3>العلاقات:</h3>
+<pre>
+المورد ──► أوامر الشراء (PurchaseOrder)
+       ──► فواتير الموردين (VendorBill)
+       ──► طرق دفع المورد (SupplierPaymentMethod)
+       ──► دفعات المورد (SupplierPayment)
+</pre>
+</div>
+
+<hr>
+
+<div class="section-purchases">
+<h2>8. أمر الشراء — Purchase Order (Bon de commande)</h2>
+
+<h3>ما هو؟</h3>
+<p>وثيقة ترسلها للمورد لتقول له: "أريد شراء هذه المنتجات". هو مثل عرض السعر لكن في الاتجاه العكسي.</p>
+
+<h3>مثال:</h3>
+<p>تحتاج 100 علبة حبر للطابعات. ترسل أمر شراء للمورد:</p>
+<ul><li>100 علبة حبر × 300 دج = 30,000 دج</li></ul>
+
+<h3>الحالات:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code> (مسودة)</td><td>قيد الإنشاء</td></tr>
+<tr><td><code>sent</code> (مُرسل)</td><td>أرسلته للمورد</td></tr>
+<tr><td><code>confirmed</code> (مؤكد)</td><td>المورد أكد أنه سيوفر الطلب</td></tr>
+<tr><td><code>partially_received</code> (استلام جزئي)</td><td>استلمت جزءاً من البضاعة</td></tr>
+<tr><td><code>received</code> (مُستلم)</td><td>استلمت كل البضاعة</td></tr>
+<tr><td><code>cancelled</code> (ملغى)</td><td>ألغي</td></tr>
+</table>
+
+<h3>الحقول الخاصة:</h3>
+<ul>
+<li><code>supplier_id</code> — المورد</li>
+<li><code>warehouse_id</code> — المخزن الذي ستدخل إليه البضاعة</li>
+<li><code>order_date</code> — تاريخ الطلب</li>
+<li><code>expected_date</code> — التاريخ المتوقع للاستلام</li>
+</ul>
+
+<h3>عناصر أمر الشراء — PurchaseOrderItem</h3>
+<ul>
+<li><code>product_id</code> — المنتج</li>
+<li><code>quantity</code> — الكمية المطلوبة</li>
+<li><code>unit_cost</code> — سعر الوحدة (تكلفة الشراء)</li>
+<li><code>received_quantity</code> — الكمية المُستلمة فعلياً (مهم للاستلام الجزئي)</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="section-purchases">
+<h2>9. استلام البضاعة — Goods Receipt (Bon de réception)</h2>
+
+<h3>ما هو؟</h3>
+<p>وثيقة تُثبت أنك استلمت البضاعة من المورد. عند إنشاء استلام، يدخل المخزون تلقائياً للمخزن.</p>
+
+<h3>مثال:</h3>
+<p>طلبت 100 علبة حبر. وصلت الشاحنة ب 80 علبة فقط (20 لم تتوفر). تُنشئ استلام بـ 80 علبة.</p>
+<ul>
+<li>أمر الشراء يصبح "استلام جزئي"</li>
+<li>المخزن يُضاف إليه 80 علبة</li>
+</ul>
+
+<h3>الحالات:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code></td><td>قيد المعالجة</td></tr>
+<tr><td><code>received</code> (مُستلم)</td><td>تم تأكيد الاستلام</td></tr>
+<tr><td><code>cancelled</code> (ملغى)</td><td>ألغي</td></tr>
+</table>
+
+<h3>الحقول:</h3>
+<ul>
+<li><code>purchase_order_id</code> — أمر الشراء المرتبط</li>
+<li><code>warehouse_id</code> — المخزن</li>
+<li><code>received_at</code> — تاريخ الاستلام</li>
+<li><code>created_by</code> — المستخدم الذي أنشأ الاستلام</li>
+</ul>
+
+<h3>عناصر الاستلام — GoodsReceiptItem</h3>
+<ul>
+<li><code>purchase_order_item_id</code> — ربط مع سطر أمر الشراء</li>
+<li><code>product_id</code> — المنتج</li>
+<li><code>quantity</code> — الكمية المُستلمة</li>
+<li><code>unit_cost</code> — تكلفة الوحدة</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="section-purchases">
+<h2>10. فاتورة المورد — Vendor Bill (Facture fournisseur)</h2>
+
+<h3>ما هي؟</h3>
+<p>الفاتورة التي يرسلها لك المورد ويطلب فيها الدفع. هي عكس الفاتورة التي ترسلها أنت لزبائنك.</p>
+
+<h3>مثال:</h3>
+<p>المورد يرسل لك فاتورة: "أنت تدين لي بـ 30,000 دج ثمن 100 علبة حبر".</p>
+
+<h3>الحالات:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code></td><td>مسودة</td></tr>
+<tr><td><code>posted</code> (مُسجلة)</td><td>تم تسجيلها في الحسابات</td></tr>
+<tr><td><code>paid</code> (مدفوعة)</td><td>تم دفعها</td></tr>
+<tr><td><code>void</code> (ملغاة)</td><td>ملغاة</td></tr>
+</table>
+
+<h3>الحقول:</h3>
+<ul>
+<li><code>supplier_id</code> — المورد</li>
+<li><code>purchase_order_id</code> — أمر الشراء (اختياري)</li>
+<li><code>goods_receipt_id</code> — استلام البضاعة (اختياري)</li>
+<li><code>amount_paid</code> — المبلغ المدفوع</li>
+<li><code>amount_due</code> — المبلغ المتبقي</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="section-purchases">
+<h2>11. دفعة المورد — Supplier Payment (Paiement fournisseur)</h2>
+
+<h3>ما هي؟</h3>
+<p>تسجيل المبلغ الذي دفعته للمورد. نفس مبدأ دفعة الزبون لكن في الاتجاه العكسي.</p>
+
+<h3>الحالات:</h3>
+<p>نفس حالات الدفعة العادية: <code>pending</code> / <code>succeeded</code> / <code>failed</code> / <code>refunded</code> / <code>cancelled</code></p>
+
+<h3>توزيع دفعات المورد — SupplierPaymentAllocation</h3>
+<p>يربط الدفعة بفاتورة المورد:</p>
+<ul>
+<li><code>supplier_payment_id</code> — الدفعة</li>
+<li><code>vendor_bill_id</code> — فاتورة المورد</li>
+<li><code>amount_applied</code> — المبلغ المطبق</li>
+</ul>
+
+<h3>طرق دفع المورد — SupplierPaymentMethod</h3>
+<p>طرق الدفع الخاصة بالموردين (منفصلة عن طرق دفع الزبائن):</p>
+<ul>
+<li><code>name</code> — الاسم</li>
+<li><code>provider</code> — المزود</li>
+<li><code>is_active</code> — نشطة أم لا</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="star-section">
+<h2>12. ⭐ الإشعار المدين — Debit Note (Note de débit / Avoir fournisseur)</h2>
+
+<h3>❓ ما هو؟</h3>
+<p><strong>الإشعار المدين هو عكس الأفوار تماماً.</strong></p>
+<ul>
+<li><strong>الأفوار (Credit Note)</strong>: أنت تُخفّض مبلغ فاتورة أصدرتها <strong>لزبونك</strong> ← أنت تعترف أنك مدين للزبون</li>
+<li><strong>الإشعار المدين (Debit Note)</strong>: أنت تطلب من <strong>موردك</strong> تخفيض فاتورته ← المورد مدين لك</li>
+</ul>
+
+<h3>🤔 متى نستخدمه؟</h3>
+<h4>الحالة 1: إرجاع بضاعة للمورد</h4>
+<p>استلمت 100 علبة حبر، 10 منها تالفة. ترجعها وتُصدر إشعاراً مديناً.</p>
+
+<h4>الحالة 2: خطأ في فاتورة المورد</h4>
+<p>المورد فاتورك 350 دج للوحدة بدل 300 دج المتفق عليها.</p>
+
+<h4>الحالة 3: بضاعة ناقصة</h4>
+<p>طلبت 100 وحدة، المورد فاتورك على 100 لكن أرسل فقط 90.</p>
+</div>
+
+<h3>الحالات:</h3>
+<table>
+<tr><th>الحالة</th><th>المعنى</th></tr>
+<tr><td><code>draft</code></td><td>مسودة</td></tr>
+<tr><td><code>issued</code> (صادر)</td><td>صدر رسمياً</td></tr>
+<tr><td><code>applied</code> (مُطبق)</td><td>خُصم من فاتورة المورد</td></tr>
+<tr><td><code>void</code> (ملغى)</td><td>ملغى</td></tr>
+</table>
+
+<h3>تطبيق الإشعار المدين — DebitNoteApplication</h3>
+<pre>
+إشعار مدين (1,000 دج) ──── DebitNoteApplication ────► فاتورة المورد (30,000 دج)
+                              amount_applied: 1,000
+
+النتيجة: المتبقي للدفع = 29,000 دج
+</pre>
+
+<hr class="page-break">
+
+<h1>الجزء الثالث: مقارنة شاملة 📊</h1>
+
+<h2>مقارنة المبيعات والمشتريات</h2>
+<table class="comparison-table">
+<tr><th>المفهوم</th><th>في المبيعات (أنت → الزبون)</th><th>في المشتريات (المورد → أنت)</th></tr>
+<tr><td>عرض/طلب</td><td>عرض سعر (Quote)</td><td>أمر شراء (Purchase Order)</td></tr>
+<tr><td>فاتورة</td><td>فاتورة (Invoice)</td><td>فاتورة المورد (Vendor Bill)</td></tr>
+<tr><td>تسليم/استلام</td><td>إشعار تسليم (Delivery Challan)</td><td>استلام بضاعة (Goods Receipt)</td></tr>
+<tr><td>دفع</td><td>دفعة (Payment)</td><td>دفعة المورد (Supplier Payment)</td></tr>
+<tr><td>أفوار/تصحيح</td><td>إشعار دائن - Credit Note</td><td>إشعار مدين - Debit Note</td></tr>
+<tr><td>استرجاع مال</td><td>استرجاع (Refund)</td><td>—</td></tr>
+</table>
+
+<h2>مقارنة Credit Note و Debit Note</h2>
+<table class="comparison-table">
+<tr><th></th><th>Credit Note (أفوار)</th><th>Debit Note (إشعار مدين)</th></tr>
+<tr><td><strong>من يُصدره؟</strong></td><td>أنت (البائع)</td><td>أنت (المشتري)</td></tr>
+<tr><td><strong>لصالح من؟</strong></td><td>لصالح الزبون</td><td>لصالحك أنت</td></tr>
+<tr><td><strong>يُخصم من أي فاتورة؟</strong></td><td>فاتورتك (Invoice)</td><td>فاتورة المورد (Vendor Bill)</td></tr>
+<tr><td><strong>متى؟</strong></td><td>إرجاع بضاعة، خطأ في السعر، خدمة لم تُقدم</td><td>بضاعة تالفة، خطأ في فاتورة المورد</td></tr>
+<tr><td><strong>النتيجة المحاسبية</strong></td><td>تخفيض إيراداتك</td><td>تخفيض مصاريفك</td></tr>
+</table>
+
+<hr>
+
+<h1>الجزء الرابع: المسار الكامل بمثال عملي 🔄</h1>
+
+<h2>مثال: شراء وبيع أجهزة كمبيوتر</h2>
+
+<h3>1. الشراء من المورد</h3>
+<pre>
+1. أمر شراء: 20 كمبيوتر × 40,000 دج = 800,000 دج
+   ↓
+2. استلام البضاعة: وصلت 20 وحدة ← دخلت المخزن
+   ↓
+3. فاتورة المورد: 800,000 دج
+   ↓
+4. اكتشفت أن 2 أجهزة معيبة ← إشعار مدين: 2 × 40,000 = 80,000 دج
+   ↓
+5. دفعة للمورد: 800,000 - 80,000 = 720,000 دج
+</pre>
+
+<h3>2. البيع للزبون</h3>
+<pre>
+1. عرض سعر: 5 كمبيوتر × 65,000 دج = 325,000 دج
+   ↓  (الزبون يقبل)
+2. فاتورة: 325,000 دج
+   ↓
+3. إشعار تسليم: 5 أجهزة ← خرجت من المخزن
+   ↓
+4. الزبون يرجع 1 جهاز ← أفوار: 65,000 دج
+   ↓
+5. دفعة الزبون: 325,000 - 65,000 = 260,000 دج
+</pre>
+
+<div class="highlight-box">
+<h3>3. النتيجة</h3>
+<pre style="background:transparent; border:none; padding:0;">
+تكلفة الشراء: 720,000 دج (لـ 18 جهاز سليم)
+إيرادات البيع: 260,000 دج (لـ 4 أجهزة)
+المخزون المتبقي: 14 جهاز
+</pre>
+</div>
+
+<hr>
+
+<h1>ملخص سريع للنماذج 📋</h1>
+
+<h2>نماذج المبيعات (Sales)</h2>
+<table>
+<tr><th>النموذج</th><th>الملف</th><th>الوظيفة</th></tr>
+<tr><td>Quote</td><td><code>app/Models/Sales/Quote.php</code></td><td>عرض السعر</td></tr>
+<tr><td>QuoteItem</td><td><code>app/Models/Sales/QuoteItem.php</code></td><td>سطر في عرض السعر</td></tr>
+<tr><td>QuoteCharge</td><td><code>app/Models/Sales/QuoteCharge.php</code></td><td>مصاريف إضافية على العرض</td></tr>
+<tr><td>Invoice</td><td><code>app/Models/Sales/Invoice.php</code></td><td>الفاتورة</td></tr>
+<tr><td>InvoiceItem</td><td><code>app/Models/Sales/InvoiceItem.php</code></td><td>سطر في الفاتورة</td></tr>
+<tr><td>InvoiceCharge</td><td><code>app/Models/Sales/InvoiceCharge.php</code></td><td>مصاريف إضافية على الفاتورة</td></tr>
+<tr><td>CreditNote</td><td><code>app/Models/Sales/CreditNote.php</code></td><td>الأفوار (إشعار دائن)</td></tr>
+<tr><td>CreditNoteItem</td><td><code>app/Models/Sales/CreditNoteItem.php</code></td><td>سطر في الأفوار</td></tr>
+<tr><td>CreditNoteApplication</td><td><code>app/Models/Sales/CreditNoteApplication.php</code></td><td>تطبيق الأفوار على فاتورة</td></tr>
+<tr><td>DeliveryChallan</td><td><code>app/Models/Sales/DeliveryChallan.php</code></td><td>إشعار التسليم</td></tr>
+<tr><td>DeliveryChallanItem</td><td><code>app/Models/Sales/DeliveryChallanItem.php</code></td><td>سطر في إشعار التسليم</td></tr>
+<tr><td>DeliveryChallanCharge</td><td><code>app/Models/Sales/DeliveryChallanCharge.php</code></td><td>مصاريف إضافية على التسليم</td></tr>
+<tr><td>Payment</td><td><code>app/Models/Sales/Payment.php</code></td><td>دفعة الزبون</td></tr>
+<tr><td>PaymentAllocation</td><td><code>app/Models/Sales/PaymentAllocation.php</code></td><td>توزيع الدفعة على الفواتير</td></tr>
+<tr><td>PaymentMethod</td><td><code>app/Models/Sales/PaymentMethod.php</code></td><td>طريقة الدفع</td></tr>
+<tr><td>Refund</td><td><code>app/Models/Sales/Refund.php</code></td><td>استرجاع مبلغ</td></tr>
+</table>
+
+<h2>نماذج المشتريات (Purchases)</h2>
+<table>
+<tr><th>النموذج</th><th>الملف</th><th>الوظيفة</th></tr>
+<tr><td>Supplier</td><td><code>app/Models/Purchases/Supplier.php</code></td><td>المورد</td></tr>
+<tr><td>PurchaseOrder</td><td><code>app/Models/Purchases/PurchaseOrder.php</code></td><td>أمر الشراء</td></tr>
+<tr><td>PurchaseOrderItem</td><td><code>app/Models/Purchases/PurchaseOrderItem.php</code></td><td>سطر في أمر الشراء</td></tr>
+<tr><td>GoodsReceipt</td><td><code>app/Models/Purchases/GoodsReceipt.php</code></td><td>استلام البضاعة</td></tr>
+<tr><td>GoodsReceiptItem</td><td><code>app/Models/Purchases/GoodsReceiptItem.php</code></td><td>سطر في الاستلام</td></tr>
+<tr><td>VendorBill</td><td><code>app/Models/Purchases/VendorBill.php</code></td><td>فاتورة المورد</td></tr>
+<tr><td>DebitNote</td><td><code>app/Models/Purchases/DebitNote.php</code></td><td>إشعار مدين</td></tr>
+<tr><td>DebitNoteItem</td><td><code>app/Models/Purchases/DebitNoteItem.php</code></td><td>سطر في الإشعار المدين</td></tr>
+<tr><td>DebitNoteApplication</td><td><code>app/Models/Purchases/DebitNoteApplication.php</code></td><td>تطبيق الإشعار المدين</td></tr>
+<tr><td>SupplierPayment</td><td><code>app/Models/Purchases/SupplierPayment.php</code></td><td>دفعة للمورد</td></tr>
+<tr><td>SupplierPaymentAllocation</td><td><code>app/Models/Purchases/SupplierPaymentAllocation.php</code></td><td>توزيع دفعة المورد</td></tr>
+<tr><td>SupplierPaymentMethod</td><td><code>app/Models/Purchases/SupplierPaymentMethod.php</code></td><td>طريقة دفع المورد</td></tr>
+</table>
+
+<br><br>
+<p style="text-align:center; color:#999; font-size:12px;">— نهاية الدليل —</p>
+
+</body>
+</html>

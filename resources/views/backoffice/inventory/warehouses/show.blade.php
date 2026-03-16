@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="">
                                         <p class="text-primary fs-14 fw-medium mb-1">
-                                            {{ $warehouse->code ?? 'Sans code' }}
+                                            {{ $warehouse->code ?? __('Sans code') }}
                                         </p>
                                         <h6 class="mb-2"> {{ $warehouse->name }}
                                             @if($warehouse->is_active)
@@ -79,7 +79,7 @@
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
                                                     class="isax isax-tick-circle fs-14 me-2"></i>{{ __('Par défaut') }}</h6>
-                                            <p> {{ $warehouse->is_default ? 'Oui' : 'Non' }} </p>
+                                            <p> {{ $warehouse->is_default ? __('Oui') : __('Non') }} </p>
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
@@ -124,7 +124,7 @@
                                                     @if($stock->reorder_point && $stock->quantity_on_hand <= $stock->reorder_point)
                                                         <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Stock bas') }}</span>
                                                     @else
-                                                        <span class="badge badge-soft-success d-inline-flex align-items-center">OK</span>
+                                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('OK') }}</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -180,7 +180,7 @@
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
                                     <span class="text-muted">{{ __('Par défaut') }}</span>
-                                    <span class="fw-semibold">{{ $warehouse->is_default ? 'Oui' : 'Non' }}</span>
+                                    <span class="fw-semibold">{{ $warehouse->is_default ? __('Oui') : __('Non') }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
                                     <span class="text-muted">{{ __('Créé le') }}</span>

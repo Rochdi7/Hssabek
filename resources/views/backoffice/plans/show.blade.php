@@ -9,7 +9,7 @@
                 </div>
                 <div class="d-flex gap-2">
                     <a href="{{ route('sa.plans.edit', $plan) }}" class="btn btn-primary">
-                        <i class="ti ti-pencil me-1"></i> Modifier
+                        <i class="ti ti-pencil me-1"></i> {{ __('Modifier') }}
                     </a>
                     <a href="{{ route('sa.plans.index') }}" class="btn btn-outline-white">
                         <i class="ti ti-arrow-left me-1"></i> Retour
@@ -19,7 +19,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Informations</h5>
+                    <h5 class="card-title">{{ __('Informations') }}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">

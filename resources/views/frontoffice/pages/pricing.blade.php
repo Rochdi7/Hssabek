@@ -1,7 +1,7 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', 'Tarification')
-@section('meta_description', 'Découvrez nos offres de facturation en ligne. Des plans adaptés à toutes les tailles d\'entreprise.')
+@section('title', __('Tarification'))
+@section('meta_description', __('Découvrez nos offres de facturation en ligne. Des plans adaptés à toutes les tailles d\'entreprise.'))
 
 @section('hero')
 <!-- Hero Section -->
@@ -11,11 +11,11 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-8 text-center">
 					<div class="banner-content" data-aos="fade-up">
-						<span class="info-badge fw-medium mb-3">Sans engagement</span>
+						<span class="info-badge fw-medium mb-3">{{ __('Sans engagement') }}</span>
 						<div class="banner-title">
-							<h1 class="mb-2">Tarification simple <span class="head">et transparente</span></h1>
+							<h1 class="mb-2">{{ __('Tarification simple') }} <span class="head">{{ __('et transparente') }}</span></h1>
 						</div>
-						<p class="fw-medium">Choisissez le plan adapté à votre activité. Changez ou annulez à tout moment. Aucune carte bancaire requise pour l'essai gratuit.</p>
+						<p class="fw-medium">{{ __('Choisissez le plan adapté à votre activité. Changez ou annulez à tout moment. Aucune carte bancaire requise pour l\'essai gratuit.') }}</p>
 					</div>
 				</div>
 			</div>
@@ -35,11 +35,9 @@
 			<img src="{{ url('build/img/bg/sec-bg-10.png') }}" class="pricing-bg-two" alt="Bg">
 		</div>
 		<div class="section-heading">
-			<span class="title-badge bg-white">Tarifs & Plans</span>
-			<h2>Choisissez le plan parfait <span>adapté à vos besoins.</span></h2>
-			<p class="fw-medium">Que vous soyez un indépendant, une petite équipe ou une entreprise en croissance,
-				nous avons un plan qui correspond parfaitement à vos objectifs.
-			</p>
+			<span class="title-badge bg-white">{{ __('Tarifs & Plans') }}</span>
+			<h2>{{ __('Choisissez le plan parfait') }} <span>{{ __('adapté à vos besoins.') }}</span></h2>
+			<p class="fw-medium">{{ __('Que vous soyez un indépendant, une petite équipe ou une entreprise en croissance, nous avons un plan qui correspond parfaitement à vos objectifs.') }}</p>
 		</div>
 
 		@if($plans->count() > 0)
@@ -50,7 +48,7 @@
 					<div class="package-header d-flex justify-content-between">
 						<div class="d-flex justify-content-between w-100">
 							<div>
-								<h6>{{ $plan->interval === 'month' ? 'Mensuel' : ($plan->interval === 'year' ? 'Annuel' : 'À vie') }}</h6>
+								<h6>{{ $plan->interval === 'month' ? __('Mensuel') : ($plan->interval === 'year' ? __('Annuel') : __('À vie')) }}</h6>
 								<h4>{{ $plan->name }}</h4>
 							</div>
 							<span class="icon-frame d-flex align-items-center justify-content-center">
@@ -62,12 +60,12 @@
 					<p>{{ $plan->description }}</p>
 					@endif
 					<span class="plan-price">{{ number_format($plan->price, 0, ',', ' ') }}€</span>
-					<h5>Ce qui est inclus</h5>
+					<h5>{{ __('Ce qui est inclus') }}</h5>
 					<ul class="plan-features">
-						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_users) }} Utilisateurs</li>
-						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_customers) }} Clients</li>
-						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_products) }} Produits</li>
-						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_invoices_per_month) }} Factures/mois</li>
+						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_users) }} {{ __('Utilisateurs') }}</li>
+						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_customers) }} {{ __('Clients') }}</li>
+						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_products) }} {{ __('Produits') }}</li>
+						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_invoices_per_month) }} {{ __('Factures/mois') }}</li>
 						@if($plan->features && is_array($plan->features))
 							@foreach($plan->features as $feature)
 								<li><i class="fa-solid fa-circle-check"></i>{{ $feature }}</li>
@@ -75,7 +73,7 @@
 						@endif
 					</ul>
 					<div class="package-btn">
-						<a class="btn btn-dark btn-lg d-inline-flex align-items-center justify-content-center" href="{{ route('register', ['plan' => $plan->code]) }}">Choisir ce plan <i class="isax isax-arrow-right-3 ms-2"></i></a>
+						<a class="btn btn-dark btn-lg d-inline-flex align-items-center justify-content-center" href="{{ route('register', ['plan' => $plan->code]) }}">{{ __('Choisir ce plan') }} <i class="isax isax-arrow-right-3 ms-2"></i></a>
 					</div>
 				</div>
 			</div>
@@ -83,9 +81,9 @@
 		</div>
 		@else
 		<div class="text-center py-5">
-			<h5 class="text-muted">Aucun plan disponible pour le moment</h5>
-			<p class="text-muted mb-4">Veuillez revenir plus tard ou nous contacter pour plus d'informations.</p>
-			<a href="{{ route('contact') }}" class="btn btn-primary btn-lg">Nous contacter</a>
+			<h5 class="text-muted">{{ __('Aucun plan disponible pour le moment') }}</h5>
+			<p class="text-muted mb-4">{{ __('Veuillez revenir plus tard ou nous contacter pour plus d\'informations.') }}</p>
+			<a href="{{ route('contact') }}" class="btn btn-primary btn-lg">{{ __('Nous contacter') }}</a>
 		</div>
 		@endif
 	</div>
@@ -105,58 +103,58 @@
 			<div class="col-lg-5">
 				<div class="section-heading" data-aos="fade-up">
 					<span class="title-badge">FAQ</span>
-					<h2 class="mb-2">Questions <span>fréquentes</span></h2>
-					<p class="fw-medium">Réponses rapides aux questions les plus posées sur nos tarifs et nos plans.</p>
+					<h2 class="mb-2">{{ __('Questions') }} <span>{{ __('fréquentes') }}</span></h2>
+					<p class="fw-medium">{{ __('Réponses rapides aux questions les plus posées sur nos tarifs et nos plans.') }}</p>
 				</div>
 			</div>
 			<div class="col-lg-7">
 				<div class="faq-set" id="accordionPricing">
 					<div class="faq-card aos" data-aos="fade-up" data-aos-delay="600">
 						<h4 class="faq-title">
-							<a data-bs-toggle="collapse" href="#pFaqOne" aria-expanded="false">Puis-je changer de plan à tout moment ?</a>
+							<a data-bs-toggle="collapse" href="#pFaqOne" aria-expanded="false">{{ __('Puis-je changer de plan à tout moment ?') }}</a>
 						</h4>
 						<div id="pFaqOne" class="card-collapse collapse show" data-bs-parent="#accordionPricing">
-							<p>Oui, vous pouvez passer à un plan supérieur ou inférieur à tout moment depuis votre espace de gestion. Le changement prend effet immédiatement.</p>
+							<p>{{ __('Oui, vous pouvez passer à un plan supérieur ou inférieur à tout moment depuis votre espace de gestion. Le changement prend effet immédiatement.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
 						<h4 class="faq-title">
-							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqTwo" aria-expanded="false">Y a-t-il une période d'essai gratuite ?</a>
+							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqTwo" aria-expanded="false">{{ __('Y a-t-il une période d\'essai gratuite ?') }}</a>
 						</h4>
 						<div id="pFaqTwo" class="card-collapse collapse" data-bs-parent="#accordionPricing">
-							<p>Oui, chaque plan dispose d'une période d'essai gratuite. Aucune carte bancaire n'est requise pour commencer.</p>
+							<p>{{ __('Oui, chaque plan dispose d\'une période d\'essai gratuite. Aucune carte bancaire n\'est requise pour commencer.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
 						<h4 class="faq-title">
-							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqThree" aria-expanded="false">Mes données sont-elles sécurisées ?</a>
+							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqThree" aria-expanded="false">{{ __('Mes données sont-elles sécurisées ?') }}</a>
 						</h4>
 						<div id="pFaqThree" class="card-collapse collapse" data-bs-parent="#accordionPricing">
-							<p>Absolument. Chaque entreprise dispose de son propre espace isolé. Vos données sont chiffrées et sauvegardées régulièrement.</p>
+							<p>{{ __('Absolument. Chaque entreprise dispose de son propre espace isolé. Vos données sont chiffrées et sauvegardées régulièrement.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
 						<h4 class="faq-title">
-							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqFour" aria-expanded="false">Comment fonctionne la facturation ?</a>
+							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqFour" aria-expanded="false">{{ __('Comment fonctionne la facturation ?') }}</a>
 						</h4>
 						<div id="pFaqFour" class="card-collapse collapse" data-bs-parent="#accordionPricing">
-							<p>Vous êtes facturé selon la période de votre plan (mensuel ou annuel). Vous pouvez annuler à tout moment sans frais.</p>
+							<p>{{ __('Vous êtes facturé selon la période de votre plan (mensuel ou annuel). Vous pouvez annuler à tout moment sans frais.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
 						<h4 class="faq-title">
-							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqFive" aria-expanded="false">Puis-je exporter mes données ?</a>
+							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqFive" aria-expanded="false">{{ __('Puis-je exporter mes données ?') }}</a>
 						</h4>
 						<div id="pFaqFive" class="card-collapse collapse" data-bs-parent="#accordionPricing">
-							<p>Oui, vous pouvez exporter toutes vos données (factures, clients, produits) en PDF ou CSV à tout moment. Vos données vous appartiennent.</p>
+							<p>{{ __('Oui, vous pouvez exporter toutes vos données (factures, clients, produits) en PDF ou CSV à tout moment. Vos données vous appartiennent.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
 						<h4 class="faq-title">
-							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqSix" aria-expanded="false">Le support est-il inclus ?</a>
+							<a class="collapsed" data-bs-toggle="collapse" href="#pFaqSix" aria-expanded="false">{{ __('Le support est-il inclus ?') }}</a>
 						</h4>
 						<div id="pFaqSix" class="card-collapse collapse" data-bs-parent="#accordionPricing">
-							<p>Oui, le support par email est inclus dans tous les plans. Les plans supérieurs bénéficient d'un support prioritaire.</p>
+							<p>{{ __('Oui, le support par email est inclus dans tous les plans. Les plans supérieurs bénéficient d\'un support prioritaire.') }}</p>
 						</div>
 					</div>
 				</div>
@@ -164,9 +162,9 @@
 		</div>
 		<div class="connect-with-us">
 			<div class="section-title text-center" data-aos="fade-up">
-				<h2 class="mb-2">Prêt à commencer ?</h2>
-				<p class="mx-auto">Essayez {{ config('app.name') }} gratuitement. Aucune carte bancaire requise.</p>
-				<a href="{{ route('register') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">Créer mon compte gratuit<i class="isax isax-arrow-right-3 ms-2"></i></a>
+				<h2 class="mb-2">{{ __('Prêt à commencer ?') }}</h2>
+				<p class="mx-auto">{{ __('Essayez') }} {{ config('app.name') }} {{ __('gratuitement. Aucune carte bancaire requise.') }}</p>
+				<a href="{{ route('register') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">{{ __('Créer mon compte gratuit') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
 			</div>
 		</div>
 	</div>

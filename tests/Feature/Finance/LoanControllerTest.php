@@ -4,7 +4,6 @@ namespace Tests\Feature\Finance;
 
 use Database\Factories\LoanFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class LoanControllerTest extends TestCase
@@ -18,8 +17,6 @@ class LoanControllerTest extends TestCase
     {
         parent::setUp();
         ['tenant' => $this->tenant, 'user' => $this->adminUser] = $this->createTenantWithAdmin();
-        $domain = $this->tenant->domains()->where('is_primary', true)->value('domain');
-        URL::forceRootUrl('http://' . $domain);
     }
 
     public function test_index_lists_loans(): void

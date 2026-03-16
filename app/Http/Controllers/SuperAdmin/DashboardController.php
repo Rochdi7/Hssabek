@@ -35,7 +35,7 @@ class DashboardController extends Controller
                 ->first();
 
             // ─── Latest registered tenants (7) ───
-            $latestTenants = Tenant::with(['domains'])
+            $latestTenants = Tenant::query()
                 ->latest()
                 ->limit(7)
                 ->get()

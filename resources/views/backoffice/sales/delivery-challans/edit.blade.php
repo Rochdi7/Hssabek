@@ -163,13 +163,13 @@
                                                                         <select class="select" name="status">
                                                                             <option value="draft"
                                                                                 {{ old('status', $deliveryChallan->status) === 'draft' ? 'selected' : '' }}>
-                                                                                Brouillon</option>
+                                                                                {{ __('Brouillon') }}</option>
                                                                             <option value="sent"
                                                                                 {{ old('status', $deliveryChallan->status) === 'sent' ? 'selected' : '' }}>
-                                                                                Envoyé</option>
+                                                                                {{ __('Envoyé') }}</option>
                                                                             <option value="delivered"
                                                                                 {{ old('status', $deliveryChallan->status) === 'delivered' ? 'selected' : '' }}>
-                                                                                Livré</option>
+                                                                                {{ __('Livré') }}</option>
                                                                         </select>
                                                                         @error('status')
                                                                             <div class="invalid-feedback">{{ $message }}
@@ -321,7 +321,7 @@
                                             style="table-layout: fixed; width: 100%;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
-                                                    <th style="width: 28%;">Produit/Service</th>
+                                                    <th style="width: 28%;">{{ __('Produit/Service') }}</th>
                                                     <th style="width: 13%;">{{ __('Quantité') }}</th>
                                                     <th style="width: 17%;">{{ __('Prix unitaire') }}</th>
                                                     <th style="width: 15%;" class="tax-col">{{ __('Taxe (%)') }}</th>
@@ -447,8 +447,7 @@
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">{{ __('Conditions
@@ -456,8 +455,7 @@
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">{{ __('Compte bancaire') }}</label>

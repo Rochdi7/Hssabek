@@ -104,7 +104,7 @@ class UserInvitationController extends Controller
         $user->tenant_id = $invitation->tenant_id;
         $user->email = $invitation->email;
         $user->name = $request->name;
-        $user->password = Hash::make($request->password);
+        $user->password = $request->password;
         $user->status = 'active';
         $user->email_verified_at = now();
         $user->save();

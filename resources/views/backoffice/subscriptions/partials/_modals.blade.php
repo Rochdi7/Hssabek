@@ -69,28 +69,28 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Date de début<span class="text-danger ms-1">*</span></label>
-                                <input type="text" class="form-control datetimepicker @error('starts_at') is-invalid @enderror" name="starts_at" value="{{ old('starts_at') }}">
+                                <input type="text" class="form-control datetimepicker @error('starts_at') is-invalid @enderror" name="starts_at" value="{{ old('starts_at') }}" id="add-starts-at">
                                 @error('starts_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="add-ends-at-wrap" style="display:none;">
                             <div class="mb-3">
-                                <label class="form-label">Date de fin</label>
-                                <input type="text" class="form-control datetimepicker @error('ends_at') is-invalid @enderror" name="ends_at" value="{{ old('ends_at') }}">
+                                <label class="form-label">Date de fin<span class="text-danger ms-1 add-ends-at-required" style="display:none;">*</span></label>
+                                <input type="text" class="form-control datetimepicker @error('ends_at') is-invalid @enderror" name="ends_at" value="{{ old('ends_at') }}" id="add-ends-at">
                                 @error('ends_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="add-trial-wrap" style="display:none;">
                             <div class="mb-3">
-                                <label class="form-label">Fin de la période d'essai</label>
-                                <input type="text" class="form-control datetimepicker @error('trial_ends_at') is-invalid @enderror" name="trial_ends_at" value="{{ old('trial_ends_at') }}">
+                                <label class="form-label">Fin de la période d'essai<span class="text-danger ms-1">*</span></label>
+                                <input type="text" class="form-control datetimepicker @error('trial_ends_at') is-invalid @enderror" name="trial_ends_at" value="{{ old('trial_ends_at') }}" id="add-trial-ends-at">
                                 @error('trial_ends_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="add-cancels-wrap" style="display:none;">
                             <div class="mb-3">
-                                <label class="form-label">Date d'annulation</label>
-                                <input type="text" class="form-control datetimepicker @error('cancels_at') is-invalid @enderror" name="cancels_at" value="{{ old('cancels_at') }}">
+                                <label class="form-label">Date d'annulation<span class="text-danger ms-1">*</span></label>
+                                <input type="text" class="form-control datetimepicker @error('cancels_at') is-invalid @enderror" name="cancels_at" value="{{ old('cancels_at') }}" id="add-cancels-at">
                                 @error('cancels_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
@@ -114,8 +114,8 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                    <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                 </div>
             </form>
         </div>
@@ -133,7 +133,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modifier l'Abonnement</h4>
+                    <h4 class="modal-title">{{ __("Modifier l'Abonnement") }}</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Fermer"><i class="fa-solid fa-x"></i></button>
                 </div>
                 <form method="POST" action="{{ route('sa.subscriptions.update', $subscription) }}">
@@ -188,25 +188,25 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Date de début<span class="text-danger ms-1">*</span></label>
-                                    <input type="text" class="form-control datetimepicker" name="starts_at" value="{{ old('starts_at', $subscription->starts_at?->format('d-m-Y')) }}">
+                                    <input type="text" class="form-control datetimepicker edit-starts-at" name="starts_at" value="{{ old('starts_at', $subscription->starts_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 edit-ends-at-wrap" style="{{ in_array($subscription->status, ['active', 'past_due']) ? '' : 'display:none;' }}">
                                 <div class="mb-3">
-                                    <label class="form-label">Date de fin</label>
-                                    <input type="text" class="form-control datetimepicker" name="ends_at" value="{{ old('ends_at', $subscription->ends_at?->format('d-m-Y')) }}">
+                                    <label class="form-label">Date de fin<span class="text-danger ms-1 edit-ends-at-required" style="{{ in_array($subscription->status, ['active', 'past_due']) ? '' : 'display:none;' }}">*</span></label>
+                                    <input type="text" class="form-control datetimepicker edit-ends-at" name="ends_at" value="{{ old('ends_at', $subscription->ends_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 edit-trial-wrap" style="{{ $subscription->status === 'trialing' ? '' : 'display:none;' }}">
                                 <div class="mb-3">
-                                    <label class="form-label">Fin de la période d'essai</label>
-                                    <input type="text" class="form-control datetimepicker" name="trial_ends_at" value="{{ old('trial_ends_at', $subscription->trial_ends_at?->format('d-m-Y')) }}">
+                                    <label class="form-label">Fin de la période d'essai<span class="text-danger ms-1">*</span></label>
+                                    <input type="text" class="form-control datetimepicker edit-trial-ends-at" name="trial_ends_at" value="{{ old('trial_ends_at', $subscription->trial_ends_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 edit-cancels-wrap" style="{{ $subscription->status === 'cancelled' ? '' : 'display:none;' }}">
                                 <div class="mb-3">
-                                    <label class="form-label">Date d'annulation</label>
-                                    <input type="text" class="form-control datetimepicker" name="cancels_at" value="{{ old('cancels_at', $subscription->cancels_at?->format('d-m-Y')) }}">
+                                    <label class="form-label">Date d'annulation<span class="text-danger ms-1">*</span></label>
+                                    <input type="text" class="form-control datetimepicker edit-cancels-at" name="cancels_at" value="{{ old('cancels_at', $subscription->cancels_at?->format('d-m-Y')) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -227,8 +227,8 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex align-items-center justify-content-between gap-1">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer les modifications') }}</button>
                     </div>
                 </form>
             </div>
@@ -262,7 +262,7 @@
                                             </div>
                                             <div>
                                                 <a href="javascript:void(0);" class="btn btn-outline-white d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_subscription_{{ $subscription->id }}">
-                                                    <i class="isax isax-edit me-1"></i>Modifier
+                                                    <i class="isax isax-edit me-1"></i>{{ __('Modifier') }}
                                                 </a>
                                             </div>
                                         </div>
@@ -271,7 +271,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <h6 class="fs-14 fw-bold">Informations de l'abonnement</h6>
+                                    <h6 class="fs-14 fw-bold">{{ __("Informations de l'abonnement") }}</h6>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -337,24 +337,30 @@
                                     <h6 class="fs-14 fw-medium mb-0">{{ $subscription->starts_at?->format('d/m/Y') ?? '—' }}</h6>
                                 </div>
                             </div>
+                            @if($subscription->ends_at)
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <span class="fs-14">Date de fin</span>
-                                    <h6 class="fs-14 fw-medium mb-0">{{ $subscription->ends_at?->format('d/m/Y') ?? '—' }}</h6>
+                                    <h6 class="fs-14 fw-medium mb-0">{{ $subscription->ends_at->format('d/m/Y') }}</h6>
                                 </div>
                             </div>
+                            @endif
+                            @if($subscription->trial_ends_at)
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <span class="fs-14">Fin de la période d'essai</span>
-                                    <h6 class="fs-14 fw-medium mb-0">{{ $subscription->trial_ends_at?->format('d/m/Y') ?? '—' }}</h6>
+                                    <h6 class="fs-14 fw-medium mb-0">{{ $subscription->trial_ends_at->format('d/m/Y') }}</h6>
                                 </div>
                             </div>
+                            @endif
+                            @if($subscription->cancels_at)
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <span class="fs-14">Date d'annulation</span>
-                                    <h6 class="fs-14 fw-medium mb-0">{{ $subscription->cancels_at?->format('d/m/Y') ?? '—' }}</h6>
+                                    <h6 class="fs-14 fw-medium mb-0">{{ $subscription->cancels_at->format('d/m/Y') }}</h6>
                                 </div>
                             </div>
+                            @endif
                             @if($subscription->provider_subscription_id)
                                 <div class="col-md-4">
                                     <div class="mb-3">
@@ -385,14 +391,14 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Supprimer l'Abonnement</h6>
+                    <h6 class="mb-1">{{ __("Supprimer l'Abonnement") }}</h6>
                     <p class="mb-3">Êtes-vous sûr de vouloir supprimer l'abonnement de « {{ $subscription->tenant?->name ?? '—' }} » ?</p>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">Annuler</a>
+                        <a href="javascript:void(0);" class="btn btn-outline-white me-3" data-bs-dismiss="modal">{{ __('Annuler') }}</a>
                         <form method="POST" action="{{ route('sa.subscriptions.destroy', $subscription) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Oui, Supprimer</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Oui, Supprimer') }}</button>
                         </form>
                     </div>
                 </div>

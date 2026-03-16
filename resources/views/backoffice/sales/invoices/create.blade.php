@@ -160,13 +160,13 @@
                                                                             id="recurring_interval">
                                                                             <option value="month"
                                                                                 {{ old('recurring_interval') == 'month' ? 'selected' : '' }}>
-                                                                                Mensuel</option>
+                                                                                {{ __('Mensuel') }}</option>
                                                                             <option value="week"
                                                                                 {{ old('recurring_interval') == 'week' ? 'selected' : '' }}>
-                                                                                Hebdomadaire</option>
+                                                                                {{ __('Hebdomadaire') }}</option>
                                                                             <option value="year"
                                                                                 {{ old('recurring_interval') == 'year' ? 'selected' : '' }}>
-                                                                                Annuel</option>
+                                                                                {{ __('Annuel') }}</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="flex-fill">
@@ -558,16 +558,14 @@
                                                             <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="terms" role="tabpanel">
                                                             <label class="form-label">{{ __('Conditions générales') }}</label>
                                                             <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i
                                                                     class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">Paramètres
-                                                                    de facturation</a></small>
+                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
                                                             <label class="form-label">{{ __('Compte bancaire') }}</label>
@@ -657,7 +655,7 @@
                                                                     {{ old('signature_id', $defaultSignature?->id) == $sig->id ? 'selected' : '' }}>
                                                                     {{ $sig->name }}
                                                                     @if ($sig->is_default)
-                                                                        (Par défaut)
+                                                                        {{ __('(Par défaut)') }}
                                                                     @endif
                                                                 </option>
                                                             @endforeach

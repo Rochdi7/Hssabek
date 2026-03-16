@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Route;
 
 /**
  * Public Authentication Routes
- * These routes handle authentication for all tenants
- * Accessible directly without prefix
+ * Single-domain SaaS: no tenant identification needed for auth pages.
+ * Tenant context is set after login via the user's tenant_id.
  */
 
-Route::middleware(['web', 'identifyTenant', 'tenantActive', 'setTenantContext'])->group(function () {
+Route::middleware(['web'])->group(function () {
 
     // Public auth routes (accessible to non-authenticated users)
     Route::middleware('guest')->group(function () {

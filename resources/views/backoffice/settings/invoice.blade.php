@@ -55,35 +55,6 @@
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">{{ __('Préfixe de facture') }}</label>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <div class="mb-3">
-                                                <input type="text" class="form-control @error('invoice_prefix') is-invalid @enderror"
-                                                    name="invoice_prefix"
-                                                    value="{{ old('invoice_prefix', $settings->invoice_settings['invoice_prefix'] ?? 'FAC-') }}"
-                                                    placeholder="FAC-">
-                                                @error('invoice_prefix')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">{{ __('Arrondi de facture') }}</label>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <div class="mb-3 d-flex align-items-center">
-                                                <select class="form-select @error('invoice_round_off') is-invalid @enderror" name="invoice_round_off">
-                                                    <option value="0" {{ old('invoice_round_off', $settings->invoice_settings['invoice_round_off'] ?? '') == '0' ? 'selected' : '' }}>{{ __('Aucun') }}</option>
-                                                    <option value="5" {{ old('invoice_round_off', $settings->invoice_settings['invoice_round_off'] ?? '') == '5' ? 'selected' : '' }}>5</option>
-                                                    <option value="10" {{ old('invoice_round_off', $settings->invoice_settings['invoice_round_off'] ?? '') == '10' ? 'selected' : '' }}>10</option>
-                                                </select>
-                                                @error('invoice_round_off')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-md-8 col-sm-12">
                                             <label class="form-label fw-medium">{{ __("Afficher les détails de l'entreprise") }}</label>
                                         </div>
                                         <div class="col-md-4 col-sm-12">
@@ -93,20 +64,6 @@
                                                         role="switch" name="show_company_details" value="1"
                                                         {{ old('show_company_details', $settings->invoice_settings['show_company_details'] ?? true) ? 'checked' : '' }}>
                                                 </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center mt-3">
-                                        <div class="col-md-8 col-sm-12">
-                                            <label class="form-label fw-medium">{{ __('Délai de paiement (jours)') }}</label>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <div class="mb-3">
-                                                <input type="number" class="form-control @error('payment_terms_days') is-invalid @enderror"
-                                                    name="payment_terms_days"
-                                                    value="{{ old('payment_terms_days', $settings->invoice_settings['payment_terms_days'] ?? '30') }}"
-                                                    min="0" max="365">
-                                                @error('payment_terms_days')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                             </div>
                                         </div>
                                     </div>

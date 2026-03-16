@@ -84,6 +84,10 @@
                         @if(!empty($company['tax_id']))<p class="mb-1">IF : <span class="text-dark"> {{ $company['tax_id'] }}</span></p>@endif
                         @if(!empty($company['ice']))<p class="mb-1">ICE : <span class="text-dark"> {{ $company['ice'] }}</span></p>@endif
                         @if(!empty($company['rc']))<p class="mb-1">RC : <span class="text-dark"> {{ $company['rc'] }}</span></p>@endif
+                        @if(!empty($company['cnss']))<p class="mb-1">CNSS : <span class="text-dark"> {{ $company['cnss'] }}</span></p>@endif
+                        @if(!empty($company['patente']))<p class="mb-1">Patente : <span class="text-dark"> {{ $company['patente'] }}</span></p>@endif
+                        @if(!empty($company['numero_ae']))<p class="mb-1">N° AE : <span class="text-dark"> {{ $company['numero_ae'] }}</span></p>@endif
+                        @if(!empty($company['cin']))<p class="mb-1">CIN : <span class="text-dark"> {{ $company['cin'] }}</span></p>@endif
                         @if(!empty($company['address']))<p class="mb-1">Adresse : <span class="text-dark"> {{ $company['address'] }}@if(!empty($company['city'])), {{ $company['city'] }}@endif @if(!empty($company['postal_code'])) {{ $company['postal_code'] }}@endif @if(!empty($company['country'])) {{ $company['country'] }}@endif</span></p>@endif
                         @if(!empty($company['phone']))<p class="mb-0">Tél : <span class="text-dark"> {{ $company['phone'] }}</span></p>@endif
                     </div>
