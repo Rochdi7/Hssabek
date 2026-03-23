@@ -1,7 +1,7 @@
 <?php $page = 'credit-note-details'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Détails de l'Avoir')
-@section('description', 'Consulter les détails de l'avoir')
+@section('title', "Détails de l'Avoir")
+@section('description', "Consulter les détails de l'avoir")
 @section('content')
     <div class="page-wrapper">
         <div class="content">

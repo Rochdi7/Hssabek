@@ -1,7 +1,7 @@
 <?php $page = 'customers-report'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', 'Rapport des Clients')
-@section('description', 'Analyser l'activité des clients')
+@section('description', "Analyser l'activité des clients")
 @section('content')
     <!-- Based on customers-report.blade.php layout -->
 

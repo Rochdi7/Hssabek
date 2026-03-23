@@ -1,6 +1,6 @@
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Accepter l'Invitation')
-@section('description', 'Accepter l'invitation et créer votre compte')
+@section('title', "Accepter l'Invitation")
+@section('description', "Accepter l'invitation et créer votre compte")
 @section('content')
     <!-- ========================
             Start Page Content

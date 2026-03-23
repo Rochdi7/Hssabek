@@ -1,7 +1,7 @@
 <?php $page = 'bo-dashboard'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', 'Accueil')
-@section('description', 'Page d'accueil du backoffice')
+@section('description', "Page d'accueil du backoffice")
 
 @section('content')
     <div class="page-wrapper">

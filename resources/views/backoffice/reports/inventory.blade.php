@@ -1,6 +1,6 @@
 <?php $page = 'inventory-report'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Rapport d'Inventaire')
+@section('title', "Rapport d'Inventaire")
 @section('description', 'Analyser les stocks et mouvements')
 @section('content')
     <!-- Based on inventory-report.blade.php layout -->

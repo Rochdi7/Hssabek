@@ -1,7 +1,7 @@
 <?php $page = 'plans'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', 'Plans')
-@section('description', 'Gérer les plans d'abonnement')
+@section('description', "Gérer les plans d'abonnement")
 @section('content')
     <!-- ========================
                Start Page Content

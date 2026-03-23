@@ -1,7 +1,7 @@
 <?php $page = 'edit-credit-notes'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Modifier l'Avoir')
-@section('description', 'Modifier les détails de l'avoir')
+@section('title', "Modifier l'Avoir")
+@section('description', "Modifier les détails de l'avoir")
 @section('content')
     <!-- ========================
                 Start Page Content

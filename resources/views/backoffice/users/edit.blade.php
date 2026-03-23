@@ -1,7 +1,7 @@
 <?php $page = 'users'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Modifier l'Utilisateur')
-@section('description', 'Modifier les détails de l'utilisateur')
+@section('title', "Modifier l'Utilisateur")
+@section('description', "Modifier les détails de l'utilisateur")
 @section('content')
     <!-- ========================
             Start Page Content
