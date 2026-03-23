@@ -150,6 +150,11 @@ class PageController extends Controller
         return view('frontoffice.pages.faq');
     }
 
+    public function autoEntrepreneur(): View
+    {
+        return view('frontoffice.pages.auto-entrepreneur');
+    }
+
     public function requestAccount(): View
     {
         return view('frontoffice.pages.request-account');

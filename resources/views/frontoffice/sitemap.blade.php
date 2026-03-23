@@ -32,6 +32,11 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>{{ route('auto-entrepreneur') }}</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>{{ route('help-center') }}</loc>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

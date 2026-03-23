@@ -2,7 +2,7 @@
 
 @section('title', __('Fonctionnalités — Facturation Électronique, Devis, Stock & Gestion Commerciale Maroc'))
 @section('meta_description', __('Toutes les fonctionnalités de') . ' ' . config('app.name') . ' : ' . __('facturation électronique conforme DGI, devis en un clic, gestion clients et fournisseurs, stock, achats, bons de commande, avoirs, rapports détaillés et 64+ modèles PDF. Logiciel tout-en-un pour entreprises marocaines.'))
-@section('meta_keywords', 'fonctionnalités logiciel facturation maroc, logiciel devis facture maroc, gestion stock facturation maroc, gestion commerciale en ligne maroc, gestion clients fournisseurs maroc, rapports comptables maroc, facturation ia maroc, logiciel bon de commande maroc, logiciel avoir maroc, modèle facture maroc, gestion trésorerie maroc, suivi paiement facture, facturation électronique DGI')
+@section('meta_keywords', 'application pour devis et facture gratuit, application devis facture gratuit, application facturation gratuite, application factures gratuite, application pour faire des factures gratuit, application gratuite pour faire des factures, logiciel devis facture maroc, gestion stock facturation maroc, logiciel de gestion de stock et facturation maroc, gestion commerciale en ligne maroc, fonctionnalités logiciel facturation maroc, facturation ia maroc, logiciel bon de commande maroc, modèle facture maroc, gestion trésorerie maroc, facturation électronique DGI')
 
 @section('structured_data')
 <script type="application/ld+json">

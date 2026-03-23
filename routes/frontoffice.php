@@ -49,4 +49,7 @@ Route::middleware(['setFrontofficeLocale'])->group(function () {
     Route::get('/support', [PageController::class, 'support'])->name('support');
     Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 
+    // SEO Landing Pages
+    Route::get('/auto-entrepreneur', [PageController::class, 'autoEntrepreneur'])->name('auto-entrepreneur');
+
 });

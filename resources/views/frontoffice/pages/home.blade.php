@@ -2,7 +2,7 @@
 
 @section('title', __('Logiciel de Facturation en Ligne au Maroc — Factures & Devis IA'))
 @section('meta_description', __('Logiciel de facturation électronique conforme DGI au Maroc. Créez factures et devis en 10 secondes grâce à l\'IA. Idéal auto-entrepreneurs, PME et grandes entreprises. Essai gratuit.'))
-@section('meta_keywords', 'logiciel facturation maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facturation auto entrepreneur maroc, créer facture en ligne maroc, devis en ligne maroc, gestion commerciale maroc, logiciel comptable marocain, facturation conforme DGI, meilleur logiciel facturation maroc 2026, facture électronique DGI, logiciel facture gratuit maroc, hssabek, facturation ia, facture automatique, logiciel gestion commerciale maroc, e-facturation maroc')
+@section('meta_keywords', 'logiciel facturation maroc, logiciel de facturation maroc, logiciel facturation gratuit maroc, logiciel de facturation gratuit maroc, application de facturation gratuit, application facturation gratuite, application gratuite facture, application de facture gratuite, logiciel gestion commerciale maroc, logiciel de gestion commerciale maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facturation auto entrepreneur maroc, devis en ligne maroc, facturation conforme DGI, meilleur logiciel facturation maroc, facture électronique DGI, hssabek, facturation ia, e-facturation maroc')
 @section('og_type', 'website')
 
 @section('structured_data')
