@@ -6,6 +6,7 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "clean-css-cli": "^5.6.3",
         "laravel-vite-plugin": "^2.0.1",
         "puppeteer": "^24.40.0",
         "sharp": "^0.34.5",

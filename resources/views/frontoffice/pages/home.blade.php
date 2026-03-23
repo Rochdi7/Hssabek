@@ -84,7 +84,7 @@
 				</div>
 				<div class="col-lg-5">
 					<div class="banner-img rounded-4">
-						<img src="{{ url('assets/images/sass screenshots/dashboard.png') }}" class="img-fluid banner-main-img rounded-4 w-100" alt="Aperçu tableau de bord" fetchpriority="high">
+						<img src="{{ url('assets/images/sass screenshots/dashboard.png') }}" class="img-fluid banner-main-img rounded-4 w-100" alt="Aperçu tableau de bord" fetchpriority="high" width="800" height="406">
 					</div>
 				</div>
 			</div>
@@ -143,8 +143,8 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
 					<div class="app-demo-img pe-lg-5">
-						<span><img src="{{ url('assets/images/sass screenshots/arabci dashboard 2.png') }}" class="img-fluid border border-dark rounded-4 border-5" loading="lazy" alt="Démo"></span>
-						<span><img src="{{ url('assets/images/sass screenshots/dashboard.png') }}" class="img-fluid demo-img-one" loading="lazy" alt="Démo"></span>
+						<span><img src="{{ url('assets/images/sass screenshots/arabci dashboard 2.png') }}" class="img-fluid border border-dark rounded-4 border-5" loading="lazy" alt="Démo" width="800" height="403"></span>
+						<span><img src="{{ url('assets/images/sass screenshots/dashboard.png') }}" class="img-fluid demo-img-one" loading="lazy" alt="Démo" width="800" height="406"></span>
 					</div>
 				</div>
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="700">
@@ -286,7 +286,7 @@
 				<div class="invoive-temp-slider owl-carousel">
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="600">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/invoice/model-1.png') }}" alt="{{ __('Facture') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/invoice/model-1.png') }}" alt="{{ __('Facture') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Facture') }}</h6>
@@ -294,7 +294,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="700">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/quote/model-1.png') }}" alt="{{ __('Devis') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/quote/model-1.png') }}" alt="{{ __('Devis') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Devis') }}</h6>
@@ -302,7 +302,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="800">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/credit-note/model-1.png') }}" alt="{{ __('Avoir') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/credit-note/model-1.png') }}" alt="{{ __('Avoir') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Avoir') }}</h6>
@@ -310,7 +310,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="900">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/purchase-order/model-1.png') }}" alt="{{ __('Bon de commande') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/purchase-order/model-1.png') }}" alt="{{ __('Bon de commande') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Bon de commande') }}</h6>
@@ -318,7 +318,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1000">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/delivery-challan/model-1.png') }}" alt="{{ __('Bon de livraison') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/delivery-challan/model-1.png') }}" alt="{{ __('Bon de livraison') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Bon de livraison') }}</h6>
@@ -326,7 +326,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1100">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/goods-receipt/model-1.png') }}" alt="{{ __('Bon de réception') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/goods-receipt/model-1.png') }}" alt="{{ __('Bon de réception') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Bon de réception') }}</h6>
@@ -334,7 +334,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1200">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/payment-receipt/model-1.png') }}" alt="{{ __('Reçu de paiement') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/payment-receipt/model-1.png') }}" alt="{{ __('Reçu de paiement') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Reçu de paiement') }}</h6>
@@ -342,7 +342,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1300">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/supplier-payment-receipt/model-1.png') }}" alt="{{ __('Reçu paiement fournisseur') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/supplier-payment-receipt/model-1.png') }}" alt="{{ __('Reçu paiement fournisseur') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Reçu paiement fournisseur') }}</h6>
@@ -350,7 +350,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1400">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/vendor-bill/model-1.png') }}" alt="{{ __('Facture fournisseur') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/vendor-bill/model-1.png') }}" alt="{{ __('Facture fournisseur') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Facture fournisseur') }}</h6>
@@ -358,7 +358,7 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1500">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/debit-note/model-1.png') }}" alt="{{ __('Note de débit') }}">
+							<img loading="lazy" src="{{ url('assets/images/templates/debit-note/model-1.png') }}" alt="{{ __('Note de débit') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
 							<h6>{{ __('Note de débit') }}</h6>
@@ -403,8 +403,8 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
 					<div class="app-demo-img pe-lg-5">
-						<span><img src="{{ url('assets/images/sass screenshots/management model.png') }}" class="img-fluid border border-dark rounded-4 border-5" loading="lazy" alt="{{ __('+64 modèles') }}"></span>
-						<span><img src="{{ url('assets/images/sass screenshots/gestion model facture.png') }}" class="img-fluid demo-img-one" loading="lazy" alt="{{ __('Gestion des modèles') }}"></span>
+						<span><img src="{{ url('assets/images/sass screenshots/management model.png') }}" class="img-fluid border border-dark rounded-4 border-5" loading="lazy" alt="{{ __('+64 modèles') }}" width="800" height="407"></span>
+						<span><img src="{{ url('assets/images/sass screenshots/gestion model facture.png') }}" class="img-fluid demo-img-one" loading="lazy" alt="{{ __('Gestion des modèles') }}" width="800" height="406"></span>
 					</div>
 				</div>
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="700">

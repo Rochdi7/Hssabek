@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
 
             // 6) Données de production par défaut (unités, méthodes de paiement, TVA, séquences, devises, entrepôt)
             TenantDefaultsSeeder::class,
+
+            // 7) Tenant de démonstration + Super Admin
+            DemoTenantSeeder::class,
         ]);
     }
 }
