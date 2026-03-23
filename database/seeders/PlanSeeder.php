@@ -14,9 +14,9 @@ class PlanSeeder extends Seeder
     {
         $plans = [
             [
-                'name' => 'Free',
+                'name' => 'Gratuit',
                 'code' => 'free',
-                'interval' => 'month',
+                'interval' => 'lifetime',
                 'price' => 0.00,
                 'currency' => 'MAD',
                 'trial_days' => 0,
@@ -28,46 +28,17 @@ class PlanSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'Starter',
-                'code' => 'starter',
-                'interval' => 'month',
-                'price' => 99.00,
-                'currency' => 'MAD',
-                'trial_days' => 14,
-                'is_active' => true,
-                'features' => [
-                    'max_invoices' => 500,
-                    'max_users' => 3,
-                    'modules' => ['sales', 'crm', 'inventory', 'purchases', 'reports'],
-                ],
-            ],
-            [
-                'name' => 'Pro',
-                'code' => 'pro',
-                'interval' => 'month',
-                'price' => 299.00,
-                'currency' => 'MAD',
-                'trial_days' => 14,
-                'is_active' => true,
-                'features' => [
-                    'max_invoices' => -1, // Unlimited
-                    'max_users' => 10,
-                    'modules' => ['sales', 'crm', 'inventory', 'purchases', 'finance', 'reports', 'pro'],
-                ],
-            ],
-            [
-                'name' => 'Enterprise',
-                'code' => 'enterprise',
-                'interval' => 'month',
-                'price' => 0.00, // Custom pricing
+                'name' => 'Premium',
+                'code' => 'premium',
+                'interval' => 'lifetime',
+                'price' => 399.00,
                 'currency' => 'MAD',
                 'trial_days' => 0,
                 'is_active' => true,
                 'features' => [
-                    'max_invoices' => -1, // Unlimited
-                    'max_users' => -1,    // Unlimited
+                    'max_invoices' => -1,
+                    'max_users' => -1,
                     'modules' => ['sales', 'crm', 'inventory', 'purchases', 'finance', 'reports', 'pro', 'api'],
-                    'custom_pricing' => true,
                 ],
             ],
         ];

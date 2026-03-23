@@ -10,29 +10,23 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // 1) Plans (global, no tenant FK)
-            // PlanSeeder::class,
+            // 1) Plans d'abonnement (Free, Starter, Pro, Enterprise)
+            PlanSeeder::class,
 
-            // 2) Permissions (~120 permission strings)
+            // 2) Permissions (~120 chaînes de permissions)
             PermissionSeeder::class,
 
-            // 3) Roles (super_admin + global role templates)
+            // 3) Rôles (super_admin + templates de rôles globaux)
             RoleSeeder::class,
 
-            // 4) Demo tenant with users, role assignments, subscription (dev only)
-            DemoTenantSeeder::class,
-
-            // 5) Template catalog (global templates)
+            // 4) Catalogue de templates (modèles globaux)
             TemplateCatalogSeeder::class,
 
-            // 6) Finance categories for all tenants
+            // 5) Catégories financières pour tous les tenants
             FinanceCategorySeeder::class,
 
-            // 7) Default production data (units, payment methods, taxes, sequences, currencies, etc.)
+            // 6) Données de production par défaut (unités, méthodes de paiement, TVA, séquences, devises, entrepôt)
             TenantDefaultsSeeder::class,
-
-            // 8) Fake data for all CRUD operations (customers, products, invoices, etc.)
-            // FakeDataSeeder::class,
         ]);
     }
 }
