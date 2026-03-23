@@ -42,7 +42,7 @@
 @section('content')
 
 <!-- User Empowerment Section -->
-<section class="user-empowerment-sec" id="features">
+<section class="user-empowerment-sec" style="overflow-x: clip;" id="features">
 	<div class="container">
 		<div class="sec-bg-img">
 			<img src="{{ url('build/img/bg/sec-bg-06.png') }}" class="vector-bg-one" alt="Bg">
