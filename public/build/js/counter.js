@@ -5,14 +5,16 @@ Template Name: Clockfie - Bootstrap Admin Template
 
 (function () {
     "use strict";
-	
-	// Counter 
-	if($('.counter').length > 0) {
-		$('.counter').counterUp({
-			delay: 20,
-			time: 2000
-		});
-	}
+
+	// Counter
+	$(window).on('load', function() {
+		if($('.counter').length > 0) {
+			$('.counter').counterUp({
+				delay: 20,
+				time: 2000
+			});
+		}
+	});
 
 	if($('#timer-countdown').length > 0) {
 		$( '#timer-countdown' ).countdown( {

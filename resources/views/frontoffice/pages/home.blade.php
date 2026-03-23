@@ -155,15 +155,15 @@
 						</div>
 						<ul class="app-more-info">
 							<li>
-								<p class="h4"><span class="counter">112</span><sup>+</sup></p>
+								<p class="h4"><span>112</span><sup>+</sup></p>
 								<p>{{ __('Clients servis') }}</p>
 							</li>
 							<li class="active">
-								<p class="h4"><span class="counter">64</span><sup>%</sup></p>
+								<p class="h4"><span>64</span><sup>%</sup></p>
 								<p>{{ __('Croissance engagement') }}</p>
 							</li>
 							<li>
-								<p class="h4"><span class="counter">90</span><sup>%</sup></p>
+								<p class="h4"><span>90</span><sup>%</sup></p>
 								<p>{{ __('Satisfaction client') }}</p>
 							</li>
 						</ul>
@@ -415,11 +415,11 @@
 						</div>
 						<ul class="app-more-info">
 							<li>
-								<p class="h4"><span class="counter">64</span><sup>+</sup></p>
+								<p class="h4"><span>64</span><sup>+</sup></p>
 								<p>{{ __('Modèles disponibles') }}</p>
 							</li>
 							<li class="active">
-								<p class="h4"><span class="counter">10</span></p>
+								<p class="h4"><span>10</span></p>
 								<p>{{ __('Types de documents') }}</p>
 							</li>
 							<li>
