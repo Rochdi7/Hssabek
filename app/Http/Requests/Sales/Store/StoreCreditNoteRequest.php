@@ -19,6 +19,7 @@ class StoreCreditNoteRequest extends FormRequest
 
         return [
             'customer_id' => ['required', 'uuid', Rule::exists('customers', 'id')->where('tenant_id', $tenantId)],
+            'bank_account_id' => ['required', 'uuid', Rule::exists('bank_accounts', 'id')->where('tenant_id', $tenantId)],
             'invoice_id' => ['nullable', 'uuid', Rule::exists('invoices', 'id')->where('tenant_id', $tenantId)],
             'issue_date' => ['required', 'date'],
             'enable_tax' => ['nullable', 'boolean'],
@@ -38,6 +39,8 @@ class StoreCreditNoteRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'bank_account_id.required' => __('Le compte bancaire est obligatoire.'),
+            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
             'customer_id.required' => __('Le client est obligatoire.'),
             'customer_id.exists' => __('Le client sélectionné est invalide.'),
             'invoice_id.exists' => __('La facture sélectionnée est invalide.'),

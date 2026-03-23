@@ -1,5 +1,7 @@
 <?php $page = 'goods-receipts'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Bons de Réception')
+@section('description', 'Liste de tous les bons de réception')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">
@@ -29,6 +31,99 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Total réceptions') }}</p>
+                                    <h6 class="fs-16 fw-semibold">{{ number_format($goodsReceipts->total(), 0, ',', ' ') }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-primary rounded-circle">
+                                        <i class="isax isax-box"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Toutes les réceptions') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Reçues') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-success">
+                                        {{ \App\Models\Purchases\GoodsReceipt::where('status', 'received')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-success rounded-circle">
+                                        <i class="isax isax-tick-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Réceptions confirmées') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Brouillons') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-warning">
+                                        {{ \App\Models\Purchases\GoodsReceipt::where('status', 'draft')->count() }}
+                                    </h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-warning rounded-circle">
+                                        <i class="isax isax-timer"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Réceptions en brouillon') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Annulées') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-danger">
+                                        {{ \App\Models\Purchases\GoodsReceipt::where('status', 'cancelled')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-danger rounded-circle">
+                                        <i class="isax isax-information"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Réceptions annulées') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Summary Cards -->
 
             <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
@@ -76,20 +171,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($receipts as $receipt)
+                        @foreach ($goodsReceipts as $goodsReceipt)
                             <tr>
                                 <td>
                                     <div class="form-check form-check-md">
                                         <input class="form-check-input" type="checkbox">
                                     </div>
                                 </td>
-                                <td><span class="fw-medium">{{ $receipt->number }}</span></td>
-                                <td>{{ $receipt->purchaseOrder->number ?? '—' }}</td>
-                                <td>{{ $receipt->warehouse->name ?? '—' }}</td>
-                                <td>{{ $receipt->received_at ? \Carbon\Carbon::parse($receipt->received_at)->format('d/m/Y') : '—' }}
+                                <td><span class="fw-medium">{{ $goodsReceipt->number }}</span></td>
+                                <td>{{ $goodsReceipt->purchaseOrder->number ?? '—' }}</td>
+                                <td>{{ $goodsReceipt->warehouse->name ?? '—' }}</td>
+                                <td>{{ $goodsReceipt->received_at ? \Carbon\Carbon::parse($goodsReceipt->received_at)->format('d/m/Y') : '—' }}
                                 </td>
                                 <td>
-                                    @switch($receipt->status)
+                                    @switch($goodsReceipt->status)
                                         @case('draft')
                                             <span class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
                                         @break
@@ -104,7 +199,7 @@
 
                                         @default
                                             <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ ucfirst($receipt->status) }}</span>
+                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ ucfirst($goodsReceipt->status) }}</span>
                                     @endswitch
                                 </td>
                                 <td class="action-item">
@@ -113,18 +208,18 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('bo.purchases.goods-receipts.show', $receipt) }}"
+                                            <a href="{{ route('bo.purchases.goods-receipts.show', $goodsReceipt) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('bo.purchases.goods-receipts.edit', $receipt) }}"
+                                            <a href="{{ route('bo.purchases.goods-receipts.edit', $goodsReceipt) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
-                                                action="{{ route('bo.purchases.goods-receipts.destroy', $receipt) }}">
+                                                action="{{ route('bo.purchases.goods-receipts.destroy', $goodsReceipt) }}">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
@@ -140,7 +235,7 @@
                 </table>
             </div>
 
-            @include('backoffice.components.table-footer', ['paginator' => $receipts])
+            @include('backoffice.components.table-footer', ['paginator' => $goodsReceipts])
 
             @component('backoffice.components.footer')
             @endcomponent

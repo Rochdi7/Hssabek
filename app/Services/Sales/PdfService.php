@@ -23,10 +23,10 @@ class PdfService
      * Available template styles.
      */
     public const TEMPLATES = [
-        'default' => ['name' => 'Standard', 'paid' => false],
-        'modern'  => ['name' => 'Moderne', 'paid' => false],
-        'classic' => ['name' => 'Classique', 'paid' => false],
-        'elegant' => ['name' => 'Élégant', 'paid' => false],
+        'default' => ['name' => 'Modèle 1', 'paid' => false],
+        'modern'  => ['name' => 'Modèle 2', 'paid' => false],
+        'classic' => ['name' => 'Modèle 3', 'paid' => false],
+        'elegant' => ['name' => 'Modèle 4', 'paid' => false],
     ];
 
     /**

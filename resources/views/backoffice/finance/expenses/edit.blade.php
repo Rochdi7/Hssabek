@@ -1,5 +1,7 @@
 <?php $page = 'expenses'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier la Dépense')
+@section('description', 'Modifier les détails de la dépense')
 @section('content')
     <!-- ========================
                         Start Page Content
@@ -207,9 +209,9 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">{{ __('Compte bancaire') }}</label>
+                                                <label class="form-label">{{ __('Compte bancaire') }}<span class="text-danger ms-1">*</span></label>
                                                 <select class="form-select @error('bank_account_id') is-invalid @enderror"
-                                                    name="bank_account_id">
+                                                    name="bank_account_id" required>
                                                     <option value="">{{ __('— Sélectionner —') }}</option>
                                                     @foreach ($bankAccounts as $bankAccount)
                                                         <option value="{{ $bankAccount->id }}"

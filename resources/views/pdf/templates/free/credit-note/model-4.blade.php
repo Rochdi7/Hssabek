@@ -4,330 +4,368 @@
     <meta charset="UTF-8">
     <title>Avoir {{ $creditNote->number }}</title>
     @php
-        $brandColor = $settings?->company_settings['brand_color'] ?? '#2563eb';
+        $brandColor = $settings?->company_settings['brand_color'] ?? '#2c3e50';
+        $accentColor = '#e67e22';
+        $company = $settings?->company_settings ?? [];
     @endphp
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: DejaVu Sans, sans-serif;
-            font-size: 11px;
-            color: #2d2d2d;
-            line-height: 1.6;
-            background: #fff;
-        }
-        .page {
-            padding: 45px 50px;
+        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #333; line-height: 1.5; }
+        .page { padding: 0; }
+
+        /* ── Top band ────────────────────────────────────────── */
+        .top-band {
+            background: {{ $brandColor }};
+            padding: 25px 40px;
             position: relative;
         }
-
-        /* Watermark */
-        .watermark {
-            position: fixed;
-            top: 280px;
-            left: 50%;
-            font-size: 110px;
-            color: #f0f0f0;
-            letter-spacing: 15px;
+        .top-band-table { width: 100%; }
+        .top-band-table td { vertical-align: middle; }
+        .top-band .doc-title {
+            font-size: 28px;
             font-weight: bold;
-            text-transform: uppercase;
-            transform: rotate(-35deg);
-            z-index: 0;
-            white-space: nowrap;
-            margin-left: -230px;
-        }
-
-        /* Header */
-        .header-table { width: 100%; margin-bottom: 40px; border-collapse: collapse; }
-        .header-table td { vertical-align: top; }
-
-        .company-name {
-            font-size: 15px;
-            font-weight: bold;
-            color: #1a1a1a;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-        }
-        .company-detail {
-            font-size: 9.5px;
-            color: #777;
-            line-height: 1.8;
-        }
-
-        .doc-title {
-            font-size: 32px;
-            font-weight: 300;
-            color: #c8c8c8;
-            text-align: right;
+            color: #ffffff;
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 15px;
         }
-        .doc-meta {
-            font-size: 10px;
-            color: #888;
+        .top-band .doc-number {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+        .logo-box {
             text-align: right;
-            line-height: 2;
         }
-        .doc-meta strong {
-            color: #444;
-            font-weight: 600;
+        .logo-box img {
+            height: 45px;
+        }
+        .logo-box .logo-text {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 8px 16px;
+            display: inline-block;
         }
 
-        /* Status badge */
-        .badge {
-            display: inline-block;
-            padding: 3px 12px;
-            font-size: 8px;
+        /* ── Content ─────────────────────────────────────────── */
+        .content { padding: 25px 40px 30px 40px; }
+
+        /* ── Company + Meta row ──────────────────────────────── */
+        .info-row { width: 100%; margin-bottom: 22px; }
+        .info-row td { vertical-align: top; }
+        .company-name { font-size: 13px; font-weight: bold; color: {{ $brandColor }}; margin-bottom: 3px; }
+        .company-detail { font-size: 9px; color: #666; line-height: 1.8; }
+
+        /* ── Meta card ───────────────────────────────────────── */
+        .meta-card {
+            border: 1px solid #ddd;
+            border-top: 3px solid {{ $accentColor }};
+            padding: 12px 15px;
+        }
+        .meta-card table { width: 100%; border-collapse: collapse; }
+        .meta-card td { font-size: 10px; padding: 3px 0; }
+        .meta-card td.m-label {
             font-weight: bold;
+            color: {{ $brandColor }};
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            width: 50%;
+        }
+        .meta-card td.m-value { text-align: right; color: #444; }
+
+        /* ── Accent bar ──────────────────────────────────────── */
+        .accent-bar {
+            height: 3px;
+            background: {{ $accentColor }};
+            margin: 18px 0;
+        }
+
+        /* ── Billing section ─────────────────────────────────── */
+        .billing-table { width: 100%; margin-bottom: 22px; }
+        .billing-table td { vertical-align: top; font-size: 10px; line-height: 1.8; }
+        .billing-label {
+            font-size: 9px;
+            font-weight: bold;
+            color: {{ $accentColor }};
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 1px solid;
-            margin-top: 4px;
-        }
-        .badge-draft { border-color: #ccc; color: #999; }
-        .badge-issued { border-color: {{ $brandColor }}; color: {{ $brandColor }}; }
-        .badge-applied { border-color: #22c55e; color: #22c55e; }
-        .badge-partially_applied { border-color: #f59e0b; color: #f59e0b; }
-        .badge-void { border-color: #ccc; color: #999; }
-
-        /* Separator line */
-        .accent-line {
-            width: 60px;
-            height: 1px;
-            background: {{ $brandColor }};
-            margin-bottom: 30px;
-        }
-
-        /* Customer block */
-        .customer-section { margin-bottom: 35px; }
-        .customer-label {
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #aaa;
-            margin-bottom: 8px;
-        }
-        .customer-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 4px;
-        }
-        .customer-detail {
-            font-size: 10px;
-            color: #777;
-            line-height: 1.8;
-        }
-        .customer-border {
-            border-bottom: 1px solid #e8e8e8;
-            padding-bottom: 20px;
-        }
-
-        /* Items table */
-        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        .items-table th {
-            padding: 12px 10px;
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #999;
-            font-weight: 600;
-            border-top: 1px solid {{ $brandColor }};
+            margin-bottom: 5px;
+            padding-bottom: 3px;
             border-bottom: 1px solid #eee;
+        }
+        .billing-name { font-size: 12px; font-weight: bold; color: #222; margin: 4px 0 2px; }
+
+        /* ── Items table ─────────────────────────────────────── */
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
+        .items-table th {
+            background: {{ $brandColor }};
+            color: #ffffff;
+            padding: 9px 10px;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .items-table th:first-child { text-align: left; }
         .items-table td {
-            padding: 14px 10px;
-            border-bottom: 1px solid #f2f2f2;
+            padding: 9px 10px;
             font-size: 10px;
-            color: #444;
+            border-bottom: 1px solid #eee;
         }
-        .items-table tr:last-child td { border-bottom: 1px solid #eee; }
-        .item-label { font-weight: 600; color: #2d2d2d; font-size: 10.5px; }
-        .item-description { color: #aaa; font-size: 9px; margin-top: 2px; }
+        .items-table tbody tr:nth-child(even) td { background: #fafafa; }
+        .items-table tbody tr:last-child td { border-bottom: none; }
         .text-right { text-align: right; }
         .text-center { text-align: center; }
 
-        /* Totals */
-        .totals-wrapper { width: 100%; margin-bottom: 30px; }
-        .totals-table { width: 300px; margin-left: auto; }
-        .totals-table td {
-            padding: 8px 12px;
-            font-size: 10.5px;
-            color: #666;
+        /* ── Totals ──────────────────────────────────────────── */
+        .totals-wrapper { width: 100%; margin-bottom: 5px; }
+        .totals-table { width: 280px; margin-left: auto; border-collapse: collapse; }
+        .totals-table td { padding: 5px 10px; font-size: 10px; }
+        .totals-table td.t-label { color: #666; text-align: left; }
+        .totals-table td.t-value { text-align: right; color: #333; }
+        .totals-table .sep-row td { border-top: 1px solid #ddd; }
+
+        /* ── Grand total ─────────────────────────────────────── */
+        .grand-total-bar {
+            background: {{ $brandColor }};
+            padding: 10px 15px;
+            margin-bottom: 15px;
         }
-        .totals-table .label-cell { text-align: left; }
-        .totals-table .value-cell { text-align: right; font-weight: 500; color: #444; }
-        .totals-table .total-row td {
-            font-size: 16px;
-            font-weight: 700;
-            color: {{ $brandColor }};
-            border-top: 1px solid {{ $brandColor }};
-            padding-top: 14px;
-            padding-bottom: 14px;
+        .grand-total-bar table { width: 100%; }
+        .grand-total-bar td { vertical-align: middle; }
+        .grand-total-bar .gt-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .grand-total-bar .gt-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: {{ $accentColor }};
+            text-align: right;
         }
 
-        /* Notes */
-        .notes-block {
-            margin-top: 30px;
-            font-size: 9.5px;
-            color: #999;
-            font-style: italic;
-            line-height: 1.7;
-            padding-top: 15px;
-            border-top: 1px solid #f0f0f0;
+        /* ── Footer ──────────────────────────────────────────── */
+        .footer-section { margin-top: 30px; }
+        .footer-divider {
+            height: 1px;
+            background: #ddd;
+            margin-bottom: 15px;
         }
-        .notes-block strong {
-            color: #666;
-            font-style: normal;
-            font-size: 8px;
+        .footer-table { width: 100%; }
+        .footer-table td { vertical-align: top; font-size: 10px; line-height: 1.8; color: #555; }
+        .footer-title {
+            font-size: 9px;
+            font-weight: bold;
+            color: {{ $brandColor }};
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
+            margin-bottom: 5px;
+        }
+
+        /* ── Legal ───────────────────────────────────────────── */
+        .legal-bar {
+            background: {{ $brandColor }};
+            padding: 8px 40px;
+            margin-top: 20px;
+            font-size: 7px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            letter-spacing: 0.3px;
         }
     </style>
 </head>
 <body>
 <div class="page">
 
-    {{-- Watermark --}}
-    <div class="watermark">AVOIR</div>
-
-    {{-- ─── Header ─────────────────────────────────────────────── --}}
-    <table class="header-table">
-        <tr>
-            <td style="width: 55%;">
-                @if($tenant)
-                    @php
-                        $logoPath = $tenant->getFirstMediaPath('logo');
-                    @endphp
-                    @if($logoPath && file_exists($logoPath))
-                        <img src="{{ $logoPath }}" height="50" alt="logo" style="margin-bottom: 10px;">
-                    @endif
-                @endif
-                @php
-                    $company = $settings?->company_settings ?? [];
-                @endphp
-                <div class="company-name">{{ $company['company_name'] ?? $tenant?->name ?? '' }}</div>
-                <div class="company-detail">
-                    @if(!empty($company['forme_juridique'])) @php $formeLabels = ['sarl'=>'SARL','sarl_au'=>'SARL AU','sa'=>'SA','snc'=>'SNC','scs'=>'SCS','sca'=>'SCA','auto_entrepreneur'=>'Auto-Entrepreneur','ei'=>'Entreprise Individuelle','cooperative'=>'Coopérative']; @endphp {{ $formeLabels[$company['forme_juridique']] ?? strtoupper($company['forme_juridique']) }}@if(!empty($company['capital_social'])) au capital de {{ number_format($company['capital_social'], 2, ',', ' ') }} DH @endif<br>@endif
-                    @if(!empty($company['address'])) {{ $company['address'] }}<br> @endif
-                    @if(!empty($company['city'])) {{ $company['city'] }} @endif
-                    @if(!empty($company['postal_code'])) {{ $company['postal_code'] }} @endif
-                    @if(!empty($company['country'])) {{ $company['country'] }} @endif
-                    @if(!empty($company['phone'])) <br>{{ $company['phone'] }} @endif
-                    @if(!empty($company['email'])) <br>{{ $company['email'] }} @endif
-                    @if(!empty($company['tax_id'])) <br>IF : {{ $company['tax_id'] }} @endif
-                    @if(!empty($company['ice'])) <br>ICE : {{ $company['ice'] }} @endif
-                    @if(!empty($company['rc'])) <br>RC : {{ $company['rc'] }} @endif
-                    @if(!empty($company['cnss'])) <br>CNSS : {{ $company['cnss'] }} @endif
-                    @if(!empty($company['patente'])) <br>Patente : {{ $company['patente'] }} @endif
-                    @if(!empty($company['numero_ae'])) <br>N° AE : {{ $company['numero_ae'] }} @endif
-                    @if(!empty($company['cin'])) <br>CIN : {{ $company['cin'] }} @endif
-                </div>
-            </td>
-            <td style="width: 45%;">
-                <div class="doc-title">Avoir</div>
-                <div class="doc-meta">
-                    <strong>N°</strong> {{ $creditNote->number }}<br>
-                    <strong>Date</strong> {{ $creditNote->issue_date?->format('d/m/Y') }}<br>
-                    @if($creditNote->reference_number)
-                        <strong>Réf.</strong> {{ $creditNote->reference_number }}<br>
-                    @endif
-                    @if($creditNote->invoice)
-                        <strong>Facture</strong> {{ $creditNote->invoice->number }}<br>
-                    @endif
-                    <span class="badge badge-{{ $creditNote->status }}">{{ str_replace('_', ' ', ucfirst($creditNote->status)) }}</span>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <div class="accent-line"></div>
-
-    {{-- ─── Customer ─────────────────────────────────────────────── --}}
-    <div class="customer-section">
-        <div class="customer-border">
-            <div class="customer-label">Client</div>
-            <div class="customer-name">{{ $creditNote->customer?->name ?? '' }}</div>
-            <div class="customer-detail">
-                @if($creditNote->customer?->email) {{ $creditNote->customer->email }}<br> @endif
-                @if($creditNote->customer?->phone) {{ $creditNote->customer->phone }}<br> @endif
-                @if($creditNote->customer?->tax_id) IF : {{ $creditNote->customer->tax_id }} @endif
-            </div>
-        </div>
-    </div>
-
-    {{-- ─── Items table ────────────────────────────────────────── --}}
-    <table class="items-table">
-        <thead>
+    {{-- ─── Top colored band ─────────────────────────────────────── --}}
+    <div class="top-band">
+        <table class="top-band-table">
             <tr>
-                <th style="width: 5%;">#</th>
-                <th style="width: 40%; text-align: left;">Désignation</th>
-                <th class="text-center" style="width: 10%;">Qté</th>
-                <th class="text-right" style="width: 15%;">Prix unit.</th>
-                @if($creditNote->enable_tax)
-                    <th class="text-right" style="width: 10%;">TVA</th>
-                @endif
-                <th class="text-right" style="width: 15%;">Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($creditNote->items->sortBy('position') as $index => $item)
-            <tr>
-                <td style="color: #bbb;">{{ $index + 1 }}</td>
-                <td>
-                    <div class="item-label">{{ $item->label }}</div>
-                    @if($item->description)
-                        <div class="item-description">{{ $item->description }}</div>
-                    @endif
+                <td style="width: 65%;">
+                    <div class="doc-title">Avoir</div>
+                    <div class="doc-number">N° {{ $creditNote->number }}</div>
                 </td>
-                <td class="text-center">{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ' '), '0'), ',') }}</td>
-                <td class="text-right">{{ number_format($item->unit_price, 2, ',', ' ') }}</td>
-                @if($creditNote->enable_tax)
-                    <td class="text-right">{{ number_format($item->tax_rate, 2) }}%</td>
-                @endif
-                <td class="text-right" style="font-weight: 600; color: #2d2d2d;">{{ number_format($item->line_total, 2, ',', ' ') }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    {{-- ─── Totals ─────────────────────────────────────────────── --}}
-    <div class="totals-wrapper">
-        <table class="totals-table">
-            <tr>
-                <td class="label-cell">Sous-total</td>
-                <td class="value-cell">{{ number_format($creditNote->subtotal, 2, ',', ' ') }} {{ $currency }}</td>
-            </tr>
-            @if($creditNote->enable_tax)
-            <tr>
-                <td class="label-cell">TVA</td>
-                <td class="value-cell">{{ number_format($creditNote->tax_total, 2, ',', ' ') }} {{ $currency }}</td>
-            </tr>
-            @endif
-            @if($creditNote->round_off != 0)
-            <tr>
-                <td class="label-cell">Arrondi</td>
-                <td class="value-cell">{{ number_format($creditNote->round_off, 2, ',', ' ') }} {{ $currency }}</td>
-            </tr>
-            @endif
-            <tr class="total-row">
-                <td class="label-cell">Total Avoir</td>
-                <td class="value-cell">{{ number_format($creditNote->total, 2, ',', ' ') }} {{ $currency }}</td>
+                <td style="width: 35%;">
+                    <div class="logo-box">
+                        @if($tenant)
+                            @php $logoPath = $tenant->getFirstMediaPath('logo'); @endphp
+                            @if($logoPath && file_exists($logoPath))
+                                <img src="{{ $logoPath }}" alt="logo">
+                            @else
+                                <span class="logo-text">LOGO</span>
+                            @endif
+                        @else
+                            <span class="logo-text">LOGO</span>
+                        @endif
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
 
-    {{-- ─── Notes ────────────────────────────────────────────────── --}}
-    @if($creditNote->notes)
-    <div class="notes-block">
-        <strong>Notes</strong><br>
-        {!! nl2br(e($creditNote->notes)) !!}
+    <div class="content">
+
+        {{-- ─── Company info + Meta card ─────────────────────────── --}}
+        <table class="info-row">
+            <tr>
+                <td style="width: 55%;">
+                    <div class="company-name">{{ $company['company_name'] ?? $tenant?->name ?? '' }}</div>
+                    <div class="company-detail">
+                        @if(!empty($company['address'])) {{ $company['address'] }}<br> @endif
+                        @if(!empty($company['postal_code'])) {{ $company['postal_code'] }} @endif
+                        @if(!empty($company['city'])) {{ $company['city'] }} @endif
+                        @if(!empty($company['country'])) <br>{{ $company['country'] }} @endif
+                        @if(!empty($company['phone'])) <br>Tél : {{ $company['phone'] }} @endif
+                        @if(!empty($company['email'])) <br>{{ $company['email'] }} @endif
+                    </div>
+                </td>
+                <td style="width: 45%;">
+                    <div class="meta-card">
+                        <table>
+                            <tr>
+                                <td class="m-label">Avoir n°</td>
+                                <td class="m-value">{{ $creditNote->number }}</td>
+                            </tr>
+                            <tr>
+                                <td class="m-label">Date</td>
+                                <td class="m-value">{{ $creditNote->issue_date?->format('d/m/Y') }}</td>
+                            </tr>
+                            @if($creditNote->reference_number)
+                            <tr>
+                                <td class="m-label">Référence</td>
+                                <td class="m-value">{{ $creditNote->reference_number }}</td>
+                            </tr>
+                            @endif
+                            @if($creditNote->invoice)
+                            <tr>
+                                <td class="m-label">Facture liée</td>
+                                <td class="m-value">{{ $creditNote->invoice->number }}</td>
+                            </tr>
+                            @endif
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="accent-bar"></div>
+
+        {{-- ─── Client ─────────────────────────────────────────────── --}}
+        <table class="billing-table">
+            <tr>
+                <td style="width: 50%;">
+                    <div class="billing-label">Client</div>
+                    <div class="billing-name">{{ $creditNote->customer?->name ?? '' }}</div>
+                    @if($creditNote->customer?->email) {{ $creditNote->customer->email }}<br> @endif
+                    @if($creditNote->customer?->phone) {{ $creditNote->customer->phone }}<br> @endif
+                    @if($creditNote->customer?->tax_id) IF : {{ $creditNote->customer->tax_id }} @endif
+                </td>
+                <td style="width: 50%;"></td>
+            </tr>
+        </table>
+
+        {{-- ─── Items table ──────────────────────────────────────── --}}
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width: 8%;">QTÉ</th>
+                    <th style="width: 42%;">DÉSIGNATION</th>
+                    <th class="text-right" style="width: 25%;">PRIX UNIT. HT</th>
+                    <th class="text-right" style="width: 25%;">MONTANT HT</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($creditNote->items as $item)
+                <tr>
+                    <td class="text-center">{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ' '), '0'), ',') }}</td>
+                    <td>
+                        {{ $item->label }}
+                        @if($item->description)
+                            <br><span style="color: #999; font-size: 9px;">{{ $item->description }}</span>
+                        @endif
+                    </td>
+                    <td class="text-right">{{ number_format($item->unit_price, 2, ',', ' ') }}</td>
+                    <td class="text-right">{{ number_format($item->line_total, 2, ',', ' ') }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        {{-- ─── Subtotals ────────────────────────────────────────── --}}
+        <div class="totals-wrapper">
+            <table class="totals-table">
+                <tr>
+                    <td class="t-label">Total HT</td>
+                    <td class="t-value">{{ number_format($creditNote->subtotal, 2, ',', ' ') }}</td>
+                </tr>
+                @if($creditNote->enable_tax)
+                <tr>
+                    <td class="t-label">TVA {{ number_format($creditNote->items->first()?->tax_rate ?? 20, 1) }}%</td>
+                    <td class="t-value">{{ number_format($creditNote->tax_total, 2, ',', ' ') }}</td>
+                </tr>
+                @endif
+                @if($creditNote->round_off != 0)
+                <tr>
+                    <td class="t-label">Arrondi</td>
+                    <td class="t-value">{{ number_format($creditNote->round_off, 2, ',', ' ') }}</td>
+                </tr>
+                @endif
+            </table>
+        </div>
+
+        {{-- ─── Grand total bar ──────────────────────────────────── --}}
+        <div class="grand-total-bar">
+            <table>
+                <tr>
+                    <td style="width: 50%;">
+                        <span class="gt-label">Total Avoir</span>
+                    </td>
+                    <td style="width: 50%;">
+                        <span class="gt-value">{{ number_format($creditNote->total, 2, ',', ' ') }} {{ $currency }}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        {{-- ─── Signature ────────────────────────────────────────── --}}
+        @include('pdf.partials.signature')
+
+        {{-- ─── Footer ───────────────────────────────────────────── --}}
+        @if($creditNote->notes)
+        <div class="footer-section">
+            <div class="footer-divider"></div>
+            <table class="footer-table">
+                <tr>
+                    <td style="width: 100%;">
+                        <div class="footer-title">Notes</div>
+                        {!! nl2br(e($creditNote->notes)) !!}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @endif
+
+    </div>{{-- /content --}}
+
+    {{-- ─── Legal footer bar ─────────────────────────────────────── --}}
+    @if(!empty($company['forme_juridique']) || !empty($company['tax_id']) || !empty($company['ice']) || !empty($company['rc']))
+    <div class="legal-bar">
+        @php $formeLabels = ['sarl'=>'SARL','sarl_au'=>'SARL AU','sa'=>'SA','snc'=>'SNC','scs'=>'SCS','sca'=>'SCA','auto_entrepreneur'=>'Auto-Entrepreneur','ei'=>'Entreprise Individuelle','cooperative'=>'Coopérative']; @endphp
+        @if(!empty($company['forme_juridique'])) {{ $formeLabels[$company['forme_juridique']] ?? strtoupper($company['forme_juridique']) }} @endif
+        @if(!empty($company['capital_social'])) au capital de {{ number_format($company['capital_social'], 2, ',', ' ') }} DH @endif
+        @if(!empty($company['tax_id'])) — IF : {{ $company['tax_id'] }} @endif
+        @if(!empty($company['ice'])) — ICE : {{ $company['ice'] }} @endif
+        @if(!empty($company['rc'])) — RC : {{ $company['rc'] }} @endif
+        @if(!empty($company['cnss'])) — CNSS : {{ $company['cnss'] }} @endif
+        @if(!empty($company['patente'])) — Patente : {{ $company['patente'] }} @endif
     </div>
     @endif
-
-    {{-- ─── Signature ────────────────────────────────────────────── --}}
-    @include('pdf.partials.signature')
 
 </div>
 </body>

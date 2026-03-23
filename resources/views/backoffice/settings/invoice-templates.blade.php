@@ -1,5 +1,7 @@
 <?php $page = 'invoice-templates-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modèles de Facture')
+@section('description', 'Gérer les modèles de documents')
 @section('content')
     <!-- ========================
                        Start Page Content
@@ -104,7 +106,7 @@
                                                                     <div class="card-body p-2">
                                                                         <div class="invoice-img">
                                                                             <a href="javascript:void(0);">
-                                                                                <img src="{{ asset($tpl->preview_image ?? 'build/img/invoice/general-invoice-01.svg') }}"
+                                                                                <img src="{{ asset($tpl->preview_image ?? 'assets/images/templates/invoice/model-1.png') }}"
                                                                                     alt="{{ $tpl->name }}"
                                                                                     class="w-100">
                                                                             </a>
@@ -185,7 +187,7 @@
                                                                     <div class="card-body p-2">
                                                                         <div class="invoice-img">
                                                                             <a href="javascript:void(0);">
-                                                                                <img src="{{ asset($tpl->preview_image ?? 'build/img/invoice/general-invoice-01.svg') }}"
+                                                                                <img src="{{ asset($tpl->preview_image ?? 'assets/images/templates/invoice/model-1.png') }}"
                                                                                     alt="{{ $tpl->name }}"
                                                                                     class="w-100">
                                                                             </a>
@@ -365,7 +367,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-center mb-3">
-                            <img src="{{ asset($tpl->preview_image ?? 'build/img/invoice/general-invoice-01.svg') }}"
+                            <img src="{{ asset($tpl->preview_image ?? 'assets/images/templates/invoice/model-1.png') }}"
                                 alt="{{ $tpl->name }}" class="img-fluid" style="max-height: 200px;">
                         </div>
                         <h6 class="text-center">{{ $tpl->name }}</h6>

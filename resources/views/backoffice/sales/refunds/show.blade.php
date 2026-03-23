@@ -1,5 +1,7 @@
 <?php $page = 'refunds'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails du Remboursement')
+@section('description', 'Consulter les détails du remboursement')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

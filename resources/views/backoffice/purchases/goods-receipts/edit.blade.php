@@ -1,5 +1,7 @@
 <?php $page = 'goods-receipts'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier le Bon de Réception')
+@section('description', 'Modifier les détails du bon de réception')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

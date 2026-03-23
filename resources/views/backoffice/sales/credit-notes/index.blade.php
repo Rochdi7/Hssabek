@@ -1,5 +1,7 @@
 <?php $page = 'credit-notes'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Avoirs')
+@section('description', 'Liste de tous les avoirs')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">
@@ -25,6 +27,99 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Total avoirs') }}</p>
+                                    <h6 class="fs-16 fw-semibold">{{ number_format($creditNotes->total(), 0, ',', ' ') }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-primary rounded-circle">
+                                        <i class="isax isax-receipt-disscount"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Tous les avoirs') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Émis') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-success">
+                                        {{ \App\Models\Sales\CreditNote::where('status', 'issued')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-success rounded-circle">
+                                        <i class="isax isax-tick-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Avoirs émis') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Appliqués') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-warning">
+                                        {{ \App\Models\Sales\CreditNote::where('status', 'applied')->count() }}
+                                    </h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-warning rounded-circle">
+                                        <i class="isax isax-timer"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Avoirs appliqués') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Annulés') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-danger">
+                                        {{ \App\Models\Sales\CreditNote::where('status', 'void')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-danger rounded-circle">
+                                        <i class="isax isax-information"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Avoirs annulés') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Summary Cards -->
 
             <!-- Table Search -->
             <div class="mb-3">

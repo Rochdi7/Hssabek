@@ -21,6 +21,7 @@ class StoreQuoteRequest extends FormRequest
 
         return [
             'customer_id' => ['required', 'uuid', Rule::exists('customers', 'id')->where('tenant_id', $tenantId)],
+            'bank_account_id' => ['required', 'uuid', Rule::exists('bank_accounts', 'id')->where('tenant_id', $tenantId)],
             'issue_date' => ['required', 'date'],
             'due_date' => ['nullable', 'date', 'after_or_equal:issue_date'],
             'expiry_date' => ['nullable', 'date', 'after_or_equal:issue_date'],
@@ -51,6 +52,8 @@ class StoreQuoteRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'bank_account_id.required' => __('Le compte bancaire est obligatoire.'),
+            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
             'customer_id.required' => __('Le client est obligatoire.'),
             'customer_id.exists' => __('Le client sélectionné est invalide.'),
             'issue_date.required' => __('La date d\'émission est obligatoire.'),

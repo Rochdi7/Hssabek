@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sales\Store\StorePaymentRequest;
 use App\Http\Requests\Sales\Update\UpdatePaymentRequest;
 use App\Models\CRM\Customer;
+use App\Models\Finance\BankAccount;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Models\Sales\PaymentMethod;
@@ -55,28 +56,41 @@ class PaymentController extends Controller
         $this->authorize('create', Payment::class);
 
         $customers = Customer::orderBy('name')->get();
-        $invoices = Invoice::where('amount_due', '>', 0)
-            ->whereIn('status', ['sent', 'partial', 'overdue'])
-            ->with('customer')
-            ->orderBy('issue_date')
-            ->get();
         $paymentMethods = PaymentMethod::orderBy('name')->get();
+        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('payment_ref');
 
         return view('backoffice.sales.payments.create', compact(
             'customers',
-            'invoices',
             'paymentMethods',
+            'bankAccounts',
             'nextReference'
         ));
+    }
+
+    public function customerInvoices(Customer $customer)
+    {
+        $this->authorize('create', Payment::class);
+
+        $invoices = Invoice::where('customer_id', $customer->id)
+            ->where('amount_due', '>', 0)
+            ->whereIn('status', ['sent', 'partial', 'overdue'])
+            ->orderBy('issue_date')
+            ->get(['id', 'number', 'total', 'amount_due', 'status', 'customer_id']);
+
+        return response()->json($invoices);
     }
 
     public function store(StorePaymentRequest $request)
     {
         $this->authorize('create', Payment::class);
 
-        $this->paymentService->create($request->validated());
+        try {
+            $this->paymentService->create($request->validated());
+        } catch (\DomainException $e) {
+            return redirect()->back()->withInput()->withErrors(['allocations' => $e->getMessage()]);
+        }
 
         \App\Services\Reports\ReportService::flushTenantCache();
 

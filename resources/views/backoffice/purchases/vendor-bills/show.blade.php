@@ -1,5 +1,7 @@
 <?php $page = 'vendor-bills'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails de la Facture Fournisseur')
+@section('description', 'Consulter les détails de la facture fournisseur')
 @section('content')
     <!-- ========================
                 Start Page Content

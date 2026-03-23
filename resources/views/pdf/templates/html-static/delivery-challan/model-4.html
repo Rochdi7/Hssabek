@@ -21,17 +21,17 @@
         /* Watermark */
         .watermark {
             position: fixed;
-            top: 280px;
+            top: 40%;
             left: 50%;
             font-size: 72px;
-            color: #f0f0f0;
+            color: rgba(0, 0, 0, 0.04);
             letter-spacing: 10px;
             font-weight: bold;
             text-transform: uppercase;
-            transform: rotate(-35deg);
-            z-index: 0;
+            transform: translate(-50%, -50%) rotate(-35deg);
+            z-index: -1;
             white-space: nowrap;
-            margin-left: -320px;
+            pointer-events: none;
         }
 
         /* Header */

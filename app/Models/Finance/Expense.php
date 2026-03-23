@@ -4,6 +4,7 @@ namespace App\Models\Finance;
 
 use App\Models\Purchases\Supplier;
 use App\Traits\BelongsToTenant;
+use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Expense extends Model
 {
-    use HasFactory, HasUuids, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
     protected $fillable = [
         'expense_number',

@@ -1,5 +1,7 @@
 <?php $page = 'sa-templates'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modèles')
+@section('description', 'Gérer les modèles de documents')
 @section('content')
     <!-- ========================
            Start Page Content

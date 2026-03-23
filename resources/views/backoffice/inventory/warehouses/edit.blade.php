@@ -1,5 +1,7 @@
 <?php $page = 'warehouses'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier l'Entrepôt')
+@section('description', 'Modifier les détails de l'entrepôt')
 @section('content')
     <!-- ========================
             Start Page Content

@@ -1,12 +1,14 @@
 <?php $page = 'add-quotation'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Devis')
+@section('description', 'Créer un nouveau devis')
 @section('content')
     <!-- ========================
                         Start Page Content
                     ========================= -->
 
     @php
-        $currency = App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD';
+        $currencyCode = App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD'; $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
         $tenant = App\Services\Tenancy\TenantContext::get();
     @endphp
 
@@ -450,8 +452,8 @@
                                                                 <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
-                                                            <label class="form-label">{{ __('Compte bancaire') }}</label>
-                                                            <select class="select" name="bank_account_id">
+                                                            <label class="form-label">{{ __('Compte bancaire') }} <span class="text-danger">*</span></label>
+                                                            <select class="select @error('bank_account_id') is-invalid @enderror" name="bank_account_id" required>
                                                                 <option value="">{{ __('Sélectionner') }}</option>
                                                                 @foreach ($bankAccounts as $ba)
                                                                     <option value="{{ $ba->id }}"
@@ -464,6 +466,7 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('bank_account_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                                             <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                         </div>
                                                     </div>

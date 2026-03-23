@@ -1,5 +1,7 @@
 <?php $page = 'refunds'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Remboursements')
+@section('description', 'Liste de tous les remboursements')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">
@@ -28,6 +30,99 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Total remboursements') }}</p>
+                                    <h6 class="fs-16 fw-semibold">{{ number_format($refunds->total(), 0, ',', ' ') }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-primary rounded-circle">
+                                        <i class="isax isax-money-send"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Tous les remboursements') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Réussis') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-success">
+                                        {{ \App\Models\Sales\Refund::where('status', 'succeeded')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-success rounded-circle">
+                                        <i class="isax isax-tick-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Remboursements réussis') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('En attente') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-warning">
+                                        {{ \App\Models\Sales\Refund::where('status', 'pending')->count() }}
+                                    </h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-warning rounded-circle">
+                                        <i class="isax isax-timer"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Remboursements en attente') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Échoués') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-danger">
+                                        {{ \App\Models\Sales\Refund::where('status', 'failed')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-danger rounded-circle">
+                                        <i class="isax isax-information"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Remboursements échoués') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Summary Cards -->
 
             <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">

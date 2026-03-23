@@ -1,7 +1,21 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Demande de compte'))
-@section('meta_description', __('Demandez un compte :app pour votre entreprise. Remplissez le formulaire et nous vous contacterons.', ['app' => config('app.name')]))
+@section('title', __('Essai Gratuit — Créez votre Compte Facturation'))
+@section('meta_description', __('Demandez un compte :app gratuit pour votre entreprise. Essai 7 jours sans carte bancaire. Facturation, devis, stock et gestion commerciale au Maroc.', ['app' => config('app.name')]))
+@section('meta_keywords', 'essai gratuit facturation, créer compte facturation maroc, inscription logiciel comptable, demande accès hssabek')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Demande de compte"}
+	]
+}
+</script>
+@endsection
 
 @section('hero')
 <!-- Hero Section -->

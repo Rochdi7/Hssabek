@@ -1,5 +1,7 @@
 <?php $page = 'edit-invoice'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier la Facture')
+@section('description', 'Modifier les détails de la facture')
 @section('content')
     <!-- ========================
                                             Start Page Content
@@ -11,7 +13,7 @@
         $paymentDays = (int) ($invoiceSettings['payment_terms_days'] ?? 30);
         $roundOff = $invoiceSettings['invoice_round_off'] ?? '0';
         $showCompany = $invoiceSettings['show_company_details'] ?? true;
-        $currency = $tenant->default_currency ?? 'MAD';
+        $currencyCode = $tenant->default_currency ?? 'MAD'; $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
     @endphp
 
     <div class="page-wrapper">
@@ -632,8 +634,8 @@
                                                                 <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                         </div>
                                                         <div class="tab-pane fade" id="bank" role="tabpanel">
-                                                            <label class="form-label">{{ __('Compte bancaire') }}</label>
-                                                            <select class="select" name="bank_account_id">
+                                                            <label class="form-label">{{ __('Compte bancaire') }} <span class="text-danger">*</span></label>
+                                                            <select class="select @error('bank_account_id') is-invalid @enderror" name="bank_account_id" required>
                                                                 <option value="">{{ __('Sélectionner') }}</option>
                                                                 @foreach ($bankAccounts as $ba)
                                                                     <option value="{{ $ba->id }}"
@@ -646,6 +648,7 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('bank_account_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                                             <small class="text-muted bank-balance-info mt-1 d-block"
                                                                 style="display:none;"></small>
                                                         </div>

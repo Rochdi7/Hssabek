@@ -1,5 +1,7 @@
 <?php $page = 'expense-report'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Rapport Financier')
+@section('description', 'Analyser la situation financière')
 @section('content')
     <!-- Based on expense-report.blade.php layout -->
 
@@ -48,7 +50,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('Total revenus') }}</p>
                                     <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalIncome, 2, ',', ' ') }}
-                                        {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                        {{ $currency }}</h6>
                                 </div>
                                 <div>
                                     <span
@@ -72,7 +74,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('Total dépenses') }}</p>
                                     <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalExpenses, 2, ',', ' ') }}
-                                        {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                        {{ $currency }}</h6>
                                 </div>
                                 <div>
                                     <span
@@ -98,7 +100,7 @@
                                     <h6
                                         class="fs-16 fw-semibold mb-0 {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }}">
                                         {{ number_format($netProfit, 2, ',', ' ') }}
-                                        {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                        {{ $currency }}</h6>
                                 </div>
                                 <div>
                                     <span
@@ -212,7 +214,7 @@
                                         <tr>
                                             <td>{{ $cat->category?->name ?? __('Non catégorisé') }}</td>
                                             <td class="text-dark">{{ number_format($cat->total, 2, ',', ' ') }}
-                                                {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
+                                                {{ $currency }}
                                             </td>
                                             <td>{{ $totalExpenses > 0 ? number_format(($cat->total / $totalExpenses) * 100, 1) : 0 }}%
                                             </td>
@@ -246,7 +248,7 @@
                                         <tr>
                                             <td>{{ $cat->category?->name ?? __('Non catégorisé') }}</td>
                                             <td class="text-dark">{{ number_format($cat->total, 2, ',', ' ') }}
-                                                {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
+                                                {{ $currency }}
                                             </td>
                                             <td>{{ $totalIncome > 0 ? number_format(($cat->total / $totalIncome) * 100, 1) : 0 }}%
                                             </td>
@@ -292,7 +294,7 @@
                                 <td>{{ $expense->supplier?->name ?? '-' }}</td>
                                 <td>{{ $expense->expense_date?->format('d/m/Y') }}</td>
                                 <td class="text-dark">{{ number_format($expense->amount, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td>
                                     @switch($expense->payment_status)
                                         @case('paid')
@@ -332,7 +334,7 @@
         <script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}';
+                var currency = '{{ $currency }}';
                 var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
 
                 // Income vs Expenses grouped bar chart

@@ -1,5 +1,7 @@
 <?php $page = 'finance-categories'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Catégories Financières')
+@section('description', 'Gérer les catégories de dépenses et revenus')
 @section('content')
     <!-- ========================
           Start Page Content

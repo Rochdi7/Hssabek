@@ -10,9 +10,9 @@
 
         .header-table { width: 100%; margin-bottom: 25px; }
         .header-table td { vertical-align: top; }
-        .company-name { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
-        .company-detail { font-size: 10px; color: #555; line-height: 1.6; }
-        .doc-title { font-size: 22px; font-weight: bold; color: {{ $settings?->company_settings['brand_color'] ?? '#2563eb' }}; margin-bottom: 8px; text-align: right; }
+        .company-name { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+        .company-detail { font-size: 10px; color: #333; line-height: 1.6; }
+        .doc-title { font-size: 22px; font-weight: bold; text-align: right; margin-bottom: 8px; }
         .doc-meta { font-size: 10px; color: #555; text-align: right; line-height: 1.8; }
         .doc-meta strong { color: #333; }
 
@@ -26,22 +26,20 @@
         .badge-completed { background: #d1e7dd; color: #0f5132; }
         .badge-failed { background: #f8d7da; color: #842029; }
 
-        .amount-box { text-align: center; margin: 25px 0; padding: 20px; background: #f8f9fa; border: 2px solid {{ $settings?->company_settings['brand_color'] ?? '#2563eb' }}; border-radius: 6px; }
+        .amount-box { text-align: center; margin: 25px 0; padding: 20px; background: #f8f9fa; border: 2px solid #e8d44d; border-radius: 6px; }
         .amount-box .label { font-size: 10px; text-transform: uppercase; color: #888; letter-spacing: 0.5px; margin-bottom: 5px; }
-        .amount-box .amount { font-size: 28px; font-weight: bold; color: {{ $settings?->company_settings['brand_color'] ?? '#2563eb' }}; }
+        .amount-box .amount { font-size: 28px; font-weight: bold; color: #b8a620; }
 
         .info-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .info-table td { padding: 8px 12px; font-size: 10px; border-bottom: 1px solid #eee; }
         .info-table td:first-child { font-weight: bold; color: #555; width: 35%; }
 
         .allocations-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .allocations-table th { background: {{ $settings?->company_settings['brand_color'] ?? '#2563eb' }}; color: #fff; padding: 8px 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
-        .allocations-table th:first-child { text-align: left; border-radius: 4px 0 0 0; }
-        .allocations-table th:last-child { border-radius: 0 4px 0 0; }
-        .allocations-table td { padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 10px; }
+        .allocations-table th { background: #e8d44d; color: #333; padding: 8px 10px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; border: 1px solid #ccc; }
+        .allocations-table td { padding: 8px 10px; border: 1px solid #ccc; font-size: 10px; }
         .text-right { text-align: right; }
 
-        .notes-block { margin-top: 25px; padding: 10px 15px; background: #f8f9fa; border-left: 3px solid {{ $settings?->company_settings['brand_color'] ?? '#2563eb' }}; font-size: 10px; color: #555; }
+        .notes-block { margin-top: 25px; padding: 10px 15px; background: #f8f9fa; border-left: 3px solid #e8d44d; font-size: 10px; color: #555; }
         .notes-block strong { color: #333; }
     </style>
 </head>
@@ -160,6 +158,20 @@
 
     {{-- ─── Signature ────────────────────────────────────────────── --}}
     @include('pdf.partials.signature')
+
+    {{-- ─── Legal info footer ────────────────────────────────────── --}}
+    @if(!empty($company['forme_juridique']) || !empty($company['tax_id']) || !empty($company['ice']) || !empty($company['rc']))
+    <div style="margin-top: 15px; font-size: 8px; color: #888; text-align: center; border-top: 1px solid #e9ecef; padding-top: 8px;">
+        @php $formeLabels = ['sarl'=>'SARL','sarl_au'=>'SARL AU','sa'=>'SA','snc'=>'SNC','scs'=>'SCS','sca'=>'SCA','auto_entrepreneur'=>'Auto-Entrepreneur','ei'=>'Entreprise Individuelle','cooperative'=>'Coopérative']; @endphp
+        @if(!empty($company['forme_juridique'])) {{ $formeLabels[$company['forme_juridique']] ?? strtoupper($company['forme_juridique']) }} @endif
+        @if(!empty($company['capital_social'])) au capital de {{ number_format($company['capital_social'], 2, ',', ' ') }} DH @endif
+        @if(!empty($company['tax_id'])) — IF : {{ $company['tax_id'] }} @endif
+        @if(!empty($company['ice'])) — ICE : {{ $company['ice'] }} @endif
+        @if(!empty($company['rc'])) — RC : {{ $company['rc'] }} @endif
+        @if(!empty($company['cnss'])) — CNSS : {{ $company['cnss'] }} @endif
+        @if(!empty($company['patente'])) — Patente : {{ $company['patente'] }} @endif
+    </div>
+    @endif
 
 </div>
 </body>

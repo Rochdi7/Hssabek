@@ -1,5 +1,7 @@
 <?php $page = 'localization-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Langue et Région')
+@section('description', 'Configurer la langue et la région')
 @section('content')
     <!-- ========================
                Start Page Content

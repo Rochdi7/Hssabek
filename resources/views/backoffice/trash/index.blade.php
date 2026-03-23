@@ -1,5 +1,7 @@
 <?php $page = 'trash'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Corbeille')
+@section('description', 'Consulter et restaurer les éléments supprimés')
 @section('content')
     <!-- ========================
           Start Page Content

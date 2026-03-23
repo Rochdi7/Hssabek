@@ -16,7 +16,7 @@ class UpdateSupplierPaymentRequest extends TenantFormRequest
         return [
             'amount'            => ['sometimes', 'numeric', 'gt:0'],
             'paid_at'           => ['sometimes', 'date'],
-            'bank_account_id'   => ['sometimes', 'nullable', 'uuid', $this->tenantExists('bank_accounts')],
+            'bank_account_id'   => ['sometimes', 'required', 'uuid', $this->tenantExists('bank_accounts')],
             'payment_method_id' => ['sometimes', 'nullable', 'uuid', $this->tenantExists('supplier_payment_methods')],
             'reference_number'  => ['sometimes', 'nullable', 'string', 'max:120'],
             'notes'             => ['sometimes', 'nullable', 'string', 'max:2000'],

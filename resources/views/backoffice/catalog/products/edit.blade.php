@@ -1,5 +1,7 @@
 <?php $page = 'edit-product'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier le Produit')
+@section('description', 'Modifier les détails du produit')
 @section('content')
     <!-- ========================
                         Start Page Content

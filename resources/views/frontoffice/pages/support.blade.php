@@ -1,7 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Support'))
-@section('meta_description', __('Support technique') . ' ' . config('app.name') . '. ' . __('Notre équipe est là pour vous aider.'))
+@section('title', __('Support Technique — Assistance Rapide'))
+@section('meta_description', __('Support technique') . ' ' . config('app.name') . '. ' . __('Réponse sous 24h. Assistance par email, centre d\'aide et FAQ pour résoudre tous vos problèmes de facturation.'))
+@section('meta_keywords', 'support technique facturation, assistance logiciel comptable, aide en ligne maroc, support hssabek')
 
 @section('hero')
 <!-- Hero Section -->

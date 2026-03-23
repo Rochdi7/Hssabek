@@ -1,5 +1,7 @@
 <?php $page = 'sa-contact-messages'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Messages de Contact')
+@section('description', 'Consulter les messages de contact')
 @section('content')
     <!-- ========================
                    Start Page Content

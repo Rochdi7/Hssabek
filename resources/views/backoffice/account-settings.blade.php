@@ -1,5 +1,7 @@
 <?php $page = 'account-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Paramètres du Compte')
+@section('description', 'Gérer les paramètres de votre compte utilisateur')
 @section('content')
     <div class="page-wrapper">
         <div class="content">
@@ -52,7 +54,7 @@
                                         <div class="row gx-3">
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Nom <span class="text-danger">*</span></label>
+                                                    <label class="form-label">{{ __('Nom') }} <span class="text-danger">*</span></label>
                                                     <input type="text"
                                                         class="form-control @error('name') is-invalid @enderror"
                                                         name="name" value="{{ old('name', $user->name) }}">
@@ -63,7 +65,7 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">E-mail <span
+                                                    <label class="form-label">{{ __('E-mail') }} <span
                                                             class="text-danger">*</span></label>
                                                     <input type="email"
                                                         class="form-control @error('email') is-invalid @enderror"
@@ -75,7 +77,7 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Téléphone <span
+                                                    <label class="form-label">{{ __('Téléphone') }} <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text"
                                                         class="form-control @error('phone') is-invalid @enderror"
@@ -87,15 +89,15 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Genre</label>
+                                                    <label class="form-label">{{ __('Genre') }}</label>
                                                     <select class="select" name="gender">
-                                                        <option value="">Sélectionner</option>
+                                                        <option value="">{{ __('Sélectionner') }}</option>
                                                         <option value="male"
                                                             {{ old('gender', $user->gender) === 'male' ? 'selected' : '' }}>
-                                                            Homme</option>
+                                                            {{ __('Homme') }}</option>
                                                         <option value="female"
                                                             {{ old('gender', $user->gender) === 'female' ? 'selected' : '' }}>
-                                                            Femme</option>
+                                                            {{ __('Femme') }}</option>
                                                     </select>
                                                     @error('gender')
                                                         <small class="text-danger">{{ $message }}</small>
@@ -104,7 +106,7 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Date de naissance</label>
+                                                    <label class="form-label">{{ __('Date de naissance') }}</label>
                                                     <div class="input-group position-relative mb-3">
                                                         <input type="text"
                                                             class="form-control datetimepicker rounded-end"
@@ -133,7 +135,7 @@
                                         <div class="row gx-3">
                                             <div class="col-lg-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Adresse</label>
+                                                    <label class="form-label">{{ __('Adresse') }}</label>
                                                     <input type="text"
                                                         class="form-control @error('address') is-invalid @enderror"
                                                         name="address" value="{{ old('address', $user->address) }}">
@@ -144,9 +146,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Pays</label>
+                                                    <label class="form-label">{{ __('Pays') }}</label>
                                                     <select class="select" name="country">
-                                                        <option value="">Sélectionner</option>
+                                                        <option value="">{{ __('Sélectionner') }}</option>
                                                         @foreach ($countries as $code => $name)
                                                             <option value="{{ $code }}"
                                                                 {{ old('country', $user->country) === $code ? 'selected' : '' }}>
@@ -160,7 +162,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Région / Province</label>
+                                                    <label class="form-label">{{ __('Région / Province') }}</label>
                                                     <input type="text"
                                                         class="form-control @error('state') is-invalid @enderror"
                                                         name="state" value="{{ old('state', $user->state) }}">
@@ -171,7 +173,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Ville<span
+                                                    <label class="form-label">{{ __('Ville') }}<span
                                                             class="text-danger ms-1">*</span></label>
                                                     <input type="text"
                                                         class="form-control @error('city') is-invalid @enderror"
@@ -183,7 +185,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Code postal<span
+                                                    <label class="form-label">{{ __('Code postal') }}<span
                                                             class="text-danger ms-1">*</span></label>
                                                     <input type="text"
                                                         class="form-control @error('postal_code') is-invalid @enderror"

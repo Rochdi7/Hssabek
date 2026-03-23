@@ -1,5 +1,7 @@
 <?php $page = 'customers'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier le Client')
+@section('description', 'Modifier les détails du client')
 @section('content')
     <!-- ========================
                         Start Page Content

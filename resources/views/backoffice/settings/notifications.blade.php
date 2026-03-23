@@ -1,5 +1,7 @@
 <?php $page = 'notifications-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Notifications')
+@section('description', 'Gérer les préférences de notification')
 @section('content')
     <!-- ========================
                     Start Page Content

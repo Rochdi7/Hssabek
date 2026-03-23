@@ -1,5 +1,7 @@
 <?php $page = 'sa-newsletter'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Newsletter')
+@section('description', 'Gérer la newsletter')
 @section('content')
     <!-- ========================
                    Start Page Content

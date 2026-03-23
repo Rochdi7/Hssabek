@@ -1,5 +1,7 @@
 <?php $page = 'loans'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Prêts')
+@section('description', 'Liste de tous les prêts')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

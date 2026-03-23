@@ -1,5 +1,7 @@
 <?php $page = 'supplier-payment-methods'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Méthodes de Paiement Fournisseurs')
+@section('description', 'Gérer les méthodes de paiement des fournisseurs')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

@@ -1,5 +1,7 @@
 <?php $page = 'sa-announcements'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier l'Annonce')
+@section('description', 'Modifier les détails de l'annonce')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

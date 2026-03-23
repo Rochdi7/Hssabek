@@ -1,5 +1,7 @@
 <?php $page = 'bank-accounts'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails du Compte Bancaire')
+@section('description', 'Consulter les détails du compte bancaire')
 @section('content')
     <!-- ========================
                 Start Page Content

@@ -1,5 +1,7 @@
 <?php $page = 'purchase-orders'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails du Bon de Commande')
+@section('description', 'Consulter les détails du bon de commande')
 @section('content')
     <!-- ========================
                 Start Page Content
@@ -99,7 +101,7 @@
                                         </li>
                                         <li class="d-flex justify-content-between mb-2">
                                             <span class="text-muted">{{ __('Devise') }}</span>
-                                            <span class="fw-semibold">{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</span>
+                                            <span class="fw-semibold">{{ $currency }}</span>
                                         </li>
                                         @if($purchaseOrder->reference_number)
                                             <li class="d-flex justify-content-between mb-2">
@@ -169,21 +171,21 @@
                             <ul class="list-unstyled m-0 p-0">
                                 <li class="d-flex align-items-center justify-content-between mb-3">
                                     <span class="text-muted">{{ __('Sous-total') }}</span>
-                                    <span class="fw-semibold">{{ number_format($purchaseOrder->subtotal, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</span>
+                                    <span class="fw-semibold">{{ number_format($purchaseOrder->subtotal, 2, ',', ' ') }} {{ $currency }}</span>
                                 </li>
                                 @if($purchaseOrder->discount_total > 0)
                                     <li class="d-flex align-items-center justify-content-between mb-3">
                                         <span class="text-muted">{{ __('Remise') }}</span>
-                                        <span class="fw-semibold text-danger">-{{ number_format($purchaseOrder->discount_total, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</span>
+                                        <span class="fw-semibold text-danger">-{{ number_format($purchaseOrder->discount_total, 2, ',', ' ') }} {{ $currency }}</span>
                                     </li>
                                 @endif
                                 <li class="d-flex align-items-center justify-content-between mb-3">
                                     <span class="text-muted">{{ __('Taxes') }}</span>
-                                    <span class="fw-semibold">{{ number_format($purchaseOrder->tax_total, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</span>
+                                    <span class="fw-semibold">{{ number_format($purchaseOrder->tax_total, 2, ',', ' ') }} {{ $currency }}</span>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between pt-3 border-top">
                                     <span class="fw-bold">{{ __('Total') }}</span>
-                                    <span class="fw-bold fs-16">{{ number_format($purchaseOrder->total, 2, ',', ' ') }} {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</span>
+                                    <span class="fw-bold fs-16">{{ number_format($purchaseOrder->total, 2, ',', ' ') }} {{ $currency }}</span>
                                 </li>
                             </ul>
                         </div>

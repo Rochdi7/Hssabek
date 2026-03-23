@@ -1,7 +1,21 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Contact'))
-@section('meta_description', __('Contactez l\'équipe') . ' ' . config('app.name') . '. ' . __('Nous sommes là pour répondre à vos questions.'))
+@section('title', __('Contactez-nous — Support & Assistance Facturation'))
+@section('meta_description', __('Contactez l\'équipe') . ' ' . config('app.name') . '. ' . __('Support réactif sous 24h pour toutes vos questions sur la facturation, les devis et la gestion commerciale au Maroc.'))
+@section('meta_keywords', 'contact hssabek, support facturation maroc, aide logiciel facturation, assistance comptable en ligne')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Contact"}
+	]
+}
+</script>
+@endsection
 
 @section('hero')
 <!-- Hero Section -->
@@ -210,7 +224,7 @@
 			<div class="section-title text-center" data-aos="fade-up">
 				<h2 class="mb-2">{{ __('Prêt à commencer ?') }}</h2>
 				<p class="mx-auto">{{ __('Essayez') }} {{ config('app.name') }} {{ __('gratuitement. Aucune carte bancaire requise.') }}</p>
-				<a href="{{ route('register') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">{{ __('Créer mon compte gratuit') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
+				<a href="{{ route('request-account') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">{{ __('Demander un accès gratuit') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
 			</div>
 		</div>
 	</div>

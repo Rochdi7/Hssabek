@@ -1,5 +1,7 @@
 <?php $page = 'stock-levels'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Stock')
+@section('description', 'Consulter les niveaux de stock')
 @section('content')
     <!-- ========================
                   Start Page Content

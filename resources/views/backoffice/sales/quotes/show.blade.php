@@ -1,5 +1,7 @@
 <?php $page = 'quotation-details'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails du Devis')
+@section('description', 'Consulter les détails du devis')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

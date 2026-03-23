@@ -1,7 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Centre d\'aide'))
-@section('meta_description', __('Centre d\'aide') . ' ' . config('app.name') . '. ' . __('Trouvez des réponses à vos questions et apprenez à utiliser la plateforme.'))
+@section('title', __('Centre d\'aide — Guides & Tutoriels Facturation'))
+@section('meta_description', __('Centre d\'aide') . ' ' . config('app.name') . '. ' . __('Guides pratiques, tutoriels et documentation pour maîtriser la facturation, les devis et la gestion commerciale.'))
+@section('meta_keywords', 'aide facturation, tutoriel logiciel comptable, guide facturation maroc, documentation hssabek')
 
 @section('hero')
 <!-- Hero Section -->

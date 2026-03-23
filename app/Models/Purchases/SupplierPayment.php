@@ -4,6 +4,7 @@ namespace App\Models\Purchases;
 
 use App\Models\Finance\BankAccount;
 use App\Traits\BelongsToTenant;
+use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SupplierPayment extends Model
 {
-    use HasUuids, BelongsToTenant, UsesTenantCurrency;
+    use HasUuids, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
     protected $fillable = [
         'supplier_id',

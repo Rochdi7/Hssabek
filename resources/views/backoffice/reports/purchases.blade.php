@@ -1,5 +1,7 @@
 <?php $page = 'purchases-report'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Rapport des Achats')
+@section('description', 'Analyser les achats')
 @section('content')
     <!-- Based on purchases-report.blade.php layout -->
 
@@ -44,7 +46,7 @@
                                     <div>
                                         <p class="mb-1 text-truncate">{{ __('Total achats') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalPurchases, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                            {{ $currency }}</h6>
                                     </div>
                                     <div>
                                         <span
@@ -63,7 +65,7 @@
                                     <div>
                                         <p class="mb-1 text-truncate">{{ __('Achats payés') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($paidPurchases, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                            {{ $currency }}</h6>
                                     </div>
                                     <div>
                                         <span
@@ -83,7 +85,7 @@
                                         <p class="mb-1 text-truncate">{{ __('Achats en attente') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">
                                             {{ number_format($pendingPurchases, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                            {{ $currency }}</h6>
                                     </div>
                                     <div>
                                         <span
@@ -103,7 +105,7 @@
                                         <p class="mb-1 text-truncate">{{ __('Achats annulés') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">
                                             {{ number_format($cancelledPurchases, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                            {{ $currency }}</h6>
                                     </div>
                                     <div>
                                         <span
@@ -209,11 +211,11 @@
                                     </div>
                                 </td>
                                 <td class="text-dark">{{ number_format($bill->total, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td class="text-dark">{{ number_format($bill->amount_paid, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td class="text-dark">{{ number_format($bill->amount_due, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td>
                                     @switch($bill->status)
                                         @case('paid')
@@ -262,7 +264,7 @@
         <script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}';
+                var currency = '{{ $currency }}';
                 var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
 
                 // Monthly purchases bar chart

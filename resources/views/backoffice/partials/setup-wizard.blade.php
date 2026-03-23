@@ -17,7 +17,7 @@
                 {{-- Progress bar --}}
                 <div class="px-4 pt-3">
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-13 fw-medium text-dark" id="wizardStepLabel">{{ __('Étape 1 sur 7') }}</span>
+                        <span class="fs-13 fw-medium text-dark" id="wizardStepLabel">{{ __('Étape 1 sur 9') }}</span>
                         <span class="fs-13 text-muted" id="wizardStepTitle">{{ __('Informations de l\'entreprise') }}</span>
                     </div>
                     <div class="progress" style="height: 6px;">
@@ -366,9 +366,92 @@
                     </div>
 
                     {{-- ═══════════════════════════════════════════════════ --}}
-                    {{-- STEP 7 — Signature                                --}}
+                    {{-- STEP 7 — Compte bancaire (obligatoire)            --}}
                     {{-- ═══════════════════════════════════════════════════ --}}
                     <div class="wizard-step d-none" id="wizardStep7">
+                        <h6 class="mb-3"><i class="isax isax-bank me-2"></i>{{ __('Compte bancaire principal') }}</h6>
+                        <p class="text-muted fs-13 mb-3">{{ __('Ajoutez votre compte bancaire principal. Il sera utilisé par défaut pour enregistrer les paiements de vos ventes et achats.') }}</p>
+
+                        <div class="alert alert-info fs-13 mb-3">
+                            <i class="isax isax-info-circle me-1"></i>
+                            {{ __('Ce compte est essentiel pour le suivi de vos revenus (ventes) et dépenses (achats). Vous pourrez ajouter d\'autres comptes plus tard.') }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Nom de la banque') }} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="bank_name" required placeholder="{{ __('Ex: Attijariwafa Bank') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Titulaire du compte') }} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="bank_account_holder" required placeholder="{{ __('Ex: Société ABC SARL') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Numéro de compte (RIB)') }} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="bank_account_number" required placeholder="{{ __('24 chiffres') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Type de compte') }} <span class="text-danger">*</span></label>
+                                <select class="form-select" name="bank_account_type" required>
+                                    <option value="current" selected>{{ __('Compte courant') }}</option>
+                                    <option value="business">{{ __('Compte professionnel') }}</option>
+                                    <option value="savings">{{ __('Compte épargne') }}</option>
+                                    <option value="other">{{ __('Autre') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Agence / Succursale') }}</label>
+                                <input type="text" class="form-control" name="bank_branch" placeholder="{{ __('Ex: Casablanca — Agence principale') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Code SWIFT / BIC') }}</label>
+                                <input type="text" class="form-control" name="bank_swift" placeholder="{{ __('Facultatif') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Solde d\'ouverture') }}</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="bank_opening_balance" value="0" min="0" step="0.01" placeholder="0.00">
+                                    <span class="input-group-text">DH</span>
+                                </div>
+                                <small class="text-muted">{{ __('Le solde actuel de votre compte au moment de la configuration.') }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- ═══════════════════════════════════════════════════ --}}
+                    {{-- STEP 8 — Entrepôt / Dépôt d'inventaire            --}}
+                    {{-- ═══════════════════════════════════════════════════ --}}
+                    <div class="wizard-step d-none" id="wizardStep8">
+                        <h6 class="mb-3"><i class="isax isax-box me-2"></i>{{ __('Entrepôt principal') }}</h6>
+                        <p class="text-muted fs-13 mb-3">{{ __('Configurez votre entrepôt ou dépôt principal pour la gestion de votre inventaire et stock.') }}</p>
+
+                        <div class="alert alert-info fs-13 mb-3">
+                            <i class="isax isax-info-circle me-1"></i>
+                            {{ __('Cet entrepôt sera utilisé par défaut pour les réceptions de marchandises, les transferts de stock et le suivi de l\'inventaire. Vous pourrez en ajouter d\'autres plus tard.') }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Nom de l\'entrepôt') }} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="warehouse_name" required value="{{ __('Entrepôt principal') }}" placeholder="{{ __('Ex: Entrepôt principal') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ __('Code') }} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="warehouse_code" required value="EP-001" placeholder="{{ __('Ex: EP-001') }}">
+                                <small class="text-muted">{{ __('Code court pour identifier l\'entrepôt.') }}</small>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">{{ __('Adresse de l\'entrepôt') }}</label>
+                                <input type="text" class="form-control" name="warehouse_address" placeholder="{{ __('Facultatif — Adresse physique de l\'entrepôt') }}">
+                                <small class="text-muted">{{ __('Laissez vide si l\'entrepôt est à la même adresse que l\'entreprise.') }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- ═══════════════════════════════════════════════════ --}}
+                    {{-- STEP 9 — Signature                                --}}
+                    {{-- ═══════════════════════════════════════════════════ --}}
+                    <div class="wizard-step d-none" id="wizardStep9">
                         <h6 class="mb-3"><i class="isax isax-edit me-2"></i>{{ __('Signature de l\'entreprise') }}</h6>
                         <p class="text-muted fs-13 mb-3">{{ __('Ajoutez la signature qui apparaîtra sur vos factures et devis. Vous pouvez passer cette étape et l\'ajouter plus tard.') }}</p>
 
@@ -422,7 +505,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var currentStep = 1;
-    var totalSteps = 7;
+    var totalSteps = 9;
     var customTaxIndex = {{ count($defaultTaxRates) }};
     var customUnitIndex = {{ count($defaultUnits) }};
     var customPmIndex = {{ count($defaultPaymentMethods) }};
@@ -434,7 +517,9 @@ document.addEventListener('DOMContentLoaded', function() {
         4: "{{ __('Taux de taxes (TVA)') }}",
         5: "{{ __('Unités de mesure') }}",
         6: "{{ __('Méthodes de paiement') }}",
-        7: "{{ __('Signature de l\'entreprise') }}"
+        7: "{{ __('Compte bancaire') }}",
+        8: "{{ __('Entrepôt d\'inventaire') }}",
+        9: "{{ __('Signature de l\'entreprise') }}"
     };
 
     function updateWizardUI() {

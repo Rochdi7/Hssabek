@@ -120,6 +120,10 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->middleware('permission:sales.payments.create')
             ->name('create');
 
+        Route::get('/customer-invoices/{customer}', [PaymentController::class, 'customerInvoices'])
+            ->middleware('permission:sales.payments.create')
+            ->name('customer-invoices');
+
         Route::post('/', [PaymentController::class, 'store'])
             ->middleware('permission:sales.payments.create')
             ->name('store');

@@ -1,7 +1,21 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Fonctionnalités'))
-@section('meta_description', __('Découvrez toutes les fonctionnalités de') . ' ' . config('app.name') . ' : ' . __('facturation, devis, gestion clients, stock, achats, rapports et plus encore.'))
+@section('title', __('Fonctionnalités — Facturation, Devis, Stock & Gestion Commerciale'))
+@section('meta_description', __('Découvrez toutes les fonctionnalités de') . ' ' . config('app.name') . ' : ' . __('facturation IA, devis en un clic, gestion clients et fournisseurs, stock, achats, rapports détaillés et 64+ modèles PDF. Le logiciel tout-en-un pour les entreprises marocaines.'))
+@section('meta_keywords', 'fonctionnalités facturation, logiciel devis maroc, gestion stock maroc, gestion clients fournisseurs, rapports comptables, facturation ia maroc')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Fonctionnalités"}
+	]
+}
+</script>
+@endsection
 
 @section('hero')
 <!-- Hero Section -->
@@ -40,7 +54,9 @@
 			<h2 class="mb-2">{{ __('Autonomisation des utilisateurs grâce à des') }} <span>{{ __('expériences personnalisées.') }}</span></h2>
 			<p class="fw-medium">{{ __('Une gestion commerciale efficace est essentielle au succès d\'une entreprise.') }}</p>
 		</div>
-		<ul class="nav nav-pills inner-tab-button aos" id="pills-tab" role="tablist" data-aos="fade-up">
+		<div class="inner-tab-button-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;">
+		<style>.inner-tab-button-wrapper::-webkit-scrollbar{display:none;}</style>
+		<ul class="nav nav-pills inner-tab-button aos" id="pills-tab" role="tablist" data-aos="fade-up" style="flex-wrap:nowrap;min-width:max-content;">
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="pills-sales-tab" data-bs-toggle="pill" data-bs-target="#pills-sales" type="button" role="tab" aria-controls="pills-sales" aria-selected="true"><span>{{ __('Gestion des ventes') }}</span>{{ __('Factures, devis, paiements et retours') }}</button>
 			</li>
@@ -50,7 +66,26 @@
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="pills-ops-tab" data-bs-toggle="pill" data-bs-target="#pills-ops" type="button" role="tab" aria-controls="pills-ops" aria-selected="false"><span>{{ __('Achats & Inventaire') }}</span>{{ __('Fournisseurs, commandes et gestion de stock') }}</button>
 			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-clients-tab2" data-bs-toggle="pill" data-bs-target="#pills-clients2" type="button" role="tab" aria-controls="pills-clients2" aria-selected="false"><span>{{ __('Gestion des clients') }}</span>{{ __('Suivi complet de la relation client') }}</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-darkmode-tab2" data-bs-toggle="pill" data-bs-target="#pills-darkmode2" type="button" role="tab" aria-controls="pills-darkmode2" aria-selected="false"><span>{{ __('Mode sombre & Apparence') }}</span>{{ __('Personnaliser l\'interface selon vos préférences') }}</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-multilang-tab2" data-bs-toggle="pill" data-bs-target="#pills-multilang2" type="button" role="tab" aria-controls="pills-multilang2" aria-selected="false"><span>{{ __('Multilingue') }}</span>{{ __('Support complet français et arabe') }}</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-inventory-tab2" data-bs-toggle="pill" data-bs-target="#pills-inventory2" type="button" role="tab" aria-controls="pills-inventory2" aria-selected="false"><span>{{ __('Inventaire & Stock') }}</span>{{ __('Gestion complète des stocks et entrepôts') }}</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-reports-tab2" data-bs-toggle="pill" data-bs-target="#pills-reports2" type="button" role="tab" aria-controls="pills-reports2" aria-selected="false"><span>{{ __('Rapports & Analyses') }}</span>{{ __('Tableaux de bord et rapports détaillés') }}</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-roles-tab2" data-bs-toggle="pill" data-bs-target="#pills-roles2" type="button" role="tab" aria-controls="pills-roles2" aria-selected="false"><span>{{ __('Rôles & Permissions') }}</span>{{ __('Contrôle d\'accès granulaire par utilisateur') }}</button>
+			</li>
 		</ul>
+		</div>
 		<div class="tab-content inner-tab-items">
 			<div class="tab-pane fade show active" id="pills-sales" role="tabpanel" aria-labelledby="pills-sales-tab">
 				<div class="row align-items-center">
@@ -62,55 +97,181 @@
 								<li><i class="isax isax-tick-circle5"></i>{{ __('Factures & PDF professionnels') }}</li>
 								<li><i class="isax isax-tick-circle5"></i>{{ __('Devis convertibles en factures') }}</li>
 								<li><i class="isax isax-tick-circle5"></i>{{ __('Retours de vente & avoirs') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rappels de paiement automatiques') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion des paiements') }}</li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-lg-8" data-aos="fade-left">
 						<div class="inner-tab-img">
-							<img src="{{ url('build/img/layouts/layout-04.svg') }}" class="img-fluid" alt="{{ __('Gestion des ventes') }}">
+							<img src="{{ url('assets/images/sass screenshots/facture.png') }}" class="img-fluid" alt="{{ __('Gestion des ventes') }}">
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="pills-finance" role="tabpanel" aria-labelledby="pills-finance-tab">
 				<div class="row align-items-center">
-					<div class="col-lg-4">
+					<div class="col-lg-4" data-aos="fade-up">
 						<div class="empowerment-page-info">
 							<h3 class="mb-2">{{ __('Finance & comptabilité puissantes') }}</h3>
 							<p>{{ __('La gestion financière implique la supervision des aspects financiers de votre organisation pour assurer sa santé financière.') }}</p>
 							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Suivi des dépenses') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion des paiements') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Comptes bancaires multiples') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapports de profits & pertes') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Dépenses & revenus') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Comptes bancaires') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Transferts entre comptes') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Catégories financières') }}</li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-8">
-						<div class="inner-tab-img aos" data-aos="fade-left">
-							<img src="{{ url('build/img/layouts/layout-05.svg') }}" class="img-fluid" alt="{{ __('Finance et comptabilité') }}">
+					<div class="col-lg-8" data-aos="fade-left">
+						<div class="inner-tab-img">
+							<img src="{{ url('assets/images/sass screenshots/rapport finance.png') }}" class="img-fluid" alt="{{ __('Finance et comptabilité') }}">
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="pills-ops" role="tabpanel" aria-labelledby="pills-ops-tab">
 				<div class="row align-items-center">
-					<div class="col-lg-4">
+					<div class="col-lg-4" data-aos="fade-up">
 						<div class="empowerment-page-info">
 							<h3 class="mb-2">{{ __('Achats & gestion d\'inventaire') }}</h3>
 							<p>{{ __('Gérez vos fournisseurs, bons de commande et niveaux de stock en temps réel depuis une interface centralisée.') }}</p>
 							<ul class="inner-page-features">
 								<li><i class="isax isax-tick-circle5"></i>{{ __('Bons de commande fournisseur') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion de stock multi-entrepôts') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Transferts de stock') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Alertes de stock bas') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Factures fournisseurs') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Paiements fournisseurs') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Notes de débit') }}</li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-8">
+					<div class="col-lg-8" data-aos="fade-left">
 						<div class="inner-tab-img">
-							<img src="{{ url('build/img/layouts/layout-06.svg') }}" class="img-fluid" alt="{{ __('Achats et inventaire') }}">
+							<img src="{{ url('assets/images/sass screenshots/gestion bon de commande.png') }}" class="img-fluid" alt="{{ __('Achats et inventaire') }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-clients2" role="tabpanel" aria-labelledby="pills-clients-tab2">
+				<div class="row align-items-center">
+					<div class="col-lg-4" data-aos="fade-up">
+						<div class="empowerment-page-info">
+							<h3 class="mb-2">{{ __('Gestion complète des clients') }}</h3>
+							<p>{{ __('Centralisez toutes les informations de vos clients : contacts, adresses, historique des transactions et rapports détaillés.') }}</p>
+							<ul class="inner-page-features">
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Fiche client détaillée') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Historique des transactions') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Contacts & adresses') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport clients') }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8" data-aos="fade-left">
+						<div class="inner-tab-img">
+							<img src="{{ url('assets/images/sass screenshots/Gestion client.png') }}" class="img-fluid" alt="{{ __('Gestion des clients') }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-darkmode2" role="tabpanel" aria-labelledby="pills-darkmode-tab2">
+				<div class="row align-items-center">
+					<div class="col-lg-4" data-aos="fade-up">
+						<div class="empowerment-page-info">
+							<h3 class="mb-2">{{ __('Mode sombre & personnalisation') }}</h3>
+							<p>{{ __('Personnalisez l\'apparence de votre espace de travail avec le mode sombre, les thèmes de couleurs et les options d\'affichage avancées.') }}</p>
+							<ul class="inner-page-features">
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Mode sombre intégré') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Thèmes de couleurs') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Personnalisation de l\'interface') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Modèles de factures personnalisables') }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8" data-aos="fade-left">
+						<div class="inner-tab-img">
+							<img src="{{ url('assets/images/sass screenshots/darkmode.png') }}" class="img-fluid" alt="{{ __('Mode sombre') }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-multilang2" role="tabpanel" aria-labelledby="pills-multilang-tab2">
+				<div class="row align-items-center">
+					<div class="col-lg-4" data-aos="fade-up">
+						<div class="empowerment-page-info">
+							<h3 class="mb-2">{{ __('Support multilingue complet') }}</h3>
+							<p>{{ __('Utilisez la plateforme dans votre langue préférée avec un support complet du français et de l\'arabe, y compris la mise en page RTL.') }}</p>
+							<ul class="inner-page-features">
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Interface en français') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Interface en arabe (RTL)') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Changement de langue instantané') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Documents PDF multilingues') }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8" data-aos="fade-left">
+						<div class="inner-tab-img">
+							<img src="{{ url('assets/images/sass screenshots/multilang.png') }}" class="img-fluid" alt="{{ __('Multilingue') }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-inventory2" role="tabpanel" aria-labelledby="pills-inventory-tab2">
+				<div class="row align-items-center">
+					<div class="col-lg-4" data-aos="fade-up">
+						<div class="empowerment-page-info">
+							<h3 class="mb-2">{{ __('Inventaire & gestion des stocks') }}</h3>
+							<p>{{ __('Suivez vos stocks en temps réel : mouvements, transferts entre entrepôts, alertes de stock bas et historique complet.') }}</p>
+							<ul class="inner-page-features">
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Produits & services') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Mouvements de stock') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Transferts entre entrepôts') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Historique du stock') }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8" data-aos="fade-left">
+						<div class="inner-tab-img">
+							<img src="{{ url('assets/images/sass screenshots/Produits & Services.png') }}" class="img-fluid" alt="{{ __('Inventaire & Stock') }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-reports2" role="tabpanel" aria-labelledby="pills-reports-tab2">
+				<div class="row align-items-center">
+					<div class="col-lg-4" data-aos="fade-up">
+						<div class="empowerment-page-info">
+							<h3 class="mb-2">{{ __('Rapports & analyses détaillées') }}</h3>
+							<p>{{ __('Prenez des décisions éclairées grâce à des rapports complets : ventes, achats, finances, inventaire et performance clients.') }}</p>
+							<ul class="inner-page-features">
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport des ventes') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport financier') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport inventaire') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport clients') }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8" data-aos="fade-left">
+						<div class="inner-tab-img">
+							<img src="{{ url('assets/images/sass screenshots/rapport des ventes.png') }}" class="img-fluid" alt="{{ __('Rapports & Analyses') }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-roles2" role="tabpanel" aria-labelledby="pills-roles-tab2">
+				<div class="row align-items-center">
+					<div class="col-lg-4" data-aos="fade-up">
+						<div class="empowerment-page-info">
+							<h3 class="mb-2">{{ __('Rôles & permissions granulaires') }}</h3>
+							<p>{{ __('Définissez des rôles personnalisés et attribuez des permissions précises pour contrôler l\'accès de chaque utilisateur aux fonctionnalités.') }}</p>
+							<ul class="inner-page-features">
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Rôles personnalisés') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Permissions granulaires') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion des utilisateurs') }}</li>
+								<li><i class="isax isax-tick-circle5"></i>{{ __('Contrôle d\'accès sécurisé') }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8" data-aos="fade-left">
+						<div class="inner-tab-img">
+							<img src="{{ url('assets/images/sass screenshots/gestion roles et permission.png') }}" class="img-fluid" alt="{{ __('Rôles & Permissions') }}">
 						</div>
 					</div>
 				</div>
@@ -171,7 +332,7 @@
 						<img src="{{ url('build/img/icons/module-icon-05.svg') }}" alt="{{ __('Facture') }}">
 					</div>
 					<h6 class="mb-2">{{ __('Facture') }}</h6>
-					<p>{{ __('Création, envoi par email et suivi des factures. Plus de 40 modèles PDF personnalisables.') }}</p>
+					<p>{{ __('Création, envoi par email et suivi des factures. Plus de 64 modèles PDF personnalisables.') }}</p>
 				</div>
 			</div>
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="700">
@@ -225,7 +386,7 @@
 						<img src="{{ url('build/img/icons/module-icon-11.svg') }}" alt="{{ __('Modèles') }}">
 					</div>
 					<h6 class="mb-2">{{ __('Modèles PDF') }}</h6>
-					<p>{{ __('Plus de 40 modèles de factures professionnels et personnalisables pour votre image de marque.') }}</p>
+					<p>{{ __('Plus de 64 modèles de factures professionnels et personnalisables pour votre image de marque.') }}</p>
 				</div>
 			</div>
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1300">
@@ -257,42 +418,82 @@
 				<div class="invoive-temp-slider owl-carousel">
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="600">
 						<div class="invoice-img">
-							<img src="{{ url('build/img/inner-pages/invoice-01.svg') }}" alt="{{ __('Facture classique') }}">
+							<img src="{{ url('assets/images/templates/invoice/model-1.png') }}" alt="{{ __('Facture') }}">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Facture classique') }}</h6>
+							<h6>{{ __('Facture') }}</h6>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="700">
 						<div class="invoice-img">
-							<img src="{{ url('build/img/inner-pages/invoice-02.svg') }}" alt="{{ __('Facture moderne') }}">
+							<img src="{{ url('assets/images/templates/quote/model-1.png') }}" alt="{{ __('Devis') }}">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Facture moderne') }}</h6>
+							<h6>{{ __('Devis') }}</h6>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="800">
 						<div class="invoice-img">
-							<img src="{{ url('build/img/inner-pages/invoice-03.svg') }}" alt="{{ __('Facture créative') }}">
+							<img src="{{ url('assets/images/templates/credit-note/model-1.png') }}" alt="{{ __('Avoir') }}">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Facture créative') }}</h6>
+							<h6>{{ __('Avoir') }}</h6>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="900">
 						<div class="invoice-img">
-							<img src="{{ url('build/img/inner-pages/invoice-04.svg') }}" alt="{{ __('Facture élégante') }}">
+							<img src="{{ url('assets/images/templates/purchase-order/model-1.png') }}" alt="{{ __('Bon de commande') }}">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Facture élégante') }}</h6>
+							<h6>{{ __('Bon de commande') }}</h6>
 						</div>
 					</div>
-					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="900">
+					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1000">
 						<div class="invoice-img">
-							<img src="{{ url('build/img/inner-pages/invoice-05.svg') }}" alt="{{ __('Facture premium') }}">
+							<img src="{{ url('assets/images/templates/delivery-challan/model-1.png') }}" alt="{{ __('Bon de livraison') }}">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Facture premium') }}</h6>
+							<h6>{{ __('Bon de livraison') }}</h6>
+						</div>
+					</div>
+					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1100">
+						<div class="invoice-img">
+							<img src="{{ url('assets/images/templates/goods-receipt/model-1.png') }}" alt="{{ __('Bon de réception') }}">
+						</div>
+						<div class="title-invoice">
+							<h6>{{ __('Bon de réception') }}</h6>
+						</div>
+					</div>
+					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1200">
+						<div class="invoice-img">
+							<img src="{{ url('assets/images/templates/payment-receipt/model-1.png') }}" alt="{{ __('Reçu de paiement') }}">
+						</div>
+						<div class="title-invoice">
+							<h6>{{ __('Reçu de paiement') }}</h6>
+						</div>
+					</div>
+					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1300">
+						<div class="invoice-img">
+							<img src="{{ url('assets/images/templates/supplier-payment-receipt/model-1.png') }}" alt="{{ __('Reçu paiement fournisseur') }}">
+						</div>
+						<div class="title-invoice">
+							<h6>{{ __('Reçu paiement fournisseur') }}</h6>
+						</div>
+					</div>
+					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1400">
+						<div class="invoice-img">
+							<img src="{{ url('assets/images/templates/vendor-bill/model-1.png') }}" alt="{{ __('Facture fournisseur') }}">
+						</div>
+						<div class="title-invoice">
+							<h6>{{ __('Facture fournisseur') }}</h6>
+						</div>
+					</div>
+					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1500">
+						<div class="invoice-img">
+							<img src="{{ url('assets/images/templates/debit-note/model-1.png') }}" alt="{{ __('Note de débit') }}">
+						</div>
+						<div class="title-invoice">
+							<h6>{{ __('Note de débit') }}</h6>
 						</div>
 					</div>
 				</div>
@@ -336,7 +537,7 @@
 				<h2 class="mb-2">{{ __('Démarrez avec') }} {{ config('app.name') }}</h2>
 				<p class="mx-auto">{{ __('Créez votre compte gratuitement et découvrez toutes ces fonctionnalités par vous-même.') }}</p>
 				<div class="d-flex flex-wrap justify-content-center gap-3">
-					<a href="{{ route('register') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">{{ __('Commencer gratuitement') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
+					<a href="{{ route('request-account') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">{{ __('Demander un accès gratuit') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
 					<a href="{{ route('pricing') }}" class="btn btn-dark btn-lg d-inline-flex align-items-center">{{ __('Voir les tarifs') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
 				</div>
 			</div>

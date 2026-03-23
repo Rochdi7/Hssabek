@@ -1,5 +1,7 @@
 <?php $page = 'quotations'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Devis')
+@section('description', 'Liste de tous les devis')
 @section('content')
     <!-- ========================
           Start Page Content
@@ -31,6 +33,99 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Total devis') }}</p>
+                                    <h6 class="fs-16 fw-semibold">{{ number_format($quotes->total(), 0, ',', ' ') }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-primary rounded-circle">
+                                        <i class="isax isax-document-text"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Tous les devis') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Acceptés') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-success">
+                                        {{ \App\Models\Sales\Quote::where('status', 'accepted')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-success rounded-circle">
+                                        <i class="isax isax-tick-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Devis acceptés') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Envoyés') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-warning">
+                                        {{ \App\Models\Sales\Quote::where('status', 'sent')->count() }}
+                                    </h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-warning rounded-circle">
+                                        <i class="isax isax-timer"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Devis envoyés') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Expirés') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-danger">
+                                        {{ \App\Models\Sales\Quote::where('status', 'expired')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-danger rounded-circle">
+                                        <i class="isax isax-information"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Devis expirés') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Summary Cards -->
 
             <!-- Table Search Start -->
             <div class="mb-3">

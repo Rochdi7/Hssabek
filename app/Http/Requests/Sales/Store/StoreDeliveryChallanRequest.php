@@ -15,6 +15,7 @@ class StoreDeliveryChallanRequest extends TenantFormRequest
     {
         return [
             'customer_id'  => ['required', 'uuid', $this->tenantExists('customers')],
+            'bank_account_id' => ['required', 'uuid', $this->tenantExists('bank_accounts')],
             'quote_id'     => ['nullable', 'uuid', $this->tenantExists('quotes')],
             'invoice_id'   => ['nullable', 'uuid', $this->tenantExists('invoices')],
             'challan_date' => ['required', 'date'],
@@ -37,6 +38,8 @@ class StoreDeliveryChallanRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
+            'bank_account_id.required' => __('Le compte bancaire est obligatoire.'),
+            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
             'customer_id.required'  => __('Le client est obligatoire.'),
             'customer_id.exists'    => __('Le client sélectionné est invalide.'),
             'quote_id.exists'       => __('Le devis sélectionné est invalide.'),

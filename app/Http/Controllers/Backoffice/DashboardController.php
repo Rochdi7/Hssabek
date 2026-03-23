@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Catalog\Product;
 use App\Models\CRM\Customer;
 use App\Models\Finance\Currency;
+use App\Models\Finance\Expense;
 use App\Models\Purchases\VendorBill;
 use App\Models\Sales\CreditNote;
 use App\Models\Sales\Invoice;
@@ -27,7 +28,8 @@ class DashboardController extends Controller
     {
         $tenant = TenantContext::get();
         $kpis     = $this->reportService->dashboardKpis();
-        $currency = $tenant?->default_currency ?? 'MAD';
+        $currencyCode = $tenant?->default_currency ?? 'MAD';
+        $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
         $announcements = Announcement::active()->orderByDesc('published_at')->limit(5)->get();
 
         // Show setup wizard for admin users on tenants that haven't completed setup
@@ -80,6 +82,9 @@ class DashboardController extends Controller
             ->where('status', '!=', 'cancelled')
             ->sum('total');
         $creditNotesTotal  = CreditNote::sum('total');
+        $expensesYtd       = Expense::whereBetween('expense_date', [$now->copy()->startOfYear()->toDateString(), $today])
+            ->sum('amount');
+        $totalDepensesYtd  = $totalPurchasesYtd + $expensesYtd;
 
         // Invoice statistics — real DB aggregations
         $invoicedTotal    = Invoice::where('status', '!=', 'void')->sum('total');
@@ -109,12 +114,54 @@ class DashboardController extends Controller
             ->orderBy('month')
             ->pluck('collected', 'month');
 
+        // Monthly purchases trend (last 12 months) — for Revenus vs Dépenses chart
+        $purchaseMonthExpr = DB::connection()->getDriverName() === 'sqlite'
+            ? "strftime('%Y-%m', issue_date)"
+            : "DATE_FORMAT(issue_date, '%Y-%m')";
+        $purchasesTrend = VendorBill::where('issue_date', '>=', $now->copy()->subMonths(11)->startOfMonth())
+            ->where('status', '!=', 'cancelled')
+            ->selectRaw("{$purchaseMonthExpr} as month, COALESCE(SUM(total), 0) as total")
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('total', 'month');
+
+        // Monthly expenses trend (last 12 months)
+        $expenseMonthExpr = DB::connection()->getDriverName() === 'sqlite'
+            ? "strftime('%Y-%m', expense_date)"
+            : "DATE_FORMAT(expense_date, '%Y-%m')";
+        $expensesTrend = Expense::where('expense_date', '>=', $now->copy()->subMonths(11)->startOfMonth())
+            ->selectRaw("{$expenseMonthExpr} as month, COALESCE(SUM(amount), 0) as total")
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('total', 'month');
+
+        // Generate consistent 12-month labels for all charts
+        $chartMonths = collect();
+        for ($m = 11; $m >= 0; $m--) {
+            $chartMonths->push($now->copy()->subMonths($m)->format('Y-m'));
+        }
+
+        // Invoice status counts for radial chart
+        $paidCount    = Invoice::where('status', 'paid')->count();
+        $partialCount = Invoice::where('status', 'partial')->count();
+        $overdueCount = Invoice::where(function ($q) use ($today) {
+            $q->where('status', 'overdue')
+              ->orWhere(function ($q2) use ($today) {
+                  $q2->whereIn('status', ['sent', 'partial'])->where('due_date', '<', $today);
+              });
+        })->count();
+        $sentCount    = Invoice::where('status', 'sent')->count();
+        $draftCount   = Invoice::where('status', 'draft')->count();
+        $totalInvoiceCount = max($invoiceCount, 1); // avoid division by zero
+
         return view('backoffice.dashboard', array_merge($kpis, compact(
             'currency', 'announcements', 'showSetupWizard', 'currencies', 'prefill',
             'customerCount', 'invoiceCount', 'quoteCount', 'productCount', 'draftInvoiceCount',
-            'totalSalesYtd', 'totalPurchasesYtd', 'creditNotesTotal',
+            'totalSalesYtd', 'totalPurchasesYtd', 'creditNotesTotal', 'totalDepensesYtd',
             'invoicedTotal', 'receivedTotal', 'outstandingTotal', 'overdueTotal',
-            'recentPayments', 'collectedTrend'
+            'recentPayments', 'collectedTrend',
+            'purchasesTrend', 'expensesTrend', 'chartMonths',
+            'paidCount', 'partialCount', 'overdueCount', 'sentCount', 'draftCount', 'totalInvoiceCount'
         )));
     }
 }

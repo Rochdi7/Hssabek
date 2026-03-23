@@ -1,5 +1,7 @@
 <?php $page = 'barcode-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Code-barres')
+@section('description', 'Configurer les paramètres de code-barres')
 @section('content')
     <!-- ========================
                 Start Page Content

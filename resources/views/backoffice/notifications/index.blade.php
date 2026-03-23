@@ -1,5 +1,7 @@
 <?php $page = 'notifications'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Notifications')
+@section('description', 'Consulter vos notifications')
 @section('content')
     <div class="page-wrapper">
 

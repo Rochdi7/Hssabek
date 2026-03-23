@@ -1,5 +1,7 @@
 <?php $page = 'sa-account-requests'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Demandes de Compte')
+@section('description', 'Gérer les demandes de création de compte')
 @section('content')
     <!-- ========================
                    Start Page Content

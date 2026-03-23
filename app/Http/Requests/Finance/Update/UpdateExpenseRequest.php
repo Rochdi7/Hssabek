@@ -17,7 +17,7 @@ class UpdateExpenseRequest extends BaseFormRequest
             'payment_mode'      => 'required|in:cash,bank_transfer,card,cheque,other',
             'payment_status'    => 'required|in:unpaid,paid,partial',
             'bank_account_id'   => [
-                'nullable',
+                'required',
                 'uuid',
                 Rule::exists('bank_accounts', 'id')->where('tenant_id', TenantContext::id()),
             ],

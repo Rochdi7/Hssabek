@@ -2,384 +2,369 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Devis DEV-2026-0001</title>
-
+    <title>Devis DEV-001</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: DejaVu Sans, sans-serif;
-            font-size: 11px;
-            color: #2d2d2d;
-            line-height: 1.6;
-            background: #fff;
-        }
-        .page {
-            padding: 45px 50px;
+        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #333; line-height: 1.5; }
+        .page { padding: 0; }
+
+        /* ── Top band ────────────────────────────────────────── */
+        .top-band {
+            background: #2c3e50;
+            padding: 25px 40px;
             position: relative;
         }
-
-        /* Watermark */
-        .watermark {
-            position: fixed;
-            top: 280px;
-            left: 50%;
-            font-size: 110px;
-            color: #f0f0f0;
-            letter-spacing: 15px;
+        .top-band-table { width: 100%; }
+        .top-band-table td { vertical-align: middle; }
+        .top-band .doc-title {
+            font-size: 28px;
             font-weight: bold;
-            text-transform: uppercase;
-            transform: rotate(-35deg);
-            z-index: 0;
-            white-space: nowrap;
-            margin-left: -250px;
-        }
-
-        /* Header */
-        .header-table { width: 100%; margin-bottom: 40px; border-collapse: collapse; }
-        .header-table td { vertical-align: top; }
-
-        .company-name {
-            font-size: 15px;
-            font-weight: bold;
-            color: #1a1a1a;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-        }
-        .company-detail {
-            font-size: 9.5px;
-            color: #777;
-            line-height: 1.8;
-        }
-
-        .doc-title {
-            font-size: 32px;
-            font-weight: 300;
-            color: #c8c8c8;
-            text-align: right;
+            color: #ffffff;
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 15px;
         }
-        .doc-meta {
-            font-size: 10px;
-            color: #888;
+        .top-band .doc-number {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+        .logo-box {
             text-align: right;
-            line-height: 2;
         }
-        .doc-meta strong {
-            color: #444;
-            font-weight: 600;
+        .logo-box img {
+            height: 45px;
+        }
+        .logo-box .logo-text {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 8px 16px;
+            display: inline-block;
         }
 
-        /* Status badge */
-        .badge {
-            display: inline-block;
-            padding: 3px 12px;
-            font-size: 8px;
+        /* ── Content ─────────────────────────────────────────── */
+        .content { padding: 25px 40px 30px 40px; }
+
+        /* ── Company + Meta row ──────────────────────────────── */
+        .info-row { width: 100%; margin-bottom: 22px; }
+        .info-row td { vertical-align: top; }
+        .company-name { font-size: 13px; font-weight: bold; color: #2c3e50; margin-bottom: 3px; }
+        .company-detail { font-size: 9px; color: #666; line-height: 1.8; }
+
+        /* ── Meta card ───────────────────────────────────────── */
+        .meta-card {
+            border: 1px solid #ddd;
+            border-top: 3px solid #e67e22;
+            padding: 12px 15px;
+        }
+        .meta-card table { width: 100%; border-collapse: collapse; }
+        .meta-card td { font-size: 10px; padding: 3px 0; }
+        .meta-card td.m-label {
             font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            width: 50%;
+        }
+        .meta-card td.m-value { text-align: right; color: #444; }
+
+        /* ── Accent bar ──────────────────────────────────────── */
+        .accent-bar {
+            height: 3px;
+            background: #e67e22;
+            margin: 18px 0;
+        }
+
+        /* ── Billing section ─────────────────────────────────── */
+        .billing-table { width: 100%; margin-bottom: 22px; }
+        .billing-table td { vertical-align: top; font-size: 10px; line-height: 1.8; }
+        .billing-label {
+            font-size: 9px;
+            font-weight: bold;
+            color: #e67e22;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 1px solid;
-            margin-top: 4px;
-        }
-        .badge-draft { border-color: #ccc; color: #999; }
-        .badge-sent { border-color: #2563eb; color: #2563eb; }
-        .badge-accepted { border-color: #22c55e; color: #22c55e; }
-        .badge-rejected { border-color: #ef4444; color: #ef4444; }
-        .badge-expired { border-color: #f59e0b; color: #f59e0b; }
-        .badge-cancelled { border-color: #ccc; color: #999; }
-
-        /* Separator line */
-        .accent-line {
-            width: 60px;
-            height: 1px;
-            background: #2563eb;
-            margin-bottom: 30px;
-        }
-
-        /* Customer block */
-        .customer-section { margin-bottom: 35px; }
-        .customer-label {
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #aaa;
-            margin-bottom: 8px;
-        }
-        .customer-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 4px;
-        }
-        .customer-detail {
-            font-size: 10px;
-            color: #777;
-            line-height: 1.8;
-        }
-        .customer-border {
-            border-bottom: 1px solid #e8e8e8;
-            padding-bottom: 20px;
-        }
-
-        /* Items table */
-        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        .items-table th {
-            padding: 12px 10px;
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #999;
-            font-weight: 600;
-            border-top: 1px solid #2563eb;
+            margin-bottom: 5px;
+            padding-bottom: 3px;
             border-bottom: 1px solid #eee;
+        }
+        .billing-name { font-size: 12px; font-weight: bold; color: #222; margin: 4px 0 2px; }
+
+        /* ── Items table ─────────────────────────────────────── */
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
+        .items-table th {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 9px 10px;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .items-table th:first-child { text-align: left; }
         .items-table td {
-            padding: 14px 10px;
-            border-bottom: 1px solid #f2f2f2;
+            padding: 9px 10px;
             font-size: 10px;
-            color: #444;
+            border-bottom: 1px solid #eee;
         }
-        .items-table tr:last-child td { border-bottom: 1px solid #eee; }
-        .item-label { font-weight: 600; color: #2d2d2d; font-size: 10.5px; }
-        .item-description { color: #aaa; font-size: 9px; margin-top: 2px; }
+        .items-table tbody tr:nth-child(even) td { background: #fafafa; }
+        .items-table tbody tr:last-child td { border-bottom: none; }
         .text-right { text-align: right; }
         .text-center { text-align: center; }
 
-        /* Totals */
-        .totals-wrapper { width: 100%; margin-bottom: 30px; }
-        .totals-table { width: 300px; margin-left: auto; }
-        .totals-table td {
-            padding: 8px 12px;
-            font-size: 10.5px;
-            color: #666;
+        /* ── Totals ──────────────────────────────────────────── */
+        .totals-wrapper { width: 100%; margin-bottom: 5px; }
+        .totals-table { width: 280px; margin-left: auto; border-collapse: collapse; }
+        .totals-table td { padding: 5px 10px; font-size: 10px; }
+        .totals-table td.t-label { color: #666; text-align: left; }
+        .totals-table td.t-value { text-align: right; color: #333; }
+        .totals-table .sep-row td { border-top: 1px solid #ddd; }
+
+        /* ── Grand total ─────────────────────────────────────── */
+        .grand-total-bar {
+            background: #2c3e50;
+            padding: 10px 15px;
+            margin-bottom: 15px;
         }
-        .totals-table .label-cell { text-align: left; }
-        .totals-table .value-cell { text-align: right; font-weight: 500; color: #444; }
-        .totals-table .total-row td {
-            font-size: 16px;
-            font-weight: 700;
-            color: #2563eb;
-            border-top: 1px solid #2563eb;
-            padding-top: 14px;
-            padding-bottom: 14px;
+        .grand-total-bar table { width: 100%; }
+        .grand-total-bar td { vertical-align: middle; }
+        .grand-total-bar .gt-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .grand-total-bar .gt-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e67e22;
+            text-align: right;
         }
 
-        /* Validity */
+        /* ── Validity block ───────────────────────────────────── */
         .validity-block {
-            margin-top: 20px;
-            padding: 12px 16px;
-            border-left: 2px solid #2563eb;
+            border: 1px solid #ddd;
+            border-left: 3px solid #e67e22;
+            padding: 10px 14px;
+            margin: 15px 0;
             font-size: 10px;
-            color: #888;
+            color: #555;
+            line-height: 1.6;
             background: #fafafa;
         }
-        .validity-block strong { color: #444; }
 
-        /* Notes */
-        .notes-block {
-            margin-top: 30px;
-            font-size: 9.5px;
-            color: #999;
-            font-style: italic;
-            line-height: 1.7;
-            padding-top: 15px;
-            border-top: 1px solid #f0f0f0;
+        /* ── Footer ──────────────────────────────────────────── */
+        .footer-section { margin-top: 30px; }
+        .footer-divider {
+            height: 1px;
+            background: #ddd;
+            margin-bottom: 15px;
         }
-        .notes-block strong {
-            color: #666;
-            font-style: normal;
-            font-size: 8px;
+        .footer-table { width: 100%; }
+        .footer-table td { vertical-align: top; font-size: 10px; line-height: 1.8; color: #555; }
+        .footer-title {
+            font-size: 9px;
+            font-weight: bold;
+            color: #2c3e50;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
+            margin-bottom: 5px;
         }
 
-        /* Charges */
-        .charges-header {
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #999;
-            padding: 10px;
-            border-bottom: 1px solid #f2f2f2;
+        /* ── Legal ───────────────────────────────────────────── */
+        .legal-bar {
+            background: #2c3e50;
+            padding: 8px 40px;
+            margin-top: 20px;
+            font-size: 7px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            letter-spacing: 0.3px;
         }
     </style>
 </head>
 <body>
 <div class="page">
 
-    <div class="watermark">DEVIS</div>
-
-    <table class="header-table">
-        <tr>
-            <td style="width: 55%;">
-
-                        <img src="../../../../../../public/assets/images/logo/logo-wide-cropped.svg" alt="logo" style="max-height: 50px; max-width: 200px; margin-bottom: 10px; object-fit: contain;">
-
-                <div class="company-name">Ma Société SARL</div>
-                <div class="company-detail">
-                    123 Avenue Mohammed V<br>
-                    Casablanca
-                    20000
-                    Maroc
-                    <br>+212 5 22 00 00 00
-                    <br>contact@masociete.ma
-                    <br>IF : 12345678
-                    <br>ICE : 001234567000012
-                    <br>RC : RC 12345
-                </div>
-            </td>
-            <td style="width: 45%;">
-                <div class="doc-title">Devis</div>
-                <div class="doc-meta">
-                    <strong>N°</strong> DEV-2026-0001<br>
-                    <strong>Date</strong> 15/03/2026<br>
-
-                        <strong>Valide jusqu'au</strong> 15/04/2026<br>
-
-                        <strong>Réf.</strong> REF-001<br>
-
-                    <span class="badge badge-sent">Envoyé</span>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <div class="accent-line"></div>
-
-    <div class="customer-section">
-        <div class="customer-border">
-            <div class="customer-label">Destinataire</div>
-            <div class="customer-name">Client Exemple SARL</div>
-            <div class="customer-detail">
-                45 Rue de la Liberté<br>
-                Rabat
-                10000
-                Maroc
-                <br>client@exemple.ma
-                <br>+212 6 00 00 00 00
-                <br>IF : 87654321
-            </div>
-        </div>
-    </div>
-
-    <table class="items-table">
-        <thead>
+    <!-- Top colored band -->
+    <div class="top-band">
+        <table class="top-band-table">
             <tr>
-                <th style="width: 5%;">#</th>
-                <th style="width: 35%; text-align: left;">Désignation</th>
-                <th class="text-center" style="width: 10%;">Qté</th>
-                <th class="text-right" style="width: 15%;">Prix unit.</th>
-
-                    <th class="text-right" style="width: 10%;">TVA</th>
-
-                <th class="text-right" style="width: 15%;">Total HT</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td style="color: #bbb;">1</td>
-                <td>
-                    <div class="item-label">Service de consultation</div>
-
-                        <div class="item-description">Description du service</div>
-
+                <td style="width: 65%;">
+                    <div class="doc-title">Devis</div>
+                    <div class="doc-number">N° DEV-001</div>
                 </td>
-                <td class="text-center">2</td>
-                <td class="text-right">1 500,00</td>
-
-                    <td class="text-right">20,00%</td>
-
-                <td class="text-right" style="font-weight: 600; color: #2d2d2d;">3 000,00</td>
-            </tr>
-
-        </tbody>
-    </table>
-
-    <table class="items-table" style="margin-top: -25px;">
-        <thead>
-            <tr>
-                <th colspan="5" class="charges-header" style="border-top: none;">Frais supplémentaires</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td colspan="3">Frais de livraison</td>
-
-                    <td class="text-right">20,00%</td>
-
-                <td class="text-right" style="font-weight: 600; color: #2d2d2d;">150,00</td>
-            </tr>
-
-        </tbody>
-    </table>
-
-    <div class="totals-wrapper">
-        <table class="totals-table">
-            <tr>
-                <td class="label-cell">Sous-total</td>
-                <td class="value-cell">3 000,00 MAD</td>
-            </tr>
-
-            <tr>
-                <td class="label-cell">Remise</td>
-                <td class="value-cell">-0,00 MAD</td>
-            </tr>
-
-            <tr>
-                <td class="label-cell">TVA</td>
-                <td class="value-cell">600,00 MAD</td>
-            </tr>
-
-            <tr>
-                <td class="label-cell">Arrondi</td>
-                <td class="value-cell">0,00 MAD</td>
-            </tr>
-
-            <tr class="total-row">
-                <td class="label-cell">Total TTC</td>
-                <td class="value-cell">3 600,00 MAD</td>
+                <td style="width: 35%;">
+                    <div class="logo-box">
+                        <img src="../../../../../../public/assets/images/logo/logo-wide-white-cropped.svg" alt="logo">
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
 
-    <p style="font-size: 9.5px; color: #999; font-style: italic; margin-bottom: 20px;">
-        Arrêté le présent devis à la somme de : <span style="color: #666;">Trois mille six cents dirhams</span>
-    </p>
+    <div class="content">
 
-    <div class="validity-block">
-        Ce devis est valable jusqu'au <strong>15/04/2026</strong>.
-        Passé cette date, il devra faire l'objet d'une nouvelle offre.
+        <!-- Company info + Meta card -->
+        <table class="info-row">
+            <tr>
+                <td style="width: 55%;">
+                    <div class="company-name">Joanna Binet</div>
+                    <div class="company-detail">
+                        48 Coubertin<br>
+                        31400 Paris
+                    </div>
+                </td>
+                <td style="width: 45%;">
+                    <div class="meta-card">
+                        <table>
+                            <tr>
+                                <td class="m-label">Devis n°</td>
+                                <td class="m-value">DEV-001</td>
+                            </tr>
+                            <tr>
+                                <td class="m-label">Date</td>
+                                <td class="m-value">20/01/2019</td>
+                            </tr>
+                            <tr>
+                                <td class="m-label">Validité</td>
+                                <td class="m-value">20/02/2019</td>
+                            </tr>
+                            <tr>
+                                <td class="m-label">Référence</td>
+                                <td class="m-value">1630/2019</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="accent-bar"></div>
+
+        <!-- Destinataire / Envoyé à -->
+        <table class="billing-table">
+            <tr>
+                <td style="width: 50%;">
+                    <div class="billing-label">Destinataire</div>
+                    <div class="billing-name">Cendrillon Ayot</div>
+                    69 rue Nations<br>
+                    22000 Paris
+                </td>
+                <td style="width: 50%;">
+                    <div class="billing-label">Envoyé à</div>
+                    <div class="billing-name">Cendrillon Ayot</div>
+                    46 Rue St Ferréol<br>
+                    92360 Île-de-France
+                </td>
+            </tr>
+        </table>
+
+        <!-- Items table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width: 8%;">QTÉ</th>
+                    <th style="width: 42%;">DÉSIGNATION</th>
+                    <th class="text-right" style="width: 25%;">PRIX UNIT. HT</th>
+                    <th class="text-right" style="width: 25%;">MONTANT HT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>Grand brun escargot pour manger</td>
+                    <td class="text-right">100,00</td>
+                    <td class="text-right">100,00</td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td>Petit marinière uniforme en bleu</td>
+                    <td class="text-right">15,00</td>
+                    <td class="text-right">30,00</td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td>Facile à jouer accordéon</td>
+                    <td class="text-right">5,00</td>
+                    <td class="text-right">15,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Subtotals -->
+        <div class="totals-wrapper">
+            <table class="totals-table">
+                <tr>
+                    <td class="t-label">Total HT</td>
+                    <td class="t-value">145,00</td>
+                </tr>
+                <tr>
+                    <td class="t-label">TVA 20,0%</td>
+                    <td class="t-value">29,00</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Grand total bar -->
+        <div class="grand-total-bar">
+            <table>
+                <tr>
+                    <td style="width: 50%;">
+                        <span class="gt-label">Total TTC</span>
+                    </td>
+                    <td style="width: 50%;">
+                        <span class="gt-value">174,00 €</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <p style="font-size: 10px; color: #666; font-style: italic; margin: 8px 0 15px;">
+            Arrêté le présent devis à la somme de : <strong>Cent soixante-quatorze euros</strong>
+        </p>
+
+        <!-- Validity block -->
+        <div class="validity-block">
+            Ce devis est valable jusqu'au <strong>20/02/2019</strong>.
+            Passé cette date, il devra faire l'objet d'une nouvelle offre.
+        </div>
+
+        <!-- Signature -->
+        <table style="width: 100%; margin-top: 40px;">
+            <tr>
+                <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Signature du client</div></td>
+                <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Cachet et signature</div></td>
+            </tr>
+        </table>
+
+        <!-- Footer -->
+        <div class="footer-section">
+            <div class="footer-divider"></div>
+            <table class="footer-table">
+                <tr>
+                    <td style="width: 50%; padding-right: 15px;">
+                        <div class="footer-title">Conditions</div>
+                        Conditions générales de vente applicables.
+                    </td>
+                    <td style="width: 50%; border-left: 1px solid #ddd; padding-left: 15px;">
+                        <div class="footer-title">Notes</div>
+                        Devis valable sous réserve de disponibilité.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div><!-- /content -->
+
+    <!-- Legal footer bar -->
+    <div class="legal-bar">
+        SARL au capital de 10 000,00 € — IF : 12345678 — RC : RC 12345
     </div>
-
-    <div class="notes-block">
-        <strong>Notes</strong><br>
-        Merci pour votre confiance.<br>Paiement à 30 jours.
-    </div>
-
-    <div class="notes-block" style="margin-top: 12px; border-top: none;">
-        <strong>Conditions</strong><br>
-        Conditions générales de vente applicables.<br>Tout retard de paiement entraînera des pénalités.
-    </div>
-
-    <!-- Signature -->
-    <table style="width: 100%; margin-top: 40px;">
-        <tr>
-            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
-                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
-                    Signature du client
-                </div>
-            </td>
-            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
-                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
-                    Cachet et signature
-                </div>
-            </td>
-        </tr>
-    </table>
 
 </div>
 </body>

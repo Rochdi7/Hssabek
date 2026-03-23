@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backoffice;
 use App\Http\Controllers\Controller;
 use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\Unit;
+use App\Models\Finance\BankAccount;
 use App\Models\Inventory\Warehouse;
 use App\Models\Sales\PaymentMethod;
 use App\Models\Tenancy\Signature;
@@ -75,7 +76,21 @@ class SetupWizardController extends Controller
             // Logo (optional)
             'logo' => 'nullable|image|max:2048',
 
-            // Step 7 — Signature (optional)
+            // Step 7 — Bank account (required)
+            'bank_name'            => 'required|string|max:255',
+            'bank_account_holder'  => 'required|string|max:255',
+            'bank_account_number'  => 'required|string|max:50',
+            'bank_account_type'    => 'required|string|in:current,savings,business,other',
+            'bank_branch'          => 'nullable|string|max:255',
+            'bank_swift'           => 'nullable|string|max:20',
+            'bank_opening_balance' => 'nullable|numeric|min:0',
+
+            // Step 8 — Warehouse (required)
+            'warehouse_name'    => 'required|string|max:255',
+            'warehouse_code'    => 'required|string|max:50',
+            'warehouse_address' => 'nullable|string|max:500',
+
+            // Step 9 — Signature (optional)
             'signature_name'  => 'nullable|string|max:255',
             'signature_image' => 'nullable|image|max:2048',
         ]);
@@ -187,12 +202,29 @@ class SetupWizardController extends Controller
             }
         }
 
-        // ── Auto-create default warehouse ──
+        // ── Bank account (required) ──
+        $openingBalance = (float) ($request->input('bank_opening_balance', 0));
+        BankAccount::create([
+            'tenant_id'          => $tenant->id,
+            'bank_name'          => $request->input('bank_name'),
+            'account_holder_name' => $request->input('bank_account_holder'),
+            'account_number'     => $request->input('bank_account_number'),
+            'account_type'       => $request->input('bank_account_type'),
+            'branch'             => $request->input('bank_branch'),
+            'ifsc_code'          => $request->input('bank_swift'),
+            'currency'           => $request->input('currency', 'MAD'),
+            'opening_balance'    => $openingBalance,
+            'current_balance'    => $openingBalance,
+            'is_active'          => true,
+        ]);
+
+        // ── Warehouse (from wizard step 8) ──
         if (!Warehouse::where('tenant_id', $tenant->id)->exists()) {
             Warehouse::create([
                 'tenant_id'  => $tenant->id,
-                'name'       => 'Entrepôt principal',
-                'code'       => 'EP-001',
+                'name'       => $request->input('warehouse_name', 'Entrepôt principal'),
+                'code'       => $request->input('warehouse_code', 'EP-001'),
+                'address'    => $request->input('warehouse_address'),
                 'is_default' => true,
                 'is_active'  => true,
             ]);

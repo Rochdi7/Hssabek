@@ -1,5 +1,7 @@
 <?php $page = 'sa-account-requests'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails de la Demande')
+@section('description', 'Consulter les détails de la demande de compte')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

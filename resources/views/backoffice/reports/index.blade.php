@@ -1,5 +1,7 @@
 <?php $page = 'reports'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Rapports')
+@section('description', 'Aperçu des rapports disponibles')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

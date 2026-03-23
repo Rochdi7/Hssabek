@@ -1,5 +1,7 @@
 <?php $page = 'products'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Produits')
+@section('description', 'Liste de tous les produits')
 @section('content')
     <!-- ========================
                                        Start Page Content

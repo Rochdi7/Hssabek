@@ -10,6 +10,7 @@ use App\Models\Purchases\DebitNoteItem;
 use App\Models\Purchases\GoodsReceiptItem;
 use App\Models\Inventory\StockMovement;
 use App\Traits\BelongsToTenant;
+use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model implements HasMedia
 {
-    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, InteractsWithMedia, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, InteractsWithMedia, UsesTenantCurrency, LogsActivity;
 
     protected $fillable = [
         'item_type',
