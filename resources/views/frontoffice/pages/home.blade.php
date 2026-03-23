@@ -111,7 +111,7 @@
 						<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Entreprises') }}">
 					</div>
 					<div class="app-content">
-						<h6 class="mb-1">{{ __('Génération IA ultra-rapide') }}</h6>
+						<p class="h6 mb-1">{{ __('Génération IA ultra-rapide') }}</p>
 						<p>{{ __('L\'intelligence artificielle remplit vos factures et devis automatiquement. 10 secondes au lieu de 10 minutes. Vos concurrents rêvent d\'aller aussi vite.') }}</p>
 					</div>
 				</div>
@@ -122,7 +122,7 @@
 						<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('Suivi intelligent') }}">
 					</div>
 					<div class="app-content">
-						<h6 class="mb-1">{{ __('Détection de fraude & suivi') }}</h6>
+						<p class="h6 mb-1">{{ __('Détection de fraude & suivi') }}</p>
 						<p>{{ __('Suivez chaque chèque, prêt et paiement en temps réel. Le système détecte automatiquement les anomalies et vous alerte avant qu\'il ne soit trop tard.') }}</p>
 					</div>
 				</div>
@@ -133,8 +133,8 @@
 						<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('Automatisation') }}">
 					</div>
 					<div class="app-content">
-						<h6 class="mb-1">{{ __('Envoi & rappels automatiques') }}</h6>
-						<p>{{ __('Vos factures sont envoyées automatiquement par email. Les rappels de paiement partent tout seuls. Vous ne courez plus après vos clients.') }}</p>
+						<p class="h6 mb-1">{{ __('Automatisation de l\'envoi & rappels') }}</p>
+						<p>{{ __('Vos factures sont créées et envoyées automatiquement par email. Les rappels de paiement partent tout seuls. Vous ne courez plus après vos clients.') }}</p>
 					</div>
 				</div>
 			</div>
@@ -155,15 +155,15 @@
 						</div>
 						<ul class="app-more-info">
 							<li>
-								<h4><span class="counter">112</span><sup>+</sup></h4>
+								<p class="h4"><span class="counter">112</span><sup>+</sup></p>
 								<p>{{ __('Clients servis') }}</p>
 							</li>
 							<li class="active">
-								<h4><span class="counter">64</span><sup>%</sup></h4>
+								<p class="h4"><span class="counter">64</span><sup>%</sup></p>
 								<p>{{ __('Croissance engagement') }}</p>
 							</li>
 							<li>
-								<h4><span class="counter">90</span><sup>%</sup></h4>
+								<p class="h4"><span class="counter">90</span><sup>%</sup></p>
 								<p>{{ __('Satisfaction client') }}</p>
 							</li>
 						</ul>
@@ -204,7 +204,7 @@
 								<img src="{{ url('build/img/icons/management-icon-01.svg') }}" alt="{{ __('Gestion d\'entreprise') }}">
 							</div>
 							<div class="managing-info">
-								<h6 class="text-white mb-2">{{ __('Tableau de bord intelligent') }}</h6>
+								<p class="h6 text-white mb-2">{{ __('Tableau de bord intelligent') }}</p>
 								<p>{{ __('Voyez en un coup d\'œil vos ventes, dépenses, impayés et chèques en cours. Détectez les problèmes avant qu\'ils n\'arrivent.') }}</p>
 							</div>
 						</div>
@@ -215,7 +215,7 @@
 								<img src="{{ url('build/img/icons/management-icon-02.svg') }}" alt="{{ __('Gestion des abonnements') }}">
 							</div>
 							<div class="managing-info">
-								<h6 class="text-white mb-2">{{ __('Suivi des chèques & prêts') }}</h6>
+								<p class="h6 text-white mb-2">{{ __('Suivi des chèques & prêts') }}</p>
 								<p>{{ __('Chaque chèque reçu ou émis est tracé. Chaque prêt est suivi avec ses échéances. Plus jamais de chèque oublié ou de prêt non remboursé.') }}</p>
 							</div>
 						</div>
@@ -226,7 +226,7 @@
 								<img src="{{ url('build/img/icons/management-icon-03.svg') }}" alt="{{ __('Système de gestion de domaines') }}">
 							</div>
 							<div class="managing-info">
-								<h6 class="text-white mb-2">{{ __('Détection de fraude') }}</h6>
+								<p class="h6 text-white mb-2">{{ __('Détection de fraude') }}</p>
 								<p>{{ __('Le système analyse vos flux financiers et vous alerte en cas d\'anomalie : paiements en double, montants inhabituels ou écarts de caisse.') }}</p>
 							</div>
 						</div>
@@ -237,7 +237,7 @@
 								<img src="{{ url('build/img/icons/management-icon-04.svg') }}" alt="{{ __('Gestion des utilisateurs') }}">
 							</div>
 							<div class="managing-info">
-								<h6 class="text-white mb-2">{{ __('IA de génération de documents') }}</h6>
+								<p class="h6 text-white mb-2">{{ __('IA de génération de documents') }}</p>
 								<p>{{ __('L\'intelligence artificielle pré-remplit vos factures et devis. Sélectionnez le client, l\'IA fait le reste en 10 secondes. Rapide, précis, sans erreur.') }}</p>
 							</div>
 						</div>
@@ -248,7 +248,7 @@
 								<img src="{{ url('build/img/icons/management-icon-05.svg') }}" alt="{{ __('Paramètres avancés') }}">
 							</div>
 							<div class="managing-info">
-								<h6 class="text-white mb-2">{{ __('64+ modèles personnalisables') }}</h6>
+								<p class="h6 text-white mb-2">{{ __('64+ modèles personnalisables') }}</p>
 								<p>{{ __('Choisissez parmi +64 modèles PDF pour chaque type de document. Besoin d\'un design unique ? On crée votre modèle sur mesure gratuitement.') }}</p>
 							</div>
 						</div>
@@ -259,7 +259,7 @@
 								<img src="{{ url('build/img/icons/management-icon-06.svg') }}" alt="{{ __('Abonnements & paiements') }}">
 							</div>
 							<div class="managing-info">
-								<h6 class="text-white mb-2">{{ __('Envoi automatique & rappels') }}</h6>
+								<p class="h6 text-white mb-2">{{ __('Envoi automatique & rappels') }}</p>
 								<p>{{ __('Vos factures partent par email toutes seules. Les rappels de paiement s\'envoient automatiquement. Vous ne courez plus après personne.') }}</p>
 							</div>
 						</div>
@@ -289,7 +289,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/invoice/model-1.png') }}" alt="{{ __('Facture') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Facture') }}</h6>
+							<p class="h6 mb-0">{{ __('Facture') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="700">
@@ -297,7 +297,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/quote/model-1.png') }}" alt="{{ __('Devis') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Devis') }}</h6>
+							<p class="h6 mb-0">{{ __('Devis') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="800">
@@ -305,7 +305,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/credit-note/model-1.png') }}" alt="{{ __('Avoir') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Avoir') }}</h6>
+							<p class="h6 mb-0">{{ __('Avoir') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="900">
@@ -313,7 +313,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/purchase-order/model-1.png') }}" alt="{{ __('Bon de commande') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Bon de commande') }}</h6>
+							<p class="h6 mb-0">{{ __('Bon de commande') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1000">
@@ -321,7 +321,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/delivery-challan/model-1.png') }}" alt="{{ __('Bon de livraison') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Bon de livraison') }}</h6>
+							<p class="h6 mb-0">{{ __('Bon de livraison') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1100">
@@ -329,7 +329,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/goods-receipt/model-1.png') }}" alt="{{ __('Bon de réception') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Bon de réception') }}</h6>
+							<p class="h6 mb-0">{{ __('Bon de réception') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1200">
@@ -337,7 +337,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/payment-receipt/model-1.png') }}" alt="{{ __('Reçu de paiement') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Reçu de paiement') }}</h6>
+							<p class="h6 mb-0">{{ __('Reçu de paiement') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1300">
@@ -345,7 +345,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/supplier-payment-receipt/model-1.png') }}" alt="{{ __('Reçu paiement fournisseur') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Reçu paiement fournisseur') }}</h6>
+							<p class="h6 mb-0">{{ __('Reçu paiement fournisseur') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1400">
@@ -353,7 +353,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/vendor-bill/model-1.png') }}" alt="{{ __('Facture fournisseur') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Facture fournisseur') }}</h6>
+							<p class="h6 mb-0">{{ __('Facture fournisseur') }}</p>
 						</div>
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1500">
@@ -361,7 +361,7 @@
 							<img loading="lazy" src="{{ url('assets/images/templates/debit-note/model-1.png') }}" alt="{{ __('Note de débit') }}" width="300" height="424">
 						</div>
 						<div class="title-invoice">
-							<h6>{{ __('Note de débit') }}</h6>
+							<p class="h6 mb-0">{{ __('Note de débit') }}</p>
 						</div>
 					</div>
 				</div>
@@ -415,15 +415,15 @@
 						</div>
 						<ul class="app-more-info">
 							<li>
-								<h4><span class="counter">64</span><sup>+</sup></h4>
+								<p class="h4"><span class="counter">64</span><sup>+</sup></p>
 								<p>{{ __('Modèles disponibles') }}</p>
 							</li>
 							<li class="active">
-								<h4><span class="counter">10</span></h4>
+								<p class="h4"><span class="counter">10</span></p>
 								<p>{{ __('Types de documents') }}</p>
 							</li>
 							<li>
-								<h4>{{ __('Gratuit') }}</h4>
+								<p class="h4">{{ __('Gratuit') }}</p>
 								<p>{{ __('Modèle sur mesure') }}</p>
 							</li>
 						</ul>
@@ -768,7 +768,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-01.svg') }}" alt="{{ __('Client') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Clients & CRM') }}</h6>
+					<p class="h6 mb-2">{{ __('Clients & CRM') }}</p>
 					<p>{{ __('Fiche client complète, historique des achats, suivi des impayés. Vous savez exactement qui vous doit quoi.') }}</p>
 				</div>
 			</div>
@@ -777,7 +777,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-02.svg') }}" alt="{{ __('Fournisseur') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Fournisseurs') }}</h6>
+					<p class="h6 mb-2">{{ __('Fournisseurs') }}</p>
 					<p>{{ __('Gérez vos fournisseurs, leurs factures et paiements. Suivez qui vous devez payer et quand.') }}</p>
 				</div>
 			</div>
@@ -786,7 +786,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-03.svg') }}" alt="{{ __('Produit') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Produits & Services') }}</h6>
+					<p class="h6 mb-2">{{ __('Produits & Services') }}</p>
 					<p>{{ __('Catalogue complet avec prix d\'achat, prix de vente et marges calculées automatiquement.') }}</p>
 				</div>
 			</div>
@@ -795,7 +795,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-04.svg') }}" alt="{{ __('Inventaire') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Stock & Entrepôts') }}</h6>
+					<p class="h6 mb-2">{{ __('Stock & Entrepôts') }}</p>
 					<p>{{ __('Stock en temps réel, multi-entrepôts, alertes de stock bas et transferts. Vous ne vendez plus ce que vous n\'avez pas.') }}</p>
 				</div>
 			</div>
@@ -804,7 +804,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-05.svg') }}" alt="{{ __('Facture') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Factures IA') }}</h6>
+					<p class="h6 mb-2">{{ __('Factures IA') }}</p>
 					<p>{{ __('L\'IA génère votre facture en 10 secondes. PDF professionnel, envoi automatique et rappels intégrés.') }}</p>
 				</div>
 			</div>
@@ -813,7 +813,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-06.svg') }}" alt="{{ __('Retour de vente') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Avoirs & Remboursements') }}</h6>
+					<p class="h6 mb-2">{{ __('Avoirs & Remboursements') }}</p>
 					<p>{{ __('Avoirs et remboursements en un clic. Le stock se met à jour automatiquement, les comptes aussi.') }}</p>
 				</div>
 			</div>
@@ -822,7 +822,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-07.svg') }}" alt="{{ __('Bon de commande') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Bons de commande') }}</h6>
+					<p class="h6 mb-2">{{ __('Bons de commande') }}</p>
 					<p>{{ __('Créez vos BC en quelques clics, convertissez-les en factures et suivez la réception des marchandises.') }}</p>
 				</div>
 			</div>
@@ -831,7 +831,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-08.svg') }}" alt="{{ __('Achat') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Achats intelligents') }}</h6>
+					<p class="h6 mb-2">{{ __('Achats intelligents') }}</p>
 					<p>{{ __('Centralisez vos achats : commandes fournisseurs, réceptions, factures et paiements. Tout est lié automatiquement.') }}</p>
 				</div>
 			</div>
@@ -840,7 +840,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-09.svg') }}" alt="{{ __('Retour d\'achat') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Notes de débit') }}</h6>
+					<p class="h6 mb-2">{{ __('Notes de débit') }}</p>
 					<p>{{ __('Gérez les retours fournisseurs et réclamations. Stock et comptabilité se mettent à jour en temps réel.') }}</p>
 				</div>
 			</div>
@@ -849,7 +849,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-10.svg') }}" alt="{{ __('Dépenses') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Suivi des dépenses') }}</h6>
+					<p class="h6 mb-2">{{ __('Suivi des dépenses') }}</p>
 					<p>{{ __('Catégorisez et suivez chaque dirham dépensé. Détectez les anomalies et optimisez vos coûts.') }}</p>
 				</div>
 			</div>
@@ -858,7 +858,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-11.svg') }}" alt="{{ __('Devis') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Devis IA') }}</h6>
+					<p class="h6 mb-2">{{ __('Devis IA') }}</p>
 					<p>{{ __('Générez des devis professionnels par IA, envoyez-les en un clic et convertissez-les en factures instantanément.') }}</p>
 				</div>
 			</div>
@@ -867,7 +867,7 @@
 					<div class="module-icon">
 						<img src="{{ url('build/img/icons/module-icon-12.svg') }}" alt="{{ __('Bon de livraison') }}">
 					</div>
-					<h6 class="mb-2">{{ __('Bons de livraison') }}</h6>
+					<p class="h6 mb-2">{{ __('Bons de livraison') }}</p>
 					<p>{{ __('Suivez chaque livraison avec preuve de réception. Liez vos BL aux factures pour une traçabilité totale.') }}</p>
 				</div>
 			</div>
@@ -894,15 +894,15 @@
 					<div class="package-header d-flex justify-content-between">
 						<div class="d-flex justify-content-between w-100">
 							<div>
-								<h6>{{ __('Essai gratuit') }}</h6>
-								<h4>{{ __('Découverte') }}</h4>
+								<p class="h6 mb-0">{{ __('Essai gratuit') }}</p>
+								<p class="h4 mb-0">{{ __('Découverte') }}</p>
 							</div>
 							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-01.svg') }}" alt="icône"></span>
 						</div>
 					</div>
 					<p>{{ __('Testez toutes les fonctionnalités pendant 7 jours. Créez vos premières factures et devis gratuitement.') }}</p>
 					<span class="plan-price">{{ __('Gratuit') }}</span>
-					<h5>{{ __('Ce qui est inclus') }}</h5>
+					<p class="h5">{{ __('Ce qui est inclus') }}</p>
 					<ul class="plan-features">
 						<li><i class="fa-solid fa-circle-check"></i>{{ __('Toutes les fonctionnalités') }}</li>
 						<li><i class="fa-solid fa-circle-check"></i>{{ __('7 jours d\'accès complet') }}</li>
@@ -919,15 +919,15 @@
 					<div class="package-header d-flex justify-content-between">
 						<div class="d-flex justify-content-between w-100">
 							<div>
-								<h6>{{ __('Paiement unique — à vie') }}</h6>
-								<h4>{{ __('Professionnel') }}</h4>
+								<p class="h6 mb-0">{{ __('Paiement unique — à vie') }}</p>
+								<p class="h4 mb-0">{{ __('Professionnel') }}</p>
 							</div>
 							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-04.svg') }}" alt="icône"></span>
 						</div>
 					</div>
 					<p>{{ __('Accès illimité et permanent à toutes les fonctionnalités. Mises à jour incluses à vie. Zéro abonnement.') }}</p>
 					<span class="plan-price">399 DH</span>
-					<h5>{{ __('Tout est inclus') }}</h5>
+					<p class="h5">{{ __('Tout est inclus') }}</p>
 					<ul class="plan-features">
 						<li><i class="fa-solid fa-circle-check"></i>{{ __('Utilisateurs illimités') }}</li>
 						<li><i class="fa-solid fa-circle-check"></i>{{ __('Factures, devis & avoirs illimités') }}</li>

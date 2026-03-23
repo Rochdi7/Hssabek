@@ -18,7 +18,7 @@
                         <div class="col-xl-9 col-lg-8">
                             <div>
                                 <div class="pb-3 border-bottom mb-3">
-                                    <h6 class="mb-0">{{ __('Devises & Taux de change') }}</h6>
+                                    <h6 class="mb-0">{{ __('Devises') }}</h6>
                                 </div>
                                 <div class="mb-3">
                                     <!-- Start Table Search -->
@@ -66,7 +66,6 @@
                                                     <th>{{ __('Devise') }}</th>
                                                     <th>{{ __('Code') }}</th>
                                                     <th class="no-sort">{{ __('Symbole') }}</th>
-                                                    <th>{{ __('Taux de change') }}</th>
                                                     <th class="no-sort">{{ __('Par défaut') }}</th>
                                                     <th class="no-sort">{{ __('Statut') }}</th>
                                                     <th class="no-sort"></th>
@@ -80,9 +79,6 @@
                                                         </td>
                                                         <td>{{ $exchangeRate->quoteCurrencyRelation->code }}</td>
                                                         <td>{{ $exchangeRate->quoteCurrencyRelation->symbol }}</td>
-                                                        <td>
-                                                            <span class="fw-medium">1 {{ $baseCurrency }} = {{ number_format($exchangeRate->rate, $exchangeRate->quoteCurrencyRelation->precision ?? 2) }} {{ $exchangeRate->quoteCurrencyRelation->code }}</span>
-                                                        </td>
                                                         <td class="default-star">
                                                             @if($exchangeRate->quoteCurrencyRelation->code === $defaultCurrency)
                                                                 <a class="active" href="javascript:void(0);">
@@ -124,7 +120,7 @@
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="7" class="text-center">{{ __('Aucune devise trouvée.') }}</td>
+                                                        <td colspan="6" class="text-center">{{ __('Aucune devise trouvée.') }}</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
@@ -197,18 +193,6 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label class="form-label">{{ __('Taux de change') }}<span class="text-danger ms-1">*</span></label>
-                                    <input type="number" step="any" min="0"
-                                        class="form-control @error('rate') is-invalid @enderror"
-                                        name="rate"
-                                        value="{{ old('rate') }}"
-                                        placeholder="{{ __('Ex : 10.5000') }}">
-                                    @error('rate')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                    <small class="form-text text-muted">{{ __("Combien d'unités de cette devise pour 1") }} {{ $baseCurrency }}</small>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="is_default" value="1" id="add_is_default" {{ old('is_default') ? 'checked' : '' }}>
                                     <label class="form-check-label" for="add_is_default">{{ __('Définir comme devise par défaut') }}</label>
@@ -236,7 +220,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">{{ __('Modifier le taux de change') }}</h4>
+                        <h4 class="modal-title">{{ __('Modifier la devise') }}</h4>
                         <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"><i class="fa-solid fa-x"></i></button>
                     </div>
                     <form method="POST" action="{{ route('bo.settings.currencies.update', $exchangeRate) }}">
@@ -250,28 +234,6 @@
                                     <div class="mb-3">
                                         <label class="form-label">{{ __('Devise') }}</label>
                                         <input type="text" class="form-control" value="{{ $exchangeRate->quoteCurrencyRelation->code }} - {{ $exchangeRate->quoteCurrencyRelation->name }} ({{ $exchangeRate->quoteCurrencyRelation->symbol }})" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{ __('Taux de change') }}<span class="text-danger ms-1">*</span></label>
-                                        <input type="number" step="any" min="0"
-                                            class="form-control @error('rate') is-invalid @enderror"
-                                            name="rate"
-                                            value="{{ old('rate', $exchangeRate->rate) }}"
-                                            placeholder="{{ __('Ex : 10.5000') }}">
-                                        @error('rate')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                        <small class="form-text text-muted">{{ __("Combien d'unités de") }} {{ $exchangeRate->quoteCurrencyRelation->code }} {{ __('pour 1') }} {{ $baseCurrency }}</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{ __('Date du taux') }}</label>
-                                        <input type="text"
-                                            class="form-control datetimepicker @error('date') is-invalid @enderror"
-                                            name="date"
-                                            value="{{ old('date', $exchangeRate->date instanceof \Carbon\Carbon ? $exchangeRate->date->format('d-m-Y') : $exchangeRate->date) }}">
-                                        @error('date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
                                 </div>
                             </div>

@@ -41,7 +41,7 @@
 						<strong>{{ __('RCS :') }}</strong> {{ __('[Ville et numéro RCS]') }}<br>
 						<strong>{{ __('TVA intracommunautaire :') }}</strong> {{ __('[Numéro TVA]') }}<br>
 						<strong>{{ __('Directeur de la publication :') }}</strong> {{ __('[Nom du responsable]') }}<br>
-						<strong>{{ __('Email :') }}</strong> contact@{{ request()->getHost() }}
+						<strong>{{ __('Email :') }}</strong> hssabekinfo@gmail.com
 					</p>
 
 					<h5 class="mb-3 mt-4 text-dark">{{ __('2. Hébergeur') }}</h5>
