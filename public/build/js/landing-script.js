@@ -40,6 +40,10 @@
                 1200: { items: 5 }
             }
         });
+        // Accessibility: add aria-labels to owl-dot buttons
+        $('.invoive-temp-slider .owl-dot').each(function (i) {
+            $(this).attr('aria-label', 'Diapositive ' + (i + 1));
+        });
     }
 
     // Feather Icons

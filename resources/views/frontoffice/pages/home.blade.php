@@ -457,50 +457,50 @@
 		<style>.inner-tab-button-wrapper::-webkit-scrollbar{display:none;}</style>
 		<ul class="nav nav-pills inner-tab-button aos" id="pills-tab" role="tablist" data-aos="fade-up" style="flex-wrap:nowrap;min-width:max-content;">
 			<li class="nav-item" role="presentation">
-				<button class="nav-link active" data-bs-slide-to="0" type="button"><span>{{ __('Gestion des ventes') }}</span>{{ __('Superviser l\'équipe commerciale et le processus de vente') }}</button>
+				<button class="nav-link active" data-bs-slide-to="0" type="button" role="tab"><span>{{ __('Gestion des ventes') }}</span>{{ __('Superviser l\'équipe commerciale et le processus de vente') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="1" type="button"><span>{{ __('Finance & Comptabilité') }}</span>{{ __('Superviser les rapports financiers et les analyses') }}</button>
+				<button class="nav-link" data-bs-slide-to="1" type="button" role="tab"><span>{{ __('Finance & Comptabilité') }}</span>{{ __('Superviser les rapports financiers et les analyses') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="2" type="button"><span>{{ __('Devis & Livraisons') }}</span>{{ __('Suivi des prospects et formalisation des offres') }}</button>
+				<button class="nav-link" data-bs-slide-to="2" type="button" role="tab"><span>{{ __('Devis & Livraisons') }}</span>{{ __('Suivi des prospects et formalisation des offres') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="3" type="button"><span>{{ __('Achats & Fournisseurs') }}</span>{{ __('Gérer les achats et les relations fournisseurs') }}</button>
+				<button class="nav-link" data-bs-slide-to="3" type="button" role="tab"><span>{{ __('Achats & Fournisseurs') }}</span>{{ __('Gérer les achats et les relations fournisseurs') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="4" type="button"><span>{{ __('Gestion des clients') }}</span>{{ __('Suivi complet de la relation client') }}</button>
+				<button class="nav-link" data-bs-slide-to="4" type="button" role="tab"><span>{{ __('Gestion des clients') }}</span>{{ __('Suivi complet de la relation client') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="5" type="button"><span>{{ __('Mode sombre & Apparence') }}</span>{{ __('Personnaliser l\'interface selon vos préférences') }}</button>
+				<button class="nav-link" data-bs-slide-to="5" type="button" role="tab"><span>{{ __('Mode sombre & Apparence') }}</span>{{ __('Personnaliser l\'interface selon vos préférences') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="6" type="button"><span>{{ __('Multilingue') }}</span>{{ __('Support complet français et arabe') }}</button>
+				<button class="nav-link" data-bs-slide-to="6" type="button" role="tab"><span>{{ __('Multilingue') }}</span>{{ __('Support complet français et arabe') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="7" type="button"><span>{{ __('Inventaire & Stock') }}</span>{{ __('Gestion complète des stocks et entrepôts') }}</button>
+				<button class="nav-link" data-bs-slide-to="7" type="button" role="tab"><span>{{ __('Inventaire & Stock') }}</span>{{ __('Gestion complète des stocks et entrepôts') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="8" type="button"><span>{{ __('Rapports & Analyses') }}</span>{{ __('Tableaux de bord et rapports détaillés') }}</button>
+				<button class="nav-link" data-bs-slide-to="8" type="button" role="tab"><span>{{ __('Rapports & Analyses') }}</span>{{ __('Tableaux de bord et rapports détaillés') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" data-bs-slide-to="9" type="button"><span>{{ __('Rôles & Permissions') }}</span>{{ __('Contrôle d\'accès granulaire par utilisateur') }}</button>
+				<button class="nav-link" data-bs-slide-to="9" type="button" role="tab"><span>{{ __('Rôles & Permissions') }}</span>{{ __('Contrôle d\'accès granulaire par utilisateur') }}</button>
 			</li>
 		</ul>
 		</div>
 		<div id="featuresCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
 			<div class="position-relative">
-				<button class="btn btn-primary rounded-circle position-absolute top-50 translate-middle-y d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev" style="width:44px;height:44px;left:-22px;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+				<button class="btn btn-primary rounded-circle position-absolute top-50 translate-middle-y d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev" aria-label="Précédent" style="width:44px;height:44px;left:-22px;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15);">
 					<i class="isax isax-arrow-left-2" style="font-size:20px;"></i>
 				</button>
-				<button class="btn btn-primary rounded-circle position-absolute top-50 translate-middle-y d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next" style="width:44px;height:44px;right:-22px;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+				<button class="btn btn-primary rounded-circle position-absolute top-50 translate-middle-y d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next" aria-label="Suivant" style="width:44px;height:44px;right:-22px;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15);">
 					<i class="isax isax-arrow-right-3" style="font-size:20px;"></i>
 				</button>
 				<div class="d-flex d-md-none justify-content-center gap-3 mb-3">
-					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev" style="width:40px;height:40px;">
+					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev" aria-label="Précédent" style="width:40px;height:40px;">
 						<i class="isax isax-arrow-left-2" style="font-size:18px;"></i>
 					</button>
-					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next" style="width:40px;height:40px;">
+					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next" aria-label="Suivant" style="width:40px;height:40px;">
 						<i class="isax isax-arrow-right-3" style="font-size:18px;"></i>
 					</button>
 				</div>

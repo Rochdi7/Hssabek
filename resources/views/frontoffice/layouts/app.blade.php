@@ -290,7 +290,7 @@
 		<div class="mouse-cursor cursor-inner"></div>
 
 		<div class="back-to-top">
-			<a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+			<a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top" aria-label="Retour en haut"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
 		</div>
 	</div>
 

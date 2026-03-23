@@ -3,7 +3,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg header-nav">
             <div class="navbar-header">
-                <a id="mobile_btn" href="#">
+                <a id="mobile_btn" href="#" aria-label="Menu">
                     <span class="bar-icon">
                         <span></span>
                         <span></span>
@@ -30,7 +30,7 @@
                             alt="{{ config('app.name') }}">
                     </a>
 
-                    <a id="menu_close" class="menu-close" href="#"> <i class="fas fa-times"></i></a>
+                    <a id="menu_close" class="menu-close" href="#" aria-label="Fermer le menu"> <i class="fas fa-times"></i></a>
                 </div>
                 <ul class="main-nav navbar-nav" id="scroll-nav">
                     <li class="nav-item"><a href="{{ route('home') }}"
