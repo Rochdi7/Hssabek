@@ -5,6 +5,7 @@ namespace App\Models\Finance;
 use App\Models\Purchases\SupplierPayment;
 use App\Models\Sales\Payment;
 use App\Traits\BelongsToTenant;
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BankAccount extends Model
 {
-    use HasFactory, HasUuids, BelongsToTenant;
+    use HasFactory, HasUuids, BelongsToTenant, LogsActivity;
 
     protected $fillable = [
         'account_holder_name',
@@ -105,6 +106,7 @@ class BankAccount extends Model
 
     /**
      * Recalculate balance from all transactions.
+     * Includes: incomes, expenses, transfers, sales payments (revenue), supplier payments (expense).
      */
     public function recalculateBalance(): void
     {
@@ -113,11 +115,23 @@ class BankAccount extends Model
         $incomingTransfers = $this->incomingTransfers()->sum('amount');
         $outgoingTransfers = $this->outgoingTransfers()->sum('amount');
 
+        // Sales payments = revenue (credit)
+        $totalSalesPayments = $this->payments()
+            ->where('status', 'succeeded')
+            ->sum('amount');
+
+        // Supplier payments = expense (debit)
+        $totalSupplierPayments = $this->supplierPayments()
+            ->where('status', 'succeeded')
+            ->sum('amount');
+
         $this->current_balance = $this->opening_balance
             + $totalIncome
             - $totalExpense
             + $incomingTransfers
-            - $outgoingTransfers;
+            - $outgoingTransfers
+            + $totalSalesPayments
+            - $totalSupplierPayments;
 
         $this->save();
     }

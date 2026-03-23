@@ -1,5 +1,7 @@
 <?php $page = 'sales-report'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Rapport des Ventes')
+@section('description', 'Analyser les performances de vente')
 @section('content')
     <!-- Based on sales-report.blade.php layout -->
 
@@ -52,7 +54,7 @@
                                         <p class="mb-1">{{ __("Chiffre d'affaires") }}</p>
                                         <h6 class="fs-16 fw-semibold mb-2">
                                             {{ number_format($summary->total_revenue ?? 0, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                            {{ $currency }}</h6>
                                         <p class="text-truncate">
                                             <span class="text-muted">{{ $from }} - {{ $to }}</span>
                                         </p>
@@ -102,7 +104,7 @@
                                         <p class="mb-1">{{ __('Encaissé') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-2">
                                             {{ number_format($summary->collected ?? 0, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
+                                            {{ $currency }}
                                         </h6>
                                         <p class="text-truncate">
                                             <span class="text-muted">{{ __('Paiements reçus') }}</span>
@@ -129,7 +131,7 @@
                                         <p class="mb-1 text-truncate">{{ __('Impayé') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-2 text-truncate">
                                             {{ number_format($summary->outstanding ?? 0, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
+                                            {{ $currency }}
                                         </h6>
                                         <p class="text-truncate">
                                             <span class="text-danger">{{ __('Montant restant dû') }}</span>
@@ -225,7 +227,7 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $tc->customer?->name ?? '-' }}</td>
                                             <td class="text-dark">{{ number_format($tc->total, 2, ',', ' ') }}
-                                                {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}
+                                                {{ $currency }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -275,11 +277,11 @@
                                 </td>
                                 <td>{{ $invoice->issue_date?->format('d/m/Y') }}</td>
                                 <td class="text-dark">{{ number_format($invoice->total, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td class="text-dark">{{ number_format($invoice->amount_paid, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td class="text-dark">{{ number_format($invoice->amount_due, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td>
                                     @switch($invoice->status)
                                         @case('paid')
@@ -326,7 +328,7 @@
         <script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}';
+                var currency = '{{ $currency }}';
                 var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
 
                 // Revenue by month bar chart

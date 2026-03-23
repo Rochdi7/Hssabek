@@ -4,6 +4,7 @@ namespace App\Models\Finance;
 
 use App\Models\CRM\Customer;
 use App\Traits\BelongsToTenant;
+use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Income extends Model
 {
-    use HasFactory, HasUuids, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
     protected $fillable = [
         'income_number',

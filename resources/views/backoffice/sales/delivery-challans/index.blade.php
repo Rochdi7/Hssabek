@@ -1,5 +1,7 @@
 <?php $page = 'delivery-challans'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Bons de Livraison')
+@section('description', 'Liste de tous les bons de livraison')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">
@@ -32,6 +34,99 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Total bons') }}</p>
+                                    <h6 class="fs-16 fw-semibold">{{ number_format($deliveryChallans->total(), 0, ',', ' ') }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-primary rounded-circle">
+                                        <i class="isax isax-truck"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Tous les bons de livraison') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Livrés') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-success">
+                                        {{ \App\Models\Sales\DeliveryChallan::where('status', 'delivered')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-success rounded-circle">
+                                        <i class="isax isax-tick-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Bons livrés') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Émis') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-warning">
+                                        {{ \App\Models\Sales\DeliveryChallan::where('status', 'issued')->count() }}
+                                    </h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-warning rounded-circle">
+                                        <i class="isax isax-timer"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Bons émis') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                <div>
+                                    <p class="mb-1">{{ __('Annulés') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-danger">
+                                        {{ \App\Models\Sales\DeliveryChallan::where('status', 'cancelled')->count() }}</h6>
+                                </div>
+                                <div>
+                                    <span class="avatar bg-danger rounded-circle">
+                                        <i class="isax isax-information"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="fs-13 mb-0">{{ __('Bons annulés') }}</p>
+                            <span class="position-absolute end-0 bottom-0">
+                                <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Summary Cards -->
 
             <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
@@ -107,19 +202,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($challans as $challan)
+                        @foreach ($deliveryChallans as $deliveryChallan)
                             <tr>
                                 <td>
                                     <div class="form-check form-check-md">
                                         <input class="form-check-input" type="checkbox">
                                     </div>
                                 </td>
-                                <td><span class="fw-medium">{{ $challan->number }}</span></td>
-                                <td>{{ \Carbon\Carbon::parse($challan->challan_date)->format('d/m/Y') }}</td>
-                                <td>{{ $challan->customer->name ?? '—' }}</td>
-                                <td>{{ $challan->reference_number ?? '—' }}</td>
+                                <td><span class="fw-medium">{{ $deliveryChallan->number }}</span></td>
+                                <td>{{ \Carbon\Carbon::parse($deliveryChallan->challan_date)->format('d/m/Y') }}</td>
+                                <td>{{ $deliveryChallan->customer->name ?? '—' }}</td>
+                                <td>{{ $deliveryChallan->reference_number ?? '—' }}</td>
                                 <td>
-                                    @switch($challan->status)
+                                    @switch($deliveryChallan->status)
                                         @case('draft')
                                             <span
                                                 class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
@@ -140,18 +235,18 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('bo.sales.delivery-challans.show', $challan) }}"
+                                            <a href="{{ route('bo.sales.delivery-challans.show', $deliveryChallan) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('bo.sales.delivery-challans.edit', $challan) }}"
+                                            <a href="{{ route('bo.sales.delivery-challans.edit', $deliveryChallan) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                         </li>
                                         <li>
                                             <form method="POST"
-                                                action="{{ route('bo.sales.delivery-challans.destroy', $challan) }}">
+                                                action="{{ route('bo.sales.delivery-challans.destroy', $deliveryChallan) }}">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
@@ -167,7 +262,7 @@
                 </table>
             </div>
 
-            @include('backoffice.components.table-footer', ['paginator' => $challans])
+            @include('backoffice.components.table-footer', ['paginator' => $deliveryChallans])
 
             @component('backoffice.components.footer')
             @endcomponent

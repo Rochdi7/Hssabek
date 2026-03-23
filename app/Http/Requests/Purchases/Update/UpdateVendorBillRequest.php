@@ -19,6 +19,7 @@ class UpdateVendorBillRequest extends FormRequest
 
         return [
             'supplier_id'       => ['required', 'uuid', Rule::exists('suppliers', 'id')->where('tenant_id', $tenantId)],
+            'bank_account_id'   => ['required', 'uuid', Rule::exists('bank_accounts', 'id')->where('tenant_id', $tenantId)],
             'reference_number'  => 'nullable|string|max:100',
             'issue_date'        => 'required|date',
             'due_date'          => 'nullable|date|after_or_equal:issue_date',
@@ -32,6 +33,8 @@ class UpdateVendorBillRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'bank_account_id.required' => __('Le compte bancaire est obligatoire.'),
+            'bank_account_id.exists'   => __('Le compte bancaire sélectionné est invalide.'),
             'supplier_id.required'    => __('Le fournisseur est obligatoire.'),
             'supplier_id.exists'      => __('Le fournisseur sélectionné est invalide.'),
             'issue_date.required'     => __('La date d\'émission est obligatoire.'),

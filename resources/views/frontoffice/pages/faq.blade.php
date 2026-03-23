@@ -1,7 +1,117 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('FAQ'))
-@section('meta_description', __('Foire aux questions') . ' ' . config('app.name') . '. ' . __('Trouvez les réponses aux questions les plus fréquentes.'))
+@section('title', __('FAQ — Questions Fréquentes sur la Facturation en Ligne'))
+@section('meta_description', __('Foire aux questions') . ' ' . config('app.name') . '. ' . __('Trouvez les réponses sur la facturation, les devis, les abonnements, la sécurité et la gestion commerciale au Maroc.'))
+@section('meta_keywords', 'faq facturation maroc, questions facturation en ligne, aide logiciel comptable, support hssabek, devis facture faq')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "FAQPage",
+	"mainEntity": [
+		{
+			"@@type": "Question",
+			"name": "Qu'est-ce que {{ config('app.name') }} ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "{{ config('app.name') }} est une solution SaaS complète de gestion commerciale : facturation, devis, gestion des clients et fournisseurs, stock, achats, dépenses et rapports. Tout est centralisé dans une seule plateforme accessible depuis votre navigateur."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "À qui s'adresse {{ config('app.name') }} ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Notre plateforme est conçue pour les PME, auto-entrepreneurs, freelances et toute entreprise qui souhaite simplifier sa gestion quotidienne : facturation, suivi des paiements, gestion des stocks et bien plus encore."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Y a-t-il un essai gratuit ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui ! Vous pouvez tester {{ config('app.name') }} gratuitement pendant 7 jours sans carte bancaire. Cela vous permet de découvrir toutes les fonctionnalités avant de vous engager."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Ai-je besoin d'installer un logiciel ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Non. {{ config('app.name') }} est 100% en ligne (SaaS). Il suffit d'un navigateur web et d'une connexion internet. Aucune installation requise."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Combien de factures puis-je créer ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Cela dépend de votre plan. Le plan gratuit inclut un nombre limité de factures par mois, tandis que les plans Premium et Entreprise offrent des factures illimitées."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Puis-je personnaliser mes modèles de facture ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui ! Nous proposons plus de 64 modèles professionnels pour vos factures, devis, bons de livraison et plus encore. Vous pouvez y ajouter votre logo, vos couleurs et vos conditions de paiement."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Puis-je convertir un devis en facture ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Absolument ! Un simple clic suffit pour transformer un devis accepté en facture. Toutes les informations sont automatiquement reprises."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Les rappels de paiement sont-ils automatiques ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, vous pouvez configurer des rappels automatiques pour les factures impayées. Définissez la fréquence et le contenu des rappels depuis vos paramètres."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Mes données sont-elles sécurisées ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Absolument. Chaque entreprise dispose de son propre espace totalement isolé (multi-tenant). Vos données sont chiffrées en transit (HTTPS/TLS) et sauvegardées régulièrement."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Êtes-vous conforme au RGPD ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, nous sommes entièrement conformes au RGPD. Consultez notre Politique de Confidentialité pour en savoir plus sur la collecte et le traitement de vos données."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Puis-je exporter mes données si je quitte ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, vos données vous appartiennent. Vous pouvez exporter toutes vos factures, clients, produits et rapports en PDF ou CSV à tout moment, même après annulation."
+			}
+		}
+	]
+}
+</script>
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "FAQ"}
+	]
+}
+</script>
+@endsection
 
 @section('hero')
 <!-- Hero Section -->
@@ -110,7 +220,7 @@
 							<a class="collapsed" data-bs-toggle="collapse" href="#bFaq2" aria-expanded="false">{{ __('Puis-je personnaliser mes modèles de facture ?') }}</a>
 						</h4>
 						<div id="bFaq2" class="card-collapse collapse" data-bs-parent="#accordionBilling">
-							<p>{{ __('Oui ! Nous proposons plus de 40 modèles de factures personnalisables. Vous pouvez y ajouter votre logo, vos couleurs, vos conditions de paiement et toute information supplémentaire.') }}</p>
+							<p>{{ __('Oui ! Nous proposons plus de 64 modèles professionnels pour vos factures, devis, bons de livraison et plus encore. Vous pouvez y ajouter votre logo, vos couleurs et vos conditions de paiement. Besoin d\'un modèle sur mesure ? Demandez-le gratuitement.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">

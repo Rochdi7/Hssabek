@@ -77,6 +77,15 @@ class FakeDataSeeder extends Seeder
     private $faker;
     private $tenant;
 
+    /**
+     * Get the next available number for a document type, skipping existing ones.
+     */
+    private function nextNumber(string $model, string $prefix, int $index, int $pad = 5): string
+    {
+        $existing = $model::where('tenant_id', $this->tenant->id)->count();
+        return $prefix . str_pad($existing + $index + 1, $pad, '0', STR_PAD_LEFT);
+    }
+
     public function run(): void
     {
         $this->faker = Faker::create('fr_FR');
@@ -445,7 +454,7 @@ class FakeDataSeeder extends Seeder
                 'quantity' => $this->faker->randomFloat(3, 1, 100),
                 'unit_cost' => $this->faker->randomFloat(2, 10, 1000),
                 'note' => $this->faker->sentence(),
-                'moved_at' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'moved_at' => $this->faker->dateTimeBetween('-12 months', 'now'),
             ]);
         }
     }
@@ -465,9 +474,9 @@ class FakeDataSeeder extends Seeder
                 'tenant_id' => $this->tenant->id,
                 'from_warehouse_id' => $from->id,
                 'to_warehouse_id' => $to->id,
-                'number' => 'ST-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
+                'number' => $this->nextNumber(StockTransfer::class, 'ST-', $i, 4),
                 'status' => $this->faker->randomElement(['draft', 'in_transit', 'received']),
-                'shipped_at' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'shipped_at' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'received_at' => $this->faker->optional()->dateTimeThisMonth(),
                 'notes' => $this->faker->sentence(),
             ]);
@@ -513,9 +522,9 @@ class FakeDataSeeder extends Seeder
             $quote = Quote::create([
                 'tenant_id' => $this->tenant->id,
                 'customer_id' => $customers->random()->id,
-                'number' => 'QT-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
+                'number' => $this->nextNumber(Quote::class, 'QT-', $i, 4),
                 'status' => $this->faker->randomElement(['draft', 'sent', 'accepted', 'rejected']),
-                'issue_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'issue_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'expiry_date' => $this->faker->dateTimeBetween('+1 month', '+3 months'),
                 'enable_tax' => true,
                 'subtotal' => 0,
@@ -562,6 +571,12 @@ class FakeDataSeeder extends Seeder
 
     private function seedInvoices(): void
     {
+        // Skip if invoices already exist for this tenant
+        $existingCount = Invoice::where('tenant_id', $this->tenant->id)->count();
+        if ($existingCount >= 20) {
+            return;
+        }
+
         $customers = Customer::where('tenant_id', $this->tenant->id)->get();
         $products = Product::where('tenant_id', $this->tenant->id)->get();
 
@@ -571,9 +586,9 @@ class FakeDataSeeder extends Seeder
             $invoice = Invoice::create([
                 'tenant_id' => $this->tenant->id,
                 'customer_id' => $customers->random()->id,
-                'number' => 'INV-' . str_pad($i + 1, 5, '0', STR_PAD_LEFT),
+                'number' => $this->nextNumber(Invoice::class, 'INV-', $i),
                 'status' => $status,
-                'issue_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'issue_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'due_date' => $this->faker->dateTimeBetween('+15 days', '+60 days'),
                 'enable_tax' => true,
                 'subtotal' => 0,
@@ -581,8 +596,8 @@ class FakeDataSeeder extends Seeder
                 'total' => 0,
                 'amount_paid' => 0,
                 'amount_due' => 0,
-                'sent_at' => in_array($status, ['sent', 'partial', 'paid', 'overdue']) ? $this->faker->dateTimeBetween('-30 days', 'now') : null,
-                'paid_at' => $status === 'paid' ? $this->faker->dateTimeBetween('-30 days', 'now') : null,
+                'sent_at' => in_array($status, ['sent', 'partial', 'paid', 'overdue']) ? $this->faker->dateTimeBetween('-12 months', 'now') : null,
+                'paid_at' => $status === 'paid' ? $this->faker->dateTimeBetween('-12 months', 'now') : null,
             ]);
 
             // Add items
@@ -643,9 +658,9 @@ class FakeDataSeeder extends Seeder
             $challan = DeliveryChallan::create([
                 'tenant_id' => $this->tenant->id,
                 'customer_id' => $customers->random()->id,
-                'number' => 'DC-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
+                'number' => $this->nextNumber(DeliveryChallan::class, 'DC-', $i, 4),
                 'status' => $this->faker->randomElement(['draft', 'issued', 'delivered']),
-                'challan_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'challan_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'enable_tax' => true,
                 'subtotal' => 0,
                 'tax_total' => 0,
@@ -698,9 +713,9 @@ class FakeDataSeeder extends Seeder
                 'tenant_id' => $this->tenant->id,
                 'customer_id' => $customers->random()->id,
                 'invoice_id' => $invoices->random()?->id,
-                'number' => 'CN-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
+                'number' => $this->nextNumber(CreditNote::class, 'CN-', $i, 4),
                 'status' => $this->faker->randomElement(['draft', 'issued', 'applied']),
-                'issue_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'issue_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'subtotal' => 0,
                 'tax_total' => 0,
                 'total' => 0,
@@ -749,7 +764,7 @@ class FakeDataSeeder extends Seeder
                 'customer_id' => $customers->random()->id,
                 'reference_number' => strtoupper($this->faker->bothify('REF-########')),
                 'amount' => $this->faker->randomFloat(2, 500, 50000),
-                'payment_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'payment_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'status' => $this->faker->randomElement(['pending', 'succeeded']),
                 'payment_method_id' => $paymentMethods->random()?->id,
                 'notes' => $this->faker->sentence(),
@@ -786,9 +801,9 @@ class FakeDataSeeder extends Seeder
                 'tenant_id' => $this->tenant->id,
                 'supplier_id' => $suppliers->random()->id,
                 'warehouse_id' => $warehouses->random()->id,
-                'number' => 'PO-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
+                'number' => $this->nextNumber(PurchaseOrder::class, 'PO-', $i, 4),
                 'status' => $this->faker->randomElement(['draft', 'sent', 'confirmed', 'received']),
-                'order_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'order_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'expected_date' => $this->faker->dateTimeBetween('+7 days', '+30 days'),
                 'subtotal' => 0,
                 'tax_total' => 0,
@@ -839,8 +854,8 @@ class FakeDataSeeder extends Seeder
             $gr = GoodsReceipt::create([
                 'tenant_id' => $this->tenant->id,
                 'warehouse_id' => $warehouses->random()->id,
-                'number' => 'GR-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
-                'received_at' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'number' => $this->nextNumber(GoodsReceipt::class, 'GR-', $i, 4),
+                'received_at' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'status' => $this->faker->randomElement(['draft', 'received']),
                 'notes' => $this->faker->sentence(),
             ]);
@@ -865,25 +880,36 @@ class FakeDataSeeder extends Seeder
     private function seedVendorBills(): void
     {
         $suppliers = Supplier::where('tenant_id', $this->tenant->id)->get();
-        $products = Product::where('tenant_id', $this->tenant->id)->get();
 
         for ($i = 0; $i < 12; $i++) {
-            $bill = VendorBill::create([
+            $status = $this->faker->randomElement(['draft', 'posted', 'paid', 'paid', 'paid', 'void']);
+            $subtotal = $this->faker->randomFloat(2, 500, 50000);
+            $taxTotal = round($subtotal * 0.20, 2);
+            $total = $subtotal + $taxTotal;
+
+            $amountPaid = 0;
+            $amountDue = $total;
+            if ($status === 'paid') {
+                $amountPaid = $total;
+                $amountDue = 0;
+            } elseif ($status === 'posted') {
+                $amountPaid = round($total * $this->faker->randomFloat(2, 0, 0.5), 2);
+                $amountDue = $total - $amountPaid;
+            }
+
+            VendorBill::create([
                 'tenant_id' => $this->tenant->id,
                 'supplier_id' => $suppliers->random()->id,
-                'number' => 'VB-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
-                'status' => $this->faker->randomElement(['draft', 'posted', 'paid', 'void']),
-                'issue_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'number' => $this->nextNumber(VendorBill::class, 'VB-', $i, 4),
+                'status' => $status,
+                'issue_date' => $this->faker->dateTimeBetween('-6 months', 'now'),
                 'due_date' => $this->faker->dateTimeBetween('+15 days', '+60 days'),
-                'subtotal' => 0,
-                'tax_total' => 0,
-                'total' => 0,
-                'amount_paid' => 0,
-                'amount_due' => 0,
+                'subtotal' => $subtotal,
+                'tax_total' => $taxTotal,
+                'total' => $total,
+                'amount_paid' => $amountPaid,
+                'amount_due' => $amountDue,
             ]);
-
-            // Note: VendorBill items would be added similarly to invoices
-            // This depends on your actual VendorBill item model structure
         }
     }
 
@@ -896,9 +922,9 @@ class FakeDataSeeder extends Seeder
             $debitNote = DebitNote::create([
                 'tenant_id' => $this->tenant->id,
                 'supplier_id' => $suppliers->random()->id,
-                'number' => 'DN-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
+                'number' => $this->nextNumber(DebitNote::class, 'DN-', $i, 4),
                 'status' => $this->faker->randomElement(['draft', 'issued', 'applied']),
-                'debit_note_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'debit_note_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'subtotal' => 0,
                 'tax_total' => 0,
                 'total' => 0,
@@ -947,7 +973,7 @@ class FakeDataSeeder extends Seeder
                 'supplier_id' => $suppliers->random()->id,
                 'reference_number' => strtoupper($this->faker->bothify('REF-########')),
                 'amount' => $this->faker->randomFloat(2, 1000, 100000),
-                'payment_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'payment_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'status' => $this->faker->randomElement(['pending', 'succeeded']),
                 'payment_method_id' => $paymentMethods->isNotEmpty() ? $paymentMethods->random()->id : null,
                 'notes' => $this->faker->sentence(),
@@ -1026,10 +1052,10 @@ class FakeDataSeeder extends Seeder
         for ($i = 0; $i < 30; $i++) {
             Expense::create([
                 'tenant_id' => $this->tenant->id,
-                'expense_number' => 'EXP-' . str_pad($i + 1, 5, '0', STR_PAD_LEFT),
+                'expense_number' => $this->nextNumber(Expense::class, 'EXP-', $i),
                 'reference_number' => strtoupper($this->faker->bothify('REF-########')),
                 'amount' => $this->faker->randomFloat(2, 100, 10000),
-                'expense_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'expense_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'payment_mode' => $this->faker->randomElement(['cash', 'bank_transfer', 'card']),
                 'payment_status' => $this->faker->randomElement(['unpaid', 'paid', 'partial']),
                 'bank_account_id' => $bankAccounts->random()?->id,
@@ -1048,10 +1074,10 @@ class FakeDataSeeder extends Seeder
         for ($i = 0; $i < 25; $i++) {
             Income::create([
                 'tenant_id' => $this->tenant->id,
-                'income_number' => 'INC-' . str_pad($i + 1, 5, '0', STR_PAD_LEFT),
+                'income_number' => $this->nextNumber(Income::class, 'INC-', $i),
                 'reference_number' => strtoupper($this->faker->bothify('REF-########')),
                 'amount' => $this->faker->randomFloat(2, 500, 50000),
-                'income_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'income_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'payment_mode' => $this->faker->randomElement(['cash', 'bank_transfer', 'card']),
                 'bank_account_id' => $bankAccounts->random()?->id,
                 'customer_id' => $customers->random()?->id,
@@ -1082,7 +1108,7 @@ class FakeDataSeeder extends Seeder
                 'interest_type' => $this->faker->randomElement(['fixed', 'reducing']),
                 'total_amount' => $totalAmount,
                 'remaining_balance' => $totalAmount,
-                'start_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'start_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'end_date' => $this->faker->dateTimeBetween('+1 year', '+5 years'),
                 'payment_frequency' => $this->faker->randomElement(['monthly', 'quarterly', 'yearly']),
                 'status' => $this->faker->randomElement(['active', 'closed']),
@@ -1109,7 +1135,7 @@ class FakeDataSeeder extends Seeder
                     'paid_amount' => $isPaid ? round($monthlyTotal, 2) : 0,
                     'remaining_amount' => $isPaid ? 0 : round($monthlyTotal, 2),
                     'status' => $isPaid ? 'paid' : 'pending',
-                    'paid_at' => $isPaid ? $this->faker->dateTimeBetween('-30 days', 'now') : null,
+                    'paid_at' => $isPaid ? $this->faker->dateTimeBetween('-12 months', 'now') : null,
                 ]);
             }
         }
@@ -1130,7 +1156,7 @@ class FakeDataSeeder extends Seeder
                 'from_bank_account_id' => $from->id,
                 'to_bank_account_id' => $to->id,
                 'reference_number' => strtoupper($this->faker->bothify('MT-########')),
-                'transfer_date' => $this->faker->dateTimeBetween('-30 days', 'now'),
+                'transfer_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
                 'amount' => $this->faker->randomFloat(2, 5000, 100000),
                 'notes' => $this->faker->sentence(),
                 'status' => $this->faker->randomElement(['pending', 'completed']),

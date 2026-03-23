@@ -1,5 +1,7 @@
 <?php $page = 'pro'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Rapport')
+@section('description', 'Créer un nouveau rapport personnalisé')
 @section('content')
     <!-- ========================
                     Start Page Content

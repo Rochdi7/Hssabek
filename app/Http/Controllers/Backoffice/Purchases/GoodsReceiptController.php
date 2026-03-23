@@ -24,7 +24,7 @@ class GoodsReceiptController extends Controller
     {
         $this->authorize('viewAny', GoodsReceipt::class);
 
-        $receipts = GoodsReceipt::query()
+        $goodsReceipts = GoodsReceipt::query()
             ->with(['purchaseOrder', 'warehouse', 'creator'])
             ->when($request->search, fn($q, $s) => $q->where(function ($q) use ($s) {
                 $q->where('number', 'like', "%{$s}%")
@@ -35,7 +35,7 @@ class GoodsReceiptController extends Controller
             ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
-        return view('backoffice.purchases.goods-receipts.index', compact('receipts'));
+        return view('backoffice.purchases.goods-receipts.index', compact('goodsReceipts'));
     }
 
     public function create()

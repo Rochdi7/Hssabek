@@ -1,5 +1,7 @@
 <?php $page = 'debit-notes'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier la Note de Débit')
+@section('description', 'Modifier les détails de la note de débit')
 @section('content')
     <div class="page-wrapper">
         <div class="content">
@@ -205,8 +207,8 @@
                                                     <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }} <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
                                                 </div>
                                                 <div class="tab-pane fade" id="bank" role="tabpanel">
-                                                    <label class="form-label">{{ __('Compte bancaire') }}</label>
-                                                    <select class="select" name="bank_account_id">
+                                                    <label class="form-label">{{ __('Compte bancaire') }} <span class="text-danger">*</span></label>
+                                                    <select class="select @error('bank_account_id') is-invalid @enderror" name="bank_account_id" required>
                                                         <option value="">{{ __('Sélectionner') }}</option>
                                                         @foreach ($bankAccounts as $ba)
                                                             <option value="{{ $ba->id }}"
@@ -217,6 +219,7 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                    @error('bank_account_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                                     <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                 </div>
                                             </div>

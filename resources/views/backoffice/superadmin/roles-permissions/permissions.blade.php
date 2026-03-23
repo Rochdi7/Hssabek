@@ -1,5 +1,7 @@
 <?php $page = 'roles-permissions'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Permissions')
+@section('description', 'Configurer les permissions administrateurs')
 @section('content')
     <!-- ========================
                Start Page Content

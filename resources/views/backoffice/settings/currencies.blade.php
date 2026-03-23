@@ -1,5 +1,7 @@
 <?php $page = 'currencies'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Devises')
+@section('description', 'Gérer les devises')
 @section('content')
     <!-- ========================
                 Start Page Content

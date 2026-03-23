@@ -2,221 +2,227 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Devis DEV-2026-0001</title>
+    <title>Devis DEV-001</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #333; line-height: 1.5; }
         .page { padding: 30px 40px; }
 
-        .header-table { width: 100%; margin-bottom: 25px; }
+        /* Header */
+        .header-table { width: 100%; margin-bottom: 30px; }
         .header-table td { vertical-align: top; }
-        .company-name { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
-        .company-detail { font-size: 10px; color: #555; line-height: 1.6; }
-        .doc-title { font-size: 22px; font-weight: bold; color: #2563eb; margin-bottom: 8px; text-align: right; }
-        .doc-meta { font-size: 10px; color: #555; text-align: right; line-height: 1.8; }
-        .doc-meta strong { color: #333; }
+        .company-name { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+        .company-detail { font-size: 10px; color: #333; line-height: 1.6; }
+        .doc-title { font-size: 24px; font-weight: bold; text-align: right; }
 
-        .customer-block { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 12px 15px; margin-bottom: 20px; }
-        .customer-block .label { font-size: 9px; text-transform: uppercase; color: #888; letter-spacing: 0.5px; margin-bottom: 4px; }
-        .customer-block .name { font-size: 13px; font-weight: bold; margin-bottom: 2px; }
-        .customer-block .detail { font-size: 10px; color: #555; }
+        /* Info block: Destinataire / Envoyé à / Meta */
+        .info-table { width: 100%; margin-bottom: 30px; }
+        .info-table td { vertical-align: top; font-size: 10px; line-height: 1.7; }
+        .info-label { font-weight: bold; font-size: 11px; margin-bottom: 4px; }
+        .meta-table { width: 100%; }
+        .meta-table td { font-size: 10px; padding: 1px 0; }
+        .meta-table td:first-child { font-weight: bold; text-align: left; padding-right: 10px; }
+        .meta-table td:last-child { text-align: right; }
 
-        .badge { display: inline-block; padding: 3px 10px; border-radius: 3px; font-size: 9px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; }
-        .badge-draft { background: #e9ecef; color: #495057; }
-        .badge-sent { background: #cff4fc; color: #055160; }
-        .badge-accepted { background: #d1e7dd; color: #0f5132; }
-        .badge-rejected { background: #f8d7da; color: #842029; }
-        .badge-expired { background: #fff3cd; color: #664d03; }
-        .badge-cancelled { background: #e9ecef; color: #6c757d; }
-
-        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .items-table th { background: #2563eb; color: #fff; padding: 8px 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
-        .items-table th:first-child { text-align: left; border-radius: 4px 0 0 0; }
-        .items-table th:last-child { border-radius: 0 4px 0 0; }
-        .items-table td { padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 10px; }
-        .items-table tr:last-child td { border-bottom: none; }
+        /* Items table */
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
+        .items-table th {
+            background: #e8d44d;
+            color: #333;
+            padding: 8px 10px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border: 1px solid #ccc;
+        }
+        .items-table td {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            font-size: 10px;
+        }
         .text-right { text-align: right; }
         .text-center { text-align: center; }
 
-        .totals-wrapper { width: 100%; margin-bottom: 20px; }
-        .totals-table { width: 280px; margin-left: auto; }
-        .totals-table td { padding: 5px 10px; font-size: 11px; }
-        .totals-table .total-row td { font-size: 14px; font-weight: bold; border-top: 2px solid #2563eb; padding-top: 8px; color: #2563eb; }
+        /* Totals inside table */
+        .totals-row td {
+            border: none !important;
+            padding: 4px 10px;
+            font-size: 10px;
+        }
+        .totals-row td.label-cell {
+            text-align: right;
+            font-weight: bold;
+        }
+        .totals-row td.value-cell {
+            text-align: right;
+        }
+        .grand-total td {
+            font-size: 16px;
+            font-weight: bold;
+            padding-top: 6px;
+        }
 
-        .notes-block { margin-top: 25px; padding: 10px 15px; background: #f8f9fa; border-left: 3px solid #2563eb; font-size: 10px; color: #555; }
-        .notes-block strong { color: #333; }
+        /* Validity block */
+        .validity-block {
+            background: #fffbe6;
+            border: 1px solid #e8d44d;
+            padding: 10px 14px;
+            margin: 15px 0;
+            font-size: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
 
-        .validity-block { margin-top: 15px; padding: 8px 12px; border: 1px dashed #dee2e6; border-radius: 4px; font-size: 10px; color: #555; }
+        /* Footer */
+        .footer-section { margin-top: 40px; position: relative; }
+        .payment-conditions { font-size: 10px; line-height: 1.7; }
+        .payment-conditions strong { font-size: 11px; }
+
+        .separator { border: none; border-top: 1px solid #e9ecef; margin: 15px 0; }
     </style>
 </head>
 <body>
 <div class="page">
 
+    <!-- Header: Company name + DEVIS -->
     <table class="header-table">
         <tr>
-            <td style="width: 55%;">
-
-                        <img src="../../../../../../public/assets/images/logo/logo-wide-cropped.svg" alt="logo" style="max-height: 50px; max-width: 200px; margin-bottom: 8px; object-fit: contain;">
-
-                <div class="company-name">Ma Société SARL</div>
+            <td style="width: 60%;">
+                <img src="../../../../../../public/assets/images/logo/logo-wide-cropped.svg" height="50" alt="logo" style="margin-bottom: 8px;"><br>
+                <div class="company-name">Joanna Binet</div>
                 <div class="company-detail">
-                    123 Avenue Mohammed V<br>
-                    Casablanca
-                    20000
-                    Maroc
-                    <br>Tél : +212 5 22 00 00 00
-                    <br>Email : contact@masociete.ma
-                    <br>IF : 12345678
-                    <br>ICE : 001234567000012
-                    <br>RC : RC 12345
+                    48 Coubertin<br>
+                    31400 Paris
                 </div>
             </td>
-            <td style="width: 45%;">
+            <td style="width: 40%;">
                 <div class="doc-title">DEVIS</div>
-                <div class="doc-meta">
-                    <strong>N°</strong> DEV-2026-0001<br>
-                    <strong>Date :</strong> 15/03/2026<br>
-
-                        <strong>Valide jusqu'au :</strong> 15/04/2026<br>
-
-                        <strong>Réf :</strong> REF-001<br>
-
-                    <span class="badge badge-sent">Envoyé</span>
-                </div>
             </td>
         </tr>
     </table>
 
-    <div class="customer-block">
-        <div class="label">Destinataire</div>
-        <div class="name">Client Exemple SARL</div>
-        <div class="detail">
-            45 Rue de la Liberté<br>
-            Rabat
-            10000
-            Maroc
-            <br>client@exemple.ma
-            <br>+212 6 00 00 00 00
-            <br>IF : 87654321
-        </div>
-    </div>
+    <!-- Info block: Destinataire / Envoyé à / Meta -->
+    <table class="info-table">
+        <tr>
+            <td style="width: 30%;">
+                <div class="info-label">Destinataire</div>
+                Cendrillon Ayot<br>
+                69 rue Nations<br>
+                22000 Paris
+            </td>
+            <td style="width: 30%;">
+                <div class="info-label">Envoyé à</div>
+                Cendrillon Ayot<br>
+                46 Rue St Ferréol<br>
+                92360 Île-de-France
+            </td>
+            <td style="width: 40%;">
+                <table class="meta-table">
+                    <tr>
+                        <td>Devis n°</td>
+                        <td>DEV-001</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>20/01/2019</td>
+                    </tr>
+                    <tr>
+                        <td>Validité</td>
+                        <td>20/02/2019</td>
+                    </tr>
+                    <tr>
+                        <td>Référence</td>
+                        <td>1630/2019</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 
+    <!-- Items table -->
     <table class="items-table">
         <thead>
             <tr>
-                <th style="width: 5%;">#</th>
-                <th style="width: 35%;">Désignation</th>
-                <th class="text-center" style="width: 10%;">Qté</th>
-                <th class="text-right" style="width: 15%;">Prix unit.</th>
-
-                    <th class="text-right" style="width: 10%;">TVA</th>
-
-                <th class="text-right" style="width: 15%;">Total HT</th>
+                <th style="width: 8%;">QTÉ</th>
+                <th style="width: 42%;">DÉSIGNATION</th>
+                <th class="text-right" style="width: 25%;">PRIX UNIT. HT</th>
+                <th class="text-right" style="width: 25%;">MONTANT HT</th>
             </tr>
         </thead>
         <tbody>
-
             <tr>
-                <td>1</td>
-                <td>
-                    <strong>Service de consultation</strong>
-
-                        <br><span style="color: #888; font-size: 9px;">Description du service</span>
-
-                </td>
+                <td class="text-center">1</td>
+                <td>Grand brun escargot pour manger</td>
+                <td class="text-right">100,00</td>
+                <td class="text-right">100,00</td>
+            </tr>
+            <tr>
                 <td class="text-center">2</td>
-                <td class="text-right">1 500,00</td>
-
-                    <td class="text-right">20,00%</td>
-
-                <td class="text-right">3 000,00</td>
+                <td>Petit marinière uniforme en bleu</td>
+                <td class="text-right">15,00</td>
+                <td class="text-right">30,00</td>
+            </tr>
+            <tr>
+                <td class="text-center">3</td>
+                <td>Facile à jouer accordéon</td>
+                <td class="text-right">5,00</td>
+                <td class="text-right">15,00</td>
             </tr>
 
+            <!-- Totals rows -->
+            <tr class="totals-row">
+                <td colspan="2"></td>
+                <td class="label-cell">Total HT</td>
+                <td class="value-cell">145,00</td>
+            </tr>
+            <tr class="totals-row">
+                <td colspan="2"></td>
+                <td class="label-cell">TVA 20,0%</td>
+                <td class="value-cell">29,00</td>
+            </tr>
+            <tr class="totals-row grand-total">
+                <td colspan="2"></td>
+                <td class="label-cell">Total TTC</td>
+                <td class="value-cell">174,00 €</td>
+            </tr>
         </tbody>
     </table>
 
-    <table class="items-table" style="margin-top: -15px;">
-        <thead>
-            <tr>
-                <th colspan="5" style="background: #6c757d; border-radius: 0;">Frais supplémentaires</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td colspan="3">Frais de livraison</td>
-
-                    <td class="text-right">20,00%</td>
-
-                <td class="text-right">150,00</td>
-            </tr>
-
-        </tbody>
-    </table>
-
-    <div class="totals-wrapper">
-        <table class="totals-table">
-            <tr>
-                <td>Sous-total</td>
-                <td class="text-right">3 000,00 MAD</td>
-            </tr>
-
-            <tr>
-                <td>Remise</td>
-                <td class="text-right">-0,00 MAD</td>
-            </tr>
-
-            <tr>
-                <td>TVA</td>
-                <td class="text-right">600,00 MAD</td>
-            </tr>
-
-            <tr>
-                <td>Arrondi</td>
-                <td class="text-right">0,00 MAD</td>
-            </tr>
-
-            <tr class="total-row">
-                <td>Total TTC</td>
-                <td class="text-right">3 600,00 MAD</td>
-            </tr>
-        </table>
-    </div>
-
-    <p style="font-size: 10px; color: #555; font-style: italic; margin-bottom: 15px;">
-        Arrêté le présent devis à la somme de : <strong>Trois mille six cents dirhams</strong>
+    <p style="font-size: 10px; color: #555; font-style: italic; margin: 10px 0 15px;">
+        Arrêté le présent devis à la somme de : <strong>Cent soixante-quatorze euros</strong>
     </p>
 
+    <!-- Validity block -->
     <div class="validity-block">
-        Ce devis est valable jusqu'au <strong>15/04/2026</strong>.
+        Ce devis est valable jusqu'au <strong>20/02/2019</strong>.
         Passé cette date, il devra faire l'objet d'une nouvelle offre.
-    </div>
-
-    <div class="notes-block">
-        <strong>Notes :</strong><br>
-        Merci pour votre confiance.<br>Paiement à 30 jours.
-    </div>
-
-    <div class="notes-block" style="margin-top: 10px;">
-        <strong>Conditions :</strong><br>
-        Conditions générales de vente applicables.<br>Tout retard de paiement entraînera des pénalités.
     </div>
 
     <!-- Signature -->
     <table style="width: 100%; margin-top: 40px;">
         <tr>
-            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
-                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
-                    Signature du client
-                </div>
-            </td>
-            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;">
-                <div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">
-                    Cachet et signature
-                </div>
-            </td>
+            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Signature du client</div></td>
+            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Cachet et signature</div></td>
         </tr>
     </table>
+
+    <!-- Footer: Notes & Terms -->
+    <div class="footer-section">
+        <hr class="separator">
+
+        <div class="payment-conditions">
+            <strong>Notes :</strong><br>
+            Devis valable sous réserve de disponibilité.<br><br>
+            <strong>Conditions</strong><br>
+            Conditions générales de vente applicables.
+        </div>
+    </div>
+
+    <!-- Legal info footer -->
+    <div style="margin-top: 15px; font-size: 8px; color: #888; text-align: center; border-top: 1px solid #e9ecef; padding-top: 8px;">
+        SARL au capital de 10 000,00 € — IF : 12345678 — RC : RC 12345
+    </div>
 
 </div>
 </body>

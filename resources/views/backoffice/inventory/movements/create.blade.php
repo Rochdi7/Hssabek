@@ -1,5 +1,7 @@
 <?php $page = 'stock-movements'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Mouvement')
+@section('description', 'Enregistrer un nouveau mouvement de stock')
 @section('content')
     <!-- ========================
             Start Page Content

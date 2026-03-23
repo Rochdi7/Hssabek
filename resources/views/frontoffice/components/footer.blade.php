@@ -34,7 +34,7 @@
 					<div class="footer-widget">
 						<h6 class="text-white mb-3">{{ __('Produit') }}</h6>
 						<ul>
-							<li><a href="{{ route('register') }}">{{ __('Essai gratuit') }}</a></li>
+							<li><a href="{{ route('request-account') }}">{{ __('Essai gratuit') }}</a></li>
 							<li><a href="{{ route('features') }}">{{ __('Fonctionnalités') }}</a></li>
 							<li><a href="{{ route('pricing') }}">{{ __('Tarifs') }}</a></li>
 						</ul>
@@ -65,9 +65,9 @@
 						<h6 class="text-white mb-3">{{ __('Entreprise') }}</h6>
 						<ul>
 							<li><a href="{{ route('contact') }}">{{ __('Contactez-nous') }}</a></li>
-							<li><a href="#">Facebook</a></li>
-							<li><a href="#">LinkedIn</a></li>
-							<li><a href="#">Twitter</a></li>
+							<li><a href="#" rel="noopener nofollow" target="_blank" aria-label="Facebook">Facebook</a></li>
+							<li><a href="#" rel="noopener nofollow" target="_blank" aria-label="LinkedIn">LinkedIn</a></li>
+							<li><a href="#" rel="noopener nofollow" target="_blank" aria-label="Twitter">Twitter</a></li>
 						</ul>
 					</div>
 				</div>

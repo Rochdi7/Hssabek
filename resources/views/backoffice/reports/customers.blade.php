@@ -1,5 +1,7 @@
 <?php $page = 'customers-report'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Rapport des Clients')
+@section('description', 'Analyser l'activité des clients')
 @section('content')
     <!-- Based on customers-report.blade.php layout -->
 
@@ -86,7 +88,7 @@
                                     <div>
                                         <p class="mb-1">{{ __('Revenu total') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalRevenue, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                            {{ $currency }}</h6>
                                     </div>
                                     <div>
                                         <span class="badge badge-soft-warning p-2 rounded-circle border border-warning">
@@ -108,7 +110,7 @@
                                     <div>
                                         <p class="mb-1">{{ __('Revenu moyen') }}</p>
                                         <h6 class="fs-16 fw-semibold mb-0">{{ number_format($avgRevenue, 2, ',', ' ') }}
-                                            {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                            {{ $currency }}</h6>
                                     </div>
                                     <div>
                                         <span class="badge badge-soft-info p-2 rounded-circle border border-info">
@@ -216,10 +218,10 @@
                                 </td>
                                 <td>{{ $customer->phone ?? '-' }}</td>
                                 <td class="text-dark">{{ number_format($customer->total_due ?? 0, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td>{{ $customer->invoices_count ?? 0 }}</td>
                                 <td class="text-dark">{{ number_format($customer->total_revenue ?? 0, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td>{{ $customer->created_at?->format('d/m/Y') }}</td>
                                 <td>
                                     @if ($customer->status === 'active')
@@ -252,7 +254,7 @@
     <script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}';
+            var currency = '{{ $currency }}';
             var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
 
             // Top customers horizontal bar

@@ -1,5 +1,7 @@
 <?php $page = 'sa-activity-logs'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails de l'Activité')
+@section('description', 'Consulter les détails de l'activité')
 @section('content')
     <!-- ========================
                    Start Page Content

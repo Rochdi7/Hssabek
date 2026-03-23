@@ -21,6 +21,7 @@ class StorePurchaseOrderRequest extends FormRequest
 
         return [
             'supplier_id'              => ['required', 'uuid', Rule::exists('suppliers', 'id')->where('tenant_id', $tenantId)],
+            'bank_account_id'          => ['required', 'uuid', Rule::exists('bank_accounts', 'id')->where('tenant_id', $tenantId)],
             'warehouse_id'             => ['required', 'uuid', Rule::exists('warehouses', 'id')->where('tenant_id', $tenantId)],
             'order_date'               => 'required|date',
             'expected_date'            => 'nullable|date|after_or_equal:order_date',
@@ -42,6 +43,8 @@ class StorePurchaseOrderRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'bank_account_id.required'   => __('Le compte bancaire est obligatoire.'),
+            'bank_account_id.exists'     => __('Le compte bancaire sélectionné est invalide.'),
             'supplier_id.required'       => __('Le fournisseur est obligatoire.'),
             'supplier_id.exists'         => __('Le fournisseur sélectionné est invalide.'),
             'warehouse_id.required'      => __('L\'entrepôt est obligatoire.'),

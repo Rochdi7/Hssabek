@@ -29,7 +29,7 @@ class DeliveryChallanController extends Controller
     {
         $this->authorize('viewAny', DeliveryChallan::class);
 
-        $challans = DeliveryChallan::query()
+        $deliveryChallans = DeliveryChallan::query()
             ->with(['customer'])
             ->when($request->search, fn($q, $s) => $q->where(function ($q) use ($s) {
                 $q->where('number', 'like', "%{$s}%")
@@ -41,7 +41,7 @@ class DeliveryChallanController extends Controller
             ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
-        return view('backoffice.sales.delivery-challans.index', compact('challans'));
+        return view('backoffice.sales.delivery-challans.index', compact('deliveryChallans'));
     }
 
     public function create()

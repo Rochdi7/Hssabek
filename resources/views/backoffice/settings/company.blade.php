@@ -1,5 +1,7 @@
 <?php $page = 'company-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Paramètres de l'Entreprise')
+@section('description', 'Configurer les informations de votre entreprise')
 @section('content')
     <!-- ========================
                 Start Page Content

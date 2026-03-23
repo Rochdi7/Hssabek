@@ -3,6 +3,7 @@
 namespace App\Models\Purchases;
 
 use App\Traits\BelongsToTenant;
+use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -13,12 +14,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DebitNote extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
     protected $fillable = [
         'supplier_id',
         'purchase_order_id',
         'vendor_bill_id',
+        'bank_account_id',
         'number',
         'reference_number',
         'status',
@@ -55,6 +57,11 @@ class DebitNote extends Model
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function bankAccount(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function purchaseOrder(): BelongsTo

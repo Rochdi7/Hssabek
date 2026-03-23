@@ -1,5 +1,7 @@
 <?php $page = 'subscriptions'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Abonnements')
+@section('description', 'Gérer les abonnements')
 @section('content')
     <!-- ========================
                Start Page Content

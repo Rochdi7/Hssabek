@@ -11,11 +11,15 @@
                     </span>
                 </a>
                 <a href="{{ route('home') }}" class="navbar-brand logo">
-                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
+                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-light"
+                        alt="{{ config('app.name') }}">
+                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-dark"
                         alt="{{ config('app.name') }}">
                 </a>
                 <a href="{{ route('home') }}" class="navbar-brand logo-small">
-                    <img src="{{ url('assets/images/logo/favicon.svg') }}" class="img-fluid"
+                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-light"
+                        alt="{{ config('app.name') }}">
+                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-dark"
                         alt="{{ config('app.name') }}">
                 </a>
             </div>
@@ -25,6 +29,7 @@
                         <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
                             alt="{{ config('app.name') }}">
                     </a>
+
                     <a id="menu_close" class="menu-close" href="#"> <i class="fas fa-times"></i></a>
                 </div>
                 <ul class="main-nav navbar-nav" id="scroll-nav">
@@ -67,13 +72,9 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item me-0">
-                    <a class="btn btn-lg btn-white border border-1 border-light" href="{{ route('login') }}"><i
-                            class="isax isax-lock-15 fs-13 fw-bold me-2"></i>{{ __('Connexion') }}</a>
-                </li>
                 <li class="nav-item">
-                    <a class="btn btn-lg btn-primary" href="{{ route('register') }}"><i
-                            class="isax isax-user fs-13 fw-bold me-2"></i>{{ __('Inscription') }}</a>
+                    <a class="btn btn-lg btn-primary" href="{{ route('request-account') }}"><i
+                            class="isax isax-user fs-13 fw-bold me-2"></i>{{ __('Demander un accès') }}</a>
                 </li>
             </ul>
         </nav>

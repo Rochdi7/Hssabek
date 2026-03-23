@@ -1,5 +1,7 @@
 <?php $page = 'debit-notes'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails de la Note de Débit')
+@section('description', 'Consulter les détails de la note de débit')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

@@ -1,5 +1,7 @@
 <?php $page = 'invoice-details'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails de la Facture')
+@section('description', 'Consulter les détails de la facture')
 @section('content')
     <!-- ========================
       Start Page Content

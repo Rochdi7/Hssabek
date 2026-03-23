@@ -1,5 +1,7 @@
 <?php $page = 'stock-transfers'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Transfert')
+@section('description', 'Créer un nouveau transfert de stock')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

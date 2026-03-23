@@ -1,5 +1,7 @@
 <?php $page = 'appearance-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Apparence')
+@section('description', 'Personnaliser l'apparence de l'application')
 @section('content')
     <!-- ========================
                 Start Page Content

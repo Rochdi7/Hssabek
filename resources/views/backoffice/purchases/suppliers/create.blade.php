@@ -1,5 +1,7 @@
 <?php $page = 'suppliers'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Fournisseur')
+@section('description', 'Ajouter un nouveau fournisseur')
 @section('content')
     <!-- ========================
                     Start Page Content

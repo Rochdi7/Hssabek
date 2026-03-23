@@ -1,5 +1,7 @@
 <?php $page = 'category'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Catégories')
+@section('description', 'Gérer les catégories de produits')
 @section('content')
     <!-- ========================
                     Start Page Content

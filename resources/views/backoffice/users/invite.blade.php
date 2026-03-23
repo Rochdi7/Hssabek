@@ -1,5 +1,7 @@
 <?php $page = 'users'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Inviter un Utilisateur')
+@section('description', 'Envoyer une invitation à un nouvel utilisateur')
 @section('content')
     <!-- ========================
             Start Page Content

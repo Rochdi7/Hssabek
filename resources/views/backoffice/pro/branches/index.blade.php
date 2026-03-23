@@ -1,5 +1,7 @@
 <?php $page = 'branches'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Succursales')
+@section('description', 'Gérer les succursales de votre entreprise')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

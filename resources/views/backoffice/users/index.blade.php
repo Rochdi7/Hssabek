@@ -1,5 +1,7 @@
 <?php $page = 'users'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Utilisateurs')
+@section('description', 'Gérer les utilisateurs de votre espace')
 @section('content')
     <!-- ========================
                 Start Page Content

@@ -1,5 +1,7 @@
 <?php $page = 'recurring-invoices'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier la Facture Récurrente')
+@section('description', 'Modifier les détails de la facture récurrente')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

@@ -3,6 +3,7 @@
 namespace App\Models\Sales;
 
 use App\Traits\BelongsToTenant;
+use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -13,11 +14,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CreditNote extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency;
+    use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
     protected $fillable = [
         'customer_id',
         'invoice_id',
+        'bank_account_id',
         'number',
         'reference_number',
         'status',
@@ -42,6 +44,11 @@ class CreditNote extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(\App\Models\CRM\Customer::class);
+    }
+
+    public function bankAccount(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function invoice(): BelongsTo

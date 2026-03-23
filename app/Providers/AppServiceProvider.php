@@ -92,6 +92,16 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(\App\Models\Pro\Branch::class, \App\Policies\BranchPolicy::class);
         Gate::policy(\App\Models\Tenancy\TenantSetting::class, \App\Policies\SettingsPolicy::class);
 
+        // Share currency display symbol across all backoffice views
+        View::composer('backoffice.*', function ($view) {
+            if (!isset($view->getData()['currency'])) {
+                $code = TenantContext::check()
+                    ? (TenantContext::get()->default_currency ?? 'MAD')
+                    : 'MAD';
+                $view->with('currency', $code === 'MAD' ? 'DH' : $code);
+            }
+        });
+
         // Share appearance settings with the head partial for theme sync
         View::composer('backoffice.layout.partials.head', function ($view) {
             $appearance = [];

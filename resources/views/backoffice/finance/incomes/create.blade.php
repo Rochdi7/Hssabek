@@ -1,5 +1,7 @@
 <?php $page = 'incomes'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Revenu')
+@section('description', 'Enregistrer un nouveau revenu')
 @section('content')
     <!-- ========================
                         Start Page Content

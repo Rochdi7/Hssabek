@@ -1,5 +1,7 @@
 <?php $page = 'invoice-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Paramètres de Facturation')
+@section('description', 'Configurer les paramètres de facturation')
 @section('content')
     <!-- ========================
            Start Page Content

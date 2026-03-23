@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// XML Sitemap (SEO)
+Route::get('/sitemap.xml', function () {
+    return response()
+        ->view('frontoffice.sitemap')
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');
+
 // Language switch
 Route::post('/locale/switch', LocaleSwitchController::class)->name('locale.switch');
 

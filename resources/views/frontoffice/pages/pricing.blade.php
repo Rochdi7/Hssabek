@@ -1,7 +1,21 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Tarification'))
-@section('meta_description', __('Découvrez nos offres de facturation en ligne. Des plans adaptés à toutes les tailles d\'entreprise.'))
+@section('title', __('Tarifs — Plans de Facturation Accessibles pour Entreprises Marocaines'))
+@section('meta_description', __('Découvrez nos offres de facturation en ligne à partir de 0 DH. Plans adaptés aux PME, auto-entrepreneurs et grandes entreprises au Maroc. Essai gratuit sans carte bancaire.'))
+@section('meta_keywords', 'prix logiciel facturation maroc, tarif facturation en ligne, abonnement facturation, plan facturation pme, essai gratuit facturation')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Tarifs"}
+	]
+}
+</script>
+@endsection
 
 @section('hero')
 <!-- Hero Section -->
@@ -73,7 +87,7 @@
 						@endif
 					</ul>
 					<div class="package-btn">
-						<a class="btn btn-dark btn-lg d-inline-flex align-items-center justify-content-center" href="{{ route('register', ['plan' => $plan->code]) }}">{{ __('Choisir ce plan') }} <i class="isax isax-arrow-right-3 ms-2"></i></a>
+						<a class="btn btn-dark btn-lg d-inline-flex align-items-center justify-content-center" href="{{ route('request-account') }}">{{ __('Choisir ce plan') }} <i class="isax isax-arrow-right-3 ms-2"></i></a>
 					</div>
 				</div>
 			</div>
@@ -164,7 +178,7 @@
 			<div class="section-title text-center" data-aos="fade-up">
 				<h2 class="mb-2">{{ __('Prêt à commencer ?') }}</h2>
 				<p class="mx-auto">{{ __('Essayez') }} {{ config('app.name') }} {{ __('gratuitement. Aucune carte bancaire requise.') }}</p>
-				<a href="{{ route('register') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">{{ __('Créer mon compte gratuit') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
+				<a href="{{ route('request-account') }}" class="btn btn-primary btn-lg d-inline-flex align-items-center">{{ __('Demander un accès gratuit') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
 			</div>
 		</div>
 	</div>

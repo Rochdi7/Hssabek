@@ -1,5 +1,7 @@
 <?php $page = 'documentation'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Documentation')
+@section('description', 'Consulter la documentation')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

@@ -1,5 +1,7 @@
 <?php $page = 'invoice-reminders'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier le Rappel')
+@section('description', 'Modifier les détails du rappel')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

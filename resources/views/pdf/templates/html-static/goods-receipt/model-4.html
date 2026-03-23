@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bon de réception BR-001</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #333; line-height: 1.5; }
+        .page { padding: 0; }
+
+        /* ── Top band ────────────────────────────────────────── */
+        .top-band {
+            background: #2c3e50;
+            padding: 25px 40px;
+            position: relative;
+        }
+        .top-band-table { width: 100%; }
+        .top-band-table td { vertical-align: middle; }
+        .top-band .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .top-band .doc-number {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+        .logo-box {
+            text-align: right;
+        }
+        .logo-box img {
+            height: 45px;
+        }
+        .logo-box .logo-text {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 8px 16px;
+            display: inline-block;
+        }
+
+        /* ── Content ─────────────────────────────────────────── */
+        .content { padding: 25px 40px 30px 40px; }
+
+        /* ── Status badge ─────────────────────────────────────── */
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 9px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; }
+        .badge-draft { background: #e9ecef; color: #495057; }
+        .badge-received { background: #d1e7dd; color: #0f5132; }
+        .badge-cancelled { background: #e9ecef; color: #6c757d; }
+
+        /* ── Company + Meta row ──────────────────────────────── */
+        .info-row { width: 100%; margin-bottom: 22px; }
+        .info-row td { vertical-align: top; }
+        .company-name { font-size: 13px; font-weight: bold; color: #2c3e50; margin-bottom: 3px; }
+        .company-detail { font-size: 9px; color: #666; line-height: 1.8; }
+
+        /* ── Meta card ───────────────────────────────────────── */
+        .meta-card {
+            border: 1px solid #ddd;
+            border-top: 3px solid #e67e22;
+            padding: 12px 15px;
+        }
+        .meta-card table { width: 100%; border-collapse: collapse; }
+        .meta-card td { font-size: 10px; padding: 3px 0; }
+        .meta-card td.m-label {
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            width: 50%;
+        }
+        .meta-card td.m-value { text-align: right; color: #444; }
+
+        /* ── Accent bar ──────────────────────────────────────── */
+        .accent-bar {
+            height: 3px;
+            background: #e67e22;
+            margin: 18px 0;
+        }
+
+        /* ── Info section ────────────────────────────────────── */
+        .info-table { width: 100%; margin-bottom: 22px; }
+        .info-table td { vertical-align: top; font-size: 10px; line-height: 1.8; }
+        .info-label {
+            font-size: 9px;
+            font-weight: bold;
+            color: #e67e22;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* ── Items table ─────────────────────────────────────── */
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .items-table th {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 9px 10px;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .items-table th:first-child { text-align: left; }
+        .items-table td {
+            padding: 9px 10px;
+            font-size: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .items-table tbody tr:nth-child(even) td { background: #fafafa; }
+        .items-table tbody tr:last-child td { border-bottom: none; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+
+        /* ── Notes ────────────────────────────────────────────── */
+        .footer-section { margin-top: 30px; }
+        .footer-divider {
+            height: 1px;
+            background: #ddd;
+            margin-bottom: 15px;
+        }
+        .footer-title {
+            font-size: 9px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 5px;
+        }
+        .footer-detail {
+            font-size: 10px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* ── Legal ───────────────────────────────────────────── */
+        .legal-bar {
+            background: #2c3e50;
+            padding: 8px 40px;
+            margin-top: 20px;
+            font-size: 7px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- Top colored band -->
+    <div class="top-band">
+        <table class="top-band-table">
+            <tr>
+                <td style="width: 65%;">
+                    <div class="doc-title">Bon de réception</div>
+                    <div class="doc-number">N° BR-001</div>
+                </td>
+                <td style="width: 35%;">
+                    <div class="logo-box">
+                        <img src="../../../../../../public/assets/images/logo/logo-wide-white-cropped.svg" alt="logo" height="45">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content">
+
+        <!-- Company info + Meta card -->
+        <table class="info-row">
+            <tr>
+                <td style="width: 55%;">
+                    <div class="company-name">Joanna Binet</div>
+                    <div class="company-detail">
+                        48 Coubertin<br>
+                        31400 Paris
+                    </div>
+                </td>
+                <td style="width: 45%;">
+                    <div class="meta-card">
+                        <table>
+                            <tr>
+                                <td class="m-label">N°</td>
+                                <td class="m-value">BR-001</td>
+                            </tr>
+                            <tr>
+                                <td class="m-label">Date</td>
+                                <td class="m-value">10/02/2019</td>
+                            </tr>
+                            <tr>
+                                <td class="m-label">Réf</td>
+                                <td class="m-value">CMD-2019-045</td>
+                            </tr>
+                            <tr>
+                                <td class="m-label">Statut</td>
+                                <td class="m-value"><span class="badge badge-received">Reçu</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="accent-bar"></div>
+
+        <!-- Supplier / PO / Warehouse / Creator -->
+        <table class="info-table">
+            <tr>
+                <td style="width: 50%;">
+                    <div class="info-label">Fournisseur</div>
+                    <div style="font-size: 12px; font-weight: bold; color: #222; margin: 4px 0 10px;">Fournitures Express SARL</div>
+                    <div class="info-label">Bon de commande</div>
+                    BC-001
+                </td>
+                <td style="width: 50%;">
+                    <div class="info-label">Entrepôt</div>
+                    <div style="font-size: 12px; font-weight: bold; color: #222; margin: 4px 0 10px;">Entrepôt Principal</div>
+                    <div class="info-label">Réceptionné par</div>
+                    Marie Dupont
+                </td>
+            </tr>
+        </table>
+
+        <!-- Items table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 40%;">PRODUIT</th>
+                    <th class="text-center" style="width: 15%;">QTÉ REÇUE</th>
+                    <th class="text-right" style="width: 20%;">COÛT UNIT.</th>
+                    <th class="text-right" style="width: 20%;">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>Papier A4 80g (ramette x500)</td>
+                    <td class="text-center">10</td>
+                    <td class="text-right">4,50</td>
+                    <td class="text-right">45,00</td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td>Cartouche encre noire HP</td>
+                    <td class="text-center">5</td>
+                    <td class="text-right">25,00</td>
+                    <td class="text-right">125,00</td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td>Stylos bleus (boîte x50)</td>
+                    <td class="text-center">3</td>
+                    <td class="text-right">8,00</td>
+                    <td class="text-right">24,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Signature -->
+        <table style="width: 100%; margin-top: 40px;">
+            <tr>
+                <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Signature du client</div></td>
+                <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Cachet et signature</div></td>
+            </tr>
+        </table>
+
+        <!-- Notes -->
+        <div class="footer-section">
+            <div class="footer-divider"></div>
+            <div class="footer-title">Notes</div>
+            <div class="footer-detail">
+                Tous les articles reçus en bon état.
+            </div>
+        </div>
+
+    </div><!-- /content -->
+
+    <!-- Legal footer bar -->
+    <div class="legal-bar">
+        SARL au capital de 10 000,00 &euro; — IF : 12345678 — ICE : 001234567000012 — RC : RC 12345
+    </div>
+
+</div>
+</body>
+</html>

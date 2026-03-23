@@ -15,7 +15,7 @@ class StoreSupplierPaymentRequest extends TenantFormRequest
     {
         return [
             'supplier_id'       => ['required', 'uuid', $this->tenantExists('suppliers')],
-            'bank_account_id'   => ['nullable', 'uuid', $this->tenantExists('bank_accounts')],
+            'bank_account_id'   => ['required', 'uuid', $this->tenantExists('bank_accounts')],
             'payment_method_id' => ['nullable', 'uuid', $this->tenantExists('payment_methods')],
             'amount'            => ['required', 'numeric', 'gt:0'],
             'paid_at'           => ['required', 'date'],
@@ -33,6 +33,7 @@ class StoreSupplierPaymentRequest extends TenantFormRequest
         return [
             'supplier_id.required'                   => __('Le fournisseur est obligatoire.'),
             'supplier_id.exists'                     => __('Le fournisseur sélectionné est invalide.'),
+            'bank_account_id.required'               => __('Le compte bancaire est obligatoire.'),
             'bank_account_id.exists'                 => __('Le compte bancaire sélectionné est invalide.'),
             'payment_method_id.exists'               => __('Le mode de paiement sélectionné est invalide.'),
             'amount.required'                        => __('Le montant est obligatoire.'),

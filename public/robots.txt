@@ -1,2 +1,15 @@
+# Hssabek — Logiciel de facturation Maroc
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /bo/
+Disallow: /superadmin/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /locale/switch
+Disallow: /newsletter/subscribe
+Disallow: /sanctum/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://hssabek.com/sitemap.xml

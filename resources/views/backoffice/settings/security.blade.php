@@ -1,5 +1,7 @@
 <?php $page = 'security-settings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Sécurité')
+@section('description', 'Configurer les paramètres de sécurité')
 @section('content')
     <!-- ========================
                 Start Page Content

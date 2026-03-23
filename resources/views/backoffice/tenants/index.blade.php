@@ -1,5 +1,7 @@
 <?php $page = 'tenants'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Locataires')
+@section('description', 'Gérer les locataires de la plateforme')
 @section('content')
     <!-- ========================
                     Start Page Content

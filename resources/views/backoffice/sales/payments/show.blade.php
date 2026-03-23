@@ -1,5 +1,7 @@
 <?php $page = 'payments'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails du Paiement')
+@section('description', 'Consulter les détails du paiement')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

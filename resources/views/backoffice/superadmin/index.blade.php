@@ -1,5 +1,7 @@
 <?php $page = 'super-admin-dashboard'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Tableau de Bord Super Admin')
+@section('description', 'Aperçu général de la plateforme')
 @section('content')
     <!-- ========================
             Start Page Content

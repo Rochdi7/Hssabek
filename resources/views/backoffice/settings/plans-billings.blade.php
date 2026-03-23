@@ -1,5 +1,7 @@
 <?php $page = 'plans-billings'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Plans et Facturation')
+@section('description', 'Gérer votre abonnement et facturation')
 @section('content')
     <!-- ========================
            Start Page Content

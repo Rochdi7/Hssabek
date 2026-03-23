@@ -1,5 +1,7 @@
 <?php $page = 'delivery-challans'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Détails du Bon de Livraison')
+@section('description', 'Consulter les détails du bon de livraison')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

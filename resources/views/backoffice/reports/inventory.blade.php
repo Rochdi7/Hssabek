@@ -1,5 +1,7 @@
 <?php $page = 'inventory-report'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Rapport d'Inventaire')
+@section('description', 'Analyser les stocks et mouvements')
 @section('content')
     <!-- Based on inventory-report.blade.php layout -->
 
@@ -48,7 +50,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('Valeur totale') }}</p>
                                     <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalValue, 2, ',', ' ') }}
-                                        {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</h6>
+                                        {{ $currency }}</h6>
                                 </div>
                                 <div>
                                     <span class="avatar bg-primary rounded">
@@ -244,9 +246,9 @@
                                 </td>
                                 <td>{{ number_format($product->quantity, 0) }}</td>
                                 <td class="text-dark">{{ number_format($product->selling_price, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                                 <td class="text-dark">{{ number_format($product->purchase_price, 2, ',', ' ') }}
-                                    {{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}</td>
+                                    {{ $currency }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -269,7 +271,7 @@
     <script src="{{ URL::asset('build/plugins/apexchart/apexcharts.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}';
+            var currency = '{{ $currency }}';
 
             // Stock value by category donut
             var catEl = document.querySelector('#inventory_category_chart');

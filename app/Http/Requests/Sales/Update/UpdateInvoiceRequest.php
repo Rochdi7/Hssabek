@@ -21,6 +21,7 @@ class UpdateInvoiceRequest extends FormRequest
 
         return [
             'customer_id' => ['sometimes', 'required', 'uuid', Rule::exists('customers', 'id')->where('tenant_id', $tenantId)],
+            'bank_account_id' => ['required', 'uuid', Rule::exists('bank_accounts', 'id')->where('tenant_id', $tenantId)],
             'issue_date' => ['sometimes', 'required', 'date'],
             'due_date' => ['nullable', 'date', 'after_or_equal:issue_date'],
             'enable_tax' => ['nullable', 'boolean'],
@@ -57,6 +58,8 @@ class UpdateInvoiceRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'bank_account_id.required' => __('Le compte bancaire est obligatoire.'),
+            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
             'customer_id.exists' => __('Le client sélectionné est invalide.'),
             'items.min' => __('Au moins un article est obligatoire.'),
             'items.*.label.required_with' => __('Le libellé de l\'article est obligatoire.'),

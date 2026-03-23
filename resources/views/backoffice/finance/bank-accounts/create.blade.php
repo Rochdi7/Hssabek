@@ -1,5 +1,7 @@
 <?php $page = 'bank-accounts'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Compte Bancaire')
+@section('description', 'Ajouter un nouveau compte bancaire')
 @section('content')
     <!-- ========================
             Start Page Content
@@ -188,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
     btnSubmit.addEventListener('click', function() {
         var openingBalance = form.querySelector('input[name="opening_balance"]').value || '0.00';
         var formatted = parseFloat(openingBalance).toFixed(2);
-        var currency = '{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? "MAD" }}';
+        var currency = '{{ $currency }}';
         displayAmount.textContent = formatted + ' ' + currency;
         modal.show();
     });

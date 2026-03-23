@@ -1,5 +1,7 @@
 <?php $page = 'sa-delete-requests'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Demandes de Suppression')
+@section('description', 'Gérer les demandes de suppression de compte')
 @section('content')
     <!-- ========================
                    Start Page Content

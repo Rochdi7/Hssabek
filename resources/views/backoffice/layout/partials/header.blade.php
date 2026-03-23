@@ -6,10 +6,10 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="{{ url('index') }}" class="logo">
-                    <img src="{{ URL::asset('assets/images/logo/logo-wide-white.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" alt="Logo">
                 </a>
                 <a href="{{ url('index') }}" class="dark-logo">
-                    <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/logo-wide-white-cropped.svg') }}" alt="Logo">
                 </a>
             </div>
 

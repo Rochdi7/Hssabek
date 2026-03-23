@@ -1,5 +1,7 @@
 <?php $page = 'money-transfers'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Modifier le Virement')
+@section('description', 'Modifier les détails du virement')
 @section('content')
     <div class="page-wrapper">
         <div class="content">

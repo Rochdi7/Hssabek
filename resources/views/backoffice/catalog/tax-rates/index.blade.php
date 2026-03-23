@@ -1,5 +1,7 @@
 <?php $page = 'tax-rates'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Taux de Taxe')
+@section('description', 'Gérer les taux de taxe')
 @section('content')
     <!-- ========================
                             Start Page Content

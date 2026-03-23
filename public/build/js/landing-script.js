@@ -14,34 +14,6 @@
         });
     }
 
-    // Counter Up
-    if ($.fn.counterUp) {
-        $('.counter').counterUp({
-            delay: 10,
-            time: 2000
-        });
-    }
-
-    // Owl Carousel - Invoice Template Slider
-    if ($.fn.owlCarousel) {
-        $('.invoive-temp-slider').owlCarousel({
-            loop: true,
-            margin: 24,
-            nav: false,
-            dots: true,
-            autoplay: true,
-            autoplayTimeout: 3000,
-            autoplayHoverPause: true,
-            responsive: {
-                0: { items: 1 },
-                576: { items: 2 },
-                768: { items: 3 },
-                1024: { items: 4 },
-                1200: { items: 5 }
-            }
-        });
-    }
-
     // Feather Icons
     if (typeof feather !== 'undefined') {
         feather.replace();
@@ -139,6 +111,27 @@
     // Initialize on document ready
     $(document).ready(function () {
         initCursor();
+
+        // Owl Carousel - Invoice Template Slider
+        if ($.fn.owlCarousel) {
+            $('.invoive-temp-slider').owlCarousel({
+                loop: true,
+                margin: 24,
+                nav: true,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+                responsive: {
+                    0: { items: 1 },
+                    576: { items: 2 },
+                    768: { items: 3 },
+                    1024: { items: 4 },
+                    1200: { items: 5 }
+                }
+            });
+        }
     });
 
 })(jQuery);

@@ -1,5 +1,7 @@
 <?php $page = 'bo-dashboard'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Tableau de Bord')
+@section('description', 'Aperçu général de votre activité commerciale')
 @section('content')
 
     <div class="page-wrapper">
@@ -368,6 +370,94 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- end row -->
+
+            <!-- start row - Sales Analytics + Invoice Analytics -->
+            <div class="row">
+
+                <!-- Sales Analytics (Revenus vs Dépenses) -->
+                <div class="col-xl-8 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-body pb-0">
+                            <div class="mb-3 d-flex align-items-center justify-content-between">
+                                <h6 class="mb-1">{{ __('Analyse des ventes') }}</h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                <div>
+                                    <div class="d-flex align-items-center flex-wrap gap-3">
+                                        <div>
+                                            <p class="fs-13 mb-1">{{ __('Ventes totales') }}</p>
+                                            <h6 class="fs-16 fw-semibold text-primary">{{ number_format($totalSalesYtd, 2, ',', ' ') }} {{ $currency }}</h6>
+                                        </div>
+                                        <div>
+                                            <p class="fs-13 mb-1">{{ __('Encaissé') }}</p>
+                                            <h6 class="fs-16 fw-semibold text-success">{{ number_format($receivedTotal, 2, ',', ' ') }} {{ $currency }}</h6>
+                                        </div>
+                                        <div>
+                                            <p class="fs-13 mb-1">{{ __('Dépenses') }}</p>
+                                            <h6 class="fs-16 fw-semibold text-danger">{{ number_format($totalDepensesYtd, 2, ',', ' ') }} {{ $currency }}</h6>
+                                        </div>
+                                        <div>
+                                            <p class="fs-13 mb-1">{{ __('Bénéfice') }}</p>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($totalSalesYtd - $totalDepensesYtd, 2, ',', ' ') }} {{ $currency }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                            class="fa-solid fa-circle text-primary fs-12 me-1"></i>{{ __('Revenus') }}</p>
+                                    <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                            class="fa-solid fa-circle text-danger fs-12 me-1"></i>{{ __('Dépenses') }}</p>
+                                </div>
+                            </div>
+                            <div id="sales_analytics_chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invoice Analytics (Radial Bar) -->
+                <div class="col-xl-4 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <div class="mb-3 d-flex align-items-center justify-content-between">
+                                <h6 class="mb-1">{{ __('Analyse des factures') }}</h6>
+                            </div>
+                            <div id="invoice_analytics_chart"></div>
+                            <div class="d-flex align-items-center justify-content-around gap-3 mb-3">
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                        class="fa-solid fa-square text-primary fs-12 me-1"></i>{{ __('Facturé') }}</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                        class="fa-solid fa-square text-success fs-12 me-1"></i>{{ __('Encaissé') }}</p>
+                                <p class="fs-13 text-dark d-flex align-items-center mb-0"><i
+                                        class="fa-solid fa-square text-warning fs-12 me-1"></i>{{ __('En attente') }}</p>
+                            </div>
+                            <div class="border rounded p-2">
+                                <div class="row g-2">
+                                    <div class="col d-flex border-end">
+                                        <div class="text-center flex-fill">
+                                            <p class="fs-13 mb-1">{{ __('Facturé') }}</p>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($invoicedTotal, 0, ',', ' ') }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex border-end">
+                                        <div class="text-center flex-fill">
+                                            <p class="fs-13 mb-1">{{ __('Encaissé') }}</p>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($receivedTotal, 0, ',', ' ') }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex">
+                                        <div class="text-center flex-fill">
+                                            <p class="fs-13 mb-1">{{ __('Impayé') }}</p>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($outstandingTotal, 0, ',', ' ') }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- end row -->
 
@@ -793,6 +883,120 @@ document.addEventListener('DOMContentLoaded', function () {
                 responsive: [{ breakpoint: 480, options: { chart: { width: 200 } } }]
             }).render();
         }
+    }
+
+    // ─── Analyse des ventes — Revenus vs Dépenses (Area Chart) ───
+    var salesAnalyticsEl = document.querySelector('#sales_analytics_chart');
+    if (salesAnalyticsEl) {
+        // Use consistent 12-month labels from controller
+        var allMonths = {!! json_encode($chartMonths->values()) !!};
+        var revenueByMonth = {};
+        @foreach($revenueTrend as $row)
+            revenueByMonth[{!! json_encode($row->month) !!}] = {{ (float) $row->revenue }};
+        @endforeach
+        var purchasesByMonth = {!! json_encode($purchasesTrend) !!};
+        var expensesByMonth = {!! json_encode($expensesTrend) !!};
+
+        var monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+        var salesLabels = allMonths.map(function(m) {
+            var parts = m.split('-');
+            return monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0].substring(2);
+        });
+
+        // Revenue per month (aligned to 12-month grid)
+        var trendRevenue = allMonths.map(function(m) {
+            return Math.round(parseFloat(revenueByMonth[m] || 0));
+        });
+
+        // Dépenses = Achats + Charges per month
+        var depensesData = allMonths.map(function(m) {
+            return Math.round(parseFloat(purchasesByMonth[m] || 0) + parseFloat(expensesByMonth[m] || 0));
+        });
+
+        new ApexCharts(salesAnalyticsEl, {
+            chart: {
+                type: 'area',
+                height: 300,
+                toolbar: { show: false },
+                fontFamily: 'inherit'
+            },
+            series: [
+                { name: {!! json_encode(__('Revenus')) !!}, data: trendRevenue },
+                { name: {!! json_encode(__('Dépenses')) !!}, data: depensesData }
+            ],
+            xaxis: {
+                categories: salesLabels,
+                axisBorder: { show: false },
+                axisTicks: { show: false }
+            },
+            yaxis: {
+                labels: {
+                    formatter: function(val) {
+                        return val >= 1000 ? (val / 1000).toFixed(0) + 'k' : val.toFixed(0);
+                    }
+                }
+            },
+            colors: ['var(--bs-primary)', '#dc3545'],
+            stroke: { curve: 'smooth', width: 2 },
+            fill: {
+                type: 'gradient',
+                gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.05 }
+            },
+            dataLabels: { enabled: false },
+            legend: { show: false },
+            tooltip: {
+                y: {
+                    formatter: function(val) {
+                        return val.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' {{ $currency }}';
+                    }
+                }
+            },
+            grid: { borderColor: '#f1f1f1', strokeDashArray: 4 }
+        }).render();
+    }
+
+    // ─── Analyse des factures — Radial Bar ───
+    var invoiceAnalyticsEl = document.querySelector('#invoice_analytics_chart');
+    if (invoiceAnalyticsEl) {
+        var totalInv = {{ $totalInvoiceCount }};
+        var paidPct = Math.round(({{ $paidCount }} / totalInv) * 100);
+        var partialPct = Math.round(({{ $partialCount }} / totalInv) * 100);
+        var sentPct = Math.round(({{ $sentCount }} / totalInv) * 100);
+        var overduePct = Math.round(({{ $overdueCount }} / totalInv) * 100);
+
+        new ApexCharts(invoiceAnalyticsEl, {
+            chart: {
+                type: 'radialBar',
+                height: 280,
+                fontFamily: 'inherit'
+            },
+            series: [paidPct, sentPct, partialPct, overduePct],
+            labels: [
+                {!! json_encode(__('Payées')) !!},
+                {!! json_encode(__('Envoyées')) !!},
+                {!! json_encode(__('Partielles')) !!},
+                {!! json_encode(__('En retard')) !!}
+            ],
+            colors: ['#198754', '#0d6efd', '#ffc107', '#dc3545'],
+            plotOptions: {
+                radialBar: {
+                    hollow: { size: '35%' },
+                    dataLabels: {
+                        name: { fontSize: '13px' },
+                        value: { fontSize: '14px', fontWeight: 600, formatter: function(val) { return val + '%'; } },
+                        total: {
+                            show: true,
+                            label: {!! json_encode(__('Total')) !!},
+                            fontSize: '12px',
+                            formatter: function() { return totalInv + ' ' + {!! json_encode(__('factures')) !!}; }
+                        }
+                    },
+                    track: { background: '#f1f1f1' }
+                }
+            },
+            stroke: { lineCap: 'round' },
+            legend: { show: false }
+        }).render();
     }
 });
 </script>

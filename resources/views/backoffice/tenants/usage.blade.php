@@ -1,5 +1,7 @@
 <?php $page = 'tenants'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Utilisation')
+@section('description', 'Consulter l'utilisation des locataires')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

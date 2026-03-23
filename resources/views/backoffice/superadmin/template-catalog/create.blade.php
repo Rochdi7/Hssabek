@@ -1,5 +1,7 @@
 <?php $page = 'sa-template-catalog'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Modèle')
+@section('description', 'Ajouter un nouveau modèle au catalogue')
 @section('content')
     <div class="page-wrapper">
         <div class="content content-two">

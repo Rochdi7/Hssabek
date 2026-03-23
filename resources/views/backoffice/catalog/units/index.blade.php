@@ -1,5 +1,7 @@
 <?php $page = 'units'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Unités')
+@section('description', 'Gérer les unités de mesure')
 @section('content')
     <!-- ========================
                 Start Page Content

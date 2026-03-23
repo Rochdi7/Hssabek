@@ -1,5 +1,7 @@
 <?php $page = 'sa-announcements'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Annonces')
+@section('description', 'Gérer les annonces de la plateforme')
 @section('content')
     <!-- ========================
                    Start Page Content

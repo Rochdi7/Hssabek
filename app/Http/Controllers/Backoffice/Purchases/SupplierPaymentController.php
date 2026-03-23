@@ -25,7 +25,7 @@ class SupplierPaymentController extends Controller
     {
         $this->authorize('viewAny', SupplierPayment::class);
 
-        $payments = SupplierPayment::query()
+        $supplierPayments = SupplierPayment::query()
             ->with(['supplier', 'allocations.vendorBill'])
             ->when($request->search, fn($q, $s) => $q->where(function ($q) use ($s) {
                 $q->where('reference_number', 'like', "%{$s}%")
@@ -36,7 +36,7 @@ class SupplierPaymentController extends Controller
             ->paginate($request->input('per_page', 15))
             ->withQueryString();
 
-        return view('backoffice.purchases.supplier-payments.index', compact('payments'));
+        return view('backoffice.purchases.supplier-payments.index', compact('supplierPayments'));
     }
 
     public function create()

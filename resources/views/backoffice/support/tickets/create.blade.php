@@ -1,5 +1,7 @@
 <?php $page = 'support-tickets'; ?>
 @extends('backoffice.layout.mainlayout')
+@section('title', 'Nouveau Ticket')
+@section('description', 'Créer un nouveau ticket de support')
 @section('content')
     <!-- ========================
                     Start Page Content

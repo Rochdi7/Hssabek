@@ -19,6 +19,7 @@ class StorePaymentRequest extends FormRequest
 
         return [
             'customer_id' => ['required', 'uuid', Rule::exists('customers', 'id')->where('tenant_id', $tenantId)],
+            'bank_account_id' => ['required', 'uuid', Rule::exists('bank_accounts', 'id')->where('tenant_id', $tenantId)],
             'payment_method_id' => ['nullable', 'uuid', Rule::exists('payment_methods', 'id')->where('tenant_id', $tenantId)],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'payment_date' => ['required', 'date'],
@@ -37,6 +38,8 @@ class StorePaymentRequest extends FormRequest
         return [
             'customer_id.required' => __('Le client est obligatoire.'),
             'customer_id.exists' => __('Le client sélectionné est invalide.'),
+            'bank_account_id.required' => __('Le compte bancaire est obligatoire.'),
+            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
             'amount.required' => __('Le montant est obligatoire.'),
             'amount.min' => __('Le montant doit être supérieur à 0.'),
             'payment_date.required' => __('La date de paiement est obligatoire.'),
