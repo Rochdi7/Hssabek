@@ -64,7 +64,14 @@
       "Bash(grep -v \"//.*\")",
       "Bash(wc -l /c/Users/ASUS/Desktop/Projects/facturation/app/Http/Controllers/Web/*.php)",
       "Bash(du -sh */)",
-      "Bash(du -sh assets/images/templates/*/model-1.png)"
+      "Bash(du -sh assets/images/templates/*/model-1.png)",
+      "Read(//c/Users/ASUS/Desktop/Projects/facturation/**)",
+      "Bash(grep -v '^$')",
+      "Bash(find c:UsersASUSDesktopProjectsfacturation -maxdepth 1 -type f \\\\\\(-name *.json -o -name Dockerfile* -o -name .env* \\\\\\))",
+      "Bash(npm list:*)",
+      "Bash(node scripts/optimize-images.mjs)",
+      "Bash(ls -la c:/Users/ASUS/Desktop/Projects/facturation/public/build/img/bg/*.webp)",
+      "Bash(ls -la \"c:/Users/ASUS/Desktop/Projects/facturation/public/build/img/icons/\"*.webp)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ASUS\\Desktop\\Projects\\facturation\\resources\\views\\pdf\\templates\\paid"

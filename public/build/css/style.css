@@ -56,7 +56,7 @@
 43.sidebar
 
 ============================*/
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
+/* Google Fonts moved to HTML <link> for performance — do not re-add @import here */
 /*============================
   2.mixins
 ============================*/

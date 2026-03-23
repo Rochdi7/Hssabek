@@ -60,11 +60,11 @@
 /*============================
   1.variables
 ============================*/
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
+/* Google Fonts moved to HTML <link> for performance — do not re-add @import here */
 /*============================
   20.font
 ============================*/
-@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
+/* Google Fonts moved to HTML <link> for performance — do not re-add @import here */
 :root {
     --primary: #3550dc;
     --primary-hover: #213abd;
@@ -21221,7 +21221,7 @@ html.menu-opened body {
 /*sidebar*/
 /* banner*/
 .main-banner {
-    background-image: url(../img/bg/banner-bg.png);
+    background-image: url(../img/bg/banner-bg.webp);
     background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
@@ -21881,7 +21881,7 @@ html.menu-opened body {
 /* Advance Module */
 .advance-module-sec {
     padding: 80px 0 56px;
-    background-image: url(../img/bg/sec-bg-03.png);
+    background-image: url(../img/bg/sec-bg-03.webp);
     background-repeat: no-repeat;
     background-position: center;
 }
