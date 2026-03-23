@@ -1,6 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Conditions Générales d\'Utilisation'))
+@section('title', __('Conditions Générales d\'Utilisation — Logiciel Facturation Maroc'))
+@section('meta_description', __('Conditions générales d\'utilisation de') . ' ' . config('app.name') . '. ' . __('Règles d\'utilisation du logiciel de facturation et gestion commerciale en ligne au Maroc.'))
+@section('meta_keywords', 'conditions utilisation hssabek, CGU logiciel facturation maroc, règlement facturation en ligne')
 
 @section('hero')
 <!-- Hero Section -->

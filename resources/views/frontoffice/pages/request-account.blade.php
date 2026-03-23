@@ -1,8 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Essai Gratuit — Créez votre Compte Facturation'))
-@section('meta_description', __('Demandez un compte :app gratuit pour votre entreprise. Essai 7 jours sans carte bancaire. Facturation, devis, stock et gestion commerciale au Maroc.', ['app' => config('app.name')]))
-@section('meta_keywords', 'essai gratuit facturation, créer compte facturation maroc, inscription logiciel comptable, demande accès hssabek')
+@section('title', __('Essai Gratuit Logiciel Facturation Maroc — Créez votre Compte'))
+@section('meta_description', __('Demandez un compte :app gratuit pour votre entreprise. Essai 7 jours sans carte bancaire. Facturation électronique conforme DGI, devis, stock et gestion commerciale au Maroc.', ['app' => config('app.name')]))
+@section('meta_keywords', 'essai gratuit logiciel facturation maroc, créer compte facturation en ligne, inscription logiciel facturation maroc, demande accès hssabek, test logiciel facturation gratuit, logiciel facturation auto entrepreneur essai, facturation électronique essai gratuit maroc')
 
 @section('structured_data')
 <script type="application/ld+json">

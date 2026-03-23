@@ -1,8 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('FAQ — Questions Fréquentes sur la Facturation en Ligne'))
-@section('meta_description', __('Foire aux questions') . ' ' . config('app.name') . '. ' . __('Trouvez les réponses sur la facturation, les devis, les abonnements, la sécurité et la gestion commerciale au Maroc.'))
-@section('meta_keywords', 'faq facturation maroc, questions facturation en ligne, aide logiciel comptable, support hssabek, devis facture faq')
+@section('title', __('FAQ — Questions Fréquentes sur la Facturation Électronique au Maroc'))
+@section('meta_description', __('Foire aux questions') . ' ' . config('app.name') . '. ' . __('Trouvez les réponses sur la facturation électronique, la conformité DGI, les devis, les abonnements, la sécurité et la gestion commerciale au Maroc.'))
+@section('meta_keywords', 'faq facturation maroc, questions facturation en ligne maroc, comment créer une facture au maroc, facturation électronique obligatoire maroc, comment faire un devis maroc, aide logiciel comptable maroc, conformité DGI facturation, ICE facture maroc, TVA facture maroc, mentions obligatoires facture maroc')
 
 @section('structured_data')
 <script type="application/ld+json">

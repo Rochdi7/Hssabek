@@ -1,8 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Tarifs — Plans de Facturation Accessibles pour Entreprises Marocaines'))
-@section('meta_description', __('Découvrez nos offres de facturation en ligne à partir de 0 DH. Plans adaptés aux PME, auto-entrepreneurs et grandes entreprises au Maroc. Essai gratuit sans carte bancaire.'))
-@section('meta_keywords', 'prix logiciel facturation maroc, tarif facturation en ligne, abonnement facturation, plan facturation pme, essai gratuit facturation')
+@section('title', __('Tarifs Logiciel Facturation Maroc — Plans dès 0 DH pour PME & Auto-Entrepreneurs'))
+@section('meta_description', __('Comparez nos tarifs de facturation en ligne au Maroc dès 0 DH/mois. Plans adaptés auto-entrepreneurs, PME et grandes entreprises. Facturation électronique conforme DGI. Essai gratuit sans carte bancaire.'))
+@section('meta_keywords', 'prix logiciel facturation maroc, tarif facturation en ligne maroc, logiciel facturation gratuit maroc, abonnement facturation maroc, comparatif logiciel facturation maroc, plan facturation pme maroc, prix facturation électronique, logiciel facturation auto entrepreneur prix, essai gratuit facturation maroc, facturation pas cher maroc, logiciel facture gratuit')
 
 @section('structured_data')
 <script type="application/ld+json">

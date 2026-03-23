@@ -1,8 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Support Technique — Assistance Rapide'))
-@section('meta_description', __('Support technique') . ' ' . config('app.name') . '. ' . __('Réponse sous 24h. Assistance par email, centre d\'aide et FAQ pour résoudre tous vos problèmes de facturation.'))
-@section('meta_keywords', 'support technique facturation, assistance logiciel comptable, aide en ligne maroc, support hssabek')
+@section('title', __('Support Technique Facturation — Assistance Rapide au Maroc'))
+@section('meta_description', __('Support technique') . ' ' . config('app.name') . '. ' . __('Réponse sous 24h. Assistance par email, centre d\'aide et FAQ pour résoudre vos problèmes de facturation électronique et gestion commerciale au Maroc.'))
+@section('meta_keywords', 'support technique facturation maroc, assistance logiciel facturation, aide facturation en ligne maroc, support hssabek, dépannage logiciel comptable maroc, assistance facturation électronique DGI')
 
 @section('hero')
 <!-- Hero Section -->

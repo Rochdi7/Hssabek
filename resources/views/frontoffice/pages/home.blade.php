@@ -1,8 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Factures & Devis IA en Ligne au Maroc'))
-@section('meta_description', __('Créez vos factures en 10 secondes grâce à l\'IA. Envoi automatique, devis, avoirs, stock et rapports. Logiciel n°1 au Maroc.'))
-@section('meta_keywords', 'logiciel facturation maroc, facturation en ligne, créer facture maroc, devis en ligne, gestion commerciale maroc, logiciel comptable, hssabek, facturation ia, facture automatique')
+@section('title', __('Logiciel de Facturation en Ligne au Maroc — Factures & Devis IA'))
+@section('meta_description', __('Logiciel de facturation électronique conforme DGI au Maroc. Créez factures et devis en 10 secondes grâce à l\'IA. Idéal auto-entrepreneurs, PME et grandes entreprises. Essai gratuit.'))
+@section('meta_keywords', 'logiciel facturation maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facturation auto entrepreneur maroc, créer facture en ligne maroc, devis en ligne maroc, gestion commerciale maroc, logiciel comptable marocain, facturation conforme DGI, meilleur logiciel facturation maroc 2026, facture électronique DGI, logiciel facture gratuit maroc, hssabek, facturation ia, facture automatique, logiciel gestion commerciale maroc, e-facturation maroc')
 @section('og_type', 'website')
 
 @section('structured_data')
@@ -14,7 +14,7 @@
 	"applicationCategory": "BusinessApplication",
 	"operatingSystem": "Web",
 	"url": "{{ route('home') }}",
-	"description": "Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines. Créez vos factures en 10 secondes grâce à l'IA.",
+	"description": "Logiciel de facturation électronique conforme DGI au Maroc. Créez factures et devis en 10 secondes grâce à l'IA. Solution complète pour auto-entrepreneurs, PME et grandes entreprises.",
 	"offers": {
 		"@@type": "Offer",
 		"price": "0",

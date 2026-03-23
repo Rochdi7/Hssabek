@@ -1,8 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Fonctionnalités — Facturation, Devis, Stock & Gestion Commerciale'))
-@section('meta_description', __('Découvrez toutes les fonctionnalités de') . ' ' . config('app.name') . ' : ' . __('facturation IA, devis en un clic, gestion clients et fournisseurs, stock, achats, rapports détaillés et 64+ modèles PDF. Le logiciel tout-en-un pour les entreprises marocaines.'))
-@section('meta_keywords', 'fonctionnalités facturation, logiciel devis maroc, gestion stock maroc, gestion clients fournisseurs, rapports comptables, facturation ia maroc')
+@section('title', __('Fonctionnalités — Facturation Électronique, Devis, Stock & Gestion Commerciale Maroc'))
+@section('meta_description', __('Toutes les fonctionnalités de') . ' ' . config('app.name') . ' : ' . __('facturation électronique conforme DGI, devis en un clic, gestion clients et fournisseurs, stock, achats, bons de commande, avoirs, rapports détaillés et 64+ modèles PDF. Logiciel tout-en-un pour entreprises marocaines.'))
+@section('meta_keywords', 'fonctionnalités logiciel facturation maroc, logiciel devis facture maroc, gestion stock facturation maroc, gestion commerciale en ligne maroc, gestion clients fournisseurs maroc, rapports comptables maroc, facturation ia maroc, logiciel bon de commande maroc, logiciel avoir maroc, modèle facture maroc, gestion trésorerie maroc, suivi paiement facture, facturation électronique DGI')
 
 @section('structured_data')
 <script type="application/ld+json">

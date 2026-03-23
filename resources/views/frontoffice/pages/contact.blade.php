@@ -1,8 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Contactez-nous — Support & Assistance Facturation'))
-@section('meta_description', __('Contactez l\'équipe') . ' ' . config('app.name') . '. ' . __('Support réactif sous 24h pour toutes vos questions sur la facturation, les devis et la gestion commerciale au Maroc.'))
-@section('meta_keywords', 'contact hssabek, support facturation maroc, aide logiciel facturation, assistance comptable en ligne')
+@section('title', __('Contactez-nous — Support Facturation & Gestion Commerciale Maroc'))
+@section('meta_description', __('Contactez l\'équipe') . ' ' . config('app.name') . '. ' . __('Support réactif sous 24h pour toutes vos questions sur la facturation électronique, les devis, la conformité DGI et la gestion commerciale au Maroc.'))
+@section('meta_keywords', 'contact hssabek, support facturation maroc, aide logiciel facturation maroc, assistance comptable en ligne maroc, support facturation électronique, aide conformité DGI, service client logiciel facturation')
 
 @section('structured_data')
 <script type="application/ld+json">
