@@ -1,6 +1,6 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Facturation en Ligne au Maroc — IA & Automatisation'))
+@section('title', __('Factures & Devis IA en Ligne au Maroc'))
 @section('meta_description', __('Créez vos factures en 10 secondes grâce à l\'IA. Envoi automatique, devis, avoirs, stock et rapports. Logiciel n°1 au Maroc.'))
 @section('meta_keywords', 'logiciel facturation maroc, facturation en ligne, créer facture maroc, devis en ligne, gestion commerciale maroc, logiciel comptable, hssabek, facturation ia, facture automatique')
 @section('og_type', 'website')
