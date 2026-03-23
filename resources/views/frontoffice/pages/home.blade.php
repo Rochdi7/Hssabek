@@ -1,7 +1,7 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Logiciel de Facturation en Ligne au Maroc — Factures & Devis IA'))
-@section('meta_description', __('Logiciel de facturation électronique conforme DGI au Maroc. Créez factures et devis en 10 secondes grâce à l\'IA. Idéal auto-entrepreneurs, PME et grandes entreprises. Essai gratuit.'))
+@section('title', __('Logiciel Facturation Maroc — Factures & Devis par IA'))
+@section('meta_description', __('Logiciel de facturation en ligne au Maroc conforme DGI. Factures et devis créés par l\'IA en 10 secondes, envoyés automatiquement. Essai gratuit sans carte bancaire.'))
 @section('meta_keywords', 'logiciel facturation maroc, logiciel de facturation maroc, logiciel facturation gratuit maroc, logiciel de facturation gratuit maroc, application de facturation gratuit, application facturation gratuite, application gratuite facture, application de facture gratuite, logiciel gestion commerciale maroc, logiciel de gestion commerciale maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facturation auto entrepreneur maroc, devis en ligne maroc, facturation conforme DGI, meilleur logiciel facturation maroc, facture électronique DGI, hssabek, facturation ia, e-facturation maroc')
 @section('og_type', 'website')
 
@@ -68,10 +68,10 @@
 								<h1 class="mb-2">{{ __('Vos factures & devis') }} <span class="head">{{ __('créés par l\'IA, envoyés automatiquement') }}</span></h1>
 								<span class="banner-title-icon"><img src="{{ url('build/img/icons/title-icon.svg') }}" alt="Icône"></span>
 							</div>
-							<p class="fw-medium">{{ __('Pendant que vos concurrents perdent 2h par jour sur Excel, vous générez une facture en 10 secondes grâce à l\'IA. Envoi automatique, suivi des chèques et prêts, détection de fraude — le seul logiciel marocain qui pense à votre place.') }}</p>
+							<p class="fw-medium">{{ __('Pendant que vos concurrents perdent 2h sur Excel, vos factures et devis sont créés par l\'IA et envoyés automatiquement à vos clients en 10 secondes. Suivi des chèques, détection de fraude — le seul logiciel de facturation marocain qui pense à votre place.') }}</p>
 							<div class="banner-wrap-btn">
 								<div class="banner-btns d-flex">
-									<a class="btn btn-dark btn-lg d-inline-flex align-items-center me-0" href="{{ route('request-account') }}">{{ __('Essayer gratuitement') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
+									<a class="btn btn-dark btn-lg d-inline-flex align-items-center me-0" href="{{ route('request-account') }}">{{ __('Créer mon compte gratuit') }}<i class="isax isax-arrow-right-3 ms-2"></i></a>
 								</div>
 							</div>
 							<ul class="banner-info-list">
@@ -191,7 +191,7 @@
 					</div>
 					<div class="section-btns">
 						<div class="sec-btn">
-							<a class="btn btn-lg btn-dark" href="{{ route('request-account') }}"><i class="isax isax-user me-2"></i>{{ __('Demander un accès') }}</a>
+							<a class="btn btn-lg btn-dark" href="{{ route('request-account') }}"><i class="isax isax-user me-2"></i>{{ __('Demander mon accès gratuit') }}</a>
 						</div>
 					</div>
 				</div>
@@ -972,41 +972,41 @@
 			<div class="col-lg-7">
 				<div class="faq-set" id="accordionExample">
 					<div class="faq-card aos" data-aos="fade-up" data-aos-delay="600">
-						<h4 class="faq-title">
+						<h3 class="faq-title">
 							<a data-bs-toggle="collapse" href="#faqOne" aria-expanded="false">{{ __('Y a-t-il un essai gratuit disponible ?') }}</a>
-						</h4>
+						</h3>
 						<div id="faqOne" class="card-collapse collapse show" data-bs-parent="#accordionExample">
 							<p>{{ __('Oui ! Demandez votre accès gratuit et testez toutes les fonctionnalités pendant 7 jours. Aucune carte bancaire requise. Vous pourrez ensuite passer à l\'offre à vie pour seulement 399 DH.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
-						<h4 class="faq-title">
+						<h3 class="faq-title">
 							<a class="collapsed" data-bs-toggle="collapse" href="#faqtwo" aria-expanded="false">{{ __('Pourquoi un paiement unique et pas un abonnement ?') }}</a>
-						</h4>
+						</h3>
 						<div id="faqtwo" class="card-collapse collapse" data-bs-parent="#accordionExample">
 							<p>{{ __('Nous croyons en la simplicité. Payez une seule fois 399 DH et utilisez le logiciel pour toujours. Pas de surprise, pas de renouvellement automatique. Toutes les mises à jour futures sont incluses.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
-						<h4 class="faq-title">
+						<h3 class="faq-title">
 							<a class="collapsed" data-bs-toggle="collapse" href="#faqthree" aria-expanded="false">{{ __('Est-ce que c\'est vraiment facile à utiliser ?') }}</a>
-						</h4>
+						</h3>
 						<div id="faqthree" class="card-collapse collapse" data-bs-parent="#accordionExample">
 							<p>{{ __('Absolument ! L\'interface est conçue pour être intuitive. Créez votre première facture en moins de 10 secondes. Aucune formation nécessaire. Et si vous avez besoin d\'aide, notre support est là pour vous.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
-						<h4 class="faq-title">
+						<h3 class="faq-title">
 							<a class="collapsed" data-bs-toggle="collapse" href="#faqfour" aria-expanded="false">{{ __('Puis-je ajouter d\'autres informations sur mes factures ?') }}</a>
-						</h4>
+						</h3>
 						<div id="faqfour" class="card-collapse collapse" data-bs-parent="#accordionExample">
 							<p>{{ __('Oui, nos modèles de factures sont entièrement personnalisables. Vous pouvez ajouter des champs personnalisés, votre logo, des conditions de paiement et toute information supplémentaire nécessaire.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
-						<h4 class="faq-title">
+						<h3 class="faq-title">
 							<a class="collapsed" data-bs-toggle="collapse" href="#faqfive" aria-expanded="false">{{ __('Comment fonctionne l\'envoi automatique ?') }}</a>
-						</h4>
+						</h3>
 						<div id="faqfive" class="card-collapse collapse" data-bs-parent="#accordionExample">
 							<p>{{ __('Dès qu\'une facture ou un devis est prêt, vous pouvez l\'envoyer directement par email à votre client en un clic. Le PDF professionnel est généré automatiquement avec votre logo et vos informations.') }}</p>
 						</div>
