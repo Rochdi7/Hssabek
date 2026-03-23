@@ -57,7 +57,9 @@
       "Bash(node scripts/post-build.mjs)",
       "Bash(node -e \":*)",
       "Read(//c/Users/ASUS/Desktop/Projects/facturation/**)",
-      "Bash(ls -la c:/Users/ASUS/Desktop/Projects/facturation/public/assets/images/sass screenshots/*.png)"
+      "Bash(ls -la c:/Users/ASUS/Desktop/Projects/facturation/public/assets/images/sass screenshots/*.png)",
+      "Bash(sed -i '114,136 s|<h6 class=\"\"mb-1\"\">|<p class=\"\"h6 mb-1\"\">|; 114,136 s|</h6>|</p>|' resources/views/frontoffice/pages/home.blade.php)",
+      "Bash(sed -i '207,262 s|<h6 class=\"\"text-white mb-2\"\">|<p class=\"\"h6 text-white mb-2\"\">|; 207,262 s|</h6>|</p>|' resources/views/frontoffice/pages/home.blade.php)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ASUS\\Desktop\\Projects\\facturation\\resources\\views\\pdf\\templates\\paid"

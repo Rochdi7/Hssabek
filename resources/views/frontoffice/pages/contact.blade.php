@@ -52,7 +52,7 @@
 					</div>
 					<div class="app-content">
 						<h6 class="mb-1">{{ __('Email') }}</h6>
-						<p>contact@{{ request()->getHost() }}</p>
+						<p>hssabekinfo@gmail.com</p>
 					</div>
 				</div>
 			</div>

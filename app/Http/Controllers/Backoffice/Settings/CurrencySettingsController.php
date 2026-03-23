@@ -31,7 +31,7 @@ class CurrencySettingsController extends Controller
     {
         $tenant = TenantContext::get();
         $baseCurrency = $tenant->settings->localization_settings['currency'] ?? 'MAD';
-        $defaultCurrency = $tenant->default_currency ?? $baseCurrency;
+        $defaultCurrency = $baseCurrency;
 
         // Ensure base currency exists
         $this->ensureCurrencyExists($baseCurrency);
@@ -74,13 +74,17 @@ class CurrencySettingsController extends Controller
         ExchangeRate::create([
             'base_currency' => $baseCurrency,
             'quote_currency' => $code,
-            'rate' => $request->rate,
+            'rate' => 1,
             'date' => now()->toDateString(),
         ]);
 
         // Set as default if requested
         if ($request->boolean('is_default')) {
-            $tenant->update(['default_currency' => $code]);
+            $settings = $tenant->settings;
+            $localization = $settings->localization_settings ?? [];
+            $localization['currency'] = $code;
+            $settings->localization_settings = $localization;
+            $settings->save();
         }
 
         return redirect()->route('bo.settings.currencies.index')
@@ -128,7 +132,11 @@ class CurrencySettingsController extends Controller
     public function setDefault(Currency $currency)
     {
         $tenant = TenantContext::get();
-        $tenant->update(['default_currency' => $currency->code]);
+        $settings = $tenant->settings;
+        $localization = $settings->localization_settings ?? [];
+        $localization['currency'] = $currency->code;
+        $settings->localization_settings = $localization;
+        $settings->save();
 
         return redirect()->route('bo.settings.currencies.index')
             ->with('success', __('Devise par défaut mise à jour avec succès.'));

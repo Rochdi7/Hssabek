@@ -17,7 +17,6 @@ class StoreCurrencyRequest extends FormRequest
             'name' => ['required', 'string', 'max:100'],
             'code' => ['required', 'string', 'size:3', 'alpha'],
             'symbol' => ['required', 'string', 'max:10'],
-            'rate' => ['required', 'numeric', 'min:0.000001'],
             'is_default' => ['nullable', 'boolean'],
         ];
     }
@@ -32,9 +31,6 @@ class StoreCurrencyRequest extends FormRequest
             'code.alpha' => __('Le code devise ne doit contenir que des lettres.'),
             'symbol.required' => __('Le symbole est obligatoire.'),
             'symbol.max' => __('Le symbole ne doit pas dépasser 10 caractères.'),
-            'rate.required' => __('Le taux de change est obligatoire.'),
-            'rate.numeric' => __('Le taux doit être un nombre.'),
-            'rate.min' => __('Le taux doit être supérieur à zéro.'),
         ];
     }
 }
