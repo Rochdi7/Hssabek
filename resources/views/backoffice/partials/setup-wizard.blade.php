@@ -386,10 +386,7 @@
                                 <label class="form-label">{{ __('Titulaire du compte') }} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="bank_account_holder" required placeholder="{{ __('Ex: Société ABC SARL') }}">
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">{{ __('Numéro de compte (RIB)') }} <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="bank_account_number" required placeholder="{{ __('24 chiffres') }}">
-                            </div>
+                            <input type="hidden" name="bank_account_number" value="-">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">{{ __('Type de compte') }} <span class="text-danger">*</span></label>
                                 <select class="form-select" name="bank_account_type" required>
