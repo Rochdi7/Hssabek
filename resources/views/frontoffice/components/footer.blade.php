@@ -5,7 +5,7 @@
 			<div class="row align-items-center">
 				<div class="col-md-7">
 					<div class="footer-content">
-						<h4>{{ __('Abonnez-vous à notre newsletter') }}</h4>
+						<p class="h4">{{ __('Abonnez-vous à notre newsletter') }}</p>
 					</div>
 				</div>
 				<div class="col-md-5">
@@ -32,7 +32,7 @@
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-6">
 					<div class="footer-widget">
-						<h6 class="text-white mb-3">{{ __('Produit') }}</h6>
+						<p class="h6 text-white mb-3">{{ __('Produit') }}</p>
 						<ul>
 							<li><a href="{{ route('request-account') }}">{{ __('Essai gratuit') }}</a></li>
 							<li><a href="{{ route('features') }}">{{ __('Fonctionnalités') }}</a></li>
@@ -42,7 +42,7 @@
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-6">
 					<div class="footer-widget">
-						<h6 class="text-white mb-3">{{ __('Ressources') }}</h6>
+						<p class="h6 text-white mb-3">{{ __('Ressources') }}</p>
 						<ul>
 							<li><a href="{{ route('help-center') }}">{{ __("Centre d'aide") }}</a></li>
 							<li><a href="{{ route('support') }}">{{ __('Support') }}</a></li>
@@ -52,7 +52,7 @@
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-6">
 					<div class="footer-widget">
-						<h6 class="text-white mb-3">{{ __('Légal') }}</h6>
+						<p class="h6 text-white mb-3">{{ __('Légal') }}</p>
 						<ul>
 							<li><a href="{{ route('terms') }}">{{ __('CGU') }}</a></li>
 							<li><a href="{{ route('privacy') }}">{{ __('Confidentialité') }}</a></li>
@@ -62,12 +62,12 @@
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-6">
 					<div class="footer-widget">
-						<h6 class="text-white mb-3">{{ __('Entreprise') }}</h6>
+						<p class="h6 text-white mb-3">{{ __('Entreprise') }}</p>
 						<ul>
 							<li><a href="{{ route('contact') }}">{{ __('Contactez-nous') }}</a></li>
-							<li><a href="#" rel="noopener nofollow" target="_blank" aria-label="Facebook">Facebook</a></li>
-							<li><a href="#" rel="noopener nofollow" target="_blank" aria-label="LinkedIn">LinkedIn</a></li>
-							<li><a href="#" rel="noopener nofollow" target="_blank" aria-label="Twitter">Twitter</a></li>
+							<li><a href="https://www.facebook.com/codesommetagency/" rel="noopener nofollow" target="_blank" aria-label="Hssabek sur Facebook">Facebook</a></li>
+							<li><a href="https://www.linkedin.com/in/codesommet/" rel="noopener nofollow" target="_blank" aria-label="Hssabek sur LinkedIn">LinkedIn</a></li>
+							<li><a href="https://www.instagram.com/code_sommet/" rel="noopener nofollow" target="_blank" aria-label="Hssabek sur Instagram">Instagram</a></li>
 						</ul>
 					</div>
 				</div>
