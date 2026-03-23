@@ -47,6 +47,23 @@
 		<meta name="apple-mobile-web-app-title" content="Hssabek" />
 		<link rel="manifest" href="/assets/images/favicon/site.webmanifest" />
 
+		<!-- Preconnect to Google Fonts (eliminates DNS+TCP+TLS round-trip) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+		<!-- Google Fonts (moved from CSS @import to avoid render-blocking chain) -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" media="print" onload="this.media='all'">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" media="print" onload="this.media='all'">
+		<noscript>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap">
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap">
+		</noscript>
+
+		<!-- Preload LCP background image (loaded via CSS, not discoverable otherwise) -->
+		@hasSection('hero')
+		<link rel="preload" href="{{ url('build/img/bg/banner-bg.webp') }}" as="image" type="image/webp" fetchpriority="high">
+		@endif
+
 		<!-- Critical CSS (preloaded) -->
 		<link rel="preload" href="{{ url('build/css/bootstrap.min.css') }}" as="style">
 		<link rel="preload" href="{{ url('build/css/landing.css') }}" as="style">

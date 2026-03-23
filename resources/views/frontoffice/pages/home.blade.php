@@ -179,7 +179,7 @@
 <section class="software-dev-section" id="about">
 	<div class="container">
 		<div class="sec-bg-img">
-			<img src="{{ url('build/img/bg/sec-bg-02.png') }}" class="vector-dot-one" alt="Bg">
+			<img src="{{ url('build/img/bg/sec-bg-02.png') }}" class="vector-dot-one" alt="Bg" loading="lazy">
 		</div>
 		<div class="row">
 			<div class="col-lg-4" data-aos="fade-up">
@@ -273,8 +273,8 @@
 
 <!-- Invoice Template Section -->
 <section class="invoice-temp-sec" id="invoice">
-	<img src="{{ url('build/img/icons/invoice-bg.png') }}" alt="bg" class="img-fluid invoice-bg1 d-none d-lg-flex">
-	<img src="{{ url('build/img/icons/invoice-bg2.png') }}" alt="bg" class="img-fluid invoice-bg2 d-none d-lg-flex">
+	<picture><source srcset="{{ url('build/img/icons/invoice-bg.webp') }}" type="image/webp"><img src="{{ url('build/img/icons/invoice-bg.png') }}" alt="bg" class="img-fluid invoice-bg1 d-none d-lg-flex" loading="lazy"></picture>
+	<picture><source srcset="{{ url('build/img/icons/invoice-bg2.webp') }}" type="image/webp"><img src="{{ url('build/img/icons/invoice-bg2.png') }}" alt="bg" class="img-fluid invoice-bg2 d-none d-lg-flex" loading="lazy"></picture>
 	<div class="container">
 		<div class="section-heading" data-aos="fade-up">
 			<span class="title-badge">{{ __('+64 modèles professionnels') }}</span>
@@ -369,8 +369,8 @@
 		</div>
 		<div class="start-bussiness">
 			<div class="section-bg-img">
-				<img src="{{ url('build/img/bg/sec-bg-16.svg') }}" class="sec-bg-vector-one d-none d-lg-flex" alt="Bg">
-				<img src="{{ url('build/img/bg/sec-bg-17.svg') }}" class="sec-bg-vector-two" alt="Bg">
+				<img src="{{ url('build/img/bg/sec-bg-16.svg') }}" class="sec-bg-vector-one d-none d-lg-flex" alt="Bg" loading="lazy">
+				<img src="{{ url('build/img/bg/sec-bg-17.svg') }}" class="sec-bg-vector-two" alt="Bg" loading="lazy">
 			</div>
 			<div class="section-title" data-aos="fade-up">
 				<h2 class="mb-2">{{ __('Gagnez du temps chaque jour') }}</h2>
@@ -444,9 +444,9 @@
 <section class="user-empowerment-sec" style="overflow-x: clip;" id="features">
 	<div class="container">
 		<div class="sec-bg-img">
-			<img src="{{ url('build/img/bg/sec-bg-06.png') }}" class="vector-bg-one" alt="Bg">
-			<img src="{{ url('build/img/bg/sec-bg-07.png') }}" class="vector-bg-two" alt="Bg">
-			<img src="{{ url('build/img/bg/sec-bg-08.png') }}" class="vector-bg-three" alt="Bg">
+			<picture><source srcset="{{ url('build/img/bg/sec-bg-06.webp') }}" type="image/webp"><img src="{{ url('build/img/bg/sec-bg-06.png') }}" class="vector-bg-one" alt="Bg" loading="lazy"></picture>
+			<picture><source srcset="{{ url('build/img/bg/sec-bg-07.webp') }}" type="image/webp"><img src="{{ url('build/img/bg/sec-bg-07.png') }}" class="vector-bg-two" alt="Bg" loading="lazy"></picture>
+			<img src="{{ url('build/img/bg/sec-bg-08.png') }}" class="vector-bg-three" alt="Bg" loading="lazy">
 		</div>
 		<div class="section-heading" data-aos="fade-up" data-aos-delay="500">
 			<span class="title-badge fs-14 mb-3">{{ __('Des fonctionnalités qui dépassent vos attentes') }}</span>
@@ -880,8 +880,8 @@
 <section class="pricing-section" id="pricing">
 	<div class="container">
 		<div class="sec-bg-img">
-			<img src="{{ url('build/img/icons/pricing-bg-01.svg') }}" class="pricing-bg-one d-none d-lg-flex" alt="Bg">
-			<img src="{{ url('build/img/bg/sec-bg-10.png') }}" class="pricing-bg-two" alt="Bg">
+			<img src="{{ url('build/img/icons/pricing-bg-01.svg') }}" class="pricing-bg-one d-none d-lg-flex" alt="Bg" loading="lazy">
+			<img src="{{ url('build/img/bg/sec-bg-10.png') }}" class="pricing-bg-two" alt="Bg" loading="lazy">
 		</div>
 		<div class="section-heading">
 			<span class="title-badge bg-white">{{ __('Offre unique') }}</span>
@@ -955,10 +955,10 @@
 <section class="faq-section bg-white" id="faq">
 	<div class="container">
 		<div class="sec-bg-img">
-			<img src="{{ url('build/img/bg/sec-bg-11.png') }}" class="faq-bg-one" alt="Bg">
-			<img src="{{ url('build/img/bg/sec-bg-12.png') }}" class="faq-bg-two" alt="Bg">
-			<img src="{{ url('build/img/bg/sec-bg-13.png') }}" class="faq-bg-three" alt="Bg">
-			<img src="{{ url('build/img/icons/faq-bg.svg') }}" class="faq-bg-four" alt="Bg">
+			<img src="{{ url('build/img/bg/sec-bg-11.png') }}" class="faq-bg-one" alt="Bg" loading="lazy">
+			<picture><source srcset="{{ url('build/img/bg/sec-bg-12.webp') }}" type="image/webp"><img src="{{ url('build/img/bg/sec-bg-12.png') }}" class="faq-bg-two" alt="Bg" loading="lazy"></picture>
+			<picture><source srcset="{{ url('build/img/bg/sec-bg-13.webp') }}" type="image/webp"><img src="{{ url('build/img/bg/sec-bg-13.png') }}" class="faq-bg-three" alt="Bg" loading="lazy"></picture>
+			<img src="{{ url('build/img/icons/faq-bg.svg') }}" class="faq-bg-four" alt="Bg" loading="lazy">
 		</div>
 		<div class="row align-items-center">
 			<div class="col-lg-5">

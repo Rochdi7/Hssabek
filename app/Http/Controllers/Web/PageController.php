@@ -12,6 +12,7 @@ use App\Models\System\NewsletterSubscriber;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -26,9 +27,11 @@ class PageController extends Controller
 
     public function pricing(): View
     {
-        $plans = Plan::where('is_active', true)
-            ->orderBy('price')
-            ->get();
+        $plans = Cache::remember('frontoffice_active_plans', 3600, function () {
+            return Plan::where('is_active', true)
+                ->orderBy('price')
+                ->get();
+        });
 
         return view('frontoffice.pages.pricing', compact('plans'));
     }
