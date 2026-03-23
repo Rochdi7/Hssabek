@@ -743,7 +743,8 @@
 						var wrapperRect = wrapper.getBoundingClientRect();
 						var tabRect = activeTab.getBoundingClientRect();
 						if (tabRect.left < wrapperRect.left || tabRect.right > wrapperRect.right) {
-							activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+							var scrollLeft = activeTab.offsetLeft - (wrapper.clientWidth / 2) + (activeTab.offsetWidth / 2);
+							wrapper.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
 						}
 					}
 				});
