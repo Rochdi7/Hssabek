@@ -1,6 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Politique de Confidentialité'))
+@section('title', __('Politique de Confidentialité — Protection des Données Facturation Maroc'))
+@section('meta_description', __('Politique de confidentialité de') . ' ' . config('app.name') . '. ' . __('Découvrez comment nous protégeons vos données de facturation et informations commerciales conformément à la loi marocaine.'))
+@section('meta_keywords', 'politique confidentialité hssabek, protection données facturation maroc, RGPD maroc, sécurité données comptables')
 
 @section('hero')
 <!-- Hero Section -->

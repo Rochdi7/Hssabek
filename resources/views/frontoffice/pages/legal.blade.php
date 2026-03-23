@@ -1,6 +1,8 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Mentions Légales'))
+@section('title', __('Mentions Légales — Hssabek Logiciel Facturation Maroc'))
+@section('meta_description', __('Mentions légales de') . ' ' . config('app.name') . '. ' . __('Informations légales sur l\'éditeur du logiciel de facturation et gestion commerciale en ligne au Maroc.'))
+@section('meta_keywords', 'mentions légales hssabek, éditeur logiciel facturation maroc, informations légales facturation en ligne')
 
 @section('hero')
 <!-- Hero Section -->

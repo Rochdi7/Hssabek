@@ -34,7 +34,7 @@
 		<meta name="twitter:image" content="@yield('og_image', asset('assets/images/logo/logo-wide-cropped.svg'))">
 
 		<!-- Additional SEO Meta Tags -->
-		<meta name="keywords" content="@yield('meta_keywords', 'facturation maroc, logiciel facturation, devis facture, gestion commerciale, comptabilité maroc, facture en ligne, logiciel comptable marocain, hssabek')">
+		<meta name="keywords" content="@yield('meta_keywords', 'logiciel facturation maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facture maroc, devis en ligne maroc, gestion commerciale maroc, comptabilité maroc, logiciel comptable marocain, facturation conforme DGI, auto entrepreneur maroc, hssabek')">
 		<meta name="geo.region" content="MA">
 		<meta name="geo.placename" content="Maroc">
 		<meta name="language" content="{{ app()->getLocale() }}">
