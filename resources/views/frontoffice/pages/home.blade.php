@@ -1,7 +1,7 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Logiciel Facturation Maroc — Factures & Devis par IA'))
-@section('meta_description', __('Logiciel de facturation en ligne au Maroc conforme DGI. Factures et devis créés par l\'IA en 10 secondes, envoyés automatiquement. Essai gratuit sans carte bancaire.'))
+@section('title', __('Logiciel Facturation Maroc — Factures & Devis IA'))
+@section('meta_description', __('Logiciel facturation en ligne au Maroc conforme DGI. Factures et devis créés par l\'IA en 10 secondes, envoyés automatiquement. Essai gratuit.'))
 @section('meta_keywords', 'logiciel facturation maroc, logiciel de facturation maroc, logiciel facturation gratuit maroc, logiciel de facturation gratuit maroc, application de facturation gratuit, application facturation gratuite, application gratuite facture, application de facture gratuite, logiciel gestion commerciale maroc, logiciel de gestion commerciale maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facturation auto entrepreneur maroc, devis en ligne maroc, facturation conforme DGI, meilleur logiciel facturation maroc, facture électronique DGI, hssabek, facturation ia, e-facturation maroc')
 @section('og_type', 'website')
 
