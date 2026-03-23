@@ -58,7 +58,7 @@ class DemoTenantSeeder extends Seeder
 
         // 4) Create Super Admin user (tenant_id = NULL — no tenant context)
         $superAdmin = User::firstOrCreate(
-            ['email' => 'superadmin@facturation.local'],
+            ['email' => 'hssabekinfo@gmail.com'],
             [
                 'name' => 'Super Administrator',
                 'password' => bcrypt(env('DEMO_SA_PASSWORD', 'secret')),

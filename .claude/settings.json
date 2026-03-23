@@ -59,7 +59,12 @@
       "Read(//c/Users/ASUS/.claude/projects/c--Users-ASUS-Desktop-Projects-facturation/0454c1c7-b543-47dd-b859-6cd867860f14/tool-results/**)",
       "Bash(php add_translations.php)",
       "Bash(python3 -c \":*)",
-      "Bash(python3 add_missing_ar.py)"
+      "Bash(python3 add_missing_ar.py)",
+      "Bash(wc -l /c/Users/ASUS/Desktop/Projects/facturation/resources/views/frontoffice/pages/*.blade.php)",
+      "Bash(grep -v \"//.*\")",
+      "Bash(wc -l /c/Users/ASUS/Desktop/Projects/facturation/app/Http/Controllers/Web/*.php)",
+      "Bash(du -sh */)",
+      "Bash(du -sh assets/images/templates/*/model-1.png)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ASUS\\Desktop\\Projects\\facturation\\resources\\views\\pdf\\templates\\paid"

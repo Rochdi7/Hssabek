@@ -47,27 +47,27 @@
 		<meta name="apple-mobile-web-app-title" content="Hssabek" />
 		<link rel="manifest" href="/assets/images/favicon/site.webmanifest" />
 
-		<!-- Bootstrap CSS -->
+		<!-- Critical CSS (preloaded) -->
+		<link rel="preload" href="{{ url('build/css/bootstrap.min.css') }}" as="style">
+		<link rel="preload" href="{{ url('build/css/landing.css') }}" as="style">
 		<link rel="stylesheet" href="{{ url('build/css/bootstrap.min.css') }}">
-
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/fontawesome.min.css') }}">
-		<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/all.min.css') }}">
-
-		<!-- Aos CSS -->
-		<link rel="stylesheet" href="{{ url('build/plugins/aos/aos.css') }}">
-
-		<!-- Owl carousel CSS -->
-		<link rel="stylesheet" href="{{ url('build/css/owl.carousel.min.css') }}">
-
-		<!-- Feather CSS -->
-		<link rel="stylesheet" href="{{ url('build/css/feather.css') }}">
-
-		<!-- Iconsax CSS -->
-		<link rel="stylesheet" href="{{ url('build/css/iconsax.css') }}">
-
-		<!-- Landing CSS -->
 		<link rel="stylesheet" href="{{ url('build/css/landing.css') }}">
+
+		<!-- Non-critical CSS (deferred) -->
+		<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/fontawesome.min.css') }}" media="print" onload="this.media='all'">
+		<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/all.min.css') }}" media="print" onload="this.media='all'">
+		<link rel="stylesheet" href="{{ url('build/plugins/aos/aos.css') }}" media="print" onload="this.media='all'">
+		<link rel="stylesheet" href="{{ url('build/css/owl.carousel.min.css') }}" media="print" onload="this.media='all'">
+		<link rel="stylesheet" href="{{ url('build/css/feather.css') }}" media="print" onload="this.media='all'">
+		<link rel="stylesheet" href="{{ url('build/css/iconsax.css') }}" media="print" onload="this.media='all'">
+		<noscript>
+			<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/fontawesome.min.css') }}">
+			<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/all.min.css') }}">
+			<link rel="stylesheet" href="{{ url('build/plugins/aos/aos.css') }}">
+			<link rel="stylesheet" href="{{ url('build/css/owl.carousel.min.css') }}">
+			<link rel="stylesheet" href="{{ url('build/css/feather.css') }}">
+			<link rel="stylesheet" href="{{ url('build/css/iconsax.css') }}">
+		</noscript>
 
 		@if(app()->getLocale() === 'ar')
 		<style>
@@ -277,29 +277,21 @@
 		</div>
 	</div>
 
-	<!-- jQuery -->
+	<!-- jQuery (needed by other scripts) -->
 	<script src="{{ url('build/js/jquery-3.7.1.min.js') }}"></script>
 
 	<!-- Bootstrap Core JS -->
-	<script src="{{ url('build/js/bootstrap.bundle.min.js') }}"></script>
-	<script src="{{ url('build/js/bootstrap-scrollspy.js') }}"></script>
+	<script src="{{ url('build/js/bootstrap.bundle.min.js') }}" defer></script>
+	<script src="{{ url('build/js/bootstrap-scrollspy.js') }}" defer></script>
 
-	<!-- Feather JS -->
-	<script src="{{ url('build/js/feather.min.js') }}"></script>
-
-	<!-- Aos -->
-	<script src="{{ url('build/plugins/aos/aos.js') }}"></script>
-
-	<!-- counterup JS -->
-	<script src="{{ url('build/js/jquery.waypoints.js') }}"></script>
-	<script src="{{ url('build/js/jquery.counterup.min.js') }}"></script>
-	<script src="{{ url('build/js/counter.js') }}"></script>
-
-	<!-- Owl Carousel JS -->
-	<script src="{{ url('build/js/owl.carousel.min.js') }}"></script>
-
-	<!-- Custom JS -->
-	<script src="{{ url('build/js/landing-script.js') }}"></script>
+	<!-- Deferred JS -->
+	<script src="{{ url('build/js/feather.min.js') }}" defer></script>
+	<script src="{{ url('build/plugins/aos/aos.js') }}" defer></script>
+	<script src="{{ url('build/js/jquery.waypoints.js') }}" defer></script>
+	<script src="{{ url('build/js/jquery.counterup.min.js') }}" defer></script>
+	<script src="{{ url('build/js/counter.js') }}" defer></script>
+	<script src="{{ url('build/js/owl.carousel.min.js') }}" defer></script>
+	<script src="{{ url('build/js/landing-script.js') }}" defer></script>
 
 	<!-- Newsletter AJAX -->
 	<script>
