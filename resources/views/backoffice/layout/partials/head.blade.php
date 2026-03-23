@@ -28,7 +28,7 @@
     </script>
     @endif
     <!-- Theme Script js -->
-    <script src="{{URL::asset('build/js/theme-script.js')}}?v={{ filemtime(public_path('build/js/theme-script.js')) }}"></script>
+    <script src="{{URL::asset('build/js/theme-script.js')}}?v={{ file_exists(public_path('build/js/theme-script.js')) ? filemtime(public_path('build/js/theme-script.js')) : now()->timestamp }}"></script>
 @endif
 
 @if (app()->getLocale() === 'ar' || Route::is(['layout-rtl']))
