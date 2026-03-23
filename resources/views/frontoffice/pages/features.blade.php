@@ -56,227 +56,273 @@
 		</div>
 		<div class="inner-tab-button-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;">
 		<style>.inner-tab-button-wrapper::-webkit-scrollbar{display:none;}</style>
-		<ul class="nav nav-pills inner-tab-button aos" id="pills-tab" role="tablist" data-aos="fade-up" style="flex-wrap:nowrap;min-width:max-content;">
+		<ul class="nav nav-pills inner-tab-button aos" id="pills-tab-features" role="tablist" data-aos="fade-up" style="flex-wrap:nowrap;min-width:max-content;">
 			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="pills-sales-tab" data-bs-toggle="pill" data-bs-target="#pills-sales" type="button" role="tab" aria-controls="pills-sales" aria-selected="true"><span>{{ __('Gestion des ventes') }}</span>{{ __('Factures, devis, paiements et retours') }}</button>
+				<button class="nav-link active" data-bs-slide-to="0" type="button"><span>{{ __('Gestion des ventes') }}</span>{{ __('Factures, devis, paiements et retours') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-finance-tab" data-bs-toggle="pill" data-bs-target="#pills-finance" type="button" role="tab" aria-controls="pills-finance" aria-selected="false"><span>{{ __('Finance & Comptabilité') }}</span>{{ __('Dépenses, paiements et rapports financiers') }}</button>
+				<button class="nav-link" data-bs-slide-to="1" type="button"><span>{{ __('Finance & Comptabilité') }}</span>{{ __('Dépenses, paiements et rapports financiers') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-ops-tab" data-bs-toggle="pill" data-bs-target="#pills-ops" type="button" role="tab" aria-controls="pills-ops" aria-selected="false"><span>{{ __('Achats & Inventaire') }}</span>{{ __('Fournisseurs, commandes et gestion de stock') }}</button>
+				<button class="nav-link" data-bs-slide-to="2" type="button"><span>{{ __('Achats & Inventaire') }}</span>{{ __('Fournisseurs, commandes et gestion de stock') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-clients-tab2" data-bs-toggle="pill" data-bs-target="#pills-clients2" type="button" role="tab" aria-controls="pills-clients2" aria-selected="false"><span>{{ __('Gestion des clients') }}</span>{{ __('Suivi complet de la relation client') }}</button>
+				<button class="nav-link" data-bs-slide-to="3" type="button"><span>{{ __('Gestion des clients') }}</span>{{ __('Suivi complet de la relation client') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-darkmode-tab2" data-bs-toggle="pill" data-bs-target="#pills-darkmode2" type="button" role="tab" aria-controls="pills-darkmode2" aria-selected="false"><span>{{ __('Mode sombre & Apparence') }}</span>{{ __('Personnaliser l\'interface selon vos préférences') }}</button>
+				<button class="nav-link" data-bs-slide-to="4" type="button"><span>{{ __('Mode sombre & Apparence') }}</span>{{ __('Personnaliser l\'interface selon vos préférences') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-multilang-tab2" data-bs-toggle="pill" data-bs-target="#pills-multilang2" type="button" role="tab" aria-controls="pills-multilang2" aria-selected="false"><span>{{ __('Multilingue') }}</span>{{ __('Support complet français et arabe') }}</button>
+				<button class="nav-link" data-bs-slide-to="5" type="button"><span>{{ __('Multilingue') }}</span>{{ __('Support complet français et arabe') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-inventory-tab2" data-bs-toggle="pill" data-bs-target="#pills-inventory2" type="button" role="tab" aria-controls="pills-inventory2" aria-selected="false"><span>{{ __('Inventaire & Stock') }}</span>{{ __('Gestion complète des stocks et entrepôts') }}</button>
+				<button class="nav-link" data-bs-slide-to="6" type="button"><span>{{ __('Inventaire & Stock') }}</span>{{ __('Gestion complète des stocks et entrepôts') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-reports-tab2" data-bs-toggle="pill" data-bs-target="#pills-reports2" type="button" role="tab" aria-controls="pills-reports2" aria-selected="false"><span>{{ __('Rapports & Analyses') }}</span>{{ __('Tableaux de bord et rapports détaillés') }}</button>
+				<button class="nav-link" data-bs-slide-to="7" type="button"><span>{{ __('Rapports & Analyses') }}</span>{{ __('Tableaux de bord et rapports détaillés') }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-roles-tab2" data-bs-toggle="pill" data-bs-target="#pills-roles2" type="button" role="tab" aria-controls="pills-roles2" aria-selected="false"><span>{{ __('Rôles & Permissions') }}</span>{{ __('Contrôle d\'accès granulaire par utilisateur') }}</button>
+				<button class="nav-link" data-bs-slide-to="8" type="button"><span>{{ __('Rôles & Permissions') }}</span>{{ __('Contrôle d\'accès granulaire par utilisateur') }}</button>
 			</li>
 		</ul>
 		</div>
-		<div class="tab-content inner-tab-items">
-			<div class="tab-pane fade show active" id="pills-sales" role="tabpanel" aria-labelledby="pills-sales-tab">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Systèmes avancés de gestion des ventes') }}</h3>
-							<p>{{ __('Supervisez votre équipe commerciale, définissez vos objectifs de vente, développez des stratégies et suivez les performances.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Factures & PDF professionnels') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Devis convertibles en factures') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Retours de vente & avoirs') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion des paiements') }}</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/facture.png') }}" class="img-fluid" alt="{{ __('Gestion des ventes') }}">
-						</div>
-					</div>
+		<div id="featuresCarouselPage" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+			<div class="position-relative">
+				<button class="btn btn-primary rounded-circle position-absolute top-50 translate-middle-y d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarouselPage" data-bs-slide="prev" style="width:44px;height:44px;left:-22px;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+					<i class="isax isax-arrow-left-2" style="font-size:20px;"></i>
+				</button>
+				<button class="btn btn-primary rounded-circle position-absolute top-50 translate-middle-y d-none d-md-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarouselPage" data-bs-slide="next" style="width:44px;height:44px;right:-22px;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+					<i class="isax isax-arrow-right-3" style="font-size:20px;"></i>
+				</button>
+				<div class="d-flex d-md-none justify-content-center gap-3 mb-3">
+					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarouselPage" data-bs-slide="prev" style="width:40px;height:40px;">
+						<i class="isax isax-arrow-left-2" style="font-size:18px;"></i>
+					</button>
+					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#featuresCarouselPage" data-bs-slide="next" style="width:40px;height:40px;">
+						<i class="isax isax-arrow-right-3" style="font-size:18px;"></i>
+					</button>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-finance" role="tabpanel" aria-labelledby="pills-finance-tab">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Finance & comptabilité puissantes') }}</h3>
-							<p>{{ __('La gestion financière implique la supervision des aspects financiers de votre organisation pour assurer sa santé financière.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Dépenses & revenus') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Comptes bancaires') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Transferts entre comptes') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Catégories financières') }}</li>
-							</ul>
+				<div class="carousel-inner inner-tab-items">
+					<div class="carousel-item active">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Systèmes avancés de gestion des ventes') }}</h3>
+									<p>{{ __('Supervisez votre équipe commerciale, définissez vos objectifs de vente, développez des stratégies et suivez les performances.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Factures & PDF professionnels') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Devis convertibles en factures') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Retours de vente & avoirs') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion des paiements') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/facture.png') }}" class="img-fluid" alt="{{ __('Gestion des ventes') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/rapport finance.png') }}" class="img-fluid" alt="{{ __('Finance et comptabilité') }}">
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Finance & comptabilité puissantes') }}</h3>
+									<p>{{ __('La gestion financière implique la supervision des aspects financiers de votre organisation pour assurer sa santé financière.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Dépenses & revenus') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Comptes bancaires') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Transferts entre comptes') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Catégories financières') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/rapport finance.png') }}" class="img-fluid" alt="{{ __('Finance et comptabilité') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-ops" role="tabpanel" aria-labelledby="pills-ops-tab">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Achats & gestion d\'inventaire') }}</h3>
-							<p>{{ __('Gérez vos fournisseurs, bons de commande et niveaux de stock en temps réel depuis une interface centralisée.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Bons de commande fournisseur') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Factures fournisseurs') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Paiements fournisseurs') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Notes de débit') }}</li>
-							</ul>
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Achats & gestion d\'inventaire') }}</h3>
+									<p>{{ __('Gérez vos fournisseurs, bons de commande et niveaux de stock en temps réel depuis une interface centralisée.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Bons de commande fournisseur') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Factures fournisseurs') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Paiements fournisseurs') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Notes de débit') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/gestion bon de commande.png') }}" class="img-fluid" alt="{{ __('Achats et inventaire') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/gestion bon de commande.png') }}" class="img-fluid" alt="{{ __('Achats et inventaire') }}">
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Gestion complète des clients') }}</h3>
+									<p>{{ __('Centralisez toutes les informations de vos clients : contacts, adresses, historique des transactions et rapports détaillés.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Fiche client détaillée') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Historique des transactions') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Contacts & adresses') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport clients') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/Gestion client.png') }}" class="img-fluid" alt="{{ __('Gestion des clients') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-clients2" role="tabpanel" aria-labelledby="pills-clients-tab2">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Gestion complète des clients') }}</h3>
-							<p>{{ __('Centralisez toutes les informations de vos clients : contacts, adresses, historique des transactions et rapports détaillés.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Fiche client détaillée') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Historique des transactions') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Contacts & adresses') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport clients') }}</li>
-							</ul>
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Mode sombre & personnalisation') }}</h3>
+									<p>{{ __('Personnalisez l\'apparence de votre espace de travail avec le mode sombre, les thèmes de couleurs et les options d\'affichage avancées.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Mode sombre intégré') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Thèmes de couleurs') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Personnalisation de l\'interface') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Modèles de factures personnalisables') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/darkmode.png') }}" class="img-fluid" alt="{{ __('Mode sombre') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/Gestion client.png') }}" class="img-fluid" alt="{{ __('Gestion des clients') }}">
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Support multilingue complet') }}</h3>
+									<p>{{ __('Utilisez la plateforme dans votre langue préférée avec un support complet du français et de l\'arabe, y compris la mise en page RTL.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Interface en français') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Interface en arabe (RTL)') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Changement de langue instantané') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Documents PDF multilingues') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/multilang.png') }}" class="img-fluid" alt="{{ __('Multilingue') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-darkmode2" role="tabpanel" aria-labelledby="pills-darkmode-tab2">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Mode sombre & personnalisation') }}</h3>
-							<p>{{ __('Personnalisez l\'apparence de votre espace de travail avec le mode sombre, les thèmes de couleurs et les options d\'affichage avancées.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Mode sombre intégré') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Thèmes de couleurs') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Personnalisation de l\'interface') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Modèles de factures personnalisables') }}</li>
-							</ul>
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Inventaire & gestion des stocks') }}</h3>
+									<p>{{ __('Suivez vos stocks en temps réel : mouvements, transferts entre entrepôts, alertes de stock bas et historique complet.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Produits & services') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Mouvements de stock') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Transferts entre entrepôts') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Historique du stock') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/Produits & Services.png') }}" class="img-fluid" alt="{{ __('Inventaire & Stock') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/darkmode.png') }}" class="img-fluid" alt="{{ __('Mode sombre') }}">
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Rapports & analyses détaillées') }}</h3>
+									<p>{{ __('Prenez des décisions éclairées grâce à des rapports complets : ventes, achats, finances, inventaire et performance clients.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport des ventes') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport financier') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport inventaire') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport clients') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/rapport des ventes.png') }}" class="img-fluid" alt="{{ __('Rapports & Analyses') }}">
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-multilang2" role="tabpanel" aria-labelledby="pills-multilang-tab2">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Support multilingue complet') }}</h3>
-							<p>{{ __('Utilisez la plateforme dans votre langue préférée avec un support complet du français et de l\'arabe, y compris la mise en page RTL.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Interface en français') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Interface en arabe (RTL)') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Changement de langue instantané') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Documents PDF multilingues') }}</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/multilang.png') }}" class="img-fluid" alt="{{ __('Multilingue') }}">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-inventory2" role="tabpanel" aria-labelledby="pills-inventory-tab2">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Inventaire & gestion des stocks') }}</h3>
-							<p>{{ __('Suivez vos stocks en temps réel : mouvements, transferts entre entrepôts, alertes de stock bas et historique complet.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Produits & services') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Mouvements de stock') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Transferts entre entrepôts') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Historique du stock') }}</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/Produits & Services.png') }}" class="img-fluid" alt="{{ __('Inventaire & Stock') }}">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-reports2" role="tabpanel" aria-labelledby="pills-reports-tab2">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Rapports & analyses détaillées') }}</h3>
-							<p>{{ __('Prenez des décisions éclairées grâce à des rapports complets : ventes, achats, finances, inventaire et performance clients.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport des ventes') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport financier') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport inventaire') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rapport clients') }}</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/rapport des ventes.png') }}" class="img-fluid" alt="{{ __('Rapports & Analyses') }}">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-roles2" role="tabpanel" aria-labelledby="pills-roles-tab2">
-				<div class="row align-items-center">
-					<div class="col-lg-4" data-aos="fade-up">
-						<div class="empowerment-page-info">
-							<h3 class="mb-2">{{ __('Rôles & permissions granulaires') }}</h3>
-							<p>{{ __('Définissez des rôles personnalisés et attribuez des permissions précises pour contrôler l\'accès de chaque utilisateur aux fonctionnalités.') }}</p>
-							<ul class="inner-page-features">
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Rôles personnalisés') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Permissions granulaires') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion des utilisateurs') }}</li>
-								<li><i class="isax isax-tick-circle5"></i>{{ __('Contrôle d\'accès sécurisé') }}</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-8" data-aos="fade-left">
-						<div class="inner-tab-img">
-							<img src="{{ url('assets/images/sass screenshots/gestion roles et permission.png') }}" class="img-fluid" alt="{{ __('Rôles & Permissions') }}">
+					<div class="carousel-item">
+						<div class="row align-items-center">
+							<div class="col-lg-4">
+								<div class="empowerment-page-info">
+									<h3 class="mb-2">{{ __('Rôles & permissions granulaires') }}</h3>
+									<p>{{ __('Définissez des rôles personnalisés et attribuez des permissions précises pour contrôler l\'accès de chaque utilisateur aux fonctionnalités.') }}</p>
+									<ul class="inner-page-features">
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Rôles personnalisés') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Permissions granulaires') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Gestion des utilisateurs') }}</li>
+										<li><i class="isax isax-tick-circle5"></i>{{ __('Contrôle d\'accès sécurisé') }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="inner-tab-img">
+									<img src="{{ url('assets/images/sass screenshots/gestion roles et permission.png') }}" class="img-fluid" alt="{{ __('Rôles & Permissions') }}">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				var carouselEl = document.getElementById('featuresCarouselPage');
+				var bsCarousel = new bootstrap.Carousel(carouselEl);
+				var tabs = document.querySelectorAll('#pills-tab-features .nav-link');
+
+				// Click tab -> slide carousel
+				tabs.forEach(function(tab) {
+					tab.addEventListener('click', function() {
+						var idx = parseInt(this.getAttribute('data-bs-slide-to'));
+						bsCarousel.to(idx);
+					});
+				});
+
+				// Carousel slide -> update active tab
+				carouselEl.addEventListener('slide.bs.carousel', function(e) {
+					tabs.forEach(function(t) { t.classList.remove('active'); });
+					tabs[e.to].classList.add('active');
+					// Scroll the active tab into view
+					var wrapper = carouselEl.closest('.container').querySelector('.inner-tab-button-wrapper');
+					var activeTab = tabs[e.to].closest('.nav-item');
+					if (wrapper && activeTab) {
+						var scrollLeft = activeTab.offsetLeft - (wrapper.clientWidth / 2) + (activeTab.offsetWidth / 2);
+						wrapper.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+					}
+				});
+			});
+		</script>
 	</div>
 </section>
 <!-- /User Empowerment Section -->
