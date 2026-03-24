@@ -42,6 +42,31 @@
                             class="nav-link {{ request()->routeIs('pricing') ? 'active' : '' }}">{{ __('Tarifs') }}</a></li>
                     <li class="nav-item"><a href="{{ route('contact') }}"
                             class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">{{ __('Contact') }}</a></li>
+
+                    {{-- Mobile-only: Language switcher + CTA --}}
+                    <li class="nav-item d-lg-none mt-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <form method="POST" action="{{ route('locale.switch') }}" class="d-inline">
+                                @csrf
+                                <input type="hidden" name="locale" value="fr">
+                                <button type="submit" class="btn btn-sm {{ app()->getLocale() === 'fr' ? 'btn-primary' : 'btn-white border' }}">
+                                    🇫🇷 Français
+                                </button>
+                            </form>
+                            <form method="POST" action="{{ route('locale.switch') }}" class="d-inline">
+                                @csrf
+                                <input type="hidden" name="locale" value="ar">
+                                <button type="submit" class="btn btn-sm {{ app()->getLocale() === 'ar' ? 'btn-primary' : 'btn-white border' }}">
+                                    🇸🇦 العربية
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item d-lg-none mt-2">
+                        <a class="btn btn-primary w-100" href="{{ route('request-account') }}">
+                            <i class="isax isax-user fs-13 fw-bold me-2"></i>{{ __('Demander un accès') }}
+                        </a>
+                    </li>
                 </ul>
             </div>
             <ul class="nav header-navbar-rht">
