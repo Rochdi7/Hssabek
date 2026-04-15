@@ -42,7 +42,7 @@ class SupplierPaymentServiceTest extends TestCase
             'due_date' => now()->addDays(30)->toDateString(),
             'subtotal' => $amount,
             'tax_total' => 0,
-            'round_off' => 0,
+
             'total' => $amount,
             'amount_paid' => 0,
             'amount_due' => $amount,

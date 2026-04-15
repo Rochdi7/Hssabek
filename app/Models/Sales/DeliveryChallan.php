@@ -32,7 +32,7 @@ class DeliveryChallan extends Model
         'subtotal',
         'discount_total',
         'tax_total',
-        'round_off',
+
         'total',
         'total_in_words',
         'notes',
@@ -52,7 +52,7 @@ class DeliveryChallan extends Model
         'subtotal' => 'decimal:2',
         'discount_total' => 'decimal:2',
         'tax_total' => 'decimal:2',
-        'round_off' => 'decimal:2',
+
         'total' => 'decimal:2',
         'issued_at' => 'datetime',
         'delivered_at' => 'datetime',

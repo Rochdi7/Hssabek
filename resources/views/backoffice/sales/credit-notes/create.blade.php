@@ -469,21 +469,6 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li class="pb-2 border-gray border-bottom">
-                                                    <div class="p-2 d-flex justify-content-between">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="form-check form-switch me-4">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    role="switch" id="round_off_check">
-                                                                <label class="form-check-label"
-                                                                    for="round_off_check">{{ __('Arrondir le total') }}</label>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <h6 class="fs-14" id="display-round-off">0,00</h6>
-                                                        </div>
-                                                    </div>
-                                                </li>
                                                 <li class="mt-3 pb-3 border-bottom border-gray">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <h6>Total ({{ $currency }})</h6>
@@ -588,7 +573,6 @@
                 recalc();
             });
             document.getElementById('global-discount')?.addEventListener('input', recalc);
-            document.getElementById('round_off_check')?.addEventListener('change', recalc);
             document.getElementById('enable_tax')?.addEventListener('change', recalc);
 
             function recalc() {
@@ -616,16 +600,8 @@
                 const discount = parseFloat(document.getElementById('global-discount')?.value) || 0;
                 let total = subtotal + taxTotal - discount;
 
-                const roundOff = document.getElementById('round_off_check')?.checked;
-                let roundVal = 0;
-                if (roundOff) {
-                    roundVal = Math.round(total) - total;
-                    total = Math.round(total);
-                }
-
                 document.getElementById('display-subtotal').textContent = fmt(subtotal);
                 document.getElementById('display-tax').textContent = fmt(taxTotal);
-                document.getElementById('display-round-off').textContent = fmt(roundVal);
                 document.getElementById('display-total').textContent = fmt(total);
             }
 

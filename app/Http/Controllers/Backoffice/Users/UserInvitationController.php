@@ -15,15 +15,6 @@ use Illuminate\Support\Str;
 
 class UserInvitationController extends Controller
 {
-    public function create()
-    {
-        $roles = Role::where('tenant_id', TenantContext::id())
-            ->orderBy('name')
-            ->get();
-
-        return view('backoffice.users.invite', compact('roles'));
-    }
-
     public function store(InviteUserRequest $request)
     {
         $existingUser = User::where('email', $request->email)
@@ -42,18 +33,61 @@ class UserInvitationController extends Controller
             ->whereNull('accepted_at')
             ->delete();
 
+        if ($request->password_mode === 'manual') {
+            // Manual mode: create user directly with the provided password
+            $user = new User();
+            $user->tenant_id = TenantContext::id();
+            $user->email = $request->email;
+            $user->name = $request->email; // Default name to email, user can update later
+            $user->password = $request->password;
+            $user->status = 'active';
+            $user->email_verified_at = now();
+            $user->save();
+
+            if ($request->role_id) {
+                $role = Role::find($request->role_id);
+                if ($role) {
+                    $user->assignRole($role);
+                }
+            }
+
+            return redirect()->route('bo.users.index')
+                ->with('success', __("Le compte a été créé pour {$request->email}. Veuillez lui communiquer son mot de passe."));
+        }
+
+        // Auto mode: generate random password and send via email
+        $generatedPassword = Str::random(12);
+
+        $user = new User();
+        $user->tenant_id = TenantContext::id();
+        $user->email = $request->email;
+        $user->name = $request->email;
+        $user->password = $generatedPassword;
+        $user->status = 'active';
+        $user->email_verified_at = now();
+        $user->save();
+
+        if ($request->role_id) {
+            $role = Role::find($request->role_id);
+            if ($role) {
+                $user->assignRole($role);
+            }
+        }
+
+        // Send credentials via email
         $invitation = UserInvitation::create([
             'email' => $request->email,
             'role_id' => $request->role_id,
             'token' => Str::random(64),
-            'expires_at' => now()->addDays(7),
+            'expires_at' => now(),
+            'accepted_at' => now(),
             'created_by' => auth()->id(),
         ]);
 
-        dispatch(new SendUserInvitationJob($invitation));
+        dispatch(new SendUserInvitationJob($invitation, $generatedPassword));
 
         return redirect()->route('bo.users.index')
-            ->with('success', __("Invitation envoyée à {$request->email}."));
+            ->with('success', __("Le compte a été créé et les identifiants ont été envoyés à {$request->email}."));
     }
 
     public function destroy(UserInvitation $invitation)

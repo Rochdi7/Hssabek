@@ -17,7 +17,8 @@ class SendUserInvitationJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct(
-        public readonly UserInvitation $invitation
+        public readonly UserInvitation $invitation,
+        public readonly ?string $generatedPassword = null
     ) {}
 
     public function handle(): void
@@ -26,6 +27,6 @@ class SendUserInvitationJob implements ShouldQueue
         TenantContext::set($this->invitation->tenant);
 
         Notification::route('mail', $this->invitation->email)
-            ->notify(new UserInvitationNotification($this->invitation));
+            ->notify(new UserInvitationNotification($this->invitation, $this->generatedPassword));
     }
 }

@@ -77,40 +77,10 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">{{ __('Identifiant fiscal') }}</label>
-                                                <div class="input-group">
-                                                    <input type="text" id="tax_id"
-                                                        class="form-control @error('tax_id') is-invalid @enderror"
-                                                        name="tax_id" value="{{ old('tax_id') }}">
-                                                    <button class="btn btn-outline-primary" type="button"
-                                                        onclick="document.getElementById('tax_id').value = 'IF' + Math.floor(100000 + Math.random() * 900000)"
-                                                        title="{{ __('Générer automatiquement') }}">
-                                                        <i class="isax isax-refresh"></i>
-                                                    </button>
-                                                    @error('tax_id')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
                                                 <label class="form-label">{{ __('Devise') }}</label>
                                                 <input type="text" class="form-control"
                                                     value="{{ App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD' }}"
                                                     readonly disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Délai de paiement (jours)') }}</label>
-                                                <input type="number"
-                                                    class="form-control @error('payment_terms_days') is-invalid @enderror"
-                                                    name="payment_terms_days" value="{{ old('payment_terms_days', 0) }}"
-                                                    min="0" max="365">
-                                                @error('payment_terms_days')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">

@@ -25,7 +25,7 @@ class QuoteFactory extends Factory
             'subtotal' => $subtotal,
             'discount_total' => 0,
             'tax_total' => $taxTotal,
-            'round_off' => 0,
+
             'total' => $total,
         ];
     }

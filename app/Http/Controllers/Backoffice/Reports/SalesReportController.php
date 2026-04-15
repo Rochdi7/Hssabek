@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Backoffice\Reports;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\ExportReportJob;
 use App\Services\Reports\ReportService;
-use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
+
 
 class SalesReportController extends Controller
 {
@@ -29,15 +28,31 @@ class SalesReportController extends Controller
         $from = $request->input('from', now()->startOfMonth()->toDateString());
         $to   = $request->input('to', now()->toDateString());
 
-        dispatch(new ExportReportJob(
-            tenantId: TenantContext::id(),
-            type: 'sales',
-            from: $from,
-            to: $to,
-            userId: auth()->id(),
-        ));
+        $data = $this->reportService->salesSummary($from, $to);
 
-        return redirect()->back()
-            ->with('info', 'L\'export est en cours. Vous serez notifié lorsqu\'il sera prêt.');
+        $filename = "rapport-ventes-{$from}-{$to}.csv";
+
+        return response()->streamDownload(function () use ($data) {
+            $fp = fopen('php://output', 'w');
+            fwrite($fp, "\xEF\xBB\xBF"); // UTF-8 BOM
+
+            fputcsv($fp, ['N° Facture', 'Client', 'Date', 'Total', 'Payé', 'Restant', 'Statut'], ';');
+
+            foreach ($data['invoices'] as $invoice) {
+                fputcsv($fp, [
+                    $invoice->number,
+                    $invoice->customer?->name ?? '-',
+                    $invoice->issue_date?->format('d/m/Y'),
+                    number_format($invoice->total, 2, ',', ' '),
+                    number_format($invoice->amount_paid, 2, ',', ' '),
+                    number_format($invoice->amount_due, 2, ',', ' '),
+                    $invoice->status,
+                ], ';');
+            }
+
+            fclose($fp);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
     }
 }

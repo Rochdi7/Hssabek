@@ -32,10 +32,6 @@ Route::prefix('users')->as('users.')->group(function () {
         ->name('deactivate');
 
     // Invitations
-    Route::get('/invite', [UserInvitationController::class, 'create'])
-        ->middleware(['permission:access.users.create', 'plan.limit:users'])
-        ->name('invite');
-
     Route::post('/invite', [UserInvitationController::class, 'store'])
         ->middleware(['permission:access.users.create', 'plan.limit:users', 'throttle:user-invitation'])
         ->name('invite.store');

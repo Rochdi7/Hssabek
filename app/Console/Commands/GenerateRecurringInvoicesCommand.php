@@ -71,7 +71,7 @@ class GenerateRecurringInvoicesCommand extends Command
                         'subtotal'            => $template->subtotal,
                         'discount_total'      => $template->discount_total,
                         'tax_total'           => $template->tax_total,
-                        'round_off'           => $template->round_off ?? 0,
+
                         'total'               => $template->total,
                         'amount_paid'         => 0,
                         'amount_due'          => $template->total,

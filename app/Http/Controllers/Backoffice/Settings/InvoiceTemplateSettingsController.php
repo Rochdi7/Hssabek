@@ -425,7 +425,7 @@ class InvoiceTemplateSettingsController extends Controller
             'discount_total'     => 0,
             'tax_total'          => 160.00,
             'total'              => 960.00,
-            'round_off'          => 0,
+
             'enable_tax'         => true,
             'amount_paid'        => 0,
             'amount_due'         => 960.00,

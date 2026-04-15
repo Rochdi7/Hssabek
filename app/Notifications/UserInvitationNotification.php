@@ -12,7 +12,8 @@ class UserInvitationNotification extends Notification
     use Queueable;
 
     public function __construct(
-        public readonly UserInvitation $invitation
+        public readonly UserInvitation $invitation,
+        public readonly ?string $generatedPassword = null
     ) {}
 
     public function via(mixed $notifiable): array
@@ -23,6 +24,22 @@ class UserInvitationNotification extends Notification
     public function toMail(mixed $notifiable): MailMessage
     {
         $tenantName = $this->invitation->tenant->name ?? 'notre organisation';
+
+        // If a generated password is provided, send credentials email
+        if ($this->generatedPassword) {
+            return (new MailMessage)
+                ->subject("Vos identifiants de connexion — {$tenantName}")
+                ->greeting('Bonjour,')
+                ->line("Votre compte a été créé sur **{$tenantName}**.")
+                ->line('Voici vos identifiants de connexion :')
+                ->line("**E-mail :** {$this->invitation->email}")
+                ->line("**Mot de passe :** {$this->generatedPassword}")
+                ->action('Se connecter', url('/backoffice/login'))
+                ->line('Nous vous recommandons de changer votre mot de passe après votre première connexion.')
+                ->salutation('Cordialement');
+        }
+
+        // Otherwise, send the standard invitation link
         $url = route('bo.invitation.accept', $this->invitation->token);
 
         return (new MailMessage)

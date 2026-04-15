@@ -23,7 +23,7 @@ class VendorBillFactory extends Factory
             'due_date' => now()->addDays(30),
             'subtotal' => $subtotal,
             'tax_total' => $taxTotal,
-            'round_off' => 0,
+
             'total' => $total,
             'amount_paid' => 0,
             'amount_due' => $total,

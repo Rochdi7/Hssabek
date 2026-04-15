@@ -20,7 +20,8 @@
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     @include('backoffice.components.export-dropdown', ['exportType' => 'users'])
                     <div>
-                        <a href="{{ route('bo.users.invite') }}" class="btn btn-primary d-flex align-items-center">
+                        <a href="javascript:void(0);" class="btn btn-primary d-flex align-items-center"
+                            data-bs-toggle="modal" data-bs-target="#inviteUserModal">
                             <i class="isax isax-add-circle5 me-1"></i>{{ __('Inviter un utilisateur') }}
                         </a>
                     </div>
@@ -224,4 +225,127 @@
     <!-- ========================
                     End Page Content
                 ========================= -->
+
+    {{-- Invite User Modal --}}
+    <div class="modal fade" id="inviteUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">{{ __('Inviter un utilisateur') }}</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="{{ route('bo.users.invite.store') }}" id="inviteUserForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">{{ __('Adresse e-mail') }} <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                name="email" value="{{ old('email') }}" placeholder="{{ __('utilisateur@exemple.com') }}">
+                            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ __('Rôle') }} <span class="text-danger">*</span></label>
+                            <select class="form-select @error('role_id') is-invalid @enderror" name="role_id">
+                                <option value="">-- {{ __('Sélectionner un rôle') }} --</option>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                                        {{ ucfirst($role->name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('role_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        {{-- Password Mode --}}
+                        <div class="mb-3">
+                            <label class="form-label">{{ __('Mode de mot de passe') }} <span class="text-danger">*</span></label>
+                            @error('password_mode')<div class="text-danger fs-12 mb-2">{{ $message }}</div>@enderror
+                            <div class="d-flex gap-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="password_mode" id="pw_mode_auto"
+                                        value="auto" {{ old('password_mode', 'auto') === 'auto' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="pw_mode_auto">
+                                        <i class="isax isax-sms me-1"></i>{{ __('Générer et envoyer par e-mail') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="password_mode" id="pw_mode_manual"
+                                        value="manual" {{ old('password_mode') === 'manual' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="pw_mode_manual">
+                                        <i class="isax isax-lock me-1"></i>{{ __('Définir manuellement') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Manual Password Fields --}}
+                        <div id="modal-manual-pw-fields" style="display: {{ old('password_mode') === 'manual' ? 'block' : 'none' }};">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('Mot de passe') }} <span class="text-danger">*</span></label>
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                            name="password" placeholder="{{ __('Minimum 8 caractères') }}">
+                                        @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('Confirmer') }} <span class="text-danger">*</span></label>
+                                        <input type="password" class="form-control"
+                                            name="password_confirmation" placeholder="{{ __('Confirmez le mot de passe') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Info texts --}}
+                        <div id="modal-auto-pw-info" style="display: {{ old('password_mode') === 'manual' ? 'none' : 'block' }};">
+                            <p class="text-muted fs-12 mb-0">
+                                <i class="isax isax-info-circle me-1"></i>{{ __("Un mot de passe sera généré automatiquement et envoyé par e-mail à l'utilisateur.") }}
+                            </p>
+                        </div>
+                        <div id="modal-manual-pw-info" style="display: {{ old('password_mode') === 'manual' ? 'block' : 'none' }};">
+                            <p class="text-muted fs-12 mb-0">
+                                <i class="isax isax-info-circle me-1"></i>{{ __("Le compte sera créé directement. Vous devrez communiquer le mot de passe vous-même.") }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="isax isax-user-add me-1"></i>{{ __("Inviter") }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var radioAuto = document.getElementById('pw_mode_auto');
+        var radioManual = document.getElementById('pw_mode_manual');
+        var manualFields = document.getElementById('modal-manual-pw-fields');
+        var autoInfo = document.getElementById('modal-auto-pw-info');
+        var manualInfo = document.getElementById('modal-manual-pw-info');
+
+        function togglePwMode() {
+            var isManual = radioManual.checked;
+            manualFields.style.display = isManual ? 'block' : 'none';
+            autoInfo.style.display = isManual ? 'none' : 'block';
+            manualInfo.style.display = isManual ? 'block' : 'none';
+        }
+
+        radioAuto.addEventListener('change', togglePwMode);
+        radioManual.addEventListener('change', togglePwMode);
+
+        @if($errors->any())
+            var modal = new bootstrap.Modal(document.getElementById('inviteUserModal'));
+            modal.show();
+        @endif
+    });
+</script>
+@endpush

@@ -286,43 +286,6 @@
                                         <h6>{{ __('Articles & Détails') }}</h6>
                                     </div>
 
-                                    <!-- start row -->
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="mb-3">
-                                                <h6 class="fs-14 mb-1">{{ __('Type d\'article') }}</h6>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="item_type_radio" id="itemTypeProduct" value="product"
-                                                            checked>
-                                                        <label class="form-check-label" for="itemTypeProduct">{{ __('Produit') }}</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="item_type_radio" id="itemTypeService" value="service">
-                                                        <label class="form-check-label" for="itemTypeService">{{ __('Service') }}</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Produits / Services') }}</label>
-                                                <select class="select" id="product-selector">
-                                                    <option value="">{{ __('Sélectionner') }}</option>
-                                                    @foreach ($products as $product)
-                                                        <option value="{{ $product->id }}"
-                                                            data-name="{{ $product->name }}"
-                                                            data-cost="{{ $product->cost_price ?? 0 }}"
-                                                            data-tax="{{ $product->tax_rate ?? 20 }}"
-                                                            data-type="{{ $product->item_type }}">
-                                                            {{ $product->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div><!-- end col -->
-                                    </div>
-                                    <!-- end row -->
-
                                     <!-- Table List Start -->
                                     <div class="table-responsive rounded border-bottom-0 border mb-3">
                                         <table class="table table-nowrap add-table mb-0" id="items-table" style="table-layout: fixed; width: 100%;">
@@ -553,64 +516,6 @@
                 }
                 return taxOpts;
             }
-
-            // Item type filter — show/hide product options based on type
-            const productSelector = document.getElementById('product-selector');
-            const itemTypeRadios = document.querySelectorAll('[name="item_type_radio"]');
-            itemTypeRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    const type = this.value;
-                    Array.from(productSelector.options).forEach(opt => {
-                        if (!opt.value) return;
-                        opt.style.display = (opt.dataset.type === type) ? '' : 'none';
-                        if (opt.style.display === 'none' && opt.selected) opt.selected = false;
-                    });
-                });
-            });
-            const checkedRadio = document.querySelector('[name="item_type_radio"]:checked');
-            if (checkedRadio) checkedRadio.dispatchEvent(new Event('change'));
-
-            // Product selector — adds a new row pre-filled with selected product data
-            productSelector.addEventListener('change', function() {
-                const sel = this;
-                const opt = sel.options[sel.selectedIndex];
-                if (!opt || !opt.value) return;
-
-                const name = opt.dataset.name || '';
-                const cost = opt.dataset.cost || 0;
-                const tax = opt.dataset.tax || 20;
-
-                let productOptions = '<option value="">{{ __('-- Produit (optionnel) --') }}</option>';
-                productsJson.forEach(p => {
-                    const selected = p.id == opt.value ? ' selected' : '';
-                    productOptions += `<option value="${p.id}"${selected}>${p.name}</option>`;
-                });
-
-                const taxOpts = buildTaxOptions();
-                const row = document.createElement('tr');
-                row.classList.add('item-row');
-                row.innerHTML = `
-                    <td>
-                        <input type="text" class="form-control" name="items[${itemIndex}][label]" value="${name}" required>
-                        <select class="form-select form-select-sm mt-1" name="items[${itemIndex}][product_id]">${productOptions}</select>
-                    </td>
-                    <td><input type="number" class="form-control item-qty" name="items[${itemIndex}][quantity]" value="1" min="0.001" step="0.001" required></td>
-                    <td><input type="number" class="form-control item-cost" name="items[${itemIndex}][unit_cost]" value="${cost}" min="0" step="0.01" required></td>
-                    <td class="tax-col"><select name="items[${itemIndex}][tax_group_id]" class="form-select item-tax">${taxOpts}</select></td>
-                    <td><span class="item-total fw-medium">0,00</span></td>
-                    <td><a href="javascript:void(0);" class="text-danger remove-item"><i class="isax isax-close-circle"></i></a></td>
-                `;
-                document.getElementById('items-body').appendChild(row);
-                itemIndex++;
-                if (enableTaxCheck.checked && defaultTaxGroup) {
-                    row.querySelector('.item-tax').value = defaultTaxGroup.id;
-                }
-                row.querySelectorAll('.tax-col').forEach(el => {
-                    el.style.display = enableTaxCheck.checked ? '' : 'none';
-                });
-                sel.value = '';
-                recalc();
-            });
 
             document.getElementById('add-item-btn').addEventListener('click', function() {
                 let productOptions = '<option value="">{{ __('-- Produit (optionnel) --') }}</option>';

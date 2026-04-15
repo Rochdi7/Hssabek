@@ -22,12 +22,11 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <form method="POST" action="{{ route('bo.reports.finance.export') }}">
-                                    @csrf
-                                    <input type="hidden" name="from" value="{{ $from }}">
-                                    <input type="hidden" name="to" value="{{ $to }}">
-                                    <button class="dropdown-item" type="submit">{{ __('Télécharger en CSV') }}</button>
-                                </form>
+                                <button class="dropdown-item" type="button" id="exportBtn"
+                                    data-url="{{ route('bo.reports.finance.export') }}"
+                                    data-from="{{ $from }}" data-to="{{ $to }}">
+                                    {{ __('Télécharger en CSV') }}
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -328,6 +327,20 @@
                 @endcomponent
             </div>
         </div>
+    {{-- Export Progress Overlay --}}
+    <div id="exportOverlay" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="z-index: 9999; background: rgba(0,0,0,0.4);">
+        <div class="bg-white rounded-3 p-4 shadow-lg text-center" style="min-width: 350px;">
+            <div class="mb-3">
+                <i class="isax isax-document-download fs-1 text-primary"></i>
+            </div>
+            <h6 class="fw-semibold mb-2">{{ __('Export en cours...') }}</h6>
+            <p class="text-muted small mb-3">{{ __('Votre fichier CSV est en cours de préparation.') }}</p>
+            <div class="progress" style="height: 6px;">
+                <div id="exportProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
     @endsection
 
     @push('scripts')
@@ -466,5 +479,69 @@
                     }
                 }
             });
+        </script>
+        <script>
+            (function() {
+                const btn = document.getElementById('exportBtn');
+                const overlay = document.getElementById('exportOverlay');
+                const bar = document.getElementById('exportProgressBar');
+
+                if (!btn) return;
+
+                btn.addEventListener('click', function() {
+                    overlay.classList.remove('d-none');
+                    overlay.classList.add('d-flex');
+
+                    let width = 5;
+                    bar.style.width = width + '%';
+                    const interval = setInterval(function() {
+                        if (width < 85) {
+                            width += Math.random() * 12;
+                            if (width > 85) width = 85;
+                            bar.style.width = width + '%';
+                        }
+                    }, 200);
+
+                    const formData = new FormData();
+                    formData.append('_token', '{{ csrf_token() }}');
+                    if (btn.dataset.from) formData.append('from', btn.dataset.from);
+                    if (btn.dataset.to) formData.append('to', btn.dataset.to);
+
+                    fetch(btn.dataset.url, { method: 'POST', body: formData })
+                        .then(function(resp) {
+                            if (!resp.ok) throw new Error('Erreur serveur');
+                            const cd = resp.headers.get('Content-Disposition') || '';
+                            const match = cd.match(/filename="?([^"]+)"?/);
+                            const filename = match ? match[1] : 'export.csv';
+                            return resp.blob().then(function(blob) { return { blob: blob, filename: filename }; });
+                        })
+                        .then(function(result) {
+                            clearInterval(interval);
+                            bar.style.width = '100%';
+
+                            const url = URL.createObjectURL(result.blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = result.filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            URL.revokeObjectURL(url);
+
+                            setTimeout(function() {
+                                overlay.classList.add('d-none');
+                                overlay.classList.remove('d-flex');
+                                bar.style.width = '0%';
+                            }, 500);
+                        })
+                        .catch(function() {
+                            clearInterval(interval);
+                            overlay.classList.add('d-none');
+                            overlay.classList.remove('d-flex');
+                            bar.style.width = '0%';
+                            alert('Erreur lors de l\'export. Veuillez réessayer.');
+                        });
+                });
+            })();
         </script>
     @endpush

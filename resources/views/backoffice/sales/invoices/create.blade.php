@@ -11,7 +11,6 @@
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
         $paymentDays = (int) ($invoiceSettings['payment_terms_days'] ?? 30);
-        $roundOff = $invoiceSettings['invoice_round_off'] ?? '0';
         $showCompany = $invoiceSettings['show_company_details'] ?? true;
         $currencyCode = $tenant->default_currency ?? 'MAD'; $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
     @endphp
@@ -625,18 +624,6 @@
                                                 </li>
                                                 <li class="mb-3 pb-3 border-bottom border-gray">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <div class="form-check form-switch me-4">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                role="switch" id="round_off_check"
-                                                                {{ $roundOff != '0' ? 'checked' : '' }}>
-                                                            <label class="form-check-label"
-                                                                for="round_off_check">{{ __('Arrondi') }}</label>
-                                                        </div>
-                                                        <h6 class="fs-14" id="display-roundoff">0,00</h6>
-                                                    </div>
-                                                </li>
-                                                <li class="mb-3 pb-3 border-bottom border-gray">
-                                                    <div class="d-flex align-items-center justify-content-between">
                                                         <h6>Total ({{ $currency }})</h6>
                                                         <h6 id="display-total">0,00</h6>
                                                     </div>
@@ -756,7 +743,6 @@
             const taxCategories = @json($taxCategoriesJson);
             const products = @json($productsJson);
             const paymentDays = {{ $paymentDays }};
-            const roundOffSetting = {{ $roundOff }};
             const currency = '{{ $currency }}';
 
             /* =========================================================
@@ -1014,19 +1000,10 @@
                     globalDiscount = gDiscountVal;
                 }
 
-                const beforeRound = subtotal + totalTax + chargesTotal - globalDiscount;
-
-                // Round off
-                let roundOff = 0;
-                if (document.getElementById('round_off_check').checked && roundOffSetting > 0) {
-                    roundOff = Math.round(beforeRound / roundOffSetting) * roundOffSetting - beforeRound;
-                }
-
-                const total = Math.max(0, beforeRound + roundOff);
+                const total = Math.max(0, subtotal + totalTax + chargesTotal - globalDiscount);
 
                 document.getElementById('display-subtotal').textContent = formatNumber(subtotal);
                 document.getElementById('display-tax').textContent = formatNumber(totalTax);
-                document.getElementById('display-roundoff').textContent = formatNumber(roundOff);
                 document.getElementById('display-total').textContent = formatNumber(total);
 
                 // Total in words
@@ -1128,9 +1105,8 @@
             // Init: bind existing rows
             document.querySelectorAll('.item-row').forEach(bindRowEvents);
 
-            // Global discount & round off events
+            // Global discount events
             document.getElementById('global-discount-value').addEventListener('input', recalcTotals);
-            document.getElementById('round_off_check').addEventListener('change', recalcTotals);
 
             /* =========================================================
              * Tax toggle — show/hide tax column & auto-select default

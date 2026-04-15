@@ -42,7 +42,7 @@ class ExportReportJob implements ShouldQueue
 
         Storage::makeDirectory($dir);
 
-        $path = storage_path("app/{$dir}/{$filename}");
+        $path = Storage::path("{$dir}/{$filename}");
         $fp = fopen($path, 'w');
 
         // Write BOM for UTF-8 compatibility

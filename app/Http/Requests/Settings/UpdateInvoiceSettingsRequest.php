@@ -17,7 +17,7 @@ class UpdateInvoiceSettingsRequest extends FormRequest
             'cropped_invoice_image' => ['nullable', 'string'],
             'cropped_invoice_image_deleted' => ['nullable', 'in:0,1'],
             'invoice_prefix' => ['nullable', 'string', 'max:20'],
-            'invoice_round_off' => ['nullable', 'integer', 'in:0,5,10'],
+
             'show_company_details' => ['nullable', 'boolean'],
             'invoice_terms' => ['nullable', 'string', 'max:5000'],
             'invoice_footer' => ['nullable', 'string', 'max:2000'],
@@ -29,7 +29,7 @@ class UpdateInvoiceSettingsRequest extends FormRequest
     {
         return [
             'invoice_prefix.max' => __('Le préfixe ne doit pas dépasser 20 caractères.'),
-            'invoice_round_off.in' => __("La valeur d'arrondi n'est pas valide."),
+
             'invoice_terms.max' => __('Les conditions ne doivent pas dépasser 5000 caractères.'),
             'invoice_footer.max' => __('Le pied de page ne doit pas dépasser 2000 caractères.'),
             'payment_terms_days.min' => __('Le délai de paiement doit être positif.'),

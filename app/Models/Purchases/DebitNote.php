@@ -30,7 +30,7 @@ class DebitNote extends Model
         'subtotal',
         'discount_total',
         'tax_total',
-        'round_off',
+
         'total',
         'total_in_words',
         'notes',
@@ -47,7 +47,7 @@ class DebitNote extends Model
         'subtotal' => 'decimal:2',
         'discount_total' => 'decimal:2',
         'tax_total' => 'decimal:2',
-        'round_off' => 'decimal:2',
+
         'total' => 'decimal:2',
         'bill_from_snapshot' => 'array',
         'bill_to_snapshot' => 'array',

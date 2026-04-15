@@ -10,11 +10,13 @@
                         <i class="isax isax-add"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-start">
-                        <li>
-                            <a href="{{ route('bo.users.invite') }}" class="dropdown-item d-flex align-items-center">
-                                <i class="isax isax-sms me-2"></i>{{ __('Inviter un utilisateur') }}
-                            </a>
-                        </li>
+                        @if (Route::has('bo.users.invite'))
+                            <li>
+                                <a href="{{ route('bo.users.invite') }}" class="dropdown-item d-flex align-items-center">
+                                    <i class="isax isax-sms me-2"></i>{{ __('Inviter un utilisateur') }}
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             @endif
@@ -221,11 +223,10 @@
                                 </ul>
                             </li>
 
-                            {{-- ─── COMMERCE ─── --}}
-                            <li class="menu-title"><span>{{ __('Commerce') }}</span></li>
+                            {{-- ─── VENTES ─── --}}
+                            <li class="menu-title"><span>{{ __('Ventes') }}</span></li>
                             <li>
                                 <ul>
-                                    {{-- Ventes --}}
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
                                             class="{{ request()->routeIs('bo.crm.customers.*', 'bo.sales.*') ? 'active subdrop' : '' }}">
@@ -236,27 +237,33 @@
                                             <li><a href="{{ route('bo.crm.customers.index') }}"
                                                     class="{{ request()->routeIs('bo.crm.customers.*') ? 'active' : '' }}">{{ __('Clients') }}</a>
                                             </li>
-                                            <li><a href="{{ route('bo.sales.invoices.index') }}"
-                                                    class="{{ request()->routeIs('bo.sales.invoices.*') ? 'active' : '' }}">{{ __('Factures') }}</a>
-                                            </li>
                                             <li><a href="{{ route('bo.sales.quotes.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.quotes.*') ? 'active' : '' }}">{{ __('Devis') }}</a>
                                             </li>
-                                            <li><a href="{{ route('bo.sales.payments.index') }}"
-                                                    class="{{ request()->routeIs('bo.sales.payments.*') ? 'active' : '' }}">{{ __('Paiements') }}</a>
+                                            <li><a href="{{ route('bo.sales.invoices.index') }}"
+                                                    class="{{ request()->routeIs('bo.sales.invoices.*') ? 'active' : '' }}">{{ __('Factures') }}</a>
+                                            </li>
+                                            <li><a href="{{ route('bo.sales.delivery-challans.index') }}"
+                                                    class="{{ request()->routeIs('bo.sales.delivery-challans.*') ? 'active' : '' }}">{{ __('Bons de livraison') }}</a>
                                             </li>
                                             <li><a href="{{ route('bo.sales.credit-notes.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.credit-notes.*') ? 'active' : '' }}">{{ __('Avoirs') }}</a>
                                             </li>
-                                            <li><a href="{{ route('bo.sales.delivery-challans.index') }}"
-                                                    class="{{ request()->routeIs('bo.sales.delivery-challans.*') ? 'active' : '' }}">{{ __('Bons de livraison') }}</a></li>
                                             <li><a href="{{ route('bo.sales.refunds.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.refunds.*') ? 'active' : '' }}">{{ __('Remboursements') }}</a>
                                             </li>
+                                            <li><a href="{{ route('bo.sales.payments.index') }}"
+                                                    class="{{ request()->routeIs('bo.sales.payments.*') ? 'active' : '' }}">{{ __('Paiements clients') }}</a>
+                                            </li>
                                         </ul>
                                     </li>
+                                </ul>
+                            </li>
 
-                                    {{-- Achats --}}
+                            {{-- ─── ACHATS ─── --}}
+                            <li class="menu-title"><span>{{ __('Achats') }}</span></li>
+                            <li>
+                                <ul>
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
                                             class="{{ request()->routeIs('bo.purchases.*') ? 'active subdrop' : '' }}">
@@ -268,16 +275,20 @@
                                                     class="{{ request()->routeIs('bo.purchases.suppliers.*') ? 'active' : '' }}">{{ __('Fournisseurs') }}</a>
                                             </li>
                                             <li><a href="{{ route('bo.purchases.purchase-orders.index') }}"
-                                                    class="{{ request()->routeIs('bo.purchases.purchase-orders.*') ? 'active' : '' }}">{{ __('Bons de commande') }}</a></li>
-                                            <li><a href="{{ route('bo.purchases.vendor-bills.index') }}"
-                                                    class="{{ request()->routeIs('bo.purchases.vendor-bills.*') ? 'active' : '' }}">{{ __('Factures fournisseur') }}</a></li>
+                                                    class="{{ request()->routeIs('bo.purchases.purchase-orders.*') ? 'active' : '' }}">{{ __('Bons de commande') }}</a>
+                                            </li>
                                             <li><a href="{{ route('bo.purchases.goods-receipts.index') }}"
                                                     class="{{ request()->routeIs('bo.purchases.goods-receipts.*') ? 'active' : '' }}">{{ __('Réceptions') }}</a>
                                             </li>
+                                            <li><a href="{{ route('bo.purchases.vendor-bills.index') }}"
+                                                    class="{{ request()->routeIs('bo.purchases.vendor-bills.*') ? 'active' : '' }}">{{ __('Factures fournisseurs') }}</a>
+                                            </li>
                                             <li><a href="{{ route('bo.purchases.debit-notes.index') }}"
-                                                    class="{{ request()->routeIs('bo.purchases.debit-notes.*') ? 'active' : '' }}">{{ __('Notes de débit') }}</a></li>
+                                                    class="{{ request()->routeIs('bo.purchases.debit-notes.*') ? 'active' : '' }}">{{ __('Notes de débit') }}</a>
+                                            </li>
                                             <li><a href="{{ route('bo.purchases.supplier-payments.index') }}"
-                                                    class="{{ request()->routeIs('bo.purchases.supplier-payments.*') ? 'active' : '' }}">{{ __('Paiements fournisseurs') }}</a></li>
+                                                    class="{{ request()->routeIs('bo.purchases.supplier-payments.*') ? 'active' : '' }}">{{ __('Paiements fournisseurs') }}</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -421,18 +432,10 @@
                             <li>
                                 <ul>
                                     {{-- Utilisateurs --}}
-                                    <li class="submenu">
-                                        <a href="javascript:void(0);"
-                                            class="{{ request()->routeIs('bo.users.*') ? 'active subdrop' : '' }}">
+                                    <li class="{{ request()->routeIs('bo.users.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.users.index') }}">
                                             <i class="isax isax-profile-2user5"></i><span>{{ __('Utilisateurs') }}</span>
-                                            <span class="menu-arrow"></span>
                                         </a>
-                                        <ul>
-                                            <li><a href="{{ route('bo.users.index') }}"
-                                                    class="{{ request()->routeIs('bo.users.index', 'bo.users.edit', 'bo.users.activate', 'bo.users.deactivate') ? 'active' : '' }}">{{ __('Liste des utilisateurs') }}</a></li>
-                                            <li><a href="{{ route('bo.users.invite') }}"
-                                                    class="{{ request()->routeIs('bo.users.invite*') ? 'active' : '' }}">{{ __('Inviter un utilisateur') }}</a></li>
-                                        </ul>
                                     </li>
 
                                     {{-- Rôles & Permissions --}}
@@ -460,26 +463,13 @@
                                             <i class="ti ti-user-circle"></i><span>{{ __('Mon compte') }}</span>
                                         </a>
                                     </li>
-                                    <li class="{{ request()->routeIs('bo.settings.company.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.settings.company.edit') }}">
-                                            <i class="isax isax-buildings-25"></i><span>{{ __('Entreprise') }}</span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->routeIs('bo.settings.invoice.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.settings.invoice.edit') }}">
-                                            <i class="isax isax-receipt-text5"></i><span>{{ __('Facturation') }}</span>
-                                        </a>
-                                    </li>
+                                    
                                     <li class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.pro.recurring-invoices.index') }}">
                                             <i class="isax isax-repeat5"></i><span>{{ __('Factures récurrentes') }}</span>
                                         </a>
                                     </li>
-                                    <li class="{{ request()->routeIs('bo.settings.locale.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.settings.locale.edit') }}">
-                                            <i class="isax isax-global5"></i><span>{{ __('Localisation') }}</span>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </li>
                         </ul>

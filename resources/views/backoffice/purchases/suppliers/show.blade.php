@@ -77,11 +77,6 @@
                                         </li>
                                         <li>
                                             <h6 class="mb-1 fs-14 fw-semibold"> <i
-                                                    class="isax isax-receipt-text fs-14 me-2"></i>{{ __('Identifiant fiscal') }}</h6>
-                                            <p> {{ $supplier->tax_id ?? '—' }}</p>
-                                        </li>
-                                        <li>
-                                            <h6 class="mb-1 fs-14 fw-semibold"> <i
                                                     class="isax isax-dollar-circle fs-14 me-2"></i>{{ __('Devise') }}</h6>
                                             <p> {{ $supplier->currency ?? '—' }}</p>
                                         </li>
@@ -224,10 +219,6 @@
                         <div class="card-body">
                             <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Informations') }}</h6>
                             <ul class="list-unstyled m-0 p-0">
-                                <li class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="text-muted">{{ __('Délai de paiement') }}</span>
-                                    <span class="fw-semibold">{{ $supplier->payment_terms_days }} {{ __('jours') }}</span>
-                                </li>
                                 <li class="d-flex align-items-center justify-content-between mb-3">
                                     <span class="text-muted">{{ __('Bons de commande') }}</span>
                                     <span class="fw-semibold">{{ $supplier->purchaseOrders->count() }}</span>

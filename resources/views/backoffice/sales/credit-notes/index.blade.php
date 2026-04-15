@@ -268,6 +268,19 @@
                                                         class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                             </li>
                                         @endif
+                                        @if ($creditNote->status === 'draft' || $creditNote->status === 'issued')
+                                            <li>
+                                                <button type="button" class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
+                                                    data-send-url="{{ route('bo.sales.credit-notes.send', $creditNote) }}"
+                                                    data-phone="{{ optional($creditNote->customer)->phone ?? '' }}"
+                                                    data-doc-number="{{ $creditNote->number }}"
+                                                    data-doc-type="l'avoir"
+                                                    data-download-url="{{ route('bo.sales.credit-notes.download', $creditNote) }}">
+                                                    <i class="isax isax-send-2 me-2"></i>{{ __('Envoyer') }}
+                                                </button>
+                                            </li>
+                                        @endif
                                         <li>
                                             <form method="POST"
                                                 action="{{ route('bo.sales.credit-notes.destroy', $creditNote) }}">
@@ -292,4 +305,59 @@
             @endcomponent
         </div>
     </div>
+
+{{-- Modal Envoyer --}}
+<div class="modal fade" id="modalEnvoyer" tabindex="-1" aria-labelledby="modalEnvoyerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEnvoyerLabel">{{ __('Envoyer le document') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted mb-4">{{ __('Choisissez le moyen d\'envoi :') }}</p>
+                <div class="d-grid gap-3">
+                    <form id="formEnvoyerEmail" method="POST" action="">
+                        @csrf
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="isax isax-sms me-2"></i>{{ __('Envoyer par Email') }}
+                        </button>
+                    </form>
+                    <a id="btnWhatsApp" href="#" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-success w-100">
+                        <i class="isax isax-message me-2"></i>{{ __('Envoyer par WhatsApp') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    document.getElementById('modalEnvoyer').addEventListener('show.bs.modal', function (event) {
+        const btn = event.relatedTarget;
+        const sendUrl = btn.dataset.sendUrl;
+        const phone = (btn.dataset.phone || '').replace(/[^0-9+]/g, '');
+        const docNumber = btn.dataset.docNumber || '';
+        const docType = btn.dataset.docType || 'le document';
+        const downloadUrl = btn.dataset.downloadUrl || '';
+
+        document.getElementById('formEnvoyerEmail').action = sendUrl;
+
+        const pdfLink = downloadUrl ? ('\n📎 Télécharger le PDF : ' + downloadUrl) : '';
+        const message = encodeURIComponent('Bonjour,\n\nVeuillez trouver ci-joint ' + docType + ' n° ' + docNumber + '.' + pdfLink + '\n\nCordialement.');
+        const waBtn = document.getElementById('btnWhatsApp');
+        if (phone) {
+            waBtn.href = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + message;
+            waBtn.classList.remove('disabled');
+            waBtn.removeAttribute('title');
+        } else {
+            waBtn.href = '#';
+            waBtn.classList.add('disabled');
+            waBtn.title = 'Numéro de téléphone non disponible';
+        }
+    });
+</script>
+@endpush
 @endsection

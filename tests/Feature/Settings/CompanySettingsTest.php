@@ -154,7 +154,7 @@ class CompanySettingsTest extends TestCase
         $response = $this->actingAs($this->adminUser)
             ->put(route('bo.settings.invoice.update'), [
                 'invoice_prefix'       => 'FAC-',
-                'invoice_round_off'    => '5',
+
                 'show_company_details' => '1',
                 'payment_terms_days'   => '30',
                 'invoice_terms'        => 'Paiement à 30 jours',
@@ -168,7 +168,7 @@ class CompanySettingsTest extends TestCase
         $invoiceSettings = $this->settings->invoice_settings;
 
         $this->assertEquals('FAC-', $invoiceSettings['invoice_prefix']);
-        $this->assertEquals('5', $invoiceSettings['invoice_round_off']);
+
         $this->assertEquals('30', $invoiceSettings['payment_terms_days']);
         $this->assertEquals('Paiement à 30 jours', $invoiceSettings['invoice_terms']);
     }

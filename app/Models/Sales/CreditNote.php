@@ -27,7 +27,6 @@ class CreditNote extends Model
         'enable_tax',
         'subtotal',
         'tax_total',
-        'round_off',
         'total',
         'notes',
     ];
@@ -37,7 +36,6 @@ class CreditNote extends Model
         'enable_tax' => 'boolean',
         'subtotal' => 'decimal:2',
         'tax_total' => 'decimal:2',
-        'round_off' => 'decimal:2',
         'total' => 'decimal:2',
     ];
 

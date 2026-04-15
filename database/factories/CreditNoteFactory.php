@@ -24,7 +24,7 @@ class CreditNoteFactory extends Factory
             'enable_tax' => true,
             'subtotal' => $subtotal,
             'tax_total' => $taxTotal,
-            'round_off' => 0,
+
             'total' => $total,
         ];
     }

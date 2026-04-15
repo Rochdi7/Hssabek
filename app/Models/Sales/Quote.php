@@ -31,7 +31,7 @@ class Quote extends Model
         'subtotal',
         'discount_total',
         'tax_total',
-        'round_off',
+
         'total',
         'total_in_words',
         'notes',
@@ -52,7 +52,7 @@ class Quote extends Model
         'subtotal' => 'decimal:2',
         'discount_total' => 'decimal:2',
         'tax_total' => 'decimal:2',
-        'round_off' => 'decimal:2',
+
         'total' => 'decimal:2',
         'sent_at' => 'datetime',
         'accepted_at' => 'datetime',

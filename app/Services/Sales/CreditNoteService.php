@@ -60,7 +60,7 @@ class CreditNoteService
                 'enable_tax' => $validated['enable_tax'] ?? true,
                 'subtotal' => round($subtotal, 2),
                 'tax_total' => round($taxTotal, 2),
-                'round_off' => 0,
+
                 'total' => $total,
                 'notes' => $validated['notes'] ?? null,
             ]);

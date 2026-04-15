@@ -36,7 +36,11 @@ class UserController extends Controller
             ->latest()
             ->get();
 
-        return view('backoffice.users.index', compact('users', 'pendingInvitations'));
+        $roles = Role::where('tenant_id', TenantContext::id())
+            ->orderBy('name')
+            ->get();
+
+        return view('backoffice.users.index', compact('users', 'pendingInvitations', 'roles'));
     }
 
     public function edit(User $user)

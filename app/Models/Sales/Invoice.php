@@ -32,7 +32,7 @@ class Invoice extends Model
         'subtotal',
         'discount_total',
         'tax_total',
-        'round_off',
+
         'total',
         'amount_paid',
         'amount_due',
@@ -54,7 +54,7 @@ class Invoice extends Model
         'subtotal' => 'decimal:2',
         'discount_total' => 'decimal:2',
         'tax_total' => 'decimal:2',
-        'round_off' => 'decimal:2',
+
         'total' => 'decimal:2',
         'amount_paid' => 'decimal:2',
         'amount_due' => 'decimal:2',

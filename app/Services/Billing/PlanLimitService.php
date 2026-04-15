@@ -13,6 +13,7 @@ use App\Models\Sales\Quote;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class PlanLimitService
 {
@@ -183,7 +184,7 @@ class PlanLimitService
         }
 
         // Count export files created this month
-        $exportPath = storage_path("app/exports/{$tenantId}");
+        $exportPath = Storage::path("exports/{$tenantId}");
         if (!is_dir($exportPath)) {
             return 0;
         }
@@ -313,7 +314,7 @@ class PlanLimitService
 
     private function countMonthlyExportsForTenant(string $tenantId): int
     {
-        $exportPath = storage_path("app/exports/{$tenantId}");
+        $exportPath = Storage::path("exports/{$tenantId}");
         if (!is_dir($exportPath)) {
             return 0;
         }

@@ -8,6 +8,7 @@ use App\Models\Pro\RecurringInvoice;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\InvoiceCharge;
 use App\Models\Sales\InvoiceItem;
+use App\Services\Inventory\StockService;
 use App\Services\System\DocumentNumberService;
 use Illuminate\Support\Facades\DB;
 
@@ -16,6 +17,7 @@ class InvoiceService
     public function __construct(
         private readonly TaxCalculationService $taxService,
         private readonly DocumentNumberService $docService,
+        private readonly StockService $stockService,
     ) {}
 
     /**
@@ -42,7 +44,7 @@ class InvoiceService
                 'subtotal' => $totals['subtotal'],
                 'discount_total' => $totals['discount_total'],
                 'tax_total' => $totals['tax_total'],
-                'round_off' => 0,
+
                 'total' => $totals['total'],
                 'amount_paid' => 0,
                 'amount_due' => $totals['total'],
@@ -219,6 +221,37 @@ class InvoiceService
         }
 
         $invoice->update($updates);
+
+        // Deduct stock once when invoice is sent (goods are committed at this point).
+        // If the invoice transitions directly to paid without going through sent,
+        // the sent_at guard ensures we only deduct once.
+        if ($newStatus === 'sent') {
+            $invoice->load('items.product');
+
+            foreach ($invoice->items as $item) {
+                if (
+                    $item->product &&
+                    $item->product->track_inventory &&
+                    $item->product->item_type === 'product'
+                ) {
+                    try {
+                        $this->stockService->adjust(
+                            $item->product_id,
+                            (float) $item->quantity,
+                            'sale_out',
+                            "Facture #{$invoice->number}",
+                            null,
+                            Invoice::class,
+                            $invoice->id
+                        );
+                    } catch (\DomainException $e) {
+                        // Roll back the status update and surface the error to the caller
+                        $invoice->update(['status' => $invoice->getOriginal('status'), 'sent_at' => null]);
+                        throw $e;
+                    }
+                }
+            }
+        }
 
         if ($newStatus === 'paid') {
             InvoicePaid::dispatch($invoice);

@@ -43,7 +43,7 @@ class QuoteService
                 'subtotal' => $totals['subtotal'],
                 'discount_total' => $totals['discount_total'],
                 'tax_total' => $totals['tax_total'],
-                'round_off' => 0,
+
                 'total' => $totals['total'],
                 'total_in_words' => $validated['total_in_words'] ?? null,
                 'notes' => $validated['notes'] ?? null,
@@ -213,7 +213,7 @@ class QuoteService
                 'subtotal' => $quote->subtotal,
                 'discount_total' => $quote->discount_total,
                 'tax_total' => $quote->tax_total,
-                'round_off' => $quote->round_off,
+
                 'total' => $quote->total,
                 'amount_paid' => 0,
                 'amount_due' => $quote->total,
