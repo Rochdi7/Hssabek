@@ -258,6 +258,63 @@
         [data-bs-theme=dark] .mini-sidebar .sidebar .sidebar-logo .dark-small {
             display: block !important;
         }
+        /* Settings menu inside mobile offcanvas: replicate sidebar-menu styles
+           without the .sidebars wrapper (which is fixed-positioned and pushed
+           offscreen on mobile by the theme). */
+        #settingsMobileOffcanvas {
+            z-index: 1050;
+        }
+        #settingsMobileOffcanvas .sidebar-menu > ul,
+        #settingsMobileOffcanvas .sidebar-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #settingsMobileOffcanvas .sidebar-menu > ul > li ul {
+            display: block;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #settingsMobileOffcanvas .sidebar-menu > ul > li:last-child ul {
+            border-bottom: 0;
+        }
+        #settingsMobileOffcanvas .sidebar-menu > ul > li > ul > li.submenu > a {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            color: var(--gray-900);
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        #settingsMobileOffcanvas .sidebar-menu > ul > li > ul > li.submenu > a:hover {
+            background: var(--light, #f5f5f5);
+        }
+        #settingsMobileOffcanvas .sidebar-menu > ul > li > ul > li.submenu > a .arrow-menu {
+            display: none;
+        }
+        #settingsMobileOffcanvas .sidebar-menu li.submenu > ul {
+            display: block !important;
+            padding: 4px 0 8px 20px;
+            margin: 0;
+        }
+        #settingsMobileOffcanvas .sidebar-menu li.submenu > ul li a {
+            display: block;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: var(--gray-700, #555);
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        #settingsMobileOffcanvas .sidebar-menu li.submenu > ul li a:hover {
+            background: var(--light, #f5f5f5);
+        }
+        #settingsMobileOffcanvas .sidebar-menu li.submenu > ul li a.active {
+            color: var(--primary, #6c5ffc);
+            font-weight: 600;
+            background: rgba(108, 95, 252, 0.08);
+        }
     </style>
 
     @if(app()->getLocale() === 'ar')

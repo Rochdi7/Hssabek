@@ -2288,15 +2288,16 @@
                     </span>
                 </a>
                 <div class="dropdown-menu p-2 mt-0">
-                    <a class="dropdown-item d-flex align-items-center" href="{{ url('profile') }}">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.account.settings.edit') }}">
                         <i class="isax isax-profile-circle me-2"></i>{{ __('Paramètres du profil') }}
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ url('activity-summary') }}">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ url('inventory-report') }}">
                         <i class="isax isax-document-text me-2"></i>{{ __('Rapports') }}
                     </a>
                     <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.account.settings.edit') }}">
                         <i class="isax isax-setting me-2"></i>{{ __('Paramètres') }}
                     </a>
+                    <hr class="dropdown-divider my-2">
                     <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
                         @csrf
                         <button type="submit"
