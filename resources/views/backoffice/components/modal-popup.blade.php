@@ -7,7 +7,7 @@
                     <h4 class="modal-title">Add New Ledger</h4>
                     <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
                 </div>
-                <form action="{{url('index')}}">
+                <form action="{{ route('bo.dashboard') }}">
                     <div class="modal-body pb-1">
                         <div class="mb-3">
                             <label class="form-label">Amount</label>
@@ -2891,7 +2891,7 @@
                     <h4 class="modal-title">Add New Ledger</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
                 </div>
-                <form action="{{url('index')}}">
+                <form action="{{ route('bo.dashboard') }}">
                     <div class="modal-body pb-1">
                         <div class="mb-3">
                             <label class="form-label">Amount</label>
@@ -2944,7 +2944,7 @@
                     <h4 class="modal-title">Add New Ledger</h4>
                     <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
                 </div>
-                <form action="{{url('index')}}">
+                <form action="{{ route('bo.dashboard') }}">
                     <div class="modal-body pb-1">
                         <div class="mb-3">
                             <label class="form-label">Amount</label>
