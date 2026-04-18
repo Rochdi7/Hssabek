@@ -73,18 +73,13 @@
 					@if($plan->description)
 					<p>{{ $plan->description }}</p>
 					@endif
-					<span class="plan-price">{{ number_format($plan->price, 0, ',', ' ') }}€</span>
+					<span class="plan-price">{{ __('Sur demande') }}</span>
 					<h5>{{ __('Ce qui est inclus') }}</h5>
 					<ul class="plan-features">
 						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_users) }} {{ __('Utilisateurs') }}</li>
 						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_customers) }} {{ __('Clients') }}</li>
 						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_products) }} {{ __('Produits') }}</li>
 						<li><i class="fa-solid fa-circle-check"></i>{{ $plan->formatLimit($plan->max_invoices_per_month) }} {{ __('Factures/mois') }}</li>
-						@if($plan->features && is_array($plan->features))
-							@foreach($plan->features as $feature)
-								<li><i class="fa-solid fa-circle-check"></i>{{ $feature }}</li>
-							@endforeach
-						@endif
 					</ul>
 					<div class="package-btn">
 						<a class="btn btn-dark btn-lg d-inline-flex align-items-center justify-content-center" href="{{ route('request-account') }}">{{ __('Choisir ce plan') }} <i class="isax isax-arrow-right-3 ms-2"></i></a>
