@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backoffice\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Models\System\DeleteAccountRequest;
-use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +14,6 @@ class SecuritySettingsController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $tenant = TenantContext::get();
-        $settings = $tenant->settings;
 
         $pendingDeleteRequest = DeleteAccountRequest::where('status', 'pending')->first();
 
@@ -37,7 +34,7 @@ class SecuritySettingsController extends Controller
                 ];
             });
 
-        return view('backoffice.settings.security', compact('user', 'settings', 'pendingDeleteRequest', 'sessions'));
+        return view('backoffice.settings.security', compact('user', 'pendingDeleteRequest', 'sessions'));
     }
 
     /**
