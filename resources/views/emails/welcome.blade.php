@@ -17,7 +17,7 @@
     </ul>
 
     <p style="text-align: center; margin: 24px 0;">
-        <a href="{{ url('/login') }}" class="btn">Accéder à mon espace</a>
+        <a href="{{ route('login') }}" class="btn">Accéder à mon espace</a>
     </p>
 
     <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>

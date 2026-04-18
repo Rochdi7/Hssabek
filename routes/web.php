@@ -30,7 +30,7 @@ require __DIR__ . '/frontoffice.php';
 |
 | Central dashboard route that intelligently routes to:
 | - /backoffice for tenant users
-| - /hssabek-portal for superadmin users
+| - /admin for superadmin users
 |
 */
 
@@ -119,12 +119,12 @@ Route::prefix('backoffice')
 | 👑 SUPERADMIN (SaaS OWNER PANEL)
 |--------------------------------------------------------------------------
 |
-| URL: /hssabek-portal/*
+| URL: /admin/*
 | Names: sa.*
 |
 */
 
-Route::prefix('hssabek-portal')
+Route::prefix('admin')
     ->as('sa.')
     ->middleware([
         'web',

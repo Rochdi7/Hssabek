@@ -11,7 +11,7 @@
         <p><strong>Vos identifiants de connexion :</strong></p>
         <p><strong>Email :</strong> {{ $user->email }}</p>
         <p><strong>Mot de passe :</strong> {{ $password }}</p>
-        <p><strong>Lien d'accès :</strong> <a href="{{ url('/login') }}">{{ url('/login') }}</a></p>
+        <p><strong>Lien d'accès :</strong> <a href="{{ route('login') }}">{{ route('login') }}</a></p>
     </div>
 
     <div style="background-color: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; padding: 14px 16px; margin: 16px 0;">
@@ -30,7 +30,7 @@
     </ul>
 
     <p style="text-align: center; margin: 24px 0;">
-        <a href="{{ url('/login') }}" class="btn">Accéder à mon espace</a>
+        <a href="{{ route('login') }}" class="btn">Accéder à mon espace</a>
     </p>
 
     <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>

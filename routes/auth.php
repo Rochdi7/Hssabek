@@ -19,8 +19,8 @@ Route::middleware(['web'])->group(function () {
     // Public auth routes (accessible to non-authenticated users)
     Route::middleware('guest')->group(function () {
         // Login routes
-        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:login');
+        Route::get('/hssabek-portal', [LoginController::class, 'showLoginForm'])->name('login');
+        Route::post('/hssabek-portal', [LoginController::class, 'login'])->middleware('throttle:login');
 
         // Register routes (if enabled)
         Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
