@@ -127,9 +127,11 @@
         });
     }
 
-    // Smooth Scroll for anchor links
-    $('a[href^="#"]').on('click', function (e) {
-        var target = $(this.getAttribute('href'));
+    // Smooth Scroll for anchor links (skip Bootstrap toggles so collapse/tabs/etc. still work)
+    $('a[href^="#"]').not('[data-bs-toggle]').on('click', function (e) {
+        var href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        var target = $(href);
         if (target.length) {
             e.preventDefault();
             $('html, body').stop().animate({

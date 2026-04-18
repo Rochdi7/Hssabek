@@ -926,7 +926,7 @@
 						</div>
 					</div>
 					<p>{{ __('Accès illimité et permanent à toutes les fonctionnalités. Mises à jour incluses à vie. Zéro abonnement.') }}</p>
-					<span class="plan-price">399 DH</span>
+					<span class="plan-price">{{ __('Sur demande') }}</span>
 					<p class="h5">{{ __('Tout est inclus') }}</p>
 					<ul class="plan-features">
 						<li><i class="fa-solid fa-circle-check"></i>{{ __('Utilisateurs illimités') }}</li>
@@ -976,7 +976,7 @@
 							<a data-bs-toggle="collapse" href="#faqOne" aria-expanded="false">{{ __('Y a-t-il un essai gratuit disponible ?') }}</a>
 						</h3>
 						<div id="faqOne" class="card-collapse collapse show" data-bs-parent="#accordionExample">
-							<p>{{ __('Oui ! Demandez votre accès gratuit et testez toutes les fonctionnalités pendant 7 jours. Aucune carte bancaire requise. Vous pourrez ensuite passer à l\'offre à vie pour seulement 399 DH.') }}</p>
+							<p>{{ __('Oui ! Demandez votre accès gratuit et testez toutes les fonctionnalités pendant 7 jours. Aucune carte bancaire requise. Vous pourrez ensuite passer à l\'offre à vie sur demande — contactez-nous pour obtenir un devis personnalisé.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
@@ -984,7 +984,7 @@
 							<a class="collapsed" data-bs-toggle="collapse" href="#faqtwo" aria-expanded="false">{{ __('Pourquoi un paiement unique et pas un abonnement ?') }}</a>
 						</h3>
 						<div id="faqtwo" class="card-collapse collapse" data-bs-parent="#accordionExample">
-							<p>{{ __('Nous croyons en la simplicité. Payez une seule fois 399 DH et utilisez le logiciel pour toujours. Pas de surprise, pas de renouvellement automatique. Toutes les mises à jour futures sont incluses.') }}</p>
+							<p>{{ __('Nous croyons en la simplicité. Payez une seule fois et utilisez le logiciel pour toujours. Pas de surprise, pas de renouvellement automatique. Toutes les mises à jour futures sont incluses. Contactez-nous pour obtenir un devis personnalisé.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
