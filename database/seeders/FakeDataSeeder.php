@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Tenancy\Tenant;
+use App\Models\Tenancy\Role;
+use App\Models\Tenancy\Permission;
 use App\Models\User;
 use App\Models\Catalog\ProductCategory;
 use App\Models\Catalog\Unit;
@@ -103,6 +105,9 @@ class FakeDataSeeder extends Seeder
             ]);
         }
 
+        // Create demo login account for video recording
+        $this->seedDemoAccount();
+
         // Seed data in proper order (respecting foreign keys)
         $this->seedUnits();
         $this->seedTaxes();
@@ -148,6 +153,37 @@ class FakeDataSeeder extends Seeder
 
         // Must run AFTER all document seeders to detect correct next_number
         $this->seedDocumentNumberSequences();
+    }
+
+    // ─── DEMO ACCOUNT ─────────────────────────────────────────────────────────
+    private function seedDemoAccount(): void
+    {
+        $demoUser = User::firstOrCreate(
+            ['email' => 'demoaccount@gmail.com'],
+            [
+                'name' => 'Compte Démo',
+                'password' => bcrypt('password'),
+                'status' => 'active',
+                'email_verified_at' => now(),
+                'last_login_ip' => '127.0.0.1',
+            ]
+        );
+
+        if ($demoUser->tenant_id !== $this->tenant->id) {
+            $demoUser->tenant_id = $this->tenant->id;
+            $demoUser->saveQuietly();
+        }
+
+        $adminRole = Role::firstOrCreate([
+            'name' => 'admin',
+            'guard_name' => 'web',
+            'tenant_id' => $this->tenant->id,
+        ]);
+
+        $allPermissions = Permission::whereNull('tenant_id')->get();
+        $adminRole->syncPermissions($allPermissions);
+
+        $demoUser->syncRoles([$adminRole]);
     }
 
     // ─── CATALOG ─────────────────────────────────────────────────────────────

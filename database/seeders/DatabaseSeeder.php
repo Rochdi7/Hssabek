@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
 
             // 7) Tenant de démonstration + Super Admin
             DemoTenantSeeder::class,
+
+            // 8) Données fictives pour le tenant de démonstration (clients, produits, factures, paiements, etc.)
+            FakeDataSeeder::class,
         ]);
     }
 }
