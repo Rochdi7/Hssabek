@@ -63,7 +63,6 @@ use App\Models\System\DocumentNumberSequence;
 use App\Models\Billing\Plan;
 use App\Models\Billing\Subscription;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 /**
  * FakeDataSeeder
@@ -90,7 +89,7 @@ class FakeDataSeeder extends Seeder
 
     public function run(): void
     {
-        $this->faker = Faker::create('fr_FR');
+        $this->faker = new FakeFaker();
 
         // Get or create a demo tenant
         $this->tenant = Tenant::where('slug', 'localhost')->first();
@@ -1316,5 +1315,244 @@ class FakeDataSeeder extends Seeder
                 ]
             );
         }
+    }
+}
+
+/**
+ * Minimal drop-in replacement for fakerphp/faker — covers the exact subset
+ * of methods used by FakeDataSeeder so this seeder can run in production
+ * environments where the dev-only faker package is not installed.
+ */
+class FakeFaker
+{
+    private array $firstNames = [
+        'Ahmed', 'Mohamed', 'Youssef', 'Hassan', 'Karim', 'Omar', 'Rachid', 'Said', 'Fouad', 'Nabil',
+        'Fatima', 'Amina', 'Khadija', 'Salma', 'Sara', 'Leila', 'Nadia', 'Imane', 'Zineb', 'Hajar',
+        'Pierre', 'Jean', 'Marc', 'Antoine', 'Lucas', 'Julien', 'Nicolas', 'Thomas', 'Alexandre', 'Paul',
+        'Marie', 'Sophie', 'Camille', 'Julie', 'Laura', 'Claire', 'Emma', 'Léa', 'Chloé', 'Manon',
+    ];
+
+    private array $lastNames = [
+        'El Amrani', 'Benjelloun', 'Tazi', 'Alaoui', 'Berrada', 'Chraibi', 'Fassi', 'Idrissi', 'Lahlou', 'Mansouri',
+        'Bennani', 'El Fassi', 'Hajji', 'Naciri', 'Ouazzani', 'Saadi', 'Tahiri', 'Zaidi', 'Belkacem', 'Cherkaoui',
+        'Martin', 'Bernard', 'Dubois', 'Thomas', 'Robert', 'Richard', 'Petit', 'Durand', 'Leroy', 'Moreau',
+    ];
+
+    private array $companies = [
+        'Atlas Trading', 'Maroc Export', 'Sahara Industries', 'Casablanca Tech', 'Rabat Commerce',
+        'Fès Distribution', 'Tanger Logistics', 'Agadir Services', 'Marrakech Import', 'Oujda Solutions',
+        'Al Maghrib Group', 'Royal Business', 'Nord-Sud Consulting', 'Côte Atlantique SA', 'Méditerranée Plus',
+        'Société Générale Maroc', 'Wafa Commerce', 'BMCE Trading', 'CIH Services', 'Attijari Group',
+        'Groupe Horizon', 'Entreprise Avenir', 'Société Moderne', 'Global Partners', 'Prestige Business',
+    ];
+
+    private array $jobTitles = [
+        'Directeur Général', 'Responsable Commercial', 'Chef de Projet', 'Comptable', 'Assistant Administratif',
+        'Responsable Marketing', 'Développeur', 'Chargé de Clientèle', 'Analyste Financier', 'Responsable RH',
+        'Technicien', 'Ingénieur', 'Consultant', 'Vendeur', 'Acheteur',
+    ];
+
+    private array $cities = [
+        'Casablanca', 'Rabat', 'Fès', 'Marrakech', 'Tanger', 'Agadir', 'Meknès', 'Oujda', 'Kénitra', 'Tétouan',
+        'Safi', 'Mohammedia', 'El Jadida', 'Béni Mellal', 'Nador', 'Khouribga', 'Settat', 'Larache',
+    ];
+
+    private array $regions = [
+        'Casablanca-Settat', 'Rabat-Salé-Kénitra', 'Fès-Meknès', 'Marrakech-Safi', 'Tanger-Tétouan-Al Hoceïma',
+        'Souss-Massa', 'Oriental', 'Béni Mellal-Khénifra', 'Drâa-Tafilalet', 'Laâyoune-Sakia El Hamra',
+    ];
+
+    private array $streets = [
+        'Avenue Mohammed V', 'Boulevard Hassan II', 'Rue de la Liberté', 'Avenue des FAR', 'Rue Allal Ben Abdellah',
+        'Boulevard Zerktouni', 'Avenue Moulay Youssef', 'Rue Ibn Sina', 'Boulevard Anfa', 'Avenue Al Massira',
+    ];
+
+    private array $countryCodes = ['MA', 'FR', 'ES', 'BE', 'DE', 'IT', 'NL', 'US', 'GB', 'PT'];
+
+    private array $sentences = [
+        'Commande validée par le client.',
+        'Livraison prévue la semaine prochaine.',
+        'Règlement effectué par virement bancaire.',
+        'Remise accordée sur le montant total.',
+        'Produit conforme à la commande.',
+        'Facture transmise au service comptabilité.',
+        'En attente de confirmation du client.',
+        'Opération enregistrée avec succès.',
+        'Client fidèle depuis plusieurs années.',
+        'Merci de votre confiance renouvelée.',
+    ];
+
+    public function randomElement(array $items)
+    {
+        return $items[array_rand($items)];
+    }
+
+    public function randomFloat(int $nbMaxDecimals, float $min = 0, float $max = 1): float
+    {
+        $value = $min + mt_rand() / mt_getrandmax() * ($max - $min);
+        return round($value, $nbMaxDecimals);
+    }
+
+    public function numberBetween(int $min = 0, int $max = 2147483647): int
+    {
+        return mt_rand($min, $max);
+    }
+
+    public function boolean(int $chanceOfGettingTrue = 50): bool
+    {
+        return mt_rand(1, 100) <= $chanceOfGettingTrue;
+    }
+
+    public function sentence(): string
+    {
+        return $this->randomElement($this->sentences);
+    }
+
+    public function name(): string
+    {
+        return $this->randomElement($this->firstNames) . ' ' . $this->randomElement($this->lastNames);
+    }
+
+    public function firstName(): string
+    {
+        return $this->randomElement($this->firstNames);
+    }
+
+    public function lastName(): string
+    {
+        return $this->randomElement($this->lastNames);
+    }
+
+    public function email(): string
+    {
+        $local = strtolower(str_replace([' ', "'"], ['.', ''], $this->name()));
+        $local = preg_replace('/[^a-z0-9.]/', '', $local);
+        $domain = $this->randomElement(['example.com', 'demo.local', 'mail.ma', 'test.fr', 'company.com']);
+        return $local . mt_rand(1, 999) . '@' . $domain;
+    }
+
+    public function phoneNumber(): string
+    {
+        return '+212-' . mt_rand(5, 7) . str_pad((string) mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+    }
+
+    public function company(): string
+    {
+        return $this->randomElement($this->companies);
+    }
+
+    public function jobTitle(): string
+    {
+        return $this->randomElement($this->jobTitles);
+    }
+
+    public function city(): string
+    {
+        return $this->randomElement($this->cities);
+    }
+
+    public function region(): string
+    {
+        return $this->randomElement($this->regions);
+    }
+
+    public function streetAddress(): string
+    {
+        return mt_rand(1, 250) . ', ' . $this->randomElement($this->streets);
+    }
+
+    public function secondaryAddress(): string
+    {
+        return $this->randomElement(['Apt.', 'Étage', 'Bloc', 'Résidence']) . ' ' . mt_rand(1, 50);
+    }
+
+    public function postcode(): string
+    {
+        return str_pad((string) mt_rand(10000, 99999), 5, '0', STR_PAD_LEFT);
+    }
+
+    public function countryCode(): string
+    {
+        return $this->randomElement($this->countryCodes);
+    }
+
+    public function address(): string
+    {
+        return $this->streetAddress() . ', ' . $this->postcode() . ' ' . $this->city();
+    }
+
+    public function bankAccountNumber(): string
+    {
+        $out = '';
+        for ($i = 0; $i < 20; $i++) {
+            $out .= mt_rand(0, 9);
+        }
+        return $out;
+    }
+
+    public function ean13(): string
+    {
+        $out = '';
+        for ($i = 0; $i < 13; $i++) {
+            $out .= mt_rand(0, 9);
+        }
+        return $out;
+    }
+
+    public function bothify(string $pattern): string
+    {
+        $out = '';
+        $len = strlen($pattern);
+        for ($i = 0; $i < $len; $i++) {
+            $ch = $pattern[$i];
+            if ($ch === '#') {
+                $out .= mt_rand(0, 9);
+            } elseif ($ch === '?') {
+                $out .= chr(mt_rand(ord('a'), ord('z')));
+            } else {
+                $out .= $ch;
+            }
+        }
+        return $out;
+    }
+
+    public function dateTimeBetween(string $startDate = '-30 years', string $endDate = 'now'): \DateTime
+    {
+        $startTs = strtotime($startDate) ?: time();
+        $endTs = strtotime($endDate) ?: time();
+        if ($endTs < $startTs) {
+            [$startTs, $endTs] = [$endTs, $startTs];
+        }
+        $ts = mt_rand($startTs, $endTs);
+        return (new \DateTime())->setTimestamp($ts);
+    }
+
+    public function dateTimeThisMonth(): \DateTime
+    {
+        return $this->dateTimeBetween('first day of this month 00:00:00', 'last day of this month 23:59:59');
+    }
+
+    public function optional(float $weight = 0.5): FakeFakerOptional
+    {
+        return new FakeFakerOptional($this, $weight);
+    }
+}
+
+/**
+ * Proxy returned by FakeFaker::optional() — either returns null (1 - weight)
+ * or forwards the next method call to the underlying faker (weight).
+ */
+class FakeFakerOptional
+{
+    public function __construct(private FakeFaker $faker, private float $weight = 0.5)
+    {
+    }
+
+    public function __call(string $name, array $args)
+    {
+        if (mt_rand() / mt_getrandmax() > $this->weight) {
+            return null;
+        }
+        return $this->faker->{$name}(...$args);
     }
 }
