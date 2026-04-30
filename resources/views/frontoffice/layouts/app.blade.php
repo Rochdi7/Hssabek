@@ -218,18 +218,19 @@
 
 		<!-- Mobile responsive overflow fix -->
 		<style>
-			/* Prevent any decorative shape, image, or absolutely-positioned element
-			   from spilling past the viewport on mobile. Symptom: page scrolls horizontally,
-			   banner appears wider than the screen. */
+			/* Stop any decorative absolute element / oversized image / wide section
+			   from creating horizontal scroll on mobile. */
 			html, body {
-				overflow-x: hidden;
-				max-width: 100%;
+				overflow-x: hidden !important;
+				max-width: 100% !important;
+				width: 100% !important;
 			}
-			.main-wrapper, main, section, .container, .container-fluid, .row {
-				max-width: 100%;
+			body {
+				position: relative;
 			}
-			.main-wrapper, main {
-				overflow-x: clip;
+			.main-wrapper {
+				overflow-x: hidden !important;
+				max-width: 100vw !important;
 			}
 			img, svg, video, iframe {
 				max-width: 100%;
@@ -239,27 +240,29 @@
 				.main-banner,
 				.hero-section,
 				.banner-hero,
-				.home-banner {
+				.home-banner,
+				section,
+				.container,
+				.container-fluid {
+					max-width: 100% !important;
 					overflow-x: hidden;
-					max-width: 100%;
 				}
-				.banner-content,
-				.banner-content.pe-xl-5 {
+				.banner-content.pe-xl-5,
+				.pe-xl-5 {
 					padding-right: 0 !important;
 				}
+				.pe-lg-0 {
+					padding-right: var(--bs-gutter-x, 0.75rem) !important;
+				}
 				.banner-title h1,
-				.banner-title h1 .head,
 				h1, h2, h3 {
 					word-wrap: break-word;
 					overflow-wrap: break-word;
 				}
-				.row {
-					margin-left: 0;
-					margin-right: 0;
-				}
-				.row > [class*="col-"] {
-					padding-left: 12px;
-					padding-right: 12px;
+				/* Neutralize any element absolutely positioned outside the viewport */
+				[style*="left:-"],
+				[style*="right:-"] {
+					display: none !important;
 				}
 			}
 		</style>
