@@ -216,6 +216,54 @@
 		</style>
 		@endif
 
+		<!-- Mobile responsive overflow fix -->
+		<style>
+			/* Prevent any decorative shape, image, or absolutely-positioned element
+			   from spilling past the viewport on mobile. Symptom: page scrolls horizontally,
+			   banner appears wider than the screen. */
+			html, body {
+				overflow-x: hidden;
+				max-width: 100%;
+			}
+			.main-wrapper, main, section, .container, .container-fluid, .row {
+				max-width: 100%;
+			}
+			.main-wrapper, main {
+				overflow-x: clip;
+			}
+			img, svg, video, iframe {
+				max-width: 100%;
+				height: auto;
+			}
+			@media (max-width: 991.98px) {
+				.main-banner,
+				.hero-section,
+				.banner-hero,
+				.home-banner {
+					overflow-x: hidden;
+					max-width: 100%;
+				}
+				.banner-content,
+				.banner-content.pe-xl-5 {
+					padding-right: 0 !important;
+				}
+				.banner-title h1,
+				.banner-title h1 .head,
+				h1, h2, h3 {
+					word-wrap: break-word;
+					overflow-wrap: break-word;
+				}
+				.row {
+					margin-left: 0;
+					margin-right: 0;
+				}
+				.row > [class*="col-"] {
+					padding-left: 12px;
+					padding-right: 12px;
+				}
+			}
+		</style>
+
 		<!-- Logo dark/light mode switching -->
 		<style>
 			/* Default (outside banner / light bg): show dark logo, hide white logo */
