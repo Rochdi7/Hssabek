@@ -67,7 +67,7 @@
 							<li><a href="{{ route('contact') }}">{{ __('Contactez-nous') }}</a></li>
 							<li><a href="https://www.facebook.com/codesommetagency/" rel="noopener nofollow" target="_blank" aria-label="Hssabek sur Facebook">Facebook</a></li>
 							<li><a href="https://www.linkedin.com/in/codesommet/" rel="noopener nofollow" target="_blank" aria-label="Hssabek sur LinkedIn">LinkedIn</a></li>
-							<li><a href="https://www.instagram.com/code_sommet/" rel="noopener nofollow" target="_blank" aria-label="Hssabek sur Instagram">Instagram</a></li>
+							<li><a href="https://www.instagram.com/hssabek/" rel="noopener nofollow" target="_blank" aria-label="Hssabek sur Instagram">Instagram</a></li>
 						</ul>
 					</div>
 				</div>
