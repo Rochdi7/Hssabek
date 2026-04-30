@@ -1,113 +1,206 @@
-# Facturation SaaS
+<div align="center">
 
-Multi-tenant invoicing and billing SaaS application built with Laravel and Blade.
+# 🧾 Hssabek
 
-## Tech Stack
+### **La plateforme SaaS de facturation et de gestion d'entreprise — pensée pour le Maroc 🇲🇦**
 
-- **Backend:** Laravel (PHP)
-- **Frontend:** Blade templates, Bootstrap
-- **Architecture:** Multi-tenant (Backoffice + SuperAdmin)
-- **Database:** MySQL
+[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)]()
+[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)]()
 
----
+*Facturation • CRM • Stocks • Comptabilité • Multi-tenant*
 
-## Latest Update — 2026-04-15
-
-**62 files changed** | **1,518 additions** | **646 deletions**
-
-### Reports Module — Export & Filters Enhancement
-- Enhanced **Customer Report** controller with improved filtering and export logic
-- Enhanced **Finance Report** controller with improved filtering and export logic
-- Enhanced **Inventory Report** controller with improved filtering and export logic
-- Enhanced **Purchase Report** controller with improved filtering and export logic
-- Enhanced **Sales Report** controller with improved filtering and export logic
-- Updated `ExportReportJob` for better report generation
-- Rebuilt all 5 report Blade views (`customers`, `finance`, `inventory`, `purchases`, `sales`) with full filter UI and export functionality
-
-### Sales Module — Index & Show Pages
-- Added **Invoices** index page with full table, filters, and actions
-- Added **Invoices** show/detail page
-- Added **Quotes** index page
-- Added **Quotes** show/detail page
-- Added **Credit Notes** index page
-- Added **Credit Notes** show/detail page
-- Removed old placeholder create/edit views for Credit Notes (replaced by proper implementation)
-- Updated `InvoiceService` with enhanced logic
-- Updated `CreditNoteService` and `QuoteService`
-
-### Purchases Module — Index & Show Pages
-- Added **Purchase Orders** index page with full table, filters, and actions
-- Added **Purchase Orders** show/detail page
-- Added **Debit Notes** index page
-- Added **Debit Notes** show/detail page
-- Removed old placeholder create/edit views for Purchase Orders and Suppliers (replaced by proper implementation)
-- Removed old Supplier create/edit/show placeholder views
-
-### Users & Invitations
-- Enhanced **User Invitation** controller with improved invitation flow
-- Updated `InviteUserRequest` validation
-- Updated `SendUserInvitationJob` for better email delivery
-- Enhanced `UserInvitationNotification` with improved email template
-- Rebuilt **Users index** page with full user management UI
-- Removed old `invite.blade.php` view (invitation now handled via modal)
-- Removed unused invitation routes
-
-### Settings
-- Updated `InvoiceTemplateSettingsController`
-- Updated `UpdateInvoiceSettingsRequest` validation rules
-
-### Billing
-- Updated `PlanLimitService` with improved plan limit checks
-
-### Recurring Invoices
-- Fixed `GenerateRecurringInvoicesCommand`
-
-### Models — Cleanup
-- Cleaned up `Invoice`, `Quote`, `CreditNote`, `DeliveryChallan` models
-- Cleaned up `PurchaseOrder`, `DebitNote`, `VendorBill` models
-
-### Factories — Fixes
-- Fixed `InvoiceFactory`, `QuoteFactory`, `CreditNoteFactory`
-- Fixed `DeliveryChallanFactory`, `PurchaseOrderFactory`, `DebitNoteFactory`, `VendorBillFactory`
-
-### Sidebar Navigation
-- Reorganized and cleaned up sidebar navigation layout
-
-### Tests
-- Fixed `CompanySettingsTest`
-- Fixed `SupplierPaymentServiceTest`
+</div>
 
 ---
 
-## Project Structure
+## ✨ Aperçu
+
+**Hssabek** est une solution **SaaS multi-tenant** complète permettant aux entreprises (TPE, PME, freelancers) de gérer leurs **factures**, **devis**, **clients**, **produits**, **stocks** et **paiements** depuis une interface moderne, rapide et 100 % en français.
+
+> 🎯 Chaque entreprise dispose de son propre **espace isolé** (sous-domaine dédié), avec ses utilisateurs, ses rôles, ses données et ses paramètres.
+
+---
+
+## 🚀 Fonctionnalités Principales
+
+<table>
+<tr>
+<td width="50%">
+
+### 💼 Gestion Commerciale
+- 🧾 **Factures** — Création, édition, PDF, envoi par email
+- 📋 **Devis** — Conversion en facture en 1 clic
+- 🔁 **Avoirs** & Notes de débit
+- 💳 **Paiements** & allocations multi-factures
+- 📦 **Bons de commande** & livraisons
+
+</td>
+<td width="50%">
+
+### 👥 CRM
+- 👤 Clients & fournisseurs
+- 📍 Adresses multiples (facturation, livraison)
+- 📞 Contacts par client
+- 🏷️ Segmentation & types
+- 🔍 Recherche & filtres avancés
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 📦 Inventaire
+- 🏷️ Produits & services
+- 📊 Suivi du stock en temps réel
+- 🔄 Transferts entre entrepôts
+- 📈 Mouvements & historique
+- ⚠️ Alertes de stock bas
+
+</td>
+<td width="50%">
+
+### 🏢 Multi-Tenant SaaS
+- 🌐 Sous-domaine par entreprise
+- 🔐 Isolation totale des données
+- 👨‍💼 SuperAdmin pour la gestion des tenants
+- 💎 Plans d'abonnement (Free / Pro / Lifetime)
+- 📧 Invitations utilisateurs
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 🔒 Sécurité & Rôles
+- 🛡️ Permissions granulaires (Spatie)
+- 👥 Rôles personnalisables
+- 📝 Logs d'activité complets
+- 🔑 2FA & sessions sécurisées
+- 🚫 Protection contre l'IDOR & mass-assignment
+
+</td>
+<td width="50%">
+
+### 📊 Rapports & Outils
+- 📈 Tableau de bord interactif
+- 📑 Rapports ventes / clients / TVA
+- 🧾 Export PDF & Excel
+- 📧 Modèles d'email personnalisables
+- 🏦 Comptes bancaires multiples
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🛠️ Stack Technique
+
+| Couche | Technologie |
+|---|---|
+| **Backend** | Laravel 12 · PHP 8.2+ |
+| **Frontend** | Blade · Bootstrap 5 · jQuery · DataTables |
+| **Base de données** | MySQL / MariaDB (SQLite pour les tests) |
+| **Auth & Permissions** | Laravel Sanctum · Spatie Permission |
+| **PDF** | DomPDF (Barryvdh) |
+| **Excel** | Maatwebsite Excel |
+| **Médias** | Spatie Media Library |
+| **Logs** | Spatie Activity Log |
+| **Tests** | PHPUnit · Larastan · PHP Insights |
+
+---
+
+## ⚡ Installation Rapide
+
+```bash
+# 1. Cloner le projet
+git clone https://github.com/Rochdi7/Hssabek.git
+cd Hssabek
+
+# 2. Installer les dépendances
+composer install
+npm install
+
+# 3. Configurer l'environnement
+cp .env.example .env
+php artisan key:generate
+
+# 4. Lancer les migrations & seeders
+php artisan migrate --seed
+
+# 5. Compiler les assets
+npm run build
+
+# 6. Démarrer l'application
+php artisan serve
+```
+
+> 💡 Astuce : utilisez `composer dev` pour lancer **server + queue + logs + vite** en parallèle.
+
+---
+
+## 🏗️ Architecture du Projet
 
 ```
-app/
-├── Http/Controllers/Backoffice/    # Tenant backoffice controllers
-├── Http/Controllers/SuperAdmin/    # Platform admin controllers
-├── Http/Requests/                  # Form request validation
-├── Models/                         # Eloquent models
-├── Services/                       # Business logic services
-├── Jobs/                           # Queue jobs
-└── Notifications/                  # Email/notification classes
-
-resources/views/
-├── backoffice/                     # Dynamic backoffice views
-│   ├── sales/                      # Invoices, quotes, credit notes
-│   ├── purchases/                  # Purchase orders, debit notes
-│   ├── reports/                    # All report views
-│   ├── users/                      # User management
-│   └── layout/                     # Layout & partials
-└── *.blade.php                     # Static UI reference templates
-
-routes/
-├── web.php                         # Main routes
-├── backoffice/                     # Backoffice route files
-└── superadmin/                     # SuperAdmin route files
+facturation/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── Backoffice/      # Espace tenant (entreprise)
+│   │   ├── SuperAdmin/      # Espace super-admin (SaaS)
+│   │   └── FrontOffice/     # Site vitrine public
+│   ├── Models/              # Modèles métier (multi-tenant)
+│   ├── Policies/            # Autorisations
+│   └── Services/            # Logique métier (DocumentNumber, etc.)
+├── resources/views/
+│   ├── backoffice/          # Vues tenant
+│   ├── superadmin/          # Vues SuperAdmin
+│   ├── frontoffice/         # Vues publiques
+│   └── *.blade.php          # Templates UI de référence
+├── routes/
+│   ├── backoffice/          # Routes tenant
+│   ├── superadmin/          # Routes admin SaaS
+│   └── web.php              # Routes publiques
+└── tasks/                   # Roadmap & checklists
 ```
 
 ---
 
-## License
+## 🌍 Multi-Tenant — Comment ça marche ?
 
-Proprietary — All rights reserved.
+```
+┌──────────────────────────────────────────────────┐
+│  hssabek.com              → Site vitrine public  │
+│  admin.hssabek.com        → SuperAdmin SaaS      │
+│  entreprise1.hssabek.com  → Espace Tenant #1     │
+│  entreprise2.hssabek.com  → Espace Tenant #2     │
+└──────────────────────────────────────────────────┘
+```
+
+Chaque tenant est identifié via son **sous-domaine** par le middleware `IdentifyTenantByDomain`, garantissant une **isolation stricte** des données via le trait `BelongsToTenant`.
+
+---
+
+## 🧪 Tests
+
+```bash
+php artisan test
+```
+
+✅ **90+ tests** couvrant l'isolation tenant, le mass-assignment, les services, et les flux CRUD critiques.
+
+---
+
+## 📜 Licence
+
+© 2026 **Hssabek** — Tous droits réservés.
+
+---
+
+<div align="center">
+
+**Fait avec ❤️ au Maroc**
+
+</div>
