@@ -267,6 +267,119 @@
 			}
 		</style>
 
+		<!-- Mobile slide-out sidebar menu polish -->
+		<style>
+			@media (max-width: 991.98px) {
+				/* Sidebar panel itself */
+				.main-menu-wrapper {
+					padding: 0 !important;
+					background: #fff;
+					box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+				}
+
+				/* Header (logo + close) */
+				.menu-header {
+					padding: 20px 24px !important;
+					border-bottom: 1px solid #eef0f6;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
+				.menu-header .menu-logo img {
+					max-height: 32px;
+					width: auto;
+				}
+				.menu-header .menu-close {
+					width: 32px;
+					height: 32px;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 8px;
+					color: #6b7280;
+					transition: background 0.2s ease, color 0.2s ease;
+				}
+				.menu-header .menu-close:hover {
+					background: #f3f4f6;
+					color: #111827;
+				}
+
+				/* Nav list */
+				.main-nav {
+					padding: 12px 16px !important;
+					margin: 0 !important;
+					gap: 4px;
+					display: flex;
+					flex-direction: column;
+				}
+				.main-nav > li.nav-item {
+					margin: 0 !important;
+					border-bottom: none !important;
+				}
+				.main-nav > li.nav-item > .nav-link {
+					display: block;
+					padding: 14px 16px !important;
+					font-size: 15px;
+					font-weight: 500;
+					color: #374151 !important;
+					border-radius: 10px;
+					transition: background 0.2s ease, color 0.2s ease;
+					line-height: 1.4;
+				}
+				.main-nav > li.nav-item > .nav-link:hover {
+					background: #f5f3ff;
+					color: #7f56ff !important;
+				}
+				.main-nav > li.nav-item > .nav-link.active {
+					background: #f5f3ff;
+					color: #7f56ff !important;
+					font-weight: 600;
+				}
+
+				/* Language switcher row (mobile-only) */
+				.main-nav .nav-item.d-lg-none.mt-3 {
+					margin-top: 16px !important;
+					padding: 12px 16px 0;
+					border-top: 1px solid #eef0f6;
+				}
+				.main-nav .nav-item.d-lg-none.mt-3 .d-flex {
+					gap: 8px !important;
+					width: 100%;
+				}
+				.main-nav .nav-item.d-lg-none.mt-3 form {
+					flex: 1;
+				}
+				.main-nav .nav-item.d-lg-none.mt-3 form .btn {
+					width: 100%;
+					padding: 10px 12px;
+					font-size: 13px;
+					font-weight: 500;
+					border-radius: 8px;
+				}
+
+				/* CTA button row (mobile-only) */
+				.main-nav .nav-item.d-lg-none.mt-2 {
+					margin-top: 12px !important;
+					padding: 0 16px;
+				}
+				.main-nav .nav-item.d-lg-none.mt-2 .btn.btn-primary {
+					width: 100%;
+					padding: 13px 16px;
+					font-size: 15px;
+					font-weight: 600;
+					border-radius: 10px;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					gap: 8px;
+					box-shadow: 0 4px 12px rgba(127, 86, 255, 0.25);
+				}
+				.main-nav .nav-item.d-lg-none.mt-2 .btn.btn-primary i {
+					margin-right: 0 !important;
+				}
+			}
+		</style>
+
 		<!-- Logo dark/light mode switching -->
 		<style>
 			/* Default (outside banner / light bg): show dark logo, hide white logo */
