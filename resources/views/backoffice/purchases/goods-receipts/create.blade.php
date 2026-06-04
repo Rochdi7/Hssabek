@@ -120,12 +120,12 @@
                                     <div class="border-top pt-3 mb-3">
                                         <h6 class="mb-3">{{ __('Articles reçus') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                            <table class="table table-nowrap add-table m-0" id="items-table" style="table-layout: fixed; width: 100%;">
+                                            <table class="table table-nowrap add-table m-0" id="items-table" style="min-width: 400px;">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th style="width: 50%;">{{ __('Produit') }}<span class="text-danger">*</span></th>
-                                                        <th style="width: 35%;">{{ __('Quantité reçue') }}<span class="text-danger">*</span></th>
-                                                        <th style="width: 15%;"></th>
+                                                        <th style="min-width: 200px;">{{ __('Produit') }}<span class="text-danger">*</span></th>
+                                                        <th style="min-width: 120px;">{{ __('Quantité reçue') }}<span class="text-danger">*</span></th>
+                                                        <th style="min-width: 40px;"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="add-tbody">

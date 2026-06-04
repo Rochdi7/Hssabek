@@ -296,18 +296,17 @@
 
                                     <!-- Table List Start -->
                                     <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                        <table class="table table-nowrap add-table mb-0" id="items-table"
-                                            style="table-layout: fixed; width: 100%;">
+                                        <table class="table table-nowrap add-table mb-0" id="items-table" style="min-width: 700px;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
-                                                    <th style="width: 22%;">{{ __('Libellé') }}</th>
-                                                    <th style="width: 9%;">{{ __('Quantité') }}</th>
-                                                    <th style="width: 10%;">{{ __('Unité') }}</th>
-                                                    <th style="width: 13%;">{{ __('Prix unitaire') }}</th>
-                                                    <th style="width: 18%;">{{ __('Remise') }}</th>
-                                                    <th style="width: 13%;" class="tax-col">{{ __('Taxe (%)') }}</th>
-                                                    <th style="width: 11%;">{{ __('Montant') }}</th>
-                                                    <th style="width: 4%;"></th>
+                                                    <th style="min-width: 150px;">{{ __('Libellé') }}</th>
+                                                    <th style="min-width: 80px;">{{ __('Quantité') }}</th>
+                                                    <th style="min-width: 80px;">{{ __('Unité') }}</th>
+                                                    <th style="min-width: 100px;">{{ __('Prix unitaire') }}</th>
+                                                    <th style="min-width: 130px;">{{ __('Remise') }}</th>
+                                                    <th style="min-width: 110px;" class="tax-col">{{ __('Taxe (%)') }}</th>
+                                                    <th style="min-width: 90px;">{{ __('Montant') }}</th>
+                                                    <th style="min-width: 40px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody class="add-tbody">

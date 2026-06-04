@@ -288,15 +288,15 @@
 
                                     <!-- Table List Start -->
                                     <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                        <table class="table table-nowrap add-table mb-0" id="items-table" style="table-layout: fixed; width: 100%;">
+                                        <table class="table table-nowrap add-table mb-0" id="items-table" style="min-width: 550px;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
-                                                    <th style="width: 28%;">{{ __('Produit / Libellé') }}</th>
-                                                    <th style="width: 13%;">{{ __('Quantité') }}</th>
-                                                    <th style="width: 17%;">{{ __('Coût unitaire') }}</th>
-                                                    <th class="tax-col" style="width: 15%;">{{ __('Taxe (%)') }}</th>
-                                                    <th style="width: 17%;">{{ __('Total ligne') }}</th>
-                                                    <th style="width: 10%;"></th>
+                                                    <th style="min-width: 180px;">{{ __('Produit / Libellé') }}</th>
+                                                    <th style="min-width: 80px;">{{ __('Quantité') }}</th>
+                                                    <th style="min-width: 110px;">{{ __('Coût unitaire') }}</th>
+                                                    <th class="tax-col" style="min-width: 110px;">{{ __('Taxe (%)') }}</th>
+                                                    <th style="min-width: 110px;">{{ __('Total ligne') }}</th>
+                                                    <th style="min-width: 40px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody class="add-tbody" id="items-body">

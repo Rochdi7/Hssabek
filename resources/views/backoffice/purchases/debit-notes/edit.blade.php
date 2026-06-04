@@ -112,15 +112,15 @@
                                             </div>
                                         </div>
                                         <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                            <table class="table table-nowrap add-table m-0" id="items-table" style="table-layout: fixed; width: 100%;">
+                                            <table class="table table-nowrap add-table m-0" id="items-table" style="min-width: 550px;">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
-                                                        <th style="width: 28%;">{{ __('Libellé') }}</th>
-                                                        <th style="width: 13%;">{{ __('Quantité') }}</th>
-                                                        <th style="width: 17%;">{{ __('Prix unitaire') }}</th>
-                                                        <th class="tax-col" style="width: 15%;">{{ __('Taxe (%)') }}</th>
-                                                        <th style="width: 17%;">{{ __('Montant') }}</th>
-                                                        <th style="width: 10%;"></th>
+                                                        <th style="min-width: 180px;">{{ __('Libellé') }}</th>
+                                                        <th style="min-width: 80px;">{{ __('Quantité') }}</th>
+                                                        <th style="min-width: 110px;">{{ __('Prix unitaire') }}</th>
+                                                        <th class="tax-col" style="min-width: 110px;">{{ __('Taxe (%)') }}</th>
+                                                        <th style="min-width: 110px;">{{ __('Montant') }}</th>
+                                                        <th style="min-width: 40px;"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="add-tbody">
