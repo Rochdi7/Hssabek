@@ -317,16 +317,15 @@
 
                                     <!-- Table List start -->
                                     <div class="table-responsive table-nowrap rounded border-bottom-0 border mb-3">
-                                        <table class="table mb-0 add-table" id="items-table"
-                                            style="table-layout: fixed; width: 100%;">
+                                        <table class="table mb-0 add-table" id="items-table" style="min-width: 550px;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
-                                                    <th style="width: 28%;">{{ __('Produit/Service') }}</th>
-                                                    <th style="width: 13%;">{{ __('Quantité') }}</th>
-                                                    <th style="width: 17%;">{{ __('Prix unitaire') }}</th>
-                                                    <th style="width: 15%;" class="tax-col">{{ __('Taxe (%)') }}</th>
-                                                    <th style="width: 17%;">{{ __('Montant') }}</th>
-                                                    <th style="width: 10%;"></th>
+                                                    <th style="min-width: 180px;">{{ __('Produit/Service') }}</th>
+                                                    <th style="min-width: 80px;">{{ __('Quantité') }}</th>
+                                                    <th style="min-width: 110px;">{{ __('Prix unitaire') }}</th>
+                                                    <th style="min-width: 110px;" class="tax-col">{{ __('Taxe (%)') }}</th>
+                                                    <th style="min-width: 110px;">{{ __('Montant') }}</th>
+                                                    <th style="min-width: 40px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody class="add-tbody">
