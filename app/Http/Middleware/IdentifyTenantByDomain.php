@@ -6,6 +6,7 @@ use App\Models\Tenancy\Tenant;
 use App\Services\Tenancy\TenantContext;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Identifies the current tenant from the authenticated user's tenant_id.
@@ -26,6 +27,11 @@ class IdentifyTenantByDomain
                 TenantContext::set($tenant);
                 app()->instance('tenant', $tenant);
                 $request->attributes->set('tenant', $tenant);
+            } else {
+                Log::warning('IdentifyTenantByDomain: no tenant found for user', [
+                    'user_id'   => $user->id,
+                    'tenant_id' => $user->tenant_id,
+                ]);
             }
         }
 

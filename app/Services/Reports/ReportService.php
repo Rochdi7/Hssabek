@@ -306,7 +306,12 @@ class ReportService
 
     public function dashboardKpis(): array
     {
-        $tenantId = $this->tenantId();
+        $tenantId = TenantContext::id();
+
+        if ($tenantId === null) {
+            return $this->emptyDashboardKpis();
+        }
+
         $cacheKey = "dashboard:kpis:{$tenantId}";
 
         return Cache::remember($cacheKey, 300, function () {
@@ -395,6 +400,25 @@ class ReportService
                 'revenueTrend', 'lowStockCount', 'expensesMtd'
             );
         });
+    }
+
+    private function emptyDashboardKpis(): array
+    {
+        return [
+            'revenueMtd'      => 0,
+            'revenueYtd'      => 0,
+            'outstanding'     => 0,
+            'overdueCount'    => 0,
+            'collected'       => 0,
+            'customerCount'   => 0,
+            'statusBreakdown' => collect(),
+            'recentInvoices'  => collect(),
+            'recentQuotes'    => collect(),
+            'topCustomers'    => collect(),
+            'revenueTrend'    => collect(),
+            'lowStockCount'   => 0,
+            'expensesMtd'     => 0,
+        ];
     }
 
     // ─── INVENTORY ───
