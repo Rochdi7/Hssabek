@@ -6,10 +6,10 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="{{ route('bo.dashboard') }}" class="logo">
-                    <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('bo.dashboard') }}" class="dark-logo">
-                    <img src="{{ URL::asset('assets/images/logo/logo-wide-white-cropped.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
                 </a>
             </div>
 
