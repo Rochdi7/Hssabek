@@ -18,6 +18,10 @@
                                 <a href="{{ route('bo.purchases.supplier-payments.edit', $supplierPayment) }}"
                                     class="btn btn-sm btn-outline-primary">
                                     <i class="isax isax-edit-2 me-1"></i>{{ __('Modifier') }}</a>
+                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                    data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
+                                    <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
+                                </button>
                             </div>
                         </div>
 
@@ -129,4 +133,46 @@
             @endcomponent
         </div>
     </div>
+
+{{-- Modal Changer Statut --}}
+<div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut du paiement') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
+            </div>
+            <form method="POST" action="{{ route('bo.purchases.supplier-payments.change-status', $supplierPayment) }}">
+                @csrf
+                <div class="modal-body">
+                    <p class="text-muted mb-3">{{ __('Statut actuel :') }}
+                        <strong>
+                            @switch($supplierPayment->status)
+                                @case('pending') {{ __('En attente') }} @break
+                                @case('succeeded') {{ __('Réussi') }} @break
+                                @case('failed') {{ __('Échoué') }} @break
+                                @case('refunded') {{ __('Remboursé') }} @break
+                                @case('cancelled') {{ __('Annulé') }} @break
+                            @endswitch
+                        </strong>
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Nouveau statut') }}</label>
+                        <select name="status" class="form-select" required>
+                            <option value="pending" @selected($supplierPayment->status === 'pending')>{{ __('En attente') }}</option>
+                            <option value="succeeded" @selected($supplierPayment->status === 'succeeded')>{{ __('Réussi') }}</option>
+                            <option value="failed" @selected($supplierPayment->status === 'failed')>{{ __('Échoué') }}</option>
+                            <option value="refunded" @selected($supplierPayment->status === 'refunded')>{{ __('Remboursé') }}</option>
+                            <option value="cancelled" @selected($supplierPayment->status === 'cancelled')>{{ __('Annulé') }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

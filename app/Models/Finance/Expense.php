@@ -24,7 +24,6 @@ class Expense extends Model
         'expense_date',
         'payment_mode',
         'payment_status',
-        'bank_account_id',
         'supplier_id',
         'category_id',
         'description',
@@ -39,11 +38,6 @@ class Expense extends Model
     public function getRemainingAmountAttribute(): float
     {
         return round((float) $this->amount - (float) $this->paid_amount, 2);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(BankAccount::class);
     }
 
     public function supplier(): BelongsTo

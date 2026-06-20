@@ -17,7 +17,6 @@ class ExpensePayment extends Model
         'amount',
         'payment_date',
         'payment_mode',
-        'bank_account_id',
         'note',
     ];
 
@@ -29,10 +28,5 @@ class ExpensePayment extends Model
     public function expense(): BelongsTo
     {
         return $this->belongsTo(Expense::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(BankAccount::class);
     }
 }

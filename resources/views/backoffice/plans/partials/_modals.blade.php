@@ -103,7 +103,6 @@
                         @include('backoffice.plans.partials._limit_field', ['field' => 'max_quotes_per_month', 'label' => 'Devis / mois', 'icon' => 'isax-document-text', 'value' => old('max_quotes_per_month'), 'unlimited' => old('max_quotes_per_month_unlimited')])
                         @include('backoffice.plans.partials._limit_field', ['field' => 'max_exports_per_month', 'label' => 'Exports / mois', 'icon' => 'isax-export-1', 'value' => old('max_exports_per_month'), 'unlimited' => old('max_exports_per_month_unlimited')])
                         @include('backoffice.plans.partials._limit_field', ['field' => 'max_warehouses', 'label' => 'Entrepôts max', 'icon' => 'isax-buildings', 'value' => old('max_warehouses'), 'unlimited' => old('max_warehouses_unlimited')])
-                        @include('backoffice.plans.partials._limit_field', ['field' => 'max_bank_accounts', 'label' => 'Comptes bancaires max', 'icon' => 'isax-bank', 'value' => old('max_bank_accounts'), 'unlimited' => old('max_bank_accounts_unlimited')])
                         @include('backoffice.plans.partials._limit_field', ['field' => 'max_storage_mb', 'label' => 'Stockage (Mo)', 'icon' => 'isax-cloud', 'value' => old('max_storage_mb'), 'unlimited' => old('max_storage_mb_unlimited')])
                     </div>
                 </div>
@@ -217,7 +216,6 @@
                             @include('backoffice.plans.partials._limit_field', ['field' => 'max_quotes_per_month', 'label' => 'Devis / mois', 'icon' => 'isax-document-text', 'value' => old('max_quotes_per_month', $plan->max_quotes_per_month), 'unlimited' => $plan->max_quotes_per_month === null])
                             @include('backoffice.plans.partials._limit_field', ['field' => 'max_exports_per_month', 'label' => 'Exports / mois', 'icon' => 'isax-export-1', 'value' => old('max_exports_per_month', $plan->max_exports_per_month), 'unlimited' => $plan->max_exports_per_month === null])
                             @include('backoffice.plans.partials._limit_field', ['field' => 'max_warehouses', 'label' => 'Entrepôts max', 'icon' => 'isax-buildings', 'value' => old('max_warehouses', $plan->max_warehouses), 'unlimited' => $plan->max_warehouses === null])
-                            @include('backoffice.plans.partials._limit_field', ['field' => 'max_bank_accounts', 'label' => 'Comptes bancaires max', 'icon' => 'isax-bank', 'value' => old('max_bank_accounts', $plan->max_bank_accounts), 'unlimited' => $plan->max_bank_accounts === null])
                             @include('backoffice.plans.partials._limit_field', ['field' => 'max_storage_mb', 'label' => 'Stockage (Mo)', 'icon' => 'isax-cloud', 'value' => old('max_storage_mb', $plan->max_storage_mb), 'unlimited' => $plan->max_storage_mb === null])
                         </div>
                     </div>
@@ -389,15 +387,6 @@
                                     <div>
                                         <span class="fs-13 text-muted">Entrepôts</span>
                                         <h6 class="fs-14 fw-medium mb-0">{{ $plan->formatLimit($plan->max_warehouses) }}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3 d-flex align-items-center">
-                                    <i class="isax isax-bank me-2 fs-16"></i>
-                                    <div>
-                                        <span class="fs-13 text-muted">Comptes bancaires</span>
-                                        <h6 class="fs-14 fw-medium mb-0">{{ $plan->formatLimit($plan->max_bank_accounts) }}</h6>
                                     </div>
                                 </div>
                             </div>

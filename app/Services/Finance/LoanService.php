@@ -56,7 +56,6 @@ class LoanService
                 'amount'          => $validated['amount'],
                 'payment_date'    => $validated['payment_date'],
                 'payment_mode'    => $validated['payment_mode'],
-                'bank_account_id' => $validated['bank_account_id'] ?? null,
                 'note'            => $validated['note'] ?? null,
             ]);
 
@@ -70,14 +69,6 @@ class LoanService
                 'status'            => $newStatus,
             ]);
 
-            if ($payment->bank_account_id) {
-                BankAccount::where('id', $payment->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                BankAccount::where('id', $payment->bank_account_id)
-                    ->decrement('current_balance', $payment->amount);
-            }
-
             return $payment;
         });
     }
@@ -85,14 +76,6 @@ class LoanService
     public function deletePayment(Loan $loan, LoanPayment $payment): void
     {
         DB::transaction(function () use ($loan, $payment) {
-            if ($payment->bank_account_id) {
-                BankAccount::where('id', $payment->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                BankAccount::where('id', $payment->bank_account_id)
-                    ->increment('current_balance', $payment->amount);
-            }
-
             $newPaidAmount = max(0, (float) $loan->paid_amount - (float) $payment->amount);
             $newRemaining = round((float) $loan->total_amount - $newPaidAmount, 2);
             $newStatus = ($loan->status === 'closed' && $newRemaining > 0) ? 'active' : $loan->status;
@@ -110,15 +93,6 @@ class LoanService
     public function delete(Loan $loan): void
     {
         DB::transaction(function () use ($loan) {
-            $payments = $loan->payments()->whereNotNull('bank_account_id')->get();
-            foreach ($payments as $payment) {
-                BankAccount::where('id', $payment->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                BankAccount::where('id', $payment->bank_account_id)
-                    ->increment('current_balance', $payment->amount);
-            }
-
             $loan->delete();
         });
     }

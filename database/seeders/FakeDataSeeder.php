@@ -55,7 +55,6 @@ use App\Models\Finance\Expense;
 use App\Models\Finance\Income;
 use App\Models\Finance\Loan;
 use App\Models\Finance\LoanInstallment;
-use App\Models\Finance\MoneyTransfer;
 use App\Models\Pro\Branch;
 use App\Models\Pro\RecurringInvoice;
 use App\Models\Pro\InvoiceReminder;
@@ -144,7 +143,6 @@ class FakeDataSeeder extends Seeder
         $this->seedExpenses();
         $this->seedIncomes();
         $this->seedLoans();
-        $this->seedMoneyTransfers();
 
         // Pro features
         $this->seedRecurringInvoices();
@@ -1173,29 +1171,6 @@ class FakeDataSeeder extends Seeder
                     'paid_at' => $isPaid ? $this->faker->dateTimeBetween('-12 months', 'now') : null,
                 ]);
             }
-        }
-    }
-
-    private function seedMoneyTransfers(): void
-    {
-        $bankAccounts = BankAccount::where('tenant_id', $this->tenant->id)->get();
-
-        if ($bankAccounts->count() < 2) return;
-
-        for ($i = 0; $i < 10; $i++) {
-            $from = $bankAccounts->random();
-            $to = $bankAccounts->where('id', '!=', $from->id)->random();
-
-            MoneyTransfer::create([
-                'tenant_id' => $this->tenant->id,
-                'from_bank_account_id' => $from->id,
-                'to_bank_account_id' => $to->id,
-                'reference_number' => strtoupper($this->faker->bothify('MT-########')),
-                'transfer_date' => $this->faker->dateTimeBetween('-12 months', 'now'),
-                'amount' => $this->faker->randomFloat(2, 5000, 100000),
-                'notes' => $this->faker->sentence(),
-                'status' => $this->faker->randomElement(['pending', 'completed']),
-            ]);
         }
     }
 

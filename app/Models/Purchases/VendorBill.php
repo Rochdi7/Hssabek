@@ -20,7 +20,6 @@ class VendorBill extends Model
         'supplier_id',
         'purchase_order_id',
         'goods_receipt_id',
-        'bank_account_id',
         'number',
         'reference_number',
         'status',
@@ -47,11 +46,6 @@ class VendorBill extends Model
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function purchaseOrder(): BelongsTo

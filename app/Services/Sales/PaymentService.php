@@ -3,7 +3,6 @@
 namespace App\Services\Sales;
 
 use App\Events\PaymentReceived;
-use App\Models\Finance\BankAccount;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Models\Sales\PaymentAllocation;
@@ -44,7 +43,6 @@ class PaymentService
             $payment = Payment::create([
                 'customer_id' => $validated['customer_id'],
                 'payment_method_id' => $validated['payment_method_id'] ?? null,
-                'bank_account_id' => $validated['bank_account_id'] ?? null,
                 'amount' => $validated['amount'],
                 'status' => 'succeeded',
                 'payment_date' => $validated['payment_date'],
@@ -52,14 +50,6 @@ class PaymentService
                 'reference_number' => $validated['reference_number'] ?? null,
                 'notes' => $validated['notes'] ?? null,
             ]);
-
-            // Credit bank account (revenue: money coming in)
-            if ($payment->bank_account_id) {
-                $bankAccount = BankAccount::where('id', $payment->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                $bankAccount->credit($paymentAmount);
-            }
 
             // Allocate to invoices
             foreach ($allocations as $alloc) {
@@ -111,14 +101,6 @@ class PaymentService
     {
         DB::transaction(function () use ($payment) {
             $payment->loadMissing('allocations');
-
-            // Reverse bank account credit (debit the amount back)
-            if ($payment->bank_account_id) {
-                $bankAccount = BankAccount::where('id', $payment->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                $bankAccount->debit((float) $payment->amount);
-            }
 
             // Collect affected invoices before deleting allocations
             $invoiceIds = $payment->allocations->pluck('invoice_id')->unique();

@@ -12,7 +12,6 @@ use App\Models\Finance\Expense;
 use App\Models\Finance\FinanceCategory;
 use App\Models\Finance\Income;
 use App\Models\Finance\Loan;
-use App\Models\Finance\MoneyTransfer;
 use App\Models\Inventory\StockMovement;
 use App\Models\Inventory\StockTransfer;
 use App\Models\Inventory\Warehouse;
@@ -413,22 +412,6 @@ class ExportController extends Controller
             ],
 
             // ─── Finance ─────────────────────────────────────────
-            'bank-accounts' => [
-                'model'      => BankAccount::class,
-                'permission' => 'finance.bank_accounts.view',
-                'title'      => 'Liste des Comptes Bancaires',
-                'filename'   => 'comptes-bancaires',
-                'searchable' => ['account_holder_name', 'account_number', 'bank_name'],
-                'columns'    => [
-                    'bank_name'           => 'Banque',
-                    'account_holder_name' => 'Titulaire',
-                    'account_number'      => 'N° Compte',
-                    'type'                => 'Type',
-                    'balance'             => 'Solde',
-                    'is_active'           => 'Actif',
-                ],
-            ],
-
             'expenses' => [
                 'model'      => Expense::class,
                 'permission' => 'finance.expenses.view',
@@ -481,24 +464,6 @@ class ExportController extends Controller
                     'start_date'       => 'Début',
                     'end_date'         => 'Fin',
                     'status'           => 'Statut',
-                ],
-            ],
-
-            'money-transfers' => [
-                'model'      => MoneyTransfer::class,
-                'permission' => 'finance.money_transfers.view',
-                'title'      => 'Liste des Virements',
-                'filename'   => 'virements',
-                'with'       => ['fromBankAccount', 'toBankAccount'],
-                'searchable' => ['reference_number'],
-                'filters'    => ['status' => 'status'],
-                'columns'    => [
-                    'reference_number'       => 'Référence',
-                    'fromBankAccount.bank_name' => 'De (Banque)',
-                    'toBankAccount.bank_name'   => 'Vers (Banque)',
-                    'amount'                 => 'Montant',
-                    'transfer_date'          => 'Date',
-                    'status'                 => 'Statut',
                 ],
             ],
 

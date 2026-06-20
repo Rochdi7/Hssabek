@@ -2,7 +2,6 @@
 
 namespace App\Models\Sales;
 
-use App\Models\Finance\BankAccount;
 use App\Traits\BelongsToTenant;
 use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
@@ -21,7 +20,6 @@ class Payment extends Model
     protected $fillable = [
         'customer_id',
         'payment_method_id',
-        'bank_account_id',
         'amount',
         'status',
         'payment_date',
@@ -45,11 +43,6 @@ class Payment extends Model
     public function paymentMethod(): BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(BankAccount::class);
     }
 
     public function allocations(): HasMany

@@ -380,16 +380,16 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">{{ __('Nom de la banque') }} <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="bank_name" required placeholder="{{ __('Ex: Attijariwafa Bank') }}">
+                                <input type="text" class="form-control" name="bank_name" placeholder="{{ __('Ex: Attijariwafa Bank') }}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">{{ __('Titulaire du compte') }} <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="bank_account_holder" required placeholder="{{ __('Ex: Société ABC SARL') }}">
+                                <input type="text" class="form-control" name="bank_account_holder" placeholder="{{ __('Ex: Société ABC SARL') }}">
                             </div>
                             <input type="hidden" name="bank_account_number" value="-">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">{{ __('Type de compte') }} <span class="text-danger">*</span></label>
-                                <select class="form-select" name="bank_account_type" required>
+                                <select class="form-select" name="bank_account_type">
                                     <option value="current" selected>{{ __('Compte courant') }}</option>
                                     <option value="business">{{ __('Compte professionnel') }}</option>
                                     <option value="savings">{{ __('Compte épargne') }}</option>

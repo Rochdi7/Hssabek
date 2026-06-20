@@ -70,24 +70,6 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label">{{ __('Compte bancaire') }} <span class="text-danger">*</span></label>
-                                                    <select name="bank_account_id"
-                                                        class="select @error('bank_account_id') is-invalid @enderror" required>
-                                                        <option value="">{{ __('Sélectionner un compte') }}</option>
-                                                        @foreach ($bankAccounts as $account)
-                                                            <option value="{{ $account->id }}"
-                                                                {{ old('bank_account_id') == $account->id ? 'selected' : '' }}>
-                                                                {{ $account->bank_name }} — {{ $account->account_number }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('bank_account_id')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label class="form-label">{{ __('Montant') }} <span class="text-danger">*</span></label>

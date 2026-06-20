@@ -19,7 +19,6 @@ class PlanController extends Controller
         'max_quotes_per_month',
         'max_exports_per_month',
         'max_warehouses',
-        'max_bank_accounts',
         'max_storage_mb',
     ];
 
@@ -76,7 +75,6 @@ class PlanController extends Controller
             'max_quotes_per_month' => 'nullable|integer|min:1',
             'max_exports_per_month' => 'nullable|integer|min:1',
             'max_warehouses' => 'nullable|integer|min:1',
-            'max_bank_accounts' => 'nullable|integer|min:1',
             'max_storage_mb' => 'nullable|integer|min:1',
         ], [
             'name.required' => 'Le nom du plan est obligatoire.',
@@ -160,7 +158,6 @@ class PlanController extends Controller
             'max_quotes_per_month' => 'nullable|integer|min:1',
             'max_exports_per_month' => 'nullable|integer|min:1',
             'max_warehouses' => 'nullable|integer|min:1',
-            'max_bank_accounts' => 'nullable|integer|min:1',
             'max_storage_mb' => 'nullable|integer|min:1',
         ], [
             'name.required' => 'Le nom du plan est obligatoire.',

@@ -20,6 +20,10 @@
                                         <a href="{{ route('bo.sales.delivery-challans.download', $deliveryChallan) }}" target="_blank"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                            data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
+                                            <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
+                                        </button>
                                         <a href="{{ route('bo.sales.delivery-challans.edit', $deliveryChallan) }}"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
@@ -97,4 +101,44 @@
             @endcomponent
         </div>
     </div>
+
+{{-- Modal Changer Statut --}}
+<div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut du bon de livraison') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
+            </div>
+            <form method="POST" action="{{ route('bo.sales.delivery-challans.change-status', $deliveryChallan) }}">
+                @csrf
+                <div class="modal-body">
+                    <p class="text-muted mb-3">{{ __('Statut actuel :') }}
+                        <strong>
+                            @switch($deliveryChallan->status)
+                                @case('draft') {{ __('Brouillon') }} @break
+                                @case('issued') {{ __('Émis') }} @break
+                                @case('delivered') {{ __('Livré') }} @break
+                                @case('cancelled') {{ __('Annulé') }} @break
+                            @endswitch
+                        </strong>
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Nouveau statut') }}</label>
+                        <select name="status" class="form-select" required>
+                            <option value="draft" @selected($deliveryChallan->status === 'draft')>{{ __('Brouillon') }}</option>
+                            <option value="issued" @selected($deliveryChallan->status === 'issued')>{{ __('Émis') }}</option>
+                            <option value="delivered" @selected($deliveryChallan->status === 'delivered')>{{ __('Livré') }}</option>
+                            <option value="cancelled" @selected($deliveryChallan->status === 'cancelled')>{{ __('Annulé') }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

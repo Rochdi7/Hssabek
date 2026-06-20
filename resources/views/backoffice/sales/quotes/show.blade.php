@@ -12,6 +12,10 @@
                             <h6><a href="{{ route('bo.sales.quotes.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Devis') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
                                 <a href="{{ route('bo.sales.quotes.download', $quote) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                                <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
+                                    data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
+                                    <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
+                                </button>
                                 @if($quote->status === 'draft')
                                     <a href="{{ route('bo.sales.quotes.edit', $quote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                     <button type="button" class="btn btn-primary d-inline-flex align-items-center me-3"
@@ -20,7 +24,7 @@
                                         data-phone="{{ $quote->customer->phone ?? '' }}"
                                         data-doc-number="{{ $quote->number }}"
                                         data-doc-type="le devis"
-                                        data-download-url="{{ route('bo.sales.quotes.download', $quote) }}">
+                                        data-download-url="{{ route('public.quote.download', $quote->public_token) }}">
                                         <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}
                                     </button>
                                 @endif
@@ -279,6 +283,50 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Changer Statut --}}
+<div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut du devis') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
+            </div>
+            <form method="POST" action="{{ route('bo.sales.quotes.change-status', $quote) }}">
+                @csrf
+                <div class="modal-body">
+                    <p class="text-muted mb-3">{{ __('Statut actuel :') }}
+                        <strong>
+                            @switch($quote->status)
+                                @case('draft') {{ __('Brouillon') }} @break
+                                @case('sent') {{ __('Envoyé') }} @break
+                                @case('accepted') {{ __('Accepté') }} @break
+                                @case('rejected') {{ __('Rejeté') }} @break
+                                @case('expired') {{ __('Expiré') }} @break
+                                @case('cancelled') {{ __('Annulé') }} @break
+                            @endswitch
+                        </strong>
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Nouveau statut') }}</label>
+                        <select name="status" class="form-select" required>
+                            <option value="draft" @selected($quote->status === 'draft')>{{ __('Brouillon') }}</option>
+                            <option value="sent" @selected($quote->status === 'sent')>{{ __('Envoyé') }}</option>
+                            <option value="accepted" @selected($quote->status === 'accepted')>{{ __('Accepté') }}</option>
+                            <option value="rejected" @selected($quote->status === 'rejected')>{{ __('Rejeté') }}</option>
+                            <option value="expired" @selected($quote->status === 'expired')>{{ __('Expiré') }}</option>
+                            <option value="cancelled" @selected($quote->status === 'cancelled')>{{ __('Annulé') }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

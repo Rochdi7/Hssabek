@@ -15,7 +15,6 @@ class UpdateDebitNoteRequest extends TenantFormRequest
     {
         return [
             'supplier_id'       => ['sometimes', 'uuid', $this->tenantExists('suppliers')],
-            'bank_account_id'   => ['required', 'uuid', $this->tenantExists('bank_accounts')],
             'purchase_order_id' => ['sometimes', 'nullable', 'uuid', $this->tenantExists('purchase_orders')],
             'vendor_bill_id'    => ['sometimes', 'nullable', 'uuid', $this->tenantExists('vendor_bills')],
             'debit_note_date'   => ['sometimes', 'date'],
@@ -39,8 +38,6 @@ class UpdateDebitNoteRequest extends TenantFormRequest
     public function messages(): array
     {
         return [
-            'bank_account_id.required'    => __('Le compte bancaire est obligatoire.'),
-            'bank_account_id.exists'      => __('Le compte bancaire sélectionné est invalide.'),
             'supplier_id.exists'          => __('Le fournisseur sélectionné est invalide.'),
             'purchase_order_id.exists'    => __('Le bon de commande sélectionné est invalide.'),
             'vendor_bill_id.exists'       => __('La facture fournisseur sélectionnée est invalide.'),

@@ -16,7 +16,9 @@ class BankAccountControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        ['tenant' => $this->tenant, 'user' => $this->adminUser] = $this->createTenantWithAdmin();
+        // Bank Accounts module has been removed from the UI/workflow.
+        // The model/table are retained only for historical-data safety.
+        $this->markTestSkipped('Bank Accounts module removed — routes no longer registered.');
     }
 
     public function test_index_lists_bank_accounts(): void

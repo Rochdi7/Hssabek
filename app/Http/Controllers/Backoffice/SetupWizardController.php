@@ -76,14 +76,7 @@ class SetupWizardController extends Controller
             // Logo (optional)
             'logo' => 'nullable|image|max:2048',
 
-            // Step 7 — Bank account (required)
-            'bank_name'            => 'required|string|max:255',
-            'bank_account_holder'  => 'required|string|max:255',
-            'bank_account_number'  => 'required|string|max:50',
-            'bank_account_type'    => 'required|string|in:current,savings,business,other',
-            'bank_branch'          => 'nullable|string|max:255',
-            'bank_swift'           => 'nullable|string|max:20',
-            'bank_opening_balance' => 'nullable|numeric|min:0',
+            // Step 7 — Bank account (removed: no longer required)
 
             // Step 8 — Warehouse (required)
             'warehouse_name'    => 'required|string|max:255',
@@ -202,21 +195,7 @@ class SetupWizardController extends Controller
             }
         }
 
-        // ── Bank account (required) ──
-        $openingBalance = (float) ($request->input('bank_opening_balance', 0));
-        BankAccount::create([
-            'tenant_id'          => $tenant->id,
-            'bank_name'          => $request->input('bank_name'),
-            'account_holder_name' => $request->input('bank_account_holder'),
-            'account_number'     => $request->input('bank_account_number'),
-            'account_type'       => $request->input('bank_account_type'),
-            'branch'             => $request->input('bank_branch'),
-            'ifsc_code'          => $request->input('bank_swift'),
-            'currency'           => $request->input('currency', 'MAD'),
-            'opening_balance'    => $openingBalance,
-            'current_balance'    => $openingBalance,
-            'is_active'          => true,
-        ]);
+        // ── Bank account step removed (no longer part of the workflow) ──
 
         // ── Warehouse (from wizard step 8) ──
         if (!Warehouse::where('tenant_id', $tenant->id)->exists()) {

@@ -19,7 +19,6 @@ class CreditNote extends Model
     protected $fillable = [
         'customer_id',
         'invoice_id',
-        'bank_account_id',
         'number',
         'reference_number',
         'status',
@@ -42,11 +41,6 @@ class CreditNote extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(\App\Models\CRM\Customer::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function invoice(): BelongsTo

@@ -64,7 +64,7 @@ class QuoteController extends Controller
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
 
         $nextReference = app(DocumentNumberService::class)->preview('quote_ref');
 
@@ -126,7 +126,7 @@ class QuoteController extends Controller
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
 
         $nextReference = app(DocumentNumberService::class)->preview('quote_ref');
 
@@ -204,6 +204,30 @@ class QuoteController extends Controller
 
         return redirect()->route('bo.sales.quotes.show', $quote)
             ->with('success', __('Devis envoyé au client par email.'));
+    }
+
+    public function changeStatus(Quote $quote, \Illuminate\Http\Request $request)
+    {
+        $this->authorize('update', $quote);
+
+        $statuses = ['draft', 'sent', 'accepted', 'rejected', 'expired', 'cancelled'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $updates = ['status' => $new];
+        if ($new === 'accepted' && !$quote->accepted_at) {
+            $updates['accepted_at'] = now();
+        }
+        if ($new === 'sent' && !$quote->sent_at) {
+            $updates['sent_at'] = now();
+        }
+
+        $quote->update($updates);
+        \App\Services\Reports\ReportService::flushTenantCache();
+
+        return redirect()->route('bo.sales.quotes.show', $quote)
+            ->with('success', __('Statut du devis mis à jour avec succès.'));
     }
 
     public function convertToInvoice(Quote $quote)

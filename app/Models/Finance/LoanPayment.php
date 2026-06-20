@@ -17,7 +17,6 @@ class LoanPayment extends Model
         'amount',
         'payment_date',
         'payment_mode',
-        'bank_account_id',
         'note',
     ];
 
@@ -29,10 +28,5 @@ class LoanPayment extends Model
     public function loan(): BelongsTo
     {
         return $this->belongsTo(Loan::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(BankAccount::class);
     }
 }

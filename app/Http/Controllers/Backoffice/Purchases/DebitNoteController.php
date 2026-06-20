@@ -51,7 +51,7 @@ class DebitNoteController extends Controller
         $vendorBills = VendorBill::with('supplier')->orderBy('issue_date', 'desc')->limit(50)->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('debit_note_ref');
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
@@ -89,7 +89,7 @@ class DebitNoteController extends Controller
         $vendorBills = VendorBill::with('supplier')->orderBy('issue_date', 'desc')->limit(50)->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('debit_note_ref');
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
@@ -168,5 +168,20 @@ class DebitNoteController extends Controller
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
             ->with('success', __('Note de débit envoyée au fournisseur par email.'));
+    }
+
+    public function changeStatus(DebitNote $debitNote, \Illuminate\Http\Request $request)
+    {
+        $this->authorize('update', $debitNote);
+
+        $statuses = ['draft', 'issued', 'applied', 'void'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $debitNote->update(['status' => $new]);
+
+        return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
+            ->with('success', __('Statut de la note de débit mis à jour avec succès.'));
     }
 }

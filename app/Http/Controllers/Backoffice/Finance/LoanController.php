@@ -64,8 +64,8 @@ class LoanController extends Controller
     {
         $this->authorize('view', $loan);
 
-        $loan->load(['payments.bankAccount', 'createdBy']);
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $loan->load(['createdBy']);
+        $bankAccounts = collect();
 
         return view('backoffice.finance.loans.show', compact('loan', 'bankAccounts'));
     }

@@ -71,7 +71,7 @@ class InvoiceController extends Controller
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
         $paymentMethods = PaymentMethod::orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $signatures = Signature::where('status', true)->orderBy('name')->get();
         $defaultSignature = $signatures->firstWhere('is_default', true);
 
@@ -139,7 +139,7 @@ class InvoiceController extends Controller
         $units = Unit::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $signatures = Signature::where('status', true)->orderBy('name')->get();
         $defaultSignature = $signatures->firstWhere('is_default', true);
 
@@ -217,6 +217,30 @@ class InvoiceController extends Controller
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
             ->with('success', __('Facture envoyée au client par email.'));
+    }
+
+    public function changeStatus(Invoice $invoice, \Illuminate\Http\Request $request)
+    {
+        $this->authorize('update', $invoice);
+
+        $statuses = ['draft', 'sent', 'partial', 'paid', 'overdue', 'void'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $updates = ['status' => $new];
+        if ($new === 'sent' && !$invoice->sent_at) {
+            $updates['sent_at'] = now();
+        }
+        if ($new === 'paid' && !$invoice->paid_at) {
+            $updates['paid_at'] = now();
+        }
+
+        $invoice->update($updates);
+        \App\Services\Reports\ReportService::flushTenantCache();
+
+        return redirect()->route('bo.sales.invoices.show', $invoice)
+            ->with('success', __('Statut de la facture mis à jour avec succès.'));
     }
 
     public function void(Invoice $invoice)

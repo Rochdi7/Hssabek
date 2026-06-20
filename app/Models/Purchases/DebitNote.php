@@ -20,7 +20,6 @@ class DebitNote extends Model
         'supplier_id',
         'purchase_order_id',
         'vendor_bill_id',
-        'bank_account_id',
         'number',
         'reference_number',
         'status',
@@ -57,11 +56,6 @@ class DebitNote extends Model
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function purchaseOrder(): BelongsTo

@@ -6,7 +6,6 @@ use App\Models\Billing\Plan;
 use App\Models\Billing\Subscription;
 use App\Models\CRM\Customer;
 use App\Models\Catalog\Product;
-use App\Models\Finance\BankAccount;
 use App\Models\Inventory\Warehouse;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Quote;
@@ -28,7 +27,6 @@ class PlanLimitService
         'quotes_per_month'   => ['limit' => 'max_quotes_per_month',   'monthly' => true],
         'exports_per_month'  => ['limit' => 'max_exports_per_month',  'monthly' => true],
         'warehouses'         => ['limit' => 'max_warehouses',         'monthly' => false],
-        'bank_accounts'      => ['limit' => 'max_bank_accounts',      'monthly' => false],
     ];
 
     /**
@@ -65,7 +63,7 @@ class PlanLimitService
     /**
      * Check if the tenant can create a new resource of the given type.
      *
-     * @param string $resource One of: users, customers, products, invoices_per_month, quotes_per_month, exports_per_month, warehouses, bank_accounts
+     * @param string $resource One of: users, customers, products, invoices_per_month, quotes_per_month, exports_per_month, warehouses
      * @return bool true if allowed (limit not reached or unlimited)
      */
     public function canCreate(string $resource): bool
@@ -156,7 +154,6 @@ class PlanLimitService
             'quotes_per_month' => $this->countMonthly(Quote::class),
             'exports_per_month' => $this->countMonthlyExports(),
             'warehouses' => Warehouse::count(),
-            'bank_accounts' => BankAccount::count(),
             default => 0,
         };
     }
@@ -216,7 +213,6 @@ class PlanLimitService
             'quotes_per_month'   => 'Devis / mois',
             'exports_per_month'  => 'Exports / mois',
             'warehouses'         => 'Entrepôts',
-            'bank_accounts'      => 'Comptes bancaires',
         ];
 
         $icons = [
@@ -227,7 +223,6 @@ class PlanLimitService
             'quotes_per_month'   => 'isax-document-text',
             'exports_per_month'  => 'isax-document-download',
             'warehouses'         => 'isax-building',
-            'bank_accounts'      => 'isax-bank',
         ];
 
         foreach (self::RESOURCE_MAP as $key => $config) {
@@ -270,7 +265,6 @@ class PlanLimitService
             'quotes_per_month'   => 'Devis / mois',
             'exports_per_month'  => 'Exports / mois',
             'warehouses'         => 'Entrepôts',
-            'bank_accounts'      => 'Comptes bancaires',
         ];
 
         $resources = [];
@@ -307,7 +301,6 @@ class PlanLimitService
                 ->where('created_at', '>=', Carbon::now()->startOfMonth())->count(),
             'exports_per_month' => $this->countMonthlyExportsForTenant($tenantId),
             'warehouses' => Warehouse::withoutGlobalScopes()->where('tenant_id', $tenantId)->count(),
-            'bank_accounts' => BankAccount::withoutGlobalScopes()->where('tenant_id', $tenantId)->count(),
             default => 0,
         };
     }
@@ -346,7 +339,6 @@ class PlanLimitService
             'quotes_per_month' => "Vous avez atteint la limite de devis mensuels de {$planName}. Veuillez mettre à niveau votre plan.",
             'exports_per_month' => "Vous avez atteint la limite d'exports mensuels de {$planName}. Veuillez mettre à niveau votre plan.",
             'warehouses' => "Vous avez atteint la limite d'entrepôts de {$planName}. Veuillez mettre à niveau votre plan.",
-            'bank_accounts' => "Vous avez atteint la limite de comptes bancaires de {$planName}. Veuillez mettre à niveau votre plan.",
             default => "Vous avez atteint la limite de votre plan. Veuillez mettre à niveau.",
         };
     }

@@ -140,7 +140,6 @@
                                             'max_quotes_per_month'   => __('Devis / mois max'),
                                             'max_exports_per_month'  => __('Exports / mois max'),
                                             'max_warehouses'         => __('Entrepôts max'),
-                                            'max_bank_accounts'      => __('Comptes bancaires max'),
                                             'max_storage_mb'         => __('Stockage max (Mo)'),
                                         ];
                                     @endphp

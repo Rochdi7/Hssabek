@@ -59,12 +59,10 @@ class PermissionSeeder extends Seeder
 
             // Finance
             'finance' => [
-                'bank_accounts',
                 'expenses',
                 'incomes',
                 'categories',
                 'loans',
-                'money_transfers',
             ],
 
             // Pro

@@ -29,7 +29,6 @@ class Plan extends Model
         'max_quotes_per_month',
         'max_exports_per_month',
         'max_warehouses',
-        'max_bank_accounts',
         'max_storage_mb',
     ];
 
@@ -46,7 +45,6 @@ class Plan extends Model
         'max_quotes_per_month' => 'integer',
         'max_exports_per_month' => 'integer',
         'max_warehouses' => 'integer',
-        'max_bank_accounts' => 'integer',
         'max_storage_mb' => 'integer',
     ];
 

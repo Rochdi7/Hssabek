@@ -15,11 +15,6 @@ class StoreIncomeRequest extends BaseFormRequest
             'amount'            => 'required|numeric|min:0.01',
             'income_date'       => 'required|date',
             'payment_mode'      => 'required|in:cash,bank_transfer,card,cheque,other',
-            'bank_account_id'   => [
-                'nullable',
-                'uuid',
-                Rule::exists('bank_accounts', 'id')->where('tenant_id', TenantContext::id()),
-            ],
             'customer_id'       => [
                 'nullable',
                 'uuid',
@@ -43,7 +38,6 @@ class StoreIncomeRequest extends BaseFormRequest
             'income_date.required'   => __('La date du revenu est obligatoire.'),
             'payment_mode.required'  => __('Le mode de paiement est obligatoire.'),
             'payment_mode.in'        => __('Le mode de paiement est invalide.'),
-            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
             'customer_id.exists'     => __('Le client sélectionné est invalide.'),
             'category_id.exists'     => __('La catégorie sélectionnée est invalide.'),
         ];

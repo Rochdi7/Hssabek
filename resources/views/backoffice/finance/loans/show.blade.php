@@ -183,7 +183,7 @@
                                                                 @default {{ __('Autre') }}
                                                             @endswitch
                                                         </td>
-                                                        <td>{{ $payment->bankAccount?->bank_name ?? '—' }}</td>
+                                                        <td>—</td>
                                                         <td>{{ $payment->note ?? '—' }}</td>
                                                         <td>
                                                             <form method="POST"
@@ -268,27 +268,6 @@
                                                             <option value="other" {{ old('payment_mode') === 'other' ? 'selected' : '' }}>{{ __('Autre') }}</option>
                                                         </select>
                                                         @error('payment_mode')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-6">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">{{ __('Compte bancaire') }}</label>
-                                                        <select class="form-select @error('bank_account_id') is-invalid @enderror"
-                                                            name="bank_account_id">
-                                                            <option value="">{{ __('— Sélectionner —') }}</option>
-                                                            @foreach ($bankAccounts as $bankAccount)
-                                                                <option value="{{ $bankAccount->id }}"
-                                                                    data-balance="{{ number_format($bankAccount->current_balance, 2, ',', ' ') }}"
-                                                                    data-currency="{{ $bankAccount->currency }}"
-                                                                    {{ old('bank_account_id') == $bankAccount->id ? 'selected' : '' }}>
-                                                                    {{ $bankAccount->bank_name }} — {{ $bankAccount->account_number }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
-                                                        @error('bank_account_id')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
                                                     </div>

@@ -52,16 +52,6 @@ class BankAccount extends Model
         return $this->hasMany(Income::class);
     }
 
-    public function outgoingTransfers(): HasMany
-    {
-        return $this->hasMany(MoneyTransfer::class, 'from_bank_account_id');
-    }
-
-    public function incomingTransfers(): HasMany
-    {
-        return $this->hasMany(MoneyTransfer::class, 'to_bank_account_id');
-    }
-
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);

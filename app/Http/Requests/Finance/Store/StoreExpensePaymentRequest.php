@@ -14,11 +14,6 @@ class StoreExpensePaymentRequest extends BaseFormRequest
             'amount'          => 'required|numeric|min:0.01',
             'payment_date'    => 'required|date',
             'payment_mode'    => 'required|in:cash,bank_transfer,card,cheque,other',
-            'bank_account_id' => [
-                'nullable',
-                'uuid',
-                Rule::exists('bank_accounts', 'id')->where('tenant_id', TenantContext::id()),
-            ],
             'note'            => 'nullable|string|max:500',
         ];
     }
@@ -32,7 +27,6 @@ class StoreExpensePaymentRequest extends BaseFormRequest
             'payment_date.required'  => __('La date du paiement est obligatoire.'),
             'payment_mode.required'  => __('Le mode de paiement est obligatoire.'),
             'payment_mode.in'        => __('Le mode de paiement est invalide.'),
-            'bank_account_id.exists' => __('Le compte bancaire sélectionné est invalide.'),
         ];
     }
 }

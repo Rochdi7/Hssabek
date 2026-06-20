@@ -2,7 +2,6 @@
 
 namespace App\Services\Purchases;
 
-use App\Models\Finance\BankAccount;
 use App\Models\Purchases\SupplierPayment;
 use App\Models\Purchases\SupplierPaymentAllocation;
 use App\Models\Purchases\VendorBill;
@@ -46,18 +45,9 @@ class SupplierPaymentService
                 'payment_date' => $validated['paid_at'],
                 'paid_at' => now(),
                 'payment_method_id' => $validated['payment_method_id'] ?? null,
-                'bank_account_id' => $validated['bank_account_id'] ?? null,
                 'reference_number' => $validated['reference_number'] ?? null,
                 'notes' => $validated['notes'] ?? null,
             ]);
-
-            // Debit bank account (expense: money going out)
-            if ($payment->bank_account_id) {
-                $bankAccount = BankAccount::where('id', $payment->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                $bankAccount->debit($paymentAmount);
-            }
 
             foreach ($allocations as $alloc) {
                 $amountApplied = (float) $alloc['amount_applied'];
@@ -105,14 +95,6 @@ class SupplierPaymentService
     {
         DB::transaction(function () use ($payment) {
             $payment->loadMissing('allocations');
-
-            // Reverse bank account debit (credit the amount back)
-            if ($payment->bank_account_id) {
-                $bankAccount = BankAccount::where('id', $payment->bank_account_id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-                $bankAccount->credit((float) $payment->amount);
-            }
 
             $vendorBillIds = $payment->allocations->pluck('vendor_bill_id')->unique();
 
