@@ -346,11 +346,6 @@
                             <li class="menu-title"><span>{{ __('Finance') }}</span></li>
                             <li>
                                 <ul>
-                                    <li class="{{ request()->routeIs('bo.finance.bank-accounts.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.finance.bank-accounts.index') }}">
-                                            <i class="isax isax-bank5"></i><span>{{ __('Comptes bancaires') }}</span>
-                                        </a>
-                                    </li>
                                     <li class="{{ request()->routeIs('bo.finance.expenses.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.finance.expenses.index') }}">
                                             <i class="isax isax-money-send5"></i><span>{{ __('Dépenses') }}</span>
@@ -359,11 +354,6 @@
                                     <li class="{{ request()->routeIs('bo.finance.incomes.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.finance.incomes.index') }}">
                                             <i class="isax isax-money-recive5"></i><span>{{ __('Revenus') }}</span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->routeIs('bo.finance.money-transfers.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.finance.money-transfers.index') }}">
-                                            <i class="isax isax-arrange-square-25"></i><span>{{ __('Transferts') }}</span>
                                         </a>
                                     </li>
                                     <li class="{{ request()->routeIs('bo.finance.categories.*') ? 'active' : '' }}">

@@ -20,6 +20,10 @@
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
                     <a href="{{ route('bo.purchases.purchase-orders.download', $purchaseOrder) }}" target="_blank" class="btn btn-outline-white d-flex align-items-center fs-14 fw-semibold">
                         <i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                    <button type="button" class="btn btn-outline-white d-flex align-items-center fs-14 fw-semibold"
+                        data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
+                        <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
+                    </button>
                     @if(in_array($purchaseOrder->status, ['draft', 'sent', 'confirmed', 'partially_received']))
                         <form method="POST" action="{{ route('bo.purchases.purchase-orders.receive', $purchaseOrder) }}" class="d-inline">
                             @csrf
@@ -249,6 +253,50 @@
     <!-- ========================
                 End Page Content
             ========================= -->
+
+{{-- Modal Changer Statut --}}
+<div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut du bon de commande') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
+            </div>
+            <form method="POST" action="{{ route('bo.purchases.purchase-orders.change-status', $purchaseOrder) }}">
+                @csrf
+                <div class="modal-body">
+                    <p class="text-muted mb-3">{{ __('Statut actuel :') }}
+                        <strong>
+                            @switch($purchaseOrder->status)
+                                @case('draft') {{ __('Brouillon') }} @break
+                                @case('sent') {{ __('Envoyé') }} @break
+                                @case('confirmed') {{ __('Confirmé') }} @break
+                                @case('partially_received') {{ __('Partiellement reçu') }} @break
+                                @case('received') {{ __('Reçu') }} @break
+                                @case('cancelled') {{ __('Annulé') }} @break
+                            @endswitch
+                        </strong>
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Nouveau statut') }}</label>
+                        <select name="status" class="form-select" required>
+                            <option value="draft" @selected($purchaseOrder->status === 'draft')>{{ __('Brouillon') }}</option>
+                            <option value="sent" @selected($purchaseOrder->status === 'sent')>{{ __('Envoyé') }}</option>
+                            <option value="confirmed" @selected($purchaseOrder->status === 'confirmed')>{{ __('Confirmé') }}</option>
+                            <option value="partially_received" @selected($purchaseOrder->status === 'partially_received')>{{ __('Partiellement reçu') }}</option>
+                            <option value="received" @selected($purchaseOrder->status === 'received')>{{ __('Reçu') }}</option>
+                            <option value="cancelled" @selected($purchaseOrder->status === 'cancelled')>{{ __('Annulé') }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {{-- Modal Envoyer --}}
 <div class="modal fade" id="modalEnvoyer" tabindex="-1" aria-labelledby="modalEnvoyerLabel" aria-hidden="true">

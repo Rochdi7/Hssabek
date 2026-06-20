@@ -97,6 +97,10 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
         Route::post('/{purchaseOrder}/send', [PurchaseOrderController::class, 'send'])
             ->middleware('permission:purchases.purchase-orders.edit')
             ->name('send');
+
+        Route::post('/{purchaseOrder}/change-status', [PurchaseOrderController::class, 'changeStatus'])
+            ->middleware('permission:purchases.purchase-orders.edit')
+            ->name('change-status');
     });
 
     // Vendor Bills
@@ -136,6 +140,10 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
         Route::post('/{vendorBill}/send', [VendorBillController::class, 'send'])
             ->middleware('permission:purchases.vendor-bills.edit')
             ->name('send');
+
+        Route::post('/{vendorBill}/change-status', [VendorBillController::class, 'changeStatus'])
+            ->middleware('permission:purchases.vendor-bills.edit')
+            ->name('change-status');
     });
 
     // Goods Receipts
@@ -218,6 +226,10 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
         Route::post('/{debitNote}/send', [DebitNoteController::class, 'send'])
             ->middleware('permission:purchases.debit_notes.edit')
             ->name('send');
+
+        Route::post('/{debitNote}/change-status', [DebitNoteController::class, 'changeStatus'])
+            ->middleware('permission:purchases.debit_notes.edit')
+            ->name('change-status');
     });
 
     // Supplier Payments
@@ -253,5 +265,9 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
         Route::get('/{supplierPayment}/download', [SupplierPaymentController::class, 'download'])
             ->middleware(['permission:purchases.supplier_payments.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
             ->name('download');
+
+        Route::post('/{supplierPayment}/change-status', [SupplierPaymentController::class, 'changeStatus'])
+            ->middleware('permission:purchases.supplier_payments.edit')
+            ->name('change-status');
     });
 });

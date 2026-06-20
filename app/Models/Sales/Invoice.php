@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -19,7 +20,6 @@ class Invoice extends Model
 
     protected $fillable = [
         'customer_id',
-        'bank_account_id',
         'quote_id',
         'number',
         'reference_number',
@@ -42,7 +42,17 @@ class Invoice extends Model
         'bank_details_snapshot',
         'sent_at',
         'paid_at',
+        'public_token',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (self $invoice) {
+            if (empty($invoice->public_token)) {
+                $invoice->public_token = (string) Str::uuid();
+            }
+        });
+    }
 
     protected $casts = [
         'issue_date' => 'date',
@@ -65,11 +75,6 @@ class Invoice extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(\App\Models\CRM\Customer::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function quote(): BelongsTo

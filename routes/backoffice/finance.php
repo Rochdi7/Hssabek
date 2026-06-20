@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\Backoffice\Finance\BankAccountController;
 use App\Http\Controllers\Backoffice\Finance\ExpenseController;
 use App\Http\Controllers\Backoffice\Finance\IncomeController;
 use App\Http\Controllers\Backoffice\Finance\FinanceCategoryController;
 use App\Http\Controllers\Backoffice\Finance\LoanController;
-use App\Http\Controllers\Backoffice\Finance\MoneyTransferController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,16 +14,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('finance')->as('finance.')->group(function () {
 
-    // Bank Accounts
-    Route::prefix('bank-accounts')->as('bank-accounts.')->group(function () {
-        Route::get('/', [BankAccountController::class, 'index'])->middleware('permission:finance.bank_accounts.view')->name('index');
-        Route::get('/create', [BankAccountController::class, 'create'])->middleware(['permission:finance.bank_accounts.create', 'plan.limit:bank_accounts'])->name('create');
-        Route::post('/', [BankAccountController::class, 'store'])->middleware(['permission:finance.bank_accounts.create', 'plan.limit:bank_accounts'])->name('store');
-        Route::get('/{bank_account}', [BankAccountController::class, 'show'])->middleware('permission:finance.bank_accounts.view')->name('show');
-        Route::get('/{bank_account}/edit', [BankAccountController::class, 'edit'])->middleware('permission:finance.bank_accounts.edit')->name('edit');
-        Route::put('/{bank_account}', [BankAccountController::class, 'update'])->middleware('permission:finance.bank_accounts.edit')->name('update');
-        Route::delete('/{bank_account}', [BankAccountController::class, 'destroy'])->middleware('permission:finance.bank_accounts.delete')->name('destroy');
-    });
+    // Bank Accounts — MODULE REMOVED (Comptes bancaires no longer part of the workflow).
+    // Routes disabled; BankAccountController + table kept only for historical-data safety.
 
     // Expenses
     Route::prefix('expenses')->as('expenses.')->group(function () {
@@ -62,16 +52,7 @@ Route::prefix('finance')->as('finance.')->group(function () {
     // Currencies — REMOVED: managed via Settings > Currencies (bo.settings.currencies.*)
     // See routes/backoffice/settings.php for the canonical currency management routes.
 
-    // Money Transfers
-    Route::prefix('money-transfers')->as('money-transfers.')->group(function () {
-        Route::get('/', [MoneyTransferController::class, 'index'])->middleware('permission:finance.money_transfers.view')->name('index');
-        Route::get('/create', [MoneyTransferController::class, 'create'])->middleware('permission:finance.money_transfers.create')->name('create');
-        Route::post('/', [MoneyTransferController::class, 'store'])->middleware('permission:finance.money_transfers.create')->name('store');
-        Route::get('/{money_transfer}', [MoneyTransferController::class, 'show'])->middleware('permission:finance.money_transfers.view')->name('show');
-        Route::get('/{money_transfer}/edit', [MoneyTransferController::class, 'edit'])->middleware('permission:finance.money_transfers.edit')->name('edit');
-        Route::put('/{money_transfer}', [MoneyTransferController::class, 'update'])->middleware('permission:finance.money_transfers.edit')->name('update');
-        Route::delete('/{money_transfer}', [MoneyTransferController::class, 'destroy'])->middleware('permission:finance.money_transfers.delete')->name('destroy');
-    });
+    // Money Transfers — MODULE REMOVED (depended on Bank Accounts, no longer part of the workflow).
 
     // Loans
     Route::prefix('loans')->as('loans.')->group(function () {

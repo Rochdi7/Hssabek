@@ -395,12 +395,6 @@
                                                                 href="javascript:void(0);"><i
                                                                     class="isax isax-document me-1"></i>{{ __('Conditions') }}</a>
                                                         </li>
-                                                        <li class="nav-item me-2" role="presentation">
-                                                            <a class="nav-link border fs-12 fw-semibold rounded"
-                                                                data-bs-toggle="tab" data-bs-target="#bank"
-                                                                href="javascript:void(0);"><i
-                                                                    class="isax isax-bank me-1"></i>{{ __('Coordonnées bancaires') }}</a>
-                                                        </li>
                                                     </ul>
                                                     <div class="tab-content">
                                                         <div class="tab-pane active show" id="notes" role="tabpanel">
@@ -412,24 +406,6 @@
                                                             <label class="form-label">{{ __('Conditions générales') }}</label>
                                                             <textarea class="form-control bg-light" name="terms" rows="3" readonly>{{ $defaultTerms }}</textarea>
                                                             <small class="text-muted mt-1 d-block"><i class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }} <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
-                                                        </div>
-                                                        <div class="tab-pane fade" id="bank" role="tabpanel">
-                                                            <label class="form-label">{{ __('Compte bancaire') }} <span class="text-danger">*</span></label>
-                                                            <select class="select @error('bank_account_id') is-invalid @enderror" name="bank_account_id" required>
-                                                                <option value="">{{ __('Sélectionner') }}</option>
-                                                                @foreach ($bankAccounts as $ba)
-                                                                    <option value="{{ $ba->id }}"
-                                                                        data-balance="{{ number_format($ba->current_balance, 2, ',', ' ') }}"
-                                                                        data-currency="{{ $ba->currency }}"
-                                                                        {{ old('bank_account_id', $purchaseOrder->bank_account_id) == $ba->id ? 'selected' : '' }}>
-                                                                        {{ $ba->account_holder_name }} -
-                                                                        {{ $ba->account_number }}
-                                                                        ({{ $ba->bank_name }})
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('bank_account_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                                            <small class="text-muted bank-balance-info mt-1 d-block" style="display:none;"></small>
                                                         </div>
                                                     </div>
                                                 </div>

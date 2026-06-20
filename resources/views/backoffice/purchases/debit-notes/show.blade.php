@@ -12,6 +12,10 @@
                             <h6><a href="{{ route('bo.purchases.debit-notes.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Notes de débit') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
                                 <a href="{{ route('bo.purchases.debit-notes.download', $debitNote) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                                <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
+                                    data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
+                                    <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
+                                </button>
                                 @if($debitNote->status === 'draft')
                                     <a href="{{ route('bo.purchases.debit-notes.edit', $debitNote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                 @endif
@@ -209,6 +213,46 @@
 
             @component('backoffice.components.footer')
             @endcomponent
+        </div>
+    </div>
+
+    {{-- Modal Changer Statut --}}
+    <div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut de la note de débit') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
+                </div>
+                <form method="POST" action="{{ route('bo.purchases.debit-notes.change-status', $debitNote) }}">
+                    @csrf
+                    <div class="modal-body">
+                        <p class="text-muted mb-3">{{ __('Statut actuel :') }}
+                            <strong>
+                                @switch($debitNote->status)
+                                    @case('draft') {{ __('Brouillon') }} @break
+                                    @case('issued') {{ __('Émis') }} @break
+                                    @case('applied') {{ __('Appliqué') }} @break
+                                    @case('void') {{ __('Annulé') }} @break
+                                @endswitch
+                            </strong>
+                        </p>
+                        <div class="mb-3">
+                            <label class="form-label">{{ __('Nouveau statut') }}</label>
+                            <select name="status" class="form-select" required>
+                                <option value="draft" @selected($debitNote->status === 'draft')>{{ __('Brouillon') }}</option>
+                                <option value="issued" @selected($debitNote->status === 'issued')>{{ __('Émis') }}</option>
+                                <option value="applied" @selected($debitNote->status === 'applied')>{{ __('Appliqué') }}</option>
+                                <option value="void" @selected($debitNote->status === 'void')>{{ __('Annulé') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

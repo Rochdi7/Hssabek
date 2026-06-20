@@ -26,7 +26,7 @@ class ExpenseController extends Controller
         $this->authorize('viewAny', Expense::class);
 
         $expenses = Expense::query()
-            ->with(['category', 'bankAccount', 'supplier'])
+            ->with(['category', 'supplier'])
             ->when($request->search, fn($q, $s) => $q->where(function ($q) use ($s) {
                 $q->where('expense_number', 'like', "%{$s}%")
                     ->orWhere('reference_number', 'like', "%{$s}%")
@@ -48,7 +48,7 @@ class ExpenseController extends Controller
         $this->authorize('create', Expense::class);
 
         $categories = FinanceCategory::where('type', 'expense')->where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $suppliers = Supplier::orderBy('name')->get();
         $nextReference = app(DocumentNumberService::class)->preview('expense_ref');
 
@@ -71,8 +71,8 @@ class ExpenseController extends Controller
     {
         $this->authorize('view', $expense);
 
-        $expense->load(['category', 'bankAccount', 'supplier', 'payments.bankAccount']);
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $expense->load(['category', 'supplier']);
+        $bankAccounts = collect();
 
         return view('backoffice.finance.expenses.show', compact('expense', 'bankAccounts'));
     }
@@ -82,7 +82,7 @@ class ExpenseController extends Controller
         $this->authorize('update', $expense);
 
         $categories = FinanceCategory::where('type', 'expense')->where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $suppliers = Supplier::orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('expense_ref');

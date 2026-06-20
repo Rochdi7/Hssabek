@@ -2,7 +2,6 @@
 
 namespace App\Models\Purchases;
 
-use App\Models\Finance\BankAccount;
 use App\Traits\BelongsToTenant;
 use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
@@ -24,7 +23,6 @@ class SupplierPayment extends Model
         'paid_at',
         'reference_number',
         'payment_method_id',
-        'bank_account_id',
         'notes',
     ];
 
@@ -47,11 +45,6 @@ class SupplierPayment extends Model
     public function paymentMethod(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Sales\PaymentMethod::class, 'payment_method_id');
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(BankAccount::class);
     }
 
     public function allocations(): HasMany

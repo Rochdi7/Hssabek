@@ -19,7 +19,6 @@ class PurchaseOrder extends Model
     protected $fillable = [
         'supplier_id',
         'warehouse_id',
-        'bank_account_id',
         'number',
         'reference_number',
         'status',
@@ -47,11 +46,6 @@ class PurchaseOrder extends Model
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function warehouse(): BelongsTo

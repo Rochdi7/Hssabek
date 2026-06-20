@@ -57,7 +57,7 @@ class PaymentController extends Controller
 
         $customers = Customer::orderBy('name')->get();
         $paymentMethods = PaymentMethod::orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
 
         $nextReference = app(DocumentNumberService::class)->preview('payment_ref');
 
@@ -75,7 +75,7 @@ class PaymentController extends Controller
 
         $invoices = Invoice::where('customer_id', $customer->id)
             ->where('amount_due', '>', 0)
-            ->whereIn('status', ['sent', 'partial', 'overdue'])
+            ->whereNotIn('status', ['void'])
             ->orderBy('issue_date')
             ->get(['id', 'number', 'total', 'amount_due', 'status', 'customer_id']);
 

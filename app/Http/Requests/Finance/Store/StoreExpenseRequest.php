@@ -16,11 +16,6 @@ class StoreExpenseRequest extends BaseFormRequest
             'expense_date'      => 'required|date',
             'payment_mode'      => 'required|in:cash,bank_transfer,card,cheque,other',
             'payment_status'    => 'required|in:unpaid,paid,partial',
-            'bank_account_id'   => [
-                'required',
-                'uuid',
-                Rule::exists('bank_accounts', 'id')->where('tenant_id', TenantContext::id()),
-            ],
             'supplier_id'       => [
                 'nullable',
                 'uuid',
@@ -47,8 +42,6 @@ class StoreExpenseRequest extends BaseFormRequest
             'payment_mode.in'         => __('Le mode de paiement est invalide.'),
             'payment_status.required' => __('Le statut de paiement est obligatoire.'),
             'payment_status.in'       => __('Le statut de paiement est invalide.'),
-            'bank_account_id.required' => __('Le compte bancaire est obligatoire.'),
-            'bank_account_id.exists'  => __('Le compte bancaire sélectionné est invalide.'),
             'supplier_id.exists'      => __('Le fournisseur sélectionné est invalide.'),
             'category_id.exists'      => __('La catégorie sélectionnée est invalide.'),
             'paid_amount.min'         => __('Le montant payé doit être supérieur à zéro.'),

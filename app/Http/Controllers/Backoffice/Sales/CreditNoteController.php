@@ -64,7 +64,7 @@ class CreditNoteController extends Controller
             ->orderBy('issue_date', 'desc')
             ->get();
 
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
@@ -117,7 +117,7 @@ class CreditNoteController extends Controller
             ->orderBy('issue_date', 'desc')
             ->get();
 
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
@@ -211,5 +211,20 @@ class CreditNoteController extends Controller
 
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
             ->with('success', __('Avoir envoyé au client par email.'));
+    }
+
+    public function changeStatus(CreditNote $creditNote, \Illuminate\Http\Request $request)
+    {
+        $this->authorize('update', $creditNote);
+
+        $statuses = ['draft', 'issued', 'applied', 'void'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $creditNote->update(['status' => $new]);
+
+        return redirect()->route('bo.sales.credit-notes.show', $creditNote)
+            ->with('success', __('Statut de l\'avoir mis à jour avec succès.'));
     }
 }

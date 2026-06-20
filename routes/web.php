@@ -156,6 +156,25 @@ Route::prefix('admin')
 
 /*
 |--------------------------------------------------------------------------
+| 📄 PUBLIC DOCUMENT DOWNLOAD (no auth required)
+|--------------------------------------------------------------------------
+|
+| These routes allow anyone with the public_token link to download a PDF.
+| Used for WhatsApp / email sharing — no account needed.
+|
+*/
+
+Route::middleware(['web', 'throttle:30,1'])->group(function () {
+    Route::get('/doc/devis/{token}', [\App\Http\Controllers\Public\PublicDocumentController::class, 'downloadQuote'])
+        ->name('public.quote.download');
+
+    Route::get('/doc/facture/{token}', [\App\Http\Controllers\Public\PublicDocumentController::class, 'downloadInvoice'])
+        ->name('public.invoice.download');
+});
+
+
+/*
+|--------------------------------------------------------------------------
 | ❌ Fallback (404)
 |--------------------------------------------------------------------------
 */

@@ -25,7 +25,7 @@ class IncomeController extends Controller
         $this->authorize('viewAny', Income::class);
 
         $incomes = Income::query()
-            ->with(['category', 'bankAccount', 'customer'])
+            ->with(['category', 'customer'])
             ->when($request->search, fn($q, $s) => $q->where(function ($q) use ($s) {
                 $q->where('income_number', 'like', "%{$s}%")
                     ->orWhere('reference_number', 'like', "%{$s}%")
@@ -46,7 +46,7 @@ class IncomeController extends Controller
         $this->authorize('create', Income::class);
 
         $categories = FinanceCategory::where('type', 'income')->where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $customers = Customer::orderBy('name')->get();
         $nextReference = app(DocumentNumberService::class)->preview('income_ref');
 
@@ -70,7 +70,7 @@ class IncomeController extends Controller
         $this->authorize('update', $income);
 
         $categories = FinanceCategory::where('type', 'income')->where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $customers = Customer::orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('income_ref');

@@ -49,7 +49,7 @@ class SupplierPaymentController extends Controller
             ->with('supplier')
             ->orderBy('issue_date')
             ->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $paymentMethods = PaymentMethod::where('is_active', true)->orderBy('name')->get();
 
         $nextReference = app(DocumentNumberService::class)->preview('supplier_payment_ref');
@@ -81,7 +81,7 @@ class SupplierPaymentController extends Controller
         $this->authorize('view', $supplierPayment);
 
         $supplierPayment->load(['supplier', 'paymentMethod', 'allocations.vendorBill']);
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $paymentMethods = PaymentMethod::where('is_active', true)->orderBy('name')->get();
 
         return view('backoffice.purchases.supplier-payments.edit', compact('supplierPayment', 'bankAccounts', 'paymentMethods'));
@@ -118,5 +118,20 @@ class SupplierPaymentController extends Controller
         abort_unless(auth()->user()->can('purchases.supplier_payments.view'), 403);
 
         return $pdfService->supplierPaymentReceiptResponse($supplierPayment, 'download');
+    }
+
+    public function changeStatus(SupplierPayment $supplierPayment, \Illuminate\Http\Request $request)
+    {
+        abort_unless($request->user()->can('purchases.supplier_payments.edit'), 403);
+
+        $statuses = ['pending', 'succeeded', 'failed', 'refunded', 'cancelled'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $supplierPayment->update(['status' => $new]);
+
+        return redirect()->route('bo.purchases.supplier-payments.show', $supplierPayment)
+            ->with('success', __('Statut du paiement fournisseur mis à jour avec succès.'));
     }
 }

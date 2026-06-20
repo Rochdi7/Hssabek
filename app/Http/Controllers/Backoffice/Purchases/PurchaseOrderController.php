@@ -57,7 +57,7 @@ class PurchaseOrderController extends Controller
         $products = Product::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $nextNumber = app(DocumentNumberService::class)->preview('purchase_order');
         $nextReference = app(DocumentNumberService::class)->preview('purchase_order_ref');
@@ -99,7 +99,7 @@ class PurchaseOrderController extends Controller
         $products = Product::orderBy('name')->get();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $nextReference = app(DocumentNumberService::class)->preview('purchase_order_ref');
 
@@ -186,5 +186,25 @@ class PurchaseOrderController extends Controller
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
             ->with('success', __('Bon de commande envoyé au fournisseur par email.'));
+    }
+
+    public function changeStatus(PurchaseOrder $purchaseOrder, \Illuminate\Http\Request $request)
+    {
+        $this->authorize('update', $purchaseOrder);
+
+        $statuses = ['draft', 'sent', 'confirmed', 'partially_received', 'received', 'cancelled'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $updates = ['status' => $new];
+        if ($new === 'sent' && !$purchaseOrder->sent_at) {
+            $updates['sent_at'] = now();
+        }
+
+        $purchaseOrder->update($updates);
+
+        return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
+            ->with('success', __('Statut du bon de commande mis à jour avec succès.'));
     }
 }

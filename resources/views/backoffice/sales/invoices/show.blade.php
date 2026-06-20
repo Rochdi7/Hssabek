@@ -20,6 +20,10 @@
                             <h6><a href="{{ route('bo.sales.invoices.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Factures') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
                                 <a href="{{ route('bo.sales.invoices.download', $invoice) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                                <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
+                                    data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
+                                    <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
+                                </button>
                                 @if($invoice->status === 'draft')
                                     <a href="{{ route('bo.sales.invoices.edit', $invoice) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i
                                             class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
@@ -29,7 +33,7 @@
                                         data-phone="{{ $invoice->customer->phone ?? '' }}"
                                         data-doc-number="{{ $invoice->number }}"
                                         data-doc-type="la facture"
-                                        data-download-url="{{ route('bo.sales.invoices.download', $invoice) }}">
+                                        data-download-url="{{ route('public.invoice.download', $invoice->public_token) }}">
                                         <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}
                                     </button>
                                 @endif
@@ -331,6 +335,50 @@
     <!-- ========================
       End Page Content
      ========================= -->
+
+{{-- Modal Changer Statut --}}
+<div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut de la facture') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
+            </div>
+            <form method="POST" action="{{ route('bo.sales.invoices.change-status', $invoice) }}">
+                @csrf
+                <div class="modal-body">
+                    <p class="text-muted mb-3">{{ __('Statut actuel :') }}
+                        <strong>
+                            @switch($invoice->status)
+                                @case('draft') {{ __('Brouillon') }} @break
+                                @case('sent') {{ __('Envoyée') }} @break
+                                @case('partial') {{ __('Partiellement payée') }} @break
+                                @case('paid') {{ __('Payée') }} @break
+                                @case('overdue') {{ __('En retard') }} @break
+                                @case('void') {{ __('Annulée') }} @break
+                            @endswitch
+                        </strong>
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Nouveau statut') }}</label>
+                        <select name="status" class="form-select" required>
+                            <option value="draft" @selected($invoice->status === 'draft')>{{ __('Brouillon') }}</option>
+                            <option value="sent" @selected($invoice->status === 'sent')>{{ __('Envoyée') }}</option>
+                            <option value="partial" @selected($invoice->status === 'partial')>{{ __('Partiellement payée') }}</option>
+                            <option value="paid" @selected($invoice->status === 'paid')>{{ __('Payée') }}</option>
+                            <option value="overdue" @selected($invoice->status === 'overdue')>{{ __('En retard') }}</option>
+                            <option value="void" @selected($invoice->status === 'void')>{{ __('Annulée') }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {{-- Modal Envoyer --}}
 <div class="modal fade" id="modalEnvoyer" tabindex="-1" aria-labelledby="modalEnvoyerLabel" aria-hidden="true">

@@ -52,7 +52,7 @@ class DeliveryChallanController extends Controller
         $invoices = Invoice::orderBy('issue_date', 'desc')->limit(50)->get();
         $products = Product::orderBy('name')->get();
 
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
@@ -93,7 +93,7 @@ class DeliveryChallanController extends Controller
         $products = Product::orderBy('name')->get();
         $deliveryChallan->load('items');
 
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $taxGroups = TaxGroup::with('rates')->orderBy('name')->get();
         $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
 
@@ -147,5 +147,20 @@ class DeliveryChallanController extends Controller
 
         return redirect()->route('bo.sales.delivery-challans.show', $deliveryChallan)
             ->with('success', __('Bon de livraison envoyé au client par email.'));
+    }
+
+    public function changeStatus(DeliveryChallan $deliveryChallan, \Illuminate\Http\Request $request)
+    {
+        $this->authorize('update', $deliveryChallan);
+
+        $statuses = ['draft', 'issued', 'delivered', 'cancelled'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $deliveryChallan->update(['status' => $new]);
+
+        return redirect()->route('bo.sales.delivery-challans.show', $deliveryChallan)
+            ->with('success', __('Statut du bon de livraison mis à jour avec succès.'));
     }
 }

@@ -20,7 +20,6 @@ class DeliveryChallan extends Model
         'customer_id',
         'quote_id',
         'invoice_id',
-        'bank_account_id',
         'number',
         'reference_number',
         'status',
@@ -61,11 +60,6 @@ class DeliveryChallan extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(\App\Models\CRM\Customer::class);
-    }
-
-    public function bankAccount(): BelongsTo
-    {
-        return $this->belongsTo(\App\Models\Finance\BankAccount::class);
     }
 
     public function quote(): BelongsTo

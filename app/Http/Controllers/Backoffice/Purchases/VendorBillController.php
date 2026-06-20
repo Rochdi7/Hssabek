@@ -62,7 +62,7 @@ class VendorBillController extends Controller
 
         $nextReference = $this->docNumberService->preview('vendor_bill_ref');
 
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $invoiceSettings = TenantContext::get()->settings->invoice_settings ?? [];
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
@@ -106,7 +106,7 @@ class VendorBillController extends Controller
 
         $nextReference = $this->docNumberService->preview('vendor_bill_ref');
 
-        $bankAccounts = BankAccount::where('is_active', true)->orderBy('bank_name')->get();
+        $bankAccounts = collect();
         $invoiceSettings = TenantContext::get()->settings->invoice_settings ?? [];
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
@@ -165,5 +165,20 @@ class VendorBillController extends Controller
 
         return redirect()->route('bo.purchases.vendor-bills.show', $vendorBill)
             ->with('success', __('Facture fournisseur envoyée par email.'));
+    }
+
+    public function changeStatus(VendorBill $vendorBill, \Illuminate\Http\Request $request)
+    {
+        $this->authorize('update', $vendorBill);
+
+        $statuses = ['draft', 'posted', 'paid', 'void'];
+        $new = $request->input('status');
+
+        abort_unless(in_array($new, $statuses), 422);
+
+        $vendorBill->update(['status' => $new]);
+
+        return redirect()->route('bo.purchases.vendor-bills.show', $vendorBill)
+            ->with('success', __('Statut de la facture fournisseur mis à jour avec succès.'));
     }
 }

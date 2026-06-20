@@ -281,7 +281,6 @@ class TenantManagementController extends Controller
             'max_quotes_per_month'   => 'nullable|integer|min:0',
             'max_exports_per_month'  => 'nullable|integer|min:0',
             'max_warehouses'         => 'nullable|integer|min:0',
-            'max_bank_accounts'      => 'nullable|integer|min:0',
             'max_storage_mb'         => 'nullable|integer|min:0',
         ]);
 

@@ -293,7 +293,7 @@ class ReportService
                 ->get();
 
             $expenses = Expense::whereBetween('expense_date', [$from, $to])
-                ->with(['category:id,name', 'supplier:id,name', 'bankAccount:id,account_holder_name'])
+                ->with(['category:id,name', 'supplier:id,name'])
                 ->latest('expense_date')
                 ->paginate($perPage)
                 ->withQueryString();

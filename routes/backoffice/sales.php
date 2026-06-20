@@ -61,6 +61,10 @@ Route::prefix('sales')->as('sales.')->group(function () {
         Route::post('/{invoice}/void', [InvoiceController::class, 'void'])
             ->middleware('permission:sales.invoices.edit')
             ->name('void');
+
+        Route::post('/{invoice}/change-status', [InvoiceController::class, 'changeStatus'])
+            ->middleware('permission:sales.invoices.edit')
+            ->name('change-status');
     });
 
     // ─── Quotes ───────────────────────────────────────────────────
@@ -104,6 +108,10 @@ Route::prefix('sales')->as('sales.')->group(function () {
         Route::post('/{quote}/send', [QuoteController::class, 'send'])
             ->middleware('permission:sales.quotes.edit')
             ->name('send');
+
+        Route::post('/{quote}/change-status', [QuoteController::class, 'changeStatus'])
+            ->middleware('permission:sales.quotes.edit')
+            ->name('change-status');
 
         Route::post('/{quote}/convert', [QuoteController::class, 'convertToInvoice'])
             ->middleware(['permission:sales.invoices.create', 'plan.limit:invoices_per_month'])
@@ -190,6 +198,10 @@ Route::prefix('sales')->as('sales.')->group(function () {
         Route::post('/{creditNote}/send', [CreditNoteController::class, 'send'])
             ->middleware('permission:sales.credit_notes.edit')
             ->name('send');
+
+        Route::post('/{creditNote}/change-status', [CreditNoteController::class, 'changeStatus'])
+            ->middleware('permission:sales.credit_notes.edit')
+            ->name('change-status');
     });
 
     // ─── Delivery Challans ────────────────────────────────────────
@@ -229,6 +241,10 @@ Route::prefix('sales')->as('sales.')->group(function () {
         Route::post('/{deliveryChallan}/send', [DeliveryChallanController::class, 'send'])
             ->middleware('permission:sales.delivery_challans.edit')
             ->name('send');
+
+        Route::post('/{deliveryChallan}/change-status', [DeliveryChallanController::class, 'changeStatus'])
+            ->middleware('permission:sales.delivery_challans.edit')
+            ->name('change-status');
     });
 
     // ─── Refunds ──────────────────────────────────────────────────
