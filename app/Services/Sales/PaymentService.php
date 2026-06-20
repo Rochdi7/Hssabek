@@ -65,6 +65,12 @@ class PaymentService
                     throw new \DomainException("Chaque facture allouée doit appartenir au même client que le paiement.");
                 }
 
+                if (!in_array($invoice->status, ['sent', 'partial', 'overdue'], true)) {
+                    throw new \DomainException(
+                        "La facture {$invoice->number} doit Ãªtre envoyÃ©e avant de pouvoir recevoir un paiement."
+                    );
+                }
+
                 // Anti-over-allocation check
                 $outstanding = (float) $invoice->amount_due;
                 $allocAmount = (float) $alloc['amount_applied'];
