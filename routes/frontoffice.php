@@ -52,4 +52,7 @@ Route::middleware(['setFrontofficeLocale'])->group(function () {
     // SEO Landing Pages
     Route::get('/auto-entrepreneur', [PageController::class, 'autoEntrepreneur'])->name('auto-entrepreneur');
 
+    // Platform Preview (shareable showcase page)
+    Route::get('/apercu-plateforme', [PageController::class, 'preview'])->name('preview');
+
 });

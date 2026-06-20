@@ -41,6 +41,11 @@ class PageController extends Controller
         return view('frontoffice.pages.features');
     }
 
+    public function preview(): View
+    {
+        return view('frontoffice.pages.preview');
+    }
+
     public function contact(): View
     {
         return view('frontoffice.pages.contact');
