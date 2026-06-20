@@ -207,19 +207,111 @@
             const allocationError = document.getElementById('allocation-client-error');
             const form = document.querySelector('form');
             const amountInput = document.querySelector('input[name="amount"]');
+            const oldCustomerId = @json(old('customer_id'));
+            let pendingOldAllocations = @json(
+                collect(old('allocations', []))
+                    ->mapWithKeys(function ($allocation) {
+                        $invoiceId = $allocation['invoice_id'] ?? null;
+
+                        return $invoiceId ? [$invoiceId => $allocation['amount_applied'] ?? null] : [];
+                    })
+                    ->filter(function ($amount) {
+                        return $amount !== null && $amount !== '';
+                    })
+                    ->all()
+            );
 
             function formatNumber(num) {
                 return new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num);
             }
 
-            function updateTotalAllocated() {
+            // Sum all allocation inputs → update the "Montant" field
+            function normalizeAmount(value, max = null) {
+                let amount = parseFloat(value);
+
+                if (!Number.isFinite(amount) || amount <= 0) {
+                    return 0;
+                }
+
+                amount = Math.round(amount * 100) / 100;
+
+                if (Number.isFinite(max)) {
+                    amount = Math.min(amount, max);
+                }
+
+                return Math.max(amount, 0);
+            }
+
+            function setAllocationValue(input, value) {
+                const max = parseFloat(input.getAttribute('max'));
+                const normalizedValue = normalizeAmount(value, Number.isFinite(max) ? max : null);
+
+                input.value = normalizedValue > 0 ? normalizedValue.toFixed(2) : '';
+            }
+
+            function syncAmountFromAllocations() {
                 let total = 0;
                 document.querySelectorAll('.allocation-amount').forEach(function(inp) {
-                    total += parseFloat(inp.value) || 0;
+                    const max = parseFloat(inp.getAttribute('max'));
+                    const normalizedValue = normalizeAmount(inp.value, Number.isFinite(max) ? max : null);
+
+                    if ((parseFloat(inp.value) || 0) !== normalizedValue) {
+                        inp.value = normalizedValue > 0 ? normalizedValue.toFixed(2) : '';
+                    }
+
+                    total += normalizedValue;
                 });
-                if (amountInput && total > 0) {
-                    amountInput.value = total.toFixed(2);
+                amountInput.value = total > 0 ? total.toFixed(2) : '';
+            }
+
+            // When "Montant" is typed → distribute across invoices (fill sequentially)
+            function distributeAmountToAllocations() {
+                let remaining = normalizeAmount(amountInput.value);
+                document.querySelectorAll('.allocation-amount').forEach(function(inp) {
+                    const max = parseFloat(inp.getAttribute('max')) || 0;
+                    if (remaining <= 0) {
+                        inp.value = '';
+                    } else if (remaining >= max) {
+                        inp.value = max.toFixed(2);
+                        remaining -= max;
+                    } else {
+                        inp.value = remaining.toFixed(2);
+                        remaining = 0;
+                    }
+                });
+                syncAmountFromAllocations();
+            }
+
+            function restoreOldAllocations(customerId) {
+                if (!pendingOldAllocations || customerId !== oldCustomerId) {
+                    return false;
                 }
+
+                let restored = false;
+
+                document.querySelectorAll('.allocation-amount').forEach(function(inp) {
+                    const invoiceId = inp.dataset.invoiceId;
+
+                    if (!Object.prototype.hasOwnProperty.call(pendingOldAllocations, invoiceId)) {
+                        return;
+                    }
+
+                    setAllocationValue(inp, pendingOldAllocations[invoiceId]);
+
+                    if (inp.value !== '') {
+                        restored = true;
+                    }
+                });
+
+                pendingOldAllocations = null;
+
+                return restored;
+            }
+
+            function attachAllocationListeners() {
+                document.querySelectorAll('.allocation-amount').forEach(function(inp) {
+                    inp.addEventListener('input', syncAmountFromAllocations);
+                });
             }
 
             function loadInvoices(customerId) {
@@ -247,6 +339,7 @@
                     if (invoices.length === 0) {
                         tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3"><i class="isax isax-info-circle me-1"></i>{{ __("Aucune facture en attente de paiement pour ce client.") }}</td></tr>';
                         noInvoicesMsg.classList.remove('d-none');
+                        amountInput.value = '';
                         return;
                     }
 
@@ -263,35 +356,42 @@
                             '<td>' +
                                 '<input type="number" name="allocations[' + i + '][amount_applied]" ' +
                                     'class="form-control allocation-amount" value="" ' +
-                                    'min="0" max="' + inv.amount_due + '" step="0.01" style="min-width: 120px;" ' +
+                                    'data-invoice-id="' + inv.id + '" min="0" max="' + inv.amount_due + '" step="0.01" style="min-width: 120px;" ' +
                                     'placeholder="0,00">' +
                             '</td>';
                         tbody.appendChild(tr);
                     });
 
-                    // Attach change listeners for auto-sum
-                    document.querySelectorAll('.allocation-amount').forEach(function(inp) {
-                        inp.addEventListener('input', updateTotalAllocated);
-                    });
+                    attachAllocationListeners();
+
+                    if (restoreOldAllocations(customerId)) {
+                        syncAmountFromAllocations();
+                    } else if (parseFloat(amountInput.value) > 0) {
+                        distributeAmountToAllocations();
+                    }
                 })
                 .catch(function() {
                     tbody.innerHTML = '<tr><td colspan="4" class="text-center text-danger py-3"><i class="isax isax-danger me-1"></i>{{ __("Erreur lors du chargement des factures. Veuillez réessayer.") }}</td></tr>';
                 });
             }
 
-            // Use jQuery .on('change') because Select2 triggers jQuery events, not native DOM events
-            $('#customer-select').on('change', function() {
-                loadInvoices($(this).val());
-                // Reset amount when customer changes
-                if (amountInput) amountInput.value = '';
+            // "Montant" typed manually → auto-distribute to allocation rows
+            amountInput.addEventListener('input', function() {
+                if (document.querySelectorAll('.allocation-amount').length > 0) {
+                    distributeAmountToAllocations();
+                }
             });
 
-            // Load invoices if customer was pre-selected (e.g. validation error redirect)
+            $('#customer-select').on('change', function() {
+                pendingOldAllocations = null;
+                loadInvoices($(this).val());
+                amountInput.value = '';
+            });
+
             if (customerSelect.value) {
                 loadInvoices(customerSelect.value);
             }
 
-            // Client-side validation on form submit
             form.addEventListener('submit', function(e) {
                 const inputs = document.querySelectorAll('.allocation-amount');
                 let hasAllocation = false;
@@ -306,15 +406,14 @@
                     }
                 });
 
-                // No allocation filled
                 if (!hasAllocation) {
                     e.preventDefault();
+                    allocationError.innerHTML = '<i class="isax isax-warning-2 me-1"></i>{{ __("Veuillez saisir un montant à allouer pour au moins une facture.") }}';
                     allocationError.classList.remove('d-none');
                     allocationError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     return;
                 }
 
-                // Total allocated exceeds payment amount
                 if (totalAllocated > paymentAmount + 0.01) {
                     e.preventDefault();
                     allocationError.innerHTML = '<i class="isax isax-warning-2 me-1"></i>{{ __("Le total alloué dépasse le montant du paiement.") }}';
@@ -324,13 +423,12 @@
                 }
 
                 allocationError.classList.add('d-none');
+                amountInput.value = totalAllocated.toFixed(2);
 
                 // Remove rows with 0 allocation before submit
                 inputs.forEach(function(inp) {
                     const val = parseFloat(inp.value) || 0;
-                    if (val <= 0) {
-                        inp.closest('tr').remove();
-                    }
+                    if (val <= 0) inp.closest('tr').remove();
                 });
             });
         });

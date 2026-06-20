@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backoffice;
 use App\Http\Controllers\Controller;
 use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\Unit;
-use App\Models\Finance\BankAccount;
 use App\Models\Inventory\Warehouse;
 use App\Models\Sales\PaymentMethod;
 use App\Models\Tenancy\Signature;

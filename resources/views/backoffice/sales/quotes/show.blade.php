@@ -11,7 +11,13 @@
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
                             <h6><a href="{{ route('bo.sales.quotes.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Devis') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('bo.sales.quotes.download', $quote) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                                <a href="{{ route('public.quote.download', $quote->public_token) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                                {{-- WhatsApp share — always visible --}}
+                                <a href="https://api.whatsapp.com/send?phone={{ rawurlencode($quote->customer->phone ?? '') }}&text={{ rawurlencode('Bonjour,' . "\n\n" . 'Veuillez trouver ci-joint le devis n° ' . $quote->number . '.' . "\n" . '📎 Télécharger le PDF : ' . route('public.quote.download', $quote->public_token) . "\n\n" . 'Cordialement.') }}"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="btn btn-success d-inline-flex align-items-center me-3">
+                                    <i class="isax isax-message me-1"></i>{{ __('WhatsApp') }}
+                                </a>
                                 <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
                                     data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
                                     <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}

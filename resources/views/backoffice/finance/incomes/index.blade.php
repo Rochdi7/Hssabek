@@ -89,7 +89,6 @@
                                 __('Client'),
                                 __('Montant'),
                                 __('Mode de paiement'),
-                                __('Compte bancaire'),
                             ],
                         ])
                     </div>
@@ -113,7 +112,6 @@
                             <th>{{ __('Client') }}</th>
                             <th>{{ __('Montant') }}</th>
                             <th>{{ __('Mode de paiement') }}</th>
-                            <th>{{ __('Compte bancaire') }}</th>
                             <th class="no-sort"></th>
                         </tr>
                     </thead>
@@ -158,7 +156,6 @@
                                             {{ __('Autre') }}
                                     @endswitch
                                 </td>
-                                <td>{{ $income->bankAccount->bank_name ?? '—' }}</td>
                                 <td class="action-item">
                                     <a href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <i class="isax isax-more"></i>
