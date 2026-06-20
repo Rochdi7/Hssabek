@@ -75,7 +75,7 @@ class PaymentController extends Controller
 
         $invoices = Invoice::where('customer_id', $customer->id)
             ->where('amount_due', '>', 0)
-            ->whereNotIn('status', ['void'])
+            ->whereIn('status', ['sent', 'partial', 'overdue'])
             ->orderBy('issue_date')
             ->get(['id', 'number', 'total', 'amount_due', 'status', 'customer_id']);
 
