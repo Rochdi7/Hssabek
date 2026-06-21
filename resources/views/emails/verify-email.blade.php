@@ -58,7 +58,7 @@
                     <tr>
                         <td align="center" style="padding: 24px 40px 32px; border-top: 1px solid #f0f0f0;">
                             <p style="margin: 0; font-size: 12px; color: #aaa;">
-                                &copy; {{ date('Y') }} {{ config('app.name') }}. Tous droits réservés.
+                                &copy; {{ date('Y') }} {{ config('app.name', 'Hssabek') }}. Tous droits réservés.
                             </p>
                         </td>
                     </tr>
