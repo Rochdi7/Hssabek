@@ -249,147 +249,103 @@
                                         <h6>{{ __('Articles & Détails') }}</h6>
                                     </div>
 
-                                    <!-- start row -->
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="mb-3">
-                                                <h6 class="fs-14 mb-1">{{ __('Type d\'article') }}</h6>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="item_type_filter" id="item-type-product"
-                                                            value="product" checked>
-                                                        <label class="form-check-label" for="item-type-product">
-                                                            {{ __('Produit') }}
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="item_type_filter" id="item-type-service"
-                                                            value="service">
-                                                        <label class="form-check-label" for="item-type-service">
-                                                            {{ __('Service') }}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Produits/Services') }}</label>
-                                                <select class="select" id="product-select">
-                                                    <option value="">{{ __('Sélectionner') }}</option>
-                                                    @foreach ($products as $product)
-                                                        <option value="{{ $product->id }}"
-                                                            data-name="{{ $product->name }}"
-                                                            data-price="{{ $product->selling_price }}"
-                                                            data-unit-id="{{ $product->unit_id }}"
-                                                            data-type="{{ $product->item_type }}">
-                                                            {{ $product->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div><!-- end col -->
-                                    </div>
-                                    <!-- end row -->
-
                                     <!-- Table List Start -->
                                     <div class="table-responsive rounded border-bottom-0 border mb-3">
-                                        <table class="table table-nowrap add-table mb-0" id="items-table" style="min-width: 700px;">
+                                        <table class="table table-nowrap add-table mb-0" id="items-table" style="min-width: 900px;">
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
-                                                    <th style="min-width: 150px;">{{ __('Libellé') }}</th>
-                                                    <th style="min-width: 80px;">{{ __('Quantité') }}</th>
+                                                    <th style="min-width: 180px;">{{ __('Désignation') }}</th>
+                                                    <th style="min-width: 68px; text-align:center;">L</th>
+                                                    <th style="min-width: 68px; text-align:center;">H</th>
+                                                    <th style="min-width: 75px;">{{ __('Qté') }}</th>
+                                                    <th style="min-width: 90px; text-align:center;">{{ __('Métrage') }}</th>
                                                     <th style="min-width: 80px;">{{ __('Unité') }}</th>
-                                                    <th style="min-width: 100px;">{{ __('Prix unitaire') }}</th>
+                                                    <th style="min-width: 100px;">{{ __('P.U.') }}</th>
                                                     <th style="min-width: 130px;">{{ __('Remise') }}</th>
-                                                    <th style="min-width: 110px;" class="tax-col">{{ __('Taxe (%)') }}</th>
+                                                    <th style="min-width: 110px;" class="tax-col">{{ __('TVA') }}</th>
                                                     <th style="min-width: 90px;">{{ __('Montant') }}</th>
-                                                    <th style="min-width: 40px;"></th>
+                                                    <th style="min-width: 30px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody class="add-tbody">
-                                                <tr class="item-row">
+                                                @php $calcMode0 = old('items.0.calculation_mode', 'quantity'); $isMeasure0 = in_array($calcMode0,['surface','volume']); @endphp
+                                                <tr class="item-row" data-mode="{{ $calcMode0 }}">
                                                     <td>
-                                                        <input type="hidden" name="items[0][product_id]"
-                                                            class="item-product-id"
-                                                            value="{{ old('items.0.product_id') }}">
-                                                        <input type="text" name="items[0][label]"
-                                                            class="form-control item-label"
-                                                            value="{{ old('items.0.label') }}"
-                                                            placeholder="{{ __('Nom de l\'article') }}" required>
+                                                        <input type="hidden" name="items[0][product_id]" class="item-product-id" value="{{ old('items.0.product_id') }}">
+                                                        <input type="hidden" name="items[0][calculation_mode]" class="item-calc-mode" value="{{ $calcMode0 }}">
+                                                        <input type="hidden" name="items[0][measurement_unit]" class="item-measurement-unit" value="{{ old('items.0.measurement_unit') }}">
+                                                        <div class="d-flex gap-1 align-items-center mb-1">
+                                                            <select class="form-select form-select-sm item-product-select" style="font-size:11px; padding:2px 4px; height:24px;">
+                                                                <option value="">— {{ __('Catalogue') }} —</option>
+                                                                @foreach($products as $p)
+                                                                    <option value="{{ $p->id }}" {{ old('items.0.product_id')==$p->id?'selected':'' }}>{{ $p->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <div class="d-flex gap-1 ms-1">
+                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" name="items[0][label]" class="form-control item-label" value="{{ old('items.0.label') }}" placeholder="{{ __('Désignation') }}" required>
+                                                    </td>
+                                                    <td class="dim-col dim-l" style="{{ $isMeasure0?'':'visibility:hidden;' }}">
+                                                        <input type="number" name="items[0][length]" class="form-control item-length" value="{{ old('items.0.length') }}" min="0" step="0.001" placeholder="0" style="width:64px;">
+                                                    </td>
+                                                    <td class="dim-col dim-h" style="{{ $isMeasure0?'':'visibility:hidden;' }}">
+                                                        <input type="number" name="items[0][height]" class="form-control item-height" value="{{ old('items.0.height') }}" min="0" step="0.001" placeholder="0" style="width:64px;">
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="items[0][quantity]"
-                                                            class="form-control item-qty"
-                                                            value="{{ old('items.0.quantity', 1) }}" min="0.001"
-                                                            step="0.001" required>
+                                                        <input type="number" name="items[0][quantity]" class="form-control item-qty" value="{{ old('items.0.quantity', 1) }}" min="0.001" step="0.001" required style="width:70px;">
+                                                    </td>
+                                                    <td class="dim-col text-center" style="{{ $isMeasure0?'':'visibility:hidden;' }}">
+                                                        <span class="badge bg-primary-subtle text-primary item-measure-display fs-11">
+                                                            {{ $isMeasure0 && old('items.0.calculated_measurement') ? number_format(old('items.0.calculated_measurement'),3,',','').' '.old('items.0.measurement_unit') : '—' }}
+                                                        </span>
+                                                        <input type="hidden" name="items[0][width]" class="item-width" value="{{ old('items.0.width') }}">
                                                     </td>
                                                     <td>
-                                                        <select name="items[0][unit_id]" class="form-select item-unit">
-                                                            <option value="">{{ __('—') }}</option>
-                                                            @foreach ($units as $unit)
-                                                                <option value="{{ $unit->id }}"
-                                                                    {{ old('items.0.unit_id') == $unit->id ? 'selected' : '' }}>
-                                                                    {{ $unit->short_name }}</option>
+                                                        <select name="items[0][unit_id]" class="form-select item-unit" style="min-width:60px;">
+                                                            <option value="">—</option>
+                                                            @foreach($units as $unit)
+                                                                <option value="{{ $unit->id }}" {{ old('items.0.unit_id')==$unit->id?'selected':'' }}>{{ $unit->short_name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="items[0][unit_price]"
-                                                            class="form-control item-price"
-                                                            value="{{ old('items.0.unit_price', 0) }}" min="0"
-                                                            step="0.01" required>
+                                                        <input type="number" name="items[0][unit_price]" class="form-control item-price" value="{{ old('items.0.unit_price', 0) }}" min="0" step="0.01" required>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex align-items-center gap-1">
-                                                            <select name="items[0][discount_type]"
-                                                                class="form-select item-discount-type"
-                                                                style="width: 60px;">
-                                                                <option value="none">{{ __('—') }}</option>
+                                                            <select name="items[0][discount_type]" class="form-select item-discount-type" style="width:55px;">
+                                                                <option value="none">—</option>
                                                                 <option value="percentage">%</option>
                                                                 <option value="fixed">{{ __('Fixe') }}</option>
                                                             </select>
-                                                            <input type="number" name="items[0][discount_value]"
-                                                                class="form-control item-discount"
-                                                                value="{{ old('items.0.discount_value', 0) }}"
-                                                                min="0" step="0.01" style="width: 70px;">
+                                                            <input type="number" name="items[0][discount_value]" class="form-control item-discount" value="{{ old('items.0.discount_value', 0) }}" min="0" step="0.01" style="width:65px;">
                                                         </div>
                                                     </td>
                                                     <td class="tax-col">
-                                                        <select name="items[0][tax_group_id]"
-                                                            class="form-select item-tax">
+                                                        <select name="items[0][tax_group_id]" class="form-select item-tax">
                                                             <option value="" data-rate="0" data-type="">0%</option>
                                                             @if($taxCategories->count())
                                                             <optgroup label="{{ __('Taux de taxes') }}">
-                                                                @foreach ($taxCategories as $tc)
-                                                                    <option value="cat_{{ $tc->id }}"
-                                                                        data-rate="{{ $tc->rate }}"
-                                                                        data-type="category"
-                                                                        {{ old('items.0.tax_group_id') == 'cat_'.$tc->id ? 'selected' : '' }}>
-                                                                        {{ $tc->name }}
-                                                                        ({{ $tc->rate }}%)
-                                                                    </option>
+                                                                @foreach($taxCategories as $tc)
+                                                                    <option value="cat_{{ $tc->id }}" data-rate="{{ $tc->rate }}" data-type="category" {{ old('items.0.tax_group_id')=='cat_'.$tc->id?'selected':'' }}>{{ $tc->name }} ({{ $tc->rate }}%)</option>
                                                                 @endforeach
                                                             </optgroup>
                                                             @endif
                                                             @if($taxGroups->count())
                                                             <optgroup label="{{ __('Groupes de taxes') }}">
-                                                                @foreach ($taxGroups as $tg)
-                                                                    <option value="{{ $tg->id }}"
-                                                                        data-rate="{{ $tg->rates->sum('rate') }}"
-                                                                        data-type="group"
-                                                                        {{ old('items.0.tax_group_id') == $tg->id ? 'selected' : '' }}>
-                                                                        {{ $tg->name }}
-                                                                        ({{ $tg->rates->sum('rate') }}%)
-                                                                    </option>
+                                                                @foreach($taxGroups as $tg)
+                                                                    <option value="{{ $tg->id }}" data-rate="{{ $tg->rates->sum('rate') }}" data-type="group" {{ old('items.0.tax_group_id')==$tg->id?'selected':'' }}>{{ $tg->name }} ({{ $tg->rates->sum('rate') }}%)</option>
                                                                 @endforeach
                                                             </optgroup>
                                                             @endif
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control item-total"
-                                                            value="0,00" readonly>
+                                                        <input type="text" class="form-control item-total" value="0,00" readonly>
                                                     </td>
                                                     <td></td>
                                                 </tr>
@@ -526,6 +482,8 @@
                 'selling_price' => $p->selling_price,
                 'unit_id' => $p->unit_id,
                 'item_type' => $p->item_type,
+                'default_calc_mode' => $p->default_calc_mode ?? 'quantity',
+                'default_measurement_unit' => $p->default_measurement_unit,
             ];
         })
         ->values();
@@ -545,54 +503,16 @@
             const currency = '{{ $currency }}';
 
             /* =========================================================
-             * Product select → populate first empty row
+             * Per-row product select handler (delegated)
              * ========================================================= */
-            const productSelect = document.getElementById('product-select');
-            const itemTypeRadios = document.querySelectorAll('[name="item_type_filter"]');
-
-            // Filter product options based on type
-            itemTypeRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    const type = this.value;
-                    Array.from(productSelect.options).forEach(opt => {
-                        if (!opt.value) return;
-                        const optType = opt.dataset.type;
-                        opt.style.display = (optType === type || !optType) ? '' : 'none';
-                        if (opt.style.display === 'none' && opt.selected) opt.selected = false;
-                    });
-                });
-            });
-            const checkedRadioQt = document.querySelector('[name="item_type_filter"]:checked');
-            if (checkedRadioQt) checkedRadioQt.dispatchEvent(new Event('change'));
-
-            productSelect.addEventListener('change', function() {
-                const pid = this.value;
-                if (!pid) return;
-                const product = products.find(p => p.id == pid);
-                if (!product) return;
-
-                // Find first empty row or add new one
-                const lastRow = tbody.querySelector('.item-row:last-child');
-                const labelInput = lastRow?.querySelector('.item-label');
-                let targetRow = lastRow;
-
-                if (labelInput && labelInput.value && labelInput.value.trim() !== '') {
-                    addBtn.click();
-                    targetRow = tbody.querySelector('.item-row:last-child');
-                }
-
-                if (targetRow) {
-                    targetRow.querySelector('.item-product-id').value = product.id;
-                    targetRow.querySelector('.item-label').value = product.name;
-                    targetRow.querySelector('.item-price').value = product.selling_price;
-                    if (product.unit_id) {
-                        targetRow.querySelector('.item-unit').value = product.unit_id;
-                    }
-                }
-
-                this.value = '';
+            function applyProductToRow(row, product) {
+                row.querySelector('.item-product-id').value = product.id;
+                row.querySelector('.item-label').value = product.name;
+                row.querySelector('.item-price').value = product.selling_price;
+                if (product.unit_id) row.querySelector('.item-unit').value = product.unit_id;
+                if (product.default_calc_mode) setRowMode(row, product.default_calc_mode);
                 recalcTotals();
-            });
+            }
 
             /* =========================================================
              * Add / Remove item rows
@@ -601,51 +521,85 @@
             const tbody = document.querySelector('#items-table .add-tbody');
             const addBtn = document.getElementById('add-item-btn');
 
-            addBtn.addEventListener('click', function() {
-                let unitOptions = '<option value="">{{ __('—') }}</option>';
-                units.forEach(u => {
-                    unitOptions += `<option value="${u.id}">${u.short_name}</option>`;
-                });
-
-                let taxOptions = '<option value="" data-rate="0" data-type="">0%</option>';
+            function buildUnitOptions() {
+                let s = '<option value="">—</option>';
+                units.forEach(u => s += `<option value="${u.id}">${u.short_name}</option>`);
+                return s;
+            }
+            function buildTaxOptions() {
+                let s = '<option value="" data-rate="0" data-type="">0%</option>';
                 if (taxCategories.length) {
-                    taxOptions += '<optgroup label="{{ __('Taux de taxes') }}">';
-                    taxCategories.forEach(tc => {
-                        taxOptions += `<option value="cat_${tc.id}" data-rate="${tc.rate}" data-type="category">${tc.name} (${tc.rate}%)</option>`;
-                    });
-                    taxOptions += '</optgroup>';
+                    s += '<optgroup label="{{ __('Taux de taxes') }}">';
+                    taxCategories.forEach(tc => s += `<option value="cat_${tc.id}" data-rate="${tc.rate}" data-type="category">${tc.name} (${tc.rate}%)</option>`);
+                    s += '</optgroup>';
                 }
                 if (taxGroups.length) {
-                    taxOptions += '<optgroup label="{{ __('Groupes de taxes') }}">';
+                    s += '<optgroup label="{{ __('Groupes de taxes') }}">';
                     taxGroups.forEach(tg => {
                         const rate = tg.rates.reduce((sum, r) => sum + parseFloat(r.rate), 0);
-                        taxOptions += `<option value="${tg.id}" data-rate="${rate}" data-type="group">${tg.name} (${rate}%)</option>`;
+                        s += `<option value="${tg.id}" data-rate="${rate}" data-type="group">${tg.name} (${rate}%)</option>`;
                     });
-                    taxOptions += '</optgroup>';
+                    s += '</optgroup>';
                 }
+                return s;
+            }
+            function buildProductOptions() {
+                let s = '<option value="">— {{ __('Catalogue') }} —</option>';
+                products.forEach(p => s += `<option value="${p.id}">${p.name}</option>`);
+                return s;
+            }
+
+            addBtn.addEventListener('click', function() {
+                const unitOptions = buildUnitOptions();
+                const taxOptions = buildTaxOptions();
+                const productOptions = buildProductOptions();
 
                 const row = document.createElement('tr');
                 row.className = 'item-row';
+                row.dataset.mode = 'quantity';
                 row.innerHTML = `
                     <td>
                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Nom de l\'article') }}" required>
+                        <input type="hidden" name="items[${itemIndex}][calculation_mode]" class="item-calc-mode" value="quantity">
+                        <input type="hidden" name="items[${itemIndex}][measurement_unit]" class="item-measurement-unit" value="">
+                        <div class="d-flex gap-1 align-items-center mb-1">
+                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">${productOptions}</select>
+                            <div class="d-flex gap-1 ms-1">
+                                <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+                            </div>
+                        </div>
+                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Désignation') }}" required>
                     </td>
-                    <td><input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" required></td>
-                    <td><select name="items[${itemIndex}][unit_id]" class="form-select item-unit">${unitOptions}</select></td>
+                    <td class="dim-col dim-l" style="visibility:hidden;">
+                        <input type="number" name="items[${itemIndex}][length]" class="form-control item-length" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
+                    </td>
+                    <td class="dim-col dim-h" style="visibility:hidden;">
+                        <input type="number" name="items[${itemIndex}][height]" class="form-control item-height" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
+                    </td>
+                    <td>
+                        <input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" required style="width:70px;">
+                    </td>
+                    <td class="dim-col text-center" style="visibility:hidden;">
+                        <span class="badge bg-primary-subtle text-primary item-measure-display fs-11">—</span>
+                        <input type="hidden" name="items[${itemIndex}][width]" class="item-width" value="">
+                    </td>
+                    <td><select name="items[${itemIndex}][unit_id]" class="form-select item-unit" style="min-width:60px;">${unitOptions}</select></td>
                     <td><input type="number" name="items[${itemIndex}][unit_price]" class="form-control item-price" value="0" min="0" step="0.01" required></td>
                     <td>
                         <div class="d-flex align-items-center gap-1">
-                            <select name="items[${itemIndex}][discount_type]" class="form-select item-discount-type" style="width: 60px;">
-                                <option value="none">{{ __('—') }}</option><option value="percentage">%</option><option value="fixed">{{ __('Fixe') }}</option>
+                            <select name="items[${itemIndex}][discount_type]" class="form-select item-discount-type" style="width:55px;">
+                                <option value="none">—</option><option value="percentage">%</option><option value="fixed">{{ __('Fixe') }}</option>
                             </select>
-                            <input type="number" name="items[${itemIndex}][discount_value]" class="form-control item-discount" value="0" min="0" step="0.01" style="width: 70px;">
+                            <input type="number" name="items[${itemIndex}][discount_value]" class="form-control item-discount" value="0" min="0" step="0.01" style="width:65px;">
                         </div>
                     </td>
                     <td class="tax-col"><select name="items[${itemIndex}][tax_group_id]" class="form-select item-tax">${taxOptions}</select></td>
                     <td><input type="text" class="form-control item-total" value="0,00" readonly></td>
                     <td><a href="javascript:void(0);" class="text-danger remove-item"><i class="isax isax-close-circle"></i></a></td>
                 `;
+
                 tbody.appendChild(row);
                 itemIndex++;
                 bindRowEvents(row);
@@ -666,6 +620,47 @@
             });
 
             /* =========================================================
+             * Mode helpers — single row, inline columns
+             * ========================================================= */
+            function setRowMode(row, mode) {
+                row.dataset.mode = mode;
+                row.querySelector('.item-calc-mode').value = mode;
+                const isMeasure = (mode === 'surface' || mode === 'volume');
+                row.querySelectorAll('.dim-col').forEach(td => {
+                    td.style.visibility = isMeasure ? '' : 'hidden';
+                });
+                // width (3rd dim) only for volume
+                const widthInput = row.querySelector('.item-width');
+                if (widthInput) widthInput.closest('td')?.querySelectorAll('.dim-vol-only')?.forEach(el => {
+                    el.style.display = mode === 'volume' ? '' : 'none';
+                });
+                row.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.classList.toggle('btn-primary', btn.dataset.mode === mode);
+                    btn.classList.toggle('btn-outline-secondary', btn.dataset.mode !== mode);
+                });
+                updateRowMeasurement(row);
+            }
+
+            function updateRowMeasurement(row) {
+                const mode = row.querySelector('.item-calc-mode')?.value || 'quantity';
+                const l = parseFloat(row.querySelector('.item-length')?.value) || 0;
+                const h = parseFloat(row.querySelector('.item-height')?.value) || 0;
+                const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
+                const unitInput = row.querySelector('.item-measurement-unit');
+                const display = row.querySelector('.item-measure-display');
+                let measurement = 0, unit = '';
+                if (mode === 'surface') {
+                    measurement = (l > 0 && h > 0) ? l * h : 0;
+                    unit = 'm²';
+                } else if (mode === 'volume') {
+                    measurement = (l > 0 && h > 0 && w > 0) ? l * h * w : 0;
+                    unit = 'm³';
+                }
+                if (unitInput) unitInput.value = unit;
+                if (display) display.textContent = measurement > 0 ? measurement.toFixed(2).replace('.', ',') + ' ' + unit : '—';
+            }
+
+            /* =========================================================
              * Real-time totals calculation
              * ========================================================= */
             function recalcTotals() {
@@ -673,22 +668,30 @@
                 let totalTax = 0;
 
                 document.querySelectorAll('.item-row').forEach(row => {
-                    const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+                    const baseQty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
                     const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
                     const discountType = row.querySelector('.item-discount-type')?.value || 'none';
                     const discountVal = parseFloat(row.querySelector('.item-discount')?.value) || 0;
                     const taxSelect = row.querySelector('.item-tax');
                     const taxEnabled = enableTaxCheck.checked;
                     const taxRate = taxEnabled ? (parseFloat(taxSelect?.selectedOptions[0]?.dataset.rate) || 0) : 0;
+                    const mode = row.querySelector('.item-calc-mode')?.value || 'quantity';
 
-                    let lineSubtotal = qty * price;
-                    let lineDiscount = 0;
-
-                    if (discountType === 'percentage') {
-                        lineDiscount = lineSubtotal * (discountVal / 100);
-                    } else if (discountType === 'fixed') {
-                        lineDiscount = discountVal;
+                    let effectiveQty = baseQty;
+                    if (mode === 'surface' || mode === 'volume') {
+                        const l = parseFloat(row.querySelector('.item-length')?.value) || 0;
+                        const h = parseFloat(row.querySelector('.item-height')?.value) || 0;
+                        const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
+                        let m = 0;
+                        if (mode === 'surface') { m = (l > 0 && h > 0) ? l * h : 0; }
+                        else { m = (l > 0 && h > 0 && w > 0) ? l * h * w : 0; }
+                        if (m > 0) effectiveQty = m * baseQty;
                     }
+
+                    let lineSubtotal = effectiveQty * price;
+                    let lineDiscount = 0;
+                    if (discountType === 'percentage') lineDiscount = lineSubtotal * (discountVal / 100);
+                    else if (discountType === 'fixed') lineDiscount = discountVal;
 
                     const afterDiscount = lineSubtotal - lineDiscount;
                     const lineTax = afterDiscount * (taxRate / 100);
@@ -702,7 +705,6 @@
                 });
 
                 const total = subtotal + totalTax;
-
                 document.getElementById('display-subtotal').textContent = formatNumber(subtotal);
                 document.getElementById('display-tax').textContent = formatNumber(totalTax);
                 document.getElementById('display-total').textContent = formatNumber(total);
@@ -713,9 +715,32 @@
             }
 
             /* =========================================================
-             * Bind row events for recalculation
+             * Bind row events
              * ========================================================= */
             function bindRowEvents(row) {
+                // Per-row product selector
+                row.querySelector('.item-product-select')?.addEventListener('change', function() {
+                    const pid = this.value;
+                    if (!pid) return;
+                    const product = products.find(p => p.id == pid);
+                    if (product) applyProductToRow(row, product);
+                    this.value = '';
+                });
+                // Mode buttons
+                row.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        setRowMode(row, this.dataset.mode);
+                        recalcTotals();
+                    });
+                });
+                // Dimension inputs
+                row.querySelectorAll('.item-length, .item-height, .item-width').forEach(inp => {
+                    inp.addEventListener('input', function() {
+                        updateRowMeasurement(row);
+                        recalcTotals();
+                    });
+                });
+                // Standard calc inputs
                 row.querySelectorAll('.item-qty, .item-price, .item-discount').forEach(inp => {
                     inp.addEventListener('input', recalcTotals);
                 });
@@ -724,8 +749,11 @@
                 });
             }
 
-            // Bind events on the initial row
-            document.querySelectorAll('.item-row').forEach(row => bindRowEvents(row));
+            // Bind initial rows
+            document.querySelectorAll('.item-row').forEach(row => {
+                bindRowEvents(row);
+                updateRowMeasurement(row);
+            });
 
             /* =========================================================
              * Tax toggle — show/hide tax column & auto-select default

@@ -9,7 +9,7 @@
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
                             <div class=" mx-auto mb-5 text-center">
-                                <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
+                                <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid"
                                     alt="Logo">
                             </div>
                             <div class="card border-0 p-lg-3 shadow-lg rounded-2">

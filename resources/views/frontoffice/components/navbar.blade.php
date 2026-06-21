@@ -11,37 +11,41 @@
                     </span>
                 </a>
                 <a href="{{ route('home') }}" class="navbar-brand logo">
-                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-light"
-                        alt="{{ config('app.name') }}">
-                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-dark"
-                        alt="{{ config('app.name') }}">
+                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-light"
+                        alt="{{ config('app.name') }}" style="height:70px;width:auto;">
+                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-dark"
+                        alt="{{ config('app.name') }}" style="height:70px;width:auto;">
                 </a>
                 <a href="{{ route('home') }}" class="navbar-brand logo-small">
-                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-light"
-                        alt="{{ config('app.name') }}">
-                    <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid logo-dark"
-                        alt="{{ config('app.name') }}">
+                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-light"
+                        alt="{{ config('app.name') }}" style="height:55px;width:auto;">
+                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-dark"
+                        alt="{{ config('app.name') }}" style="height:55px;width:auto;">
                 </a>
             </div>
             <div class="main-menu-wrapper">
                 <div class="menu-header">
                     <a href="{{ route('home') }}" class="menu-logo">
-                        <img src="{{ url('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
-                            alt="{{ config('app.name') }}">
+                        <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid"
+                            alt="{{ config('app.name') }}" style="height:36px;width:auto;">
                     </a>
 
-                    <a id="menu_close" class="menu-close" href="#" aria-label="Fermer le menu"> <i class="fas fa-times"></i></a>
+                    <a id="menu_close" class="menu-close" href="#" aria-label="Fermer le menu"> <i
+                            class="fas fa-times"></i></a>
                 </div>
                 <ul class="main-nav navbar-nav" id="scroll-nav">
                     <li class="nav-item"><a href="{{ route('home') }}"
-                            class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">{{ __('Accueil') }}</a></li>
+                            class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">{{ __('Accueil') }}</a>
+                    </li>
                     <li class="nav-item"><a href="{{ route('features') }}"
                             class="nav-link {{ request()->routeIs('features') ? 'active' : '' }}">{{ __('Fonctionnalités') }}</a>
                     </li>
                     <li class="nav-item"><a href="{{ route('pricing') }}"
-                            class="nav-link {{ request()->routeIs('pricing') ? 'active' : '' }}">{{ __('Tarifs') }}</a></li>
+                            class="nav-link {{ request()->routeIs('pricing') ? 'active' : '' }}">{{ __('Tarifs') }}</a>
+                    </li>
                     <li class="nav-item"><a href="{{ route('contact') }}"
-                            class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">{{ __('Contact') }}</a></li>
+                            class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">{{ __('Contact') }}</a>
+                    </li>
 
                     {{-- Mobile-only: Language switcher + CTA --}}
                     <li class="nav-item d-lg-none mt-3">
@@ -49,14 +53,16 @@
                             <form method="POST" action="{{ route('locale.switch') }}" class="d-inline">
                                 @csrf
                                 <input type="hidden" name="locale" value="fr">
-                                <button type="submit" class="btn btn-sm {{ app()->getLocale() === 'fr' ? 'btn-primary' : 'btn-white border' }}">
+                                <button type="submit"
+                                    class="btn btn-sm {{ app()->getLocale() === 'fr' ? 'btn-primary' : 'btn-white border' }}">
                                     🇫🇷 Français
                                 </button>
                             </form>
                             <form method="POST" action="{{ route('locale.switch') }}" class="d-inline">
                                 @csrf
                                 <input type="hidden" name="locale" value="ar">
-                                <button type="submit" class="btn btn-sm {{ app()->getLocale() === 'ar' ? 'btn-primary' : 'btn-white border' }}">
+                                <button type="submit"
+                                    class="btn btn-sm {{ app()->getLocale() === 'ar' ? 'btn-primary' : 'btn-white border' }}">
                                     🇸🇦 العربية
                                 </button>
                             </form>
@@ -72,7 +78,8 @@
             <ul class="nav header-navbar-rht">
                 <!-- Language Switcher -->
                 <li class="nav-item dropdown me-0">
-                    <a class="btn btn-lg btn-white border border-1 border-light dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn-lg btn-white border border-1 border-light dropdown-toggle" href="#"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-globe me-1"></i>
                         {{ app()->getLocale() === 'ar' ? 'العربية' : 'Français' }}
                     </a>
@@ -81,7 +88,8 @@
                             <form method="POST" action="{{ route('locale.switch') }}">
                                 @csrf
                                 <input type="hidden" name="locale" value="fr">
-                                <button type="submit" class="dropdown-item {{ app()->getLocale() === 'fr' ? 'active' : '' }}">
+                                <button type="submit"
+                                    class="dropdown-item {{ app()->getLocale() === 'fr' ? 'active' : '' }}">
                                     🇫🇷 Français
                                 </button>
                             </form>
@@ -90,7 +98,8 @@
                             <form method="POST" action="{{ route('locale.switch') }}">
                                 @csrf
                                 <input type="hidden" name="locale" value="ar">
-                                <button type="submit" class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}">
+                                <button type="submit"
+                                    class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}">
                                     🇸🇦 العربية
                                 </button>
                             </form>

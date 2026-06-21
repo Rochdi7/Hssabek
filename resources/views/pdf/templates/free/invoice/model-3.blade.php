@@ -271,19 +271,42 @@
         </tr>
     </table>
 
+    @php $hasMeasurement = $invoice->items->whereIn('calculation_mode', ['surface', 'volume'])->count() > 0; @endphp
     {{-- ─── Items table ──────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>
             <tr>
+                @if($hasMeasurement)
+                <th style="width: 30%;">DÉSIGNATION</th>
+                <th class="text-center" style="width: 7%;">L</th>
+                <th class="text-center" style="width: 7%;">l/H</th>
+                <th class="text-center" style="width: 7%;">QTÉ</th>
+                <th class="text-center" style="width: 12%;">MÉTRAGE</th>
+                <th class="text-right" style="width: 18%;">PRIX UNIT. HT</th>
+                <th class="text-right" style="width: 19%;">MONTANT HT</th>
+                @else
                 <th style="width: 8%;">QTÉ</th>
                 <th style="width: 42%;">DÉSIGNATION</th>
                 <th class="text-right" style="width: 25%;">PRIX UNIT. HT</th>
                 <th class="text-right" style="width: 25%;">MONTANT HT</th>
+                @endif
             </tr>
         </thead>
         <tbody>
             @foreach($invoice->items->sortBy('position') as $index => $item)
             <tr>
+                @if($hasMeasurement)
+                <td>
+                    {{ $item->label }}
+                    @if($item->description)<br><span style="color: #777; font-size: 9px;">{{ $item->description }}</span>@endif
+                </td>
+                <td class="text-center">{{ $item->length ? number_format($item->length, 2, ',', ' ') : '' }}</td>
+                <td class="text-center">{{ ($item->height ?? $item->width) ? number_format($item->height ?? $item->width, 2, ',', ' ') : '' }}</td>
+                <td class="text-center">{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ' '), '0'), ',') }}</td>
+                <td class="text-center">{{ $item->calculated_measurement ? number_format($item->calculated_measurement, 3, ',', ' ').' '.($item->measurement_unit ?? '') : '' }}</td>
+                <td class="text-right">{{ number_format($item->unit_price, 2, ',', ' ') }}</td>
+                <td class="text-right">{{ number_format($item->line_subtotal, 2, ',', ' ') }}</td>
+                @else
                 <td class="text-center">{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ' '), '0'), ',') }}</td>
                 <td>
                     {{ $item->label }}
@@ -293,6 +316,7 @@
                 </td>
                 <td class="text-right">{{ number_format($item->unit_price, 2, ',', ' ') }}</td>
                 <td class="text-right">{{ number_format($item->line_subtotal, 2, ',', ' ') }}</td>
+                @endif
             </tr>
             @endforeach
 
@@ -300,8 +324,13 @@
             @if($invoice->charges->count())
                 @foreach($invoice->charges->sortBy('position') as $charge)
                 <tr>
+                    @if($hasMeasurement)
+                    <td colspan="5">{{ $charge->label }} <span style="color: #777; font-size: 9px;">(frais)</span></td>
+                    @else
                     <td class="text-center"></td>
                     <td>{{ $charge->label }} <span style="color: #777; font-size: 9px;">(frais)</span></td>
+                    <td class="text-right"></td>
+                    @endif
                     <td class="text-right"></td>
                     <td class="text-right">{{ number_format($charge->amount, 2, ',', ' ') }}</td>
                 </tr>

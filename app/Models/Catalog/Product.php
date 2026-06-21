@@ -51,6 +51,8 @@ class Product extends Model implements HasMedia
         'discount_value',
         'tax_category_id',
         'is_active',
+        'default_calc_mode',
+        'default_measurement_unit',
     ];
 
     protected $casts = [

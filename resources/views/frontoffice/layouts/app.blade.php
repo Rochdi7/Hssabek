@@ -1,420 +1,635 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="@yield('meta_description', config('app.name') . ' — Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines')">
-		<meta name="author" content="{{ config('app.name', 'Hssabek') }}">
-		<meta name="csrf-token" content="{{ csrf_token() }}">
-		<meta name="robots" content="@yield('meta_robots', 'index, follow')">
-		<title>@yield('title', 'Accueil') | {{ config('app.name', 'Hssabek') }}</title>
 
-		<!-- Canonical URL -->
-		<link rel="canonical" href="{{ url()->current() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="@yield('meta_description', config('app.name') . ' — Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines')">
+    <meta name="author" content="{{ config('app.name', 'Hssabek') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="robots" content="@yield('meta_robots', 'index, follow')">
+    <title>@yield('title', 'Accueil') | {{ config('app.name', 'Hssabek') }}</title>
 
-		<!-- Hreflang for multilingual SEO -->
-		<link rel="alternate" hreflang="fr" href="{{ url()->current() }}?lang=fr">
-		<link rel="alternate" hreflang="ar" href="{{ url()->current() }}?lang=ar">
-		<link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
 
-		<!-- Open Graph Meta Tags -->
-		<meta property="og:type" content="@yield('og_type', 'website')">
-		<meta property="og:title" content="@yield('title', 'Accueil') | {{ config('app.name', 'Hssabek') }}">
-		<meta property="og:description" content="@yield('meta_description', config('app.name') . ' — Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines')">
-		<meta property="og:url" content="{{ url()->current() }}">
-		<meta property="og:site_name" content="{{ config('app.name', 'Hssabek') }}">
-		<meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_MA' : 'fr_FR' }}">
-		<meta property="og:image" content="@yield('og_image', asset('assets/images/logo/logo-wide-cropped.svg'))">
-		<meta property="og:image:alt" content="{{ config('app.name', 'Hssabek') }} — Logiciel de facturation">
+    <!-- Hreflang for multilingual SEO -->
+    <link rel="alternate" hreflang="fr" href="{{ url()->current() }}?lang=fr">
+    <link rel="alternate" hreflang="ar" href="{{ url()->current() }}?lang=ar">
+    <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
 
-		<!-- Twitter Card Meta Tags -->
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="@yield('title', 'Accueil') | {{ config('app.name', 'Hssabek') }}">
-		<meta name="twitter:description" content="@yield('meta_description', config('app.name') . ' — Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines')">
-		<meta name="twitter:image" content="@yield('og_image', asset('assets/images/logo/logo-wide-cropped.svg'))">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:title" content="@yield('title', 'Accueil') | {{ config('app.name', 'Hssabek') }}">
+    <meta property="og:description" content="@yield('meta_description', config('app.name') . ' — Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="{{ config('app.name', 'Hssabek') }}">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_MA' : 'fr_FR' }}">
+    <meta property="og:image" content="@yield('og_image', asset('assets/images/logo/hssabek mobile logo.png'))">
+    <meta property="og:image:alt" content="{{ config('app.name', 'Hssabek') }} — Logiciel de facturation">
 
-		<!-- Additional SEO Meta Tags -->
-		<meta name="keywords" content="@yield('meta_keywords', 'logiciel facturation maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facture maroc, devis en ligne maroc, gestion commerciale maroc, comptabilité maroc, logiciel comptable marocain, facturation conforme DGI, auto entrepreneur maroc, hssabek')">
-		<meta name="geo.region" content="MA">
-		<meta name="geo.placename" content="Maroc">
-		<meta name="language" content="{{ app()->getLocale() }}">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', 'Accueil') | {{ config('app.name', 'Hssabek') }}">
+    <meta name="twitter:description" content="@yield('meta_description', config('app.name') . ' — Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines')">
+    <meta name="twitter:image" content="@yield('og_image', asset('assets/images/logo/hssabek mobile logo.png'))">
 
-		<!-- Favicons (generated by realfavicongenerator) -->
-		<link rel="icon" type="image/png" href="/assets/images/favicon/favicon-96x96.png" sizes="96x96" />
-		<link rel="icon" type="image/svg+xml" href="/assets/images/favicon/favicon.svg" />
-		<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png" />
-		<meta name="apple-mobile-web-app-title" content="Hssabek" />
-		<link rel="manifest" href="/assets/images/favicon/site.webmanifest" />
+    <!-- Additional SEO Meta Tags -->
+    <meta name="keywords" content="@yield('meta_keywords', 'logiciel facturation maroc, facturation en ligne maroc, facturation électronique maroc, logiciel facture maroc, devis en ligne maroc, gestion commerciale maroc, comptabilité maroc, logiciel comptable marocain, facturation conforme DGI, auto entrepreneur maroc, hssabek')">
+    <meta name="geo.region" content="MA">
+    <meta name="geo.placename" content="Maroc">
+    <meta name="language" content="{{ app()->getLocale() }}">
 
-		<!-- Preconnect to Google Fonts (eliminates DNS+TCP+TLS round-trip) -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Favicons (generated by realfavicongenerator) -->
+    <link rel="icon" type="image/png" href="/assets/images/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Hssabek" />
+    <link rel="manifest" href="/assets/images/favicon/site.webmanifest" />
 
-		<!-- Google Fonts (moved from CSS @import to avoid render-blocking chain) -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" media="print" onload="this.media='all'">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" media="print" onload="this.media='all'">
-		<noscript>
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap">
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap">
-		</noscript>
+    <!-- Preconnect to Google Fonts (eliminates DNS+TCP+TLS round-trip) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-		<!-- Preload LCP background image (loaded via CSS, not discoverable otherwise) -->
-		@hasSection('hero')
-		<link rel="preload" href="{{ url('build/img/bg/banner-bg.webp') }}" as="image" type="image/webp" fetchpriority="high">
-		@endif
+    <!-- Google Fonts (moved from CSS @import to avoid render-blocking chain) -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        media="print" onload="this.media='all'">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap">
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap">
+    </noscript>
 
-		<!-- Critical CSS (preloaded) -->
-		<link rel="preload" href="{{ url('build/css/bootstrap.min.css') }}" as="style">
-		<link rel="preload" href="{{ url('build/css/landing.css') }}" as="style">
-		<link rel="stylesheet" href="{{ url('build/css/bootstrap.min.css') }}">
-		<link rel="stylesheet" href="{{ url('build/css/landing.css') }}">
+    <!-- Preload LCP background image (loaded via CSS, not discoverable otherwise) -->
+    @hasSection('hero')
+        <link rel="preload" href="{{ url('build/img/bg/banner-bg.webp') }}" as="image" type="image/webp"
+            fetchpriority="high">
+    @endif
 
-		<!-- Non-critical CSS (deferred) -->
-		<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/fontawesome.min.css') }}" media="print" onload="this.media='all'">
-		<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/all.min.css') }}" media="print" onload="this.media='all'">
-		<link rel="stylesheet" href="{{ url('build/plugins/aos/aos.css') }}" media="print" onload="this.media='all'">
-		<link rel="stylesheet" href="{{ url('build/css/owl.carousel.min.css') }}" media="print" onload="this.media='all'">
-		<link rel="stylesheet" href="{{ url('build/css/feather.css') }}" media="print" onload="this.media='all'">
-		<link rel="stylesheet" href="{{ url('build/css/iconsax.css') }}" media="print" onload="this.media='all'">
-		<noscript>
-			<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/fontawesome.min.css') }}">
-			<link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/all.min.css') }}">
-			<link rel="stylesheet" href="{{ url('build/plugins/aos/aos.css') }}">
-			<link rel="stylesheet" href="{{ url('build/css/owl.carousel.min.css') }}">
-			<link rel="stylesheet" href="{{ url('build/css/feather.css') }}">
-			<link rel="stylesheet" href="{{ url('build/css/iconsax.css') }}">
-		</noscript>
+    <!-- Critical CSS (preloaded) -->
+    <link rel="preload" href="{{ url('build/css/bootstrap.min.css') }}" as="style">
+    <link rel="preload" href="{{ url('build/css/landing.css') }}" as="style">
+    <link rel="stylesheet" href="{{ url('build/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('build/css/landing.css') }}">
 
-		@if(app()->getLocale() === 'ar')
-		<style>
-			/* ===== RTL for Arabic — text direction only, layout stays LTR ===== */
+    <!-- Non-critical CSS (deferred) -->
+    <link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/fontawesome.min.css') }}" media="print"
+        onload="this.media='all'">
+    <link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/all.min.css') }}" media="print"
+        onload="this.media='all'">
+    <link rel="stylesheet" href="{{ url('build/plugins/aos/aos.css') }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ url('build/css/owl.carousel.min.css') }}" media="print"
+        onload="this.media='all'">
+    <link rel="stylesheet" href="{{ url('build/css/feather.css') }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ url('build/css/iconsax.css') }}" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/fontawesome.min.css') }}">
+        <link rel="stylesheet" href="{{ url('build/plugins/fontawesome/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ url('build/plugins/aos/aos.css') }}">
+        <link rel="stylesheet" href="{{ url('build/css/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ url('build/css/feather.css') }}">
+        <link rel="stylesheet" href="{{ url('build/css/iconsax.css') }}">
+    </noscript>
 
-			/* --- Base text direction --- */
-			h1, h2, h3, h4, h5, h6, p, li, span, a, label, td, th, dt, dd,
-			.section-title, .section-text, .footer-content, .footer-widget,
-			.template-info, .copy-right, .footer-bottom-widget,
-			.banner-content, .feature-content, .pricing-card,
-			.card-body, .card-header, .card-footer,
-			.about-content, .counter-content, .faq-content,
-			.contact-content, .hero-content, .breadcrumb-item,
-			.dropdown-item, .dropdown-menu, .nav-link,
-			input, textarea, select, .form-control, .form-label,
-			.invalid-feedback, .alert,
-			.managing-info, .empowerment-page-info, .saas-information,
-			.module-card, .packages-card, .software-sec-info {
-				direction: rtl;
-				text-align: right;
-			}
+    @if (app()->getLocale() === 'ar')
+        <style>
+            /* ===== RTL for Arabic — text direction only, layout stays LTR ===== */
 
-			/* --- Keep centered elements centered --- */
-			.text-center, .text-center h1, .text-center h2, .text-center h3,
-			.text-center h4, .text-center h5, .text-center h6, .text-center p,
-			.text-center span, .text-center a,
-			.section-title.text-center, .text-center .section-title {
-				text-align: center !important;
-			}
+            /* --- Base text direction --- */
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p,
+            li,
+            span,
+            a,
+            label,
+            td,
+            th,
+            dt,
+            dd,
+            .section-title,
+            .section-text,
+            .footer-content,
+            .footer-widget,
+            .template-info,
+            .copy-right,
+            .footer-bottom-widget,
+            .banner-content,
+            .feature-content,
+            .pricing-card,
+            .card-body,
+            .card-header,
+            .card-footer,
+            .about-content,
+            .counter-content,
+            .faq-content,
+            .contact-content,
+            .hero-content,
+            .breadcrumb-item,
+            .dropdown-item,
+            .dropdown-menu,
+            .nav-link,
+            input,
+            textarea,
+            select,
+            .form-control,
+            .form-label,
+            .invalid-feedback,
+            .alert,
+            .managing-info,
+            .empowerment-page-info,
+            .saas-information,
+            .module-card,
+            .packages-card,
+            .software-sec-info {
+                direction: rtl;
+                text-align: right;
+            }
 
-			/* --- Section headings (flexbox centered) --- */
-			.section-heading { direction: ltr; }
-			.section-heading h2, .section-heading p, .section-heading span,
-			.section-heading .title-badge {
-				direction: rtl;
-				text-align: center !important;
-			}
-			/* Section heading inside FAQ (left-aligned, not centered) */
-			.faq-section .col-lg-5 .section-heading h2,
-			.faq-section .col-lg-5 .section-heading p,
-			.faq-section .col-lg-5 .section-heading span,
-			.faq-section .col-lg-5 .section-heading .title-badge,
-			.software-sec-info .section-heading h2,
-			.software-sec-info .section-heading p,
-			.software-sec-info .section-heading span,
-			.software-sec-info .section-heading .title-badge {
-				text-align: right !important;
-			}
+            /* --- Keep centered elements centered --- */
+            .text-center,
+            .text-center h1,
+            .text-center h2,
+            .text-center h3,
+            .text-center h4,
+            .text-center h5,
+            .text-center h6,
+            .text-center p,
+            .text-center span,
+            .text-center a,
+            .section-title.text-center,
+            .text-center .section-title {
+                text-align: center !important;
+            }
 
-			/* --- Centered flex containers stay LTR --- */
-			.d-flex.justify-content-center { direction: ltr; }
+            /* --- Section headings (flexbox centered) --- */
+            .section-heading {
+                direction: ltr;
+            }
 
-			/* --- Navbar: layout LTR, text RTL --- */
-			.header-nav, .main-nav, .header-navbar-rht { direction: ltr; }
-			.main-nav > li > a, .header-navbar-rht .btn,
-			.header-navbar-rht .dropdown-item { direction: rtl; }
+            .section-heading h2,
+            .section-heading p,
+            .section-heading span,
+            .section-heading .title-badge {
+                direction: rtl;
+                text-align: center !important;
+            }
 
-			/* --- Dropdown menus --- */
-			.dropdown-menu { text-align: right; }
-			.header-navbar-rht .dropdown-menu { left: 0; right: auto; }
+            /* Section heading inside FAQ (left-aligned, not centered) */
+            .faq-section .col-lg-5 .section-heading h2,
+            .faq-section .col-lg-5 .section-heading p,
+            .faq-section .col-lg-5 .section-heading span,
+            .faq-section .col-lg-5 .section-heading .title-badge,
+            .software-sec-info .section-heading h2,
+            .software-sec-info .section-heading p,
+            .software-sec-info .section-heading span,
+            .software-sec-info .section-heading .title-badge {
+                text-align: right !important;
+            }
 
-			/* --- Icon + text spacing (flip me-X to ms-X) --- */
-			.btn .me-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
-			.btn .me-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
-			.btn .ms-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
-			li i.me-1, li i.me-2 { margin-right: 0 !important; }
-			li i.me-1 { margin-left: 0.25rem !important; }
-			li i.me-2 { margin-left: 0.5rem !important; }
+            /* --- Centered flex containers stay LTR --- */
+            .d-flex.justify-content-center {
+                direction: ltr;
+            }
 
-			/* --- Banner info list (checkmarks) --- */
-			.banner-info-list li { margin-right: 0; margin-left: 40px; }
-			.banner-info-list li:last-child { margin-left: 0; }
-			.banner-info-list li i { margin-right: 0; margin-left: 8px; }
+            /* --- Navbar: layout LTR, text RTL --- */
+            .header-nav,
+            .main-nav,
+            .header-navbar-rht {
+                direction: ltr;
+            }
 
-			/* --- App cards (icon left of text) --- */
-			.app-card .app-icon { margin-right: 0; margin-left: 16px; }
+            .main-nav>li>a,
+            .header-navbar-rht .btn,
+            .header-navbar-rht .dropdown-item {
+                direction: rtl;
+            }
 
-			/* --- Plan features list (icon + text) --- */
-			.plan-features li i { margin-right: 0; margin-left: 8px; }
+            /* --- Dropdown menus --- */
+            .dropdown-menu {
+                text-align: right;
+            }
 
-			/* --- Inner page feature list --- */
-			.inner-page-features li i { margin-right: 0; margin-left: 8px; }
+            .header-navbar-rht .dropdown-menu {
+                left: 0;
+                right: auto;
+            }
 
-			/* --- Business info list (checkmarks) --- */
-			.bussiness-info li i { margin-right: 0 !important; margin-left: 8px !important; }
+            /* --- Icon + text spacing (flip me-X to ms-X) --- */
+            .btn .me-1 {
+                margin-right: 0 !important;
+                margin-left: 0.25rem !important;
+            }
 
-			/* --- FAQ accordion icon: move from right to left --- */
-			.faq-set .faq-card h4 a { padding-right: 0; padding-left: 30px; }
-			.faq-set .faq-card h4 a::before { right: auto; left: 0; }
+            .btn .me-2 {
+                margin-right: 0 !important;
+                margin-left: 0.5rem !important;
+            }
 
-			/* --- Management cards (software section) --- */
-			.management-types .mnaging-icon { margin-right: 0; margin-left: 16px; }
+            .btn .ms-2 {
+                margin-left: 0 !important;
+                margin-right: 0.5rem !important;
+            }
 
-			/* --- Module cards --- */
-			.module-card .module-icon { margin-bottom: 16px; }
+            li i.me-1,
+            li i.me-2 {
+                margin-right: 0 !important;
+            }
 
-			/* --- Stats (counter sup) --- */
-			.app-more-info li h4 sup { margin-left: 0; margin-right: 8px; }
+            li i.me-1 {
+                margin-left: 0.25rem !important;
+            }
 
-			/* --- Footer --- */
-			.footer-middle .row { direction: ltr; }
-			.footer-widget ul { padding-right: 0; list-style: none; }
+            li i.me-2 {
+                margin-left: 0.5rem !important;
+            }
 
-			/* --- Form inputs --- */
-			.email-form input { direction: rtl; }
-			.form-control, .form-select { text-align: right; }
+            /* --- Banner info list (checkmarks) --- */
+            .banner-info-list li {
+                margin-right: 0;
+                margin-left: 40px;
+            }
 
-			/* --- Tab buttons (features/pricing tabs) --- */
-			.nav-pills .nav-link, .inner-tab-button .nav-link { direction: rtl; text-align: right; }
+            .banner-info-list li:last-child {
+                margin-left: 0;
+            }
 
-			/* --- Connect CTA section centered --- */
-			.connect-with-us .section-title h2,
-			.connect-with-us .section-title p {
-				text-align: center !important;
-			}
+            .banner-info-list li i {
+                margin-right: 0;
+                margin-left: 8px;
+            }
 
-			/* --- Pricing package header fix --- */
-			.package-header { direction: ltr; }
-			.package-header h4, .package-header h6 { direction: rtl; text-align: right; }
+            /* --- App cards (icon left of text) --- */
+            .app-card .app-icon {
+                margin-right: 0;
+                margin-left: 16px;
+            }
 
-			/* --- Start business section centered --- */
-			.start-bussiness .section-title h2,
-			.start-bussiness .section-title p {
-				text-align: center !important;
-			}
+            /* --- Plan features list (icon + text) --- */
+            .plan-features li i {
+                margin-right: 0;
+                margin-left: 8px;
+            }
 
-			/* --- Counter section --- */
-			.counter { direction: ltr; }
-		</style>
-		@endif
+            /* --- Inner page feature list --- */
+            .inner-page-features li i {
+                margin-right: 0;
+                margin-left: 8px;
+            }
 
-		<!-- Mobile responsive overflow fix -->
-		<style>
-			/* Stop any decorative absolute element / oversized image / wide section
-			   from creating horizontal scroll on mobile. */
-			html, body {
-				overflow-x: hidden !important;
-				max-width: 100% !important;
-				width: 100% !important;
-			}
-			body {
-				position: relative;
-			}
-			.main-wrapper {
-				overflow-x: hidden !important;
-				max-width: 100vw !important;
-			}
-			img, svg, video, iframe {
-				max-width: 100%;
-				height: auto;
-			}
-			@media (max-width: 991.98px) {
-				.main-banner,
-				.hero-section,
-				.banner-hero,
-				.home-banner,
-				section,
-				.container,
-				.container-fluid {
-					max-width: 100% !important;
-					overflow-x: hidden;
-				}
-				.banner-content.pe-xl-5,
-				.pe-xl-5 {
-					padding-right: 0 !important;
-				}
-				.pe-lg-0 {
-					padding-right: var(--bs-gutter-x, 0.75rem) !important;
-				}
-				.banner-title h1,
-				h1, h2, h3 {
-					word-wrap: break-word;
-					overflow-wrap: break-word;
-				}
-				/* Neutralize any element absolutely positioned outside the viewport */
-				[style*="left:-"],
-				[style*="right:-"] {
-					display: none !important;
-				}
-			}
-		</style>
+            /* --- Business info list (checkmarks) --- */
+            .bussiness-info li i {
+                margin-right: 0 !important;
+                margin-left: 8px !important;
+            }
 
-		<!-- Mobile slide-out sidebar menu polish -->
-		<style>
-			@media (max-width: 991.98px) {
-				/* Sidebar panel itself */
-				.main-menu-wrapper {
-					padding: 0 !important;
-					background: #fff;
-					box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
-				}
+            /* --- FAQ accordion icon: move from right to left --- */
+            .faq-set .faq-card h4 a {
+                padding-right: 0;
+                padding-left: 30px;
+            }
 
-				/* Header (logo + close) */
-				.menu-header {
-					padding: 20px 24px !important;
-					border-bottom: 1px solid #eef0f6;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-				}
-				.menu-header .menu-logo img {
-					max-height: 32px;
-					width: auto;
-				}
-				.menu-header .menu-close {
-					width: 32px;
-					height: 32px;
-					display: inline-flex;
-					align-items: center;
-					justify-content: center;
-					border-radius: 8px;
-					color: #6b7280;
-					transition: background 0.2s ease, color 0.2s ease;
-				}
-				.menu-header .menu-close:hover {
-					background: #f3f4f6;
-					color: #111827;
-				}
+            .faq-set .faq-card h4 a::before {
+                right: auto;
+                left: 0;
+            }
 
-				/* Nav list */
-				.main-nav {
-					padding: 12px 16px !important;
-					margin: 0 !important;
-					gap: 4px;
-					display: flex;
-					flex-direction: column;
-				}
-				.main-nav > li.nav-item {
-					margin: 0 !important;
-					border-bottom: none !important;
-				}
-				.main-nav > li.nav-item > .nav-link {
-					display: block;
-					padding: 14px 16px !important;
-					font-size: 15px;
-					font-weight: 500;
-					color: #374151 !important;
-					border-radius: 10px;
-					transition: background 0.2s ease, color 0.2s ease;
-					line-height: 1.4;
-				}
-				.main-nav > li.nav-item > .nav-link:hover {
-					background: #f5f3ff;
-					color: #7f56ff !important;
-				}
-				.main-nav > li.nav-item > .nav-link.active {
-					background: #f5f3ff;
-					color: #7f56ff !important;
-					font-weight: 600;
-				}
+            /* --- Management cards (software section) --- */
+            .management-types .mnaging-icon {
+                margin-right: 0;
+                margin-left: 16px;
+            }
 
-				/* Language switcher row (mobile-only) */
-				.main-nav .nav-item.d-lg-none.mt-3 {
-					margin-top: 16px !important;
-					padding: 12px 16px 0;
-					border-top: 1px solid #eef0f6;
-				}
-				.main-nav .nav-item.d-lg-none.mt-3 .d-flex {
-					gap: 8px !important;
-					width: 100%;
-				}
-				.main-nav .nav-item.d-lg-none.mt-3 form {
-					flex: 1;
-				}
-				.main-nav .nav-item.d-lg-none.mt-3 form .btn {
-					width: 100%;
-					padding: 10px 12px;
-					font-size: 13px;
-					font-weight: 500;
-					border-radius: 8px;
-				}
+            /* --- Module cards --- */
+            .module-card .module-icon {
+                margin-bottom: 16px;
+            }
 
-				/* CTA button row (mobile-only) */
-				.main-nav .nav-item.d-lg-none.mt-2 {
-					margin-top: 12px !important;
-					padding: 0 16px;
-				}
-				.main-nav .nav-item.d-lg-none.mt-2 .btn.btn-primary {
-					width: 100%;
-					padding: 13px 16px;
-					font-size: 15px;
-					font-weight: 600;
-					border-radius: 10px;
-					display: inline-flex;
-					align-items: center;
-					justify-content: center;
-					gap: 8px;
-					box-shadow: 0 4px 12px rgba(127, 86, 255, 0.25);
-				}
-				.main-nav .nav-item.d-lg-none.mt-2 .btn.btn-primary i {
-					margin-right: 0 !important;
-				}
-			}
-		</style>
+            /* --- Stats (counter sup) --- */
+            .app-more-info li h4 sup {
+                margin-left: 0;
+                margin-right: 8px;
+            }
 
-		<!-- Logo dark/light mode switching -->
-		<style>
-			/* Default (outside banner / light bg): show dark logo, hide white logo */
-			.logo-dark { display: none !important; }
-			.logo-light { display: inline-block !important; }
+            /* --- Footer --- */
+            .footer-middle .row {
+                direction: ltr;
+            }
 
-			/* Inside .main-banner (dark bg): show white logo, hide dark logo */
-			.main-banner .logo-dark { display: inline-block !important; }
-			.main-banner .logo-light { display: none !important; }
+            .footer-widget ul {
+                padding-right: 0;
+                list-style: none;
+            }
 
-			/* Mobile slide-out menu always has white bg: always show dark logo */
-			.menu-header .logo-dark { display: none !important; }
-			.menu-header .logo-light { display: inline-block !important; }
+            /* --- Form inputs --- */
+            .email-form input {
+                direction: rtl;
+            }
 
-			/* OS-level dark mode: swap logos */
-			@media (prefers-color-scheme: dark) {
-				.logo-dark { display: inline-block !important; }
-				.logo-light { display: none !important; }
+            .form-control,
+            .form-select {
+                text-align: right;
+            }
 
-				/* Mobile menu still has white bg, keep dark logo */
-				.menu-header .logo-dark { display: none !important; }
-				.menu-header .logo-light { display: inline-block !important; }
-			}
-		</style>
+            /* --- Tab buttons (features/pricing tabs) --- */
+            .nav-pills .nav-link,
+            .inner-tab-button .nav-link {
+                direction: rtl;
+                text-align: right;
+            }
 
-		@stack('styles')
+            /* --- Connect CTA section centered --- */
+            .connect-with-us .section-title h2,
+            .connect-with-us .section-title p {
+                text-align: center !important;
+            }
 
-		<!-- Structured Data (JSON-LD) -->
-		<script type="application/ld+json">
+            /* --- Pricing package header fix --- */
+            .package-header {
+                direction: ltr;
+            }
+
+            .package-header h4,
+            .package-header h6 {
+                direction: rtl;
+                text-align: right;
+            }
+
+            /* --- Start business section centered --- */
+            .start-bussiness .section-title h2,
+            .start-bussiness .section-title p {
+                text-align: center !important;
+            }
+
+            /* --- Counter section --- */
+            .counter {
+                direction: ltr;
+            }
+        </style>
+    @endif
+
+    <!-- Mobile responsive overflow fix -->
+    <style>
+        /* Stop any decorative absolute element / oversized image / wide section
+   from creating horizontal scroll on mobile. */
+        html,
+        body {
+            overflow-x: hidden !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .main-wrapper {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+        }
+
+        img,
+        svg,
+        video,
+        iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 991.98px) {
+
+            .main-banner,
+            .hero-section,
+            .banner-hero,
+            .home-banner,
+            section,
+            .container,
+            .container-fluid {
+                max-width: 100% !important;
+                overflow-x: hidden;
+            }
+
+            .banner-content.pe-xl-5,
+            .pe-xl-5 {
+                padding-right: 0 !important;
+            }
+
+            .pe-lg-0 {
+                padding-right: var(--bs-gutter-x, 0.75rem) !important;
+            }
+
+            .banner-title h1,
+            h1,
+            h2,
+            h3 {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Neutralize any element absolutely positioned outside the viewport */
+            [style*="left:-"],
+            [style*="right:-"] {
+                display: none !important;
+            }
+        }
+    </style>
+
+    <!-- Mobile slide-out sidebar menu polish -->
+    <style>
+        @media (max-width: 991.98px) {
+
+            /* Sidebar panel itself */
+            .main-menu-wrapper {
+                padding: 0 !important;
+                background: #fff;
+                box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+            }
+
+            /* Header (logo + close) */
+            .menu-header {
+                padding: 20px 24px !important;
+                border-bottom: 1px solid #eef0f6;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .menu-header .menu-logo img {
+                max-height: 32px;
+                width: auto;
+            }
+
+            .menu-header .menu-close {
+                width: 32px;
+                height: 32px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+                color: #6b7280;
+                transition: background 0.2s ease, color 0.2s ease;
+            }
+
+            .menu-header .menu-close:hover {
+                background: #f3f4f6;
+                color: #111827;
+            }
+
+            /* Nav list */
+            .main-nav {
+                padding: 12px 16px !important;
+                margin: 0 !important;
+                gap: 4px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .main-nav>li.nav-item {
+                margin: 0 !important;
+                border-bottom: none !important;
+            }
+
+            .main-nav>li.nav-item>.nav-link {
+                display: block;
+                padding: 14px 16px !important;
+                font-size: 15px;
+                font-weight: 500;
+                color: #374151 !important;
+                border-radius: 10px;
+                transition: background 0.2s ease, color 0.2s ease;
+                line-height: 1.4;
+            }
+
+            .main-nav>li.nav-item>.nav-link:hover {
+                background: #f5f3ff;
+                color: #7f56ff !important;
+            }
+
+            .main-nav>li.nav-item>.nav-link.active {
+                background: #f5f3ff;
+                color: #7f56ff !important;
+                font-weight: 600;
+            }
+
+            /* Language switcher row (mobile-only) */
+            .main-nav .nav-item.d-lg-none.mt-3 {
+                margin-top: 16px !important;
+                padding: 12px 16px 0;
+                border-top: 1px solid #eef0f6;
+            }
+
+            .main-nav .nav-item.d-lg-none.mt-3 .d-flex {
+                gap: 8px !important;
+                width: 100%;
+            }
+
+            .main-nav .nav-item.d-lg-none.mt-3 form {
+                flex: 1;
+            }
+
+            .main-nav .nav-item.d-lg-none.mt-3 form .btn {
+                width: 100%;
+                padding: 10px 12px;
+                font-size: 13px;
+                font-weight: 500;
+                border-radius: 8px;
+            }
+
+            /* CTA button row (mobile-only) */
+            .main-nav .nav-item.d-lg-none.mt-2 {
+                margin-top: 12px !important;
+                padding: 0 16px;
+            }
+
+            .main-nav .nav-item.d-lg-none.mt-2 .btn.btn-primary {
+                width: 100%;
+                padding: 13px 16px;
+                font-size: 15px;
+                font-weight: 600;
+                border-radius: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                box-shadow: 0 4px 12px rgba(127, 86, 255, 0.25);
+            }
+
+            .main-nav .nav-item.d-lg-none.mt-2 .btn.btn-primary i {
+                margin-right: 0 !important;
+            }
+        }
+    </style>
+
+    <!-- Logo dark/light mode switching -->
+    <style>
+        /* Default (outside banner / light bg): show dark logo, hide white logo */
+        .logo-dark {
+            display: none !important;
+        }
+
+        .logo-light {
+            display: inline-block !important;
+        }
+
+        /* Inside .main-banner (dark bg): show white logo, hide dark logo */
+        .main-banner .logo-dark {
+            display: inline-block !important;
+        }
+
+        .main-banner .logo-light {
+            display: none !important;
+        }
+
+        /* Mobile slide-out menu always has white bg: always show dark logo */
+        .menu-header .logo-dark {
+            display: none !important;
+        }
+
+        .menu-header .logo-light {
+            display: inline-block !important;
+        }
+
+        /* OS-level dark mode: swap logos */
+        @media (prefers-color-scheme: dark) {
+            .logo-dark {
+                display: inline-block !important;
+            }
+
+            .logo-light {
+                display: none !important;
+            }
+
+            /* Mobile menu still has white bg, keep dark logo */
+            .menu-header .logo-dark {
+                display: none !important;
+            }
+
+            .menu-header .logo-light {
+                display: inline-block !important;
+            }
+        }
+    </style>
+
+    @stack('styles')
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
 		{
 			"@@context": "https://schema.org",
 			"@@type": "Organization",
 			"name": "{{ config('app.name', 'Hssabek') }}",
 			"url": "{{ url('/') }}",
-			"logo": "{{ asset('assets/images/logo/logo-wide-cropped.svg') }}",
+			"logo": "{{ asset('assets/images/logo/hssabek mobile logo.png') }}",
 			"description": "Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines",
 			"address": {
 				"@@type": "PostalAddress",
@@ -429,212 +644,246 @@
 			"sameAs": []
 		}
 		</script>
-		@yield('structured_data')
-	</head>
+    @yield('structured_data')
+</head>
 
 <body>
 
-	<div class="main-wrapper">
+    <div class="main-wrapper">
 
-		@hasSection('hero')
-		<div class="main-banner">
-			@include('frontoffice.components.navbar')
-			@yield('hero')
-		</div>
-		@else
-			@include('frontoffice.components.navbar')
-		@endif
+        @hasSection('hero')
+            <div class="main-banner">
+                @include('frontoffice.components.navbar')
+                @yield('hero')
+            </div>
+        @else
+            @include('frontoffice.components.navbar')
+        @endif
 
-		<main data-bs-spy="scroll" data-bs-target="#scroll-nav" class="scrollspy-example" tabindex="0">
-			@yield('content')
-			@include('frontoffice.components.footer')
-		</main>
+        <main data-bs-spy="scroll" data-bs-target="#scroll-nav" class="scrollspy-example" tabindex="0">
+            @yield('content')
+            @include('frontoffice.components.footer')
+        </main>
 
-		<div class="mouse-cursor cursor-outer"></div>
-		<div class="mouse-cursor cursor-inner"></div>
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
 
-		<div class="back-to-top">
-			<a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top" aria-label="Retour en haut"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
-		</div>
-	</div>
+        <div class="back-to-top">
+            <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"
+                aria-label="Retour en haut"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+        </div>
+    </div>
 
-	<!-- jQuery (needed by other scripts) -->
-	<script src="{{ url('build/js/jquery-3.7.1.min.js') }}"></script>
+    <!-- jQuery (needed by other scripts) -->
+    <script src="{{ url('build/js/jquery-3.7.1.min.js') }}"></script>
 
-	<!-- Bootstrap Core JS -->
-	<script src="{{ url('build/js/bootstrap.bundle.min.js') }}" defer></script>
-	<script src="{{ url('build/js/bootstrap-scrollspy.js') }}" defer></script>
+    <!-- Bootstrap Core JS -->
+    <script src="{{ url('build/js/bootstrap.bundle.min.js') }}" defer></script>
+    <script src="{{ url('build/js/bootstrap-scrollspy.js') }}" defer></script>
 
-	<!-- Deferred JS -->
-	<script src="{{ url('build/js/feather.min.js') }}" defer></script>
-	<script src="{{ url('build/plugins/aos/aos.js') }}" defer></script>
-	<script src="{{ url('build/js/jquery.waypoints.js') }}" defer></script>
-	<script src="{{ url('build/js/jquery.counterup.min.js') }}" defer></script>
-	<script src="{{ url('build/js/counter.js') }}" defer></script>
-	<script src="{{ url('build/js/owl.carousel.min.js') }}" defer></script>
-	<script src="{{ url('build/js/landing-script.js') }}" defer></script>
+    <!-- Deferred JS -->
+    <script src="{{ url('build/js/feather.min.js') }}" defer></script>
+    <script src="{{ url('build/plugins/aos/aos.js') }}" defer></script>
+    <script src="{{ url('build/js/jquery.waypoints.js') }}" defer></script>
+    <script src="{{ url('build/js/jquery.counterup.min.js') }}" defer></script>
+    <script src="{{ url('build/js/counter.js') }}" defer></script>
+    <script src="{{ url('build/js/owl.carousel.min.js') }}" defer></script>
+    <script src="{{ url('build/js/landing-script.js') }}" defer></script>
 
-	<!-- Newsletter AJAX -->
-	<script>
-	$(function() {
-		$('#newsletter-form').on('submit', function(e) {
-			e.preventDefault();
-			var $form = $(this), $btn = $('#newsletter-btn'), $msg = $('#newsletter-msg');
-			$btn.prop('disabled', true).text('...');
-			$msg.hide();
-			$.ajax({
-				url: $form.attr('action'),
-				method: 'POST',
-				data: $form.serialize(),
-				dataType: 'json',
-				success: function(res) {
-					$msg.removeClass('text-danger').addClass('text-success').text(res.message).show();
-					$form.find('input[name="email"]').val('');
-				},
-				error: function(xhr) {
-					var msg = 'Une erreur est survenue.';
-					if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.email) {
-						msg = xhr.responseJSON.errors.email[0];
-					} else if (xhr.responseJSON && xhr.responseJSON.message) {
-						msg = xhr.responseJSON.message;
-					}
-					$msg.removeClass('text-success').addClass('text-danger').text(msg).show();
-				},
-				complete: function() {
-					$btn.prop('disabled', false).text("{{ __("S'abonner") }}");
-				}
-			});
-		});
-	});
-	</script>
+    <!-- Newsletter AJAX -->
+    <script>
+        $(function() {
+            $('#newsletter-form').on('submit', function(e) {
+                e.preventDefault();
+                var $form = $(this),
+                    $btn = $('#newsletter-btn'),
+                    $msg = $('#newsletter-msg');
+                $btn.prop('disabled', true).text('...');
+                $msg.hide();
+                $.ajax({
+                    url: $form.attr('action'),
+                    method: 'POST',
+                    data: $form.serialize(),
+                    dataType: 'json',
+                    success: function(res) {
+                        $msg.removeClass('text-danger').addClass('text-success').text(res
+                            .message).show();
+                        $form.find('input[name="email"]').val('');
+                    },
+                    error: function(xhr) {
+                        var msg = 'Une erreur est survenue.';
+                        if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON
+                            .errors.email) {
+                            msg = xhr.responseJSON.errors.email[0];
+                        } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        $msg.removeClass('text-success').addClass('text-danger').text(msg)
+                        .show();
+                    },
+                    complete: function() {
+                        $btn.prop('disabled', false).text("{{ __("S'abonner") }}");
+                    }
+                });
+            });
+        });
+    </script>
 
-	@stack('scripts')
+    @stack('scripts')
 
-	<!-- WhatsApp Floating Button -->
-	<a href="https://wa.me/212632582096?text={{ urlencode('Bonjour, je vous contacte depuis le site Hsabbek.') }}" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
-		<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-	</a>
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/212632582096?text={{ urlencode('Bonjour, je vous contacte depuis le site Hsabbek.') }}"
+        target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+    </a>
 
-	<!-- Back to Top Floating Button -->
-	<a href="#" class="back-to-top-float" aria-label="Retour en haut" id="backToTopFloat">
-		<i class="fa fa-chevron-up"></i>
-	</a>
+    <!-- Back to Top Floating Button -->
+    <a href="#" class="back-to-top-float" aria-label="Retour en haut" id="backToTopFloat">
+        <i class="fa fa-chevron-up"></i>
+    </a>
 
-	<style>
-	/* WhatsApp Floating Button */
-	.whatsapp-float {
-		position: fixed;
-		bottom: 90px;
-		right: 30px;
-		z-index: 9999;
-		width: 60px;
-		height: 60px;
-		background: #25d366;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
-		animation: whatsapp-pulse 2s infinite;
-	}
-	.whatsapp-float:hover {
-		transform: scale(1.15);
-		box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
-		animation: none;
-	}
-	/* Back to Top Floating Button */
-	.back-to-top-float {
-		position: fixed;
-		bottom: 25px;
-		right: 30px;
-		z-index: 9999;
-		width: 50px;
-		height: 50px;
-		background: #7f56ff;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		box-shadow: 0 4px 15px rgba(127, 86, 255, 0.4);
-		transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
-		opacity: 0;
-		visibility: hidden;
-		text-decoration: none;
-	}
-	.back-to-top-float.visible {
-		opacity: 1;
-		visibility: visible;
-	}
-	.back-to-top-float i {
-		color: #fff;
-		font-size: 18px;
-	}
-	.back-to-top-float:hover {
-		transform: scale(1.15);
-		box-shadow: 0 6px 25px rgba(127, 86, 255, 0.6);
-		background: #6841e0;
-	}
+    <style>
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            z-index: 9999;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: whatsapp-pulse 2s infinite;
+        }
 
-	@keyframes whatsapp-pulse {
-		0% { transform: scale(1); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
-		50% { transform: scale(1.1); box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6); }
-		100% { transform: scale(1); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
-	}
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
 
-	/* Owl Carousel Nav Arrows for Invoice Template Slider */
-	.invoive-temp-slider .owl-nav {
-		display: flex;
-		justify-content: center;
-		gap: 12px;
-		margin-top: 24px;
-	}
-	.invoive-temp-slider .owl-nav button.owl-prev,
-	.invoive-temp-slider .owl-nav button.owl-next {
-		width: 44px;
-		height: 44px;
-		border-radius: 50%;
-		background: #7f56ff !important;
-		color: #fff !important;
-		font-size: 18px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: none;
-		transition: all 0.3s ease;
-		box-shadow: 0 2px 8px rgba(127, 86, 255, 0.3);
-	}
-	.invoive-temp-slider .owl-nav button.owl-prev:hover,
-	.invoive-temp-slider .owl-nav button.owl-next:hover {
-		background: #6841e0 !important;
-		transform: scale(1.1);
-		box-shadow: 0 4px 15px rgba(127, 86, 255, 0.5);
-	}
-	.invoive-temp-slider .owl-nav button.owl-prev i,
-	.invoive-temp-slider .owl-nav button.owl-next i {
-		color: #fff;
-		font-size: 16px;
-	}
-	.invoive-temp-slider .owl-nav.disabled {
-		display: none;
-	}
-	</style>
+        /* Back to Top Floating Button */
+        .back-to-top-float {
+            position: fixed;
+            bottom: 25px;
+            right: 30px;
+            z-index: 9999;
+            width: 50px;
+            height: 50px;
+            background: #7f56ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(127, 86, 255, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            text-decoration: none;
+        }
 
-	<script>
-	(function() {
-		var btn = document.getElementById('backToTopFloat');
-		window.addEventListener('scroll', function() {
-			if (window.scrollY > 300) {
-				btn.classList.add('visible');
-			} else {
-				btn.classList.remove('visible');
-			}
-		});
-		btn.addEventListener('click', function(e) {
-			e.preventDefault();
-			window.scrollTo({ top: 0, behavior: 'smooth' });
-		});
-	})();
-	</script>
+        .back-to-top-float.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top-float i {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .back-to-top-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 25px rgba(127, 86, 255, 0.6);
+            background: #6841e0;
+        }
+
+        @keyframes whatsapp-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            }
+        }
+
+        /* Owl Carousel Nav Arrows for Invoice Template Slider */
+        .invoive-temp-slider .owl-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .invoive-temp-slider .owl-nav button.owl-prev,
+        .invoive-temp-slider .owl-nav button.owl-next {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #7f56ff !important;
+            color: #fff !important;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(127, 86, 255, 0.3);
+        }
+
+        .invoive-temp-slider .owl-nav button.owl-prev:hover,
+        .invoive-temp-slider .owl-nav button.owl-next:hover {
+            background: #6841e0 !important;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(127, 86, 255, 0.5);
+        }
+
+        .invoive-temp-slider .owl-nav button.owl-prev i,
+        .invoive-temp-slider .owl-nav button.owl-next i {
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .invoive-temp-slider .owl-nav.disabled {
+            display: none;
+        }
+    </style>
+
+    <script>
+        (function() {
+            var btn = document.getElementById('backToTopFloat');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
+                }
+            });
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        })();
+    </script>
 </body>
+
 </html>

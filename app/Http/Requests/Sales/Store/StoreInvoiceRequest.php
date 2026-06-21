@@ -47,6 +47,12 @@ class StoreInvoiceRequest extends FormRequest
             'items.*.discount_value' => ['nullable', 'numeric', 'min:0'],
             'items.*.tax_rate' => ['nullable', 'numeric', 'min:0', 'max:100'],
             'items.*.tax_group_id' => ['nullable', 'uuid', Rule::exists('tax_groups', 'id')->where('tenant_id', $tenantId)],
+            'items.*.calculation_mode' => ['nullable', Rule::in(['quantity', 'surface', 'volume', 'manual'])],
+            'items.*.length' => ['nullable', 'numeric', 'min:0'],
+            'items.*.width' => ['nullable', 'numeric', 'min:0'],
+            'items.*.height' => ['nullable', 'numeric', 'min:0'],
+            'items.*.thickness' => ['nullable', 'numeric', 'min:0'],
+            'items.*.measurement_unit' => ['nullable', 'string', 'max:20'],
 
             // Additional charges — optional
             'charges' => ['sometimes', 'array'],

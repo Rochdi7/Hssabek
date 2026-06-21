@@ -71,6 +71,13 @@ class InvoiceService
                     'line_tax' => $item['line_tax'],
                     'line_total' => $item['line_total'],
                     'position' => $item['position'],
+                    'calculation_mode' => $item['calculation_mode'] ?? 'quantity',
+                    'length' => $item['length'] ?? null,
+                    'width' => $item['width'] ?? null,
+                    'height' => $item['height'] ?? null,
+                    'thickness' => $item['thickness'] ?? null,
+                    'measurement_unit' => $item['measurement_unit'] ?? null,
+                    'calculated_measurement' => $item['calculated_measurement'] ?? null,
                 ]);
             }
 
@@ -154,6 +161,13 @@ class InvoiceService
                     'line_tax' => $item['line_tax'],
                     'line_total' => $item['line_total'],
                     'position' => $item['position'],
+                    'calculation_mode' => $item['calculation_mode'] ?? 'quantity',
+                    'length' => $item['length'] ?? null,
+                    'width' => $item['width'] ?? null,
+                    'height' => $item['height'] ?? null,
+                    'thickness' => $item['thickness'] ?? null,
+                    'measurement_unit' => $item['measurement_unit'] ?? null,
+                    'calculated_measurement' => $item['calculated_measurement'] ?? null,
                 ]);
             }
 

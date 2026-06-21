@@ -336,7 +336,7 @@
                                                     data-phone="{{ $invoice->customer->phone ?? '' }}"
                                                     data-doc-number="{{ $invoice->number }}"
                                                     data-doc-type="la facture"
-                                                    data-download-url="{{ route('bo.sales.invoices.download', $invoice) }}">
+                                                    data-download-url="{{ route('public.invoice.download', $invoice->public_token) }}">
                                                     <i class="isax isax-send-2 me-2"></i>{{ __('Envoyer') }}
                                                 </button>
                                             </li>

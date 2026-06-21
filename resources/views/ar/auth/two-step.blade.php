@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                        Start Page Content
-                    ========================= -->
+                            Start Page Content
+                        ========================= -->
 
     <div class="container-fuild" dir="rtl">
         <div class="w-100 overflow-hidden position-relative flex-wrap d-block vh-100">
@@ -15,7 +15,7 @@
                         @csrf
                         <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
                             <div class=" mx-auto mb-5 text-center">
-                                <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
+                                <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid"
                                     alt="Logo">
                             </div>
                             <!-- card start -->
@@ -63,7 +63,8 @@
                                         <div class="d-flex justify-content-center">
                                             <div class="mb-3 d-flex align-items-center ">
                                                 <p class="text-gray-9 me-4 mb-0">لم تستلم الرمز؟ <a
-                                                        href="javascript:void(0);" class="text-primary">إعادة إرسال الرمز</a>
+                                                        href="javascript:void(0);" class="text-primary">إعادة إرسال
+                                                        الرمز</a>
                                                 </p>
                                                 <span class="text-danger">00:45</span>
                                             </div>
@@ -95,6 +96,6 @@
     </div>
 
     <!-- ========================
-                        End Page Content
-                    ========================= -->
+                            End Page Content
+                        ========================= -->
 @endsection

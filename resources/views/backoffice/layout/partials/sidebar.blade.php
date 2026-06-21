@@ -12,7 +12,8 @@
                     <ul class="dropdown-menu dropdown-menu-start">
                         @if (Route::has('bo.users.invite'))
                             <li>
-                                <a href="{{ route('bo.users.invite') }}" class="dropdown-item d-flex align-items-center">
+                                <a href="{{ route('bo.users.invite') }}"
+                                    class="dropdown-item d-flex align-items-center">
                                     <i class="isax isax-sms me-2"></i>{{ __('Inviter un utilisateur') }}
                                 </a>
                             </li>
@@ -38,7 +39,8 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="javascript:void(0);" onclick="this.closest('form').submit();" data-bs-toggle="tooltip"
-                            data-bs-placement="right" data-bs-title="{{ __('Déconnexion') }}"><i class="isax isax-login-15"></i></a>
+                            data-bs-placement="right" data-bs-title="{{ __('Déconnexion') }}"><i
+                                class="isax isax-login-15"></i></a>
                     </form>
                 </li>
             </ul>
@@ -93,7 +95,8 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('sa.dashboard') ? 'active' : '' }}">
                                         <a href="{{ route('sa.dashboard') }}">
-                                            <i class="isax isax-element-45"></i><span>{{ __('Tableau de bord') }}</span>
+                                            <i
+                                                class="isax isax-element-45"></i><span>{{ __('Tableau de bord') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -125,12 +128,14 @@
                                     </li>
                                     <li class="{{ request()->routeIs('sa.delete-requests.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.delete-requests.index') }}">
-                                            <i class="isax isax-trash"></i><span>{{ __('Demandes de suppression') }}</span>
+                                            <i
+                                                class="isax isax-trash"></i><span>{{ __('Demandes de suppression') }}</span>
                                         </a>
                                     </li>
                                     <li class="{{ request()->routeIs('sa.account-requests.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.account-requests.index') }}">
-                                            <i class="isax isax-user-add"></i><span>{{ __('Demandes de compte') }}</span>
+                                            <i
+                                                class="isax isax-user-add"></i><span>{{ __('Demandes de compte') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -169,7 +174,8 @@
                                     </li>
                                     <li class="{{ request()->routeIs('sa.newsletter.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.newsletter.index') }}">
-                                            <i class="isax isax-directbox-notif"></i><span>{{ __('Newsletter') }}</span>
+                                            <i
+                                                class="isax isax-directbox-notif"></i><span>{{ __('Newsletter') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -181,7 +187,8 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('sa.support-tickets.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.support-tickets.index') }}">
-                                            <i class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
+                                            <i
+                                                class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -193,12 +200,14 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('sa.activity-logs.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.activity-logs.index') }}">
-                                            <i class="isax isax-note-215"></i><span>{{ __("Journal d'activité") }}</span>
+                                            <i
+                                                class="isax isax-note-215"></i><span>{{ __("Journal d'activité") }}</span>
                                         </a>
                                     </li>
                                     <li class="{{ request()->routeIs('sa.access.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.access.roles.index') }}">
-                                            <i class="isax isax-shield-tick5"></i><span>{{ __('Rôles & Permissions') }}</span>
+                                            <i
+                                                class="isax isax-shield-tick5"></i><span>{{ __('Rôles & Permissions') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -217,7 +226,8 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('bo.dashboard') ? 'active' : '' }}">
                                         <a href="{{ route('bo.dashboard') }}">
-                                            <i class="isax isax-element-45"></i><span>{{ __('Tableau de bord') }}</span>
+                                            <i
+                                                class="isax isax-element-45"></i><span>{{ __('Tableau de bord') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -330,7 +340,8 @@
                                                     class="{{ request()->routeIs('bo.inventory.warehouses.*') ? 'active' : '' }}">{{ __('Entrepôts') }}</a>
                                             </li>
                                             <li><a href="{{ route('bo.inventory.stock.index') }}"
-                                                    class="{{ request()->routeIs('bo.inventory.stock.*') ? 'active' : '' }}">{{ __('Niveaux de stock') }}</a></li>
+                                                    class="{{ request()->routeIs('bo.inventory.stock.*') ? 'active' : '' }}">{{ __('Niveaux de stock') }}</a>
+                                            </li>
                                             <li><a href="{{ route('bo.inventory.movements.index') }}"
                                                     class="{{ request()->routeIs('bo.inventory.movements.*') ? 'active' : '' }}">{{ __('Mouvements') }}</a>
                                             </li>
@@ -363,7 +374,8 @@
                                     </li>
                                     <li class="{{ request()->routeIs('bo.finance.loans.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.finance.loans.index') }}">
-                                            <i class="isax isax-percentage-square5"></i><span>{{ __('Prêts') }}</span>
+                                            <i
+                                                class="isax isax-percentage-square5"></i><span>{{ __('Prêts') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -375,7 +387,8 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('bo.pro.rapports.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.pro.rapports.index') }}">
-                                            <i class="isax isax-document-text5"></i><span>{{ __('Générer un rapport') }}</span>
+                                            <i
+                                                class="isax isax-document-text5"></i><span>{{ __('Générer un rapport') }}</span>
                                         </a>
                                     </li>
                                     <li class="submenu">
@@ -411,7 +424,8 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('bo.support.tickets.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.support.tickets.index') }}">
-                                            <i class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
+                                            <i
+                                                class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -424,14 +438,16 @@
                                     {{-- Utilisateurs --}}
                                     <li class="{{ request()->routeIs('bo.users.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.users.index') }}">
-                                            <i class="isax isax-profile-2user5"></i><span>{{ __('Utilisateurs') }}</span>
+                                            <i
+                                                class="isax isax-profile-2user5"></i><span>{{ __('Utilisateurs') }}</span>
                                         </a>
                                     </li>
 
                                     {{-- Rôles & Permissions --}}
                                     <li class="{{ request()->routeIs('bo.access.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.access.roles.index') }}">
-                                            <i class="isax isax-shield-tick5"></i><span>{{ __('Rôles & Permissions') }}</span>
+                                            <i
+                                                class="isax isax-shield-tick5"></i><span>{{ __('Rôles & Permissions') }}</span>
                                         </a>
                                     </li>
 
@@ -453,13 +469,15 @@
                                             <i class="ti ti-user-circle"></i><span>{{ __('Mon compte') }}</span>
                                         </a>
                                     </li>
-                                    
-                                    <li class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">
+
+                                    <li
+                                        class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.pro.recurring-invoices.index') }}">
-                                            <i class="isax isax-repeat5"></i><span>{{ __('Factures récurrentes') }}</span>
+                                            <i
+                                                class="isax isax-repeat5"></i><span>{{ __('Factures récurrentes') }}</span>
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                             </li>
                         </ul>
@@ -468,11 +486,14 @@
                     <div class="sidebar-footer">
                         <div class="trial-item bg-white text-center border">
                             <div class="bg-light p-3 text-center upgrade-image">
-                                <img src="{{ URL::asset('assets/images/250px-WhatsApp.svg.png') }}" alt="img" style="width: 40px; height: 40px;">
+                                <img src="{{ URL::asset('assets/images/250px-WhatsApp.svg.png') }}" alt="img"
+                                    style="width: 40px; height: 40px;">
                             </div>
                             <div class="p-2">
                                 <h6 class="fs-12 fw-semibold mb-1">{{ __('Besoin d\'aide ?') }}</h6>
-                                <a href="https://wa.me/212632582096" target="_blank" class="btn btn-sm btn-success w-100 d-flex align-items-center justify-content-center"><i class="fa-brands fa-whatsapp me-1"></i>{{ __('WhatsApp') }}</a>
+                                <a href="https://wa.me/212632582096" target="_blank"
+                                    class="btn btn-sm btn-success w-100 d-flex align-items-center justify-content-center"><i
+                                        class="fa-brands fa-whatsapp me-1"></i>{{ __('WhatsApp') }}</a>
                             </div>
                             <a href="javascript:void(0);" class="close-icon fs-6"><i class="fa-solid fa-x"></i></a>
                         </div>
@@ -494,7 +515,8 @@
                                     @csrf
                                     <a href="javascript:void(0);" onclick="this.closest('form').submit();"
                                         data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-title="{{ __('Déconnexion') }}"><i class="isax isax-login-15"></i></a>
+                                        data-bs-title="{{ __('Déconnexion') }}"><i
+                                            class="isax isax-login-15"></i></a>
                                 </form>
                             </li>
                         </ul>
