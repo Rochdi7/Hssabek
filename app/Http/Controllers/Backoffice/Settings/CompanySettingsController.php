@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\UpdateCompanySettingsRequest;
 use App\Models\Tenancy\TenantSetting;
 use App\Services\Tenancy\TenantContext;
-use Illuminate\Support\Str;
+use App\Support\Security\Base64Image;
 
 class CompanySettingsController extends Controller
 {
@@ -31,46 +31,37 @@ class CompanySettingsController extends Controller
         $tenant = TenantContext::get();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
-        // Exclude image fields and forme_juridique (stored on tenant) from company_settings JSON
         $imageFields = array_merge(
             self::IMAGE_COLLECTIONS,
-            array_map(fn($c) => "delete_{$c}", self::IMAGE_COLLECTIONS),
+            array_map(fn ($collection) => "delete_{$collection}", self::IMAGE_COLLECTIONS),
             ['cropped_logo', 'cropped_logo_deleted', 'forme_juridique']
         );
+
         $companyData = $request->safe()->except($imageFields);
 
-        // Cast assujetti_tva to boolean
         if (isset($companyData['assujetti_tva'])) {
             $companyData['assujetti_tva'] = (bool) $companyData['assujetti_tva'];
         }
 
-        // Sync rc alias for PDF templates (they use $company['rc'])
         if (isset($companyData['registration_number'])) {
             $companyData['rc'] = $companyData['registration_number'];
         }
 
-        // Store forme_juridique in company_settings too (for PDF access)
         $companyData['forme_juridique'] = $request->input('forme_juridique');
 
-        $setting->company_settings = array_merge(
-            $setting->company_settings ?? [],
-            $companyData
-        );
+        $setting->company_settings = array_merge($setting->company_settings ?? [], $companyData);
         $setting->save();
 
-        // Update forme_juridique on tenant
         if ($request->filled('forme_juridique')) {
             $tenant->update(['forme_juridique' => $request->input('forme_juridique')]);
         }
 
-        // Handle cropped logo (base64 from avatar-cropper component, if still used)
         if ($request->filled('cropped_logo')) {
             $this->handleBase64Image($tenant, 'logo', $request->input('cropped_logo'));
         } elseif ($request->input('cropped_logo_deleted') === '1') {
             $tenant->clearMediaCollection('logo');
         }
 
-        // Handle file uploads for all image collections
         foreach (self::IMAGE_COLLECTIONS as $collection) {
             if ($request->hasFile($collection)) {
                 $tenant->clearMediaCollection($collection);
@@ -81,27 +72,18 @@ class CompanySettingsController extends Controller
         }
 
         return redirect()->route('bo.settings.company.edit')
-            ->with('success', __("Paramètres de l'entreprise mis à jour avec succès."));
+            ->with('success', __('Parametres de l\'entreprise mis a jour avec succes.'));
     }
 
     private function handleBase64Image($tenant, string $collection, string $base64): void
     {
-        $data = substr($base64, strpos($base64, ',') + 1);
-        $decoded = base64_decode($data);
-
-        preg_match('/^data:image\/(\w+);/', $base64, $matches);
-        $ext = $matches[1] ?? 'png';
-        if ($ext === 'jpeg') {
-            $ext = 'jpg';
-        }
-
-        $fileName = $collection . '-' . Str::random(8) . '.' . $ext;
-        $tmpPath = sys_get_temp_dir() . '/' . $fileName;
-        file_put_contents($tmpPath, $decoded);
-
-        $tenant->clearMediaCollection($collection);
-        $tenant->addMedia($tmpPath)
-            ->usingFileName($fileName)
-            ->toMediaCollection($collection);
+        Base64Image::attachToMediaCollection(
+            $tenant,
+            $collection,
+            $base64,
+            prefix: $collection,
+            maxKilobytes: 2048,
+            clearExisting: true,
+        );
     }
 }

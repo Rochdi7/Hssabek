@@ -41,9 +41,7 @@ class TaxCalculationService
         if ($mode === 'surface') {
             $l = (float) ($item['length'] ?? 0);
             $h = (float) ($item['height'] ?? 0);
-            $w = (float) ($item['width'] ?? 0);
-            $second = $h > 0 ? $h : $w;
-            return $l > 0 && $second > 0 ? round($l * $second, 4) : null;
+            return $l > 0 && $h > 0 ? round($l * $h, 4) : null;
         }
 
         if ($mode === 'volume') {
@@ -63,7 +61,10 @@ class TaxCalculationService
 
         // For surface/volume modes, effective quantity = measurement × item quantity
         $measurement = $this->resolveMeasurement($item);
-        $quantity = ($measurement !== null) ? round($measurement * $baseQty, 4) : $baseQty;
+        $isMeasurementMode = in_array($mode, ['surface', 'volume'], true);
+        $quantity = $isMeasurementMode
+            ? ($measurement !== null ? round($measurement * $baseQty, 4) : 0.0)
+            : $baseQty;
 
         $unitPrice = (float) ($item['unit_price'] ?? 0);
         $discountType = $item['discount_type'] ?? 'none';
@@ -118,8 +119,12 @@ class TaxCalculationService
 
             // Use effective quantity (measurement × qty for surface/volume, raw qty otherwise)
             $measurement = $this->resolveMeasurement($item);
+            $mode = $item['calculation_mode'] ?? 'quantity';
             $baseQty = (float) ($item['quantity'] ?? 1);
-            $effectiveQty = ($measurement !== null) ? round($measurement * $baseQty, 4) : $baseQty;
+            $isMeasurementMode = in_array($mode, ['surface', 'volume'], true);
+            $effectiveQty = $isMeasurementMode
+                ? ($measurement !== null ? round($measurement * $baseQty, 4) : 0.0)
+                : $baseQty;
 
             $grossAmount = round($effectiveQty * (float) ($item['unit_price'] ?? 0), 2);
             $discountAmount = round($grossAmount - $calculated['line_subtotal'], 2);

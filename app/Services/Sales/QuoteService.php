@@ -21,9 +21,9 @@ class QuoteService
     /**
      * Create a quote with line items, charges, and server-calculated totals.
      */
-    public function create(array $validated): Quote
+    public function create(array $validated, string $documentType = 'quote'): Quote
     {
-        return DB::transaction(function () use ($validated) {
+        return DB::transaction(function () use ($validated, $documentType) {
             $items = $validated['items'] ?? [];
             $charges = $validated['charges'] ?? [];
 
@@ -32,6 +32,7 @@ class QuoteService
             $quote = Quote::create([
                 'customer_id' => $validated['customer_id'],
                 'number' => $this->docService->next('quote'),
+                'document_type' => $documentType,
                 'reference_number' => $validated['reference_number'] ?? null,
                 'status' => 'draft',
                 'issue_date' => $validated['issue_date'],

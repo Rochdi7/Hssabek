@@ -113,25 +113,30 @@
                                     </div>
                                     @if ($attachments->count())
                                         @foreach ($attachments as $media)
+                                            @php
+                                                $previewUrl = route('sa.support-tickets.attachments.show', ['ticket' => $ticket, 'media' => $media]);
+                                                $downloadUrl = route('sa.support-tickets.attachments.show', ['ticket' => $ticket, 'media' => $media, 'download' => 1]);
+                                                $displayName = $media->getCustomProperty('original_name', $media->file_name);
+                                            @endphp
                                             <div class="d-flex align-items-center justify-content-between border rounded p-2 {{ !$loop->last ? 'mb-3' : '' }}">
                                                 <div class="d-flex align-items-center">
                                                     @if (Str::startsWith($media->mime_type, 'image/'))
-                                                        <img src="{{ $media->getUrl() }}" alt="img"
+                                                        <img src="{{ $previewUrl }}" alt="img"
                                                             class="avatar avatar-lg me-2" style="object-fit: cover;">
                                                     @else
                                                         <img src="{{ URL::asset('build/img/icons/pdf.svg') }}" alt="img"
                                                             class="avatar avatar-lg me-2">
                                                     @endif
                                                     <div>
-                                                        <a href="{{ $media->getUrl() }}" target="_blank" class="fs-13">{{ $media->file_name }}</a>
+                                                        <a href="{{ $previewUrl }}" target="_blank" class="fs-13">{{ $displayName }}</a>
                                                         <span class="d-block fs-12">{{ number_format($media->size / 1024, 0) }} KB</span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="{{ $media->getUrl() }}" target="_blank" download
+                                                    <a href="{{ $downloadUrl }}"
                                                         class="btn btn-primary btn-md rounded-circle me-2 p-2"><i
                                                             class="isax isax-document-download"></i></a>
-                                                    <a href="{{ $media->getUrl() }}" target="_blank" class="btn btn-light btn-md rounded-circle p-2"><i
+                                                    <a href="{{ $previewUrl }}" target="_blank" class="btn btn-light btn-md rounded-circle p-2"><i
                                                             class="isax isax-more"></i></a>
                                                 </div>
                                             </div>

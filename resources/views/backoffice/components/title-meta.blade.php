@@ -17,6 +17,15 @@
     <meta name="author" content="{{ config('app.name', 'Hssabek') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4361ee">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'Hssabek') }}">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+
     @include('backoffice.layout.partials.head')
 
     @stack('styles')

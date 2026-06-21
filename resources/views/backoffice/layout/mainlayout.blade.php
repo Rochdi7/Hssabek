@@ -141,6 +141,70 @@
 
 @include('backoffice.layout.partials.footer-scripts')
 
+@if(auth()->check() && !$hideHeaderSidebar)
+<!-- PWA Install Button -->
+<button id="pwa-install-btn" title="Installer l'application" style="
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    background: #4361ee;
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 4px 18px rgba(67,97,238,0.45);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 24px rgba(67,97,238,0.6)'"
+   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 18px rgba(67,97,238,0.45)'">
+    <i class="isax isax-mobile" style="font-size:22px;"></i>
+</button>
+
+<script>
+(function () {
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+    }
+
+    // PWA install prompt
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'flex';
+    });
+
+    if (installBtn) {
+        installBtn.addEventListener('click', function () {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function (choice) {
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            });
+        });
+    }
+
+    // Hide button if already installed
+    window.addEventListener('appinstalled', function () {
+        if (installBtn) installBtn.style.display = 'none';
+        deferredPrompt = null;
+    });
+})();
+</script>
+@endif
+
 </body>
 
 </html>

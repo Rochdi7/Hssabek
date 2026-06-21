@@ -3,13 +3,15 @@
 namespace App\Http\Requests\Sales\Store;
 
 use App\Http\Requests\Traits\ResolveTaxSelection;
+use App\Http\Requests\Traits\ValidatesMeasurementItems;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class StoreQuoteRequest extends FormRequest
 {
-    use ResolveTaxSelection;
+    use ResolveTaxSelection, ValidatesMeasurementItems;
     public function authorize(): bool
     {
         return true;
@@ -67,5 +69,10 @@ class StoreQuoteRequest extends FormRequest
             'items.*.quantity.required' => __('La quantité est obligatoire.'),
             'items.*.unit_price.required' => __('Le prix unitaire est obligatoire.'),
         ];
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(fn (Validator $validator) => $this->validateMeasurementItems($validator));
     }
 }

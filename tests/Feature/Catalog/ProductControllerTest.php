@@ -60,12 +60,81 @@ class ProductControllerTest extends TestCase
         ]);
     }
 
+    public function test_store_defaults_discount_value_to_zero_when_discount_type_is_none(): void
+    {
+        $response = $this->actingAs($this->adminUser)
+            ->post(route('bo.catalog.products.store'), [
+                'name' => 'Produit remise zero',
+                'code' => 'PRD-DISCOUNT-000',
+                'item_type' => 'product',
+                'selling_price' => 99.99,
+                'discount_type' => 'none',
+            ]);
+
+        $response->assertRedirect(route('bo.catalog.products.index'));
+
+        $product = Product::query()->where('code', 'PRD-DISCOUNT-000')->firstOrFail();
+
+        $this->assertSame('none', $product->discount_type);
+        $this->assertSame(0.0, (float) $product->discount_value);
+    }
+
+    public function test_store_defaults_optional_numeric_fields_without_sql_error(): void
+    {
+        $response = $this->actingAs($this->adminUser)
+            ->post(route('bo.catalog.products.store'), [
+                'name' => 'Produit numeriques vides',
+                'code' => 'PRD-EMPTY-NUM-000',
+                'item_type' => 'product',
+                'selling_price' => 120,
+                'purchase_price' => '',
+                'quantity' => '',
+                'discount_type' => 'none',
+                'discount_value' => '',
+            ]);
+
+        $response->assertRedirect(route('bo.catalog.products.index'));
+
+        $product = Product::query()->where('code', 'PRD-EMPTY-NUM-000')->firstOrFail();
+
+        $this->assertSame(0.0, (float) $product->purchase_price);
+        $this->assertSame(0.0, (float) $product->quantity);
+        $this->assertSame(0.0, (float) $product->discount_value);
+    }
+
     public function test_store_validates_required_fields(): void
     {
         $response = $this->actingAs($this->adminUser)
             ->post(route('bo.catalog.products.store'), []);
 
         $response->assertSessionHasErrors(['name', 'item_type', 'selling_price', 'code']);
+    }
+
+    public function test_validation_failure_redirects_back_with_errors_and_session_message(): void
+    {
+        $response = $this->actingAs($this->adminUser)
+            ->from(route('bo.catalog.products.create'))
+            ->post(route('bo.catalog.products.store'), []);
+
+        $response->assertRedirect(route('bo.catalog.products.create'));
+        $response->assertSessionHasErrors(['name', 'item_type', 'selling_price', 'code']);
+        $response->assertSessionHas('error');
+    }
+
+    public function test_store_returns_json_validation_error_for_ajax_requests(): void
+    {
+        $response = $this->actingAs($this->adminUser)
+            ->postJson(route('bo.catalog.products.store'), []);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'success' => false,
+            ])
+            ->assertJsonStructure([
+                'success',
+                'message',
+                'errors' => ['name', 'item_type', 'selling_price', 'code'],
+            ]);
     }
 
     public function test_edit_shows_form(): void

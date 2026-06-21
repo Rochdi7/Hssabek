@@ -165,11 +165,16 @@ Route::prefix('admin')
 */
 
 Route::middleware(['web', 'throttle:30,1'])->group(function () {
-    Route::get('/doc/devis/{token}', [\App\Http\Controllers\Public\PublicDocumentController::class, 'downloadQuote'])
+    Route::get('/doc/devis/{token}', [\App\Http\Controllers\Public\PublicDocumentController::class, 'downloadQuoteDocument'])
+        ->defaults('type', 'devis')
         ->name('public.quote.download');
 
     Route::get('/doc/facture/{token}', [\App\Http\Controllers\Public\PublicDocumentController::class, 'downloadInvoice'])
         ->name('public.invoice.download');
+
+    Route::get('/doc/{type}/{token}', [\App\Http\Controllers\Public\PublicDocumentController::class, 'downloadQuoteDocument'])
+        ->where('type', \App\Support\Sales\QuoteDocumentType::publicSlugPattern())
+        ->name('public.quote-document.download');
 });
 
 

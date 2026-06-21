@@ -16,7 +16,7 @@ class ExpenseFactory extends Factory
             'amount' => fake()->randomFloat(2, 50, 5000),
             'paid_amount' => 0,
             'expense_date' => fake()->dateTimeBetween('-3 months', 'now'),
-            'payment_mode' => fake()->randomElement(['cash', 'bank_transfer', 'check']),
+            'payment_mode' => fake()->randomElement(['cash', 'bank_transfer', 'card', 'cheque', 'other']),
             'payment_status' => fake()->randomElement(['unpaid', 'paid', 'partial']),
         ];
     }

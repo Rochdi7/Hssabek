@@ -129,4 +129,39 @@ class TaxCalculationServiceTest extends TestCase
         $this->assertEquals(20.00, $result['line_tax']); // 99.99 * 0.2 = 19.998 → 20.00
         $this->assertEquals(119.99, $result['line_total']);
     }
+    public function test_surface_mode_uses_length_times_height_times_quantity(): void
+    {
+        $result = $this->service->calculateLineItem([
+            'calculation_mode' => 'surface',
+            'length' => 3.84,
+            'height' => 2.90,
+            'quantity' => 1,
+            'unit_price' => 1250,
+            'discount_type' => 'none',
+            'discount_value' => 0,
+            'tax_rate' => 0,
+        ]);
+
+        $this->assertEquals(13920.00, $result['line_subtotal']);
+        $this->assertEquals(0.00, $result['line_tax']);
+        $this->assertEquals(13920.00, $result['line_total']);
+    }
+
+    public function test_surface_mode_with_missing_dimensions_does_not_fallback_to_plain_quantity(): void
+    {
+        $result = $this->service->calculateLineItem([
+            'calculation_mode' => 'surface',
+            'length' => 3.84,
+            'height' => null,
+            'quantity' => 2,
+            'unit_price' => 1250,
+            'discount_type' => 'none',
+            'discount_value' => 0,
+            'tax_rate' => 0,
+        ]);
+
+        $this->assertEquals(0.00, $result['line_subtotal']);
+        $this->assertEquals(0.00, $result['line_tax']);
+        $this->assertEquals(0.00, $result['line_total']);
+    }
 }

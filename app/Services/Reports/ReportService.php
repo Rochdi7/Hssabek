@@ -360,7 +360,7 @@ class ReportService
                 ->get();
 
             // Recent quotes (last 5)
-            $recentQuotes = \App\Models\Sales\Quote::with('customer:id,name')
+            $recentQuotes = \App\Models\Sales\Quote::ofDocumentType('quote')->with('customer:id,name')
                 ->latest('issue_date')
                 ->limit(5)
                 ->get();

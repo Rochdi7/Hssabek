@@ -24,7 +24,9 @@ class Signature extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('signature')->singleFile();
+        $this->addMediaCollection('signature')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
     }
 
     public function getSignatureUrlAttribute(): string

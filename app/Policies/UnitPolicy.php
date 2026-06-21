@@ -9,23 +9,23 @@ class UnitPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('inventory.products.view');
+        return $user->can('catalog.units.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('inventory.products.create');
+        return $user->can('catalog.units.create');
     }
 
     public function update(User $user, Unit $unit): bool
     {
-        return $user->can('inventory.products.edit')
+        return $user->can('catalog.units.edit')
             && $this->belongsToTenant($unit);
     }
 
     public function delete(User $user, Unit $unit): bool
     {
-        return $user->can('inventory.products.delete')
+        return $user->can('catalog.units.delete')
             && $this->belongsToTenant($unit);
     }
 }

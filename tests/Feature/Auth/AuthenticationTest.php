@@ -47,7 +47,7 @@ class AuthenticationTest extends TestCase
     {
         $this->createTenantUser(['email' => 'john@test.com']);
 
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => 'john@test.com',
             'password' => 'password',
         ]);
@@ -61,7 +61,7 @@ class AuthenticationTest extends TestCase
     {
         $this->createTenantUser(['email' => 'jane@test.com']);
 
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => 'jane@test.com',
             'password' => 'wrong-password',
         ]);
@@ -72,7 +72,7 @@ class AuthenticationTest extends TestCase
 
     public function test_user_cannot_login_with_nonexistent_email(): void
     {
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => 'nobody@test.com',
             'password' => 'password',
         ]);
@@ -86,13 +86,13 @@ class AuthenticationTest extends TestCase
         $this->createTenantUser(['email' => 'rate@test.com']);
 
         for ($i = 0; $i < 5; $i++) {
-            $this->post('/login', [
+            $this->post(route('login'), [
                 'email' => 'rate@test.com',
                 'password' => 'wrong-password',
             ]);
         }
 
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => 'rate@test.com',
             'password' => 'wrong-password',
         ]);
@@ -104,7 +104,7 @@ class AuthenticationTest extends TestCase
     {
         config(['auth.registration_enabled' => true]);
 
-        $this->post('/register', [
+        $this->post(route('register'), [
             'name' => 'New User',
             'email' => 'newuser@test.com',
             'password' => 'Password123!',
@@ -121,7 +121,7 @@ class AuthenticationTest extends TestCase
     {
         config(['auth.registration_enabled' => true]);
 
-        $response = $this->post('/register', []);
+        $response = $this->post(route('register'), []);
 
         $response->assertSessionHasErrors(['name', 'email', 'password']);
     }
@@ -130,7 +130,7 @@ class AuthenticationTest extends TestCase
     {
         config(['auth.registration_enabled' => true]);
 
-        $response = $this->post('/register', [
+        $response = $this->post(route('register'), [
             'name' => 'Weak Pass User',
             'email' => 'weak@test.com',
             'password' => '123',

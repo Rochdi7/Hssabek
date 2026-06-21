@@ -74,7 +74,7 @@ class DashboardController extends Controller
         // Extra counts for richer dashboard UI (live, not cached)
         $customerCount     = Customer::count();
         $invoiceCount      = Invoice::count();
-        $quoteCount        = Quote::count();
+        $quoteCount        = Quote::ofDocumentType('quote')->count();
         $productCount      = Product::count();
         $draftInvoiceCount = Invoice::where('status', 'draft')->count();
         $totalSalesYtd     = $kpis['revenueYtd'];

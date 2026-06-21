@@ -1,8 +1,9 @@
-<?php $page = 'quotations'; ?>
+﻿?<?php $page = 'quotations'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Devis')
-@section('description', 'Liste de tous les devis')
+@section('title', $documentConfig['plural_label'])
+@section('description', $documentConfig['all_label'])
 @section('content')
+    @php $documentRouteBase = $documentConfig['route_base']; @endphp
     <!-- ========================
           Start Page Content
          ========================= -->
@@ -15,13 +16,13 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>{{ __('Devis') }}</h6>
+                    <h6>{{ $documentConfig['plural_label'] }}</h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    @include('backoffice.components.export-dropdown', ['exportType' => 'quotes'])
+                    @include('backoffice.components.export-dropdown', ['exportType' => $documentConfig['export_type']])
                     <div>
-                        <a href="{{ route('bo.sales.quotes.create') }}" class="btn btn-primary d-flex align-items-center">
-                            <i class="isax isax-add-circle5 me-1"></i>{{ __('Nouveau devis') }}</a>
+                        <a href="{{ route($documentRouteBase . '.create') }}" class="btn btn-primary d-flex align-items-center">
+                            <i class="isax isax-add-circle5 me-1"></i>{{ $documentConfig['new_label'] }}</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +42,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">{{ __('Total devis') }}</p>
+                                    <p class="mb-1">{{ $documentConfig['count_label'] }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ number_format($quotes->total(), 0, ',', ' ') }}</h6>
                                 </div>
                                 <div>
@@ -50,7 +51,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">{{ __('Tous les devis') }}</p>
+                            <p class="fs-13 mb-0">{{ $documentConfig['all_label'] }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
                             </span>
@@ -64,7 +65,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('Acceptés') }}</p>
                                     <h6 class="fs-16 fw-semibold text-success">
-                                        {{ \App\Models\Sales\Quote::where('status', 'accepted')->count() }}</h6>
+                                        {{ $summary['accepted'] }}</h6>
                                 </div>
                                 <div>
                                     <span class="avatar bg-success rounded-circle">
@@ -72,7 +73,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">{{ __('Devis acceptés') }}</p>
+                            <p class="fs-13 mb-0">{{ $documentConfig['accepted_label'] }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
                             </span>
@@ -86,7 +87,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('Envoyés') }}</p>
                                     <h6 class="fs-16 fw-semibold text-warning">
-                                        {{ \App\Models\Sales\Quote::where('status', 'sent')->count() }}
+                                        {{ $summary['sent'] }}
                                     </h6>
                                 </div>
                                 <div>
@@ -95,7 +96,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">{{ __('Devis envoyés') }}</p>
+                            <p class="fs-13 mb-0">{{ $documentConfig['sent_label'] }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
                             </span>
@@ -109,7 +110,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('Expirés') }}</p>
                                     <h6 class="fs-16 fw-semibold text-danger">
-                                        {{ \App\Models\Sales\Quote::where('status', 'expired')->count() }}</h6>
+                                        {{ $summary['expired'] }}</h6>
                                 </div>
                                 <div>
                                     <span class="avatar bg-danger rounded-circle">
@@ -117,7 +118,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">{{ __('Devis expirés') }}</p>
+                            <p class="fs-13 mb-0">{{ $documentConfig['expired_label'] }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
                             </span>
@@ -131,11 +132,11 @@
             <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                     <div class="d-flex align-items-center flex-wrap gap-2">
-                        <form action="{{ route('bo.sales.quotes.index') }}" method="GET"
+                        <form action="{{ route($documentRouteBase . '.index') }}" method="GET"
                             class="table-search d-flex align-items-center mb-0">
                             <div class="search-input">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="{{ __('Rechercher un devis...') }}" value="{{ request('search') }}">
+                                    placeholder="{{ $documentConfig['search_placeholder'] }}" value="{{ request('search') }}">
                                 <a href="javascript:void(0);" class="btn-searchset"
                                     onclick="this.closest('form').submit()"><i
                                         class="isax isax-search-normal fs-12"></i></a>
@@ -183,20 +184,20 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a href="{{ route('bo.sales.quotes.index', request()->except('status', 'page')) }}"
+                                    <a href="{{ route($documentRouteBase . '.index', request()->except('status', 'page')) }}"
                                         class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
-                                <li><a href="{{ route('bo.sales.quotes.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
+                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
                                         class="dropdown-item">{{ __('Brouillon') }}</a></li>
-                                <li><a href="{{ route('bo.sales.quotes.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
+                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
                                         class="dropdown-item">{{ __('Envoyé') }}</a></li>
-                                <li><a href="{{ route('bo.sales.quotes.index', array_merge(request()->except('page'), ['status' => 'accepted'])) }}"
+                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'accepted'])) }}"
                                         class="dropdown-item">{{ __('Accepté') }}</a></li>
-                                <li><a href="{{ route('bo.sales.quotes.index', array_merge(request()->except('page'), ['status' => 'rejected'])) }}"
+                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'rejected'])) }}"
                                         class="dropdown-item">{{ __('Rejeté') }}</a></li>
-                                <li><a href="{{ route('bo.sales.quotes.index', array_merge(request()->except('page'), ['status' => 'expired'])) }}"
+                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'expired'])) }}"
                                         class="dropdown-item">{{ __('Expiré') }}</a></li>
-                                <li><a href="{{ route('bo.sales.quotes.index', array_merge(request()->except('page'), ['status' => 'cancelled'])) }}"
+                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'cancelled'])) }}"
                                         class="dropdown-item">{{ __('Annulé') }}</a></li>
                             </ul>
                         </div>
@@ -236,7 +237,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('bo.sales.quotes.show', $quote) }}"
+                                    <a href="{{ route($documentRouteBase . '.show', $quote) }}"
                                         class="link-default">{{ $quote->number }}</a>
                                 </td>
                                 <td>
@@ -293,41 +294,41 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('bo.sales.quotes.show', $quote) }}"
+                                            <a href="{{ route($documentRouteBase . '.show', $quote) }}"
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
                                         @if ($quote->status === 'draft')
                                             <li>
-                                                <a href="{{ route('bo.sales.quotes.edit', $quote) }}"
+                                                <a href="{{ route($documentRouteBase . '.edit', $quote) }}"
                                                     class="dropdown-item d-flex align-items-center"><i
                                                         class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                             </li>
                                             <li>
                                                 <button type="button" class="dropdown-item d-flex align-items-center"
                                                     data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
-                                                    data-send-url="{{ route('bo.sales.quotes.send', $quote) }}"
+                                                    data-send-url="{{ route($documentRouteBase . '.send', $quote) }}"
                                                     data-phone="{{ $quote->customer->phone ?? '' }}"
                                                     data-doc-number="{{ $quote->number }}"
-                                                    data-doc-type="le devis"
-                                                    data-download-url="{{ route('bo.sales.quotes.download', $quote) }}">
+                                                    data-doc-type="{{ $documentConfig['definite_label'] }}"
+                                                    data-download-url="{{ route($documentRouteBase . '.download', $quote) }}">
                                                     <i class="isax isax-send-2 me-2"></i>{{ __('Envoyer') }}
                                                 </button>
                                             </li>
                                         @endif
                                         <li>
-                                            <form method="POST" action="{{ route('bo.sales.quotes.destroy', $quote) }}">
+                                            <form method="POST" action="{{ route($documentRouteBase . '.destroy', $quote) }}">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item d-flex align-items-center text-danger"
                                                     type="submit"
-                                                    onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer ce devis ?") }}')">
+                                                    onclick="return confirm('{{ $documentConfig['delete_confirmation'] }}')">
                                                     <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
                                         @if (in_array($quote->status, ['sent', 'accepted']))
                                             <li>
                                                 <form method="POST"
-                                                    action="{{ route('bo.sales.quotes.convert', $quote) }}">
+                                                    action="{{ route($documentRouteBase . '.convert', $quote) }}">
                                                     @csrf
                                                     <button class="dropdown-item d-flex align-items-center"
                                                         type="submit">
@@ -412,3 +413,4 @@
 </script>
 @endpush
 @endsection
+

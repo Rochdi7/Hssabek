@@ -1,0 +1,19 @@
+{
+    "name": "Hssabek — Facturation SaaS",
+    "short_name": "Hssabek",
+    "description": "Application de gestion et facturation SaaS",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4361ee",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "48x48",
+            "type": "image/x-icon"
+        }
+    ],
+    "categories": ["business", "finance", "productivity"],
+    "lang": "fr"
+}

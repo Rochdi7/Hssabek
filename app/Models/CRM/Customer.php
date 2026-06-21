@@ -42,7 +42,7 @@ class Customer extends Model
 
     public function quotes()
     {
-        return $this->hasMany(\App\Models\Sales\Quote::class);
+        return $this->hasMany(\App\Models\Sales\Quote::class)->ofDocumentType('quote');
     }
 
     public function invoices()

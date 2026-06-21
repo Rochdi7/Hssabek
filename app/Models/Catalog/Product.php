@@ -13,6 +13,7 @@ use App\Traits\BelongsToTenant;
 use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -65,6 +66,17 @@ class Product extends Model implements HasMedia
         'track_inventory' => 'boolean',
         'is_active'       => 'boolean',
         'estimated_hours' => 'integer',
+    ];
+
+    protected $attributes = [
+        'billing_type'    => 'one_time',
+        'purchase_price'  => 0,
+        'track_inventory' => false,
+        'quantity'        => 0,
+        'discount_type'   => 'none',
+        'discount_value'  => 0,
+        'is_active'       => true,
+        'default_calc_mode' => 'quantity',
     ];
 
     public function registerMediaCollections(): void
@@ -133,5 +145,33 @@ class Product extends Model implements HasMedia
     public function stockMovements(): HasMany
     {
         return $this->hasMany(StockMovement::class);
+    }
+
+    protected function purchasePrice(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => blank($value) ? 0 : $value,
+        );
+    }
+
+    protected function quantity(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => blank($value) ? 0 : $value,
+        );
+    }
+
+    protected function discountType(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => blank($value) ? 'none' : $value,
+        );
+    }
+
+    protected function discountValue(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => blank($value) ? 0 : $value,
+        );
     }
 }

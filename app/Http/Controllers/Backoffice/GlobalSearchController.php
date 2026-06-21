@@ -73,6 +73,7 @@ class GlobalSearchController extends Controller
 
         // ── Quotes ─────────────────────────────────────────
         $quotes = \App\Models\Sales\Quote::query()
+            ->ofDocumentType('quote')
             ->where(function ($q) use ($like) {
                 $q->where('number', 'LIKE', $like)
                     ->orWhere('reference_number', 'LIKE', $like)

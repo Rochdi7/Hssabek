@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Backoffice\Sales\InvoiceController;
-use App\Http\Controllers\Backoffice\Sales\QuoteController;
-use App\Http\Controllers\Backoffice\Sales\PaymentController;
 use App\Http\Controllers\Backoffice\Sales\CreditNoteController;
 use App\Http\Controllers\Backoffice\Sales\DeliveryChallanController;
+use App\Http\Controllers\Backoffice\Sales\InvoiceController;
+use App\Http\Controllers\Backoffice\Sales\PaymentController;
+use App\Http\Controllers\Backoffice\Sales\QuoteController;
 use App\Http\Controllers\Backoffice\Sales\RefundController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('sales')->as('sales.')->group(function () {
 
-    // ─── Invoices ─────────────────────────────────────────────────
     Route::prefix('invoices')->as('invoices.')->group(function () {
         Route::get('/', [InvoiceController::class, 'index'])
             ->middleware('permission:sales.invoices.view')
@@ -67,58 +66,75 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('change-status');
     });
 
-    // ─── Quotes ───────────────────────────────────────────────────
-    Route::prefix('quotes')->as('quotes.')->group(function () {
-        Route::get('/', [QuoteController::class, 'index'])
-            ->middleware('permission:sales.quotes.view')
-            ->name('index');
+    $registerQuoteDocumentRoutes = function (string $prefix, string $name, string $type): void {
+        Route::prefix($prefix)->as($name . '.')->group(function () use ($type) {
+            Route::get('/', [QuoteController::class, 'index'])
+                ->defaults('quote_document_type', $type)
+                ->middleware('permission:sales.quotes.view')
+                ->name('index');
 
-        Route::get('/create', [QuoteController::class, 'create'])
-            ->middleware(['permission:sales.quotes.create', 'plan.limit:quotes_per_month'])
-            ->name('create');
+            Route::get('/create', [QuoteController::class, 'create'])
+                ->defaults('quote_document_type', $type)
+                ->middleware(['permission:sales.quotes.create', 'plan.limit:quotes_per_month'])
+                ->name('create');
 
-        Route::post('/', [QuoteController::class, 'store'])
-            ->middleware(['permission:sales.quotes.create', 'plan.limit:quotes_per_month'])
-            ->name('store');
+            Route::post('/', [QuoteController::class, 'store'])
+                ->defaults('quote_document_type', $type)
+                ->middleware(['permission:sales.quotes.create', 'plan.limit:quotes_per_month'])
+                ->name('store');
 
-        Route::get('/{quote}', [QuoteController::class, 'show'])
-            ->middleware('permission:sales.quotes.view')
-            ->name('show');
+            Route::get('/{quote}', [QuoteController::class, 'show'])
+                ->defaults('quote_document_type', $type)
+                ->middleware('permission:sales.quotes.view')
+                ->name('show');
 
-        Route::get('/{quote}/edit', [QuoteController::class, 'edit'])
-            ->middleware('permission:sales.quotes.edit')
-            ->name('edit');
+            Route::get('/{quote}/edit', [QuoteController::class, 'edit'])
+                ->defaults('quote_document_type', $type)
+                ->middleware('permission:sales.quotes.edit')
+                ->name('edit');
 
-        Route::put('/{quote}', [QuoteController::class, 'update'])
-            ->middleware('permission:sales.quotes.edit')
-            ->name('update');
+            Route::put('/{quote}', [QuoteController::class, 'update'])
+                ->defaults('quote_document_type', $type)
+                ->middleware('permission:sales.quotes.edit')
+                ->name('update');
 
-        Route::delete('/{quote}', [QuoteController::class, 'destroy'])
-            ->middleware('permission:sales.quotes.delete')
-            ->name('destroy');
+            Route::delete('/{quote}', [QuoteController::class, 'destroy'])
+                ->defaults('quote_document_type', $type)
+                ->middleware('permission:sales.quotes.delete')
+                ->name('destroy');
 
-        Route::get('/{quote}/download', [QuoteController::class, 'download'])
-            ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
-            ->name('download');
+            Route::get('/{quote}/download', [QuoteController::class, 'download'])
+                ->defaults('quote_document_type', $type)
+                ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
+                ->name('download');
 
-        Route::get('/{quote}/stream', [QuoteController::class, 'stream'])
-            ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
-            ->name('stream');
+            Route::get('/{quote}/stream', [QuoteController::class, 'stream'])
+                ->defaults('quote_document_type', $type)
+                ->middleware(['permission:sales.quotes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
+                ->name('stream');
 
-        Route::post('/{quote}/send', [QuoteController::class, 'send'])
-            ->middleware('permission:sales.quotes.edit')
-            ->name('send');
+            Route::post('/{quote}/send', [QuoteController::class, 'send'])
+                ->defaults('quote_document_type', $type)
+                ->middleware('permission:sales.quotes.edit')
+                ->name('send');
 
-        Route::post('/{quote}/change-status', [QuoteController::class, 'changeStatus'])
-            ->middleware('permission:sales.quotes.edit')
-            ->name('change-status');
+            Route::post('/{quote}/change-status', [QuoteController::class, 'changeStatus'])
+                ->defaults('quote_document_type', $type)
+                ->middleware('permission:sales.quotes.edit')
+                ->name('change-status');
 
-        Route::post('/{quote}/convert', [QuoteController::class, 'convertToInvoice'])
-            ->middleware(['permission:sales.invoices.create', 'plan.limit:invoices_per_month'])
-            ->name('convert');
-    });
+            Route::post('/{quote}/convert', [QuoteController::class, 'convertToInvoice'])
+                ->defaults('quote_document_type', $type)
+                ->middleware(['permission:sales.invoices.create', 'plan.limit:invoices_per_month'])
+                ->name('convert');
+        });
+    };
 
-    // ─── Payments ─────────────────────────────────────────────────
+    $registerQuoteDocumentRoutes('quotes', 'quotes', 'quote');
+    $registerQuoteDocumentRoutes('attachments', 'attachments', 'attachment');
+    $registerQuoteDocumentRoutes('situations', 'situations', 'situation');
+    $registerQuoteDocumentRoutes('recaps', 'recaps', 'recap');
+
     Route::prefix('payments')->as('payments.')->group(function () {
         Route::get('/', [PaymentController::class, 'index'])
             ->middleware('permission:sales.payments.view')
@@ -157,7 +173,6 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('download');
     });
 
-    // ─── Credit Notes ─────────────────────────────────────────────
     Route::prefix('credit-notes')->as('credit-notes.')->group(function () {
         Route::get('/', [CreditNoteController::class, 'index'])
             ->middleware('permission:sales.credit_notes.view')
@@ -204,7 +219,6 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('change-status');
     });
 
-    // ─── Delivery Challans ────────────────────────────────────────
     Route::prefix('delivery-challans')->as('delivery-challans.')->group(function () {
         Route::get('/', [DeliveryChallanController::class, 'index'])
             ->middleware('permission:sales.delivery_challans.view')
@@ -247,7 +261,6 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->name('change-status');
     });
 
-    // ─── Refunds ──────────────────────────────────────────────────
     Route::prefix('refunds')->as('refunds.')->group(function () {
         Route::get('/', [RefundController::class, 'index'])
             ->middleware('permission:sales.refunds.view')

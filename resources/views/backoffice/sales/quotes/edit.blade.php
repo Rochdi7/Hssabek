@@ -1,7 +1,7 @@
-<?php $page = 'edit-quotation'; ?>
+﻿?<?php $page = 'edit-quotation'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Modifier le Devis')
-@section('description', 'Modifier les détails du devis')
+@section('title', $documentConfig['edit_title'])
+@section('description', $documentConfig['edit_title'])
 @section('content')
     <!-- ========================
                         Start Page Content
@@ -10,6 +10,7 @@
     @php
         $currencyCode = $quote->currency ?? (App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD'); $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
         $tenant = App\Services\Tenancy\TenantContext::get();
+        $documentRouteBase = $documentConfig['route_base'];
     @endphp
 
     <div class="page-wrapper">
@@ -24,11 +25,11 @@
                     <!-- Start Breadcrumb -->
                     <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                         <div>
-                            <h6><a href="{{ route('bo.sales.quotes.index') }}" class="d-flex align-items-center"><i
-                                        class="isax isax-arrow-left me-2"></i>{{ __('Devis') }}</a></h6>
+                            <h6><a href="{{ route($documentRouteBase . '.index') }}" class="d-flex align-items-center"><i
+                                        class="isax isax-arrow-left me-2"></i>{{ $documentConfig['plural_label'] }}</a></h6>
                         </div>
                         <div class="right-content">
-                            <a href="{{ route('bo.sales.quotes.show', $quote) }}"
+                            <a href="{{ route($documentRouteBase . '.show', $quote) }}"
                                 class="btn btn-outline-white d-inline-flex align-items-center"><i
                                     class="isax isax-eye me-1"></i>{{ __('Aperçu') }}</a>
                         </div>
@@ -47,12 +48,12 @@
                     @endif
 
                     <div class="card">
-                        <form action="{{ route('bo.sales.quotes.update', $quote) }}" method="POST" id="quote-form">
+                        <form action="{{ route($documentRouteBase . '.update', $quote) }}" method="POST" id="quote-form">
                             @csrf @method('PUT')
                             <div class="card-body">
                                 <div class="top-content">
                                     <div class="purchase-header mb-3">
-                                        <h6>{{ __('Modifier le devis') }}</h6>
+                                        <h6>{{ $documentConfig['edit_title'] }}</h6>
                                     </div>
                                     <div>
 
@@ -63,7 +64,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">{{ __('N° Devis') }}</label>
+                                                                <label class="form-label">{{ $documentConfig['number_label'] }}</label>
                                                                 <input type="text" class="form-control"
                                                                     value="{{ $quote->number }}" readonly>
                                                             </div>
@@ -94,7 +95,7 @@
                                                                     id="reference_number"
                                                                     class="form-control @error('reference_number') is-invalid @enderror"
                                                                     value="{{ old('reference_number', $quote->reference_number) }}"
-                                                                    placeholder="{{ __("Ex: DEV-00001") }}">
+                                                                    placeholder="{{ $documentConfig['reference_placeholder'] }}">
                                                                 @error('reference_number')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
@@ -246,9 +247,34 @@
 
                                 </div>
 
+                                @php
+                                    $itemModes = collect(old('items', $quote->items->map(fn ($item) => ['calculation_mode' => $item->calculation_mode])->toArray()))
+                                        ->pluck('calculation_mode')
+                                        ->filter();
+                                    $documentCalcMode = old('document_calculation_mode')
+                                        ?? ($itemModes->contains('volume') ? 'volume' : ($itemModes->contains('surface') ? 'surface' : 'quantity'));
+                                    $showMeasurementColumns = in_array($documentCalcMode, ['surface', 'volume']);
+                                @endphp
                                 <div class="items-details">
                                     <div class="purchase-header mb-3">
                                         <h6>{{ __('Articles & Détails') }}</h6>
+                                        <div class="d-flex flex-wrap align-items-center gap-3 mt-2">
+                                            <span class="text-muted fs-13">{{ __('Mode de calcul') }}</span>
+                                            <div class="d-flex flex-wrap gap-3">
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input doc-calc-mode-radio" type="radio" name="document_calculation_mode" id="quote-edit-mode-quantity" value="quantity" {{ $documentCalcMode === 'quantity' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="quote-edit-mode-quantity">{{ __('Quantité') }}</label>
+                                                </div>
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input doc-calc-mode-radio" type="radio" name="document_calculation_mode" id="quote-edit-mode-surface" value="surface" {{ $documentCalcMode === 'surface' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="quote-edit-mode-surface">{{ __('Surface') }}</label>
+                                                </div>
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input doc-calc-mode-radio" type="radio" name="document_calculation_mode" id="quote-edit-mode-volume" value="volume" {{ $documentCalcMode === 'volume' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="quote-edit-mode-volume">{{ __('Volume') }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
 
@@ -258,10 +284,10 @@
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th style="min-width: 160px;">{{ __('Désignation') }}</th>
-                                                    <th style="min-width: 64px;">L</th>
-                                                    <th style="min-width: 64px;">H</th>
+                                                    <th class="measurement-column" style="min-width: 64px;{{ $showMeasurementColumns ? '' : 'display:none;' }}">L</th>
+                                                    <th class="measurement-column" style="min-width: 64px;{{ $showMeasurementColumns ? '' : 'display:none;' }}">H</th>
                                                     <th style="min-width: 70px;">{{ __('Qté') }}</th>
-                                                    <th style="min-width: 80px;">{{ __('Métrage') }}</th>
+                                                    <th class="measurement-column" style="min-width: 80px;{{ $showMeasurementColumns ? '' : 'display:none;' }}">{{ __('Métrage') }}</th>
                                                     <th style="min-width: 70px;">{{ __('Unité') }}</th>
                                                     <th style="min-width: 100px;">{{ __('P.U.') }}</th>
                                                     <th style="min-width: 130px;">{{ __('Remise') }}</th>
@@ -281,35 +307,30 @@
                                                             <input type="hidden" name="items[{{ $i }}][product_id]" class="item-product-id" value="{{ old("items.{$i}.product_id", $item->product_id) }}">
                                                             <input type="hidden" name="items[{{ $i }}][calculation_mode]" class="item-calc-mode" value="{{ $calcModeI }}">
                                                             <input type="hidden" name="items[{{ $i }}][measurement_unit]" class="item-measurement-unit" value="{{ old("items.{$i}.measurement_unit", $item->measurement_unit) }}">
-                                                            <div class="d-flex gap-1 align-items-center mb-1">
-                                                                <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">
-                                                                    <option value="">— {{ __('Catalogue') }} —</option>
-                                                                    @foreach($products as $p)
-                                                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <div class="d-flex gap-1 ms-1">
-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
-                                                                </div>
-                                                            </div>
-                                                            <input type="text" name="items[{{ $i }}][label]" class="form-control item-label" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
+                                                            <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">
+                                                                <option value="">— {{ __('Rechercher un produit…') }} —</option>
+                                                                @foreach($products as $p)
+                                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <input type="text" name="items[{{ $i }}][label]" class="form-control form-control-sm item-label flex-grow-1" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
                                                         </td>
-                                                        <td class="dim-col dim-l" style="{{ $isMeasureI ? '' : 'visibility:hidden;' }}">
+                                                        <td class="measurement-column dim-col dim-l" style="{{ $showMeasurementColumns ? '' : 'display:none;' }}">
                                                             <input type="number" name="items[{{ $i }}][length]" class="form-control item-length" value="{{ old("items.{$i}.length", $item->length) }}" min="0" step="0.001" placeholder="0" style="width:64px;">
                                                         </td>
-                                                        <td class="dim-col dim-h" style="{{ $isMeasureI ? '' : 'visibility:hidden;' }}">
+                                                        <td class="measurement-column dim-col dim-h" style="{{ $showMeasurementColumns ? '' : 'display:none;' }}">
                                                             <input type="number" name="items[{{ $i }}][height]" class="form-control item-height" value="{{ old("items.{$i}.height", $item->height) }}" min="0" step="0.001" placeholder="0" style="width:64px;">
                                                         </td>
                                                         <td>
                                                             <input type="number" name="items[{{ $i }}][quantity]" class="form-control item-qty" value="{{ old("items.{$i}.quantity", $item->quantity) }}" min="0.001" step="0.001" required style="width:70px;">
                                                         </td>
-                                                        <td class="dim-col text-center" style="{{ $isMeasureI ? '' : 'visibility:hidden;' }}">
+                                                        <td class="measurement-column dim-col text-center" style="{{ $showMeasurementColumns ? '' : 'display:none;' }}">
+                                                            <div class="item-width-wrap mb-1" style="{{ $documentCalcMode === 'volume' ? '' : 'display:none;' }}">
+                                                                <input type="number" name="items[{{ $i }}][width]" class="form-control item-width" value="{{ old("items.{$i}.width", $item->width) }}" min="0" step="0.001" placeholder="P" style="width:64px;">
+                                                            </div>
                                                             <span class="badge bg-primary-subtle text-primary item-measure-display fs-11">
                                                                 {{ $item->calculated_measurement ? number_format($item->calculated_measurement, 2, ',', ' ').' '.($item->measurement_unit ?? '') : '—' }}
                                                             </span>
-                                                            <input type="hidden" name="items[{{ $i }}][width]" class="item-width" value="{{ old("items.{$i}.width", $item->width) }}">
                                                         </td>
                                                         <td>
                                                             <select name="items[{{ $i }}][unit_id]" class="form-select item-unit" style="min-width:60px;">
@@ -447,7 +468,7 @@
                             </div><!-- end card body -->
 
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a href="{{ route('bo.sales.quotes.show', $quote) }}"
+                                <a href="{{ route($documentRouteBase . '.show', $quote) }}"
                                     class="btn btn-outline-white">{{ __('Annuler') }}</a>
                                 <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                             </div><!-- end card footer -->
@@ -515,6 +536,43 @@
             const taxGroups = @json($taxGroupsJson);
             const products = @json($productsJson);
             const currency = '{{ $currency }}';
+            const documentModeRadios = document.querySelectorAll('.doc-calc-mode-radio');
+
+            function isMeasurementMode(mode) {
+                return mode === 'surface' || mode === 'volume';
+            }
+
+            function getDocumentMode() {
+                return document.querySelector('.doc-calc-mode-radio:checked')?.value || 'quantity';
+            }
+
+            function toggleMeasurementColumns(mode) {
+                const show = isMeasurementMode(mode);
+                document.querySelectorAll('.measurement-column').forEach(el => {
+                    el.style.display = show ? '' : 'none';
+                });
+            }
+
+            function resolveMeasurement(mode, length, height, width) {
+                if (mode === 'surface') {
+                    return {
+                        value: (length > 0 && height > 0) ? length * height : 0,
+                        unit: 'm²',
+                    };
+                }
+
+                if (mode === 'volume') {
+                    return {
+                        value: (length > 0 && height > 0 && width > 0) ? length * height * width : 0,
+                        unit: 'm³',
+                    };
+                }
+
+                return {
+                    value: 0,
+                    unit: '',
+                };
+            }
 
             /* =========================================================
              * Per-row product apply helper
@@ -524,7 +582,7 @@
                 row.querySelector('.item-label').value = product.name;
                 row.querySelector('.item-price').value = product.selling_price;
                 if (product.unit_id) row.querySelector('.item-unit').value = product.unit_id;
-                if (product.default_calc_mode) setRowMode(row, product.default_calc_mode);
+                setRowMode(row, getDocumentMode());
                 recalcTotals();
             }
 
@@ -576,28 +634,23 @@
                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
                         <input type="hidden" name="items[${itemIndex}][calculation_mode]" class="item-calc-mode" value="quantity">
                         <input type="hidden" name="items[${itemIndex}][measurement_unit]" class="item-measurement-unit" value="">
-                        <div class="d-flex gap-1 align-items-center mb-1">
-                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">${productOptions}</select>
-                            <div class="d-flex gap-1 ms-1">
-                                <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
-                            </div>
-                        </div>
-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Désignation') }}" required>
+                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">${productOptions}</select>
+                        <input type="text" name="items[${itemIndex}][label]" class="form-control form-control-sm item-label flex-grow-1" placeholder="{{ __('Désignation') }}" required>
                     </td>
-                    <td class="dim-col dim-l" style="visibility:hidden;">
+                    <td class="measurement-column dim-col dim-l" style="display:none;">
                         <input type="number" name="items[${itemIndex}][length]" class="form-control item-length" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
                     </td>
-                    <td class="dim-col dim-h" style="visibility:hidden;">
+                    <td class="measurement-column dim-col dim-h" style="display:none;">
                         <input type="number" name="items[${itemIndex}][height]" class="form-control item-height" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
                     </td>
                     <td>
                         <input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" required style="width:70px;">
                     </td>
-                    <td class="dim-col text-center" style="visibility:hidden;">
+                    <td class="measurement-column dim-col text-center" style="display:none;">
+                        <div class="item-width-wrap mb-1" style="display:none;">
+                            <input type="number" name="items[${itemIndex}][width]" class="form-control item-width" value="" min="0" step="0.001" placeholder="P" style="width:64px;">
+                        </div>
                         <span class="badge bg-primary-subtle text-primary item-measure-display fs-11">—</span>
-                        <input type="hidden" name="items[${itemIndex}][width]" class="item-width" value="">
                     </td>
                     <td><select name="items[${itemIndex}][unit_id]" class="form-select item-unit" style="min-width:60px;">${unitOptions}</select></td>
                     <td><input type="number" name="items[${itemIndex}][unit_price]" class="form-control item-price" value="0" min="0" step="0.01" required></td>
@@ -617,6 +670,9 @@
                 tbody.appendChild(row);
                 itemIndex++;
                 bindRowEvents(row);
+                initRowSelect2(row);
+                setRowMode(row, getDocumentMode());
+                toggleMeasurementColumns(getDocumentMode());
                 if (enableTaxCheck.checked && defaultTaxGroup) {
                     row.querySelector('.item-tax').value = defaultTaxGroup.id;
                 }
@@ -639,14 +695,10 @@
             function setRowMode(row, mode) {
                 row.dataset.mode = mode;
                 row.querySelector('.item-calc-mode').value = mode;
-                const isMeasure = (mode === 'surface' || mode === 'volume');
-                row.querySelectorAll('.dim-col').forEach(td => {
-                    td.style.visibility = isMeasure ? '' : 'hidden';
-                });
-                row.querySelectorAll('.mode-btn').forEach(btn => {
-                    btn.classList.toggle('btn-primary', btn.dataset.mode === mode);
-                    btn.classList.toggle('btn-outline-secondary', btn.dataset.mode !== mode);
-                });
+                const widthWrap = row.querySelector('.item-width-wrap');
+                if (widthWrap) {
+                    widthWrap.style.display = mode === 'volume' ? '' : 'none';
+                }
                 updateRowMeasurement(row);
             }
 
@@ -657,11 +709,9 @@
                 const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
                 const unitInput = row.querySelector('.item-measurement-unit');
                 const display = row.querySelector('.item-measure-display');
-                let measurement = 0, unit = '';
-                if (mode === 'surface') { measurement = (l > 0 && h > 0) ? l * h : 0; unit = 'm²'; }
-                else if (mode === 'volume') { measurement = (l > 0 && h > 0 && w > 0) ? l * h * w : 0; unit = 'm³'; }
+                const { value: measurement, unit } = resolveMeasurement(mode, l, h, w);
                 if (unitInput) unitInput.value = unit;
-                if (display) display.textContent = measurement > 0 ? measurement.toFixed(2).replace('.', ',') + ' ' + unit : '—';
+                if (display) display.textContent = measurement > 0 ? `${formatNumber(measurement)} ${unit}` : '—';
             }
 
             /* =========================================================
@@ -680,24 +730,20 @@
                     const taxEnabled = enableTaxCheck.checked;
                     const taxRate = taxEnabled ? (parseFloat(taxSelect?.selectedOptions[0]?.dataset.rate) || 0) : 0;
                     const mode = row.querySelector('.item-calc-mode')?.value || 'quantity';
-
-                    let effectiveQty = baseQty;
-                    if (mode === 'surface' || mode === 'volume') {
-                        const l = parseFloat(row.querySelector('.item-length')?.value) || 0;
-                        const h = parseFloat(row.querySelector('.item-height')?.value) || 0;
-                        const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
-                        let m = 0;
-                        if (mode === 'surface') { m = (l > 0 && h > 0) ? l * h : 0; }
-                        else { m = (l > 0 && h > 0 && w > 0) ? l * h * w : 0; }
-                        if (m > 0) effectiveQty = m * baseQty;
-                    }
+                    const l = parseFloat(row.querySelector('.item-length')?.value) || 0;
+                    const h = parseFloat(row.querySelector('.item-height')?.value) || 0;
+                    const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
+                    const { value: measurement } = resolveMeasurement(mode, l, h, w);
+                    const effectiveQty = isMeasurementMode(mode)
+                        ? (measurement > 0 ? measurement * baseQty : 0)
+                        : baseQty;
 
                     let lineSubtotal = effectiveQty * price;
                     let lineDiscount = 0;
                     if (discountType === 'percentage') lineDiscount = lineSubtotal * (discountVal / 100);
-                    else if (discountType === 'fixed') lineDiscount = discountVal;
+                    else if (discountType === 'fixed') lineDiscount = Math.min(discountVal, lineSubtotal);
 
-                    const afterDiscount = lineSubtotal - lineDiscount;
+                    const afterDiscount = Math.max(0, lineSubtotal - lineDiscount);
                     const lineTax = afterDiscount * (taxRate / 100);
                     const lineTotal = afterDiscount + lineTax;
 
@@ -722,19 +768,7 @@
              * Bind row events
              * ========================================================= */
             function bindRowEvents(row) {
-                row.querySelector('.item-product-select')?.addEventListener('change', function() {
-                    const pid = this.value;
-                    if (!pid) return;
-                    const product = products.find(p => p.id == pid);
-                    if (product) applyProductToRow(row, product);
-                    this.value = '';
-                });
-                row.querySelectorAll('.mode-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        setRowMode(row, this.dataset.mode);
-                        recalcTotals();
-                    });
-                });
+                // Product selector handled by initRowSelect2
                 row.querySelectorAll('.item-length, .item-height, .item-width').forEach(inp => {
                     inp.addEventListener('input', function() {
                         updateRowMeasurement(row);
@@ -749,10 +783,42 @@
                 });
             }
 
+            function initRowSelect2(row) {
+                $(row).find('.item-product-select').select2({
+                    placeholder: '— {{ __('Rechercher un produit…') }} —',
+                    allowClear: true,
+                    width: '100%',
+                    dropdownParent: $(row).find('.item-product-select').parent()
+                }).on('change', function() {
+                    const pid = $(this).val();
+                    if (!pid) return;
+                    const product = products.find(p => p.id == pid);
+                    if (product) applyProductToRow(row, product);
+                    $(this).val(null).trigger('change');
+                });
+            }
+
             // Bind events on existing rows
             document.querySelectorAll('.item-row').forEach(row => {
                 bindRowEvents(row);
                 updateRowMeasurement(row);
+                initRowSelect2(row);
+            });
+
+            documentModeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const mode = this.value;
+                    toggleMeasurementColumns(mode);
+                    document.querySelectorAll('.item-row').forEach(row => {
+                        setRowMode(row, mode);
+                    });
+                    recalcTotals();
+                });
+            });
+
+            toggleMeasurementColumns(getDocumentMode());
+            document.querySelectorAll('.item-row').forEach(row => {
+                setRowMode(row, getDocumentMode());
             });
 
             /* =========================================================
@@ -791,3 +857,5 @@
         });
     </script>
 @endpush
+
+

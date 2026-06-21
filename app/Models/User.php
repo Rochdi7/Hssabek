@@ -78,6 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     {
         $this->addMediaCollection('avatar')
             ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
             ->useFallbackUrl(asset('build/img/profiles/avatar-01.jpg'))
             ->useFallbackPath(public_path('build/img/profiles/avatar-01.jpg'));
     }

@@ -1,67 +1,60 @@
-<!-- Global Alerts Section -->
-<div id="alerts-container">
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show position-fixed" role="alert"
-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
-            <div class="d-flex align-items-center">
-                <i class="isax isax-tick-circle me-2"></i>
-                <div>
-                    <strong>{{ __('Succès !') }}</strong> {{ session('success') }}
-                </div>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+@php
+    $validationErrors = collect($errors->getBags())
+        ->flatMap(fn ($bag) => $bag->all())
+        ->filter()
+        ->unique()
+        ->values();
 
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show position-fixed" role="alert"
-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
-            <div class="d-flex align-items-center">
-                <i class="isax isax-close-circle me-2"></i>
-                <div>
-                    <strong>{{ __('Erreur !') }}</strong> {{ session('error') }}
-                </div>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    @if (session('warning'))
-        <div class="alert alert-warning alert-dismissible fade show position-fixed" role="alert"
-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
-            <div class="d-flex align-items-center">
-                <i class="isax isax-warning-2 me-2"></i>
-                <div>
-                    <strong>{{ __('Attention !') }}</strong> {{ session('warning') }}
-                </div>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    @if (session('info'))
-        <div class="alert alert-info alert-dismissible fade show position-fixed" role="alert"
-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
-            <div class="d-flex align-items-center">
-                <i class="isax isax-info-circle me-2"></i>
-                <div>
-                    <strong>{{ __('Info !') }}</strong> {{ session('info') }}
-                </div>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-</div>
+    $toastMessages = collect([
+        ['type' => 'success', 'message' => session('success')],
+        ['type' => 'error', 'message' => session('error')],
+        ['type' => 'warning', 'message' => session('warning')],
+        ['type' => 'info', 'message' => session('info')],
+    ])->filter(fn ($toast) => filled($toast['message']))
+        ->values();
+@endphp
 
 <script>
-    // Auto-dismiss alerts after 5 seconds
-    document.addEventListener('DOMContentLoaded', function() {
-        const alerts = document.querySelectorAll('#alerts-container .alert');
-        alerts.forEach(alert => {
-            setTimeout(() => {
-                const bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            }, 5000);
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof window.toastr === 'undefined') {
+            return;
+        }
+
+        const showToast = function (type, message, title) {
+            if (window.BackofficeToast && typeof window.BackofficeToast.show === 'function') {
+                window.BackofficeToast.show(type, message, title);
+                return;
+            }
+
+            if (!message || typeof toastr[type] !== 'function') {
+                return;
+            }
+
+            toastr[type](message, title);
+        };
+
+        toastr.options = Object.assign({
+            closeButton: true,
+            progressBar: true,
+            newestOnTop: true,
+            positionClass: 'toast-top-right',
+            preventDuplicates: true,
+            timeOut: 5000,
+            extendedTimeOut: 1500,
+            escapeHtml: true,
+        }, window.toastr.options || {});
+
+        const flashMessages = @json($toastMessages);
+        const validationErrors = @json($validationErrors);
+
+        flashMessages.forEach(function (toast) {
+            if (toast.type && toast.message) {
+                showToast(toast.type, toast.message);
+            }
+        });
+
+        validationErrors.forEach(function (message) {
+            showToast('error', message, "{{ __('Erreur de validation') }}");
         });
     });
 </script>

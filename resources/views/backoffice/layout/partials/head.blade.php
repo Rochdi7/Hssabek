@@ -238,6 +238,15 @@
     <!-- Select CSS -->
     <link rel="stylesheet" href="{{URL::asset('build/plugins/select2/css/select2.min.css')}}">
 
+    @php
+        $toastrCssVersion = file_exists(public_path('build/plugins/toastr/toatr.css'))
+            ? filemtime(public_path('build/plugins/toastr/toatr.css'))
+            : now()->timestamp;
+    @endphp
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="{{ URL::asset('build/plugins/toastr/toatr.css') }}?v={{ $toastrCssVersion }}">
+
     <!-- animation CSS -->
     <link rel="stylesheet" href="{{URL::asset('build/css/animate.css')}}">
 
@@ -314,6 +323,35 @@
             color: var(--primary, #6c5ffc);
             font-weight: 600;
             background: rgba(108, 95, 252, 0.08);
+        }
+        /* Force Toastr styling after the theme's generic .toast rules */
+        #toast-container > .toast {
+            opacity: 1 !important;
+            border: 0 !important;
+            color: #fff !important;
+            min-width: 320px;
+            max-width: 420px;
+        }
+        #toast-container > .toast.toast-success {
+            background: #10b981 !important;
+        }
+        #toast-container > .toast.toast-error {
+            background: #ef4444 !important;
+        }
+        #toast-container > .toast.toast-info {
+            background: #3b82f6 !important;
+        }
+        #toast-container > .toast.toast-warning {
+            background: #f59e0b !important;
+        }
+        #toast-container .toast-title,
+        #toast-container .toast-message,
+        #toast-container .toast-close-button {
+            color: #fff !important;
+        }
+        #toast-container .toast-message {
+            white-space: normal;
+            word-break: break-word;
         }
     </style>
 

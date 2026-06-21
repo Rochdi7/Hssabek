@@ -1,19 +1,24 @@
-<?php $page = 'quotation-details'; ?>
+﻿?<?php $page = 'quotation-details'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Détails du Devis')
-@section('description', 'Consulter les détails du devis')
+@section('title', $documentConfig['details_title'])
+@section('description', $documentConfig['details_title'])
 @section('content')
+    @php
+        $documentRouteBase = $documentConfig['route_base'];
+        $documentDownloadRoute = route('public.quote-document.download', ['type' => $documentConfig['public_slug'], 'token' => $quote->public_token]);
+        $whatsAppText = rawurlencode('Bonjour,' . "\n\n" . 'Veuillez trouver ci-joint ' . $documentConfig['definite_label'] . ' n� ' . $quote->number . '.' . "\n" . 'T�l�charger le PDF : ' . $documentDownloadRoute . "\n\n" . 'Cordialement.');
+    @endphp
     <div class="page-wrapper">
         <div class="content">
             <div class="row">
                 <div class="col-md-10 mx-auto">
                     <div>
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
-                            <h6><a href="{{ route('bo.sales.quotes.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Devis') }}</a></h6>
+                            <h6><a href="{{ route($documentRouteBase . '.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ $documentConfig['label'] }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('public.quote.download', $quote->public_token) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
+                                <a href="{{ $documentDownloadRoute }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
                                 {{-- WhatsApp share — always visible --}}
-                                <a href="https://api.whatsapp.com/send?phone={{ rawurlencode($quote->customer->phone ?? '') }}&text={{ rawurlencode('Bonjour,' . "\n\n" . 'Veuillez trouver ci-joint le devis n° ' . $quote->number . '.' . "\n" . '📎 Télécharger le PDF : ' . route('public.quote.download', $quote->public_token) . "\n\n" . 'Cordialement.') }}"
+                                <a href="https://api.whatsapp.com/send?phone={{ rawurlencode($quote->customer->phone ?? '') }}&text={{ $whatsAppText }}"
                                     target="_blank" rel="noopener noreferrer"
                                     class="btn btn-success d-inline-flex align-items-center me-3">
                                     <i class="isax isax-message me-1"></i>{{ __('WhatsApp') }}
@@ -23,28 +28,28 @@
                                     <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
                                 </button>
                                 @if($quote->status === 'draft')
-                                    <a href="{{ route('bo.sales.quotes.edit', $quote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
+                                    <a href="{{ route($documentRouteBase . '.edit', $quote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                     <button type="button" class="btn btn-primary d-inline-flex align-items-center me-3"
                                         data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
-                                        data-send-url="{{ route('bo.sales.quotes.send', $quote) }}"
+                                        data-send-url="{{ route($documentRouteBase . '.send', $quote) }}"
                                         data-phone="{{ $quote->customer->phone ?? '' }}"
                                         data-doc-number="{{ $quote->number }}"
-                                        data-doc-type="le devis"
-                                        data-download-url="{{ route('public.quote.download', $quote->public_token) }}">
+                                        data-doc-type="{{ $documentConfig['definite_label'] }}"
+                                        data-download-url="{{ $documentDownloadRoute }}">
                                         <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}
                                     </button>
                                 @endif
                                 @if(in_array($quote->status, ['sent', 'accepted']))
-                                    <form method="POST" action="{{ route('bo.sales.quotes.convert', $quote) }}" class="me-3">
+                                    <form method="POST" action="{{ route($documentRouteBase . '.convert', $quote) }}" class="me-3">
                                         @csrf
                                         <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
                                             <i class="isax isax-convert me-1"></i>{{ __('Convertir en facture') }}</button>
                                     </form>
                                 @endif
-                                <form method="POST" action="{{ route('bo.sales.quotes.destroy', $quote) }}">
+                                <form method="POST" action="{{ route($documentRouteBase . '.destroy', $quote) }}">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
-                                        onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer ce devis ?") }}')">
+                                        onclick="return confirm('{{ $documentConfig['delete_confirmation'] }}')">
                                         <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}</button>
                                 </form>
                             </div>
@@ -65,7 +70,7 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between border-bottom flex-wrap mb-3 pb-2 position-relative z-1">
                                         <div class="mb-3">
-                                            <h4 class="mb-1">{{ __('Devis') }}</h4>
+                                            <h4 class="mb-1">{{ $documentConfig['label'] }}</h4>
                                             <div class="d-flex align-items-center flex-wrap row-gap-3">
                                                 <div class="me-4">
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $quote->number }}</h6>
@@ -87,9 +92,9 @@
                                     <div class="row gy-3 position-relative z-1">
                                         <div class="col-lg-4">
                                             <div>
-                                                <h6 class="mb-2 fs-16 fw-semibold">{{ __('Détails du devis') }}</h6>
+                                                <h6 class="mb-2 fs-16 fw-semibold">{{ $documentConfig['details_title'] }}</h6>
                                                 <div>
-                                                    <p class="mb-1">{{ __('N° Devis') }} : <span class="text-dark">{{ $quote->number }}</span></p>
+                                                    <p class="mb-1">{{ $documentConfig['number_label'] }} : <span class="text-dark">{{ $quote->number }}</span></p>
                                                     <p class="mb-1">{{ __('Date d\'émission') }} : <span class="text-dark">{{ $quote->issue_date?->format('d/m/Y') }}</span></p>
                                                     @if($quote->expiry_date)
                                                         <p class="mb-1">{{ __('Date d\'expiration') }} : <span class="text-dark">{{ $quote->expiry_date->format('d/m/Y') }}</span></p>
@@ -298,10 +303,10 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut du devis') }}</h5>
+                <h5 class="modal-title" id="modalChangerStatutLabel">{{ $documentConfig['status_modal_title'] }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
             </div>
-            <form method="POST" action="{{ route('bo.sales.quotes.change-status', $quote) }}">
+            <form method="POST" action="{{ route($documentRouteBase . '.change-status', $quote) }}">
                 @csrf
                 <div class="modal-body">
                     <p class="text-muted mb-3">{{ __('Statut actuel :') }}
@@ -365,3 +370,4 @@
 </script>
 @endpush
 @endsection
+

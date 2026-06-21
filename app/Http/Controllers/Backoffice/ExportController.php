@@ -74,6 +74,10 @@ class ExportController extends Controller
             $query->withCount($config['withCount']);
         }
 
+        if (isset($config['constraints']) && is_callable($config['constraints'])) {
+            $config['constraints']($query);
+        }
+
         // Apply search
         $search = $request->input('search');
         if ($search && isset($config['searchable'])) {
@@ -98,7 +102,11 @@ class ExportController extends Controller
         if (isset($config['filters'])) {
             foreach ($config['filters'] as $param => $column) {
                 if ($request->filled($param)) {
-                    $query->where($column, $request->input($param));
+                    if (is_callable($column)) {
+                        $column($query, $request->input($param), $request);
+                    } else {
+                        $query->where($column, $request->input($param));
+                    }
                 }
             }
         }
@@ -151,12 +159,22 @@ class ExportController extends Controller
             // ─── Catalog ─────────────────────────────────────────
             'products' => [
                 'model'      => Product::class,
-                'permission' => 'catalog.products.view',
+                'permission' => 'inventory.products.view',
                 'title'      => 'Liste des Produits & Services',
                 'filename'   => 'produits',
                 'with'       => ['category', 'unit'],
                 'searchable' => ['name', 'code', 'sku'],
-                'filters'    => ['category_id' => 'category_id', 'status' => 'status', 'item_type' => 'item_type'],
+                'filters'    => [
+                    'category_id' => 'category_id',
+                    'status' => static function ($query, $value) {
+                        if ($value === 'active') {
+                            $query->where('is_active', true);
+                        } elseif ($value === 'inactive') {
+                            $query->where('is_active', false);
+                        }
+                    },
+                    'item_type' => 'item_type',
+                ],
                 'columns'    => [
                     'code'           => 'Code',
                     'name'           => 'Nom',
@@ -165,7 +183,7 @@ class ExportController extends Controller
                     'selling_price'  => 'Prix de vente',
                     'purchase_price' => 'Prix d\'achat',
                     'quantity'       => 'Stock',
-                    'status'         => 'Statut',
+                    'is_active'      => 'Actif',
                 ],
             ],
 
@@ -204,6 +222,7 @@ class ExportController extends Controller
                 'title'      => 'Liste des Factures',
                 'filename'   => 'factures',
                 'with'       => ['customer'],
+                'constraints' => static fn ($query) => $query->ofDocumentType('quote'),
                 'searchable' => ['number', 'customer.name'],
                 'filters'    => ['status' => 'status'],
                 'columns'    => [
@@ -231,6 +250,63 @@ class ExportController extends Controller
                     'customer.name' => 'Client',
                     'issue_date'    => 'Date',
                     'expiry_date'   => 'Validité',
+                    'total'         => 'Total',
+                    'status'        => 'Statut',
+                ],
+            ],
+
+            'attachments' => [
+                'model'      => Quote::class,
+                'permission' => 'sales.quotes.view',
+                'title'      => 'Liste des Attachements',
+                'filename'   => 'attachements',
+                'with'       => ['customer'],
+                'constraints' => static fn ($query) => $query->ofDocumentType('attachment'),
+                'searchable' => ['number', 'customer.name'],
+                'filters'    => ['status' => 'status'],
+                'columns'    => [
+                    'number'        => 'NÂ° Attachement',
+                    'customer.name' => 'Client',
+                    'issue_date'    => 'Date',
+                    'expiry_date'   => 'ValiditÃ©',
+                    'total'         => 'Total',
+                    'status'        => 'Statut',
+                ],
+            ],
+
+            'situations' => [
+                'model'      => Quote::class,
+                'permission' => 'sales.quotes.view',
+                'title'      => 'Liste des Situations',
+                'filename'   => 'situations',
+                'with'       => ['customer'],
+                'constraints' => static fn ($query) => $query->ofDocumentType('situation'),
+                'searchable' => ['number', 'customer.name'],
+                'filters'    => ['status' => 'status'],
+                'columns'    => [
+                    'number'        => 'NÂ° Situation',
+                    'customer.name' => 'Client',
+                    'issue_date'    => 'Date',
+                    'expiry_date'   => 'ValiditÃ©',
+                    'total'         => 'Total',
+                    'status'        => 'Statut',
+                ],
+            ],
+
+            'recaps' => [
+                'model'      => Quote::class,
+                'permission' => 'sales.quotes.view',
+                'title'      => 'Liste des RÃ©caps',
+                'filename'   => 'recaps',
+                'with'       => ['customer'],
+                'constraints' => static fn ($query) => $query->ofDocumentType('recap'),
+                'searchable' => ['number', 'customer.name'],
+                'filters'    => ['status' => 'status'],
+                'columns'    => [
+                    'number'        => 'NÂ° RÃ©cap',
+                    'customer.name' => 'Client',
+                    'issue_date'    => 'Date',
+                    'expiry_date'   => 'ValiditÃ©',
                     'total'         => 'Total',
                     'status'        => 'Statut',
                 ],
@@ -497,7 +573,7 @@ class ExportController extends Controller
 
             'stock-movements' => [
                 'model'      => StockMovement::class,
-                'permission' => 'inventory.stock.view',
+                'permission' => 'inventory.stock_movements.view',
                 'title'      => 'Liste des Mouvements de Stock',
                 'filename'   => 'mouvements-stock',
                 'with'       => ['product', 'warehouse'],
@@ -514,7 +590,7 @@ class ExportController extends Controller
 
             'stock-transfers' => [
                 'model'      => StockTransfer::class,
-                'permission' => 'inventory.transfers.view',
+                'permission' => 'inventory.stock_transfers.view',
                 'title'      => 'Liste des Transferts de Stock',
                 'filename'   => 'transferts-stock',
                 'with'       => ['fromWarehouse', 'toWarehouse'],

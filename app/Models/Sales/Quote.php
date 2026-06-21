@@ -2,6 +2,7 @@
 
 namespace App\Models\Sales;
 
+use App\Support\Sales\QuoteDocumentType;
 use App\Traits\BelongsToTenant;
 use App\Traits\LogsActivity;
 use App\Traits\UsesTenantCurrency;
@@ -20,6 +21,7 @@ class Quote extends Model
     protected $fillable = [
         'customer_id',
         'number',
+        'document_type',
         'reference_number',
         'status',
         'issue_date',
@@ -45,6 +47,10 @@ class Quote extends Model
     protected static function booted(): void
     {
         static::creating(function (self $quote) {
+            if (empty($quote->document_type)) {
+                $quote->document_type = 'quote';
+            }
+
             if (empty($quote->public_token)) {
                 $quote->public_token = (string) Str::uuid();
             }
@@ -86,5 +92,20 @@ class Quote extends Model
     public function charges(): HasMany
     {
         return $this->hasMany(QuoteCharge::class);
+    }
+
+    public function scopeOfDocumentType($query, string $documentType)
+    {
+        return $query->where($this->qualifyColumn('document_type'), $documentType);
+    }
+
+    public function documentConfig(): array
+    {
+        return QuoteDocumentType::resolve($this->document_type);
+    }
+
+    public function isDocumentType(string $documentType): bool
+    {
+        return ($this->document_type ?: 'quote') === $documentType;
     }
 }

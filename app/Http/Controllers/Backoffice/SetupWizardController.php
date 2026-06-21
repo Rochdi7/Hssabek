@@ -9,9 +9,9 @@ use App\Models\Inventory\Warehouse;
 use App\Models\Sales\PaymentMethod;
 use App\Models\Tenancy\Signature;
 use App\Models\Tenancy\TenantSetting;
+use App\Rules\SecureUpload;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class SetupWizardController extends Controller
 {
@@ -73,7 +73,7 @@ class SetupWizardController extends Controller
             'payment_methods.*.name' => 'required|string|max:100',
 
             // Logo (optional)
-            'logo' => 'nullable|image|max:2048',
+            'logo' => ['nullable', 'file', 'max:2048', new SecureUpload(['jpg', 'jpeg', 'png', 'webp'])],
 
             // Step 7 — Bank account (removed: no longer required)
 
@@ -84,7 +84,7 @@ class SetupWizardController extends Controller
 
             // Step 9 — Signature (optional)
             'signature_name'  => 'nullable|string|max:255',
-            'signature_image' => 'nullable|image|max:2048',
+            'signature_image' => ['nullable', 'file', 'max:2048', new SecureUpload(['jpg', 'jpeg', 'png', 'webp'])],
         ]);
 
         // ── Save company settings ──
