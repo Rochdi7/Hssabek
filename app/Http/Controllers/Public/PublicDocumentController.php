@@ -7,12 +7,17 @@ use App\Models\Sales\Invoice;
 use App\Models\Sales\Quote;
 use App\Services\Sales\PdfService;
 use App\Services\Tenancy\TenantContext;
+use App\Support\Sales\QuoteDocumentType;
 
 class PublicDocumentController extends Controller
 {
-    public function downloadQuote(string $token, PdfService $pdfService)
+    public function downloadQuoteDocument(string $type, string $token, PdfService $pdfService)
     {
-        $quote = Quote::withoutGlobalScopes()->where('public_token', $token)->firstOrFail();
+        $documentConfig = QuoteDocumentType::fromPublicSlug($type);
+        $quote = Quote::withoutGlobalScopes()
+            ->ofDocumentType($documentConfig['type'])
+            ->where('public_token', $token)
+            ->firstOrFail();
 
         TenantContext::set($quote->tenant);
 

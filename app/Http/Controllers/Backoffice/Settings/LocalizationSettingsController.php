@@ -30,10 +30,9 @@ class LocalizationSettingsController extends Controller
 
         $data = $request->validated();
 
-        // Map 'locale' form field to 'language' key (used by SetTenantContext middleware)
+        // Keep both keys for backward compatibility while the runtime reads `language`.
         if (isset($data['locale'])) {
             $data['language'] = $data['locale'];
-            unset($data['locale']);
         }
 
         $setting->localization_settings = array_merge(

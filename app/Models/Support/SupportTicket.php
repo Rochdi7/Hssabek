@@ -64,7 +64,21 @@ class SupportTicket extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('attachments');
+        $this->addMediaCollection('attachments')
+            ->useDisk('local')
+            ->acceptsMimeTypes([
+                'image/jpeg',
+                'image/png',
+                'image/gif',
+                'image/webp',
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/zip',
+                'application/x-zip',
+                'application/x-zip-compressed',
+                'application/octet-stream',
+            ]);
     }
 
     // — Accessors —

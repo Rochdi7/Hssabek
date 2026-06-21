@@ -8,6 +8,13 @@ use Illuminate\Validation\Rule;
 
 class InviteUserRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        if (! $this->filled('password_mode')) {
+            $this->merge(['password_mode' => 'auto']);
+        }
+    }
+
     public function authorize(): bool
     {
         return true;

@@ -151,7 +151,9 @@ class PlanLimitService
             'customers' => Customer::count(),
             'products' => Product::count(),
             'invoices_per_month' => $this->countMonthly(Invoice::class),
-            'quotes_per_month' => $this->countMonthly(Quote::class),
+            'quotes_per_month' => Quote::ofDocumentType('quote')
+                ->where('created_at', '>=', Carbon::now()->startOfMonth())
+                ->count(),
             'exports_per_month' => $this->countMonthlyExports(),
             'warehouses' => Warehouse::count(),
             default => 0,
@@ -298,6 +300,7 @@ class PlanLimitService
             'invoices_per_month' => Invoice::withoutGlobalScopes()->where('tenant_id', $tenantId)
                 ->where('created_at', '>=', Carbon::now()->startOfMonth())->count(),
             'quotes_per_month' => Quote::withoutGlobalScopes()->where('tenant_id', $tenantId)
+                ->ofDocumentType('quote')
                 ->where('created_at', '>=', Carbon::now()->startOfMonth())->count(),
             'exports_per_month' => $this->countMonthlyExportsForTenant($tenantId),
             'warehouses' => Warehouse::withoutGlobalScopes()->where('tenant_id', $tenantId)->count(),

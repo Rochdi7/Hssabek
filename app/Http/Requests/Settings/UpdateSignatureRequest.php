@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Settings;
 
+use App\Rules\SecureUpload;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSignatureRequest extends FormRequest
@@ -15,7 +16,7 @@ class UpdateSignatureRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'signature_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,svg,webp', 'max:2048'],
+            'signature_image' => ['nullable', 'file', 'max:2048', new SecureUpload(['jpg', 'jpeg', 'png', 'webp'])],
             'is_default' => ['nullable', 'boolean'],
         ];
     }
@@ -24,10 +25,8 @@ class UpdateSignatureRequest extends FormRequest
     {
         return [
             'name.required' => __('Le nom de la signature est obligatoire.'),
-            'name.max' => __('Le nom ne doit pas dépasser 255 caractères.'),
-            'signature_image.image' => __('Le fichier doit être une image.'),
-            'signature_image.mimes' => __('L\'image doit être au format JPG, PNG, SVG ou WebP.'),
-            'signature_image.max' => __('L\'image ne doit pas dépasser 2 Mo.'),
+            'name.max' => __('Le nom ne doit pas depasser 255 caracteres.'),
+            'signature_image.max' => __('L\'image ne doit pas depasser 2 Mo.'),
         ];
     }
 }

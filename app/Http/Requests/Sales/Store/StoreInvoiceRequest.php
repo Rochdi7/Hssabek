@@ -3,13 +3,15 @@
 namespace App\Http\Requests\Sales\Store;
 
 use App\Http\Requests\Traits\ResolveTaxSelection;
+use App\Http\Requests\Traits\ValidatesMeasurementItems;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class StoreInvoiceRequest extends FormRequest
 {
-    use ResolveTaxSelection;
+    use ResolveTaxSelection, ValidatesMeasurementItems;
     public function authorize(): bool
     {
         return true;
@@ -84,5 +86,9 @@ class StoreInvoiceRequest extends FormRequest
             'recurring_next_run_at.after_or_equal' => __('La date de première exécution doit être aujourd\'hui ou ultérieure.'),
             'recurring_end_at.after_or_equal' => __('La date de fin doit être postérieure ou égale à la date de première exécution.'),
         ];
+    }
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(fn (Validator $validator) => $this->validateMeasurementItems($validator));
     }
 }

@@ -88,19 +88,11 @@ class ProductController extends Controller
     {
         $this->authorize('create', Product::class);
 
-        $data = $request->validated();
+        $data = $this->normalizeProductData($request->validated());
         unset($data['product_image']);
 
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
-        }
-
-        // Clear inventory fields for services
-        if (($data['item_type'] ?? 'product') === 'service') {
-            $data['track_inventory'] = false;
-            $data['quantity'] = 0;
-            $data['alert_quantity'] = null;
-            $data['barcode'] = null;
         }
 
         $product = Product::create($data);
@@ -129,7 +121,7 @@ class ProductController extends Controller
         })->with('customer')->latest('issue_date')->limit(20)->get();
 
         // Get quotes through quote items
-        $quotes = \App\Models\Sales\Quote::whereHas('items', function ($q) use ($product) {
+        $quotes = \App\Models\Sales\Quote::ofDocumentType('quote')->whereHas('items', function ($q) use ($product) {
             $q->where('product_id', $product->id);
         })->with('customer')->latest('issue_date')->limit(20)->get();
 
@@ -192,19 +184,11 @@ class ProductController extends Controller
     {
         $this->authorize('update', $product);
 
-        $data = $request->validated();
+        $data = $this->normalizeProductData($request->validated(), $product);
         unset($data['product_image']);
 
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
-        }
-
-        // Clear inventory fields for services
-        if (($data['item_type'] ?? $product->item_type) === 'service') {
-            $data['track_inventory'] = false;
-            $data['quantity'] = 0;
-            $data['alert_quantity'] = null;
-            $data['barcode'] = null;
         }
 
         $product->update($data);
@@ -350,5 +334,32 @@ class ProductController extends Controller
             ->toArray();
 
         return response()->json(['stocks' => $stocks]);
+    }
+
+    private function normalizeProductData(array $data, ?Product $product = null): array
+    {
+        $itemType = $data['item_type'] ?? $product?->item_type ?? 'product';
+        $discountType = $data['discount_type'] ?? $product?->discount_type ?? 'none';
+
+        $data['discount_type'] = blank($discountType) ? 'none' : $discountType;
+
+        if ($data['discount_type'] === 'none' || blank($data['discount_value'] ?? null)) {
+            $data['discount_value'] = 0;
+        }
+
+        foreach (['purchase_price', 'quantity'] as $field) {
+            if (! array_key_exists($field, $data) || blank($data[$field])) {
+                $data[$field] = 0;
+            }
+        }
+
+        if ($itemType === 'service') {
+            $data['track_inventory'] = false;
+            $data['quantity'] = 0;
+            $data['alert_quantity'] = null;
+            $data['barcode'] = null;
+        }
+
+        return $data;
     }
 }

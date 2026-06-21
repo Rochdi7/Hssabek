@@ -404,9 +404,34 @@
 
                                 </div>
 
+                                @php
+                                    $itemModes = collect(old('items', $invoice->items->map(fn ($item) => ['calculation_mode' => $item->calculation_mode])->toArray()))
+                                        ->pluck('calculation_mode')
+                                        ->filter();
+                                    $documentCalcMode = old('document_calculation_mode')
+                                        ?? ($itemModes->contains('volume') ? 'volume' : ($itemModes->contains('surface') ? 'surface' : 'quantity'));
+                                    $showMeasurementColumns = in_array($documentCalcMode, ['surface', 'volume']);
+                                @endphp
                                 <div class="items-details">
                                     <div class="purchase-header mb-3">
                                         <h6>{{ __('Articles & Détails') }}</h6>
+                                        <div class="d-flex flex-wrap align-items-center gap-3 mt-2">
+                                            <span class="text-muted fs-13">{{ __('Mode de calcul') }}</span>
+                                            <div class="d-flex flex-wrap gap-3">
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input doc-calc-mode-radio" type="radio" name="document_calculation_mode" id="invoice-edit-mode-quantity" value="quantity" {{ $documentCalcMode === 'quantity' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="invoice-edit-mode-quantity">{{ __('Quantité') }}</label>
+                                                </div>
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input doc-calc-mode-radio" type="radio" name="document_calculation_mode" id="invoice-edit-mode-surface" value="surface" {{ $documentCalcMode === 'surface' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="invoice-edit-mode-surface">{{ __('Surface') }}</label>
+                                                </div>
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input doc-calc-mode-radio" type="radio" name="document_calculation_mode" id="invoice-edit-mode-volume" value="volume" {{ $documentCalcMode === 'volume' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="invoice-edit-mode-volume">{{ __('Volume') }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <!-- start row -->
@@ -416,10 +441,10 @@
                                             <thead style="background-color: #1B2850; color: #fff;">
                                                 <tr>
                                                     <th style="min-width:160px;">{{ __('Désignation') }}</th>
-                                                    <th style="min-width:64px;">L</th>
-                                                    <th style="min-width:64px;">H</th>
+                                                    <th class="measurement-column" style="min-width:64px;{{ $showMeasurementColumns ? '' : 'display:none;' }}">L</th>
+                                                    <th class="measurement-column" style="min-width:64px;{{ $showMeasurementColumns ? '' : 'display:none;' }}">H</th>
                                                     <th style="min-width:70px;">{{ __('Qté') }}</th>
-                                                    <th style="min-width:80px;">{{ __('Métrage') }}</th>
+                                                    <th class="measurement-column" style="min-width:80px;{{ $showMeasurementColumns ? '' : 'display:none;' }}">{{ __('Métrage') }}</th>
                                                     <th style="min-width:70px;">{{ __('Unité') }}</th>
                                                     <th style="min-width:100px;">{{ __('P.U.') }}</th>
                                                     <th style="min-width:130px;">{{ __('Remise') }}</th>
@@ -439,35 +464,30 @@
                                                             <input type="hidden" name="items[{{ $i }}][product_id]" class="item-product-id" value="{{ old("items.{$i}.product_id", $item->product_id) }}">
                                                             <input type="hidden" name="items[{{ $i }}][calculation_mode]" class="item-calc-mode" value="{{ $calcModeIinv }}">
                                                             <input type="hidden" name="items[{{ $i }}][measurement_unit]" class="item-measurement-unit" value="{{ old("items.{$i}.measurement_unit", $item->measurement_unit) }}">
-                                                            <div class="d-flex gap-1 align-items-center mb-1">
-                                                                <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">
-                                                                    <option value="">— {{ __('Catalogue') }} —</option>
-                                                                    @foreach($products as $p)
-                                                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <div class="d-flex gap-1 ms-1">
-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
-                                                                </div>
-                                                            </div>
-                                                            <input type="text" name="items[{{ $i }}][label]" class="form-control item-label" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
+                                                            <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">
+                                                                <option value="">— {{ __('Rechercher un produit…') }} —</option>
+                                                                @foreach($products as $p)
+                                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <input type="text" name="items[{{ $i }}][label]" class="form-control form-control-sm item-label flex-grow-1" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
                                                         </td>
-                                                        <td class="dim-col dim-l" style="{{ $isMeasureIinv ? '' : 'visibility:hidden;' }}">
+                                                        <td class="measurement-column dim-col dim-l" style="{{ $showMeasurementColumns ? '' : 'display:none;' }}">
                                                             <input type="number" name="items[{{ $i }}][length]" class="form-control item-length" value="{{ old("items.{$i}.length", $item->length) }}" min="0" step="0.001" placeholder="0" style="width:64px;">
                                                         </td>
-                                                        <td class="dim-col dim-h" style="{{ $isMeasureIinv ? '' : 'visibility:hidden;' }}">
+                                                        <td class="measurement-column dim-col dim-h" style="{{ $showMeasurementColumns ? '' : 'display:none;' }}">
                                                             <input type="number" name="items[{{ $i }}][height]" class="form-control item-height" value="{{ old("items.{$i}.height", $item->height) }}" min="0" step="0.001" placeholder="0" style="width:64px;">
                                                         </td>
                                                         <td>
                                                             <input type="number" name="items[{{ $i }}][quantity]" class="form-control item-qty" value="{{ old("items.{$i}.quantity", $item->quantity) }}" min="0.001" step="0.001" required style="width:70px;">
                                                         </td>
-                                                        <td class="dim-col text-center" style="{{ $isMeasureIinv ? '' : 'visibility:hidden;' }}">
+                                                        <td class="measurement-column dim-col text-center" style="{{ $showMeasurementColumns ? '' : 'display:none;' }}">
+                                                            <div class="item-width-wrap mb-1" style="{{ $documentCalcMode === 'volume' ? '' : 'display:none;' }}">
+                                                                <input type="number" name="items[{{ $i }}][width]" class="form-control item-width" value="{{ old("items.{$i}.width", $item->width) }}" min="0" step="0.001" placeholder="P" style="width:64px;">
+                                                            </div>
                                                             <span class="badge bg-primary-subtle text-primary item-measure-display fs-11">
                                                                 {{ $item->calculated_measurement ? number_format($item->calculated_measurement, 2, ',', ' ').' '.($item->measurement_unit ?? '') : '—' }}
                                                             </span>
-                                                            <input type="hidden" name="items[{{ $i }}][width]" class="item-width" value="{{ old("items.{$i}.width", $item->width) }}">
                                                         </td>
                                                         <td>
                                                             <select name="items[{{ $i }}][unit_id]" class="form-select item-unit" style="min-width:60px;">
@@ -747,6 +767,92 @@
             const existingCharges = @json($existingChargesJson);
             const paymentDays = {{ $paymentDays }};
             const currency = '{{ $currency }}';
+            const documentModeRadios = document.querySelectorAll('.doc-calc-mode-radio');
+
+            function isMeasurementMode(mode) {
+                return mode === 'surface' || mode === 'volume';
+            }
+
+            function getDocumentMode() {
+                return document.querySelector('.doc-calc-mode-radio:checked')?.value || 'quantity';
+            }
+
+            function toggleMeasurementColumns(mode) {
+                const show = isMeasurementMode(mode);
+                document.querySelectorAll('.measurement-column').forEach(el => {
+                    el.style.display = show ? '' : 'none';
+                });
+            }
+
+            function resolveMeasurement(mode, length, height, width) {
+                if (mode === 'surface') {
+                    return {
+                        value: (length > 0 && height > 0) ? length * height : 0,
+                        unit: 'm²',
+                    };
+                }
+
+                if (mode === 'volume') {
+                    return {
+                        value: (length > 0 && height > 0 && width > 0) ? length * height * width : 0,
+                        unit: 'm³',
+                    };
+                }
+
+                return {
+                    value: 0,
+                    unit: '',
+                };
+            }
+
+            function ensureMeasurementRowUi(row) {
+                row.querySelectorAll('.mode-btn').forEach(btn => btn.remove());
+
+                const lengthCell = row.querySelector('.item-length')?.closest('td');
+                if (lengthCell) {
+                    lengthCell.classList.add('measurement-column');
+                    lengthCell.style.visibility = '';
+                }
+
+                const heightCell = row.querySelector('.item-height')?.closest('td');
+                if (heightCell) {
+                    heightCell.classList.add('measurement-column');
+                    heightCell.style.visibility = '';
+                }
+
+                const measureDisplay = row.querySelector('.item-measure-display');
+                const measureCell = measureDisplay?.closest('td');
+                if (measureCell) {
+                    measureCell.classList.add('measurement-column');
+                    measureCell.style.visibility = '';
+                }
+
+                const existingWidthField = row.querySelector('.item-width');
+                if (existingWidthField) {
+                    let widthInput = existingWidthField;
+
+                    if (existingWidthField.type === 'hidden') {
+                        widthInput = document.createElement('input');
+                        widthInput.type = 'number';
+                        widthInput.name = existingWidthField.name;
+                        widthInput.className = existingWidthField.className;
+                        widthInput.value = existingWidthField.value || '';
+                        widthInput.min = '0';
+                        widthInput.step = '0.001';
+                        widthInput.placeholder = 'P';
+                        widthInput.style.width = '64px';
+                        existingWidthField.replaceWith(widthInput);
+                    }
+
+                    if (!widthInput.closest('.item-width-wrap') && measureCell) {
+                        const widthWrap = document.createElement('div');
+                        widthWrap.className = 'item-width-wrap mb-1';
+                        widthWrap.style.display = 'none';
+                        measureCell.insertBefore(widthWrap, measureCell.firstChild);
+                        widthWrap.appendChild(widthInput);
+                    }
+                }
+            }
 
             /* =========================================================
              * Due Date link toggle
@@ -830,7 +936,7 @@
                 row.querySelector('.item-label').value = product.name;
                 row.querySelector('.item-price').value = product.selling_price;
                 if (product.unit_id) row.querySelector('.item-unit').value = product.unit_id;
-                if (product.default_calc_mode) setRowMode(row, product.default_calc_mode);
+                setRowMode(row, getDocumentMode());
                 recalcTotals();
             }
 
@@ -847,15 +953,13 @@
                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
                         <input type="hidden" name="items[${itemIndex}][calculation_mode]" class="item-calc-mode" value="quantity">
                         <input type="hidden" name="items[${itemIndex}][measurement_unit]" class="item-measurement-unit" value="">
-                        <div class="d-flex gap-1 align-items-center mb-1">
-                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">${productOptions}</select>
-                            <div class="d-flex gap-1 ms-1">
-                                <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
-                            </div>
+                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">${productOptions}</select>
+                        <div class="d-flex gap-1 align-items-center">
+                            <input type="text" name="items[${itemIndex}][label]" class="form-control form-control-sm item-label flex-grow-1" placeholder="{{ __('Désignation') }}" required>
+                            <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
+                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
+                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
                         </div>
-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Désignation') }}" required>
                     </td>
                     <td class="dim-col dim-l" style="visibility:hidden;">
                         <input type="number" name="items[${itemIndex}][length]" class="form-control item-length" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
@@ -887,7 +991,11 @@
 
                 tbody.appendChild(row);
                 itemIndex++;
+                ensureMeasurementRowUi(row);
                 bindRowEvents(row);
+                initRowSelect2(row);
+                setRowMode(row, getDocumentMode());
+                toggleMeasurementColumns(getDocumentMode());
                 if (enableTaxCheck.checked && defaultTaxGroup) {
                     row.querySelector('.item-tax').value = defaultTaxGroup.id;
                 }
@@ -947,12 +1055,10 @@
             function setRowMode(row, mode) {
                 row.dataset.mode = mode;
                 row.querySelector('.item-calc-mode').value = mode;
-                const isMeasure = (mode === 'surface' || mode === 'volume');
-                row.querySelectorAll('.dim-col').forEach(td => { td.style.visibility = isMeasure ? '' : 'hidden'; });
-                row.querySelectorAll('.mode-btn').forEach(btn => {
-                    btn.classList.toggle('btn-primary', btn.dataset.mode === mode);
-                    btn.classList.toggle('btn-outline-secondary', btn.dataset.mode !== mode);
-                });
+                const widthWrap = row.querySelector('.item-width-wrap');
+                if (widthWrap) {
+                    widthWrap.style.display = mode === 'volume' ? '' : 'none';
+                }
                 updateRowMeasurement(row);
             }
 
@@ -963,11 +1069,9 @@
                 const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
                 const unitInput = row.querySelector('.item-measurement-unit');
                 const display = row.querySelector('.item-measure-display');
-                let measurement = 0, unit = '';
-                if (mode === 'surface') { measurement = (l > 0 && h > 0) ? l * h : 0; unit = 'm²'; }
-                else if (mode === 'volume') { measurement = (l > 0 && h > 0 && w > 0) ? l * h * w : 0; unit = 'm³'; }
+                const { value: measurement, unit } = resolveMeasurement(mode, l, h, w);
                 if (unitInput) unitInput.value = unit;
-                if (display) display.textContent = measurement > 0 ? measurement.toFixed(2).replace('.', ',') + ' ' + unit : '—';
+                if (display) display.textContent = measurement > 0 ? `${formatNumber(measurement)} ${unit}` : '—';
             }
 
             /* =========================================================
@@ -987,16 +1091,13 @@
                     const taxRate = taxEnabled ? (parseFloat(taxSelect?.selectedOptions[0]?.dataset.rate) || 0) : 0;
                     const mode = row.querySelector('.item-calc-mode')?.value || 'quantity';
 
-                    let qty = baseQty;
-                    if (mode === 'surface' || mode === 'volume') {
-                        const l = parseFloat(row.querySelector('.item-length')?.value) || 0;
-                        const h = parseFloat(row.querySelector('.item-height')?.value) || 0;
-                        const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
-                        let m = 0;
-                        if (mode === 'surface') { m = (l > 0 && h > 0) ? l * h : 0; }
-                        else { m = (l > 0 && h > 0 && w > 0) ? l * h * w : 0; }
-                        if (m > 0) qty = m * baseQty;
-                    }
+                    const l = parseFloat(row.querySelector('.item-length')?.value) || 0;
+                    const h = parseFloat(row.querySelector('.item-height')?.value) || 0;
+                    const w = parseFloat(row.querySelector('.item-width')?.value) || 0;
+                    const { value: measurement } = resolveMeasurement(mode, l, h, w);
+                    const qty = isMeasurementMode(mode)
+                        ? (measurement > 0 ? measurement * baseQty : 0)
+                        : baseQty;
 
                     let lineSubtotal = qty * price;
                     let lineDiscount = 0;
@@ -1004,10 +1105,10 @@
                     if (discountType === 'percentage') {
                         lineDiscount = lineSubtotal * (discountVal / 100);
                     } else if (discountType === 'fixed') {
-                        lineDiscount = discountVal;
+                        lineDiscount = Math.min(discountVal, lineSubtotal);
                     }
 
-                    const afterDiscount = lineSubtotal - lineDiscount;
+                    const afterDiscount = Math.max(0, lineSubtotal - lineDiscount);
                     const lineTax = afterDiscount * (taxRate / 100);
                     const lineTotal = afterDiscount + lineTax;
 
@@ -1132,20 +1233,23 @@
                 return result.charAt(0).toUpperCase() + result.slice(1);
             }
 
-            function bindRowEvents(row) {
-                row.querySelector('.item-product-select')?.addEventListener('change', function() {
-                    const pid = this.value;
+            function initRowSelect2(row) {
+                $(row).find('.item-product-select').select2({
+                    placeholder: '— {{ __('Rechercher un produit…') }} —',
+                    allowClear: true,
+                    width: '100%',
+                    dropdownParent: $(row).find('.item-product-select').parent()
+                }).on('change', function() {
+                    const pid = $(this).val();
                     if (!pid) return;
                     const product = products.find(p => p.id == pid);
                     if (product) applyProductToRow(row, product);
-                    this.value = '';
+                    $(this).val(null).trigger('change');
                 });
-                row.querySelectorAll('.mode-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        setRowMode(row, this.dataset.mode);
-                        recalcTotals();
-                    });
-                });
+            }
+
+            function bindRowEvents(row) {
+                // Product selector handled by initRowSelect2
                 row.querySelectorAll('.item-length, .item-height, .item-width').forEach(inp => {
                     inp.addEventListener('input', function() {
                         updateRowMeasurement(row);
@@ -1162,8 +1266,26 @@
 
             // Init: bind existing rows
             document.querySelectorAll('.item-row').forEach(row => {
+                ensureMeasurementRowUi(row);
                 bindRowEvents(row);
                 updateRowMeasurement(row);
+                initRowSelect2(row);
+            });
+
+            documentModeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const mode = this.value;
+                    toggleMeasurementColumns(mode);
+                    document.querySelectorAll('.item-row').forEach(row => {
+                        setRowMode(row, mode);
+                    });
+                    recalcTotals();
+                });
+            });
+
+            toggleMeasurementColumns(getDocumentMode());
+            document.querySelectorAll('.item-row').forEach(row => {
+                setRowMode(row, getDocumentMode());
             });
 
             // Global discount events

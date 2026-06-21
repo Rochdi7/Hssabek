@@ -18,6 +18,7 @@ class QuoteFactory extends Factory
         return [
             'customer_id' => CustomerFactory::new(),
             'number' => 'QUO-' . fake()->unique()->numerify('######'),
+            'document_type' => 'quote',
             'status' => 'draft',
             'issue_date' => now(),
             'expiry_date' => now()->addDays(30),

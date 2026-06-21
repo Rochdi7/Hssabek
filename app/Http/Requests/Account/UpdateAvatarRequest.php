@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Account;
 
+use App\Rules\SecureBase64Image;
+use App\Rules\SecureUpload;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAvatarRequest extends FormRequest
@@ -14,8 +16,8 @@ class UpdateAvatarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar'        => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
-            'cropped_image' => ['nullable', 'string'],
+            'avatar' => ['nullable', 'file', 'max:5120', new SecureUpload(['jpg', 'jpeg', 'png', 'webp'])],
+            'cropped_image' => ['nullable', new SecureBase64Image(maxKilobytes: 5120)],
         ];
     }
 
@@ -25,8 +27,8 @@ class UpdateAvatarRequest extends FormRequest
     public function withValidator($validator): void
     {
         $validator->after(function ($validator) {
-            if (!$this->filled('cropped_image') && !$this->hasFile('avatar')) {
-                $validator->errors()->add('avatar', 'Veuillez sélectionner une image à télécharger.');
+            if (! $this->filled('cropped_image') && ! $this->hasFile('avatar')) {
+                $validator->errors()->add('avatar', __('Veuillez selectionner une image a telecharger.'));
             }
         });
     }
@@ -34,9 +36,7 @@ class UpdateAvatarRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'avatar.image' => __('Le fichier doit être une image.'),
-            'avatar.mimes' => __('Seuls les formats JPG, PNG et WEBP sont acceptés.'),
-            'avatar.max'   => __('L\'image ne doit pas dépasser 5 Mo.'),
+            'avatar.max' => __('L\'image ne doit pas depasser 5 Mo.'),
         ];
     }
 }

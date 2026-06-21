@@ -50,17 +50,29 @@ class Tenant extends Model implements HasMedia
     {
         $this->addMediaCollection('logo')
             ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
             ->useFallbackUrl(asset('build/img/icons/company-logo-01.svg'))
             ->useFallbackPath(public_path('build/img/icons/company-logo-01.svg'));
 
-        $this->addMediaCollection('dark_logo')->singleFile();
-        $this->addMediaCollection('mini_logo')->singleFile();
-        $this->addMediaCollection('dark_mini_logo')->singleFile();
-        $this->addMediaCollection('favicon')->singleFile();
-        $this->addMediaCollection('apple_icon')->singleFile();
+        $this->addMediaCollection('dark_logo')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+        $this->addMediaCollection('mini_logo')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+        $this->addMediaCollection('dark_mini_logo')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+        $this->addMediaCollection('favicon')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+        $this->addMediaCollection('apple_icon')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
 
         $this->addMediaCollection('invoice_image')
-            ->singleFile();
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
     }
 
     public function getLogoUrlAttribute(): string

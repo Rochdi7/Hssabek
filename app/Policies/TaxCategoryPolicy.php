@@ -9,23 +9,23 @@ class TaxCategoryPolicy extends TenantPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('inventory.products.view');
+        return $user->can('catalog.tax_rates.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('inventory.products.create');
+        return $user->can('catalog.tax_rates.create');
     }
 
     public function update(User $user, TaxCategory $taxCategory): bool
     {
-        return $user->can('inventory.products.edit')
+        return $user->can('catalog.tax_rates.edit')
             && $this->belongsToTenant($taxCategory);
     }
 
     public function delete(User $user, TaxCategory $taxCategory): bool
     {
-        return $user->can('inventory.products.delete')
+        return $user->can('catalog.tax_rates.delete')
             && $this->belongsToTenant($taxCategory);
     }
 }

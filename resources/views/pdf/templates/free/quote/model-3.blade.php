@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿?<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Devis {{ $quote->number }}</title>
+    <title>{{ $pdfDocumentTitle ?? 'Devis' }} {{ $quote->number }}</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #222; line-height: 1.5; }
@@ -187,7 +187,7 @@
         <tr>
             <td style="width: 70%;">
                 <div class="hatching"></div>
-                <div class="doc-title">devis</div>
+                <div class="doc-title">{{ strtolower($pdfDocumentTitle ?? 'Devis') }}</div>
             </td>
             <td style="width: 30%; text-align: right;">
                 @if($tenant)
@@ -228,7 +228,7 @@
             <td style="width: 50%;">
                 <table class="meta-table">
                     <tr>
-                        <td class="meta-label">Devis n°</td>
+                        <td class="meta-label">{{ $pdfDocumentNumberLabel ?? 'Devis n�' }}</td>
                         <td class="meta-value">{{ $quote->number }}</td>
                     </tr>
                     <tr>
@@ -397,13 +397,13 @@
 
     @if($quote->total_in_words)
     <p style="font-size: 10px; color: #444; font-style: italic; margin-bottom: 15px;">
-        Arrêté le présent devis à la somme de : <strong>{{ $quote->total_in_words }}</strong>
+        Arr�t� le pr�sent document � la somme de : <strong>{{ $quote->total_in_words }}</strong>
     </p>
     @endif
 
     {{-- ─── Validity block ─────────────────────────────────────────── --}}
     <div class="validity-block">
-        Ce devis est valable jusqu'au <strong>{{ $quote->expiry_date?->format('d/m/Y') }}</strong>.
+        Validit� jusqu'au <strong>{{ $quote->expiry_date?->format('d/m/Y') }}</strong>.
         Passé cette date, il devra faire l'objet d'une nouvelle offre.
     </div>
 
@@ -442,3 +442,5 @@
 </div>
 </body>
 </html>
+
+

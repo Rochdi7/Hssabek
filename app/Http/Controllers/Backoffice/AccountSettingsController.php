@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\UpdateAccountRequest;
 use App\Http\Requests\Account\UpdateAvatarRequest;
 use App\Http\Requests\Account\UpdatePasswordRequest;
+use App\Support\Security\Base64Image;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class AccountSettingsController extends Controller
@@ -44,37 +43,26 @@ class AccountSettingsController extends Controller
     {
         $user = Auth::user();
 
-        // Update profile fields (excludes avatar keys thanks to $request->safe()->except())
         $user->update($request->safe()->except(['cropped_avatar', 'cropped_avatar_deleted']));
 
-        // Handle avatar: delete requested?
-        if ($request->input('cropped_avatar_deleted') === '1' && !$request->filled('cropped_avatar')) {
+        if ($request->input('cropped_avatar_deleted') === '1' && ! $request->filled('cropped_avatar')) {
             $user->clearMediaCollection('avatar');
         }
 
-        // Handle avatar: new cropped image?
         if ($request->filled('cropped_avatar')) {
-            $base64 = $request->input('cropped_avatar');
-            $data = substr($base64, strpos($base64, ',') + 1);
-            $decoded = base64_decode($data);
-
-            preg_match('/^data:image\/(\w+);/', $base64, $matches);
-            $ext = $matches[1] ?? 'png';
-            if ($ext === 'jpeg') $ext = 'jpg';
-
-            $fileName = 'avatar-' . Str::random(8) . '.' . $ext;
-            $tmpPath = sys_get_temp_dir() . '/' . $fileName;
-            file_put_contents($tmpPath, $decoded);
-
-            $user->clearMediaCollection('avatar');
-            $user->addMedia($tmpPath)
-                ->usingFileName($fileName)
-                ->toMediaCollection('avatar');
+            Base64Image::attachToMediaCollection(
+                $user,
+                'avatar',
+                $request->input('cropped_avatar'),
+                prefix: 'avatar',
+                maxKilobytes: 5120,
+                clearExisting: true,
+            );
         }
 
         return redirect()
             ->route('bo.account.settings.edit')
-            ->with('success', __('Paramètres du compte mis à jour avec succès.'));
+            ->with('success', __('Parametres du compte mis a jour avec succes.'));
     }
 
     /**
@@ -91,7 +79,7 @@ class AccountSettingsController extends Controller
 
         return redirect()
             ->route('bo.settings.security.index')
-            ->with('success', __('Mot de passe mis à jour avec succès.'));
+            ->with('success', __('Mot de passe mis a jour avec succes.'));
     }
 
     /**
@@ -101,34 +89,24 @@ class AccountSettingsController extends Controller
     public function updateAvatar(UpdateAvatarRequest $request): RedirectResponse
     {
         $user = Auth::user();
-        $user->clearMediaCollection('avatar');
 
         if ($request->filled('cropped_image')) {
-            // Handle base64 cropped image from Cropper.js
-            $base64 = $request->input('cropped_image');
-            $data = substr($base64, strpos($base64, ',') + 1);
-            $decoded = base64_decode($data);
-
-            // Detect extension from mime
-            preg_match('/^data:image\/(\w+);/', $base64, $matches);
-            $ext = $matches[1] ?? 'png';
-            if ($ext === 'jpeg') $ext = 'jpg';
-
-            $fileName = 'avatar-' . Str::random(8) . '.' . $ext;
-            $tmpPath = sys_get_temp_dir() . '/' . $fileName;
-            file_put_contents($tmpPath, $decoded);
-
-            $user->addMedia($tmpPath)
-                ->usingFileName($fileName)
-                ->toMediaCollection('avatar');
+            Base64Image::attachToMediaCollection(
+                $user,
+                'avatar',
+                $request->input('cropped_image'),
+                prefix: 'avatar',
+                maxKilobytes: 5120,
+                clearExisting: true,
+            );
         } elseif ($request->hasFile('avatar')) {
-            $user->addMediaFromRequest('avatar')
-                ->toMediaCollection('avatar');
+            $user->clearMediaCollection('avatar');
+            $user->addMediaFromRequest('avatar')->toMediaCollection('avatar');
         }
 
         return redirect()
             ->route('bo.account.settings.edit')
-            ->with('success', __('Photo de profil mise à jour avec succès.'));
+            ->with('success', __('Photo de profil mise a jour avec succes.'));
     }
 
     /**
@@ -142,6 +120,6 @@ class AccountSettingsController extends Controller
 
         return redirect()
             ->route('bo.account.settings.edit')
-            ->with('success', __('Photo de profil supprimée.'));
+            ->with('success', __('Photo de profil supprimee.'));
     }
 }

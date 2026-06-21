@@ -15,6 +15,7 @@ use App\Models\Sales\Quote;
 use App\Models\Templates\TemplateCatalog;
 use App\Models\Tenancy\Signature;
 use App\Services\Tenancy\TenantContext;
+use App\Support\Sales\QuoteDocumentType;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PdfService
@@ -76,11 +77,16 @@ class PdfService
     {
         $quote->loadMissing(['customer', 'items.product', 'items.unit', 'items.taxGroup', 'charges']);
 
-        $data = $this->buildData($quote, 'quote');
+        $documentConfig = QuoteDocumentType::resolve($quote->document_type);
+        $data = array_merge($this->buildData($quote, 'quote'), [
+            'documentConfig' => $documentConfig,
+            'pdfDocumentTitle' => $documentConfig['pdf_title'],
+            'pdfDocumentNumberLabel' => $documentConfig['number_label'],
+        ]);
         $view = $this->resolveView('quote');
         $pdf  = Pdf::loadView($view, $data)->setPaper('a4', 'portrait');
 
-        $filename = 'devis-' . $quote->number . '.pdf';
+        $filename = $documentConfig['filename_prefix'] . '-' . $quote->number . '.pdf';
 
         return ($disposition === 'download')
             ? $pdf->download($filename)
@@ -91,7 +97,12 @@ class PdfService
     {
         $quote->loadMissing(['customer', 'items.product', 'items.unit', 'items.taxGroup', 'charges']);
 
-        $data = $this->buildData($quote, 'quote');
+        $documentConfig = QuoteDocumentType::resolve($quote->document_type);
+        $data = array_merge($this->buildData($quote, 'quote'), [
+            'documentConfig' => $documentConfig,
+            'pdfDocumentTitle' => $documentConfig['pdf_title'],
+            'pdfDocumentNumberLabel' => $documentConfig['number_label'],
+        ]);
         $view = $this->resolveView('quote');
 
         return Pdf::loadView($view, $data)->setPaper('a4', 'portrait')->output();

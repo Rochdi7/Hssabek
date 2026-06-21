@@ -1,0 +1,1123 @@
+diff --git a/app/Http/Controllers/Backoffice/Catalog/ProductController.php b/app/Http/Controllers/Backoffice/Catalog/ProductController.php
+index 72f248b..4c693d8 100644
+--- a/app/Http/Controllers/Backoffice/Catalog/ProductController.php
++++ b/app/Http/Controllers/Backoffice/Catalog/ProductController.php
+@@ -88,21 +88,13 @@ public function store(StoreProductRequest $request)
+     {
+         $this->authorize('create', Product::class);
+ 
+-        $data = $request->validated();
++        $data = $this->normalizeProductData($request->validated());
+         unset($data['product_image']);
+ 
+         if (empty($data['slug'])) {
+             $data['slug'] = Str::slug($data['name']);
+         }
+ 
+-        // Clear inventory fields for services
+-        if (($data['item_type'] ?? 'product') === 'service') {
+-            $data['track_inventory'] = false;
+-            $data['quantity'] = 0;
+-            $data['alert_quantity'] = null;
+-            $data['barcode'] = null;
+-        }
+-
+         $product = Product::create($data);
+ 
+         if ($request->hasFile('product_image')) {
+@@ -192,21 +184,13 @@ public function update(UpdateProductRequest $request, Product $product)
+     {
+         $this->authorize('update', $product);
+ 
+-        $data = $request->validated();
++        $data = $this->normalizeProductData($request->validated(), $product);
+         unset($data['product_image']);
+ 
+         if (empty($data['slug'])) {
+             $data['slug'] = Str::slug($data['name']);
+         }
+ 
+-        // Clear inventory fields for services
+-        if (($data['item_type'] ?? $product->item_type) === 'service') {
+-            $data['track_inventory'] = false;
+-            $data['quantity'] = 0;
+-            $data['alert_quantity'] = null;
+-            $data['barcode'] = null;
+-        }
+-
+         $product->update($data);
+ 
+         if ($request->hasFile('product_image')) {
+@@ -351,4 +335,31 @@ public function warehouseStock(Product $product)
+ 
+         return response()->json(['stocks' => $stocks]);
+     }
++
++    private function normalizeProductData(array $data, ?Product $product = null): array
++    {
++        $itemType = $data['item_type'] ?? $product?->item_type ?? 'product';
++        $discountType = $data['discount_type'] ?? $product?->discount_type ?? 'none';
++
++        $data['discount_type'] = blank($discountType) ? 'none' : $discountType;
++
++        if ($data['discount_type'] === 'none' || blank($data['discount_value'] ?? null)) {
++            $data['discount_value'] = 0;
++        }
++
++        foreach (['purchase_price', 'quantity'] as $field) {
++            if (! array_key_exists($field, $data) || blank($data[$field])) {
++                $data[$field] = 0;
++            }
++        }
++
++        if ($itemType === 'service') {
++            $data['track_inventory'] = false;
++            $data['quantity'] = 0;
++            $data['alert_quantity'] = null;
++            $data['barcode'] = null;
++        }
++
++        return $data;
++    }
+ }
+diff --git a/app/Http/Controllers/Backoffice/Settings/InvoiceTemplateSettingsController.php b/app/Http/Controllers/Backoffice/Settings/InvoiceTemplateSettingsController.php
+index 779ebfc..107e2c9 100644
+--- a/app/Http/Controllers/Backoffice/Settings/InvoiceTemplateSettingsController.php
++++ b/app/Http/Controllers/Backoffice/Settings/InvoiceTemplateSettingsController.php
+@@ -425,6 +425,7 @@ private function generateSamplePreviewPdf(PdfService $pdfService, string $docTyp
+             'discount_total'     => 0,
+             'tax_total'          => 160.00,
+             'total'              => 960.00,
++            'round_off'          => 0.00,
+ 
+             'enable_tax'         => true,
+             'amount_paid'        => 0,
+@@ -433,6 +434,7 @@ private function generateSamplePreviewPdf(PdfService $pdfService, string $docTyp
+             'notes'              => 'Ceci est un aperçu du modèle avec des données fictives.',
+             'terms'              => 'Paiement à 30 jours.',
+             'bill_to_snapshot'   => ['name' => 'Client Exemple SARL', 'address' => '123 Rue Exemple', 'city' => 'Casablanca', 'postal_code' => '20000', 'country' => 'Maroc'],
++            'ship_to_snapshot'   => [],
+             'bank_details_snapshot' => [],
+             'items'              => $sampleItems,
+             'charges'            => collect(),
+diff --git a/app/Models/Catalog/Product.php b/app/Models/Catalog/Product.php
+index 01ac4b7..92e49ba 100644
+--- a/app/Models/Catalog/Product.php
++++ b/app/Models/Catalog/Product.php
+@@ -13,6 +13,7 @@
+ use App\Traits\LogsActivity;
+ use App\Traits\UsesTenantCurrency;
+ use Illuminate\Database\Eloquent\Concerns\HasUuids;
++use Illuminate\Database\Eloquent\Casts\Attribute;
+ use Illuminate\Database\Eloquent\Model;
+ use Illuminate\Database\Eloquent\Relations\BelongsTo;
+ use Illuminate\Database\Eloquent\Relations\HasMany;
+@@ -67,6 +68,17 @@ class Product extends Model implements HasMedia
+         'estimated_hours' => 'integer',
+     ];
+ 
++    protected $attributes = [
++        'billing_type'    => 'one_time',
++        'purchase_price'  => 0,
++        'track_inventory' => false,
++        'quantity'        => 0,
++        'discount_type'   => 'none',
++        'discount_value'  => 0,
++        'is_active'       => true,
++        'default_calc_mode' => 'quantity',
++    ];
++
+     public function registerMediaCollections(): void
+     {
+         $this->addMediaCollection('product_image')
+@@ -134,4 +146,32 @@ public function stockMovements(): HasMany
+     {
+         return $this->hasMany(StockMovement::class);
+     }
++
++    protected function purchasePrice(): Attribute
++    {
++        return Attribute::make(
++            set: fn ($value) => blank($value) ? 0 : $value,
++        );
++    }
++
++    protected function quantity(): Attribute
++    {
++        return Attribute::make(
++            set: fn ($value) => blank($value) ? 0 : $value,
++        );
++    }
++
++    protected function discountType(): Attribute
++    {
++        return Attribute::make(
++            set: fn ($value) => blank($value) ? 'none' : $value,
++        );
++    }
++
++    protected function discountValue(): Attribute
++    {
++        return Attribute::make(
++            set: fn ($value) => blank($value) ? 0 : $value,
++        );
++    }
+ }
+diff --git a/bootstrap/app.php b/bootstrap/app.php
+index 9bfa8b0..36f25d1 100644
+--- a/bootstrap/app.php
++++ b/bootstrap/app.php
+@@ -1,8 +1,12 @@
+ <?php
+ 
++use Illuminate\Database\QueryException;
+ use Illuminate\Foundation\Application;
+ use Illuminate\Foundation\Configuration\Exceptions;
+ use Illuminate\Foundation\Configuration\Middleware;
++use Illuminate\Http\Request;
++use Illuminate\Validation\ValidationException;
++use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+ 
+ return Application::configure(basePath: dirname(__DIR__))
+     ->withRouting(
+@@ -27,5 +31,110 @@
+         ]);
+     })
+     ->withExceptions(function (Exceptions $exceptions) {
+-        //
++        $expectsJson = static function (Request $request): bool {
++            return $request->expectsJson() || $request->wantsJson() || $request->ajax();
++        };
++
++        $isStateChangingRequest = static function (Request $request): bool {
++            return in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE'], true);
++        };
++
++        $friendlyWebHandlingEnabled = static function (Request $request) use ($isStateChangingRequest): bool {
++            return ! config('app.debug') && $isStateChangingRequest($request);
++        };
++
++        $jsonErrorResponse = static function (int $status, string $message, array $errors = []) {
++            return response()->json([
++                'success' => false,
++                'message' => $message,
++                'errors' => $errors,
++            ], $status);
++        };
++
++        $redirectBackWithError = static function (Request $request, string $message) {
++            $response = back()->with('error', $message);
++
++            if ($request->method() !== 'DELETE') {
++                $response->withInput();
++            }
++
++            return $response;
++        };
++
++        $safeHttpMessage = static function (Throwable $exception, int $status, string $fallback): string {
++            if ($status === 422 && $exception->getMessage() !== '') {
++                return $exception->getMessage();
++            }
++
++            return $fallback;
++        };
++
++        $exceptions->render(function (ValidationException $exception, Request $request) use ($expectsJson, $jsonErrorResponse) {
++            $message = __('Veuillez corriger les erreurs du formulaire et reessayer.');
++
++            if ($expectsJson($request)) {
++                return $jsonErrorResponse(422, $message, $exception->errors());
++            }
++
++            return back()
++                ->withInput()
++                ->withErrors($exception->errors(), $exception->errorBag)
++                ->with('error', $message);
++        });
++
++        $exceptions->render(function (QueryException $exception, Request $request) use (
++            $expectsJson,
++            $friendlyWebHandlingEnabled,
++            $jsonErrorResponse,
++            $redirectBackWithError
++        ) {
++            $message = __('Une erreur est survenue lors de l\'enregistrement des donnees. Veuillez reessayer.');
++
++            if ($expectsJson($request)) {
++                return $jsonErrorResponse(500, $message);
++            }
++
++            if ($friendlyWebHandlingEnabled($request)) {
++                return $redirectBackWithError($request, $message);
++            }
++
++            return null;
++        });
++
++        $exceptions->render(function (Throwable $exception, Request $request) use (
++            $expectsJson,
++            $friendlyWebHandlingEnabled,
++            $jsonErrorResponse,
++            $redirectBackWithError,
++            $safeHttpMessage
++        ) {
++            if ($exception instanceof ValidationException || $exception instanceof QueryException) {
++                return null;
++            }
++
++            $status = $exception instanceof HttpExceptionInterface
++                ? $exception->getStatusCode()
++                : 500;
++
++            if ($expectsJson($request)) {
++                $message = match ($status) {
++                    403 => __('Vous n\'etes pas autorise a effectuer cette action.'),
++                    404 => __('La ressource demandee est introuvable.'),
++                    422 => $safeHttpMessage($exception, $status, __('Impossible de traiter votre demande.')),
++                    default => __('Une erreur inattendue est survenue. Veuillez reessayer plus tard.'),
++                };
++
++                return $jsonErrorResponse($status, $message);
++            }
++
++            if ($friendlyWebHandlingEnabled($request)) {
++                $message = $status === 422
++                    ? $safeHttpMessage($exception, $status, __('Impossible de traiter votre demande.'))
++                    : __('Une erreur inattendue est survenue. Veuillez reessayer.');
++
++                return $redirectBackWithError($request, $message);
++            }
++
++            return null;
++        });
+     })->create();
+diff --git a/resources/views/backoffice/components/alerts.blade.php b/resources/views/backoffice/components/alerts.blade.php
+index 13b0e21..268da0b 100644
+--- a/resources/views/backoffice/components/alerts.blade.php
++++ b/resources/views/backoffice/components/alerts.blade.php
+@@ -1,67 +1,46 @@
+-<!-- Global Alerts Section -->
+-<div id="alerts-container">
+-    @if (session('success'))
+-        <div class="alert alert-success alert-dismissible fade show position-fixed" role="alert"
+-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+-            <div class="d-flex align-items-center">
+-                <i class="isax isax-tick-circle me-2"></i>
+-                <div>
+-                    <strong>{{ __('Succès !') }}</strong> {{ session('success') }}
+-                </div>
+-            </div>
+-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+-        </div>
+-    @endif
++@php
++    $validationErrors = collect($errors->getBags())
++        ->flatMap(fn ($bag) => $bag->all())
++        ->filter()
++        ->unique()
++        ->values();
+ 
+-    @if (session('error'))
+-        <div class="alert alert-danger alert-dismissible fade show position-fixed" role="alert"
+-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+-            <div class="d-flex align-items-center">
+-                <i class="isax isax-close-circle me-2"></i>
+-                <div>
+-                    <strong>{{ __('Erreur !') }}</strong> {{ session('error') }}
+-                </div>
+-            </div>
+-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+-        </div>
+-    @endif
++    $toastMessages = collect([
++        ['type' => 'success', 'message' => session('success')],
++        ['type' => 'error', 'message' => session('error')],
++        ['type' => 'warning', 'message' => session('warning')],
++        ['type' => 'info', 'message' => session('info')],
++    ])->filter(fn ($toast) => filled($toast['message']))
++        ->values();
++@endphp
+ 
+-    @if (session('warning'))
+-        <div class="alert alert-warning alert-dismissible fade show position-fixed" role="alert"
+-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+-            <div class="d-flex align-items-center">
+-                <i class="isax isax-warning-2 me-2"></i>
+-                <div>
+-                    <strong>{{ __('Attention !') }}</strong> {{ session('warning') }}
+-                </div>
+-            </div>
+-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+-        </div>
+-    @endif
++<script>
++    document.addEventListener('DOMContentLoaded', function () {
++        if (typeof window.toastr === 'undefined') {
++            return;
++        }
+ 
+-    @if (session('info'))
+-        <div class="alert alert-info alert-dismissible fade show position-fixed" role="alert"
+-            style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+-            <div class="d-flex align-items-center">
+-                <i class="isax isax-info-circle me-2"></i>
+-                <div>
+-                    <strong>{{ __('Info !') }}</strong> {{ session('info') }}
+-                </div>
+-            </div>
+-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+-        </div>
+-    @endif
+-</div>
++        toastr.options = Object.assign({
++            closeButton: true,
++            progressBar: true,
++            newestOnTop: true,
++            positionClass: 'toast-top-right',
++            preventDuplicates: true,
++            timeOut: 5000,
++            extendedTimeOut: 1500,
++        }, window.toastr.options || {});
+ 
+-<script>
+-    // Auto-dismiss alerts after 5 seconds
+-    document.addEventListener('DOMContentLoaded', function() {
+-        const alerts = document.querySelectorAll('#alerts-container .alert');
+-        alerts.forEach(alert => {
+-            setTimeout(() => {
+-                const bsAlert = new bootstrap.Alert(alert);
+-                bsAlert.close();
+-            }, 5000);
++        const flashMessages = @json($toastMessages);
++        const validationErrors = @json($validationErrors);
++
++        flashMessages.forEach(function (toast) {
++            if (toast.type && toast.message && typeof toastr[toast.type] === 'function') {
++                toastr[toast.type](toast.message);
++            }
++        });
++
++        validationErrors.forEach(function (message) {
++            toastr.error(message);
+         });
+     });
+ </script>
+diff --git a/resources/views/backoffice/layout/partials/footer-scripts.blade.php b/resources/views/backoffice/layout/partials/footer-scripts.blade.php
+index 16d3aca..86ef29d 100644
+--- a/resources/views/backoffice/layout/partials/footer-scripts.blade.php
++++ b/resources/views/backoffice/layout/partials/footer-scripts.blade.php
+@@ -1,52 +1,134 @@
+- <!-- jQuery -->
+- <script src="{{ URL::asset('build/js/jquery-3.7.1.min.js') }}"></script>
+-
+- <!-- Feather JS -->
+- <script src="{{ URL::asset('build/js/feather.min.js') }}"></script>
+-
+- <!-- Daterangepicker JS -->
+- <script src="{{ URL::asset('build/js/moment.min.js') }}"></script>
+- <script src="{{ URL::asset('build/plugins/daterangepicker/daterangepicker.js') }}"></script>
+-
+- <!-- Simplebar JS -->
+- <script src="{{ URL::asset('build/plugins/simplebar/simplebar.min.js') }}"></script>
+-
+- <!-- Datatable JS -->
+- <script src="{{ URL::asset('build/js/jquery.dataTables.min.js') }}"></script>
+- <script src="{{ URL::asset('build/js/dataTables.bootstrap5.min.js') }}"></script>
+-
+- <!-- Select2 JS -->
+- <script src="{{ URL::asset('build/plugins/select2/js/select2.min.js') }}"></script>
+-
+- <!-- Bootstrap Datetimepicker JS -->
+- <script src="{{ URL::asset('build/js/bootstrap-datetimepicker.min.js') }}"></script>
+-
+- <!-- Bootstrap Core JS -->
+- <script src="{{ URL::asset('build/js/bootstrap.bundle.min.js') }}"></script>
+-
+- {{-- Page-specific scripts pushed from individual views --}}
+- @stack('scripts')
+-
+- {{-- Bank account balance display on select change --}}
+- <script>
+- document.addEventListener('DOMContentLoaded', function () {
+-     document.querySelectorAll('select[name="bank_account_id"], select[name="from_bank_account_id"], select[name="to_bank_account_id"]').forEach(function (select) {
+-         var info = select.parentElement.querySelector('.bank-balance-info');
+-         if (!info) return;
+-         function updateBalance() {
+-             var opt = select.options[select.selectedIndex];
+-             if (opt && opt.value) {
+-                 info.innerHTML = 'Solde actuel : <strong>' + opt.getAttribute('data-balance') + ' ' + opt.getAttribute('data-currency') + '</strong>';
+-                 info.style.display = 'block';
+-             } else {
+-                 info.style.display = 'none';
+-             }
+-         }
+-         select.addEventListener('change', updateBalance);
+-         updateBalance();
+-     });
+- });
+- </script>
+-
+- <!-- Custom JS -->
+- <script src="{{ URL::asset('build/js/script.js') }}"></script>
++<!-- jQuery -->
++<script src="{{ URL::asset('build/js/jquery-3.7.1.min.js') }}"></script>
++
++<!-- Feather JS -->
++<script src="{{ URL::asset('build/js/feather.min.js') }}"></script>
++
++<!-- Daterangepicker JS -->
++<script src="{{ URL::asset('build/js/moment.min.js') }}"></script>
++<script src="{{ URL::asset('build/plugins/daterangepicker/daterangepicker.js') }}"></script>
++
++<!-- Simplebar JS -->
++<script src="{{ URL::asset('build/plugins/simplebar/simplebar.min.js') }}"></script>
++
++<!-- Datatable JS -->
++<script src="{{ URL::asset('build/js/jquery.dataTables.min.js') }}"></script>
++<script src="{{ URL::asset('build/js/dataTables.bootstrap5.min.js') }}"></script>
++
++<!-- Select2 JS -->
++<script src="{{ URL::asset('build/plugins/select2/js/select2.min.js') }}"></script>
++
++<!-- Bootstrap Datetimepicker JS -->
++<script src="{{ URL::asset('build/js/bootstrap-datetimepicker.min.js') }}"></script>
++
++<!-- Bootstrap Core JS -->
++<script src="{{ URL::asset('build/js/bootstrap.bundle.min.js') }}"></script>
++
++<!-- Toastr JS -->
++<script src="{{ URL::asset('build/plugins/toastr/toastr.min.js') }}"></script>
++
++<script>
++window.BackofficeToast = window.BackofficeToast || {
++    show: function(type, message) {
++        if (!message || typeof window.toastr === 'undefined' || typeof window.toastr[type] !== 'function') {
++            return;
++        }
++
++        window.toastr[type](message);
++    },
++    success: function(message) { this.show('success', message); },
++    error: function(message) { this.show('error', message); },
++    warning: function(message) { this.show('warning', message); },
++    info: function(message) { this.show('info', message); },
++    fromJsonError: function(payload, fallbackMessage) {
++        const errors = payload && payload.errors ? payload.errors : {};
++        const hasErrors = errors && typeof errors === 'object' && Object.keys(errors).length > 0;
++
++        if (hasErrors) {
++            Object.values(errors).forEach(function(messages) {
++                (Array.isArray(messages) ? messages : [messages]).forEach(function(message) {
++                    window.BackofficeToast.error(message);
++                });
++            });
++            return;
++        }
++
++        window.BackofficeToast.error((payload && payload.message) || fallbackMessage);
++    }
++};
++
++(function() {
++    const defaultErrorMessage = "{{ __('Une erreur inattendue est survenue. Veuillez reessayer.') }}";
++    const originalFetch = window.fetch ? window.fetch.bind(window) : null;
++
++    if (originalFetch) {
++        window.fetch = function(input, init) {
++            init = init || {};
++
++            const headers = new Headers(init.headers || (input instanceof Request ? input.headers : undefined));
++
++            if (!headers.has('X-Requested-With')) {
++                headers.set('X-Requested-With', 'XMLHttpRequest');
++            }
++
++            if (!headers.has('Accept')) {
++                headers.set('Accept', 'application/json');
++            }
++
++            return originalFetch(input, Object.assign({}, init, { headers: headers }))
++                .then(function(response) {
++                    if (!response.ok) {
++                        response.clone()
++                            .json()
++                            .then(function(payload) {
++                                window.BackofficeToast.fromJsonError(payload, defaultErrorMessage);
++                            })
++                            .catch(function() {
++                                window.BackofficeToast.error(defaultErrorMessage);
++                            });
++                    }
++
++                    return response;
++                });
++        };
++    }
++
++    if (window.jQuery) {
++        $(document).ajaxError(function(event, jqxhr) {
++            if (jqxhr && jqxhr.responseJSON) {
++                window.BackofficeToast.fromJsonError(jqxhr.responseJSON, defaultErrorMessage);
++                return;
++            }
++
++            window.BackofficeToast.error(defaultErrorMessage);
++        });
++    }
++})();
++</script>
++
++{{-- Page-specific scripts pushed from individual views --}}
++@stack('scripts')
++
++{{-- Bank account balance display on select change --}}
++<script>
++document.addEventListener('DOMContentLoaded', function () {
++    document.querySelectorAll('select[name="bank_account_id"], select[name="from_bank_account_id"], select[name="to_bank_account_id"]').forEach(function (select) {
++        var info = select.parentElement.querySelector('.bank-balance-info');
++        if (!info) return;
++        function updateBalance() {
++            var opt = select.options[select.selectedIndex];
++            if (opt && opt.value) {
++                info.innerHTML = 'Solde actuel : <strong>' + opt.getAttribute('data-balance') + ' ' + opt.getAttribute('data-currency') + '</strong>';
++                info.style.display = 'block';
++            } else {
++                info.style.display = 'none';
++            }
++        }
++        select.addEventListener('change', updateBalance);
++        updateBalance();
++    });
++});
++</script>
++
++<!-- Custom JS -->
++<script src="{{ URL::asset('build/js/script.js') }}"></script>
+diff --git a/resources/views/backoffice/layout/partials/head.blade.php b/resources/views/backoffice/layout/partials/head.blade.php
+index ed5c6cc..4abf2d7 100644
+--- a/resources/views/backoffice/layout/partials/head.blade.php
++++ b/resources/views/backoffice/layout/partials/head.blade.php
+@@ -238,6 +238,9 @@
+     <!-- Select CSS -->
+     <link rel="stylesheet" href="{{URL::asset('build/plugins/select2/css/select2.min.css')}}">
+ 
++    <!-- Toastr CSS -->
++    <link rel="stylesheet" href="{{ URL::asset('build/plugins/toastr/toatr.css') }}">
++
+     <!-- animation CSS -->
+     <link rel="stylesheet" href="{{URL::asset('build/css/animate.css')}}">
+ 
+@@ -371,4 +374,4 @@
+     </style>
+     @endif
+ 
+-    @stack('styles')
+\ No newline at end of file
++    @stack('styles')
+diff --git a/resources/views/backoffice/sales/invoices/create.blade.php b/resources/views/backoffice/sales/invoices/create.blade.php
+index ec79785..c010ed5 100644
+--- a/resources/views/backoffice/sales/invoices/create.blade.php
++++ b/resources/views/backoffice/sales/invoices/create.blade.php
+@@ -393,20 +393,18 @@ class="select @error('customer_id') is-invalid @enderror">
+                                                         <input type="hidden" name="items[0][product_id]" class="item-product-id" value="{{ old('items.0.product_id') }}">
+                                                         <input type="hidden" name="items[0][calculation_mode]" class="item-calc-mode" value="{{ $calcMode0inv }}">
+                                                         <input type="hidden" name="items[0][measurement_unit]" class="item-measurement-unit" value="{{ old('items.0.measurement_unit') }}">
+-                                                        <div class="d-flex gap-1 align-items-center mb-1">
+-                                                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">
+-                                                                <option value="">— {{ __('Catalogue') }} —</option>
+-                                                                @foreach($products as $p)
+-                                                                    <option value="{{ $p->id }}" {{ old('items.0.product_id') == $p->id ? 'selected' : '' }}>{{ $p->name }}</option>
+-                                                                @endforeach
+-                                                            </select>
+-                                                            <div class="d-flex gap-1 ms-1">
+-                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0inv==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0inv==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0inv==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                                                            </div>
++                                                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">
++                                                            <option value="">— {{ __('Rechercher un produit…') }} —</option>
++                                                            @foreach($products as $p)
++                                                                <option value="{{ $p->id }}" {{ old('items.0.product_id') == $p->id ? 'selected' : '' }}>{{ $p->name }}</option>
++                                                            @endforeach
++                                                        </select>
++                                                        <div class="d-flex gap-1 align-items-center">
++                                                            <input type="text" name="items[0][label]" class="form-control form-control-sm item-label flex-grow-1" value="{{ old('items.0.label') }}" placeholder="{{ __('Désignation') }}" required>
++                                                            <button type="button" class="btn btn-xs mode-btn {{ $calcMode0inv==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                                                            <button type="button" class="btn btn-xs mode-btn {{ $calcMode0inv==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                                                            <button type="button" class="btn btn-xs mode-btn {{ $calcMode0inv==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                                                         </div>
+-                                                        <input type="text" name="items[0][label]" class="form-control item-label" value="{{ old('items.0.label') }}" placeholder="{{ __('Désignation') }}" required>
+                                                     </td>
+                                                     <td class="dim-col dim-l" style="{{ $isMeasure0inv ? '' : 'visibility:hidden;' }}">
+                                                         <input type="number" name="items[0][length]" class="form-control item-length" value="{{ old('items.0.length') }}" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -777,15 +775,13 @@ function applyProductToRow(row, product) {
+                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
+                         <input type="hidden" name="items[${itemIndex}][calculation_mode]" class="item-calc-mode" value="quantity">
+                         <input type="hidden" name="items[${itemIndex}][measurement_unit]" class="item-measurement-unit" value="">
+-                        <div class="d-flex gap-1 align-items-center mb-1">
+-                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">${productOptions}</select>
+-                            <div class="d-flex gap-1 ms-1">
+-                                <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                            </div>
++                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">${productOptions}</select>
++                        <div class="d-flex gap-1 align-items-center">
++                            <input type="text" name="items[${itemIndex}][label]" class="form-control form-control-sm item-label flex-grow-1" placeholder="{{ __('Désignation') }}" required>
++                            <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                         </div>
+-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Désignation') }}" required>
+                     </td>
+                     <td class="dim-col dim-l" style="visibility:hidden;">
+                         <input type="number" name="items[${itemIndex}][length]" class="form-control item-length" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -818,6 +814,7 @@ function applyProductToRow(row, product) {
+                 tbody.appendChild(row);
+                 itemIndex++;
+                 bindRowEvents(row);
++                initRowSelect2(row);
+                 if (enableTaxCheck.checked && defaultTaxGroup) {
+                     row.querySelector('.item-tax').value = defaultTaxGroup.id;
+                 }
+@@ -1055,14 +1052,23 @@ function convert(n) {
+                 return result.charAt(0).toUpperCase() + result.slice(1);
+             }
+ 
+-            function bindRowEvents(row) {
+-                row.querySelector('.item-product-select')?.addEventListener('change', function() {
+-                    const pid = this.value;
++            function initRowSelect2(row) {
++                $(row).find('.item-product-select').select2({
++                    placeholder: '— {{ __('Rechercher un produit…') }} —',
++                    allowClear: true,
++                    width: '100%',
++                    dropdownParent: $(row).find('.item-product-select').parent()
++                }).on('change', function() {
++                    const pid = $(this).val();
+                     if (!pid) return;
+                     const product = products.find(p => p.id == pid);
+                     if (product) applyProductToRow(row, product);
+-                    this.value = '';
++                    $(this).val(null).trigger('change');
+                 });
++            }
++
++            function bindRowEvents(row) {
++                // Product selector handled by initRowSelect2
+                 row.querySelectorAll('.mode-btn').forEach(btn => {
+                     btn.addEventListener('click', function() {
+                         setRowMode(row, this.dataset.mode);
+@@ -1087,6 +1093,7 @@ function bindRowEvents(row) {
+             document.querySelectorAll('.item-row').forEach(row => {
+                 bindRowEvents(row);
+                 updateRowMeasurement(row);
++                initRowSelect2(row);
+             });
+ 
+             // Global discount events
+diff --git a/resources/views/backoffice/sales/invoices/edit.blade.php b/resources/views/backoffice/sales/invoices/edit.blade.php
+index b0dac4c..8e17aee 100644
+--- a/resources/views/backoffice/sales/invoices/edit.blade.php
++++ b/resources/views/backoffice/sales/invoices/edit.blade.php
+@@ -439,20 +439,18 @@ class="select @error('customer_id') is-invalid @enderror">
+                                                             <input type="hidden" name="items[{{ $i }}][product_id]" class="item-product-id" value="{{ old("items.{$i}.product_id", $item->product_id) }}">
+                                                             <input type="hidden" name="items[{{ $i }}][calculation_mode]" class="item-calc-mode" value="{{ $calcModeIinv }}">
+                                                             <input type="hidden" name="items[{{ $i }}][measurement_unit]" class="item-measurement-unit" value="{{ old("items.{$i}.measurement_unit", $item->measurement_unit) }}">
+-                                                            <div class="d-flex gap-1 align-items-center mb-1">
+-                                                                <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">
+-                                                                    <option value="">— {{ __('Catalogue') }} —</option>
+-                                                                    @foreach($products as $p)
+-                                                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
+-                                                                    @endforeach
+-                                                                </select>
+-                                                                <div class="d-flex gap-1 ms-1">
+-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                                                                </div>
++                                                            <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">
++                                                                <option value="">— {{ __('Rechercher un produit…') }} —</option>
++                                                                @foreach($products as $p)
++                                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
++                                                                @endforeach
++                                                            </select>
++                                                            <div class="d-flex gap-1 align-items-center">
++                                                                <input type="text" name="items[{{ $i }}][label]" class="form-control form-control-sm item-label flex-grow-1" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
++                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcModeIinv==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                                                             </div>
+-                                                            <input type="text" name="items[{{ $i }}][label]" class="form-control item-label" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
+                                                         </td>
+                                                         <td class="dim-col dim-l" style="{{ $isMeasureIinv ? '' : 'visibility:hidden;' }}">
+                                                             <input type="number" name="items[{{ $i }}][length]" class="form-control item-length" value="{{ old("items.{$i}.length", $item->length) }}" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -847,15 +845,13 @@ function applyProductToRow(row, product) {
+                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
+                         <input type="hidden" name="items[${itemIndex}][calculation_mode]" class="item-calc-mode" value="quantity">
+                         <input type="hidden" name="items[${itemIndex}][measurement_unit]" class="item-measurement-unit" value="">
+-                        <div class="d-flex gap-1 align-items-center mb-1">
+-                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">${productOptions}</select>
+-                            <div class="d-flex gap-1 ms-1">
+-                                <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                            </div>
++                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">${productOptions}</select>
++                        <div class="d-flex gap-1 align-items-center">
++                            <input type="text" name="items[${itemIndex}][label]" class="form-control form-control-sm item-label flex-grow-1" placeholder="{{ __('Désignation') }}" required>
++                            <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                         </div>
+-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Désignation') }}" required>
+                     </td>
+                     <td class="dim-col dim-l" style="visibility:hidden;">
+                         <input type="number" name="items[${itemIndex}][length]" class="form-control item-length" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -888,6 +884,7 @@ function applyProductToRow(row, product) {
+                 tbody.appendChild(row);
+                 itemIndex++;
+                 bindRowEvents(row);
++                initRowSelect2(row);
+                 if (enableTaxCheck.checked && defaultTaxGroup) {
+                     row.querySelector('.item-tax').value = defaultTaxGroup.id;
+                 }
+@@ -1132,14 +1129,23 @@ function convert(n) {
+                 return result.charAt(0).toUpperCase() + result.slice(1);
+             }
+ 
+-            function bindRowEvents(row) {
+-                row.querySelector('.item-product-select')?.addEventListener('change', function() {
+-                    const pid = this.value;
++            function initRowSelect2(row) {
++                $(row).find('.item-product-select').select2({
++                    placeholder: '— {{ __('Rechercher un produit…') }} —',
++                    allowClear: true,
++                    width: '100%',
++                    dropdownParent: $(row).find('.item-product-select').parent()
++                }).on('change', function() {
++                    const pid = $(this).val();
+                     if (!pid) return;
+                     const product = products.find(p => p.id == pid);
+                     if (product) applyProductToRow(row, product);
+-                    this.value = '';
++                    $(this).val(null).trigger('change');
+                 });
++            }
++
++            function bindRowEvents(row) {
++                // Product selector handled by initRowSelect2
+                 row.querySelectorAll('.mode-btn').forEach(btn => {
+                     btn.addEventListener('click', function() {
+                         setRowMode(row, this.dataset.mode);
+@@ -1164,6 +1170,7 @@ function bindRowEvents(row) {
+             document.querySelectorAll('.item-row').forEach(row => {
+                 bindRowEvents(row);
+                 updateRowMeasurement(row);
++                initRowSelect2(row);
+             });
+ 
+             // Global discount events
+diff --git a/resources/views/backoffice/sales/quotes/create.blade.php b/resources/views/backoffice/sales/quotes/create.blade.php
+index ab3b848..38409f3 100644
+--- a/resources/views/backoffice/sales/quotes/create.blade.php
++++ b/resources/views/backoffice/sales/quotes/create.blade.php
+@@ -274,20 +274,18 @@ class="select @error('customer_id') is-invalid @enderror">
+                                                         <input type="hidden" name="items[0][product_id]" class="item-product-id" value="{{ old('items.0.product_id') }}">
+                                                         <input type="hidden" name="items[0][calculation_mode]" class="item-calc-mode" value="{{ $calcMode0 }}">
+                                                         <input type="hidden" name="items[0][measurement_unit]" class="item-measurement-unit" value="{{ old('items.0.measurement_unit') }}">
+-                                                        <div class="d-flex gap-1 align-items-center mb-1">
+-                                                            <select class="form-select form-select-sm item-product-select" style="font-size:11px; padding:2px 4px; height:24px;">
+-                                                                <option value="">— {{ __('Catalogue') }} —</option>
+-                                                                @foreach($products as $p)
+-                                                                    <option value="{{ $p->id }}" {{ old('items.0.product_id')==$p->id?'selected':'' }}>{{ $p->name }}</option>
+-                                                                @endforeach
+-                                                            </select>
+-                                                            <div class="d-flex gap-1 ms-1">
+-                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                                                            </div>
++                                                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">
++                                                            <option value="">— {{ __('Rechercher un produit…') }} —</option>
++                                                            @foreach($products as $p)
++                                                                <option value="{{ $p->id }}" {{ old('items.0.product_id')==$p->id?'selected':'' }}>{{ $p->name }}</option>
++                                                            @endforeach
++                                                        </select>
++                                                        <div class="d-flex gap-1 align-items-center">
++                                                            <input type="text" name="items[0][label]" class="form-control form-control-sm item-label flex-grow-1" value="{{ old('items.0.label') }}" placeholder="{{ __('Désignation') }}" required>
++                                                            <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                                                            <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                                                            <button type="button" class="btn btn-xs mode-btn {{ $calcMode0==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                                                         </div>
+-                                                        <input type="text" name="items[0][label]" class="form-control item-label" value="{{ old('items.0.label') }}" placeholder="{{ __('Désignation') }}" required>
+                                                     </td>
+                                                     <td class="dim-col dim-l" style="{{ $isMeasure0?'':'visibility:hidden;' }}">
+                                                         <input type="number" name="items[0][length]" class="form-control item-length" value="{{ old('items.0.length') }}" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -562,15 +560,13 @@ function buildProductOptions() {
+                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
+                         <input type="hidden" name="items[${itemIndex}][calculation_mode]" class="item-calc-mode" value="quantity">
+                         <input type="hidden" name="items[${itemIndex}][measurement_unit]" class="item-measurement-unit" value="">
+-                        <div class="d-flex gap-1 align-items-center mb-1">
+-                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">${productOptions}</select>
+-                            <div class="d-flex gap-1 ms-1">
+-                                <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                            </div>
++                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">${productOptions}</select>
++                        <div class="d-flex gap-1 align-items-center">
++                            <input type="text" name="items[${itemIndex}][label]" class="form-control form-control-sm item-label flex-grow-1" placeholder="{{ __('Désignation') }}" required>
++                            <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                         </div>
+-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Désignation') }}" required>
+                     </td>
+                     <td class="dim-col dim-l" style="visibility:hidden;">
+                         <input type="number" name="items[${itemIndex}][length]" class="form-control item-length" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -603,6 +599,7 @@ function buildProductOptions() {
+                 tbody.appendChild(row);
+                 itemIndex++;
+                 bindRowEvents(row);
++                initRowSelect2(row);
+                 if (enableTaxCheck.checked && defaultTaxGroup) {
+                     row.querySelector('.item-tax').value = defaultTaxGroup.id;
+                 }
+@@ -718,14 +715,7 @@ function formatNumber(num) {
+              * Bind row events
+              * ========================================================= */
+             function bindRowEvents(row) {
+-                // Per-row product selector
+-                row.querySelector('.item-product-select')?.addEventListener('change', function() {
+-                    const pid = this.value;
+-                    if (!pid) return;
+-                    const product = products.find(p => p.id == pid);
+-                    if (product) applyProductToRow(row, product);
+-                    this.value = '';
+-                });
++                // Product selector is handled by Select2 (initRowSelect2)
+                 // Mode buttons
+                 row.querySelectorAll('.mode-btn').forEach(btn => {
+                     btn.addEventListener('click', function() {
+@@ -753,8 +743,24 @@ function bindRowEvents(row) {
+             document.querySelectorAll('.item-row').forEach(row => {
+                 bindRowEvents(row);
+                 updateRowMeasurement(row);
++                initRowSelect2(row);
+             });
+ 
++            function initRowSelect2(row) {
++                $(row).find('.item-product-select').select2({
++                    placeholder: '— {{ __('Rechercher un produit…') }} —',
++                    allowClear: true,
++                    width: '100%',
++                    dropdownParent: $(row).find('.item-product-select').parent()
++                }).on('change', function() {
++                    const pid = $(this).val();
++                    if (!pid) return;
++                    const product = products.find(p => p.id == pid);
++                    if (product) applyProductToRow(row, product);
++                    $(this).val(null).trigger('change');
++                });
++            }
++
+             /* =========================================================
+              * Tax toggle — show/hide tax column & auto-select default
+              * ========================================================= */
+diff --git a/resources/views/backoffice/sales/quotes/edit.blade.php b/resources/views/backoffice/sales/quotes/edit.blade.php
+index cb9f0f0..efa6b99 100644
+--- a/resources/views/backoffice/sales/quotes/edit.blade.php
++++ b/resources/views/backoffice/sales/quotes/edit.blade.php
+@@ -281,20 +281,18 @@ class="select @error('customer_id') is-invalid @enderror">
+                                                             <input type="hidden" name="items[{{ $i }}][product_id]" class="item-product-id" value="{{ old("items.{$i}.product_id", $item->product_id) }}">
+                                                             <input type="hidden" name="items[{{ $i }}][calculation_mode]" class="item-calc-mode" value="{{ $calcModeI }}">
+                                                             <input type="hidden" name="items[{{ $i }}][measurement_unit]" class="item-measurement-unit" value="{{ old("items.{$i}.measurement_unit", $item->measurement_unit) }}">
+-                                                            <div class="d-flex gap-1 align-items-center mb-1">
+-                                                                <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">
+-                                                                    <option value="">— {{ __('Catalogue') }} —</option>
+-                                                                    @foreach($products as $p)
+-                                                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
+-                                                                    @endforeach
+-                                                                </select>
+-                                                                <div class="d-flex gap-1 ms-1">
+-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                                                    <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                                                                </div>
++                                                            <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">
++                                                                <option value="">— {{ __('Rechercher un produit…') }} —</option>
++                                                                @foreach($products as $p)
++                                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
++                                                                @endforeach
++                                                            </select>
++                                                            <div class="d-flex gap-1 align-items-center">
++                                                                <input type="text" name="items[{{ $i }}][label]" class="form-control form-control-sm item-label flex-grow-1" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
++                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='quantity'?'btn-primary':'btn-outline-secondary' }}" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='surface'?'btn-primary':'btn-outline-secondary' }}" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                                                                <button type="button" class="btn btn-xs mode-btn {{ $calcModeI==='volume'?'btn-primary':'btn-outline-secondary' }}" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                                                             </div>
+-                                                            <input type="text" name="items[{{ $i }}][label]" class="form-control item-label" value="{{ old("items.{$i}.label", $item->label) }}" placeholder="{{ __('Désignation') }}" required>
+                                                         </td>
+                                                         <td class="dim-col dim-l" style="{{ $isMeasureI ? '' : 'visibility:hidden;' }}">
+                                                             <input type="number" name="items[{{ $i }}][length]" class="form-control item-length" value="{{ old("items.{$i}.length", $item->length) }}" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -576,15 +574,13 @@ function buildProductOptions() {
+                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
+                         <input type="hidden" name="items[${itemIndex}][calculation_mode]" class="item-calc-mode" value="quantity">
+                         <input type="hidden" name="items[${itemIndex}][measurement_unit]" class="item-measurement-unit" value="">
+-                        <div class="d-flex gap-1 align-items-center mb-1">
+-                            <select class="form-select form-select-sm item-product-select" style="font-size:11px;padding:2px 4px;height:24px;">${productOptions}</select>
+-                            <div class="d-flex gap-1 ms-1">
+-                                <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:1px 5px;font-size:10px;">Q</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:1px 5px;font-size:10px;">S</button>
+-                                <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:1px 5px;font-size:10px;">V</button>
+-                            </div>
++                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">${productOptions}</select>
++                        <div class="d-flex gap-1 align-items-center">
++                            <input type="text" name="items[${itemIndex}][label]" class="form-control form-control-sm item-label flex-grow-1" placeholder="{{ __('Désignation') }}" required>
++                            <button type="button" class="btn btn-xs mode-btn btn-primary" data-mode="quantity" title="{{ __('Quantité') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">Q</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="surface" title="{{ __('Surface m²') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">S</button>
++                            <button type="button" class="btn btn-xs mode-btn btn-outline-secondary" data-mode="volume" title="{{ __('Volume m³') }}" style="padding:2px 6px;font-size:10px;white-space:nowrap;">V</button>
+                         </div>
+-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Désignation') }}" required>
+                     </td>
+                     <td class="dim-col dim-l" style="visibility:hidden;">
+                         <input type="number" name="items[${itemIndex}][length]" class="form-control item-length" value="" min="0" step="0.001" placeholder="0" style="width:64px;">
+@@ -617,6 +613,7 @@ function buildProductOptions() {
+                 tbody.appendChild(row);
+                 itemIndex++;
+                 bindRowEvents(row);
++                initRowSelect2(row);
+                 if (enableTaxCheck.checked && defaultTaxGroup) {
+                     row.querySelector('.item-tax').value = defaultTaxGroup.id;
+                 }
+@@ -722,13 +719,7 @@ function formatNumber(num) {
+              * Bind row events
+              * ========================================================= */
+             function bindRowEvents(row) {
+-                row.querySelector('.item-product-select')?.addEventListener('change', function() {
+-                    const pid = this.value;
+-                    if (!pid) return;
+-                    const product = products.find(p => p.id == pid);
+-                    if (product) applyProductToRow(row, product);
+-                    this.value = '';
+-                });
++                // Product selector handled by initRowSelect2
+                 row.querySelectorAll('.mode-btn').forEach(btn => {
+                     btn.addEventListener('click', function() {
+                         setRowMode(row, this.dataset.mode);
+@@ -749,10 +740,26 @@ function bindRowEvents(row) {
+                 });
+             }
+ 
++            function initRowSelect2(row) {
++                $(row).find('.item-product-select').select2({
++                    placeholder: '— {{ __('Rechercher un produit…') }} —',
++                    allowClear: true,
++                    width: '100%',
++                    dropdownParent: $(row).find('.item-product-select').parent()
++                }).on('change', function() {
++                    const pid = $(this).val();
++                    if (!pid) return;
++                    const product = products.find(p => p.id == pid);
++                    if (product) applyProductToRow(row, product);
++                    $(this).val(null).trigger('change');
++                });
++            }
++
+             // Bind events on existing rows
+             document.querySelectorAll('.item-row').forEach(row => {
+                 bindRowEvents(row);
+                 updateRowMeasurement(row);
++                initRowSelect2(row);
+             });
+ 
+             /* =========================================================
+diff --git a/tests/Feature/Catalog/ProductControllerTest.php b/tests/Feature/Catalog/ProductControllerTest.php
+index ed1fca0..82bd126 100644
+--- a/tests/Feature/Catalog/ProductControllerTest.php
++++ b/tests/Feature/Catalog/ProductControllerTest.php
+@@ -60,6 +60,48 @@ public function test_store_creates_product(): void
+         ]);
+     }
+ 
++    public function test_store_defaults_discount_value_to_zero_when_discount_type_is_none(): void
++    {
++        $response = $this->actingAs($this->adminUser)
++            ->post(route('bo.catalog.products.store'), [
++                'name' => 'Produit remise zero',
++                'code' => 'PRD-DISCOUNT-000',
++                'item_type' => 'product',
++                'selling_price' => 99.99,
++                'discount_type' => 'none',
++            ]);
++
++        $response->assertRedirect(route('bo.catalog.products.index'));
++
++        $product = Product::query()->where('code', 'PRD-DISCOUNT-000')->firstOrFail();
++
++        $this->assertSame('none', $product->discount_type);
++        $this->assertSame(0.0, (float) $product->discount_value);
++    }
++
++    public function test_store_defaults_optional_numeric_fields_without_sql_error(): void
++    {
++        $response = $this->actingAs($this->adminUser)
++            ->post(route('bo.catalog.products.store'), [
++                'name' => 'Produit numeriques vides',
++                'code' => 'PRD-EMPTY-NUM-000',
++                'item_type' => 'product',
++                'selling_price' => 120,
++                'purchase_price' => '',
++                'quantity' => '',
++                'discount_type' => 'none',
++                'discount_value' => '',
++            ]);
++
++        $response->assertRedirect(route('bo.catalog.products.index'));
++
++        $product = Product::query()->where('code', 'PRD-EMPTY-NUM-000')->firstOrFail();
++
++        $this->assertSame(0.0, (float) $product->purchase_price);
++        $this->assertSame(0.0, (float) $product->quantity);
++        $this->assertSame(0.0, (float) $product->discount_value);
++    }
++
+     public function test_store_validates_required_fields(): void
+     {
+         $response = $this->actingAs($this->adminUser)
+@@ -68,6 +110,33 @@ public function test_store_validates_required_fields(): void
+         $response->assertSessionHasErrors(['name', 'item_type', 'selling_price', 'code']);
+     }
+ 
++    public function test_validation_failure_redirects_back_with_errors_and_session_message(): void
++    {
++        $response = $this->actingAs($this->adminUser)
++            ->from(route('bo.catalog.products.create'))
++            ->post(route('bo.catalog.products.store'), []);
++
++        $response->assertRedirect(route('bo.catalog.products.create'));
++        $response->assertSessionHasErrors(['name', 'item_type', 'selling_price', 'code']);
++        $response->assertSessionHas('error');
++    }
++
++    public function test_store_returns_json_validation_error_for_ajax_requests(): void
++    {
++        $response = $this->actingAs($this->adminUser)
++            ->postJson(route('bo.catalog.products.store'), []);
++
++        $response->assertStatus(422)
++            ->assertJson([
++                'success' => false,
++            ])
++            ->assertJsonStructure([
++                'success',
++                'message',
++                'errors' => ['name', 'item_type', 'selling_price', 'code'],
++            ]);
++    }
++
+     public function test_edit_shows_form(): void
+     {
+         $product = Product::factory()->create([

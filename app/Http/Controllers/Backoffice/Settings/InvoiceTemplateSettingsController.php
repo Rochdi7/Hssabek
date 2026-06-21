@@ -425,6 +425,7 @@ class InvoiceTemplateSettingsController extends Controller
             'discount_total'     => 0,
             'tax_total'          => 160.00,
             'total'              => 960.00,
+            'round_off'          => 0.00,
 
             'enable_tax'         => true,
             'amount_paid'        => 0,
@@ -433,6 +434,7 @@ class InvoiceTemplateSettingsController extends Controller
             'notes'              => 'Ceci est un aperçu du modèle avec des données fictives.',
             'terms'              => 'Paiement à 30 jours.',
             'bill_to_snapshot'   => ['name' => 'Client Exemple SARL', 'address' => '123 Rue Exemple', 'city' => 'Casablanca', 'postal_code' => '20000', 'country' => 'Maroc'],
+            'ship_to_snapshot'   => [],
             'bank_details_snapshot' => [],
             'items'              => $sampleItems,
             'charges'            => collect(),

@@ -1,0 +1,14 @@
+ M app/Http/Controllers/Backoffice/Catalog/ProductController.php
+ M app/Http/Controllers/Backoffice/Settings/InvoiceTemplateSettingsController.php
+ M app/Models/Catalog/Product.php
+ M bootstrap/app.php
+ M resources/views/backoffice/components/alerts.blade.php
+ M resources/views/backoffice/layout/partials/footer-scripts.blade.php
+ M resources/views/backoffice/layout/partials/head.blade.php
+ M resources/views/backoffice/sales/invoices/create.blade.php
+ M resources/views/backoffice/sales/invoices/edit.blade.php
+ M resources/views/backoffice/sales/quotes/create.blade.php
+ M resources/views/backoffice/sales/quotes/edit.blade.php
+ M tests/Feature/Catalog/ProductControllerTest.php
+?? database/migrations/2026_06_21_000004_harden_product_numeric_defaults.php
+?? tests/Feature/Foundation/

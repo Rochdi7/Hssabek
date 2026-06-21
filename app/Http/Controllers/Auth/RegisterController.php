@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,7 +13,7 @@ class RegisterController extends Controller
 {
     public function showRegisterForm()
     {
-        $tenant = request()->attributes->get('tenant');
+        $tenant = request()->attributes->get('tenant') ?? TenantContext::get();
 
         // Check if registration is enabled for this tenant
         if (!$tenant || !config('auth.registration_enabled', false)) {
@@ -29,7 +30,7 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $tenant = $request->attributes->get('tenant');
+        $tenant = $request->attributes->get('tenant') ?? TenantContext::get();
 
         if (!$tenant) {
             return back()

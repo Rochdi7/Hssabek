@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Rules\SecureBase64Image;
+use App\Support\Security\Base64Image;
 use App\Models\Billing\Subscription;
 use App\Models\Tenancy\Tenant;
 use App\Models\User;
@@ -58,7 +60,7 @@ class TenantManagementController extends Controller
             'default_currency' => 'nullable|string|size:3',
             'has_free_trial' => 'nullable|boolean',
             'trial_ends_at' => 'required_if:has_free_trial,1|nullable|date',
-            'cropped_logo' => 'nullable|string',
+            'cropped_logo' => ['nullable', new SecureBase64Image(maxKilobytes: 2048)],
             'owner_name' => 'required|string|max:255',
             'owner_email' => 'required|email|max:255|unique:users,email',
             'owner_password' => 'required|string|min:8|confirmed',
@@ -160,8 +162,8 @@ class TenantManagementController extends Controller
             'default_currency' => 'nullable|string|size:3',
             'has_free_trial' => 'nullable|boolean',
             'trial_ends_at' => 'required_if:has_free_trial,1|nullable|date',
-            'cropped_logo' => 'nullable|string',
-            'cropped_logo_deleted' => 'nullable|string',
+            'cropped_logo' => ['nullable', new SecureBase64Image(maxKilobytes: 2048)],
+            'cropped_logo_deleted' => 'nullable|in:0,1',
             'owner_password' => 'nullable|string|min:8|confirmed',
         ], [
             'trial_ends_at.required_if' => "La date de fin d'essai est obligatoire lorsque l'essai gratuit est activé.",
@@ -300,23 +302,14 @@ class TenantManagementController extends Controller
      */
     private function saveCroppedLogo(Tenant $tenant, string $base64): void
     {
-        $data = substr($base64, strpos($base64, ',') + 1);
-        $decoded = base64_decode($data);
-
-        preg_match('/^data:image\/(\w+);/', $base64, $matches);
-        $ext = $matches[1] ?? 'png';
-        if ($ext === 'jpeg') {
-            $ext = 'jpg';
-        }
-
-        $fileName = 'logo-' . Str::random(8) . '.' . $ext;
-        $tmpPath = sys_get_temp_dir() . '/' . $fileName;
-        file_put_contents($tmpPath, $decoded);
-
-        $tenant->clearMediaCollection('logo');
-        $tenant->addMedia($tmpPath)
-            ->usingFileName($fileName)
-            ->toMediaCollection('logo');
+        Base64Image::attachToMediaCollection(
+            $tenant,
+            'logo',
+            $base64,
+            prefix: 'logo',
+            maxKilobytes: 2048,
+            clearExisting: true,
+        );
     }
 
     /**

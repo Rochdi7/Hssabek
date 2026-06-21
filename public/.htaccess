@@ -17,6 +17,9 @@
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
+    # Never execute or serve dangerous files from the public storage upload path
+    RewriteRule ^storage/.*\.(php[0-9]?|phtml|phar|sh|bash|exe|dll|js|mjs|html?|shtml|cgi|pl|py)$ - [F,NC]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$

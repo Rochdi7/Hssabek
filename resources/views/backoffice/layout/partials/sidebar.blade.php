@@ -250,6 +250,15 @@
                                             <li><a href="{{ route('bo.sales.quotes.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.quotes.*') ? 'active' : '' }}">{{ __('Devis') }}</a>
                                             </li>
+                                            <li><a href="{{ route('bo.sales.attachments.index') }}"
+                                                    class="{{ request()->routeIs('bo.sales.attachments.*') ? 'active' : '' }}">{{ __('Attachement') }}</a>
+                                            </li>
+                                            <li><a href="{{ route('bo.sales.situations.index') }}"
+                                                    class="{{ request()->routeIs('bo.sales.situations.*') ? 'active' : '' }}">{{ __('Situation') }}</a>
+                                            </li>
+                                            <li><a href="{{ route('bo.sales.recaps.index') }}"
+                                                    class="{{ request()->routeIs('bo.sales.recaps.*') ? 'active' : '' }}">{{ __('Récap') }}</a>
+                                            </li>
                                             <li><a href="{{ route('bo.sales.invoices.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.invoices.*') ? 'active' : '' }}">{{ __('Factures') }}</a>
                                             </li>

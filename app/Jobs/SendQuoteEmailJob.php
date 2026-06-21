@@ -6,8 +6,9 @@ use App\Models\Sales\Quote;
 use App\Models\System\EmailLog;
 use App\Models\Tenancy\Tenant;
 use App\Notifications\QuoteSentNotification;
+use App\Services\Sales\PdfService;
 use App\Services\Tenancy\TenantContext;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Support\Sales\QuoteDocumentType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -35,12 +36,14 @@ class SendQuoteEmailJob implements ShouldQueue
 
         $quote    = Quote::with(['customer', 'items.product', 'items.unit', 'items.taxGroup', 'charges'])->findOrFail($this->quoteId);
         $customer = $quote->customer;
+        $documentConfig = QuoteDocumentType::resolve($quote->document_type);
+        $subject = $documentConfig['email_subject_prefix'] . ' ' . $quote->number;
 
         if (!$customer?->email) {
             EmailLog::create([
                 'tenant_id'  => $this->tenantId,
                 'to'         => 'N/A',
-                'subject'    => 'Devis ' . $quote->number,
+                'subject'    => $subject,
                 'type'       => 'quote',
                 'entity_id'  => $quote->id,
                 'status'     => 'failed',
@@ -51,15 +54,9 @@ class SendQuoteEmailJob implements ShouldQueue
         }
 
         try {
-            $settings = $tenant->settings;
-            $pdfContent = Pdf::loadView('pdf.templates.free.quote.model-1', [
-                'quote'    => $quote,
-                'settings' => $settings,
-                'tenant'   => $tenant,
-                'currency' => $tenant->default_currency ?? 'MAD',
-            ])->setPaper('a4', 'portrait')->output();
+            $pdfContent = app(PdfService::class)->quotePdfContent($quote);
 
-            $tempPath = sys_get_temp_dir() . '/devis-' . $quote->number . '-' . uniqid() . '.pdf';
+            $tempPath = sys_get_temp_dir() . '/' . $documentConfig['filename_prefix'] . '-' . $quote->number . '-' . uniqid() . '.pdf';
             file_put_contents($tempPath, $pdfContent);
 
             Notification::route('mail', $customer->email)
@@ -70,7 +67,7 @@ class SendQuoteEmailJob implements ShouldQueue
             EmailLog::create([
                 'tenant_id'  => $this->tenantId,
                 'to'         => $customer->email,
-                'subject'    => 'Devis ' . $quote->number,
+                'subject'    => $subject,
                 'type'       => 'quote',
                 'entity_id'  => $quote->id,
                 'status'     => 'sent',
@@ -81,7 +78,7 @@ class SendQuoteEmailJob implements ShouldQueue
             EmailLog::create([
                 'tenant_id'  => $this->tenantId,
                 'to'         => $customer->email,
-                'subject'    => 'Devis ' . $quote->number,
+                'subject'    => $subject,
                 'type'       => 'quote',
                 'entity_id'  => $quote->id,
                 'status'     => 'failed',

@@ -15,6 +15,7 @@ Route::prefix('support')->as('support.')->group(function () {
         Route::get('/create', [SupportTicketController::class, 'create'])->name('create');
         Route::post('/', [SupportTicketController::class, 'store'])->name('store');
         Route::get('/{ticket}', [SupportTicketController::class, 'show'])->name('show');
+        Route::get('/{ticket}/attachments/{media}', [SupportTicketController::class, 'attachment'])->name('attachments.show');
         Route::post('/{ticket}/reply', [SupportTicketController::class, 'reply'])->name('reply');
     });
 });

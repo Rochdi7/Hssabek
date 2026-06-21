@@ -1,0 +1,4 @@
+database/migrations/2026_06_21_000004_harden_product_numeric_defaults.php
+storage/backups/pre_security_git_status.txt
+storage/backups/pre_security_worktree.patch
+tests/Feature/Foundation/BackofficeErrorHandlingTest.php
