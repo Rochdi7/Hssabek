@@ -15,7 +15,7 @@
                         <input type="hidden" name="token" value="{{ $token }}">
                         <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
                             <div class="mx-auto mb-5 text-center">
-                                <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
+                                <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid"
                                     alt="Logo">
                             </div>
                             <div class="card border-0 p-lg-3 shadow-lg rounded-2">
@@ -88,8 +88,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <button type="submit"
-                                            class="btn bg-primary-gradient text-white w-100">إعادة تعيين
+                                        <button type="submit" class="btn bg-primary-gradient text-white w-100">إعادة تعيين
                                             كلمة المرور</button>
                                     </div>
 

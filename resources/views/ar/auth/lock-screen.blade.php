@@ -2,8 +2,8 @@
 @extends('backoffice.layout.mainlayout')
 @section('content')
     <!-- ========================
-                        Start Page Content
-                    ========================= -->
+                            Start Page Content
+                        ========================= -->
 
     <!-- Start container -->
     <div class="container-fuild" dir="rtl">
@@ -15,7 +15,7 @@
                         @csrf
                         <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
                             <div class=" mx-auto mb-5 text-center">
-                                <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
+                                <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid"
                                     alt="Logo">
                             </div>
                             <div class="card border-0 p-lg-3 shadow-lg rounded-2">
@@ -65,8 +65,8 @@
                                     </div>
 
                                     <div class="mb-0">
-                                        <button type="submit"
-                                            class="btn bg-primary-gradient text-white w-100">تسجيل الدخول</button>
+                                        <button type="submit" class="btn bg-primary-gradient text-white w-100">تسجيل
+                                            الدخول</button>
                                     </div>
                                 </div>
                             </div>
@@ -80,6 +80,6 @@
     <!-- End container -->
 
     <!-- ========================
-                        End Page Content
-                    ========================= -->
+                            End Page Content
+                        ========================= -->
 @endsection

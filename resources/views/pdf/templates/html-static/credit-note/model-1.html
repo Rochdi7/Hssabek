@@ -1,192 +1,316 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Avoir AV-001</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #333; line-height: 1.5; }
-        .page { padding: 30px 40px; }
+    <head>
+        <meta charset="UTF-8" />
+        <title>Avoir AV-001</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family:
+                    DejaVu Sans,
+                    sans-serif;
+                font-size: 11px;
+                color: #333;
+                line-height: 1.5;
+            }
+            .page {
+                padding: 30px 40px;
+            }
 
-        /* Header */
-        .header-table { width: 100%; margin-bottom: 30px; }
-        .header-table td { vertical-align: top; }
-        .company-name { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
-        .company-detail { font-size: 10px; color: #333; line-height: 1.6; }
-        .doc-title { font-size: 24px; font-weight: bold; text-align: right; }
+            /* Header */
+            .header-table {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            .header-table td {
+                vertical-align: top;
+            }
+            .company-name {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 6px;
+            }
+            .company-detail {
+                font-size: 10px;
+                color: #333;
+                line-height: 1.6;
+            }
+            .doc-title {
+                font-size: 24px;
+                font-weight: bold;
+                text-align: right;
+            }
 
-        /* Info block: Client / Meta */
-        .info-table { width: 100%; margin-bottom: 30px; }
-        .info-table td { vertical-align: top; font-size: 10px; line-height: 1.7; }
-        .info-label { font-weight: bold; font-size: 11px; margin-bottom: 4px; }
-        .meta-table { width: 100%; }
-        .meta-table td { font-size: 10px; padding: 1px 0; }
-        .meta-table td:first-child { font-weight: bold; text-align: left; padding-right: 10px; }
-        .meta-table td:last-child { text-align: right; }
+            /* Info block: Client / Meta */
+            .info-table {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            .info-table td {
+                vertical-align: top;
+                font-size: 10px;
+                line-height: 1.7;
+            }
+            .info-label {
+                font-weight: bold;
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+            .meta-table {
+                width: 100%;
+            }
+            .meta-table td {
+                font-size: 10px;
+                padding: 1px 0;
+            }
+            .meta-table td:first-child {
+                font-weight: bold;
+                text-align: left;
+                padding-right: 10px;
+            }
+            .meta-table td:last-child {
+                text-align: right;
+            }
 
-        /* Items table */
-        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
-        .items-table th {
-            background: #e8d44d;
-            color: #333;
-            padding: 8px 10px;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            border: 1px solid #ccc;
-        }
-        .items-table td {
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            font-size: 10px;
-        }
-        .text-right { text-align: right; }
-        .text-center { text-align: center; }
+            /* Items table */
+            .items-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 5px;
+            }
+            .items-table th {
+                background: #e8d44d;
+                color: #333;
+                padding: 8px 10px;
+                font-size: 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                border: 1px solid #ccc;
+            }
+            .items-table td {
+                padding: 8px 10px;
+                border: 1px solid #ccc;
+                font-size: 10px;
+            }
+            .text-right {
+                text-align: right;
+            }
+            .text-center {
+                text-align: center;
+            }
 
-        /* Totals inside table */
-        .totals-row td {
-            border: none !important;
-            padding: 4px 10px;
-            font-size: 10px;
-        }
-        .totals-row td.label-cell {
-            text-align: right;
-            font-weight: bold;
-        }
-        .totals-row td.value-cell {
-            text-align: right;
-        }
-        .grand-total td {
-            font-size: 16px;
-            font-weight: bold;
-            padding-top: 6px;
-        }
+            /* Totals inside table */
+            .totals-row td {
+                border: none !important;
+                padding: 4px 10px;
+                font-size: 10px;
+            }
+            .totals-row td.label-cell {
+                text-align: right;
+                font-weight: bold;
+            }
+            .totals-row td.value-cell {
+                text-align: right;
+            }
+            .grand-total td {
+                font-size: 16px;
+                font-weight: bold;
+                padding-top: 6px;
+            }
 
-        /* Footer */
-        .footer-section { margin-top: 40px; position: relative; }
-        .payment-conditions { font-size: 10px; line-height: 1.7; }
-        .payment-conditions strong { font-size: 11px; }
+            /* Footer */
+            .footer-section {
+                margin-top: 40px;
+                position: relative;
+            }
+            .payment-conditions {
+                font-size: 10px;
+                line-height: 1.7;
+            }
+            .payment-conditions strong {
+                font-size: 11px;
+            }
 
-        .separator { border: none; border-top: 1px solid #e9ecef; margin: 15px 0; }
-    </style>
-</head>
-<body>
-<div class="page">
+            .separator {
+                border: none;
+                border-top: 1px solid #e9ecef;
+                margin: 15px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page">
+            <!-- Header: Company name + AVOIR -->
+            <table class="header-table">
+                <tr>
+                    <td style="width: 60%">
+                        <img
+                            src="../../../../../../public/assets/images/logo/hssabek mobile logo.png"
+                            height="50"
+                            alt="logo"
+                            style="margin-bottom: 8px"
+                        /><br />
+                        <div class="company-name">Joanna Binet</div>
+                        <div class="company-detail">
+                            48 Coubertin<br />
+                            31400 Paris
+                        </div>
+                    </td>
+                    <td style="width: 40%">
+                        <div class="doc-title">AVOIR</div>
+                    </td>
+                </tr>
+            </table>
 
-    <!-- Header: Company name + AVOIR -->
-    <table class="header-table">
-        <tr>
-            <td style="width: 60%;">
-                <img src="../../../../../../public/assets/images/logo/logo-wide-cropped.svg" height="50" alt="logo" style="margin-bottom: 8px;"><br>
-                <div class="company-name">Joanna Binet</div>
-                <div class="company-detail">
-                    48 Coubertin<br>
-                    31400 Paris
+            <!-- Info block: Client / Meta -->
+            <table class="info-table">
+                <tr>
+                    <td style="width: 30%">
+                        <div class="info-label">Client</div>
+                        Cendrillon Ayot<br />
+                        client@exemple.fr<br />
+                        +33 6 00 00 00 00<br />
+                        IF : 87654321
+                    </td>
+                    <td style="width: 30%"></td>
+                    <td style="width: 40%">
+                        <table class="meta-table">
+                            <tr>
+                                <td>Avoir n°</td>
+                                <td>AV-001</td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>05/02/2019</td>
+                            </tr>
+                            <tr>
+                                <td>Facture liée</td>
+                                <td>FR-001</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Items table -->
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%">QTÉ</th>
+                        <th style="width: 42%">DÉSIGNATION</th>
+                        <th class="text-right" style="width: 25%">
+                            PRIX UNIT. HT
+                        </th>
+                        <th class="text-right" style="width: 25%">
+                            MONTANT HT
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td>Retour produit défectueux</td>
+                        <td class="text-right">100,00</td>
+                        <td class="text-right">100,00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td>Remise commerciale</td>
+                        <td class="text-right">30,00</td>
+                        <td class="text-right">30,00</td>
+                    </tr>
+
+                    <!-- Totals rows -->
+                    <tr class="totals-row">
+                        <td colspan="2"></td>
+                        <td class="label-cell">Total HT</td>
+                        <td class="value-cell">130,00</td>
+                    </tr>
+                    <tr class="totals-row">
+                        <td colspan="2"></td>
+                        <td class="label-cell">TVA 20,0%</td>
+                        <td class="value-cell">26,00</td>
+                    </tr>
+                    <tr class="totals-row grand-total">
+                        <td colspan="2"></td>
+                        <td class="label-cell">TOTAL AVOIR</td>
+                        <td class="value-cell">156,00 €</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Signature -->
+            <table style="width: 100%; margin-top: 40px">
+                <tr>
+                    <td
+                        style="
+                            width: 50%;
+                            text-align: center;
+                            font-size: 10px;
+                            color: #555;
+                        "
+                    >
+                        <div
+                            style="
+                                border-top: 1px solid #ccc;
+                                width: 180px;
+                                margin: 0 auto;
+                                padding-top: 8px;
+                            "
+                        >
+                            Signature du client
+                        </div>
+                    </td>
+                    <td
+                        style="
+                            width: 50%;
+                            text-align: center;
+                            font-size: 10px;
+                            color: #555;
+                        "
+                    >
+                        <div
+                            style="
+                                border-top: 1px solid #ccc;
+                                width: 180px;
+                                margin: 0 auto;
+                                padding-top: 8px;
+                            "
+                        >
+                            Cachet et signature
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Footer: Notes -->
+            <div class="footer-section">
+                <hr class="separator" />
+
+                <div class="payment-conditions">
+                    <strong>Notes :</strong><br />
+                    Avoir émis suite au retour de marchandise.
                 </div>
-            </td>
-            <td style="width: 40%;">
-                <div class="doc-title">AVOIR</div>
-            </td>
-        </tr>
-    </table>
+            </div>
 
-    <!-- Info block: Client / Meta -->
-    <table class="info-table">
-        <tr>
-            <td style="width: 30%;">
-                <div class="info-label">Client</div>
-                Cendrillon Ayot<br>
-                client@exemple.fr<br>
-                +33 6 00 00 00 00<br>
-                IF : 87654321
-            </td>
-            <td style="width: 30%;"></td>
-            <td style="width: 40%;">
-                <table class="meta-table">
-                    <tr>
-                        <td>Avoir n°</td>
-                        <td>AV-001</td>
-                    </tr>
-                    <tr>
-                        <td>Date</td>
-                        <td>05/02/2019</td>
-                    </tr>
-                    <tr>
-                        <td>Facture liée</td>
-                        <td>FR-001</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    <!-- Items table -->
-    <table class="items-table">
-        <thead>
-            <tr>
-                <th style="width: 8%;">QTÉ</th>
-                <th style="width: 42%;">DÉSIGNATION</th>
-                <th class="text-right" style="width: 25%;">PRIX UNIT. HT</th>
-                <th class="text-right" style="width: 25%;">MONTANT HT</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-center">1</td>
-                <td>Retour produit défectueux</td>
-                <td class="text-right">100,00</td>
-                <td class="text-right">100,00</td>
-            </tr>
-            <tr>
-                <td class="text-center">1</td>
-                <td>Remise commerciale</td>
-                <td class="text-right">30,00</td>
-                <td class="text-right">30,00</td>
-            </tr>
-
-            <!-- Totals rows -->
-            <tr class="totals-row">
-                <td colspan="2"></td>
-                <td class="label-cell">Total HT</td>
-                <td class="value-cell">130,00</td>
-            </tr>
-            <tr class="totals-row">
-                <td colspan="2"></td>
-                <td class="label-cell">TVA 20,0%</td>
-                <td class="value-cell">26,00</td>
-            </tr>
-            <tr class="totals-row grand-total">
-                <td colspan="2"></td>
-                <td class="label-cell">TOTAL AVOIR</td>
-                <td class="value-cell">156,00 €</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- Signature -->
-    <table style="width: 100%; margin-top: 40px;">
-        <tr>
-            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Signature du client</div></td>
-            <td style="width: 50%; text-align: center; font-size: 10px; color: #555;"><div style="border-top: 1px solid #ccc; width: 180px; margin: 0 auto; padding-top: 8px;">Cachet et signature</div></td>
-        </tr>
-    </table>
-
-    <!-- Footer: Notes -->
-    <div class="footer-section">
-        <hr class="separator">
-
-        <div class="payment-conditions">
-            <strong>Notes :</strong><br>
-            Avoir émis suite au retour de marchandise.
+            <!-- Legal info footer -->
+            <div
+                style="
+                    margin-top: 15px;
+                    font-size: 8px;
+                    color: #888;
+                    text-align: center;
+                    border-top: 1px solid #e9ecef;
+                    padding-top: 8px;
+                "
+            >
+                SARL au capital de 10 000,00 € — IF : 12345678 — RC : RC 12345
+            </div>
         </div>
-    </div>
-
-    <!-- Legal info footer -->
-    <div style="margin-top: 15px; font-size: 8px; color: #888; text-align: center; border-top: 1px solid #e9ecef; padding-top: 8px;">
-        SARL au capital de 10 000,00 € — IF : 12345678 — RC : RC 12345
-    </div>
-
-</div>
-</body>
+    </body>
 </html>

@@ -238,19 +238,42 @@
         </tr>
     </table>
 
+    @php $hasMeasurement = $invoice->items->whereIn('calculation_mode', ['surface', 'volume'])->count() > 0; @endphp
     {{-- ─── Items table ──────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>
             <tr>
+                @if($hasMeasurement)
+                <th style="width: 30%;">DÉSIGNATION</th>
+                <th class="text-center" style="width: 7%;">L</th>
+                <th class="text-center" style="width: 7%;">l/H</th>
+                <th class="text-center" style="width: 7%;">QTÉ</th>
+                <th class="text-center" style="width: 12%;">MÉTRAGE</th>
+                <th class="text-right" style="width: 18%;">PRIX UNIT. HT</th>
+                <th class="text-right" style="width: 19%;">MONTANT HT</th>
+                @else
                 <th style="width: 8%;">QTÉ</th>
                 <th style="width: 42%;">DÉSIGNATION</th>
                 <th class="text-right" style="width: 25%;">PRIX UNIT. HT</th>
                 <th class="text-right" style="width: 25%;">MONTANT HT</th>
+                @endif
             </tr>
         </thead>
         <tbody>
             @foreach($invoice->items->sortBy('position') as $index => $item)
             <tr>
+                @if($hasMeasurement)
+                <td>
+                    {{ $item->label }}
+                    @if($item->description)<br><span style="color: #888; font-size: 9px;">{{ $item->description }}</span>@endif
+                </td>
+                <td class="text-center">{{ $item->length ? number_format($item->length, 2, ',', ' ') : '' }}</td>
+                <td class="text-center">{{ ($item->height ?? $item->width) ? number_format($item->height ?? $item->width, 2, ',', ' ') : '' }}</td>
+                <td class="text-center">{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ' '), '0'), ',') }}</td>
+                <td class="text-center">{{ $item->calculated_measurement ? number_format($item->calculated_measurement, 3, ',', ' ').' '.($item->measurement_unit ?? '') : '' }}</td>
+                <td class="text-right">{{ number_format($item->unit_price, 2, ',', ' ') }}</td>
+                <td class="text-right">{{ number_format($item->line_subtotal, 2, ',', ' ') }}</td>
+                @else
                 <td class="text-center">{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ' '), '0'), ',') }}</td>
                 <td>
                     {{ $item->label }}
@@ -260,6 +283,7 @@
                 </td>
                 <td class="text-right">{{ number_format($item->unit_price, 2, ',', ' ') }}</td>
                 <td class="text-right">{{ number_format($item->line_subtotal, 2, ',', ' ') }}</td>
+                @endif
             </tr>
             @endforeach
 
@@ -267,8 +291,13 @@
             @if($invoice->charges->count())
                 @foreach($invoice->charges->sortBy('position') as $charge)
                 <tr>
+                    @if($hasMeasurement)
+                    <td colspan="5">{{ $charge->label }} <span style="color: #888; font-size: 9px;">(frais)</span></td>
+                    @else
                     <td class="text-center"></td>
                     <td>{{ $charge->label }} <span style="color: #888; font-size: 9px;">(frais)</span></td>
+                    <td class="text-right"></td>
+                    @endif
                     <td class="text-right"></td>
                     <td class="text-right">{{ number_format($charge->amount, 2, ',', ' ') }}</td>
                 </tr>
@@ -277,44 +306,44 @@
 
             {{-- ─── Totals rows ──────────────────────────────────── --}}
             <tr class="totals-row">
-                <td colspan="2"></td>
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
                 <td class="label-cell">Total HT</td>
                 <td class="value-cell">{{ number_format($invoice->subtotal, 2, ',', ' ') }}</td>
             </tr>
             @if($invoice->discount_total > 0)
             <tr class="totals-row">
-                <td colspan="2"></td>
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
                 <td class="label-cell">Remise</td>
                 <td class="value-cell">-{{ number_format($invoice->discount_total, 2, ',', ' ') }}</td>
             </tr>
             @endif
             @if($invoice->enable_tax)
             <tr class="totals-row">
-                <td colspan="2"></td>
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
                 <td class="label-cell">TVA {{ number_format($invoice->items->first()?->tax_rate ?? 20, 1) }}%</td>
                 <td class="value-cell">{{ number_format($invoice->tax_total, 2, ',', ' ') }}</td>
             </tr>
             @endif
             @if($invoice->round_off != 0)
             <tr class="totals-row">
-                <td colspan="2"></td>
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
                 <td class="label-cell">Arrondi</td>
                 <td class="value-cell">{{ number_format($invoice->round_off, 2, ',', ' ') }}</td>
             </tr>
             @endif
             <tr class="totals-row grand-total">
-                <td colspan="2"></td>
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
                 <td class="label-cell">TOTAL</td>
                 <td class="value-cell">{{ number_format($invoice->total, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
             @if($invoice->amount_paid > 0)
             <tr class="totals-row">
-                <td colspan="2"></td>
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
                 <td class="label-cell">Montant payé</td>
                 <td class="value-cell">{{ number_format($invoice->amount_paid, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
             <tr class="totals-row">
-                <td colspan="2"></td>
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
                 <td class="label-cell" style="font-size: 12px;">Solde dû</td>
                 <td class="value-cell" style="font-size: 12px; font-weight: bold;">{{ number_format($invoice->amount_due, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>

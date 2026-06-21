@@ -30,6 +30,13 @@ class InvoiceItem extends Model
         'line_tax',
         'line_total',
         'position',
+        'calculation_mode',
+        'length',
+        'width',
+        'height',
+        'thickness',
+        'measurement_unit',
+        'calculated_measurement',
     ];
 
     protected $casts = [
@@ -41,6 +48,11 @@ class InvoiceItem extends Model
         'line_tax' => 'decimal:2',
         'line_total' => 'decimal:2',
         'position' => 'integer',
+        'length' => 'decimal:3',
+        'width' => 'decimal:3',
+        'height' => 'decimal:3',
+        'thickness' => 'decimal:3',
+        'calculated_measurement' => 'decimal:4',
     ];
 
     public function invoice(): BelongsTo
