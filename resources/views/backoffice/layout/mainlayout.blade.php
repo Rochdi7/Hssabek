@@ -141,8 +141,7 @@
 
 @include('backoffice.layout.partials.footer-scripts')
 
-@if(auth()->check() && !$hideHeaderSidebar)
-<!-- PWA Install Button -->
+<!-- PWA Install Button (shown on all pages including login) -->
 <button id="pwa-install-btn" title="Installer l'application" style="
     display: none;
     position: fixed;
@@ -182,7 +181,7 @@
     window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault();
         deferredPrompt = e;
-        installBtn.style.display = 'flex';
+        if (installBtn) installBtn.style.display = 'flex';
     });
 
     if (installBtn) {
@@ -203,7 +202,6 @@
     });
 })();
 </script>
-@endif
 
 </body>
 
