@@ -5,7 +5,7 @@
 @section('body')
     <h3>Bienvenue parmi nos abonnés !</h3>
 
-    <p>Merci de vous être inscrit à la newsletter de <strong>{{ config('app.name') }}</strong>.</p>
+    <p>Merci de vous être inscrit à la newsletter de <strong>{{ config('app.name', 'Hssabek') }}</strong>.</p>
 
     <p>Vous recevrez désormais nos dernières actualités, conseils et mises à jour directement dans votre boîte mail :</p>
 
@@ -21,5 +21,5 @@
 
     <p>Si vous n'avez pas demandé cette inscription, vous pouvez simplement ignorer cet email.</p>
 
-    <p>Cordialement,<br>L'équipe {{ config('app.name') }}</p>
+    <p>Cordialement,<br>L'équipe {{ config('app.name', 'Hssabek') }}</p>
 @endsection

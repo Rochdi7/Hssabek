@@ -23,13 +23,14 @@
 <body>
     <div class="email-wrapper">
         <div class="email-header">
-            <h2>{{ $tenantName ?? config('app.name') }}</h2>
+            <h2>{{ $tenantName ?? config('app.name', 'Hssabek') }}</h2>
+            <p style="color:#a8b8d8;margin:4px 0 0;font-size:12px;letter-spacing:0.3px;">Logiciel de facturation &amp; gestion commerciale</p>
         </div>
         <div class="email-body">
             @yield('body')
         </div>
         <div class="email-footer">
-            <p>&copy; {{ date('Y') }} {{ $tenantName ?? config('app.name') }}. Tous droits réservés.</p>
+            <p>&copy; {{ date('Y') }} {{ $tenantName ?? config('app.name', 'Hssabek') }}. Tous droits réservés.</p>
         </div>
     </div>
 </body>

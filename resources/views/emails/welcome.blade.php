@@ -22,5 +22,5 @@
 
     <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
 
-    <p>Cordialement,<br>L'équipe {{ config('app.name') }}</p>
+    <p>Cordialement,<br>L'équipe {{ config('app.name', 'Hssabek') }}</p>
 @endsection

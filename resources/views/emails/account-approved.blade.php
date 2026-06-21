@@ -20,7 +20,7 @@
         </p>
     </div>
 
-    <p>Avec {{ config('app.name') }}, vous pouvez :</p>
+    <p>Avec {{ config('app.name', 'Hssabek') }}, vous pouvez :</p>
 
     <ul style="color: #555; line-height: 2;">
         <li>Créer et envoyer des factures professionnelles</li>
@@ -35,5 +35,5 @@
 
     <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
 
-    <p>Cordialement,<br>L'équipe {{ config('app.name') }}</p>
+    <p>Cordialement,<br>L'équipe {{ config('app.name', 'Hssabek') }}</p>
 @endsection
