@@ -11,7 +11,7 @@ use App\Support\Sales\QuoteDocumentType;
 
 class PublicDocumentController extends Controller
 {
-    public function downloadQuoteDocument(string $type, string $token, PdfService $pdfService)
+    public function downloadQuoteDocument(string $token, PdfService $pdfService, string $type = 'devis')
     {
         $documentConfig = QuoteDocumentType::fromPublicSlug($type);
         $quote = Quote::withoutGlobalScopes()
