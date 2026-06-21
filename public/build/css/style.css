@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*---------------------------------------------------------------------------------
 
     Template Name: Hssabek
@@ -14824,7 +14824,11 @@ p:last-child {
     .two-col-sidebar {
         width: 0;
         z-index: 1041;
-        position: relative;
+        position: fixed;
+        height: 0;
+        overflow: visible;
+        top: 56px;
+        left: 0;
     }
 }
 .two-col-sidebar .twocol-mini {
