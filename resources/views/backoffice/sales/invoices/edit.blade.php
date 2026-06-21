@@ -1,4 +1,4 @@
-<?php $page = 'edit-invoice'; ?>
+﻿<?php $page = 'edit-invoice'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', 'Modifier la Facture')
 @section('description', 'Modifier les détails de la facture')
@@ -62,7 +62,7 @@
 
                                         <!-- start row -->
                                         <div class="row justify-content-between">
-                                            <div class="col-xl-5">
+                                            <div class="col-12 col-md-7">
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-6">
@@ -292,7 +292,7 @@
                                                     </div>
                                                 </div>
                                             </div><!-- end col -->
-                                            <div class="col-xl-4">
+                                            <div class="col-md-5 mt-3 mt-md-0">
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-lg-12">
@@ -556,7 +556,7 @@
 
                                     <!-- start row -->
                                     <div class="row">
-                                        <div class="col-md-7">
+                                        <div class="col-12 col-md-7">
                                             <div class="mb-3">
                                                 <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
                                                 <div>
@@ -593,7 +593,7 @@
                                                 </div>
                                             </div>
                                         </div><!-- end col -->
-                                        <div class="col-md-5">
+                                        <div class="col-12 col-md-5">
                                             <ul class="mb-0 ps-0 list-unstyled">
                                                 <li class="mb-3">
                                                     <div class="d-flex align-items-center justify-content-between">

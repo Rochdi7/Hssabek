@@ -253,6 +253,20 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ url('build/css/style.css') }}">
 
+    <!-- Fix: two-col-sidebar must not take vertical space on mobile -->
+    <style>
+        @media (max-width: 991.98px) {
+            .two-col-sidebar {
+                position: fixed !important;
+                height: 0 !important;
+                width: 0 !important;
+                overflow: visible !important;
+                top: 56px !important;
+                left: 0 !important;
+            }
+        }
+    </style>
+
     <!-- Fix: ensure item-table headers always have white text on dark bg -->
     <style>
         .add-table thead th,

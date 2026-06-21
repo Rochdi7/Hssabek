@@ -59,17 +59,17 @@
 
                                         <!-- start row -->
                                         <div class="row justify-content-between">
-                                            <div class="col-xl-5">
+                                            <div class="col-md-7">
                                                 <div class="purchase-top-content">
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-6 col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">{{ $documentConfig['number_label'] }}</label>
                                                                 <input type="text" class="form-control"
                                                                     value="{{ $quote->number }}" readonly>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-6 col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">{{ __('Référence') }}</label>
                                                                 <div class="mb-2">
@@ -101,7 +101,7 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-6 col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">{{ __('Date d\'émission') }} <span class="text-danger">*</span></label>
                                                                 <div class="input-group position-relative">
@@ -118,7 +118,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-6 col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">{{ __('Date d\'expiration') }}</label>
                                                                 <div class="input-group position-relative">
@@ -138,7 +138,7 @@
                                                     </div>
                                                 </div>
                                             </div><!-- end col -->
-                                            <div class="col-xl-4">
+                                            <div class="col-md-5 mt-3 mt-md-0">
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -196,7 +196,7 @@
 
                                     <!-- start row -->
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-12 col-md-6">
                                             <div class="card box-shadow-0">
                                                 <div class="card-header border-0 pb-0">
                                                     <h6>{{ __('Facturé par') }}</h6>
@@ -210,7 +210,7 @@
                                                 </div>
                                             </div>
                                         </div><!-- end col -->
-                                        <div class="col-md-6">
+                                        <div class="col-12 col-md-6">
                                             <div class="card box-shadow-0">
                                                 <div class="card-header border-0 pb-0">
                                                     <h6>{{ __('Facturer à') }}</h6>
@@ -399,7 +399,7 @@
 
                                     <!-- start row -->
                                     <div class="row">
-                                        <div class="col-md-7">
+                                        <div class="col-12 col-md-7">
                                             <div class="mb-3">
                                                 <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
                                                 <div>
@@ -436,7 +436,7 @@
                                                 </div>
                                             </div>
                                         </div><!-- end col -->
-                                        <div class="col-md-5">
+                                        <div class="col-12 col-md-5">
                                             <ul class="mb-0 ps-0 list-unstyled">
                                                 <li class="mb-3">
                                                     <div class="d-flex align-items-center justify-content-between">
