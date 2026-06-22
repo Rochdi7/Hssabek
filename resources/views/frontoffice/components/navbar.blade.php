@@ -3,7 +3,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg header-nav">
             <div class="navbar-header">
-                <a id="mobile_btn" href="#" aria-label="Menu">
+                <a id="mobile_btn" href="#" aria-label="Menu" style="min-width:48px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;">
                     <span class="bar-icon">
                         <span></span>
                         <span></span>
@@ -11,23 +11,38 @@
                     </span>
                 </a>
                 <a href="{{ route('home') }}" class="navbar-brand logo">
-                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-light"
-                        alt="{{ config('app.name') }}" style="height:70px;width:auto;">
-                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-dark"
-                        alt="{{ config('app.name') }}" style="height:70px;width:auto;">
+                    <picture>
+                        <source srcset="{{ url('assets/images/logo/hssabek-logo.webp') }}" type="image/webp">
+                        <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-light"
+                            alt="{{ config('app.name') }}" width="140" height="70" style="height:70px;width:auto;">
+                    </picture>
+                    <picture>
+                        <source srcset="{{ url('assets/images/logo/hssabek-logo.webp') }}" type="image/webp">
+                        <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-dark"
+                            alt="{{ config('app.name') }}" width="140" height="70" style="height:70px;width:auto;">
+                    </picture>
                 </a>
-                <a href="{{ route('home') }}" class="navbar-brand logo-small">
-                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-light"
-                        alt="{{ config('app.name') }}" style="height:55px;width:auto;">
-                    <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-dark"
-                        alt="{{ config('app.name') }}" style="height:55px;width:auto;">
+                <a href="{{ route('home') }}" class="navbar-brand logo-small" style="min-width:48px;min-height:48px;display:inline-flex;align-items:center;">
+                    <picture>
+                        <source srcset="{{ url('assets/images/logo/hssabek-logo.webp') }}" type="image/webp">
+                        <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-light"
+                            alt="{{ config('app.name') }}" width="110" height="55" style="height:55px;width:auto;">
+                    </picture>
+                    <picture>
+                        <source srcset="{{ url('assets/images/logo/hssabek-logo.webp') }}" type="image/webp">
+                        <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid logo-dark"
+                            alt="{{ config('app.name') }}" width="110" height="55" style="height:55px;width:auto;">
+                    </picture>
                 </a>
             </div>
             <div class="main-menu-wrapper">
                 <div class="menu-header">
                     <a href="{{ route('home') }}" class="menu-logo">
-                        <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid"
-                            alt="{{ config('app.name') }}" style="height:36px;width:auto;">
+                        <picture>
+                            <source srcset="{{ url('assets/images/logo/hssabek-logo.webp') }}" type="image/webp">
+                            <img src="{{ url('assets/images/logo/hssabek mobile logo.png') }}" class="img-fluid"
+                                alt="{{ config('app.name') }}" width="72" height="36" style="height:36px;width:auto;">
+                        </picture>
                     </a>
 
                     <a id="menu_close" class="menu-close" href="#" aria-label="Fermer le menu"> <i

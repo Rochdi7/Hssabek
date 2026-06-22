@@ -707,7 +707,6 @@
     <script src="{{ url('build/js/bootstrap-scrollspy.js') }}" defer></script>
 
     <!-- Deferred JS -->
-    <script src="{{ url('build/js/feather.min.js') }}" defer></script>
     <script src="{{ url('build/plugins/aos/aos.js') }}" defer></script>
     <script src="{{ url('build/js/jquery.waypoints.js') }}" defer></script>
     <script src="{{ url('build/js/jquery.counterup.min.js') }}" defer></script>

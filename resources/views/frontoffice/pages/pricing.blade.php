@@ -101,7 +101,7 @@
 <section class="pricing-section" id="pricing">
 	<div class="container">
 		<div class="sec-bg-img">
-			<img src="{{ url('build/img/icons/pricing-bg-01.svg') }}" class="pricing-bg-one d-none d-lg-flex" alt="Bg">
+			<img src="{{ url('build/img/icons/pricing-bg-01.svg') }}" class="pricing-bg-one d-none d-lg-flex" alt="Bg" width="162" height="285">
 			<img src="{{ url('build/img/bg/sec-bg-10.png') }}" class="pricing-bg-two" alt="Bg">
 		</div>
 		<div class="section-heading">
@@ -162,7 +162,7 @@
 			<img src="{{ url('build/img/bg/sec-bg-11.png') }}" class="faq-bg-one" alt="Bg">
 			<img src="{{ url('build/img/bg/sec-bg-12.png') }}" class="faq-bg-two" alt="Bg">
 			<img src="{{ url('build/img/bg/sec-bg-13.png') }}" class="faq-bg-three" alt="Bg">
-			<img src="{{ url('build/img/icons/faq-bg.svg') }}" class="faq-bg-four" alt="Bg">
+			<img src="{{ url('build/img/icons/faq-bg.svg') }}" class="faq-bg-four" alt="Bg" width="136" height="185">
 		</div>
 		<div class="row align-items-center">
 			<div class="col-lg-5">

@@ -102,7 +102,7 @@
 							<span class="info-badge fw-medium mb-3">{{ __('Application gratuite pour auto-entrepreneurs au Maroc') }}</span>
 							<div class="banner-title">
 								<h1 class="mb-2">{{ __('Factures & devis gratuits pour') }} <span class="head">{{ __('auto-entrepreneurs marocains') }}</span></h1>
-								<span class="banner-title-icon"><img src="{{ url('build/img/icons/title-icon.svg') }}" alt="Icône"></span>
+								<span class="banner-title-icon"><img src="{{ url('build/img/icons/title-icon.svg') }}" alt="Icône" width="64" height="39"></span>
 							</div>
 							<p class="fw-medium">{{ __('Créez vos factures professionnelles en 10 secondes grâce à l\'IA. Envoi automatique par email, modèles PDF conformes DGI, gestion des devis — 100% gratuit pour démarrer. Aucune installation, aucune carte bancaire.') }}</p>
 							<div class="banner-wrap-btn">
@@ -144,7 +144,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Factures rapides') }}">
+						<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Factures rapides') }}" width="32" height="42">
 					</div>
 					<div class="app-content">
 						<p class="h6 mb-1">{{ __('Factures en 10 secondes') }}</p>
@@ -155,7 +155,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('Devis professionnels') }}">
+						<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('Devis professionnels') }}" width="38" height="30">
 					</div>
 					<div class="app-content">
 						<p class="h6 mb-1">{{ __('Devis professionnels en un clic') }}</p>
@@ -166,7 +166,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('Suivi paiements') }}">
+						<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('Suivi paiements') }}" width="51" height="50">
 					</div>
 					<div class="app-content">
 						<p class="h6 mb-1">{{ __('Suivi des paiements automatique') }}</p>
@@ -237,7 +237,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
 						<div class="app-card">
 							<div class="app-icon">
-								<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Factures conformes DGI') }}">
+								<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Factures conformes DGI') }}" width="32" height="42">
 							</div>
 							<div class="app-content">
 								<p class="h6 mb-1">{{ __('Factures conformes DGI') }}</p>
@@ -248,7 +248,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
 						<div class="app-card">
 							<div class="app-icon">
-								<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('64+ modèles PDF') }}">
+								<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('64+ modèles PDF') }}" width="38" height="30">
 							</div>
 							<div class="app-content">
 								<p class="h6 mb-1">{{ __('64+ modèles PDF professionnels') }}</p>
@@ -259,7 +259,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
 						<div class="app-card">
 							<div class="app-icon">
-								<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('Envoi par email') }}">
+								<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('Envoi par email') }}" width="51" height="50">
 							</div>
 							<div class="app-content">
 								<p class="h6 mb-1">{{ __('Envoi direct par email') }}</p>
@@ -270,7 +270,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
 						<div class="app-card">
 							<div class="app-icon">
-								<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Devis vers facture') }}">
+								<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Devis vers facture') }}" width="32" height="42">
 							</div>
 							<div class="app-content">
 								<p class="h6 mb-1">{{ __('Devis → Facture en 1 clic') }}</p>

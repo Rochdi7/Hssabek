@@ -339,7 +339,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="200">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-01.svg') }}" alt="{{ __('Client') }}">
+						<img src="{{ url('build/img/icons/module-icon-01.svg') }}" alt="{{ __('Client') }}" width="25" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Client') }}</h6>
 					<p>{{ __('Fiches clients, adresses multiples, contacts et historique complet de la relation commerciale.') }}</p>
@@ -348,7 +348,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="300">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-02.svg') }}" alt="{{ __('Fournisseur') }}">
+						<img src="{{ url('build/img/icons/module-icon-02.svg') }}" alt="{{ __('Fournisseur') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Fournisseur') }}</h6>
 					<p>{{ __('Gestion des fournisseurs, suivi des factures d\'achat et des paiements fournisseur.') }}</p>
@@ -357,7 +357,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="400">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-03.svg') }}" alt="{{ __('Produit') }}">
+						<img src="{{ url('build/img/icons/module-icon-03.svg') }}" alt="{{ __('Produit') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Produit') }}</h6>
 					<p>{{ __('Catalogue produits, catégories, prix d\'achat et de vente, gestion des variantes.') }}</p>
@@ -366,7 +366,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="500">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-04.svg') }}" alt="{{ __('Inventaire') }}">
+						<img src="{{ url('build/img/icons/module-icon-04.svg') }}" alt="{{ __('Inventaire') }}" width="24" height="26">
 					</div>
 					<h6 class="mb-2">{{ __('Inventaire') }}</h6>
 					<p>{{ __('Suivi des niveaux de stock en temps réel, mouvements et transferts entre entrepôts.') }}</p>
@@ -375,7 +375,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="600">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-05.svg') }}" alt="{{ __('Facture') }}">
+						<img src="{{ url('build/img/icons/module-icon-05.svg') }}" alt="{{ __('Facture') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Facture') }}</h6>
 					<p>{{ __('Création, envoi par email et suivi des factures. Plus de 64 modèles PDF personnalisables.') }}</p>
@@ -384,7 +384,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="700">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-06.svg') }}" alt="{{ __('Devis') }}">
+						<img src="{{ url('build/img/icons/module-icon-06.svg') }}" alt="{{ __('Devis') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Devis') }}</h6>
 					<p>{{ __('Création de devis professionnels et conversion en factures en un clic.') }}</p>
@@ -393,7 +393,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="800">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-07.svg') }}" alt="{{ __('Achat') }}">
+						<img src="{{ url('build/img/icons/module-icon-07.svg') }}" alt="{{ __('Achat') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Achat') }}</h6>
 					<p>{{ __('Bons de commande, factures fournisseur, réceptions et gestion des retours d\'achat.') }}</p>
@@ -402,7 +402,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="900">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-08.svg') }}" alt="{{ __('Dépenses') }}">
+						<img src="{{ url('build/img/icons/module-icon-08.svg') }}" alt="{{ __('Dépenses') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Dépenses') }}</h6>
 					<p>{{ __('Suivi et catégorisation des dépenses, rapports détaillés et export comptable.') }}</p>
@@ -411,7 +411,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1000">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-09.svg') }}" alt="{{ __('Rapports') }}">
+						<img src="{{ url('build/img/icons/module-icon-09.svg') }}" alt="{{ __('Rapports') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Rapports') }}</h6>
 					<p>{{ __('Rapports de ventes, achats, profits, taxes et créances pour piloter votre activité.') }}</p>
@@ -420,7 +420,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1100">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-10.svg') }}" alt="{{ __('Multi-utilisateurs') }}">
+						<img src="{{ url('build/img/icons/module-icon-10.svg') }}" alt="{{ __('Multi-utilisateurs') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Multi-utilisateurs') }}</h6>
 					<p>{{ __('Invitez votre équipe avec des rôles et permissions granulaires par module et action.') }}</p>
@@ -429,7 +429,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1200">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-11.svg') }}" alt="{{ __('Modèles') }}">
+						<img src="{{ url('build/img/icons/module-icon-11.svg') }}" alt="{{ __('Modèles') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Modèles PDF') }}</h6>
 					<p>{{ __('Plus de 64 modèles de factures professionnels et personnalisables pour votre image de marque.') }}</p>
@@ -438,7 +438,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1300">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-12.svg') }}" alt="{{ __('Export') }}">
+						<img src="{{ url('build/img/icons/module-icon-12.svg') }}" alt="{{ __('Export') }}" width="24" height="25">
 					</div>
 					<h6 class="mb-2">{{ __('Export & Intégrations') }}</h6>
 					<p>{{ __('Export PDF, CSV et intégrations avec vos outils de comptabilité et paiement existants.') }}</p>
@@ -547,8 +547,8 @@
 		</div>
 		<div class="start-bussiness">
 			<div class="section-bg-img">
-				<img src="{{ url('build/img/bg/sec-bg-16.svg') }}" class="sec-bg-vector-one d-none d-lg-flex" alt="Bg">
-				<img src="{{ url('build/img/bg/sec-bg-17.svg') }}" class="sec-bg-vector-two" alt="Bg">
+				<img src="{{ url('build/img/bg/sec-bg-16.svg') }}" class="sec-bg-vector-one d-none d-lg-flex" alt="Bg" width="48" height="56">
+				<img src="{{ url('build/img/bg/sec-bg-17.svg') }}" class="sec-bg-vector-two" alt="Bg" width="147" height="123">
 			</div>
 			<div class="section-title" data-aos="fade-up">
 				<h2 class="mb-2">{{ __('Convaincu ? Lancez-vous !') }}</h2>

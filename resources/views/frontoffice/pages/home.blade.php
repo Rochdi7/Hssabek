@@ -141,7 +141,7 @@
 							<span class="info-badge fw-medium mb-3">{{ __('L\'IA qui génère vos factures en 10 secondes') }}</span>
 							<div class="banner-title">
 								<h1 class="mb-2">{{ __('Vos factures & devis') }} <span class="head">{{ __('créés par l\'IA, envoyés automatiquement') }}</span></h1>
-								<span class="banner-title-icon"><img src="{{ url('build/img/icons/title-icon.svg') }}" alt="Icône"></span>
+								<span class="banner-title-icon"><img src="{{ url('build/img/icons/title-icon.svg') }}" alt="Icône" width="64" height="39"></span>
 							</div>
 							<p class="fw-medium">{{ __('Pendant que vos concurrents perdent 2h sur Excel, vos factures et devis sont créés par l\'IA et envoyés automatiquement à vos clients en 10 secondes. Suivi des chèques, détection de fraude — le seul logiciel de facturation marocain qui pense à votre place.') }}</p>
 							<div class="banner-wrap-btn">
@@ -159,7 +159,15 @@
 				</div>
 				<div class="col-lg-5">
 					<div class="banner-img rounded-4">
-						<img src="{{ url('assets/images/sass screenshots/dashboard.png') }}" class="img-fluid banner-main-img rounded-4 w-100" alt="Aperçu tableau de bord" fetchpriority="high" width="800" height="406">
+						<picture>
+							<source type="image/webp"
+								srcset="{{ url('assets/images/sass screenshots/dashboard-480w.webp') }} 480w, {{ url('assets/images/sass screenshots/dashboard.webp') }} 800w"
+								sizes="(max-width: 576px) 480px, 800px">
+							<img src="{{ url('assets/images/sass screenshots/dashboard.png') }}"
+								class="img-fluid banner-main-img rounded-4 w-100"
+								alt="Aperçu tableau de bord Hssabek — logiciel facturation Maroc"
+								fetchpriority="high" loading="eager" width="800" height="406">
+						</picture>
 					</div>
 				</div>
 			</div>
@@ -196,7 +204,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Entreprises') }}">
+						<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Entreprises') }}" width="32" height="42">
 					</div>
 					<div class="app-content">
 						<p class="h6 mb-1">{{ __('Génération IA ultra-rapide') }}</p>
@@ -207,7 +215,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('Suivi intelligent') }}">
+						<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('Suivi intelligent') }}" width="38" height="30">
 					</div>
 					<div class="app-content">
 						<p class="h6 mb-1">{{ __('Détection de fraude & suivi') }}</p>
@@ -218,7 +226,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('Automatisation') }}">
+						<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('Automatisation') }}" width="51" height="50">
 					</div>
 					<div class="app-content">
 						<p class="h6 mb-1">{{ __('Automatisation de l\'envoi & rappels') }}</p>
@@ -231,8 +239,26 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
 					<div class="app-demo-img pe-lg-5">
-						<span><img src="{{ url('assets/images/sass screenshots/arabci dashboard 2.png') }}" class="img-fluid border border-dark rounded-4 border-5" loading="lazy" alt="Démo" width="800" height="403"></span>
-						<span><img src="{{ url('assets/images/sass screenshots/dashboard.png') }}" class="img-fluid demo-img-one" loading="lazy" alt="Démo" width="800" height="406"></span>
+						<span>
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/sass screenshots/arabci-dashboard-2-480w.webp') }} 480w, {{ url('assets/images/sass screenshots/arabci-dashboard-2.webp') }} 800w"
+									sizes="(max-width: 768px) 373px, 488px">
+								<img src="{{ url('assets/images/sass screenshots/arabci dashboard 2.png') }}"
+									class="img-fluid border border-dark rounded-4 border-5"
+									loading="lazy" alt="Tableau de bord arabe Hssabek" width="800" height="403">
+							</picture>
+						</span>
+						<span>
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/sass screenshots/dashboard-480w.webp') }} 480w, {{ url('assets/images/sass screenshots/dashboard.webp') }} 800w"
+									sizes="(max-width: 768px) 373px, 488px">
+								<img src="{{ url('assets/images/sass screenshots/dashboard.png') }}"
+									class="img-fluid demo-img-one"
+									loading="lazy" alt="Tableau de bord Hssabek" width="800" height="406">
+							</picture>
+						</span>
 					</div>
 				</div>
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="700">
@@ -289,7 +315,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
 						<div class="management-types">
 							<div class="mnaging-icon">
-								<img src="{{ url('build/img/icons/management-icon-01.svg') }}" alt="{{ __('Gestion d\'entreprise') }}">
+								<img src="{{ url('build/img/icons/management-icon-01.svg') }}" alt="{{ __('Gestion d\'entreprise') }}" width="40" height="40">
 							</div>
 							<div class="managing-info">
 								<p class="h6 text-white mb-2">{{ __('Tableau de bord intelligent') }}</p>
@@ -300,7 +326,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
 						<div class="management-types">
 							<div class="mnaging-icon">
-								<img src="{{ url('build/img/icons/management-icon-02.svg') }}" alt="{{ __('Gestion des abonnements') }}">
+								<img src="{{ url('build/img/icons/management-icon-02.svg') }}" alt="{{ __('Gestion des abonnements') }}" width="40" height="40">
 							</div>
 							<div class="managing-info">
 								<p class="h6 text-white mb-2">{{ __('Suivi des chèques & prêts') }}</p>
@@ -311,7 +337,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="700">
 						<div class="management-types">
 							<div class="mnaging-icon">
-								<img src="{{ url('build/img/icons/management-icon-03.svg') }}" alt="{{ __('Système de gestion de domaines') }}">
+								<img src="{{ url('build/img/icons/management-icon-03.svg') }}" alt="{{ __('Système de gestion de domaines') }}" width="40" height="40">
 							</div>
 							<div class="managing-info">
 								<p class="h6 text-white mb-2">{{ __('Détection de fraude') }}</p>
@@ -322,7 +348,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="800">
 						<div class="management-types">
 							<div class="mnaging-icon">
-								<img src="{{ url('build/img/icons/management-icon-04.svg') }}" alt="{{ __('Gestion des utilisateurs') }}">
+								<img src="{{ url('build/img/icons/management-icon-04.svg') }}" alt="{{ __('Gestion des utilisateurs') }}" width="40" height="40">
 							</div>
 							<div class="managing-info">
 								<p class="h6 text-white mb-2">{{ __('IA de génération de documents') }}</p>
@@ -333,7 +359,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="900">
 						<div class="management-types">
 							<div class="mnaging-icon">
-								<img src="{{ url('build/img/icons/management-icon-05.svg') }}" alt="{{ __('Paramètres avancés') }}">
+								<img src="{{ url('build/img/icons/management-icon-05.svg') }}" alt="{{ __('Paramètres avancés') }}" width="40" height="40">
 							</div>
 							<div class="managing-info">
 								<p class="h6 text-white mb-2">{{ __('64+ modèles personnalisables') }}</p>
@@ -344,7 +370,7 @@
 					<div class="col-md-6" data-aos="fade-up" data-aos-delay="1000">
 						<div class="management-types">
 							<div class="mnaging-icon">
-								<img src="{{ url('build/img/icons/management-icon-06.svg') }}" alt="{{ __('Abonnements & paiements') }}">
+								<img src="{{ url('build/img/icons/management-icon-06.svg') }}" alt="{{ __('Abonnements & paiements') }}" width="40" height="40">
 							</div>
 							<div class="managing-info">
 								<p class="h6 text-white mb-2">{{ __('Envoi automatique & rappels') }}</p>
@@ -361,8 +387,8 @@
 
 <!-- Invoice Template Section -->
 <section class="invoice-temp-sec" id="invoice">
-	<picture><source srcset="{{ url('build/img/icons/invoice-bg.webp') }}" type="image/webp"><img src="{{ url('build/img/icons/invoice-bg.png') }}" alt="bg" class="img-fluid invoice-bg1 d-none d-lg-flex" loading="lazy"></picture>
-	<picture><source srcset="{{ url('build/img/icons/invoice-bg2.webp') }}" type="image/webp"><img src="{{ url('build/img/icons/invoice-bg2.png') }}" alt="bg" class="img-fluid invoice-bg2 d-none d-lg-flex" loading="lazy"></picture>
+	<picture><source srcset="{{ url('build/img/icons/invoice-bg.webp') }}" type="image/webp"><img src="{{ url('build/img/icons/invoice-bg.png') }}" alt="" role="presentation" class="img-fluid invoice-bg1 d-none d-lg-flex" loading="lazy" width="600" height="400"></picture>
+	<picture><source srcset="{{ url('build/img/icons/invoice-bg2.webp') }}" type="image/webp"><img src="{{ url('build/img/icons/invoice-bg2.png') }}" alt="" role="presentation" class="img-fluid invoice-bg2 d-none d-lg-flex" loading="lazy" width="600" height="400"></picture>
 	<div class="container">
 		<div class="section-heading" data-aos="fade-up">
 			<span class="title-badge">{{ __('+64 modèles professionnels') }}</span>
@@ -374,7 +400,12 @@
 				<div class="invoive-temp-slider owl-carousel">
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="600">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/invoice/model-1.png') }}" alt="{{ __('Facture') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/invoice/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/invoice/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/invoice/model-1.png') }}"
+									alt="{{ __('Facture') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Facture') }}</p>
@@ -382,7 +413,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="700">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/quote/model-1.png') }}" alt="{{ __('Devis') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/quote/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/quote/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/quote/model-1.png') }}"
+									alt="{{ __('Devis') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Devis') }}</p>
@@ -390,7 +426,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="800">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/credit-note/model-1.png') }}" alt="{{ __('Avoir') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/credit-note/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/credit-note/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/credit-note/model-1.png') }}"
+									alt="{{ __('Avoir') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Avoir') }}</p>
@@ -398,7 +439,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="900">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/purchase-order/model-1.png') }}" alt="{{ __('Bon de commande') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/purchase-order/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/purchase-order/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/purchase-order/model-1.png') }}"
+									alt="{{ __('Bon de commande') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Bon de commande') }}</p>
@@ -406,7 +452,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1000">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/delivery-challan/model-1.png') }}" alt="{{ __('Bon de livraison') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/delivery-challan/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/delivery-challan/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/delivery-challan/model-1.png') }}"
+									alt="{{ __('Bon de livraison') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Bon de livraison') }}</p>
@@ -414,7 +465,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1100">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/goods-receipt/model-1.png') }}" alt="{{ __('Bon de réception') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/goods-receipt/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/goods-receipt/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/goods-receipt/model-1.png') }}"
+									alt="{{ __('Bon de réception') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Bon de réception') }}</p>
@@ -422,7 +478,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1200">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/payment-receipt/model-1.png') }}" alt="{{ __('Reçu de paiement') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/payment-receipt/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/payment-receipt/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/payment-receipt/model-1.png') }}"
+									alt="{{ __('Reçu de paiement') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Reçu de paiement') }}</p>
@@ -430,7 +491,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1300">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/supplier-payment-receipt/model-1.png') }}" alt="{{ __('Reçu paiement fournisseur') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/supplier-payment-receipt/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/supplier-payment-receipt/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/supplier-payment-receipt/model-1.png') }}"
+									alt="{{ __('Reçu paiement fournisseur') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Reçu paiement fournisseur') }}</p>
@@ -438,7 +504,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1400">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/vendor-bill/model-1.png') }}" alt="{{ __('Facture fournisseur') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/vendor-bill/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/vendor-bill/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/vendor-bill/model-1.png') }}"
+									alt="{{ __('Facture fournisseur') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Facture fournisseur') }}</p>
@@ -446,7 +517,12 @@
 					</div>
 					<div class="general-invoice-list text-center" data-aos="fade-up" data-aos-delay="1500">
 						<div class="invoice-img">
-							<img loading="lazy" src="{{ url('assets/images/templates/debit-note/model-1.png') }}" alt="{{ __('Note de débit') }}" width="300" height="424">
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/templates/debit-note/model-1-160w.webp') }} 1x, {{ url('assets/images/templates/debit-note/model-1-320w.webp') }} 2x">
+								<img loading="lazy" src="{{ url('assets/images/templates/debit-note/model-1.png') }}"
+									alt="{{ __('Note de débit') }}" width="160" height="226">
+							</picture>
 						</div>
 						<div class="title-invoice">
 							<p class="h6 mb-0">{{ __('Note de débit') }}</p>
@@ -457,8 +533,8 @@
 		</div>
 		<div class="start-bussiness">
 			<div class="section-bg-img">
-				<img src="{{ url('build/img/bg/sec-bg-16.svg') }}" class="sec-bg-vector-one d-none d-lg-flex" alt="Bg" loading="lazy">
-				<img src="{{ url('build/img/bg/sec-bg-17.svg') }}" class="sec-bg-vector-two" alt="Bg" loading="lazy">
+				<img src="{{ url('build/img/bg/sec-bg-16.svg') }}" class="sec-bg-vector-one d-none d-lg-flex" alt="Bg" loading="lazy" width="48" height="56">
+				<img src="{{ url('build/img/bg/sec-bg-17.svg') }}" class="sec-bg-vector-two" alt="Bg" loading="lazy" width="147" height="123">
 			</div>
 			<div class="section-title" data-aos="fade-up">
 				<h2 class="mb-2">{{ __('Gagnez du temps chaque jour') }}</h2>
@@ -491,8 +567,26 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
 					<div class="app-demo-img pe-lg-5">
-						<span><img src="{{ url('assets/images/sass screenshots/management model.png') }}" class="img-fluid border border-dark rounded-4 border-5" loading="lazy" alt="{{ __('+64 modèles') }}" width="800" height="407"></span>
-						<span><img src="{{ url('assets/images/sass screenshots/gestion model facture.png') }}" class="img-fluid demo-img-one" loading="lazy" alt="{{ __('Gestion des modèles') }}" width="800" height="406"></span>
+						<span>
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/sass screenshots/management-model-480w.webp') }} 480w, {{ url('assets/images/sass screenshots/management-model.webp') }} 800w"
+									sizes="(max-width: 768px) 373px, 488px">
+								<img src="{{ url('assets/images/sass screenshots/management model.png') }}"
+									class="img-fluid border border-dark rounded-4 border-5"
+									loading="lazy" alt="{{ __('+64 modèles') }}" width="800" height="407">
+							</picture>
+						</span>
+						<span>
+							<picture>
+								<source type="image/webp"
+									srcset="{{ url('assets/images/sass screenshots/gestion-model-facture-480w.webp') }} 480w, {{ url('assets/images/sass screenshots/gestion-model-facture.webp') }} 800w"
+									sizes="(max-width: 768px) 373px, 488px">
+								<img src="{{ url('assets/images/sass screenshots/gestion model facture.png') }}"
+									class="img-fluid demo-img-one"
+									loading="lazy" alt="{{ __('Gestion des modèles') }}" width="800" height="406">
+							</picture>
+						</span>
 					</div>
 				</div>
 				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="700">
@@ -609,7 +703,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/facture.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Gestion des ventes') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/facture.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/facture.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Gestion des ventes') }}" width="800" height="500">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -630,7 +727,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/rapport finance.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Finance & Comptabilité') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/rapport-finance.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/rapport finance.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Finance & Comptabilité') }}" width="800" height="405">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -651,7 +751,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/gestion devis.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Devis & Livraisons') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/gestion-devis.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/gestion devis.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Devis & Livraisons') }}" width="800" height="406">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -672,7 +775,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/gestion bon de commande.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Achats & Fournisseurs') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/gestion-bon-de-commande.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/gestion bon de commande.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Achats & Fournisseurs') }}" width="800" height="403">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -693,7 +799,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/Gestion client.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Gestion des clients') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/gestion-client.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/Gestion client.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Gestion des clients') }}" width="800" height="406">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -714,7 +823,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/darkmode.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Mode sombre') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/darkmode.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/darkmode.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Mode sombre') }}" width="800" height="405">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -735,7 +847,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/multilang.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Multilingue') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/multilang.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/multilang.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Multilingue') }}" width="800" height="405">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -756,7 +871,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/Produits & Services.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Inventaire & Stock') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/produits-&-services.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/Produits & Services.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Inventaire & Stock') }}" width="800" height="404">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -777,7 +895,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/rapport des ventes.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Rapports & Analyses') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/rapport-des-ventes.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/rapport des ventes.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Rapports & Analyses') }}" width="800" height="407">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -798,7 +919,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="inner-tab-img">
-									<img src="{{ url('assets/images/sass screenshots/gestion roles et permission.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Rôles & Permissions') }}">
+									<picture>
+									<source type="image/webp" srcset="{{ url('assets/images/sass screenshots/gestion-roles-et-permission.webp') }}">
+									<img src="{{ url('assets/images/sass screenshots/gestion roles et permission.png') }}" class="img-fluid" loading="lazy" alt="{{ __('Rôles & Permissions') }}" width="800" height="404">
+								</picture>
 								</div>
 							</div>
 						</div>
@@ -854,7 +978,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="200">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-01.svg') }}" alt="{{ __('Client') }}">
+						<img src="{{ url('build/img/icons/module-icon-01.svg') }}" alt="{{ __('Client') }}" width="25" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Clients & CRM') }}</p>
 					<p>{{ __('Fiche client complète, historique des achats, suivi des impayés. Vous savez exactement qui vous doit quoi.') }}</p>
@@ -863,7 +987,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="300">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-02.svg') }}" alt="{{ __('Fournisseur') }}">
+						<img src="{{ url('build/img/icons/module-icon-02.svg') }}" alt="{{ __('Fournisseur') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Fournisseurs') }}</p>
 					<p>{{ __('Gérez vos fournisseurs, leurs factures et paiements. Suivez qui vous devez payer et quand.') }}</p>
@@ -872,7 +996,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="400">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-03.svg') }}" alt="{{ __('Produit') }}">
+						<img src="{{ url('build/img/icons/module-icon-03.svg') }}" alt="{{ __('Produit') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Produits & Services') }}</p>
 					<p>{{ __('Catalogue complet avec prix d\'achat, prix de vente et marges calculées automatiquement.') }}</p>
@@ -881,7 +1005,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="500">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-04.svg') }}" alt="{{ __('Inventaire') }}">
+						<img src="{{ url('build/img/icons/module-icon-04.svg') }}" alt="{{ __('Inventaire') }}" width="24" height="26">
 					</div>
 					<p class="h6 mb-2">{{ __('Stock & Entrepôts') }}</p>
 					<p>{{ __('Stock en temps réel, multi-entrepôts, alertes de stock bas et transferts. Vous ne vendez plus ce que vous n\'avez pas.') }}</p>
@@ -890,7 +1014,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="600">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-05.svg') }}" alt="{{ __('Facture') }}">
+						<img src="{{ url('build/img/icons/module-icon-05.svg') }}" alt="{{ __('Facture') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Factures IA') }}</p>
 					<p>{{ __('L\'IA génère votre facture en 10 secondes. PDF professionnel, envoi automatique et rappels intégrés.') }}</p>
@@ -899,7 +1023,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="700">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-06.svg') }}" alt="{{ __('Retour de vente') }}">
+						<img src="{{ url('build/img/icons/module-icon-06.svg') }}" alt="{{ __('Retour de vente') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Avoirs & Remboursements') }}</p>
 					<p>{{ __('Avoirs et remboursements en un clic. Le stock se met à jour automatiquement, les comptes aussi.') }}</p>
@@ -908,7 +1032,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="800">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-07.svg') }}" alt="{{ __('Bon de commande') }}">
+						<img src="{{ url('build/img/icons/module-icon-07.svg') }}" alt="{{ __('Bon de commande') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Bons de commande') }}</p>
 					<p>{{ __('Créez vos BC en quelques clics, convertissez-les en factures et suivez la réception des marchandises.') }}</p>
@@ -917,7 +1041,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="900">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-08.svg') }}" alt="{{ __('Achat') }}">
+						<img src="{{ url('build/img/icons/module-icon-08.svg') }}" alt="{{ __('Achat') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Achats intelligents') }}</p>
 					<p>{{ __('Centralisez vos achats : commandes fournisseurs, réceptions, factures et paiements. Tout est lié automatiquement.') }}</p>
@@ -926,7 +1050,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1000">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-09.svg') }}" alt="{{ __('Retour d\'achat') }}">
+						<img src="{{ url('build/img/icons/module-icon-09.svg') }}" alt="{{ __('Retour d\'achat') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Notes de débit') }}</p>
 					<p>{{ __('Gérez les retours fournisseurs et réclamations. Stock et comptabilité se mettent à jour en temps réel.') }}</p>
@@ -935,7 +1059,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1100">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-10.svg') }}" alt="{{ __('Dépenses') }}">
+						<img src="{{ url('build/img/icons/module-icon-10.svg') }}" alt="{{ __('Dépenses') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Suivi des dépenses') }}</p>
 					<p>{{ __('Catégorisez et suivez chaque dirham dépensé. Détectez les anomalies et optimisez vos coûts.') }}</p>
@@ -944,7 +1068,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1200">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-11.svg') }}" alt="{{ __('Devis') }}">
+						<img src="{{ url('build/img/icons/module-icon-11.svg') }}" alt="{{ __('Devis') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Devis IA') }}</p>
 					<p>{{ __('Générez des devis professionnels par IA, envoyez-les en un clic et convertissez-les en factures instantanément.') }}</p>
@@ -953,7 +1077,7 @@
 			<div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-down" data-aos-delay="1300">
 				<div class="module-card">
 					<div class="module-icon">
-						<img src="{{ url('build/img/icons/module-icon-12.svg') }}" alt="{{ __('Bon de livraison') }}">
+						<img src="{{ url('build/img/icons/module-icon-12.svg') }}" alt="{{ __('Bon de livraison') }}" width="24" height="25">
 					</div>
 					<p class="h6 mb-2">{{ __('Bons de livraison') }}</p>
 					<p>{{ __('Suivez chaque livraison avec preuve de réception. Liez vos BL aux factures pour une traçabilité totale.') }}</p>
@@ -968,7 +1092,7 @@
 <section class="pricing-section" id="pricing">
 	<div class="container">
 		<div class="sec-bg-img">
-			<img src="{{ url('build/img/icons/pricing-bg-01.svg') }}" class="pricing-bg-one d-none d-lg-flex" alt="Bg" loading="lazy">
+			<img src="{{ url('build/img/icons/pricing-bg-01.svg') }}" class="pricing-bg-one d-none d-lg-flex" alt="Bg" loading="lazy" width="162" height="285">
 			<img src="{{ url('build/img/bg/sec-bg-10.png') }}" class="pricing-bg-two" alt="Bg" loading="lazy">
 		</div>
 		<div class="section-heading">
@@ -985,7 +1109,7 @@
 								<p class="h6 mb-0">{{ __('Essai gratuit') }}</p>
 								<p class="h4 mb-0">{{ __('Découverte') }}</p>
 							</div>
-							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-01.svg') }}" alt="icône"></span>
+							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-01.svg') }}" alt="icône" width="30" height="32"></span>
 						</div>
 					</div>
 					<p>{{ __('Testez toutes les fonctionnalités pendant 7 jours. Créez vos premières factures et devis gratuitement.') }}</p>
@@ -1010,7 +1134,7 @@
 								<p class="h6 mb-0">{{ __('Paiement unique — à vie') }}</p>
 								<p class="h4 mb-0">{{ __('Professionnel') }}</p>
 							</div>
-							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-04.svg') }}" alt="icône"></span>
+							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-04.svg') }}" alt="icône" width="25" height="25"></span>
 						</div>
 					</div>
 					<p>{{ __('Accès illimité et permanent à toutes les fonctionnalités. Mises à jour incluses à vie. Zéro abonnement.') }}</p>
@@ -1046,7 +1170,7 @@
 			<img src="{{ url('build/img/bg/sec-bg-11.png') }}" class="faq-bg-one" alt="Bg" loading="lazy">
 			<picture><source srcset="{{ url('build/img/bg/sec-bg-12.webp') }}" type="image/webp"><img src="{{ url('build/img/bg/sec-bg-12.png') }}" class="faq-bg-two" alt="Bg" loading="lazy"></picture>
 			<picture><source srcset="{{ url('build/img/bg/sec-bg-13.webp') }}" type="image/webp"><img src="{{ url('build/img/bg/sec-bg-13.png') }}" class="faq-bg-three" alt="Bg" loading="lazy"></picture>
-			<img src="{{ url('build/img/icons/faq-bg.svg') }}" class="faq-bg-four" alt="Bg" loading="lazy">
+			<img src="{{ url('build/img/icons/faq-bg.svg') }}" class="faq-bg-four" alt="Bg" loading="lazy" width="136" height="185">
 		</div>
 		<div class="row align-items-center">
 			<div class="col-lg-5">
