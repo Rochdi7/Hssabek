@@ -53,7 +53,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Email') }}">
+						<img src="{{ url('build/img/icons/app-icon-01.svg') }}" alt="{{ __('Email') }}" width="32" height="42">
 					</div>
 					<div class="app-content">
 						<h6 class="mb-1">{{ __('Support par email') }}</h6>
@@ -65,7 +65,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('Centre d\'aide') }}">
+						<img src="{{ url('build/img/icons/app-icon-02.svg') }}" alt="{{ __('Centre d\'aide') }}" width="38" height="30">
 					</div>
 					<div class="app-content">
 						<h6 class="mb-1">{{ __('Centre d\'aide') }}</h6>
@@ -77,7 +77,7 @@
 			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
 				<div class="app-card">
 					<div class="app-icon">
-						<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('FAQ') }}">
+						<img src="{{ url('build/img/icons/app-icon-03.svg') }}" alt="{{ __('FAQ') }}" width="51" height="50">
 					</div>
 					<div class="app-content">
 						<h6 class="mb-1">{{ __('FAQ') }}</h6>
@@ -108,7 +108,7 @@
 								<h6>{{ __('Support') }}</h6>
 								<h4>{{ __('Gratuit') }}</h4>
 							</div>
-							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-01.svg') }}" alt="{{ __('icône') }}"></span>
+							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-01.svg') }}" alt="{{ __('icône') }}" width="30" height="32"></span>
 						</div>
 					</div>
 					<p>{{ __('Support communautaire et documentation en ligne.') }}</p>
@@ -128,7 +128,7 @@
 								<h6>{{ __('Support') }}</h6>
 								<h4>{{ __('Standard') }}</h4>
 							</div>
-							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-02.svg') }}" alt="{{ __('icône') }}"></span>
+							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-02.svg') }}" alt="{{ __('icône') }}" width="27" height="27"></span>
 						</div>
 					</div>
 					<p>{{ __('Support par email avec temps de réponse garanti.') }}</p>
@@ -148,7 +148,7 @@
 								<h6>{{ __('Support') }}</h6>
 								<h4>{{ __('Prioritaire') }}</h4>
 							</div>
-							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-03.svg') }}" alt="{{ __('icône') }}"></span>
+							<span class="icon-frame d-flex align-items-center justify-content-center"><img src="{{ url('build/img/icons/price-03.svg') }}" alt="{{ __('icône') }}" width="33" height="32"></span>
 						</div>
 					</div>
 					<p>{{ __('Support prioritaire avec assistance personnalisée.') }}</p>

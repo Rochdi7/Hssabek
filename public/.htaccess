@@ -31,9 +31,22 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# Gzip compression
+# Brotli compression (preferred, ~20% better than Gzip)
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml font/woff font/woff2 application/font-woff application/font-woff2
+</IfModule>
+
+# Gzip compression (fallback when Brotli unavailable)
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml application/font-woff application/font-woff2 font/woff font/woff2
+</IfModule>
+
+# MIME types for modern image formats
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+    AddType image/avif .avif
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
 </IfModule>
 
 # Browser caching via mod_expires
@@ -58,14 +71,21 @@
 
 # Fallback: Cache-Control headers (works even if mod_expires is disabled)
 <IfModule mod_headers.c>
-    # Remove X-Powered-By header
+    # Security: remove server fingerprinting headers
     Header unset X-Powered-By
     Header always unset X-Powered-By
+    Header unset Server
+    # Security headers
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Vary: Accept-Encoding so CDNs cache gzip/brotli separately
+    Header append Vary "Accept-Encoding"
     # Images: 1 year
     <FilesMatch "\.(png|jpe?g|gif|svg|webp|avif|ico)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
-    # CSS & JS: 1 year (files are fingerprinted by Vite)
+    # CSS & JS: 1 year (files are fingerprinted by Vite/mix)
     <FilesMatch "\.(css|js)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
@@ -74,3 +94,9 @@
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
 </IfModule>
+
+# Disable ETags (redundant with Cache-Control; prevents INode leakage)
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+FileETag None
