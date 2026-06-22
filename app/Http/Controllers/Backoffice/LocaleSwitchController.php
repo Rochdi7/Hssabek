@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tenancy\Tenant;
 use App\Models\Tenancy\TenantSetting;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
@@ -17,6 +18,14 @@ class LocaleSwitchController extends Controller
 
         $locale = $request->input('locale');
         $tenant = TenantContext::get();
+
+        if (!$tenant && $request->user()?->tenant_id) {
+            $tenant = Tenant::find($request->user()->tenant_id);
+
+            if ($tenant) {
+                TenantContext::set($tenant);
+            }
+        }
 
         if ($tenant) {
             $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);

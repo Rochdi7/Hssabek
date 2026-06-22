@@ -1,5 +1,5 @@
 <div class="sidebar-menu p-0">
-    @php($hasTenantContext = \App\Services\Tenancy\TenantContext::check())
+    @php($hasTenantAccess = \App\Services\Tenancy\TenantContext::check() || (auth()->check() && auth()->user()->tenant_id !== null))
     <ul>
         <li class="submenu-open">
             <ul>
@@ -16,14 +16,14 @@
                                 class="{{ request()->routeIs('bo.account.settings.*') ? 'active' : '' }}">{{ __('Paramètres du compte') }}</a></li>
                         <li><a href="{{ route('bo.settings.security.index') }}"
                                 class="{{ request()->routeIs('bo.settings.security.*') ? 'active' : '' }}">{{ __('Sécurité') }}</a></li>
-                        @if ($hasTenantContext)
+                        @if ($hasTenantAccess)
                             <li><a href="{{ route('bo.settings.notifications.edit') }}"
                                     class="{{ request()->routeIs('bo.settings.notifications.*') ? 'active' : '' }}">{{ __('Notifications') }}</a></li>
                         @endif
                     </ul>
                 </li>
 
-                @if ($hasTenantContext)
+                @if ($hasTenantAccess)
                     {{-- Paramètres du site --}}
                     <li class="submenu">
                         <a href="javascript:void(0);"
