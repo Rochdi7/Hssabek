@@ -1,4 +1,4 @@
-﻿<?php $page = 'edit-invoice'; ?>
+<?php $page = 'edit-invoice'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', 'Modifier la Facture')
 @section('description', 'Modifier les détails de la facture')

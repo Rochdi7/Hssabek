@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Tenancy\Permission;
-use App\Models\Tenancy\Role;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -169,5 +168,16 @@ class PermissionSeeder extends Seeder
             'guard_name' => 'web',
             'tenant_id' => null,
         ]);
+
+        // Settings — data export (admin-only)
+        // view   = access the export page
+        // create = trigger and download an export file
+        foreach (['view', 'create'] as $action) {
+            Permission::firstOrCreate([
+                'name' => "settings.data_export.{$action}",
+                'guard_name' => 'web',
+                'tenant_id' => null,
+            ]);
+        }
     }
 }

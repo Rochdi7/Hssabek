@@ -149,6 +149,7 @@ Route::prefix('admin')
         require __DIR__ . '/superadmin/contact-messages.php';
         require __DIR__ . '/superadmin/support-tickets.php';
         require __DIR__ . '/superadmin/account-requests.php';
+        require __DIR__ . '/superadmin/blog.php';
     });
 
 // this route for testing the theming system, can be removed later

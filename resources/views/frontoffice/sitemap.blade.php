@@ -79,4 +79,18 @@
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
+    <url>
+        <loc>{{ route('blog.index') }}</loc>
+        <lastmod>{{ date('Y-m-d') }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    @foreach(\App\Models\Blog\BlogPost::published()->orderByDesc('published_at')->get() as $post)
+    <url>
+        <loc>{{ route('blog.show', $post->slug) }}</loc>
+        <lastmod>{{ $post->updated_at->toDateString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    @endforeach
 </urlset>

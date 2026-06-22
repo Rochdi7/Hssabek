@@ -50,16 +50,16 @@
             <!-- Start Logo -->
             <div class="sidebar-logo">
                 <a href="{{ route('dashboard') }}" class="logo logo-normal">
-                    <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="logo-small">
-                    <img src="{{ URL::asset('assets/images/logo/favicon-cropped.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="dark-logo">
-                    <img src="{{ URL::asset('assets/images/logo/logo-wide-white-cropped.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="dark-small">
-                    <img src="{{ URL::asset('assets/images/logo/favicon-white-cropped.svg') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
                 </a>
 
                 <!-- Sidebar Hover Menu Toggle Button -->
@@ -153,6 +153,23 @@
                                     <li class="{{ request()->routeIs('sa.template-catalog.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.template-catalog.index') }}">
                                             <i class="isax isax-additem"></i><span>{{ __('Catalogue modèles') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── BLOG ─── --}}
+                            <li class="menu-title"><span>{{ __('Blog') }}</span></li>
+                            <li>
+                                <ul>
+                                    <li class="{{ request()->routeIs('sa.blog.posts.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.blog.posts.index') }}">
+                                            <i class="isax isax-document-text"></i><span>{{ __('Articles') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('sa.blog.categories.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.blog.categories.index') }}">
+                                            <i class="isax isax-category"></i><span>{{ __('Catégories') }}</span>
                                         </a>
                                     </li>
                                 </ul>

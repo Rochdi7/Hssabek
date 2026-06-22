@@ -152,6 +152,11 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
         });
 
+        RateLimiter::for('data-export', function (Request $request) {
+            // Tenant-scoped: max 3 full exports per 10 minutes per tenant
+            return Limit::perMinutes(10, 3)->by(TenantContext::id() ?: $request->ip());
+        });
+
         RateLimiter::for('pdf-download', function (Request $request) {
             return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip());
         });

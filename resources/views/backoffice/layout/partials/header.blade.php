@@ -6,10 +6,10 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="{{ route('bo.dashboard') }}" class="logo">
-                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo" style="width:auto;height:32px;max-width:130px;">
                 </a>
                 <a href="{{ route('bo.dashboard') }}" class="dark-logo">
-                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo" style="width:auto;height:32px;max-width:130px;filter:brightness(0) invert(1);">
                 </a>
             </div>
 
@@ -34,38 +34,38 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-start p-2">
                                 <li>
-                                    <a href="{{ url('add-invoice') }}" class="dropdown-item d-flex align-items-center">
+                                    <a href="{{ route('bo.sales.invoices.create') }}" class="dropdown-item d-flex align-items-center">
                                         <i class="isax isax-document-text-1 me-2"></i>{{ __('Facture') }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('expenses') }}" class="dropdown-item d-flex align-items-center">
+                                    <a href="{{ route('bo.finance.expenses.create') }}" class="dropdown-item d-flex align-items-center">
                                         <i class="isax isax-money-send me-2"></i>{{ __('Dépense') }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('add-credit-notes') }}" class="dropdown-item d-flex align-items-center">
+                                    <a href="{{ route('bo.sales.credit-notes.create') }}" class="dropdown-item d-flex align-items-center">
                                         <i class="isax isax-money-add me-2"></i>{{ __('Avoirs') }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('add-debit-notes') }}" class="dropdown-item d-flex align-items-center">
+                                    <a href="{{ route('bo.purchases.debit-notes.create') }}" class="dropdown-item d-flex align-items-center">
                                         <i class="isax isax-money-recive me-2"></i>{{ __('Notes de débit') }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('add-purchases-orders') }}"
+                                    <a href="{{ route('bo.purchases.purchase-orders.create') }}"
                                         class="dropdown-item d-flex align-items-center">
                                         <i class="isax isax-document me-2"></i>{{ __('Bon de commande') }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('add-quotation') }}" class="dropdown-item d-flex align-items-center">
+                                    <a href="{{ route('bo.sales.quotes.create') }}" class="dropdown-item d-flex align-items-center">
                                         <i class="isax isax-document-download me-2"></i>{{ __('Devis') }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('add-delivery-challan') }}"
+                                    <a href="{{ route('bo.sales.delivery-challans.create') }}"
                                         class="dropdown-item d-flex align-items-center">
                                         <i class="isax isax-document-forward me-2"></i>{{ __('Bon de livraison') }}
                                     </a>
@@ -2253,13 +2253,12 @@
                                     <i class="isax isax-document-text me-2"></i>{{ __('Rapports') }}
                                 </a>
 
-                                <!-- Item-->
-                                <div
+                                {{-- <div
                                     class="form-check form-switch form-check-reverse d-flex align-items-center justify-content-between dropdown-item mb-0">
                                     <label class="form-check-label" for="notify"><i
                                             class="isax isax-notification me-2"></i>{{ __('Notifications') }}</label>
                                     <input class="form-check-input" type="checkbox" role="switch" id="notify">
-                                </div>
+                                </div> --}}
 
                                 <hr class="dropdown-divider my-2">
 
@@ -2288,6 +2287,25 @@
                     </span>
                 </a>
                 <div class="dropdown-menu p-2 mt-0">
+                    {{-- Language --}}
+                    @php $currentLocale = app()->getLocale(); $locales = ['fr'=>['name'=>'Français','flag'=>'fr.svg'],'en'=>['name'=>'English','flag'=>'us.svg'],'ar'=>['name'=>'العربية','flag'=>'ae.svg']]; $localeSwitchRoute = (auth()->check() && auth()->user()->tenant_id === null) ? route('sa.locale.switch') : route('bo.locale.switch'); @endphp
+                    <div class="d-flex align-items-center gap-2 px-3 py-2">
+                        @foreach($locales as $code => $locale)
+                            <form method="POST" action="{{ $localeSwitchRoute }}" class="locale-switch-form">
+                                @csrf
+                                <input type="hidden" name="locale" value="{{ $code }}">
+                                <button type="submit" title="{{ $locale['name'] }}" style="background:none;border:2px solid {{ $currentLocale === $code ? '#7539ff' : 'transparent' }};border-radius:50%;padding:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                                    <img src="{{ URL::asset('build/img/flags/' . $locale['flag']) }}" width="28" height="28" style="border-radius:50%;display:block;">
+                                </button>
+                            </form>
+                        @endforeach
+                    </div>
+                    <hr class="dropdown-divider my-1">
+                    {{-- Dark mode --}}
+                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" id="dark-mode-toggle-mobile">
+                        <i class="isax isax-moon me-2"></i>{{ __('Mode sombre') }}
+                    </a>
+                    <hr class="dropdown-divider my-1">
                     <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.account.settings.edit') }}">
                         <i class="isax isax-profile-circle me-2"></i>{{ __('Paramètres du profil') }}
                     </a>
@@ -2308,6 +2326,11 @@
                 </div>
             </div>
             <!-- /Mobile Menu -->
+            <script>
+                document.getElementById('dark-mode-toggle-mobile')?.addEventListener('click', function() {
+                    document.getElementById('dark-mode-toggle')?.click();
+                });
+            </script>
 
         </div>
     </div>

@@ -15,6 +15,7 @@ use App\Http\Controllers\Backoffice\Settings\PlansBillingsController;
 use App\Http\Controllers\Backoffice\Settings\PaymentMethodController;
 use App\Http\Controllers\Backoffice\Settings\SecuritySettingsController;
 use App\Http\Controllers\Backoffice\Settings\SignatureSettingsController;
+use App\Http\Controllers\Backoffice\Settings\DataExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -132,3 +133,11 @@ Route::prefix('settings/security')->as('settings.security.')->middleware('permis
 // Delete Account Request
 Route::post('settings/delete-account', [DeleteAccountController::class, 'store'])
     ->name('settings.delete-account.store');
+
+// Data Export
+Route::prefix('settings/data-export')->as('settings.data-export.')->middleware('permission:settings.data_export.view')->group(function () {
+    Route::get('/', [DataExportController::class, 'index'])->name('index');
+    Route::post('/download', [DataExportController::class, 'export'])
+        ->middleware(['permission:settings.data_export.create', 'throttle:data-export'])
+        ->name('download');
+});

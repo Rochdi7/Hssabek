@@ -94,26 +94,19 @@
 @include('backoffice.components.title-meta')
 
 @if ($isAuth)
-
-    <body class="bg-white @if($isRtl) layout-mode-rtl @endif">
-    @elseif ($isStatus)
-
-        <body class="bg-white coming-soon @if($isRtl) layout-mode-rtl @endif">
-        @elseif ($page === 'general-invoice-5')
-
-            <body class="bg-dark">
-            @elseif ($layoutMini)
-
-                <body class="mini-sidebar">
-                @elseif ($layoutRtl)
-
-                    <body class="layout-mode-rtl">
-                    @elseif ($isRtl)
-
-                        <body class="layout-mode-rtl">
-                    @else
-
-                        <body>
+<body class="bg-white @if($isRtl) layout-mode-rtl @endif">
+@elseif ($isStatus)
+<body class="bg-white coming-soon @if($isRtl) layout-mode-rtl @endif">
+@elseif ($page === 'general-invoice-5')
+<body class="bg-dark">
+@elseif ($layoutMini)
+<body class="mini-sidebar">
+@elseif ($layoutRtl)
+<body class="layout-mode-rtl">
+@elseif ($isRtl)
+<body class="layout-mode-rtl">
+@else
+<body>
 @endif
 
 <!-- Start Main Wrapper -->
