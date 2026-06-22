@@ -1,4 +1,4 @@
-﻿?<?php $page = 'quotations'; ?>
+?<?php $page = 'quotations'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', $documentConfig['plural_label'])
 @section('description', $documentConfig['all_label'])

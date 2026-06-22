@@ -1,6 +1,6 @@
 # Hssabek — Logiciel de facturation en ligne pour le Maroc
 
-## À propos
+> Hssabek est un logiciel SaaS de facturation et gestion commerciale en ligne conçu pour les PME, auto-entrepreneurs et freelances au Maroc. Créez des factures et devis conformes DGI en 10 secondes grâce à l'IA, en français ou en arabe.
 
 Hssabek est une application SaaS de facturation et gestion commerciale en ligne,
 conçue pour les PME, auto-entrepreneurs et freelances marocains.
@@ -31,29 +31,38 @@ Le plan professionnel est disponible en paiement unique à vie (prix sur demande
 
 ## Pages importantes
 
-- Accueil : https://hssabek.com/
-- Fonctionnalités : https://hssabek.com/features
-- Tarifs : https://hssabek.com/pricing
-- Auto-entrepreneur : https://hssabek.com/auto-entrepreneur
-- FAQ : https://hssabek.com/faq
-- Contact : https://hssabek.com/contact
-- Centre d'aide : https://hssabek.com/centre-aide
-- Demande de compte : https://hssabek.com/demande-compte
-- Conditions d'utilisation : https://hssabek.com/conditions-utilisation
-- Politique de confidentialité : https://hssabek.com/politique-confidentialite
+- [Accueil](https://hssabek.com/) : Page principale du logiciel de facturation Maroc
+- [Fonctionnalités](https://hssabek.com/features) : Toutes les fonctionnalités devis & factures
+- [Tarifs](https://hssabek.com/pricing) : Plans et tarification logiciel facturation Maroc
+- [Auto-entrepreneur](https://hssabek.com/auto-entrepreneur) : Facturation pour auto-entrepreneurs marocains
+- [FAQ](https://hssabek.com/faq) : Questions fréquentes sur la facturation en ligne au Maroc
+- [Contact](https://hssabek.com/contact) : Contacter l'équipe Hssabek
+- [Centre d'aide](https://hssabek.com/centre-aide) : Guides et tutoriels d'utilisation
+- [Demande de compte](https://hssabek.com/demande-compte) : Créer un compte gratuit
+- [Conditions d'utilisation](https://hssabek.com/conditions-utilisation) : CGU Hssabek
+- [Politique de confidentialité](https://hssabek.com/politique-confidentialite) : Protection des données
 
 ## Mots-clés associés
 
-logiciel facturation Maroc, logiciel devis facture Maroc, facturation auto-entrepreneur Maroc,
-créer facture en ligne Maroc, logiciel gestion devis PME Maroc, application facturation marocaine,
-facture conforme DGI Maroc, logiciel facturation pas cher Maroc, gérer devis et factures en ligne,
-meilleur logiciel facturation auto-entrepreneur, facturation électronique Maroc, ICE facture Maroc
+- logiciel facturation Maroc
+- logiciel devis facture Maroc
+- facturation auto-entrepreneur Maroc
+- créer facture en ligne Maroc
+- logiciel gestion devis PME Maroc
+- application facturation marocaine
+- facture conforme DGI Maroc
+- logiciel facturation pas cher Maroc
+- gérer devis et factures en ligne
+- meilleur logiciel facturation auto-entrepreneur
+- facturation électronique Maroc
+- ICE facture Maroc
 
 ## Langue
 
-Français (principal), Arabe / Darija (supporté)
+- Français (principal)
+- Arabe / Darija (supporté, interface RTL complète)
 
 ## Contact
 
-Site web : https://hssabek.com
-WhatsApp : +212 632 582 096
+- [Site web](https://hssabek.com) : hssabek.com
+- [WhatsApp](https://wa.me/212632582096) : +212 632 582 096

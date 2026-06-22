@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontoffice\BlogController;
 use App\Http\Controllers\Web\LocaleSwitchController;
 use App\Http\Controllers\Web\PageController;
 use Illuminate\Support\Facades\Route;
@@ -54,5 +55,9 @@ Route::middleware(['setFrontofficeLocale'])->group(function () {
 
     // Platform Preview (shareable showcase page)
     Route::get('/apercu-plateforme', [PageController::class, 'preview'])->name('preview');
+
+    // Blog
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 });

@@ -1,4 +1,4 @@
-﻿<?php $page = 'add-invoice'; ?>
+<?php $page = 'add-invoice'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', 'Nouvelle Facture')
 @section('description', 'Créer une nouvelle facture de vente')

@@ -66,6 +66,20 @@
                     </ul>
                 </li>
 
+                {{-- Données --}}
+                <li class="submenu">
+                    <a href="javascript:void(0);"
+                        class="{{ request()->routeIs('bo.settings.data-export.*') ? 'active subdrop' : '' }}">
+                        <i class="isax isax-document-download fs-18"></i>
+                        <span class="fs-14 fw-medium ms-2">{{ __('Gestion des données') }}</span>
+                        <span class="isax isax-arrow-down-1 arrow-menu ms-auto"></span>
+                    </a>
+                    <ul>
+                        <li><a href="{{ route('bo.settings.data-export.index') }}"
+                                class="{{ request()->routeIs('bo.settings.data-export.*') ? 'active' : '' }}">{{ __('Exporter mes données') }}</a></li>
+                    </ul>
+                </li>
+
                 {{-- Abonnement --}}
                 <li class="submenu">
                     <a href="javascript:void(0);"
