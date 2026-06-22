@@ -2249,7 +2249,7 @@
 
                                 <!-- Item-->
                                 <a class="dropdown-item d-flex align-items-center"
-                                    href="{{ url('inventory-report') }}">
+                                    href="{{ route('bo.reports.index') }}">
                                     <i class="isax isax-document-text me-2"></i>{{ __('Rapports') }}
                                 </a>
 
@@ -2291,7 +2291,7 @@
                     <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.account.settings.edit') }}">
                         <i class="isax isax-profile-circle me-2"></i>{{ __('Paramètres du profil') }}
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ url('inventory-report') }}">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.reports.index') }}">
                         <i class="isax isax-document-text me-2"></i>{{ __('Rapports') }}
                     </a>
                     <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.account.settings.edit') }}">
