@@ -3,9 +3,9 @@
 {{-- ============================================ --}}
 <div class="col-12 d-lg-none mb-3">
     <button class="btn btn-primary w-100 d-flex align-items-center justify-content-between"
-            type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#settingsMobileOffcanvas"
-            aria-controls="settingsMobileOffcanvas">
+        type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#settingsMobileOffcanvas"
+        aria-controls="settingsMobileOffcanvas">
         <span><i class="isax isax-setting-2 me-2"></i>{{ __('Menu des paramètres') }}</span>
         <i class="isax isax-menu"></i>
     </button>
@@ -33,12 +33,12 @@
 {{-- Mobile offcanvas (< lg)                       --}}
 {{-- ============================================ --}}
 <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="settingsMobileOffcanvas"
-     aria-labelledby="settingsMobileOffcanvasLabel" style="width: 85%; max-width: 320px;">
+    aria-labelledby="settingsMobileOffcanvasLabel" style="width: 85%; max-width: 320px;">
     <div class="offcanvas-header border-bottom">
         <h6 class="offcanvas-title mb-0" id="settingsMobileOffcanvasLabel">
             <i class="isax isax-setting-2 me-2"></i>{{ __('Paramètres') }}
         </h6>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ __('Fermer') }}"></button>
     </div>
     <div class="offcanvas-body p-2">
         <div class="settings-sidebar-mobile-inner">

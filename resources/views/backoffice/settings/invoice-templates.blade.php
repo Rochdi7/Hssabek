@@ -1,7 +1,7 @@
 <?php $page = 'invoice-templates-settings'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Modèles de Facture')
-@section('description', 'Gérer les modèles de documents')
+@section('title', __('Modèles de documents'))
+@section('description', __('Gérer les modèles de documents'))
 @section('content')
     <!-- ========================
                        Start Page Content

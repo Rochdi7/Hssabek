@@ -94,7 +94,7 @@
                         </a>
                         <ul>
                             <li><a href="{{ route('bo.settings.plans-billings.index') }}"
-                                    class="{{ request()->routeIs('bo.settings.plans-billings.*') ? 'active' : '' }}">{{ __('Plans & Facturation') }}</a></li>
+                                    class="{{ request()->routeIs('bo.settings.plans-billings.*') ? 'active' : '' }}">{{ __('Plans et facturation') }}</a></li>
                         </ul>
                     </li>
                 @endif

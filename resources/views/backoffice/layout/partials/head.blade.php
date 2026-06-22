@@ -265,6 +265,40 @@
                 left: 0 !important;
             }
         }
+        @media (min-width: 992px) {
+            .sidebar .sidebar-logo,
+            .sidebars .sidebar-logo {
+                padding-right: 52px;
+            }
+            .sidebar .sidebar-logo .logo,
+            .sidebar .sidebar-logo .dark-logo,
+            .sidebars .sidebar-logo .logo,
+            .sidebars .sidebar-logo .dark-logo {
+                width: 100%;
+                max-width: calc(100% - 8px);
+            }
+            .sidebar .sidebar-logo .logo img,
+            .sidebar .sidebar-logo .dark-logo img,
+            .sidebars .sidebar-logo .logo img,
+            .sidebars .sidebar-logo .dark-logo img {
+                display: block;
+                max-width: 100%;
+                height: auto;
+            }
+            .mini-sidebar .sidebar .sidebar-logo,
+            .mini-sidebar .sidebars .sidebar-logo {
+                padding-right: 16px;
+            }
+            body.layout-mode-rtl .sidebar .sidebar-logo,
+            body.layout-mode-rtl .sidebars .sidebar-logo {
+                padding-right: 16px;
+                padding-left: 52px;
+            }
+            body.layout-mode-rtl.mini-sidebar .sidebar .sidebar-logo,
+            body.layout-mode-rtl.mini-sidebar .sidebars .sidebar-logo {
+                padding-left: 16px;
+            }
+        }
     </style>
 
     <!-- Fix: ensure item-table headers always have white text on dark bg -->
@@ -280,6 +314,13 @@
         }
         [data-bs-theme=dark] .mini-sidebar .sidebar .sidebar-logo .dark-small {
             display: block !important;
+        }
+        .logo-small img,
+        .dark-small img {
+            width: 36px;
+            height: 36px;
+            display: block;
+            margin: 0 auto;
         }
         /* Settings menu inside mobile offcanvas: replicate sidebar-menu styles
            without the .sidebars wrapper (which is fixed-positioned and pushed

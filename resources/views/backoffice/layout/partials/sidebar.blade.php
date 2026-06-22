@@ -53,13 +53,13 @@
                     <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="logo-small">
-                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/2.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="dark-logo">
-                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/logo-wide-white.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="dark-small">
-                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo">
+                    <img src="{{ URL::asset('assets/images/logo/3.png') }}" alt="Logo">
                 </a>
 
                 <!-- Sidebar Hover Menu Toggle Button -->

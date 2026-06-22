@@ -1,7 +1,7 @@
 <?php $page = 'esignatures'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Signatures')
-@section('description', 'Gérer les signatures électroniques')
+@section('title', __('Signatures électroniques'))
+@section('description', __('Gérer les signatures électroniques'))
 @section('content')
     <!-- ========================
                 Start Page Content
