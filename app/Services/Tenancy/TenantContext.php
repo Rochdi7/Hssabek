@@ -3,6 +3,7 @@
 namespace App\Services\Tenancy;
 
 use App\Models\Tenancy\Tenant;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Singleton service that holds the currently resolved tenant
@@ -25,6 +26,18 @@ class TenantContext
      */
     public static function get(): ?Tenant
     {
+        return static::$tenant;
+    }
+
+    /**
+     * Get the current tenant or fail with a 403 response.
+     */
+    public static function require(): Tenant
+    {
+        if (!static::$tenant) {
+            throw new AccessDeniedHttpException('Tenant context is required.');
+        }
+
         return static::$tenant;
     }
 

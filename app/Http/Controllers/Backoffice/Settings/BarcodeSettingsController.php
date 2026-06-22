@@ -11,7 +11,7 @@ class BarcodeSettingsController extends Controller
 {
     public function edit()
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
 
         return view('backoffice.settings.barcode', compact('settings'));
@@ -19,7 +19,7 @@ class BarcodeSettingsController extends Controller
 
     public function update(UpdateBarcodeSettingsRequest $request)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
         $modules = $setting->modules_settings ?? [];

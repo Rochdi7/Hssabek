@@ -2302,8 +2302,11 @@
                     </div>
                     <hr class="dropdown-divider my-1">
                     {{-- Dark mode --}}
-                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" id="dark-mode-toggle-mobile">
-                        <i class="isax isax-moon me-2"></i>{{ __('Mode sombre') }}
+                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" id="theme-toggle-mobile">
+                        <i class="isax isax-moon me-2" id="theme-toggle-mobile-icon"></i>
+                        <span id="theme-toggle-mobile-label"
+                            data-dark-label="{{ __('Mode sombre') }}"
+                            data-light-label="{{ __('Mode clair') }}">{{ __('Mode sombre') }}</span>
                     </a>
                     <hr class="dropdown-divider my-1">
                     <a class="dropdown-item d-flex align-items-center" href="{{ route('bo.account.settings.edit') }}">
@@ -2326,12 +2329,6 @@
                 </div>
             </div>
             <!-- /Mobile Menu -->
-            <script>
-                document.getElementById('dark-mode-toggle-mobile')?.addEventListener('click', function() {
-                    document.getElementById('dark-mode-toggle')?.click();
-                });
-            </script>
-
         </div>
     </div>
     <!-- Topbar End -->

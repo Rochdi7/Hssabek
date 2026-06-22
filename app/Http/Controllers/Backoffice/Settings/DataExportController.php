@@ -135,7 +135,7 @@ class DataExportController extends Controller
 
     public function index()
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
 
         $stats = [
             'customers'       => Customer::count(),
@@ -174,7 +174,7 @@ class DataExportController extends Controller
 
         $format  = $request->input('format');
         $modules = $request->input('modules');
-        $tenant  = TenantContext::get();
+        $tenant  = TenantContext::require();
         $config  = $this->moduleConfig();
 
         // Log the export attempt for audit trail

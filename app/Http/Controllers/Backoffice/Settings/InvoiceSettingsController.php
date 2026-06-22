@@ -14,7 +14,7 @@ class InvoiceSettingsController extends Controller
     {
         $this->authorize('viewInvoice', TenantSetting::class);
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
 
         return view('backoffice.settings.invoice', compact('settings', 'tenant'));
@@ -24,7 +24,7 @@ class InvoiceSettingsController extends Controller
     {
         $this->authorize('editInvoice', TenantSetting::class);
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
         $invoiceData = $request->safe()->except(['cropped_invoice_image', 'cropped_invoice_image_deleted']);

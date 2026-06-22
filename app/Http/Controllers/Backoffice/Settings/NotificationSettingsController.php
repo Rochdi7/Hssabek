@@ -11,7 +11,7 @@ class NotificationSettingsController extends Controller
 {
     public function edit()
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
 
         return view('backoffice.settings.notifications', compact('settings'));
@@ -19,7 +19,7 @@ class NotificationSettingsController extends Controller
 
     public function update(UpdateNotificationSettingsRequest $request)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
         // Define all known checkbox keys so unchecked ones are saved as false

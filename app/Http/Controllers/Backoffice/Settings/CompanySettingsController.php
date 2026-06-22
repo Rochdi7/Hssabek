@@ -18,7 +18,7 @@ class CompanySettingsController extends Controller
     {
         $this->authorize('viewCompany', TenantSetting::class);
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
 
         return view('backoffice.settings.company', compact('settings', 'tenant'));
@@ -28,7 +28,7 @@ class CompanySettingsController extends Controller
     {
         $this->authorize('editCompany', TenantSetting::class);
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
         $imageFields = array_merge(

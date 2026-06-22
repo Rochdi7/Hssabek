@@ -25,7 +25,7 @@ class AppearanceSettingsController extends Controller
 
     public function edit()
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
         $appearance = $settings->modules_settings['appearance'] ?? [];
 
@@ -49,7 +49,7 @@ class AppearanceSettingsController extends Controller
             'theme.in' => 'Le thème sélectionné n\'est pas valide.',
         ]);
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
         $modules = $setting->modules_settings ?? [];

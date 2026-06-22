@@ -47,7 +47,7 @@ class InvoiceTemplateSettingsController extends Controller
 
     public function index()
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
 
         // Per-document-type defaults: { "invoice": "modern", "quote": "default", ... }
@@ -135,7 +135,7 @@ class InvoiceTemplateSettingsController extends Controller
                 ->with('error', __('Modèle invalide.'));
         }
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
 
         // If paid template, verify access
         if (!$catalogTemplate->is_free) {
@@ -191,7 +191,7 @@ class InvoiceTemplateSettingsController extends Controller
             abort(404);
         }
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
         $originalInvoiceSettings = $settings->invoice_settings ?? [];
 
@@ -250,7 +250,7 @@ class InvoiceTemplateSettingsController extends Controller
 
     public function purchase(string $templateId)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
 
         $catalogTemplate = TemplateCatalog::where('id', $templateId)
             ->where('is_active', true)
