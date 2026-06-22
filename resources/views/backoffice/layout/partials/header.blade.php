@@ -9,7 +9,7 @@
                     <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo" style="width:auto;height:32px;max-width:130px;">
                 </a>
                 <a href="{{ route('bo.dashboard') }}" class="dark-logo">
-                    <img src="{{ URL::asset('assets/images/logo/hssabek mobile logo.png') }}" alt="Logo" style="width:auto;height:32px;max-width:130px;filter:brightness(0) invert(1);">
+                    <img src="{{ URL::asset('assets/images/logo/logo-wide-white.png') }}" alt="Logo" style="width:auto;height:32px;max-width:130px;">
                 </a>
             </div>
 

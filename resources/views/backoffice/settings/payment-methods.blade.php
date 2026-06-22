@@ -1,7 +1,7 @@
 <?php $page = 'payment-methods'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Méthodes de Paiement')
-@section('description', 'Gérer les méthodes de paiement')
+@section('title', __('Modes de paiement'))
+@section('description', __('Gérer les méthodes de paiement'))
 @section('content')
     <div class="page-wrapper">
         <div class="content">

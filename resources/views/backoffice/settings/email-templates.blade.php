@@ -1,7 +1,7 @@
 <?php $page = 'email-templates'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', "Modèles d'E-mail")
-@section('description', "Gérer les modèles d'e-mail")
+@section('title', __("Modèles d'email"))
+@section('description', __("Gérer les modèles d'e-mail"))
 @section('content')
     <!-- ========================
                 Start Page Content

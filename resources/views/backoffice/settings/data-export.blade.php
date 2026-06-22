@@ -1,7 +1,7 @@
 <?php $page = 'data-export'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', "Exportation des données")
-@section('description', "Téléchargez toutes les données de votre entreprise")
+@section('title', __('Exportation des données'))
+@section('description', __('Téléchargez toutes les données de votre entreprise'))
 @section('content')
 
     <div class="page-wrapper">

@@ -1,7 +1,7 @@
 <?php $page = 'localization-settings'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Langue et Région')
-@section('description', 'Configurer la langue et la région')
+@section('title', __('Langue et Région'))
+@section('description', __('Configurer la langue et la région'))
 @section('content')
     <!-- ========================
                Start Page Content
@@ -163,7 +163,7 @@
                 </div>
                 <div class="modal-footer border-0 pt-0">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                        id="cancelArabicBtn">{{ __('Annuler') }}</button>
+                        id="cancelArabicBtn">{{ __('Fermer') }}</button>
                     <button type="button" class="btn btn-primary"
                         id="confirmArabicBtn">{{ __('Continuer quand même') }}</button>
                 </div>
@@ -184,30 +184,18 @@
             let previousValue = localeSelect.value;
 
             localeSelect.addEventListener('change', function() {
+                previousValue = this.value;
                 if (this.value === 'ar') {
                     arabicWarningModal.show();
-                } else {
-                    previousValue = this.value;
                 }
             });
 
-            // Cancel button - revert to previous value
             document.getElementById('cancelArabicBtn').addEventListener('click', function() {
-                localeSelect.value = previousValue;
                 arabicWarningModal.hide();
             });
 
-            // Confirm button - keep Arabic selected
             document.getElementById('confirmArabicBtn').addEventListener('click', function() {
-                previousValue = 'ar';
                 arabicWarningModal.hide();
-            });
-
-            // Also revert if modal is closed via X button or clicking outside
-            document.getElementById('arabicWarningModal').addEventListener('hidden.bs.modal', function() {
-                if (localeSelect.value === 'ar' && previousValue !== 'ar') {
-                    localeSelect.value = previousValue;
-                }
             });
         });
     </script>

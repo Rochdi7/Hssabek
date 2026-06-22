@@ -1,7 +1,7 @@
 <?php $page = 'appearance-settings'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Apparence')
-@section('description', "Personnaliser l'apparence de l'application")
+@section('title', __('Apparence'))
+@section('description', __("Personnaliser l'apparence de l'application"))
 @section('content')
     <!-- ========================
                 Start Page Content
@@ -139,7 +139,7 @@
                                 <!-- ============================================ -->
                                 <div class="card">
                                     <div class="card-header bg-primary">
-                                        <h6 class="text-white mb-0">Theme Customizer</h6>
+                                        <h6 class="text-white mb-0">{{ __("Theme Customizer") }}</h6>
                                     </div>
                                     <div class="card-body p-0">
                                         <div class="themesettings-inner">
@@ -149,7 +149,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#layoutsetting" aria-expanded="true">
-                                                            Select Layouts 
+                                                            {{ __('Select Layouts') }}
                                                         </button>
                                                     </h2>
                                                     <div id="layoutsetting" class="accordion-collapse collapse show">
@@ -164,7 +164,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/default.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Default</span>
+                                                                                <span class="layout-type">{{ __("Default") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -176,7 +176,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/single.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Single</span>
+                                                                                <span class="layout-type">{{ __("Single") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -188,7 +188,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/mini.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Mini</span>
+                                                                                <span class="layout-type">{{ __("Mini") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -200,7 +200,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/transparent.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Transparent</span>
+                                                                                <span class="layout-type">{{ __("Transparent") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -212,7 +212,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/without-header.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Without Header</span>
+                                                                                <span class="layout-type">{{ __("Without Header") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -221,7 +221,7 @@
                                                                             <span class="d-block mb-2 layout-img">
                                                                                 <img src="{{ URL::asset('build/img/theme/rtl.svg') }}" alt="img">
                                                                             </span>
-                                                                            <span class="layout-type d-block">RTL</span>
+                                                                            <span class="layout-type d-block">{{ __("RTL") }}</span>
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -234,7 +234,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarsetting" aria-expanded="true">
-                                                            Layout Width 
+                                                            {{ __('Layout Width') }}
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarsetting" class="accordion-collapse collapse show">
@@ -243,11 +243,11 @@
                                                                 <div class="d-flex align-items-center">
                                                                     <div class="theme-width m-1 me-2">
                                                                         <input type="radio" name="layout_width" id="fluidWidth" value="fluid" {{ $currentWidth === 'fluid' ? 'checked' : '' }}>
-                                                                        <label for="fluidWidth" class="d-flex align-items-center rounded fs-12"><i class="isax isax-row-vertical me-1"></i>Fluid Layout</label>
+                                                                        <label for="fluidWidth" class="d-flex align-items-center rounded fs-12"><i class="isax isax-row-vertical me-1"></i>{{ __("Fluid Layout") }}</label>
                                                                     </div>
                                                                     <div class="theme-width m-1">
                                                                         <input type="radio" name="layout_width" id="boxWidth" value="box" {{ $currentWidth === 'box' ? 'checked' : '' }}>
-                                                                        <label for="boxWidth" class="d-flex align-items-center rounded fs-12"><i class="isax isax-slider-vertical me-1"></i>Boxed Layout</label>
+                                                                        <label for="boxWidth" class="d-flex align-items-center rounded fs-12"><i class="isax isax-slider-vertical me-1"></i>{{ __("Boxed Layout") }}</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -259,13 +259,13 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarcolorsetting" aria-expanded="true">
-                                                            Sidebar Color 
+                                                            {{ __('Sidebar Color') }}
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarcolorsetting" class="accordion-collapse collapse show">
                                                         <div class="accordion-body">
                                                             <div class="theme-content">
-                                                                <h6 class="fs-14 fw-medium mb-2">Solid Colors</h6>
+                                                                <h6 class="fs-14 fw-medium mb-2">{{ __("Solid Colors") }}</h6>
                                                                 <div class="d-flex align-items-center flex-wrap">
                                                                     <div class="theme-colorselect m-1 me-2">
                                                                         <input type="radio" name="sidebar_color" id="lightSidebar" value="light" {{ $currentSidebarColor === 'light' ? 'checked' : '' }}>
@@ -310,7 +310,7 @@
                                                                         </label>
                                                                     </div>
                                                                 </div>
-                                                                <h6 class="fs-14 fw-medium mb-2">Gradient Colors</h6>
+                                                                <h6 class="fs-14 fw-medium mb-2">{{ __("Gradient Colors") }}</h6>
                                                                 <div class="d-flex align-items-center flex-wrap">
                                                                     <div class="theme-colorselect m-1 me-2">
                                                                         <input type="radio" name="sidebar_color" id="gradientsidebar1Sidebar" value="gradientsidebar1" {{ $currentSidebarColor === 'gradientsidebar1' ? 'checked' : '' }}>
@@ -358,7 +358,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sizesetting" aria-expanded="true">
-                                                            Sidebar Size 
+                                                            {{ __('Sidebar Size') }}
                                                         </button>
                                                     </h2>
                                                     <div id="sizesetting" class="accordion-collapse collapse show">
@@ -373,7 +373,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/default.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Default</span>
+                                                                                <span class="layout-type">{{ __("Default") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -385,7 +385,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/single.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Single</span>
+                                                                                <span class="layout-type">{{ __("Single") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -397,7 +397,7 @@
                                                                                     <span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span>
                                                                                     <img src="{{ URL::asset('build/img/theme/mini.svg') }}" alt="img">
                                                                                 </span>
-                                                                                <span class="layout-type">Compact</span>
+                                                                                <span class="layout-type">{{ __("Compact") }}</span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -411,13 +411,13 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#colorsetting" aria-expanded="true">
-                                                            Top Bar Color 
+                                                            {{ __('Top Bar Color') }}
                                                         </button>
                                                     </h2>
                                                     <div id="colorsetting" class="accordion-collapse collapse show">
                                                         <div class="accordion-body pb-1">
                                                             <div class="theme-content">
-                                                                <h6 class="fs-14 fw-medium mb-2">Solid Colors</h6>
+                                                                <h6 class="fs-14 fw-medium mb-2">{{ __("Solid Colors") }}</h6>
                                                                 <div class="d-flex align-items-center flex-wrap topbar-background">
                                                                     <div class="theme-colorselect mb-3 me-3">
                                                                         <input type="radio" name="topbar_color" id="whiteTopbar" value="white" {{ $currentTopbarColor === 'white' ? 'checked' : '' }}>
@@ -450,7 +450,7 @@
                                                                         <label for="topbar6Topbar" class="bg-success"><span class="theme-check rounded-circle"><i class="fa-solid fa-check"></i></span></label>
                                                                     </div>
                                                                 </div>
-                                                                <h6 class="fs-14 fw-medium mb-2">Gradient Colors</h6>
+                                                                <h6 class="fs-14 fw-medium mb-2">{{ __("Gradient Colors") }}</h6>
                                                                 <div class="d-flex align-items-center flex-wrap topbar-background">
                                                                     <div class="theme-colorselect mb-3 me-3">
                                                                         <input type="radio" name="topbar_color" id="gradienttopbar1Topbar" value="gradienttopbar1" {{ $currentTopbarColor === 'gradienttopbar1' ? 'checked' : '' }}>
@@ -488,13 +488,13 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarbgsetting" aria-expanded="true">
-                                                            Sidebar Background 
+                                                            {{ __('Sidebar Background') }}
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarbgsetting" class="accordion-collapse collapse show">
                                                         <div class="accordion-body pb-1">
                                                             <div class="theme-content">
-                                                                <h6 class="fs-14 fw-medium mb-2">Pattern</h6>
+                                                                <h6 class="fs-14 fw-medium mb-2">{{ __("Pattern") }}</h6>
                                                                 <div class="d-flex align-items-center flex-wrap">
                                                                     <div class="theme-sidebarbg me-3 mb-3">
                                                                         <input type="radio" name="sidebar_bg" id="sidebarBg1" value="sidebarbg1" {{ $currentSidebarBg === 'sidebarbg1' ? 'checked' : '' }}>
@@ -548,7 +548,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button text-gray-9 fw-semibold fs-16" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarcolor" aria-expanded="true">
-                                                            Theme Colors 
+                                                            {{ __('Theme Colors') }}
                                                         </button>
                                                     </h2>
                                                     <div id="sidebarcolor" class="accordion-collapse collapse show">
