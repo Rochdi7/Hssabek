@@ -12,7 +12,7 @@ class EmailTemplateSettingsController extends Controller
 {
     public function index()
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
         $templates = collect($settings->modules_settings['email_templates'] ?? [])
             ->sortByDesc('created_at')
@@ -35,7 +35,7 @@ class EmailTemplateSettingsController extends Controller
             'body.required' => 'Le contenu de l\'email est obligatoire.',
         ]);
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings ?? TenantSetting::create(['tenant_id' => $tenant->id]);
 
         $modules = $setting->modules_settings ?? [];
@@ -73,7 +73,7 @@ class EmailTemplateSettingsController extends Controller
             'body.required' => 'Le contenu de l\'email est obligatoire.',
         ]);
 
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings;
 
         $modules = $setting->modules_settings ?? [];
@@ -99,7 +99,7 @@ class EmailTemplateSettingsController extends Controller
 
     public function toggleStatus(string $templateId)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings;
 
         $modules = $setting->modules_settings ?? [];
@@ -123,7 +123,7 @@ class EmailTemplateSettingsController extends Controller
 
     public function destroy(string $templateId)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $setting = $tenant->settings;
 
         $modules = $setting->modules_settings ?? [];

@@ -11,7 +11,7 @@ class PlansBillingsController extends Controller
 {
     public function index(PlanLimitService $limitService)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $currentSubscription = Subscription::with('plan')
             ->where('status', '!=', 'cancelled')
             ->where(function ($q) {

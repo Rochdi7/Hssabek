@@ -29,7 +29,7 @@ class CurrencySettingsController extends Controller
 
     public function index()
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $baseCurrency = $tenant->settings->localization_settings['currency'] ?? 'MAD';
         $defaultCurrency = $baseCurrency;
 
@@ -52,7 +52,7 @@ class CurrencySettingsController extends Controller
 
     public function store(StoreCurrencyRequest $request)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $baseCurrency = $tenant->settings->localization_settings['currency'] ?? 'MAD';
 
         // Ensure base currency exists before creating exchange rate
@@ -93,7 +93,7 @@ class CurrencySettingsController extends Controller
 
     public function storeExchangeRate(StoreExchangeRateRequest $request)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $baseCurrency = $tenant->settings->localization_settings['currency'] ?? 'MAD';
 
         // Ensure base currency exists
@@ -131,7 +131,7 @@ class CurrencySettingsController extends Controller
 
     public function setDefault(Currency $currency)
     {
-        $tenant = TenantContext::get();
+        $tenant = TenantContext::require();
         $settings = $tenant->settings;
         $localization = $settings->localization_settings ?? [];
         $localization['currency'] = $currency->code;

@@ -13,12 +13,9 @@ class EnsureTenantIsActive
         $tenant = TenantContext::get();
 
         if (!$tenant) {
-            // No tenant resolved — let the request continue
-            // (SuperAdmin routes don't resolve a tenant)
             return $next($request);
         }
 
-        // Check tenant status
         if ($tenant->status === 'suspended' || $tenant->status === 'cancelled') {
             return response()->view('errors.tenant-suspended', [
                 'tenant' => $tenant,
@@ -26,7 +23,6 @@ class EnsureTenantIsActive
             ], 403);
         }
 
-        // Check trial expiry
         if (
             $tenant->has_free_trial
             && $tenant->trial_ends_at !== null

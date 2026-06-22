@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'identifyTenant' => \App\Http\Middleware\IdentifyTenantByDomain::class,
+            'requireTenantContext' => \App\Http\Middleware\RequireTenantContext::class,
             'tenantActive' => \App\Http\Middleware\EnsureTenantIsActive::class,
             'setTenantContext' => \App\Http\Middleware\SetTenantContext::class,
             'isSuperAdmin' => \App\Http\Middleware\IsSuperAdmin::class,

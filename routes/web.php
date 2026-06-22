@@ -87,11 +87,12 @@ Route::prefix('backoffice')
             ->name('invitation.accept.store');
 
         // Protected routes — tenant identified from authenticated user
-        Route::middleware(['auth', 'identifyTenant', 'tenantActive', 'setTenantContext', 'subscriptionActive'])->group(function () {
-
-            // Quick language switch from header
+        Route::middleware(['auth'])->group(function () {
             Route::post('/locale/switch', \App\Http\Controllers\Backoffice\LocaleSwitchController::class)->name('locale.switch');
+            require __DIR__ . '/backoffice/settings-personal.php';
+        });
 
+        Route::middleware(['auth', 'identifyTenant', 'requireTenantContext', 'tenantActive', 'setTenantContext', 'subscriptionActive'])->group(function () {
             require __DIR__ . '/backoffice/dashboard.php';
             require __DIR__ . '/backoffice/settings.php';
             require __DIR__ . '/backoffice/users.php';
