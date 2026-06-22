@@ -4,6 +4,19 @@
 @section('meta_description', __('Conditions générales d\'utilisation de') . ' ' . config('app.name') . '. ' . __('Règles d\'utilisation du logiciel de facturation et gestion commerciale en ligne au Maroc.'))
 @section('meta_keywords', 'conditions utilisation hssabek, CGU logiciel facturation maroc, règlement facturation en ligne')
 
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Conditions d'utilisation", "item": "{{ route('terms') }}"}
+	]
+}
+</script>
+@endsection
+
 @section('hero')
 <!-- Hero Section -->
 <section class="hero-section" id="index">

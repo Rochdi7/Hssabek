@@ -1,7 +1,7 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Fonctionnalités — Facturation Électronique, Devis, Stock & Gestion Commerciale Maroc'))
-@section('meta_description', __('Toutes les fonctionnalités de') . ' ' . config('app.name') . ' : ' . __('facturation électronique conforme DGI, devis en un clic, gestion clients et fournisseurs, stock, achats, bons de commande, avoirs, rapports détaillés et 64+ modèles PDF. Logiciel tout-en-un pour entreprises marocaines.'))
+@section('title', __('Fonctionnalités — Logiciel Devis & Factures Maroc : Stock, Achats, Finance, 64+ Modèles PDF'))
+@section('meta_description', __('Découvrez toutes les fonctionnalités du logiciel de gestion devis et factures Hssabek pour PME marocaines : facturation IA, stock, achats, CRM clients, bons de commande, avoirs, 64+ modèles PDF conformes DGI.'))
 @section('meta_keywords', 'application pour devis et facture gratuit, application devis facture gratuit, application facturation gratuite, application factures gratuite, application pour faire des factures gratuit, application gratuite pour faire des factures, logiciel devis facture maroc, gestion stock facturation maroc, logiciel de gestion de stock et facturation maroc, gestion commerciale en ligne maroc, fonctionnalités logiciel facturation maroc, facturation ia maroc, logiciel bon de commande maroc, modèle facture maroc, gestion trésorerie maroc, facturation électronique DGI')
 
 @section('structured_data')
@@ -27,7 +27,7 @@
 					<div class="banner-content" data-aos="fade-up">
 						<span class="info-badge fw-medium mb-3">{{ __('Plateforme tout-en-un') }}</span>
 						<div class="banner-title">
-							<h1 class="mb-2">{{ __('Toutes les') }} <span class="head">{{ __('fonctionnalités') }}</span> {{ __('pour votre entreprise') }}</h1>
+							<h1 class="mb-2">{{ __('Toutes les fonctionnalités du') }} <span class="head">{{ __('logiciel devis & factures Maroc') }}</span></h1>
 						</div>
 						<p class="fw-medium">{{ __('Facturation, CRM, stock, achats, finance et rapports — une seule plateforme pour tout gérer.') }}</p>
 					</div>
