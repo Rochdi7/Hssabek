@@ -4,6 +4,19 @@
 @section('meta_description', __('Centre d\'aide') . ' ' . config('app.name') . '. ' . __('Guides pratiques, tutoriels et documentation pour maîtriser la facturation électronique, les devis, la conformité DGI et la gestion commerciale au Maroc.'))
 @section('meta_keywords', 'aide facturation maroc, tutoriel logiciel facturation, guide facturation électronique maroc, documentation hssabek, comment utiliser logiciel facturation, tutoriel devis facture maroc, guide conformité DGI, formation facturation en ligne maroc')
 
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Centre d'aide", "item": "{{ route('help-center') }}"}
+	]
+}
+</script>
+@endsection
+
 @section('hero')
 <!-- Hero Section -->
 <section class="hero-section" id="index">

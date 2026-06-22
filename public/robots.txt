@@ -1,15 +1,43 @@
 # Hssabek — Logiciel de facturation Maroc
+# https://hssabek.com
+
 User-agent: *
 Allow: /
-Disallow: /bo/
-Disallow: /superadmin/
-Disallow: /login
-Disallow: /register
-Disallow: /password/
+Disallow: /backoffice/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /sanctum/
 Disallow: /locale/switch
 Disallow: /newsletter/subscribe
-Disallow: /sanctum/
-Disallow: /api/
+Disallow: /doc/
+
+# AI Search Engine Crawlers — allowed on all frontoffice pages
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
 
 # Sitemap
 Sitemap: https://hssabek.com/sitemap.xml

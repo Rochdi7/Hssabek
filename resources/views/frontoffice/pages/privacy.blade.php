@@ -4,6 +4,19 @@
 @section('meta_description', __('Politique de confidentialité de') . ' ' . config('app.name') . '. ' . __('Découvrez comment nous protégeons vos données de facturation et informations commerciales conformément à la loi marocaine.'))
 @section('meta_keywords', 'politique confidentialité hssabek, protection données facturation maroc, RGPD maroc, sécurité données comptables')
 
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Politique de confidentialité", "item": "{{ route('privacy') }}"}
+	]
+}
+</script>
+@endsection
+
 @section('hero')
 <!-- Hero Section -->
 <section class="hero-section" id="index">

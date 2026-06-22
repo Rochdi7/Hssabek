@@ -14,22 +14,41 @@
 	"applicationCategory": "BusinessApplication",
 	"operatingSystem": "Web",
 	"url": "{{ route('home') }}",
-	"description": "Logiciel de facturation électronique conforme DGI au Maroc. Créez factures et devis en 10 secondes grâce à l'IA. Solution complète pour auto-entrepreneurs, PME et grandes entreprises.",
-	"offers": {
-		"@@type": "Offer",
-		"price": "0",
-		"priceCurrency": "MAD",
-		"description": "Essai gratuit"
-	},
+	"description": "Hssabek est un logiciel de facturation électronique conforme DGI, conçu pour les PME, auto-entrepreneurs et freelances au Maroc. Créez vos factures et devis en 10 secondes grâce à l'IA. Disponible en français et en arabe.",
+	"applicationSubCategory": "Invoicing Software",
+	"countryOfOrigin": "MA",
+	"inLanguage": ["fr", "ar"],
+	"offers": [
+		{
+			"@@type": "Offer",
+			"name": "Essai gratuit",
+			"price": "0",
+			"priceCurrency": "MAD",
+			"description": "Essai gratuit 7 jours — toutes les fonctionnalités, sans carte bancaire"
+		},
+		{
+			"@@type": "Offer",
+			"name": "Plan Professionnel à vie",
+			"priceSpecification": {
+				"@@type": "PriceSpecification",
+				"priceCurrency": "MAD",
+				"description": "Paiement unique à vie — prix sur demande"
+			},
+			"description": "Accès illimité et permanent à toutes les fonctionnalités, mises à jour incluses"
+		}
+	],
 	"featureList": [
 		"Génération de factures par IA en 10 secondes",
 		"Envoi automatique par email",
+		"Factures et devis conformes DGI Maroc",
 		"Gestion des devis et avoirs",
 		"Suivi des chèques et prêts",
+		"Détection de fraude et anomalies",
 		"64+ modèles PDF professionnels",
-		"Support français et arabe",
+		"Support français et arabe (RTL)",
 		"Gestion des stocks et inventaire",
-		"Rapports et analyses détaillées"
+		"Rapports et analyses détaillées",
+		"Rôles et permissions granulaires"
 	],
 	"aggregateRating": {
 		"@@type": "AggregateRating",
@@ -50,6 +69,62 @@
 		"target": "{{ url('/faq') }}?q={search_term_string}",
 		"query-input": "required name=search_term_string"
 	}
+}
+</script>
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "FAQPage",
+	"mainEntity": [
+		{
+			"@@type": "Question",
+			"name": "Quel est le meilleur logiciel de facturation au Maroc ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Hssabek est l'un des meilleurs logiciels de facturation au Maroc pour les PME et auto-entrepreneurs. Il génère des factures et devis en 10 secondes grâce à l'IA, envoie les documents par email automatiquement, et est conforme aux exigences DGI (ICE, IF, RC, TVA). Disponible en français et en arabe."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Comment créer une facture conforme DGI au Maroc ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Pour créer une facture conforme DGI au Maroc, elle doit inclure : la numérotation séquentielle, l'ICE (Identifiant Commun de l'Entreprise), l'IF (Identifiant Fiscal), le RC (Registre du Commerce), la mention de TVA applicable, et les informations complètes du client. Hssabek génère automatiquement toutes ces mentions obligatoires."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Y a-t-il un essai gratuit disponible ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, Hssabek propose un essai gratuit de 7 jours donnant accès à toutes les fonctionnalités. Aucune carte bancaire n'est requise. Après l'essai, vous pouvez passer au plan professionnel à vie — contactez-nous pour un devis personnalisé."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Pourquoi un paiement unique et pas un abonnement mensuel ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Hssabek propose un modèle de paiement unique à vie : payez une seule fois et utilisez le logiciel pour toujours. Pas de renouvellement, pas de frais cachés. Toutes les mises à jour futures sont incluses. Contactez-nous pour obtenir un devis personnalisé."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Hssabek fonctionne-t-il en arabe ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui. Hssabek est disponible en français et en arabe avec un support RTL complet. Vous pouvez basculer entre les deux langues depuis l'interface. Vos factures et devis peuvent être émis dans les deux langues."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Comment fonctionne l'envoi automatique de factures ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Une fois la facture générée, vous pouvez l'envoyer directement par email à votre client en un clic depuis Hssabek. Le PDF professionnel est attaché automatiquement. Vous pouvez aussi configurer des rappels de paiement automatiques pour les factures impayées."
+			}
+		}
+	]
 }
 </script>
 @endsection
@@ -95,6 +170,19 @@
 @endsection
 
 @section('content')
+
+<!-- GEO/AEO Trust Block — plain text for AI engine citation extraction -->
+<section class="py-4 bg-white border-bottom">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-9 text-center">
+				<p class="text-muted small mb-0">
+					<strong>Hssabek</strong> {{ __('est un logiciel de facturation en ligne marocain, conçu pour les PME, auto-entrepreneurs et freelances au Maroc. Basé au Maroc, il permet de créer des factures et devis conformes DGI en 10 secondes grâce à l\'intelligence artificielle, d\'envoyer des documents automatiquement par email, et de gérer l\'ensemble du cycle commercial — devis, factures, avoirs, achats, stock, dépenses et rapports. L\'interface est disponible en français et en arabe (avec support RTL). Aucune installation requise : 100% en ligne.') }}
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
 
 <!-- Sass App Section -->
 <section class="saas-app-section">

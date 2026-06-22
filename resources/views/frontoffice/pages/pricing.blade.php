@@ -1,7 +1,7 @@
 @extends('frontoffice.layouts.app')
 
-@section('title', __('Tarifs Logiciel Facturation Maroc — Plans dès 0 DH pour PME & Auto-Entrepreneurs'))
-@section('meta_description', __('Comparez nos tarifs de facturation en ligne au Maroc dès 0 DH/mois. Plans adaptés auto-entrepreneurs, PME et grandes entreprises. Facturation électronique conforme DGI. Essai gratuit sans carte bancaire.'))
+@section('title', __('Tarifs Logiciel Facturation Maroc — Essai Gratuit + Plan À Vie pour PME & Auto-Entrepreneurs'))
+@section('meta_description', __('Tarifs du logiciel de facturation Hssabek au Maroc : essai gratuit 7 jours sans carte + plan professionnel à vie. Factures & devis conformes DGI pour PME et auto-entrepreneurs.'))
 @section('meta_keywords', 'meilleur application de facturation gratuit, application pour facturation gratuit, logiciel facturation gratuit maroc, logiciel de facturation gratuit maroc, logiciel gestion commerciale maroc gratuit, prix logiciel facturation maroc, tarif facturation en ligne maroc, abonnement facturation maroc, comparatif logiciel facturation maroc, plan facturation pme maroc, logiciel facturation auto entrepreneur prix, essai gratuit facturation maroc, facturation pas cher maroc, logiciel facture gratuit maroc')
 
 @section('structured_data')
@@ -11,7 +11,63 @@
 	"@@type": "BreadcrumbList",
 	"itemListElement": [
 		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
-		{"@@type": "ListItem", "position": 2, "name": "Tarifs"}
+		{"@@type": "ListItem", "position": 2, "name": "Tarifs", "item": "{{ route('pricing') }}"}
+	]
+}
+</script>
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "FAQPage",
+	"mainEntity": [
+		{
+			"@@type": "Question",
+			"name": "Puis-je changer de plan à tout moment ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, vous pouvez passer à un plan supérieur ou inférieur à tout moment depuis votre espace de gestion. Le changement prend effet immédiatement."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Y a-t-il une période d'essai gratuite pour le logiciel de facturation Hssabek ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, chaque plan dispose d'une période d'essai gratuite de 7 jours. Aucune carte bancaire n'est requise pour commencer à créer vos factures et devis au Maroc."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Mes données sont-elles sécurisées avec Hssabek ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Absolument. Chaque entreprise dispose de son propre espace isolé (architecture multi-tenant). Vos données sont chiffrées et sauvegardées régulièrement."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Comment fonctionne le paiement pour le logiciel de facturation Hssabek ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Hssabek propose un modèle de paiement unique à vie : payez une seule fois, utilisez le logiciel pour toujours. Aucun abonnement mensuel, aucun renouvellement automatique. Toutes les mises à jour futures sont incluses. Contactez-nous pour un devis personnalisé."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Puis-je exporter mes données depuis Hssabek ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, vous pouvez exporter toutes vos données (factures, clients, produits) en PDF ou CSV à tout moment. Vos données vous appartiennent."
+			}
+		},
+		{
+			"@@type": "Question",
+			"name": "Le support est-il inclus dans tous les plans ?",
+			"acceptedAnswer": {
+				"@@type": "Answer",
+				"text": "Oui, le support par email est inclus dans tous les plans. Les plans supérieurs bénéficient d'un support prioritaire."
+			}
+		}
 	]
 }
 </script>
@@ -27,7 +83,7 @@
 					<div class="banner-content" data-aos="fade-up">
 						<span class="info-badge fw-medium mb-3">{{ __('Sans engagement') }}</span>
 						<div class="banner-title">
-							<h1 class="mb-2">{{ __('Tarification simple') }} <span class="head">{{ __('et transparente') }}</span></h1>
+							<h1 class="mb-2">{{ __('Tarifs logiciel facturation Maroc') }} — <span class="head">{{ __('simple et transparent') }}</span></h1>
 						</div>
 						<p class="fw-medium">{{ __('Choisissez le plan adapté à votre activité. Changez ou annulez à tout moment. Aucune carte bancaire requise pour l\'essai gratuit.') }}</p>
 					</div>

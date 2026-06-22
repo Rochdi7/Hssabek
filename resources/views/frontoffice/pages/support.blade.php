@@ -4,6 +4,19 @@
 @section('meta_description', __('Support technique') . ' ' . config('app.name') . '. ' . __('Réponse sous 24h. Assistance par email, centre d\'aide et FAQ pour résoudre vos problèmes de facturation électronique et gestion commerciale au Maroc.'))
 @section('meta_keywords', 'support technique facturation maroc, assistance logiciel facturation, aide facturation en ligne maroc, support hssabek, dépannage logiciel comptable maroc, assistance facturation électronique DGI')
 
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Support", "item": "{{ route('support') }}"}
+	]
+}
+</script>
+@endsection
+
 @section('hero')
 <!-- Hero Section -->
 <section class="hero-section" id="index">

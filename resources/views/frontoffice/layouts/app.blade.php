@@ -14,9 +14,12 @@
     <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Hreflang for multilingual SEO -->
-    <link rel="alternate" hreflang="fr" href="{{ url()->current() }}?lang=fr">
-    <link rel="alternate" hreflang="ar" href="{{ url()->current() }}?lang=ar">
+    <link rel="alternate" hreflang="fr-MA" href="{{ url()->current() }}">
+    <link rel="alternate" hreflang="ar-MA" href="{{ url()->current() }}">
     <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
+
+    <!-- AI / LLM discovery -->
+    <link rel="llms" href="{{ url('/llms.txt') }}">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="@yield('og_type', 'website')">
@@ -629,8 +632,29 @@
 			"@@type": "Organization",
 			"name": "{{ config('app.name', 'Hssabek') }}",
 			"url": "{{ url('/') }}",
-			"logo": "{{ asset('assets/images/logo/hssabek mobile logo.png') }}",
-			"description": "Logiciel de facturation et gestion commerciale en ligne pour les entreprises marocaines",
+			"logo": {
+				"@@type": "ImageObject",
+				"url": "{{ asset('assets/images/logo/hssabek mobile logo.png') }}",
+				"width": 200,
+				"height": 60
+			},
+			"description": "Hssabek est un logiciel de facturation et de gestion commerciale en ligne conçu pour les PME, auto-entrepreneurs et freelances au Maroc. Créez des factures et devis conformes DGI en 10 secondes grâce à l'IA.",
+			"foundingLocation": {
+				"@@type": "Place",
+				"addressCountry": "MA",
+				"name": "Maroc"
+			},
+			"areaServed": {
+				"@@type": "Country",
+				"name": "Morocco"
+			},
+			"knowsAbout": [
+				"Logiciel de facturation Maroc",
+				"Facturation électronique DGI",
+				"Gestion commerciale PME Maroc",
+				"Devis et factures auto-entrepreneur Maroc",
+				"Logiciel comptable marocain"
+			],
 			"address": {
 				"@@type": "PostalAddress",
 				"addressCountry": "MA"
@@ -639,6 +663,7 @@
 				"@@type": "ContactPoint",
 				"contactType": "customer service",
 				"url": "{{ route('contact') }}",
+				"telephone": "+212632582096",
 				"availableLanguage": ["French", "Arabic"]
 			},
 			"sameAs": []

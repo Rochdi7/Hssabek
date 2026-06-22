@@ -4,6 +4,19 @@
 @section('meta_description', __('Mentions légales de') . ' ' . config('app.name') . '. ' . __('Informations légales sur l\'éditeur du logiciel de facturation et gestion commerciale en ligne au Maroc.'))
 @section('meta_keywords', 'mentions légales hssabek, éditeur logiciel facturation maroc, informations légales facturation en ligne')
 
+@section('structured_data')
+<script type="application/ld+json">
+{
+	"@@context": "https://schema.org",
+	"@@type": "BreadcrumbList",
+	"itemListElement": [
+		{"@@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ route('home') }}"},
+		{"@@type": "ListItem", "position": 2, "name": "Mentions légales", "item": "{{ route('legal') }}"}
+	]
+}
+</script>
+@endsection
+
 @section('hero')
 <!-- Hero Section -->
 <section class="hero-section" id="index">
