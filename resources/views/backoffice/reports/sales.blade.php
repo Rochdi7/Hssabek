@@ -282,28 +282,7 @@
                                 <td class="text-dark">{{ number_format($invoice->amount_due, 2, ',', ' ') }}
                                     {{ $currency }}</td>
                                 <td>
-                                    @switch($invoice->status)
-                                        @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }} <i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
-                                        @break
-
-                                        @case('sent')
-                                        @case('partial')
-                                            <span
-                                                class="badge badge-soft-warning d-inline-flex align-items-center">{{ ucfirst($invoice->status) }}
-                                                <i class="isax isax-timer ms-1"></i></span>
-                                        @break
-
-                                        @case('overdue')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('En retard') }} <i
-                                                    class="isax isax-close-circle ms-1"></i></span>
-                                        @break
-
-                                        @default
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ ucfirst($invoice->status) }}</span>
-                                    @endswitch
+                                    <span class="badge {{ $invoice->statusBadgeClass() }} d-inline-flex align-items-center">{{ __($invoice->statusLabel()) }}</span>
                                 </td>
                             </tr>
                             @empty
@@ -406,21 +385,21 @@
                 if (statusEl) {
                     var breakdown = @json($statusBreakdown->map(fn($s) => (int) $s->count));
                     var statusLabels = {
-                        draft: {!! json_encode(__('Brouillon')) !!},
-                        sent: {!! json_encode(__('Envoyée')) !!},
-                        partial: {!! json_encode(__('Partielle')) !!},
-                        paid: {!! json_encode(__('Payée')) !!},
+                        unpaid: {!! json_encode(__('Non payé')) !!},
+                        draft: {!! json_encode(__('Non payé')) !!},
+                        sent: {!! json_encode(__('Non payé')) !!},
+                        partial: {!! json_encode(__('Partiellement payé')) !!},
+                        paid: {!! json_encode(__('Payé')) !!},
                         overdue: {!! json_encode(__('En retard')) !!},
-                        cancelled: {!! json_encode(__('Annulée')) !!},
-                        void: {!! json_encode(__('Annulée')) !!}
+                        void: {!! json_encode(__('Annulé')) !!}
                     };
                     var statusColors = {
-                        draft: '#6c757d',
+                        unpaid: '#0dcaf0',
+                        draft: '#0dcaf0',
                         sent: '#0dcaf0',
                         partial: '#ffc107',
                         paid: '#198754',
                         overdue: '#dc3545',
-                        cancelled: '#adb5bd',
                         void: '#adb5bd'
                     };
                     var chartLabels = [],

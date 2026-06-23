@@ -60,7 +60,7 @@ class QuoteController extends Controller
         $summary = [
             'total' => $this->quoteQuery($documentConfig['type'])->count(),
             'accepted' => $this->quoteQuery($documentConfig['type'])->where('status', 'accepted')->count(),
-            'sent' => $this->quoteQuery($documentConfig['type'])->where('status', 'sent')->count(),
+            'active' => $this->quoteQuery($documentConfig['type'])->whereIn('status', ['active', 'draft', 'sent'])->count(),
             'expired' => $this->quoteQuery($documentConfig['type'])->where('status', 'expired')->count(),
         ];
 
@@ -119,7 +119,7 @@ class QuoteController extends Controller
 
         $this->authorize('update', $quote);
 
-        abort_unless($quote->status === 'draft', 403, 'Seuls les documents en brouillon peuvent être modifiés.');
+        abort_unless($quote->normalizedStatus() === 'active', 403, 'Seuls les documents actifs peuvent être modifiés.');
 
         $quote->load(['items', 'charges']);
 
@@ -136,7 +136,7 @@ class QuoteController extends Controller
 
         $this->authorize('update', $quote);
 
-        abort_unless($quote->status === 'draft', 403, 'Seuls les documents en brouillon peuvent être modifiés.');
+        abort_unless($quote->normalizedStatus() === 'active', 403, 'Seuls les documents actifs peuvent être modifiés.');
 
         $this->quoteService->update($quote, $request->validated());
 
@@ -190,7 +190,7 @@ class QuoteController extends Controller
 
         $this->authorize('update', $quote);
 
-        $this->quoteService->transition($quote, 'sent');
+        // Sending only records the email timestamp; the quote stays active.
         $quote->update(['sent_at' => now()]);
 
         dispatch(new SendQuoteEmailJob(
@@ -209,7 +209,8 @@ class QuoteController extends Controller
 
         $this->authorize('update', $quote);
 
-        $statuses = ['draft', 'sent', 'accepted', 'rejected', 'expired', 'cancelled'];
+        // Simplified workflow: draft/sent are no longer user-selectable.
+        $statuses = ['active', 'accepted', 'rejected', 'expired', 'cancelled'];
         $newStatus = $request->input('status');
 
         abort_unless(in_array($newStatus, $statuses, true), 422);
@@ -217,9 +218,6 @@ class QuoteController extends Controller
         $updates = ['status' => $newStatus];
         if ($newStatus === 'accepted' && !$quote->accepted_at) {
             $updates['accepted_at'] = now();
-        }
-        if ($newStatus === 'sent' && !$quote->sent_at) {
-            $updates['sent_at'] = now();
         }
 
         $quote->update($updates);
@@ -237,9 +235,9 @@ class QuoteController extends Controller
         $this->authorize('update', $quote);
 
         abort_unless(
-            in_array($quote->status, ['sent', 'accepted'], true),
+            in_array($quote->normalizedStatus(), ['active', 'accepted'], true),
             403,
-            'Seuls les documents envoyés ou acceptés peuvent être convertis en facture.'
+            'Seuls les documents actifs ou acceptés peuvent être convertis en facture.'
         );
 
         $invoice = $this->quoteService->convertToInvoice($quote);

@@ -19,6 +19,13 @@ use Illuminate\Support\Facades\DB;
 
 class ReportService
 {
+    /**
+     * Invoice/vendor-bill statuses that represent an open (owing) document.
+     * Includes legacy 'sent'/'posted' so pre-migration rows still count.
+     */
+    private const OPEN_INVOICE_STATUSES = ['unpaid', 'sent', 'partial', 'overdue'];
+    private const OPEN_BILL_STATUSES = ['unpaid', 'posted', 'partial', 'overdue'];
+
     private function monthGroupExpression(string $column): string
     {
         return DB::connection()->getDriverName() === 'sqlite'
@@ -97,7 +104,7 @@ class ReportService
         return Cache::remember($this->cacheKey('sales', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
             $summary = Invoice::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->selectRaw("
                     COUNT(*) as invoice_count,
                     COALESCE(SUM(total), 0) as total_revenue,
@@ -108,14 +115,14 @@ class ReportService
 
             $monthExpr = $this->monthGroupExpression('issue_date');
             $byMonth = Invoice::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as revenue")
                 ->groupBy('month')
                 ->orderBy('month')
                 ->get();
 
             $topCustomers = Invoice::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->with('customer:id,name')
                 ->selectRaw('customer_id, COALESCE(SUM(total), 0) as total')
                 ->groupBy('customer_id')
@@ -130,7 +137,7 @@ class ReportService
                 ->keyBy('status');
 
             $invoices = Invoice::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->with('customer:id,name')
                 ->latest('issue_date')
                 ->paginate($perPage)
@@ -154,7 +161,7 @@ class ReportService
             $newCustomers = Customer::whereBetween('created_at', [$from, $to . ' 23:59:59'])->count();
 
             $totalRevenue = Invoice::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->sum('total');
 
             $avgRevenue = $totalCustomers > 0
@@ -169,7 +176,7 @@ class ReportService
                 ->get();
 
             $topCustomersByRevenue = Invoice::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->with('customer:id,name')
                 ->selectRaw('customer_id, COALESCE(SUM(total), 0) as total')
                 ->groupBy('customer_id')
@@ -179,15 +186,15 @@ class ReportService
 
             $customers = Customer::withCount(['invoices' => function ($q) use ($from, $to) {
                     $q->whereBetween('issue_date', [$from, $to])
-                      ->where('status', '!=', 'cancelled');
+                      ->where('status', '!=', 'void');
                 }])
                 ->withSum(['invoices as total_revenue' => function ($q) use ($from, $to) {
                     $q->whereBetween('issue_date', [$from, $to])
-                      ->where('status', '!=', 'cancelled');
+                      ->where('status', '!=', 'void');
                 }], 'total')
                 ->withSum(['invoices as total_due' => function ($q) use ($from, $to) {
                     $q->whereBetween('issue_date', [$from, $to])
-                      ->where('status', '!=', 'cancelled');
+                      ->where('status', '!=', 'void');
                 }], 'amount_due')
                 ->latest()
                 ->paginate($perPage)
@@ -207,7 +214,7 @@ class ReportService
         return Cache::remember($this->cacheKey('purchases', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
             $totalPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->sum('total');
 
             $paidPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
@@ -215,16 +222,17 @@ class ReportService
                 ->sum('total');
 
             $pendingPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
-                ->whereNotIn('status', ['paid', 'cancelled'])
+                ->whereNotIn('status', ['paid', 'void'])
                 ->sum('total');
 
+            // Kept variable name for the view; vendor bills are cancelled via 'void'.
             $cancelledPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
-                ->where('status', 'cancelled')
+                ->where('status', 'void')
                 ->sum('total');
 
             $monthExpr = $this->monthGroupExpression('issue_date');
             $purchasesByMonth = VendorBill::whereBetween('issue_date', [$from, $to])
-                ->where('status', '!=', 'cancelled')
+                ->where('status', '!=', 'void')
                 ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as total")
                 ->groupBy('month')
                 ->orderBy('month')
@@ -331,11 +339,11 @@ class ReportService
                 ->sum('total');
 
             // Outstanding (unpaid invoices)
-            $outstanding = Invoice::whereIn('status', ['sent', 'partial', 'overdue'])
+            $outstanding = Invoice::whereIn('status', self::OPEN_INVOICE_STATUSES)
                 ->sum('amount_due');
 
             // Overdue count
-            $overdueCount = Invoice::whereIn('status', ['sent', 'partial'])
+            $overdueCount = Invoice::whereIn('status', ['unpaid', 'sent', 'partial', 'overdue'])
                 ->where('due_date', '<', $today)
                 ->count();
 

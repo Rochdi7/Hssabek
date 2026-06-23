@@ -135,7 +135,7 @@ class PurchaseOrderController extends Controller
         $this->authorize('update', $purchaseOrder);
 
         abort_unless(
-            in_array($purchaseOrder->status, ['draft', 'sent', 'confirmed', 'partially_received']),
+            in_array($purchaseOrder->normalizedStatus(), ['active', 'confirmed', 'partially_received']),
             422,
             'Ce bon de commande ne peut pas être réceptionné dans son état actuel.'
         );
@@ -176,9 +176,7 @@ class PurchaseOrderController extends Controller
     {
         $this->authorize('update', $purchaseOrder);
 
-        $this->purchaseOrderService->transition($purchaseOrder, 'sent');
-        $purchaseOrder->update(['sent_at' => now()]);
-
+        // Sending only emails the supplier; the order stays active.
         dispatch(new SendPurchaseOrderEmailJob(
             purchaseOrderId: $purchaseOrder->id,
             tenantId: TenantContext::id(),
@@ -192,17 +190,13 @@ class PurchaseOrderController extends Controller
     {
         $this->authorize('update', $purchaseOrder);
 
-        $statuses = ['draft', 'sent', 'confirmed', 'partially_received', 'received', 'cancelled'];
+        // Simplified workflow: draft/sent are no longer user-selectable.
+        $statuses = ['active', 'confirmed', 'partially_received', 'received', 'cancelled'];
         $new = $request->input('status');
 
         abort_unless(in_array($new, $statuses), 422);
 
-        $updates = ['status' => $new];
-        if ($new === 'sent' && !$purchaseOrder->sent_at) {
-            $updates['sent_at'] = now();
-        }
-
-        $purchaseOrder->update($updates);
+        $purchaseOrder->update(['status' => $new]);
 
         return redirect()->route('bo.purchases.purchase-orders.show', $purchaseOrder)
             ->with('success', __('Statut du bon de commande mis à jour avec succès.'));

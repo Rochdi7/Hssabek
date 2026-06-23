@@ -18,6 +18,44 @@ class Quote extends Model
 {
     use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
+    /** Simplified statuses. Legacy 'draft'/'sent' rows are treated as ACTIVE. */
+    public const STATUS_ACTIVE    = 'active';
+    public const STATUS_ACCEPTED  = 'accepted';
+    public const STATUS_REJECTED  = 'rejected';
+    public const STATUS_EXPIRED   = 'expired';
+    public const STATUS_CANCELLED = 'cancelled';
+
+    public function normalizedStatus(): string
+    {
+        return match ($this->status) {
+            'draft', 'sent' => self::STATUS_ACTIVE,
+            default => $this->status,
+        };
+    }
+
+    public function statusLabel(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_ACTIVE    => 'Actif',
+            self::STATUS_ACCEPTED  => 'Accepté',
+            self::STATUS_REJECTED  => 'Rejeté',
+            self::STATUS_EXPIRED   => 'Expiré',
+            self::STATUS_CANCELLED => 'Annulé',
+            default                => ucfirst((string) $this->status),
+        };
+    }
+
+    public function statusBadgeClass(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_ACCEPTED  => 'badge-soft-success',
+            self::STATUS_REJECTED  => 'badge-soft-danger',
+            self::STATUS_EXPIRED   => 'badge-soft-secondary',
+            self::STATUS_CANCELLED => 'badge-soft-secondary',
+            default                => 'badge-soft-info',
+        };
+    }
+
     protected $fillable = [
         'customer_id',
         'number',

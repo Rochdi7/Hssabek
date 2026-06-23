@@ -11,6 +11,22 @@ class StoreSupplierPaymentRequest extends TenantFormRequest
         return true;
     }
 
+    /**
+     * Drop allocation rows the user left blank — only bills with a real
+     * amount get paid, so the user is not forced to allocate to every bill.
+     */
+    protected function prepareForValidation(): void
+    {
+        $allocations = collect($this->input('allocations', []))
+            ->filter(fn ($alloc) => isset($alloc['amount_applied'])
+                && $alloc['amount_applied'] !== ''
+                && (float) $alloc['amount_applied'] > 0)
+            ->values()
+            ->all();
+
+        $this->merge(['allocations' => $allocations]);
+    }
+
     public function rules(): array
     {
         return [

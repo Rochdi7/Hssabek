@@ -24,7 +24,7 @@
                         data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
                         <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
                     </button>
-                    @if($vendorBill->status === 'draft')
+                    @if($vendorBill->normalizedStatus() === 'unpaid' && $vendorBill->amount_paid <= 0)
                         <a href="{{ route('bo.purchases.vendor-bills.edit', $vendorBill) }}" class="btn btn-primary d-flex align-items-center fs-14 fw-semibold">
                             <i class="isax isax-edit-2 me-1"></i>{{ __('Modifier') }}</a>
                     @endif
@@ -56,12 +56,7 @@
                                 <div>
                                     <h5 class="mb-1">{{ $vendorBill->number }}</h5>
                                     <p class="text-muted mb-0">
-                                        @switch($vendorBill->status)
-                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
-                                            @case('posted') <span class="badge badge-soft-info">{{ __('Validée') }}</span> @break
-                                            @case('paid') <span class="badge badge-soft-success">{{ __('Payée') }}</span> @break
-                                            @case('void') <span class="badge badge-soft-danger">{{ __('Annulée') }}</span> @break
-                                        @endswitch
+                                        <span class="badge {{ $vendorBill->statusBadgeClass() }}">{{ __($vendorBill->statusLabel()) }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -229,28 +224,16 @@
                 @csrf
                 <div class="modal-body">
                     <p class="text-muted mb-3">{{ __('Statut actuel :') }}
-                        <strong>
-                            @switch($vendorBill->status)
-                                @case('draft') {{ __('Brouillon') }} @break
-                                @case('posted') {{ __('Publiée') }} @break
-                                @case('paid') {{ __('Payée') }} @break
-                                @case('void') {{ __('Annulée') }} @break
-                            @endswitch
-                        </strong>
+                        <strong>{{ __($vendorBill->statusLabel()) }}</strong>
                     </p>
-                    <div class="mb-3">
-                        <label class="form-label">{{ __('Nouveau statut') }}</label>
-                        <select name="status" class="form-select" required>
-                            <option value="draft" @selected($vendorBill->status === 'draft')>{{ __('Brouillon') }}</option>
-                            <option value="posted" @selected($vendorBill->status === 'posted')>{{ __('Publiée') }}</option>
-                            <option value="paid" @selected($vendorBill->status === 'paid')>{{ __('Payée') }}</option>
-                            <option value="void" @selected($vendorBill->status === 'void')>{{ __('Annulée') }}</option>
-                        </select>
-                    </div>
+                    <input type="hidden" name="status" value="void">
+                    <p class="mb-0">{{ __('Le statut de paiement est mis à jour automatiquement à partir des paiements. Vous pouvez uniquement annuler cette facture fournisseur.') }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
-                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Fermer') }}</button>
+                    <button type="submit" class="btn btn-outline-danger"
+                        onclick="return confirm('{{ __('Êtes-vous sûr de vouloir annuler cette facture fournisseur ?') }}')"
+                        @disabled(in_array($vendorBill->normalizedStatus(), ['paid', 'void']))>{{ __('Annuler la facture') }}</button>
                 </div>
             </form>
         </div>

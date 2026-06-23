@@ -85,9 +85,9 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">{{ __('Publiées') }}</p>
+                                    <p class="mb-1">{{ __('Non payées') }}</p>
                                     <h6 class="fs-16 fw-semibold text-warning">
-                                        {{ \App\Models\Purchases\VendorBill::where('status', 'posted')->count() }}
+                                        {{ \App\Models\Purchases\VendorBill::whereIn('status', ['unpaid', 'posted', 'partial', 'overdue'])->count() }}
                                     </h6>
                                 </div>
                                 <div>
@@ -96,7 +96,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="fs-13 mb-0">{{ __('Factures publiées') }}</p>
+                            <p class="fs-13 mb-0">{{ __('Factures non payées') }}</p>
                             <span class="position-absolute end-0 bottom-0">
                                 <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
                             </span>
@@ -153,20 +153,24 @@
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>{{ __('Statut :') }} <span class="fw-normal ms-1">
                                     @switch(request('status'))
-                                        @case('draft')
-                                            {{ __('Brouillon') }}
+                                        @case('unpaid')
+                                            {{ __('Non payé') }}
                                         @break
 
-                                        @case('posted')
-                                            {{ __('Validée') }}
+                                        @case('partial')
+                                            {{ __('Partiellement payé') }}
                                         @break
 
                                         @case('paid')
-                                            {{ __('Payée') }}
+                                            {{ __('Payé') }}
+                                        @break
+
+                                        @case('overdue')
+                                            {{ __('En retard') }}
                                         @break
 
                                         @case('void')
-                                            {{ __('Annulée') }}
+                                            {{ __('Annulé') }}
                                         @break
 
                                         @default
@@ -177,14 +181,16 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('status', 'page'))) }}"
                                         class="dropdown-item">{{ __('Tous') }}</a></li>
-                                <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">{{ __('Brouillon') }}</a></li>
-                                <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'posted'])) }}"
-                                        class="dropdown-item">{{ __('Validée') }}</a></li>
+                                <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'unpaid'])) }}"
+                                        class="dropdown-item">{{ __('Non payé') }}</a></li>
+                                <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'partial'])) }}"
+                                        class="dropdown-item">{{ __('Partiellement payé') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'paid'])) }}"
-                                        class="dropdown-item">{{ __('Payée') }}</a></li>
+                                        class="dropdown-item">{{ __('Payé') }}</a></li>
+                                <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'overdue'])) }}"
+                                        class="dropdown-item">{{ __('En retard') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.vendor-bills.index', array_merge(request()->except('page'), ['status' => 'void'])) }}"
-                                        class="dropdown-item">{{ __('Annulée') }}</a></li>
+                                        class="dropdown-item">{{ __('Annulé') }}</a></li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
@@ -251,25 +257,7 @@
                                 <td class="text-dark fw-medium">{{ number_format($bill->amount_due, 2, ',', ' ') }}
                                     {{ $bill->currency }}</td>
                                 <td>
-                                    @switch($bill->status)
-                                        @case('draft')
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
-                                        @break
-
-                                        @case('posted')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Validée') }}</span>
-                                        @break
-
-                                        @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }}<i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
-                                        @break
-
-                                        @case('void')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulée') }}</span>
-                                        @break
-                                    @endswitch
+                                    <span class="badge {{ $bill->statusBadgeClass() }} d-inline-flex align-items-center">{{ __($bill->statusLabel()) }}</span>
                                 </td>
                                 <td class="action-item">
                                     <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -281,7 +269,7 @@
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
-                                        @if ($bill->status === 'draft')
+                                        @if ($bill->normalizedStatus() === 'unpaid' && $bill->amount_paid <= 0)
                                             <li>
                                                 <a href="{{ route('bo.purchases.vendor-bills.edit', $bill) }}"
                                                     class="dropdown-item d-flex align-items-center"><i

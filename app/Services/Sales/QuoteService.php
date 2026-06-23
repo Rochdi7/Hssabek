@@ -34,7 +34,7 @@ class QuoteService
                 'number' => $this->docService->next('quote'),
                 'document_type' => $documentType,
                 'reference_number' => $validated['reference_number'] ?? null,
-                'status' => 'draft',
+                'status' => Quote::STATUS_ACTIVE,
                 'issue_date' => $validated['issue_date'],
                 'due_date' => $validated['due_date'] ?? null,
                 'expiry_date' => $validated['expiry_date'] ?? null,
@@ -94,12 +94,12 @@ class QuoteService
     }
 
     /**
-     * Update a draft quote.
+     * Update an active quote (legacy draft/sent normalize to active).
      */
     public function update(Quote $quote, array $validated): Quote
     {
-        if ($quote->status !== 'draft') {
-            throw new \DomainException('Seuls les devis en brouillon peuvent être modifiés.');
+        if ($quote->normalizedStatus() !== Quote::STATUS_ACTIVE) {
+            throw new \DomainException('Seuls les devis actifs peuvent être modifiés.');
         }
 
         return DB::transaction(function () use ($quote, $validated) {
@@ -172,7 +172,9 @@ class QuoteService
     public function transition(Quote $quote, string $newStatus): void
     {
         $allowed = [
-            'draft' => ['sent', 'cancelled'],
+            'active' => ['accepted', 'rejected', 'expired', 'cancelled'],
+            // Legacy states kept for backward compatibility.
+            'draft' => ['active', 'sent', 'accepted', 'rejected', 'expired', 'cancelled'],
             'sent' => ['accepted', 'rejected', 'expired', 'cancelled'],
             'accepted' => [],
             'rejected' => [],
@@ -205,8 +207,9 @@ class QuoteService
      */
     public function convertToInvoice(Quote $quote): Invoice
     {
-        if (!in_array($quote->status, ['sent', 'accepted'])) {
-            throw new \DomainException('Seuls les devis envoyés ou acceptés peuvent être convertis en facture.');
+        // Active (incl. legacy draft/sent) and accepted quotes can be converted.
+        if (!in_array($quote->normalizedStatus(), [Quote::STATUS_ACTIVE, Quote::STATUS_ACCEPTED], true)) {
+            throw new \DomainException('Seuls les devis actifs ou acceptés peuvent être convertis en facture.');
         }
 
         return DB::transaction(function () use ($quote) {
@@ -219,7 +222,7 @@ class QuoteService
                 'quote_id' => $quote->id,
                 'number' => $invoiceNumber,
                 'reference_number' => $quote->reference_number,
-                'status' => 'draft',
+                'status' => Invoice::STATUS_UNPAID,
                 'issue_date' => now()->toDateString(),
                 'due_date' => $quote->due_date,
                 'enable_tax' => $quote->enable_tax,
@@ -275,9 +278,9 @@ class QuoteService
                 ]);
             }
 
-            // Mark quote as accepted if it was sent
-            if ($quote->status === 'sent') {
-                $this->transition($quote, 'accepted');
+            // Mark quote as accepted when converting an active/legacy quote.
+            if ($quote->normalizedStatus() === Quote::STATUS_ACTIVE) {
+                $quote->update(['status' => Quote::STATUS_ACCEPTED, 'accepted_at' => now()]);
             }
 
             return $invoice->load('items', 'charges');

@@ -74,8 +74,7 @@ class PaymentController extends Controller
         $this->authorize('create', Payment::class);
 
         $invoices = Invoice::where('customer_id', $customer->id)
-            ->where('amount_due', '>', 0)
-            ->whereIn('status', ['sent', 'partial', 'overdue'])
+            ->allocatable()
             ->orderBy('issue_date')
             ->get(['id', 'number', 'total', 'amount_due', 'status', 'customer_id']);
 

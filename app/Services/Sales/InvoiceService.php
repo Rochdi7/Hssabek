@@ -8,6 +8,7 @@ use App\Models\Pro\RecurringInvoice;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\InvoiceCharge;
 use App\Models\Sales\InvoiceItem;
+use App\Models\Inventory\StockMovement;
 use App\Services\Inventory\StockService;
 use App\Services\System\DocumentNumberService;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,7 @@ class InvoiceService
                 'customer_id' => $validated['customer_id'],
                 'number' => $this->docService->next('invoice'),
                 'reference_number' => $validated['reference_number'] ?? null,
-                'status' => 'draft',
+                'status' => Invoice::STATUS_UNPAID,
                 'issue_date' => $validated['issue_date'],
                 'due_date' => $validated['due_date'] ?? null,
                 'enable_tax' => $validated['enable_tax'] ?? true,
@@ -93,6 +94,9 @@ class InvoiceService
 
             $invoice = $invoice->load('items', 'charges');
 
+            // Goods are committed at creation now (no separate "sent" step).
+            $this->deductStockOnce($invoice);
+
             // Create recurring invoice if enabled
             if (!empty($validated['is_recurring']) && $validated['is_recurring']) {
                 RecurringInvoice::create([
@@ -113,12 +117,12 @@ class InvoiceService
     }
 
     /**
-     * Update a draft invoice — recalculate totals, sync items and charges.
+     * Update an invoice — allowed only while unpaid and no money has been applied.
      */
     public function update(Invoice $invoice, array $validated): Invoice
     {
-        if ($invoice->status !== 'draft') {
-            throw new \DomainException('Seules les factures en brouillon peuvent être modifiées.');
+        if (!$this->isEditable($invoice)) {
+            throw new \DomainException('Seules les factures non payées et sans paiement peuvent être modifiées.');
         }
 
         return DB::transaction(function () use ($invoice, $validated) {
@@ -204,77 +208,73 @@ class InvoiceService
     }
 
     /**
-     * Transition invoice status — enforces allowed state machine.
+     * Whether an invoice may still be edited: unpaid, not void, and no money applied.
      */
-    public function transition(Invoice $invoice, string $newStatus): void
+    public function isEditable(Invoice $invoice): bool
     {
-        $allowed = [
-            'draft' => ['sent', 'void'],
-            'sent' => ['partial', 'paid', 'void'],
-            'partial' => ['paid', 'void'],
-            'paid' => [],
-            'overdue' => ['paid', 'partial', 'void'],
-            'void' => [],
-        ];
-
-        $permitted = $allowed[$invoice->status] ?? [];
-        if (!in_array($newStatus, $permitted)) {
-            throw new \DomainException(
-                "Transition de statut invalide : {$invoice->status} → {$newStatus}"
-            );
+        if (in_array($invoice->normalizedStatus(), [Invoice::STATUS_PAID, Invoice::STATUS_VOID], true)) {
+            return false;
         }
 
-        $updates = ['status' => $newStatus];
+        return (float) $invoice->amount_paid <= 0.0;
+    }
 
-        if ($newStatus === 'sent' && !$invoice->sent_at) {
-            $updates['sent_at'] = now();
+    /**
+     * Manually cancel an invoice. Void is the only manual status change allowed.
+     */
+    public function void(Invoice $invoice): void
+    {
+        if ($invoice->status === Invoice::STATUS_VOID) {
+            return;
         }
 
-        if ($newStatus === 'paid') {
-            $updates['paid_at'] = now();
-        }
+        $invoice->update(['status' => Invoice::STATUS_VOID]);
+    }
 
-        $invoice->update($updates);
+    /**
+     * Deduct stock for tracked products exactly once per invoice.
+     * Idempotent: skips any product that already has a 'sale_out' movement
+     * referencing this invoice, so re-running never double-deducts.
+     */
+    public function deductStockOnce(Invoice $invoice): void
+    {
+        $invoice->loadMissing('items.product');
 
-        // Deduct stock once when invoice is sent (goods are committed at this point).
-        // If the invoice transitions directly to paid without going through sent,
-        // the sent_at guard ensures we only deduct once.
-        if ($newStatus === 'sent') {
-            $invoice->load('items.product');
-
-            foreach ($invoice->items as $item) {
-                if (
-                    $item->product &&
-                    $item->product->track_inventory &&
-                    $item->product->item_type === 'product'
-                ) {
-                    try {
-                        $this->stockService->adjust(
-                            $item->product_id,
-                            (float) $item->quantity,
-                            'sale_out',
-                            "Facture #{$invoice->number}",
-                            null,
-                            Invoice::class,
-                            $invoice->id
-                        );
-                    } catch (\DomainException $e) {
-                        // Roll back the status update and surface the error to the caller
-                        $invoice->update(['status' => $invoice->getOriginal('status'), 'sent_at' => null]);
-                        throw $e;
-                    }
-                }
+        foreach ($invoice->items as $item) {
+            if (
+                !$item->product ||
+                !$item->product->track_inventory ||
+                $item->product->item_type !== 'product'
+            ) {
+                continue;
             }
-        }
 
-        if ($newStatus === 'paid') {
-            InvoicePaid::dispatch($invoice);
+            $alreadyMoved = StockMovement::where('reference_type', Invoice::class)
+                ->where('reference_id', $invoice->id)
+                ->where('product_id', $item->product_id)
+                ->where('movement_type', 'sale_out')
+                ->exists();
+
+            if ($alreadyMoved) {
+                continue;
+            }
+
+            $this->stockService->adjust(
+                $item->product_id,
+                (float) $item->quantity,
+                'sale_out',
+                "Facture #{$invoice->number}",
+                null,
+                Invoice::class,
+                $invoice->id
+            );
         }
     }
 
     /**
-     * Recalculate amount_paid / amount_due from PaymentAllocations.
-     * Called after payment creation or deletion.
+     * Recalculate amount_paid / amount_due from PaymentAllocations + credit notes,
+     * then auto-resolve the status. Payment data is the single source of truth.
+     * Called after payment creation/deletion and credit-note application.
      */
     public function updatePaymentTotals(Invoice $invoice): void
     {
@@ -283,16 +283,62 @@ class InvoiceService
         $amountPaid = round($totalPaid + $totalCredits, 2);
         $amountDue = round((float) $invoice->total - $amountPaid, 2);
 
-        $invoice->update([
+        $resolved = self::resolvePaymentStatus(
+            $invoice->normalizedStatus(),
+            $amountPaid,
+            $amountDue,
+            $invoice->due_date,
+            Invoice::STATUS_UNPAID
+        );
+
+        $wasPaid = $invoice->normalizedStatus() === Invoice::STATUS_PAID;
+
+        $updates = [
             'amount_paid' => $amountPaid,
             'amount_due' => max(0, $amountDue),
-        ]);
+            'status' => $resolved,
+        ];
 
-        // Auto-transition status based on payment
-        if ($amountDue <= 0.01 && !in_array($invoice->status, ['paid', 'void'])) {
-            $this->transition($invoice, 'paid');
-        } elseif ($amountPaid > 0 && $amountDue > 0.01 && $invoice->status === 'sent') {
-            $this->transition($invoice, 'partial');
+        if ($resolved === Invoice::STATUS_PAID && !$invoice->paid_at) {
+            $updates['paid_at'] = now();
         }
+
+        $invoice->update($updates);
+
+        if ($resolved === Invoice::STATUS_PAID && !$wasPaid) {
+            InvoicePaid::dispatch($invoice);
+        }
+    }
+
+    /**
+     * Single source of truth for resolving a payment-driven status.
+     * Void is never auto-overwritten. Shared rule for invoices and vendor bills.
+     *
+     * @param string $unpaidStatus the "no payment yet, not overdue" status for this document type
+     */
+    public static function resolvePaymentStatus(
+        string $currentStatus,
+        float $amountPaid,
+        float $amountDue,
+        $dueDate,
+        string $unpaidStatus
+    ): string {
+        if ($currentStatus === 'void') {
+            return 'void';
+        }
+
+        if ($amountDue <= 0.01) {
+            return 'paid';
+        }
+
+        if ($amountPaid > 0.0) {
+            return 'partial';
+        }
+
+        if ($dueDate && \Illuminate\Support\Carbon::parse($dueDate)->endOfDay()->isPast()) {
+            return 'overdue';
+        }
+
+        return $unpaidStatus;
     }
 }

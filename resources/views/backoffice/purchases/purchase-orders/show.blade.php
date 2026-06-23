@@ -24,7 +24,7 @@
                         data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
                         <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
                     </button>
-                    @if(in_array($purchaseOrder->status, ['draft', 'sent', 'confirmed', 'partially_received']))
+                    @if(in_array($purchaseOrder->normalizedStatus(), ['active', 'confirmed', 'partially_received']))
                         <form method="POST" action="{{ route('bo.purchases.purchase-orders.receive', $purchaseOrder) }}" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-success d-flex align-items-center fs-14 fw-semibold"
@@ -32,7 +32,7 @@
                                 <i class="isax isax-tick-circle me-1"></i>{{ __('Réceptionner') }}</button>
                         </form>
                     @endif
-                    @if(in_array($purchaseOrder->status, ['draft', 'sent', 'confirmed']))
+                    @if(in_array($purchaseOrder->normalizedStatus(), ['active', 'confirmed']))
                         <form method="POST" action="{{ route('bo.purchases.purchase-orders.cancel', $purchaseOrder) }}" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-outline-danger d-flex align-items-center fs-14 fw-semibold"
@@ -40,11 +40,11 @@
                                 <i class="isax isax-close-circle me-1"></i>{{ __('Annuler') }}</button>
                         </form>
                     @endif
-                    @if($purchaseOrder->status === 'draft')
+                    @if($purchaseOrder->normalizedStatus() === 'active')
                         <a href="{{ route('bo.purchases.purchase-orders.edit', $purchaseOrder) }}" class="btn btn-primary d-flex align-items-center fs-14 fw-semibold">
                             <i class="isax isax-edit-2 me-1"></i>{{ __('Modifier') }}</a>
                     @endif
-                    @if(in_array($purchaseOrder->status, ['draft', 'sent']))
+                    @if($purchaseOrder->normalizedStatus() === 'active')
                         <button type="button" class="btn btn-outline-white d-flex align-items-center fs-14 fw-semibold"
                             data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
                             data-send-url="{{ route('bo.purchases.purchase-orders.send', $purchaseOrder) }}"
@@ -83,14 +83,7 @@
                                 <div>
                                     <h5 class="mb-1">{{ $purchaseOrder->number }}</h5>
                                     <p class="text-muted mb-0">
-                                        @switch($purchaseOrder->status)
-                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
-                                            @case('sent') <span class="badge badge-soft-info">{{ __('Envoyé') }}</span> @break
-                                            @case('confirmed') <span class="badge badge-soft-primary">{{ __('Confirmé') }}</span> @break
-                                            @case('partially_received') <span class="badge badge-soft-warning">{{ __('Partiellement reçu') }}</span> @break
-                                            @case('received') <span class="badge badge-soft-success">{{ __('Reçu') }}</span> @break
-                                            @case('cancelled') <span class="badge badge-soft-danger">{{ __('Annulé') }}</span> @break
-                                        @endswitch
+                                        <span class="badge {{ $purchaseOrder->statusBadgeClass() }}">{{ __($purchaseOrder->statusLabel()) }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -266,22 +259,12 @@
                 @csrf
                 <div class="modal-body">
                     <p class="text-muted mb-3">{{ __('Statut actuel :') }}
-                        <strong>
-                            @switch($purchaseOrder->status)
-                                @case('draft') {{ __('Brouillon') }} @break
-                                @case('sent') {{ __('Envoyé') }} @break
-                                @case('confirmed') {{ __('Confirmé') }} @break
-                                @case('partially_received') {{ __('Partiellement reçu') }} @break
-                                @case('received') {{ __('Reçu') }} @break
-                                @case('cancelled') {{ __('Annulé') }} @break
-                            @endswitch
-                        </strong>
+                        <strong>{{ __($purchaseOrder->statusLabel()) }}</strong>
                     </p>
                     <div class="mb-3">
                         <label class="form-label">{{ __('Nouveau statut') }}</label>
                         <select name="status" class="form-select" required>
-                            <option value="draft" @selected($purchaseOrder->status === 'draft')>{{ __('Brouillon') }}</option>
-                            <option value="sent" @selected($purchaseOrder->status === 'sent')>{{ __('Envoyé') }}</option>
+                            <option value="active" @selected($purchaseOrder->normalizedStatus() === 'active')>{{ __('Actif') }}</option>
                             <option value="confirmed" @selected($purchaseOrder->status === 'confirmed')>{{ __('Confirmé') }}</option>
                             <option value="partially_received" @selected($purchaseOrder->status === 'partially_received')>{{ __('Partiellement reçu') }}</option>
                             <option value="received" @selected($purchaseOrder->status === 'received')>{{ __('Reçu') }}</option>

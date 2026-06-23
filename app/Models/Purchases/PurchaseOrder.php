@@ -16,6 +16,44 @@ class PurchaseOrder extends Model
 {
     use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
+    /** Simplified statuses. Legacy 'draft'/'sent' rows are treated as ACTIVE. */
+    public const STATUS_ACTIVE              = 'active';
+    public const STATUS_CONFIRMED           = 'confirmed';
+    public const STATUS_PARTIALLY_RECEIVED  = 'partially_received';
+    public const STATUS_RECEIVED            = 'received';
+    public const STATUS_CANCELLED           = 'cancelled';
+
+    public function normalizedStatus(): string
+    {
+        return match ($this->status) {
+            'draft', 'sent' => self::STATUS_ACTIVE,
+            default => $this->status,
+        };
+    }
+
+    public function statusLabel(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_ACTIVE             => 'Actif',
+            self::STATUS_CONFIRMED          => 'Confirmé',
+            self::STATUS_PARTIALLY_RECEIVED => 'Partiellement reçu',
+            self::STATUS_RECEIVED           => 'Reçu',
+            self::STATUS_CANCELLED          => 'Annulé',
+            default                         => ucfirst(str_replace('_', ' ', (string) $this->status)),
+        };
+    }
+
+    public function statusBadgeClass(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_RECEIVED           => 'badge-soft-success',
+            self::STATUS_PARTIALLY_RECEIVED => 'badge-soft-warning',
+            self::STATUS_CONFIRMED          => 'badge-soft-primary',
+            self::STATUS_CANCELLED          => 'badge-soft-danger',
+            default                         => 'badge-soft-info',
+        };
+    }
+
     protected $fillable = [
         'supplier_id',
         'warehouse_id',

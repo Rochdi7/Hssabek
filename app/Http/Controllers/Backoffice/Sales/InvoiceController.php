@@ -126,7 +126,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        abort_unless($invoice->status === 'draft', 403, 'Seules les factures en brouillon peuvent être modifiées.');
+        abort_unless($this->invoiceService->isEditable($invoice), 403, 'Seules les factures non payées et sans paiement peuvent être modifiées.');
 
         $invoice->load(['items', 'charges', 'recurringInvoice']);
 
@@ -165,7 +165,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        abort_unless($invoice->status === 'draft', 403, 'Seules les factures en brouillon peuvent être modifiées.');
+        abort_unless($this->invoiceService->isEditable($invoice), 403, 'Seules les factures non payées et sans paiement peuvent être modifiées.');
 
         $this->invoiceService->update($invoice, $request->validated());
 
@@ -207,7 +207,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        $this->invoiceService->transition($invoice, 'sent');
+        // Status is payment-driven now; sending only records the email timestamp.
         $invoice->update(['sent_at' => now()]);
 
         dispatch(new SendInvoiceEmailJob(
@@ -223,20 +223,13 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        $statuses = ['draft', 'sent', 'partial', 'paid', 'overdue', 'void'];
+        // Payment-driven statuses (unpaid/partial/paid/overdue) are resolved
+        // automatically from payments. The only manual change is cancellation.
         $new = $request->input('status');
 
-        abort_unless(in_array($new, $statuses), 422);
+        abort_unless($new === Invoice::STATUS_VOID, 422);
 
-        $updates = ['status' => $new];
-        if ($new === 'sent' && !$invoice->sent_at) {
-            $updates['sent_at'] = now();
-        }
-        if ($new === 'paid' && !$invoice->paid_at) {
-            $updates['paid_at'] = now();
-        }
-
-        $invoice->update($updates);
+        $this->invoiceService->void($invoice);
         \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.sales.invoices.show', $invoice)
@@ -247,7 +240,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        $this->invoiceService->transition($invoice, 'void');
+        $this->invoiceService->void($invoice);
 
         \App\Services\Reports\ReportService::flushTenantCache();
 

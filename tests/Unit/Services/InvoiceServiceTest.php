@@ -93,66 +93,59 @@ class InvoiceServiceTest extends TestCase
         $this->assertEquals(720.00, (float) $updated->total);
     }
 
-    public function test_cannot_update_non_draft_invoice(): void
+    public function test_invoice_is_created_unpaid(): void
     {
         $invoice = $this->service->create([
             'customer_id' => $this->customer->id,
             'issue_date' => now()->toDateString(),
-            'items' => [['label' => 'Item', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 20]],
+            'items' => [['label' => 'X', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
         ]);
 
-        $this->service->transition($invoice, 'sent');
+        $this->assertEquals('unpaid', $invoice->status);
+    }
+
+    public function test_cannot_update_invoice_once_paid(): void
+    {
+        $invoice = $this->service->create([
+            'customer_id' => $this->customer->id,
+            'issue_date' => now()->toDateString(),
+            'items' => [['label' => 'Item', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
+        ]);
+
+        // Fully pay it -> status resolves to paid -> no longer editable.
+        PaymentAllocation::create([
+            'payment_id' => \App\Models\Sales\Payment::create([
+                'customer_id' => $this->customer->id,
+                'amount' => 100,
+                'status' => 'succeeded',
+                'payment_date' => now(),
+                'paid_at' => now(),
+            ])->id,
+            'invoice_id' => $invoice->id,
+            'amount_applied' => 100,
+        ]);
+        $this->service->updatePaymentTotals($invoice);
 
         $this->expectException(\DomainException::class);
 
-        $this->service->update($invoice, [
+        $this->service->update($invoice->fresh(), [
             'items' => [['label' => 'Changed', 'quantity' => 1, 'unit_price' => 999, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 20]],
         ]);
     }
 
-    public function test_transition_draft_to_sent(): void
+    public function test_overdue_when_unpaid_and_due_date_passed(): void
     {
         $invoice = $this->service->create([
             'customer_id' => $this->customer->id,
-            'issue_date' => now()->toDateString(),
+            'issue_date' => now()->subDays(40)->toDateString(),
+            'due_date' => now()->subDays(10)->toDateString(),
             'items' => [['label' => 'X', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
         ]);
 
-        $this->service->transition($invoice, 'sent');
+        $this->service->updatePaymentTotals($invoice);
 
         $invoice->refresh();
-        $this->assertEquals('sent', $invoice->status);
-        $this->assertNotNull($invoice->sent_at);
-    }
-
-    public function test_transition_sent_to_paid(): void
-    {
-        $invoice = $this->service->create([
-            'customer_id' => $this->customer->id,
-            'issue_date' => now()->toDateString(),
-            'items' => [['label' => 'X', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
-        ]);
-
-        $this->service->transition($invoice, 'sent');
-        $this->service->transition($invoice, 'paid');
-
-        $invoice->refresh();
-        $this->assertEquals('paid', $invoice->status);
-        $this->assertNotNull($invoice->paid_at);
-    }
-
-    public function test_invalid_transition_throws_exception(): void
-    {
-        $invoice = $this->service->create([
-            'customer_id' => $this->customer->id,
-            'issue_date' => now()->toDateString(),
-            'items' => [['label' => 'X', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
-        ]);
-
-        $this->expectException(\DomainException::class);
-
-        // Cannot go directly from draft to paid
-        $this->service->transition($invoice, 'paid');
+        $this->assertEquals('overdue', $invoice->status);
     }
 
     public function test_update_payment_totals_marks_invoice_paid_when_fully_allocated(): void
@@ -162,8 +155,6 @@ class InvoiceServiceTest extends TestCase
             'issue_date' => now()->toDateString(),
             'items' => [['label' => 'Item', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
         ]);
-
-        $this->service->transition($invoice, 'sent');
 
         // Simulate a full payment allocation
         PaymentAllocation::create([
@@ -193,8 +184,6 @@ class InvoiceServiceTest extends TestCase
             'issue_date' => now()->toDateString(),
             'items' => [['label' => 'Item', 'quantity' => 1, 'unit_price' => 200, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
         ]);
-
-        $this->service->transition($invoice, 'sent');
 
         // Simulate a partial payment
         PaymentAllocation::create([
