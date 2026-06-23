@@ -15,7 +15,7 @@
         .email-body p { color: #555; line-height: 1.6; margin: 0 0 16px; }
         .email-body .highlight { background-color: #f8f9fc; padding: 16px; border-radius: 6px; border-left: 4px solid #405189; margin: 16px 0; }
         .email-body .highlight p { margin: 4px 0; }
-        .email-body .btn { display: inline-block; padding: 12px 24px; background-color: #405189; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; }
+        .email-body .btn { display: inline-block; padding: 12px 24px; background-color: #5C5FE9; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; }
         .email-footer { background-color: #f8f9fc; padding: 20px; text-align: center; border-radius: 0 0 8px 8px; border: 1px solid #e9ecef; border-top: none; }
         .email-footer p { color: #999; font-size: 12px; margin: 0; }
     </style>
@@ -23,8 +23,12 @@
 <body>
     <div class="email-wrapper">
         <div class="email-header">
-            <h2>{{ $tenantName ?? config('app.name', 'Hssabek') }}</h2>
-            <p style="color:#a8b8d8;margin:4px 0 0;font-size:12px;letter-spacing:0.3px;">Logiciel de facturation &amp; gestion commerciale</p>
+            @if (!empty($tenantName))
+                <h2>{{ $tenantName }}</h2>
+            @else
+                <img src="{{ asset('assets/images/logo/logo-wide-white.png') }}" alt="Hssabek" style="height:36px;width:auto;">
+            @endif
+            <p style="color:#a8b8d8;margin:8px 0 0;font-size:12px;letter-spacing:0.3px;">Gestion &amp; Facturation</p>
         </div>
         <div class="email-body">
             @yield('body')
