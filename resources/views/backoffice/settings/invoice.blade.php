@@ -47,7 +47,7 @@
                                                             <div class="new-employee-field">
                                                                 <div class="mb-0">
                                                                     <div class="image-upload mb-1">
-                                                                        <input type="file" id="invoice-image-file" accept="image/jpeg,image/png,image/webp">
+                                                                        <input type="file" id="invoice-image-file" accept="image/jpeg,image/png,image/webp" onchange="onInvoiceImageSelected(this)">
                                                                         <div class="image-uploads">
                                                                             <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
                                                                         </div>
@@ -63,7 +63,8 @@
                                                 <div class="new-logo ms-xl-auto bg-light border">
                                                     <img src="{{ $tenant->invoice_image_url ?? asset('build/img/icons/company-logo-01.svg') }}" alt="{{ __('Image de facture') }}" id="invoice-image-preview">
                                                     <a href="javascript:void(0);" id="invoice-image-trash" class="logo-trash bg-white text-danger me-1 mt-1"
-                                                        style="{{ $tenant->hasMedia('invoice_image') ? '' : 'display:none !important;' }}"><i class="isax isax-trash"></i></a>
+                                                        onclick="removeInvoiceImage()"
+                                                        style="{{ $tenant->hasMedia('invoice_image') ? '' : 'display:none;' }}"><i class="isax isax-trash"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,47 +154,38 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var fileInput = document.getElementById('invoice-image-file');
-            var preview = document.getElementById('invoice-image-preview');
-            var trash = document.getElementById('invoice-image-trash');
-            var croppedData = document.getElementById('cropped_invoice_image');
-            var deletedFlag = document.getElementById('cropped_invoice_image_deleted');
-            var defaultUrl = @json(asset('build/img/icons/company-logo-01.svg'));
-            if (!fileInput) return;
+        var invoiceImageDefaultUrl = @json(asset('build/img/icons/company-logo-01.svg'));
 
-            fileInput.addEventListener('change', function() {
-                var file = this.files[0];
-                if (!file) return;
-                var validTypes = ['image/jpeg', 'image/png', 'image/webp'];
-                if (validTypes.indexOf(file.type) === -1) {
-                    alert({!! json_encode(__('Seuls les formats JPG, PNG et WEBP sont acceptés.')) !!});
-                    this.value = '';
-                    return;
-                }
-                if (file.size > 5 * 1024 * 1024) {
-                    alert({!! json_encode(__("L'image ne doit pas dépasser 5 Mo.")) !!});
-                    this.value = '';
-                    return;
-                }
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    croppedData.value = e.target.result;
-                    deletedFlag.value = '0';
-                    preview.src = e.target.result;
-                    trash.style.display = '';
-                };
-                reader.readAsDataURL(file);
-                this.value = '';
-            });
+        function onInvoiceImageSelected(input) {
+            var file = input.files[0];
+            if (!file) return;
+            var validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (validTypes.indexOf(file.type) === -1) {
+                alert({!! json_encode(__('Seuls les formats JPG, PNG et WEBP sont acceptés.')) !!});
+                input.value = '';
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                alert({!! json_encode(__("L'image ne doit pas dépasser 5 Mo.")) !!});
+                input.value = '';
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('cropped_invoice_image').value = e.target.result;
+                document.getElementById('cropped_invoice_image_deleted').value = '0';
+                document.getElementById('invoice-image-preview').src = e.target.result;
+                document.getElementById('invoice-image-trash').style.display = '';
+            };
+            reader.readAsDataURL(file);
+            input.value = '';
+        }
 
-            trash.addEventListener('click', function(e) {
-                e.preventDefault();
-                preview.src = defaultUrl;
-                croppedData.value = '';
-                deletedFlag.value = '1';
-                trash.style.display = 'none';
-            });
-        });
+        function removeInvoiceImage() {
+            document.getElementById('invoice-image-preview').src = invoiceImageDefaultUrl;
+            document.getElementById('cropped_invoice_image').value = '';
+            document.getElementById('cropped_invoice_image_deleted').value = '1';
+            document.getElementById('invoice-image-trash').style.display = 'none';
+        }
     </script>
 @endpush
