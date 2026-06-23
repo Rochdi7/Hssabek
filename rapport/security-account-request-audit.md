@@ -88,8 +88,13 @@ Garde `status !== 'pending'` ajoutée en tête de `approve()` et `reject()`. `de
 
 ### 4.5 Protection anti-doublon & anti-collision (ÉLEVÉE)
 `AccountRequestFormRequest` ajoute deux règles closure :
-- Rejet si une demande `pending`/`approved` existe déjà pour le même `company_email`.
+- Rejet si une demande existe déjà pour le même `company_email`, avec un **message adapté au statut** :
+  - `pending` → « Une demande avec cet email est déjà en cours de traitement. Nous vous contacterons prochainement. »
+  - `approved` → « Un compte existe déjà pour cette adresse email. Veuillez vous connecter ou nous contacter. »
+  - `rejected` → « Une demande précédente avec cet email a été rejetée. Veuillez nous contacter sur WhatsApp pour résoudre votre problème. » + affichage d'un **bouton WhatsApp actionnable** (numéro lu depuis `config('services.whatsapp.number')`, défaut `212632582096`, surchargeable via `SUPPORT_WHATSAPP_NUMBER`).
 - Rejet si le `contact_email` est déjà rattaché à un utilisateur tenant existant.
+
+La logique de priorité de statut (`approved` > `pending` > `rejected`) est **agnostique de la base de données** (fonctionne en MySQL en production et SQLite en test) — aucune fonction SQL spécifique au moteur n'est utilisée.
 
 ### 4.6 Limitation de débit (MOYENNE)
 Middleware `throttle:5,10` ajouté sur la route POST publique (5 soumissions / 10 minutes / IP).

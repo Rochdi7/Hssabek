@@ -96,13 +96,13 @@
 					@endphp
 					<div class="alert alert-warning d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mb-4" role="alert">
 						<div class="d-flex align-items-start">
-							<i class="fa-brands fa-whatsapp me-2 mt-1 fs-5"></i>
+							<i class="fab fa-whatsapp me-2 mt-1 fs-5"></i>
 							<div class="fw-medium">{{ __('Votre demande précédente a été rejetée. Contactez-nous sur WhatsApp pour résoudre votre problème rapidement.') }}</div>
 						</div>
 						<a href="https://wa.me/{{ $waNumber }}?text={{ urlencode($waText) }}"
 							target="_blank" rel="noopener noreferrer"
 							class="btn btn-dark d-inline-flex align-items-center justify-content-center flex-shrink-0">
-							<i class="fa-brands fa-whatsapp me-2"></i> {{ __('Nous contacter sur WhatsApp') }}
+							<i class="fab fa-whatsapp me-2"></i> {{ __('Nous contacter sur WhatsApp') }}
 						</a>
 					</div>
 				@endif
