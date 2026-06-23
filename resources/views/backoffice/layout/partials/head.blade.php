@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Hssabek" />
-    <link rel="manifest" href="/assets/images/favicon/site.webmanifest" />
+    <link rel="manifest" href="/manifest.json" />
 
 @if(!Route::is(['signin', 'signup','coming-soon', 'error-404', 'error-500','free-trial', 'under-construction', 'bus-booking-invoice', 'car-booking-invoice','change-password','forgot-password','lock-screen','general-invoice-1', 'general-invoice-1a', 'general-invoice-2', 'general-invoice-2a', 'general-invoice-3', 'general-invoice-4', 'general-invoice-5', 'general-invoice-6', 'general-invoice-7', 'general-invoice-8', 'general-invoice-9', 'general-invoice-10', 'domain-hosting-invoice', 'coffee-shop-invoice', 'ecommerce-invoice','invoice-medical','domain-hosting-invoice', 'ecommerce-invoice', 'email-verification', 'error-404', 'error-500', 'layout-default', 'layout-dark', 'layout-mini', 'layout-rtl', 'layout-single', 'layout-transparent', 'layout-without-header', 'lock-screen', 'login', 'money-exchange-invoice', 'movie-ticket-booking-invoice', 'change-password','forgot-password','general-invoice-1', 'student-billing-invoice', 'success', 'train-ticket-invoice', 'two-step-verification', 'under-construction', 'under-maintenance', 'fitness-center-invoice', 'flight-booking-invoice', 'hotel-booking-invoice','restaurants-invoice','reset-password','register','receipt-invoice-1','receipt-invoice-2','receipt-invoice-3','receipt-invoice-4', 'internet-billing-invoice']))
     <!-- Sync server appearance settings to localStorage (runs before theme-script) -->
