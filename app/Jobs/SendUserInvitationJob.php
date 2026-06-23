@@ -32,9 +32,16 @@ class SendUserInvitationJob implements ShouldQueue
 
             $this->invitation->markMailSent();
         } catch (\Throwable $e) {
+            // Record the failure but do NOT re-throw: with QUEUE_CONNECTION=sync this
+            // runs inline during the web request, and re-throwing would 500 the page
+            // instead of letting the controller redirect to the "failed" state.
             $this->invitation->markMailFailed($e->getMessage());
 
-            throw $e;
+            \Illuminate\Support\Facades\Log::error('Échec envoi invitation utilisateur', [
+                'invitation_id' => $this->invitation->id,
+                'email' => $this->invitation->email,
+                'error' => $e->getMessage(),
+            ]);
         }
     }
 
