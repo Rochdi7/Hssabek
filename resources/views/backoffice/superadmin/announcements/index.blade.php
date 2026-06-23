@@ -54,7 +54,7 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
-                            'columns' => [__('Titre'), __('Type'), __('Statut'), __('Publié le'), __('Expire le'), __('Auteur')],
+                            'columns' => [__('Titre'), __('Langues'), __('Type'), __('Statut'), __('Publié le'), __('Expire le'), __('Auteur')],
                         ])
                         <div class="dropdown">
                             <a href="javascript:void(0);"
@@ -78,6 +78,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th>{{ __('Titre') }}</th>
+                            <th>{{ __('Langues') }}</th>
                             <th>{{ __('Type') }}</th>
                             <th>{{ __('Statut') }}</th>
                             <th>{{ __('Publié le') }}</th>
@@ -90,7 +91,28 @@
                         @forelse($announcements as $announcement)
                             <tr>
                                 <td>
-                                    <h6 class="fs-14 fw-medium mb-0">{{ Str::limit($announcement->title, 50) }}</h6>
+                                    <h6 class="fs-14 fw-medium mb-0">{{ Str::limit($announcement->title_fr ?? $announcement->title, 50) }}</h6>
+                                    @if ($announcement->attachment)
+                                        <a href="{{ Storage::url($announcement->attachment) }}" target="_blank"
+                                            class="fs-11 text-muted d-inline-flex align-items-center mt-1">
+                                            <i class="isax isax-document-text me-1"></i>{{ __('Pièce jointe') }}
+                                        </a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-1 flex-wrap">
+                                        <span class="badge badge-soft-primary" title="{{ __('Français') }}">🇫🇷</span>
+                                        @if ($announcement->title_ar)
+                                            <span class="badge badge-soft-success" title="{{ __('Arabe') }}">🇲🇦</span>
+                                        @else
+                                            <span class="badge badge-soft-light text-muted" title="{{ __('Arabe — non traduit') }}">🇲🇦</span>
+                                        @endif
+                                        @if ($announcement->title_en)
+                                            <span class="badge badge-soft-info" title="{{ __('Anglais') }}">🇬🇧</span>
+                                        @else
+                                            <span class="badge badge-soft-light text-muted" title="{{ __('Anglais — non traduit') }}">🇬🇧</span>
+                                        @endif
+                                    </div>
                                 </td>
                                 <td>
                                     @switch($announcement->type)

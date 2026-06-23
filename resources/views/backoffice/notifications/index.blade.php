@@ -68,6 +68,19 @@
                 <!-- System Notifications Tab -->
                 <div class="tab-pane fade show active" id="system-notifications" role="tabpanel">
                     @forelse($systemNotifications as $notification)
+                        @php
+                            $notifLocale  = app()->getLocale();
+                            $notifTitle   = match($notifLocale) {
+                                'ar'    => $notification->data['title_ar']   ?? $notification->data['title_fr']   ?? $notification->data['title']   ?? '',
+                                'en'    => $notification->data['title_en']   ?? $notification->data['title_fr']   ?? $notification->data['title']   ?? '',
+                                default => $notification->data['title_fr']   ?? $notification->data['title']   ?? '',
+                            };
+                            $notifMessage = match($notifLocale) {
+                                'ar'    => $notification->data['content_ar'] ?? $notification->data['message'] ?? '',
+                                'en'    => $notification->data['content_en'] ?? $notification->data['message'] ?? '',
+                                default => $notification->data['content_fr'] ?? $notification->data['message'] ?? '',
+                            };
+                        @endphp
                         <div
                             class="card mb-3 {{ is_null($notification->read_at) ? 'border-start border-primary border-3' : '' }}">
                             <div class="card-body">
@@ -83,13 +96,19 @@
                                     </div>
                                     <div class="flex-fill ml-3">
                                         <p class="mb-0">
-                                            @if (!empty($notification->data['title']))
-                                                <span class="fs-14 fw-semibold">{{ $notification->data['title'] }}</span>
+                                            @if (!empty($notifTitle))
+                                                <span class="fs-14 fw-semibold">{{ $notifTitle }}</span>
                                             @endif
-                                            <span>{{ $notification->data['message'] ?? '' }}</span>
+                                            <span>{{ $notifMessage }}</span>
                                             @if (!empty($notification->data['link_text']))
                                                 <a href="{{ $notification->data['link_url'] ?? '#' }}"
                                                     class="fs-14 fw-semibold">{{ $notification->data['link_text'] }}</a>
+                                            @endif
+                                            @if (!empty($notification->data['attachment']))
+                                                <a href="{{ Storage::url($notification->data['attachment']) }}"
+                                                    target="_blank" class="fs-12 text-muted d-inline-flex align-items-center ms-2">
+                                                    <i class="isax isax-document-text me-1"></i>{{ __('Pièce jointe') }}
+                                                </a>
                                             @endif
                                         </p>
                                         <span class="fs-12 d-flex align-items-center text-muted">
@@ -140,6 +159,11 @@
                 <!-- Admin Announcements Tab -->
                 <div class="tab-pane fade" id="admin-announcements" role="tabpanel">
                     @forelse($announcements as $announcement)
+                        @php
+                            $annLocale   = app()->getLocale();
+                            $annTitle    = $announcement->localizedTitle($annLocale);
+                            $annContent  = $announcement->localizedContent($annLocale);
+                        @endphp
                         <div class="card mb-3 border-start border-{{ $announcement->type ?? 'info' }} border-3">
                             <div class="card-body">
                                 <div class="d-flex align-items-start">
@@ -151,15 +175,12 @@
                                                     @case('warning')
                                                         <i class="isax isax-warning-2 fs-18"></i>
                                                     @break
-
                                                     @case('danger')
                                                         <i class="isax isax-danger fs-18"></i>
                                                     @break
-
                                                     @case('success')
                                                         <i class="isax isax-tick-circle fs-18"></i>
                                                     @break
-
                                                     @default
                                                         <i class="isax isax-info-circle fs-18"></i>
                                                 @endswitch
@@ -169,35 +190,33 @@
                                     <div class="flex-fill">
                                         <div class="d-flex justify-content-between align-items-start mb-2">
                                             <div>
-                                                <h6 class="mb-1">{{ $announcement->title }}</h6>
+                                                <h6 class="mb-1">{{ $annTitle }}</h6>
                                                 <span
                                                     class="badge bg-soft-{{ $announcement->type ?? 'info' }} text-{{ $announcement->type ?? 'info' }} fs-10">
                                                     @switch($announcement->type)
-                                                        @case('warning')
-                                                            {{ __('Attention') }}
-                                                        @break
-
-                                                        @case('danger')
-                                                            {{ __('Urgent') }}
-                                                        @break
-
-                                                        @case('success')
-                                                            {{ __('Succès') }}
-                                                        @break
-
-                                                        @default
-                                                            {{ __('Information') }}
+                                                        @case('warning'){{ __('Attention') }}@break
+                                                        @case('danger'){{ __('Urgent') }}@break
+                                                        @case('success'){{ __('Succès') }}@break
+                                                        @default{{ __('Information') }}
                                                     @endswitch
                                                 </span>
                                             </div>
                                             <span class="fs-12 text-muted">
-                                                <i
-                                                    class="ti ti-clock me-1"></i>{{ $announcement->published_at?->diffForHumans() ?? $announcement->created_at->diffForHumans() }}
+                                                <i class="ti ti-clock me-1"></i>{{ $announcement->published_at?->diffForHumans() ?? $announcement->created_at->diffForHumans() }}
                                             </span>
                                         </div>
                                         <div class="announcement-content text-muted">
-                                            {!! $announcement->content !!}
+                                            {!! $annContent !!}
                                         </div>
+                                        @if ($announcement->attachment)
+                                            <div class="mt-2">
+                                                <a href="{{ Storage::url($announcement->attachment) }}" target="_blank"
+                                                    class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1">
+                                                    <i class="isax isax-document-download"></i>
+                                                    {{ __('Télécharger la pièce jointe') }}
+                                                </a>
+                                            </div>
+                                        @endif
                                         @if ($announcement->expires_at)
                                             <div class="mt-2">
                                                 <small class="text-muted">
