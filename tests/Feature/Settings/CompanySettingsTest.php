@@ -57,24 +57,13 @@ class CompanySettingsTest extends TestCase
             'ends_at' => null,
         ]);
 
-        $settingsViewPerm = Permission::create([
-            'tenant_id' => $this->tenant->id,
-            'name' => 'access.settings.view',
-            'guard_name' => 'web',
-        ]);
-
-        $settingsEditPerm = Permission::create([
-            'tenant_id' => $this->tenant->id,
-            'name' => 'access.settings.edit',
-            'guard_name' => 'web',
-        ]);
-
+        // The admin role bypasses all permission checks via Gate::before.
+        // No explicit permissions need to be attached to it.
         $adminRole = Role::create([
             'tenant_id' => $this->tenant->id,
             'name' => 'admin',
             'guard_name' => 'web',
         ]);
-        $adminRole->givePermissionTo([$settingsViewPerm, $settingsEditPerm]);
 
         $this->adminUser = User::factory()->create([
             'tenant_id' => $this->tenant->id,
@@ -229,6 +218,76 @@ class CompanySettingsTest extends TestCase
             ]);
 
         $response->assertSessionHasErrors('locale');
+    }
+
+    public function test_non_admin_with_invoice_permissions_can_access_invoice_settings(): void
+    {
+        $invoiceViewPerm = Permission::create([
+            'tenant_id' => null,
+            'name' => 'settings.invoices.view',
+            'guard_name' => 'web',
+        ]);
+        $invoiceEditPerm = Permission::create([
+            'tenant_id' => null,
+            'name' => 'settings.invoices.edit',
+            'guard_name' => 'web',
+        ]);
+
+        $role = Role::create([
+            'tenant_id' => $this->tenant->id,
+            'name' => 'settings-manager',
+            'guard_name' => 'web',
+        ]);
+        $role->givePermissionTo([$invoiceViewPerm, $invoiceEditPerm]);
+
+        $user = User::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'status' => 'active',
+        ]);
+        $user->assignRole($role);
+
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        $response = $this->actingAs($user)
+            ->get(route('bo.settings.invoice.edit'));
+
+        $response->assertOk();
+        $response->assertViewIs('backoffice.settings.invoice');
+    }
+
+    public function test_non_admin_with_localization_permissions_can_access_locale_settings(): void
+    {
+        $localeViewPerm = Permission::create([
+            'tenant_id' => null,
+            'name' => 'settings.localization.view',
+            'guard_name' => 'web',
+        ]);
+        $localeEditPerm = Permission::create([
+            'tenant_id' => null,
+            'name' => 'settings.localization.edit',
+            'guard_name' => 'web',
+        ]);
+
+        $role = Role::create([
+            'tenant_id' => $this->tenant->id,
+            'name' => 'locale-manager',
+            'guard_name' => 'web',
+        ]);
+        $role->givePermissionTo([$localeViewPerm, $localeEditPerm]);
+
+        $user = User::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'status' => 'active',
+        ]);
+        $user->assignRole($role);
+
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        $response = $this->actingAs($user)
+            ->get(route('bo.settings.locale.edit'));
+
+        $response->assertOk();
+        $response->assertViewIs('backoffice.settings.locale');
     }
 
     public function test_user_without_permission_cannot_access_settings(): void

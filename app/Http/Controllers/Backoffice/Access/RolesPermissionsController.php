@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Backoffice\Access;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Access\RoleStoreRequest;
-use App\Http\Requests\Access\RoleUpdateRequest;
 use App\Http\Requests\Access\RoleSyncPermissionsRequest;
+use App\Http\Requests\Access\RoleUpdateRequest;
 use App\Models\Tenancy\Permission;
 use App\Models\Tenancy\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Spatie\Permission\PermissionRegistrar;
 
 class RolesPermissionsController extends Controller
 {
@@ -36,14 +38,14 @@ class RolesPermissionsController extends Controller
     public function store(RoleStoreRequest $request)
     {
         Role::create([
-            'name'       => $request->validated('name'),
+            'name' => $request->validated('name'),
             'guard_name' => 'web',
-            'tenant_id'  => auth()->user()->tenant_id,
+            'tenant_id' => auth()->user()->tenant_id,
         ]);
 
         return redirect()
             ->route('bo.access.roles.index')
-            ->with('success', __('Rôle créé avec succès.'));
+            ->with('success', __('permissions.messages.role_created'));
     }
 
     /**
@@ -51,7 +53,6 @@ class RolesPermissionsController extends Controller
      */
     public function update(RoleUpdateRequest $request, Role $role)
     {
-        // Ensure role belongs to this tenant
         abort_unless($role->tenant_id === auth()->user()->tenant_id, 404);
 
         $role->update([
@@ -60,7 +61,7 @@ class RolesPermissionsController extends Controller
 
         return redirect()
             ->route('bo.access.roles.index')
-            ->with('success', __('Rôle mis à jour avec succès.'));
+            ->with('success', __('permissions.messages.role_updated'));
     }
 
     /**
@@ -68,14 +69,13 @@ class RolesPermissionsController extends Controller
      */
     public function destroy(Role $role)
     {
-        // Ensure role belongs to this tenant
         abort_unless($role->tenant_id === auth()->user()->tenant_id, 404);
 
         $role->delete();
 
         return redirect()
             ->route('bo.access.roles.index')
-            ->with('success', __('Rôle supprimé avec succès.'));
+            ->with('success', __('permissions.messages.role_deleted'));
     }
 
     /**
@@ -85,28 +85,28 @@ class RolesPermissionsController extends Controller
     {
         $tenantId = auth()->user()->tenant_id;
 
-        // Ensure role belongs to this tenant
         abort_unless($role->tenant_id === $tenantId, 404);
 
-        // Get all global permissions grouped by group.module
         $allPermissions = Permission::where('tenant_id', null)
             ->orderBy('name')
             ->get();
 
-        // Group permissions by category (e.g., "sales", "inventory", etc.)
         $grouped = $this->groupPermissions($allPermissions);
+        $actionColumns = $this->extractActionColumns($grouped);
+        [$groupLabels, $moduleLabels, $actionLabels] = $this->buildPermissionLabels($grouped, $actionColumns);
 
-        // Get currently assigned permission IDs for this role
         $rolePermissionIds = $role->permissions()->pluck('permissions.id')->toArray();
-
-        // Get all tenant roles for the role switcher dropdown
         $roles = Role::where('tenant_id', $tenantId)->orderBy('name')->get();
 
         return view('backoffice.roles-permissions.permissions', compact(
             'role',
             'grouped',
+            'actionColumns',
+            'groupLabels',
+            'moduleLabels',
+            'actionLabels',
             'rolePermissionIds',
-            'roles'
+            'roles',
         ));
     }
 
@@ -115,12 +115,10 @@ class RolesPermissionsController extends Controller
      */
     public function syncPermissions(RoleSyncPermissionsRequest $request, Role $role)
     {
-        // Ensure role belongs to this tenant
         abort_unless($role->tenant_id === auth()->user()->tenant_id, 404);
 
         $permissionIds = $request->validated('permissions', []);
 
-        // Ensure all submitted permissions are global (tenant_id = null)
         $validPermissions = Permission::where('tenant_id', null)
             ->whereIn('id', $permissionIds)
             ->pluck('id')
@@ -130,9 +128,12 @@ class RolesPermissionsController extends Controller
             Permission::whereIn('id', $validPermissions)->get()
         );
 
+        // Flush the Spatie permission cache so new permissions apply immediately.
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+
         return redirect()
             ->route('bo.access.roles.permissions', $role)
-            ->with('success', __('Permissions mises à jour avec succès.'));
+            ->with('success', __('permissions.messages.permissions_updated'));
     }
 
     /**
@@ -145,30 +146,42 @@ class RolesPermissionsController extends Controller
             ->get();
 
         $grouped = $this->groupPermissions($allPermissions);
+        $actionColumns = $this->extractActionColumns($grouped);
+        [$groupLabels, $moduleLabels, $actionLabels] = $this->buildPermissionLabels($grouped, $actionColumns);
 
-        return view('backoffice.roles-permissions.permissions-list', compact('grouped'));
+        return view('backoffice.roles-permissions.permissions-list', compact(
+            'grouped',
+            'actionColumns',
+            'groupLabels',
+            'moduleLabels',
+            'actionLabels',
+        ));
     }
 
-    /**
-     * Group permissions by category → module → actions.
-     */
     protected function groupPermissions($permissions): array
     {
         $grouped = [];
 
         foreach ($permissions as $permission) {
-            // Permission name format: "group.module.action"
             $parts = explode('.', $permission->name);
-            if (count($parts) !== 3) {
+            $action = array_pop($parts);
+
+            if (! $action || empty($parts)) {
                 continue;
             }
 
-            [$group, $module, $action] = $parts;
+            $group = array_shift($parts);
+            $module = implode('.', $parts);
 
-            if (!isset($grouped[$group])) {
+            // Support 2-part permissions such as "dashboard.view".
+            if ($module === '') {
+                $module = $group;
+            }
+
+            if (! isset($grouped[$group])) {
                 $grouped[$group] = [];
             }
-            if (!isset($grouped[$group][$module])) {
+            if (! isset($grouped[$group][$module])) {
                 $grouped[$group][$module] = [];
             }
 
@@ -176,5 +189,66 @@ class RolesPermissionsController extends Controller
         }
 
         return $grouped;
+    }
+
+    protected function extractActionColumns(array $grouped): array
+    {
+        $actions = [];
+
+        foreach ($grouped as $modules) {
+            foreach ($modules as $moduleActions) {
+                foreach (array_keys($moduleActions) as $action) {
+                    $actions[$action] = true;
+                }
+            }
+        }
+
+        $ordered = [];
+        $preferred = ['create', 'edit', 'delete', 'view', 'export'];
+
+        foreach ($preferred as $action) {
+            if (isset($actions[$action])) {
+                $ordered[] = $action;
+                unset($actions[$action]);
+            }
+        }
+
+        $remaining = array_keys($actions);
+        sort($remaining);
+
+        return [...$ordered, ...$remaining];
+    }
+
+    protected function buildPermissionLabels(array $grouped, array $actionColumns): array
+    {
+        $groupLabels = [];
+        $moduleLabels = [];
+
+        foreach ($grouped as $groupName => $modules) {
+            $groupLabels[$groupName] = $this->translatePermissionSegment('groups', $groupName);
+
+            foreach ($modules as $moduleName => $actions) {
+                $moduleLabels[$moduleName] = $this->translatePermissionSegment('modules', $moduleName);
+            }
+        }
+
+        $actionLabels = [];
+        foreach ($actionColumns as $action) {
+            $actionLabels[$action] = $this->translatePermissionSegment('actions', $action);
+        }
+
+        return [$groupLabels, $moduleLabels, $actionLabels];
+    }
+
+    protected function translatePermissionSegment(string $section, string $key): string
+    {
+        $translationKey = "permissions.{$section}.{$key}";
+        $translated = __($translationKey);
+
+        if ($translated !== $translationKey) {
+            return $translated;
+        }
+
+        return Str::headline(str_replace(['_', '-'], ' ', $key));
     }
 }

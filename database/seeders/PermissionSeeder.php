@@ -39,6 +39,7 @@ class PermissionSeeder extends Seeder
                 'vendor-bills',
                 'debit_notes',
                 'goods_receipts',
+                'supplier_payment_methods',
             ],
 
             // Catalog
@@ -58,6 +59,7 @@ class PermissionSeeder extends Seeder
 
             // Finance
             'finance' => [
+                'bank_accounts',
                 'expenses',
                 'incomes',
                 'categories',
@@ -118,8 +120,8 @@ class PermissionSeeder extends Seeder
             ]);
         }
 
-        // supplier_payments has view, create, delete (no edit)
-        foreach (['view', 'create', 'delete'] as $action) {
+        // supplier_payments supports full CRUD
+        foreach (['view', 'create', 'edit', 'delete'] as $action) {
             Permission::firstOrCreate([
                 'name' => "purchases.supplier_payments.{$action}",
                 'guard_name' => 'web',

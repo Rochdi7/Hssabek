@@ -1,23 +1,16 @@
 <?php $page = 'roles-permissions'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Permissions')
-@section('description', 'Configurer les permissions')
+@section('title', __('permissions.ui.permissions_page_title'))
+@section('description', __('permissions.ui.permissions_page_description'))
 @section('content')
-    <!-- ========================
-               Start Page Content
-              ========================= -->
-
     <div class="page-wrapper">
-        <!-- Start Conatiner -->
         <div class="content content-two">
-
-            <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
                     <h6>
                         <a href="{{ route('bo.access.roles.index') }}">
                             <i class="isax isax-arrow-left me-1"></i>
-                            {{ __('Rôles') }}
+                            {{ __('permissions.ui.roles') }}
                         </a>
                     </h6>
                 </div>
@@ -26,9 +19,10 @@
                         <a href="javascript:void(0);"
                             class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            {{ __('Rôle') }} : <span class="fw-normal ms-1">{{ ucfirst($role->name) }}</span>
+                            {{ __('permissions.ui.role') }} :
+                            <span class="fw-normal ms-1">{{ ucfirst($role->name) }}</span>
                         </a>
-                        <ul class="dropdown-menu  dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             @foreach ($roles as $r)
                                 <li>
                                     <a href="{{ route('bo.access.roles.permissions', $r) }}"
@@ -41,7 +35,6 @@
                     </div>
                 </div>
             </div>
-            <!-- End Breadcrumb -->
 
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -50,7 +43,6 @@
                 </div>
             @endif
 
-            <!-- Start Table List -->
             <form method="POST" action="{{ route('bo.access.roles.sync-permissions', $role) }}">
                 @csrf
                 <div class="">
@@ -66,31 +58,29 @@
                                         data-bs-target="#collapse{{ $index }}"
                                         aria-expanded="{{ $index === 1 ? 'true' : 'false' }}"
                                         aria-controls="collapse{{ $index }}">
-                                        <span class="fs-18 fw-bold">{{ ucfirst($groupName) }}</span>
+                                        <span class="fs-18 fw-bold">{{ $groupLabels[$groupName] ?? $groupName }}</span>
                                     </button>
                                 </h2>
                                 <div id="collapse{{ $index }}"
                                     class="accordion-collapse collapse {{ $index === 1 ? 'show' : '' }}"
                                     aria-labelledby="heading{{ $index }}" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <!-- Table List -->
                                         <div class="table-responsive table-nowrap">
                                             <table class="table border mb-0">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th class="w-50">{{ __('Module') }}</th>
-                                                        <th>{{ __('Créer') }}</th>
-                                                        <th>{{ __('Modifier') }}</th>
-                                                        <th>{{ __('Supprimer') }}</th>
-                                                        <th>{{ __('Voir') }}</th>
-                                                        <th>{{ __('Tout autoriser') }}</th>
+                                                        <th class="w-50">{{ __('permissions.ui.module') }}</th>
+                                                        @foreach ($actionColumns as $action)
+                                                            <th>{{ $actionLabels[$action] ?? $action }}</th>
+                                                        @endforeach
+                                                        <th>{{ __('permissions.ui.allow_all') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($modules as $moduleName => $actions)
                                                         <tr>
-                                                            <td>{{ ucfirst(str_replace('_', ' ', $moduleName)) }}</td>
-                                                            @foreach (['create', 'edit', 'delete', 'view'] as $action)
+                                                            <td>{{ $moduleLabels[$moduleName] ?? ucfirst(str_replace('_', ' ', $moduleName)) }}</td>
+                                                            @foreach ($actionColumns as $action)
                                                                 <td>
                                                                     @if (isset($actions[$action]))
                                                                         <div class="form-check">
@@ -108,7 +98,7 @@
                                                                     <input class="form-check-input allow-all-cb"
                                                                         type="checkbox"
                                                                         data-module="{{ $groupName }}_{{ $moduleName }}"
-                                                                        {{ count(array_filter(['create', 'edit', 'delete', 'view'], fn($a) => isset($actions[$a]) && in_array($actions[$a]->id, $rolePermissionIds))) === count(array_filter(['create', 'edit', 'delete', 'view'], fn($a) => isset($actions[$a]))) ? 'checked' : '' }}>
+                                                                        {{ count(array_filter($actionColumns, fn($a) => isset($actions[$a]) && in_array($actions[$a]->id, $rolePermissionIds))) === count(array_filter($actionColumns, fn($a) => isset($actions[$a]))) ? 'checked' : '' }}>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -116,49 +106,38 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <!-- /Table List -->
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-                <!-- End Table List -->
 
                 <div class="mt-3 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">
-                        <i class="isax isax-tick-circle me-1"></i>{{ __('Enregistrer les permissions') }}
+                        <i class="isax isax-tick-circle me-1"></i>{{ __('permissions.ui.save_permissions') }}
                     </button>
                 </div>
             </form>
-
         </div>
-        <!-- End Conatiner -->
 
         @component('backoffice.components.footer')
         @endcomponent
-
     </div>
-
-    <!-- ========================
-               End Page Content
-              ========================= -->
 @endsection
 
 @push('scripts')
     <script>
-        // Allow All checkbox logic
         document.querySelectorAll('.allow-all-cb').forEach(function(cb) {
             cb.addEventListener('change', function() {
                 const module = this.dataset.module;
                 document.querySelectorAll('.permission-cb[data-module="' + module + '"]').forEach(function(
-                    pCb) {
-                    pCb.checked = cb.checked;
+                    permissionCheckbox) {
+                    permissionCheckbox.checked = cb.checked;
                 });
             });
         });
 
-        // Update Allow All when individual checkboxes change
         document.querySelectorAll('.permission-cb').forEach(function(cb) {
             cb.addEventListener('change', function() {
                 const module = this.dataset.module;
@@ -166,6 +145,7 @@
                 const checked = document.querySelectorAll('.permission-cb[data-module="' + module +
                     '"]:checked');
                 const allowAll = document.querySelector('.allow-all-cb[data-module="' + module + '"]');
+
                 if (allowAll) {
                     allowAll.checked = all.length === checked.length;
                 }

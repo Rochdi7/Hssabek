@@ -9,7 +9,7 @@ class RoleStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true; // Authorization handled by middleware/controller
+        return true;
     }
 
     public function rules(): array
@@ -26,16 +26,13 @@ class RoleStoreRequest extends FormRequest
         ];
 
         if ($isSuperAdmin) {
-            // SuperAdmin can optionally assign a tenant_id
             $rules['tenant_id'] = ['nullable', 'uuid', 'exists:tenants,id'];
 
-            // Unique per tenant + guard
             $rules['name'][] = Rule::unique('roles')->where(function ($query) {
                 $query->where('tenant_id', $this->input('tenant_id'))
                     ->where('guard_name', 'web');
             });
         } else {
-            // Tenant admin: tenant_id is auto-assigned, cannot be spoofed
             $rules['name'][] = Rule::unique('roles')->where(function ($query) use ($user) {
                 $query->where('tenant_id', $user->tenant_id)
                     ->where('guard_name', 'web');
@@ -48,7 +45,7 @@ class RoleStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.unique' => __('Un rôle avec ce nom existe déjà.'),
+            'name.unique' => __('permissions.messages.role_unique'),
         ];
     }
 }

@@ -34,7 +34,6 @@ class RoleUpdateRequest extends FormRequest
                     ->where('guard_name', 'web');
             })->ignore($role->id);
         } else {
-            // Tenant admin: unique within their tenant, ignoring current role
             $rules['name'][] = Rule::unique('roles')->where(function ($query) use ($user) {
                 $query->where('tenant_id', $user->tenant_id)
                     ->where('guard_name', 'web');
@@ -47,7 +46,7 @@ class RoleUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.unique' => __('Un rôle avec ce nom existe déjà.'),
+            'name.unique' => __('permissions.messages.role_unique'),
         ];
     }
 }
