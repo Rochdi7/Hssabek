@@ -1,5 +1,73 @@
 # Facturation SaaS — Claude Instructions
 
+---
+
+## TOKEN EFFICIENCY — CAVEMAN SKILL (MANDATORY)
+
+**Work like a caveman: do only what is asked. No extra. No fluff.**
+
+### Reading rules — read minimum, not maximum
+- Read only the files you actually need for this specific task.
+- If you need one method, read only that section — not the whole file.
+- If the model name is known, grep for it — do NOT scan all models.
+- Do NOT re-read a file you just wrote or edited.
+- Do NOT read `update-log.md` + every module doc on every task — only read the ones relevant to the task.
+- Use `Grep` to find a symbol, use `Glob` to find a file. Use `Read` only after you know which file and line range.
+
+### Writing rules — write minimum, not maximum
+- Fix what is broken. Do not refactor surrounding code.
+- Add what is requested. Do not add "nice to have" extras.
+- No comments that explain what the code does — only comments that explain WHY (hidden constraint, non-obvious reason).
+- No multi-paragraph docblocks. No `// Added for X feature` comments.
+- No backwards-compat shims, no unused variables, no dead code.
+
+### Response rules — say minimum, not maximum
+- Do not summarize what you just did after every response — the user can read the diff.
+- Do not list every file you read. Only list files you **changed**.
+- Do not explain the plan in paragraphs. Do the work, then give one sentence status.
+- No headers and sections for a simple one-line fix.
+
+### When to break the caveman rule
+- User explicitly asks for explanation, documentation, or a plan.
+- Task genuinely requires understanding a large surface area before touching anything.
+
+---
+
+## MODEL & EFFORT SELECTION — SWITCH WHEN IT MATTERS
+
+**Default model for normal tasks: `claude-sonnet-4-6`**
+
+Use a stronger model or higher effort when the task has real production risk.
+Do NOT stay on a fast/cheap model when working on security, payments, or auth.
+
+### Switch to `claude-opus-4-8` (or request it) when:
+- Touching authentication, session handling, or password logic
+- Touching multi-tenant isolation (middleware, `BelongsToTenant`, `tenant_id` scoping)
+- Touching payment processing, invoice totals, tax calculations, or financial logic
+- Touching permission/policy logic (risk: users see data they should not)
+- Touching database migrations that alter existing columns or drop data
+- Debugging a production bug with unclear root cause
+- Writing complex queries involving aggregates, joins, or window functions
+- Any task where a subtle mistake causes data loss, data leak, or security breach
+
+### Effort levels
+| Task type | Effort |
+|-----------|--------|
+| Add a simple UI field, fix a label | Low — read 1 file, write 1 file |
+| New CRUD page following existing pattern | Medium — read reference template + route + controller pattern |
+| New service or complex business logic | High — read related models, migrations, existing service patterns |
+| Auth / security / multi-tenancy change | Maximum — read all related middleware, policies, tests before touching |
+| Database migration that alters live data | Maximum + confirm with user before running |
+
+### Hard rules before touching production-risk areas
+1. Read the relevant test file first — understand what is already covered.
+2. Read `docs/project-understanding/known-issues.md` — check for known traps in that area.
+3. Read the migration to confirm exact column names before writing any model/request code.
+4. Run the existing test suite mentally — will your change break existing passing tests?
+5. If uncertain about impact: STOP and ask the user instead of guessing.
+
+---
+
 ## LANGUAGE RULE (MANDATORY)
 
 **Always use French** for all user-facing text across the entire system — no exceptions:

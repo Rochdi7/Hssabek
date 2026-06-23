@@ -17,15 +17,24 @@ class UserInvitationController extends Controller
 {
     public function store(InviteUserRequest $request)
     {
-        $existingUser = User::where('email', $request->email)
+        // An active (non-deleted) user with this email already exists → block.
+        $activeUser = User::where('email', $request->email)
             ->where('tenant_id', TenantContext::id())
             ->exists();
 
-        if ($existingUser) {
+        if ($activeUser) {
             return redirect()->back()
                 ->withInput()
                 ->with('error', __('Cet utilisateur existe déjà dans votre organisation.'));
         }
+
+        // A previously soft-deleted user with this email → restore it instead of
+        // inserting a duplicate (which would violate the users_email_unique index).
+        $trashedUser = User::withTrashed()
+            ->where('email', $request->email)
+            ->where('tenant_id', TenantContext::id())
+            ->whereNotNull('deleted_at')
+            ->first();
 
         // Cancel any existing pending invitation for this email
         UserInvitation::where('tenant_id', TenantContext::id())
@@ -35,7 +44,10 @@ class UserInvitationController extends Controller
 
         if ($request->password_mode === 'manual') {
             // Manual mode: create user directly with the provided password
-            $user = new User();
+            $user = $trashedUser ?? new User();
+            if ($trashedUser) {
+                $user->restore();
+            }
             $user->tenant_id = TenantContext::id();
             $user->email = $request->email;
             $user->name = $request->email; // Default name to email, user can update later
@@ -43,6 +55,8 @@ class UserInvitationController extends Controller
             $user->status = 'active';
             $user->email_verified_at = now();
             $user->save();
+
+            $user->syncRoles([]);
 
             if ($request->role_id) {
                 $role = Role::find($request->role_id);
@@ -58,7 +72,10 @@ class UserInvitationController extends Controller
         // Auto mode: generate random password and send via email
         $generatedPassword = Str::random(12);
 
-        $user = new User();
+        $user = $trashedUser ?? new User();
+        if ($trashedUser) {
+            $user->restore();
+        }
         $user->tenant_id = TenantContext::id();
         $user->email = $request->email;
         $user->name = $request->email;
@@ -66,6 +83,8 @@ class UserInvitationController extends Controller
         $user->status = 'active';
         $user->email_verified_at = now();
         $user->save();
+
+        $user->syncRoles([]);
 
         if ($request->role_id) {
             $role = Role::find($request->role_id);
