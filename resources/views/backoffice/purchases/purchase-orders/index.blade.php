@@ -153,12 +153,8 @@
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>{{ __('Statut :') }} <span class="fw-normal ms-1">
                                     @switch(request('status'))
-                                        @case('draft')
-                                            {{ __('Brouillon') }}
-                                        @break
-
-                                        @case('sent')
-                                            {{ __('Envoyé') }}
+                                        @case('active')
+                                            {{ __('Actif') }}
                                         @break
 
                                         @case('confirmed')
@@ -185,12 +181,12 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('status', 'page'))) }}"
                                         class="dropdown-item">{{ __('Tous') }}</a></li>
-                                <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">{{ __('Brouillon') }}</a></li>
-                                <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
-                                        class="dropdown-item">{{ __('Envoyé') }}</a></li>
+                                <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('page'), ['status' => 'active'])) }}"
+                                        class="dropdown-item">{{ __('Actif') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('page'), ['status' => 'confirmed'])) }}"
                                         class="dropdown-item">{{ __('Confirmé') }}</a></li>
+                                <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('page'), ['status' => 'partially_received'])) }}"
+                                        class="dropdown-item">{{ __('Partiellement reçu') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('page'), ['status' => 'received'])) }}"
                                         class="dropdown-item">{{ __('Reçu') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.purchase-orders.index', array_merge(request()->except('page'), ['status' => 'cancelled'])) }}"
@@ -248,33 +244,7 @@
                                 <td class="text-dark fw-medium">{{ number_format($po->total, 2, ',', ' ') }}
                                     {{ $currency }}</td>
                                 <td>
-                                    @switch($po->status)
-                                        @case('draft')
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
-                                        @break
-
-                                        @case('sent')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Envoyé') }}</span>
-                                        @break
-
-                                        @case('confirmed')
-                                            <span class="badge badge-soft-primary d-inline-flex align-items-center">{{ __('Confirmé') }}</span>
-                                        @break
-
-                                        @case('partially_received')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('Partiellement reçu') }}</span>
-                                        @break
-
-                                        @case('received')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Reçu') }}<i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
-                                        @break
-
-                                        @case('cancelled')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulé') }}</span>
-                                        @break
-                                    @endswitch
+                                    <span class="badge {{ $po->statusBadgeClass() }} d-inline-flex align-items-center">{{ __($po->statusLabel()) }}</span>
                                 </td>
                                 <td class="action-item">
                                     <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -286,7 +256,7 @@
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
-                                        @if ($po->status === 'draft')
+                                        @if ($po->normalizedStatus() === 'active')
                                             <li>
                                                 <a href="{{ route('bo.purchases.purchase-orders.edit', $po) }}"
                                                     class="dropdown-item d-flex align-items-center"><i

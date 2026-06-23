@@ -216,30 +216,7 @@
                                 <td class="text-dark">{{ number_format($bill->amount_due, 2, ',', ' ') }}
                                     {{ $currency }}</td>
                                 <td>
-                                    @switch($bill->status)
-                                        @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }} <i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
-                                        @break
-
-                                        @case('sent')
-                                        @case('partial')
-
-                                        @case('draft')
-                                            <span
-                                                class="badge badge-soft-warning d-inline-flex align-items-center">{{ ucfirst($bill->status) }}
-                                                <i class="isax isax-timer ms-1"></i></span>
-                                        @break
-
-                                        @case('cancelled')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulée') }} <i
-                                                    class="isax isax-close-circle ms-1"></i></span>
-                                        @break
-
-                                        @default
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ ucfirst($bill->status) }}</span>
-                                    @endswitch
+                                    <span class="badge {{ $bill->statusBadgeClass() }} d-inline-flex align-items-center">{{ __($bill->statusLabel()) }}</span>
                                 </td>
                             </tr>
                             @empty
@@ -342,20 +319,22 @@
                 if (statusEl) {
                     var breakdown = @json($purchaseStatusBreakdown->map(fn($s) => (int) $s->count));
                     var statusLabels = {
-                        draft: {!! json_encode(__('Brouillon')) !!},
-                        sent: {!! json_encode(__('Envoyée')) !!},
-                        partial: {!! json_encode(__('Partielle')) !!},
-                        paid: {!! json_encode(__('Payée')) !!},
-                        cancelled: {!! json_encode(__('Annulée')) !!},
-                        overdue: {!! json_encode(__('En retard')) !!}
+                        unpaid: {!! json_encode(__('Non payé')) !!},
+                        draft: {!! json_encode(__('Non payé')) !!},
+                        posted: {!! json_encode(__('Non payé')) !!},
+                        partial: {!! json_encode(__('Partiellement payé')) !!},
+                        paid: {!! json_encode(__('Payé')) !!},
+                        overdue: {!! json_encode(__('En retard')) !!},
+                        void: {!! json_encode(__('Annulé')) !!}
                     };
                     var statusColors = {
-                        draft: '#6c757d',
-                        sent: '#0dcaf0',
+                        unpaid: '#0dcaf0',
+                        draft: '#0dcaf0',
+                        posted: '#0dcaf0',
                         partial: '#ffc107',
                         paid: '#198754',
-                        cancelled: '#adb5bd',
-                        overdue: '#dc3545'
+                        overdue: '#dc3545',
+                        void: '#adb5bd'
                     };
                     var chartLabels = [],
                         chartData = [],

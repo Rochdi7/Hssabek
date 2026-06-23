@@ -13,6 +13,23 @@ class StorePaymentRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Drop allocation rows the user left blank — only invoices with a real
+     * amount get paid. Without this, the "required" rule on every row would
+     * force the user to allocate to all listed invoices.
+     */
+    protected function prepareForValidation(): void
+    {
+        $allocations = collect($this->input('allocations', []))
+            ->filter(fn ($alloc) => isset($alloc['amount_applied'])
+                && $alloc['amount_applied'] !== ''
+                && (float) $alloc['amount_applied'] > 0)
+            ->values()
+            ->all();
+
+        $this->merge(['allocations' => $allocations]);
+    }
+
     public function rules(): array
     {
         $tenantId = TenantContext::id();

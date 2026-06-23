@@ -27,7 +27,7 @@
                                     data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
                                     <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
                                 </button>
-                                @if($quote->status === 'draft')
+                                @if($quote->normalizedStatus() === 'active')
                                     <a href="{{ route($documentRouteBase . '.edit', $quote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                     <button type="button" class="btn btn-primary d-inline-flex align-items-center me-3"
                                         data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
@@ -39,7 +39,7 @@
                                         <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}
                                     </button>
                                 @endif
-                                @if(in_array($quote->status, ['sent', 'accepted']))
+                                @if(in_array($quote->normalizedStatus(), ['active', 'accepted']))
                                     <form method="POST" action="{{ route($documentRouteBase . '.convert', $quote) }}" class="me-3">
                                         @csrf
                                         <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
@@ -75,14 +75,7 @@
                                                 <div class="me-4">
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $quote->number }}</h6>
                                                     <p>
-                                                        @switch($quote->status)
-                                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
-                                                            @case('sent') <span class="badge badge-soft-info">{{ __('Envoyé') }}</span> @break
-                                                            @case('accepted') <span class="badge badge-soft-success">{{ __('Accepté') }}</span> @break
-                                                            @case('rejected') <span class="badge badge-soft-danger">{{ __('Rejeté') }}</span> @break
-                                                            @case('expired') <span class="badge badge-soft-warning">{{ __('Expiré') }}</span> @break
-                                                            @case('cancelled') <span class="badge badge-soft-danger">{{ __('Annulé') }}</span> @break
-                                                        @endswitch
+                                                        <span class="badge {{ $quote->statusBadgeClass() }}">{{ __($quote->statusLabel()) }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -245,12 +238,7 @@
                                                             <td>{{ $inv->issue_date?->format('d/m/Y') }}</td>
                                                             <td>{{ number_format($inv->total, 2, ',', ' ') }} {{ $inv->currency }}</td>
                                                             <td>
-                                                                @switch($inv->status)
-                                                                    @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
-                                                                    @case('sent') <span class="badge badge-soft-info">{{ __('Envoyée') }}</span> @break
-                                                                    @case('paid') <span class="badge badge-soft-success">{{ __('Payée') }}</span> @break
-                                                                    @default <span class="badge badge-soft-warning">{{ ucfirst($inv->status) }}</span>
-                                                                @endswitch
+                                                                <span class="badge {{ $inv->statusBadgeClass() }}">{{ __($inv->statusLabel()) }}</span>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -310,22 +298,12 @@
                 @csrf
                 <div class="modal-body">
                     <p class="text-muted mb-3">{{ __('Statut actuel :') }}
-                        <strong>
-                            @switch($quote->status)
-                                @case('draft') {{ __('Brouillon') }} @break
-                                @case('sent') {{ __('Envoyé') }} @break
-                                @case('accepted') {{ __('Accepté') }} @break
-                                @case('rejected') {{ __('Rejeté') }} @break
-                                @case('expired') {{ __('Expiré') }} @break
-                                @case('cancelled') {{ __('Annulé') }} @break
-                            @endswitch
-                        </strong>
+                        <strong>{{ __($quote->statusLabel()) }}</strong>
                     </p>
                     <div class="mb-3">
                         <label class="form-label">{{ __('Nouveau statut') }}</label>
                         <select name="status" class="form-select" required>
-                            <option value="draft" @selected($quote->status === 'draft')>{{ __('Brouillon') }}</option>
-                            <option value="sent" @selected($quote->status === 'sent')>{{ __('Envoyé') }}</option>
+                            <option value="active" @selected($quote->normalizedStatus() === 'active')>{{ __('Actif') }}</option>
                             <option value="accepted" @selected($quote->status === 'accepted')>{{ __('Accepté') }}</option>
                             <option value="rejected" @selected($quote->status === 'rejected')>{{ __('Rejeté') }}</option>
                             <option value="expired" @selected($quote->status === 'expired')>{{ __('Expiré') }}</option>

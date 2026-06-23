@@ -18,6 +18,58 @@ class Invoice extends Model
 {
     use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
+    /** Simplified workflow statuses. Legacy 'draft'/'sent' rows are treated as UNPAID. */
+    public const STATUS_UNPAID  = 'unpaid';
+    public const STATUS_PARTIAL = 'partial';
+    public const STATUS_PAID    = 'paid';
+    public const STATUS_OVERDUE = 'overdue';
+    public const STATUS_VOID    = 'void';
+
+    /** Map any stored value (including legacy) to a simplified status. */
+    public function normalizedStatus(): string
+    {
+        return match ($this->status) {
+            'draft', 'sent' => self::STATUS_UNPAID,
+            default => $this->status,
+        };
+    }
+
+    /**
+     * Invoices eligible to receive a customer payment.
+     * Money-based eligibility: open balance and not closed (paid/void).
+     * "sent" is NOT required — clients may deliver invoices outside the system.
+     */
+    public function scopeAllocatable($query)
+    {
+        return $query->where('amount_due', '>', 0)
+            ->whereNotIn('status', [self::STATUS_PAID, self::STATUS_VOID]);
+    }
+
+    /** French label for the badge. */
+    public function statusLabel(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_UNPAID  => 'Non payé',
+            self::STATUS_PARTIAL => 'Partiellement payé',
+            self::STATUS_PAID    => 'Payé',
+            self::STATUS_OVERDUE => 'En retard',
+            self::STATUS_VOID    => 'Annulé',
+            default              => ucfirst((string) $this->status),
+        };
+    }
+
+    /** Theme badge class (kept consistent with existing badge palette). */
+    public function statusBadgeClass(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_PAID    => 'badge-soft-success',
+            self::STATUS_PARTIAL => 'badge-soft-warning',
+            self::STATUS_OVERDUE => 'badge-soft-danger',
+            self::STATUS_VOID    => 'badge-soft-secondary',
+            default              => 'badge-soft-info',
+        };
+    }
+
     protected $fillable = [
         'customer_id',
         'quote_id',

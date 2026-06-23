@@ -79,7 +79,7 @@ class DashboardController extends Controller
         $draftInvoiceCount = Invoice::where('status', 'draft')->count();
         $totalSalesYtd     = $kpis['revenueYtd'];
         $totalPurchasesYtd = VendorBill::whereBetween('issue_date', [$now->copy()->startOfYear()->toDateString(), $today])
-            ->where('status', '!=', 'cancelled')
+            ->where('status', '!=', 'void')
             ->sum('total');
         $creditNotesTotal  = CreditNote::sum('total');
         $expensesYtd       = Expense::whereBetween('expense_date', [$now->copy()->startOfYear()->toDateString(), $today])
@@ -89,11 +89,11 @@ class DashboardController extends Controller
         // Invoice statistics — real DB aggregations
         $invoicedTotal    = Invoice::where('status', '!=', 'void')->sum('total');
         $receivedTotal    = Invoice::where('status', '!=', 'void')->sum('amount_paid');
-        $outstandingTotal = Invoice::whereIn('status', ['sent', 'partial', 'overdue'])->sum('amount_due');
+        $outstandingTotal = Invoice::whereIn('status', ['unpaid', 'sent', 'partial', 'overdue'])->sum('amount_due');
         $overdueTotal     = Invoice::where(function ($q) use ($today) {
             $q->where('status', 'overdue')
               ->orWhere(function ($q2) use ($today) {
-                  $q2->whereIn('status', ['sent', 'partial'])->where('due_date', '<', $today);
+                  $q2->whereIn('status', ['unpaid', 'sent', 'partial'])->where('due_date', '<', $today);
               });
         })->sum('amount_due');
 
@@ -119,7 +119,7 @@ class DashboardController extends Controller
             ? "strftime('%Y-%m', issue_date)"
             : "DATE_FORMAT(issue_date, '%Y-%m')";
         $purchasesTrend = VendorBill::where('issue_date', '>=', $now->copy()->subMonths(11)->startOfMonth())
-            ->where('status', '!=', 'cancelled')
+            ->where('status', '!=', 'void')
             ->selectRaw("{$purchaseMonthExpr} as month, COALESCE(SUM(total), 0) as total")
             ->groupBy('month')
             ->orderBy('month')
@@ -147,10 +147,14 @@ class DashboardController extends Controller
         $overdueCount = Invoice::where(function ($q) use ($today) {
             $q->where('status', 'overdue')
               ->orWhere(function ($q2) use ($today) {
-                  $q2->whereIn('status', ['sent', 'partial'])->where('due_date', '<', $today);
+                  $q2->whereIn('status', ['unpaid', 'sent', 'partial'])->where('due_date', '<', $today);
               });
         })->count();
-        $sentCount    = Invoice::where('status', 'sent')->count();
+        // Unpaid (not yet overdue). Legacy 'sent' rows count here too.
+        $sentCount    = Invoice::whereIn('status', ['unpaid', 'sent'])
+            ->where(function ($q) use ($today) {
+                $q->whereNull('due_date')->orWhere('due_date', '>=', $today);
+            })->count();
         $draftCount   = Invoice::where('status', 'draft')->count();
         $totalInvoiceCount = max($invoiceCount, 1); // avoid division by zero
 

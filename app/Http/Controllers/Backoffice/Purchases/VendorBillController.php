@@ -11,6 +11,7 @@ use App\Models\Purchases\Supplier;
 use App\Models\Purchases\VendorBill;
 use App\Services\Sales\PdfService;
 use App\Models\Finance\BankAccount;
+use App\Services\Purchases\VendorBillService;
 use App\Services\System\DocumentNumberService;
 use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class VendorBillController extends Controller
 {
     public function __construct(
         private DocumentNumberService $docNumberService,
+        private VendorBillService $vendorBillService,
     ) {}
 
     public function index(Request $request)
@@ -78,7 +80,7 @@ class VendorBillController extends Controller
 
         $bill = VendorBill::create(array_merge($validated, [
             'number'      => $this->docNumberService->next('vendor_bill'),
-            'status'      => 'draft',
+            'status'      => VendorBill::STATUS_UNPAID,
             'tax_total'   => $validated['tax_total'] ?? 0,
             'amount_paid' => 0,
             'amount_due'  => $validated['total'],
@@ -100,7 +102,7 @@ class VendorBillController extends Controller
     public function edit(VendorBill $vendorBill)
     {
         $this->authorize('update', $vendorBill);
-        abort_unless($vendorBill->status === 'draft', 403, 'Seules les factures en brouillon peuvent être modifiées.');
+        abort_unless($this->vendorBillService->isEditable($vendorBill), 403, 'Seules les factures non payées et sans paiement peuvent être modifiées.');
 
         $suppliers = Supplier::where('status', 'active')->orderBy('name')->get();
 
@@ -117,7 +119,7 @@ class VendorBillController extends Controller
     public function update(UpdateVendorBillRequest $request, VendorBill $vendorBill)
     {
         $this->authorize('update', $vendorBill);
-        abort_unless($vendorBill->status === 'draft', 403, 'Seules les factures en brouillon peuvent être modifiées.');
+        abort_unless($this->vendorBillService->isEditable($vendorBill), 403, 'Seules les factures non payées et sans paiement peuvent être modifiées.');
 
         $validated = $request->validated();
 
@@ -151,9 +153,9 @@ class VendorBillController extends Controller
         $this->authorize('update', $vendorBill);
 
         abort_unless(
-            !in_array($vendorBill->status, ['draft']),
+            $vendorBill->status !== VendorBill::STATUS_VOID,
             403,
-            'Les factures en brouillon ne peuvent pas être envoyées.'
+            'Les factures annulées ne peuvent pas être envoyées.'
         );
 
         $vendorBill->update(['sent_at' => now()]);
@@ -171,12 +173,13 @@ class VendorBillController extends Controller
     {
         $this->authorize('update', $vendorBill);
 
-        $statuses = ['draft', 'posted', 'paid', 'void'];
+        // Payment-driven statuses are resolved automatically from supplier payments.
+        // The only manual change is cancellation.
         $new = $request->input('status');
 
-        abort_unless(in_array($new, $statuses), 422);
+        abort_unless($new === VendorBill::STATUS_VOID, 422);
 
-        $vendorBill->update(['status' => $new]);
+        $this->vendorBillService->void($vendorBill);
 
         return redirect()->route('bo.purchases.vendor-bills.show', $vendorBill)
             ->with('success', __('Statut de la facture fournisseur mis à jour avec succès.'));

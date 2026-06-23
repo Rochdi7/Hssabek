@@ -31,3 +31,6 @@ Schedule::command('subscription:check-expired')->dailyAt('00:30');
 
 // Mark overdue loan installments every day at 07:00
 Schedule::command('loan:process-installments')->dailyAt('07:00');
+
+// Mark overdue invoices & vendor bills every day at 00:15
+Schedule::command('documents:mark-overdue')->dailyAt('00:15');

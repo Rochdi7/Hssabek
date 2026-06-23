@@ -46,8 +46,7 @@ class PaymentServiceTest extends TestCase
             'items' => [['label' => 'Item', 'quantity' => 1, 'unit_price' => $amount, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
         ]);
 
-        $this->invoiceService->transition($invoice, 'sent');
-
+        // Invoices are created 'unpaid' and can receive payments directly.
         return $invoice->fresh();
     }
 
@@ -143,7 +142,6 @@ class PaymentServiceTest extends TestCase
             'issue_date' => now()->toDateString(),
             'items' => [['label' => 'Other', 'quantity' => 1, 'unit_price' => 100, 'discount_type' => 'none', 'discount_value' => 0, 'tax_rate' => 0]],
         ]);
-        $this->invoiceService->transition($foreignInvoice, 'sent');
 
         $this->expectException(\DomainException::class);
 

@@ -54,9 +54,9 @@ class SendInvoiceRemindersCommand extends Command
             try {
                 $invoice = $reminder->invoice;
 
-                // Skip if invoice is already paid or cancelled
-                if (!$invoice || in_array($invoice->status, ['paid', 'cancelled', 'voided'])) {
-                    $reminder->update(['status' => 'cancelled', 'sent_at' => now()]);
+                // Skip if invoice is already settled (paid) or cancelled (void)
+                if (!$invoice || in_array($invoice->normalizedStatus(), ['paid', 'void'])) {
+                    $reminder->update(['status' => 'failed', 'error' => 'Facture déjà réglée ou annulée.', 'sent_at' => now()]);
                     continue;
                 }
 
@@ -122,7 +122,7 @@ class SendInvoiceRemindersCommand extends Command
 
         // Get unpaid invoices
         $invoices = Invoice::where('tenant_id', $tenant->id)
-            ->whereIn('status', ['sent', 'partial', 'overdue'])
+            ->whereIn('status', ['unpaid', 'sent', 'partial', 'overdue'])
             ->where('amount_due', '>', 0)
             ->whereNotNull('due_date')
             ->with('customer')

@@ -16,6 +16,55 @@ class VendorBill extends Model
 {
     use HasFactory, HasUuids, SoftDeletes, BelongsToTenant, UsesTenantCurrency, LogsActivity;
 
+    /** Simplified workflow statuses. Legacy 'draft'/'posted' rows are treated as UNPAID. */
+    public const STATUS_UNPAID  = 'unpaid';
+    public const STATUS_PARTIAL = 'partial';
+    public const STATUS_PAID    = 'paid';
+    public const STATUS_OVERDUE = 'overdue';
+    public const STATUS_VOID    = 'void';
+
+    public function normalizedStatus(): string
+    {
+        return match ($this->status) {
+            'draft', 'posted' => self::STATUS_UNPAID,
+            default => $this->status,
+        };
+    }
+
+    /**
+     * Vendor bills eligible to receive a supplier payment.
+     * Money-based eligibility: open balance and not closed (paid/void).
+     * "posted" is NOT required.
+     */
+    public function scopeAllocatable($query)
+    {
+        return $query->where('amount_due', '>', 0)
+            ->whereNotIn('status', [self::STATUS_PAID, self::STATUS_VOID]);
+    }
+
+    public function statusLabel(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_UNPAID  => 'Non payé',
+            self::STATUS_PARTIAL => 'Partiellement payé',
+            self::STATUS_PAID    => 'Payé',
+            self::STATUS_OVERDUE => 'En retard',
+            self::STATUS_VOID    => 'Annulé',
+            default              => ucfirst((string) $this->status),
+        };
+    }
+
+    public function statusBadgeClass(): string
+    {
+        return match ($this->normalizedStatus()) {
+            self::STATUS_PAID    => 'badge-soft-success',
+            self::STATUS_PARTIAL => 'badge-soft-warning',
+            self::STATUS_OVERDUE => 'badge-soft-danger',
+            self::STATUS_VOID    => 'badge-soft-secondary',
+            default              => 'badge-soft-info',
+        };
+    }
+
     protected $fillable = [
         'supplier_id',
         'purchase_order_id',

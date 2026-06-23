@@ -30,7 +30,7 @@
                                     data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
                                     <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
                                 </button>
-                                @if($invoice->status === 'draft')
+                                @if($invoice->normalizedStatus() === 'unpaid' && $invoice->amount_paid <= 0)
                                     <a href="{{ route('bo.sales.invoices.edit', $invoice) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i
                                             class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                     <button type="button" class="btn btn-primary d-inline-flex align-items-center me-3"
@@ -43,7 +43,7 @@
                                         <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}
                                     </button>
                                 @endif
-                                @if(in_array($invoice->status, ['draft', 'sent', 'partial', 'overdue']))
+                                @if(!in_array($invoice->normalizedStatus(), ['paid', 'void']))
                                     <form method="POST" action="{{ route('bo.sales.invoices.void', $invoice) }}">
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
@@ -80,14 +80,7 @@
                                                 <div class="me-4">
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $invoice->number }}</h6>
                                                     <p>
-                                                        @switch($invoice->status)
-                                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
-                                                            @case('sent') <span class="badge badge-soft-info">{{ __('Envoyée') }}</span> @break
-                                                            @case('partial') <span class="badge badge-soft-warning">{{ __('Partiellement payée') }}</span> @break
-                                                            @case('paid') <span class="badge badge-soft-success">{{ __('Payée') }}</span> @break
-                                                            @case('overdue') <span class="badge badge-soft-danger">{{ __('En retard') }}</span> @break
-                                                            @case('void') <span class="badge badge-soft-danger">{{ __('Annulée') }}</span> @break
-                                                        @endswitch
+                                                        <span class="badge {{ $invoice->statusBadgeClass() }}">{{ __($invoice->statusLabel()) }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -354,32 +347,16 @@
                 @csrf
                 <div class="modal-body">
                     <p class="text-muted mb-3">{{ __('Statut actuel :') }}
-                        <strong>
-                            @switch($invoice->status)
-                                @case('draft') {{ __('Brouillon') }} @break
-                                @case('sent') {{ __('Envoyée') }} @break
-                                @case('partial') {{ __('Partiellement payée') }} @break
-                                @case('paid') {{ __('Payée') }} @break
-                                @case('overdue') {{ __('En retard') }} @break
-                                @case('void') {{ __('Annulée') }} @break
-                            @endswitch
-                        </strong>
+                        <strong>{{ __($invoice->statusLabel()) }}</strong>
                     </p>
-                    <div class="mb-3">
-                        <label class="form-label">{{ __('Nouveau statut') }}</label>
-                        <select name="status" class="form-select" required>
-                            <option value="draft" @selected($invoice->status === 'draft')>{{ __('Brouillon') }}</option>
-                            <option value="sent" @selected($invoice->status === 'sent')>{{ __('Envoyée') }}</option>
-                            <option value="partial" @selected($invoice->status === 'partial')>{{ __('Partiellement payée') }}</option>
-                            <option value="paid" @selected($invoice->status === 'paid')>{{ __('Payée') }}</option>
-                            <option value="overdue" @selected($invoice->status === 'overdue')>{{ __('En retard') }}</option>
-                            <option value="void" @selected($invoice->status === 'void')>{{ __('Annulée') }}</option>
-                        </select>
-                    </div>
+                    <input type="hidden" name="status" value="void">
+                    <p class="mb-0">{{ __('Le statut de paiement est mis à jour automatiquement à partir des paiements. Vous pouvez uniquement annuler cette facture.') }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
-                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Fermer') }}</button>
+                    <button type="submit" class="btn btn-outline-danger"
+                        onclick="return confirm('{{ __("Êtes-vous sûr de vouloir annuler cette facture ?") }}')"
+                        @disabled(in_array($invoice->normalizedStatus(), ['paid', 'void']))>{{ __('Annuler la facture') }}</button>
                 </div>
             </form>
         </div>

@@ -44,8 +44,7 @@ class SupplierPaymentController extends Controller
         $this->authorize('create', SupplierPayment::class);
 
         $suppliers = Supplier::orderBy('name')->get();
-        $vendorBills = VendorBill::where('amount_due', '>', 0)
-            ->whereNotIn('status', ['paid', 'void'])
+        $vendorBills = VendorBill::allocatable()
             ->with('supplier')
             ->orderBy('issue_date')
             ->get();

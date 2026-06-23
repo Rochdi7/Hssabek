@@ -85,9 +85,9 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">{{ __('Envoyés') }}</p>
+                                    <p class="mb-1">{{ __('Actifs') }}</p>
                                     <h6 class="fs-16 fw-semibold text-warning">
-                                        {{ $summary['sent'] }}
+                                        {{ $summary['active'] }}
                                     </h6>
                                 </div>
                                 <div>
@@ -153,12 +153,8 @@
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>{{ __('Statut') }} : <span class="fw-normal ms-1">
                                     @switch(request('status'))
-                                        @case('draft')
-                                            {{ __('Brouillon') }}
-                                        @break
-
-                                        @case('sent')
-                                            {{ __('Envoyé') }}
+                                        @case('active')
+                                            {{ __('Actif') }}
                                         @break
 
                                         @case('accepted')
@@ -187,10 +183,8 @@
                                     <a href="{{ route($documentRouteBase . '.index', request()->except('status', 'page')) }}"
                                         class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
-                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">{{ __('Brouillon') }}</a></li>
-                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
-                                        class="dropdown-item">{{ __('Envoyé') }}</a></li>
+                                <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'active'])) }}"
+                                        class="dropdown-item">{{ __('Actif') }}</a></li>
                                 <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'accepted'])) }}"
                                         class="dropdown-item">{{ __('Accepté') }}</a></li>
                                 <li><a href="{{ route($documentRouteBase . '.index', array_merge(request()->except('page'), ['status' => 'rejected'])) }}"
@@ -256,37 +250,7 @@
                                 <td class="text-dark">{{ number_format($quote->total, 2, ',', ' ') }}
                                     {{ $quote->currency }}</td>
                                 <td>
-                                    @switch($quote->status)
-                                        @case('draft')
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
-                                        @break
-
-                                        @case('sent')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Envoyé') }} <i
-                                                    class="isax isax-send-2 ms-1"></i></span>
-                                        @break
-
-                                        @case('accepted')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Accepté') }} <i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
-                                        @break
-
-                                        @case('rejected')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Rejeté') }} <i
-                                                    class="isax isax-close-circle ms-1"></i></span>
-                                        @break
-
-                                        @case('expired')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('Expiré') }} <i
-                                                    class="isax isax-timer ms-1"></i></span>
-                                        @break
-
-                                        @case('cancelled')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulé') }} <i
-                                                    class="isax isax-close-circle ms-1"></i></span>
-                                        @break
-                                    @endswitch
+                                    <span class="badge {{ $quote->statusBadgeClass() }} d-inline-flex align-items-center">{{ __($quote->statusLabel()) }}</span>
                                 </td>
                                 <td class="action-item">
                                     <a href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -298,7 +262,7 @@
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
-                                        @if ($quote->status === 'draft')
+                                        @if ($quote->normalizedStatus() === 'active')
                                             <li>
                                                 <a href="{{ route($documentRouteBase . '.edit', $quote) }}"
                                                     class="dropdown-item d-flex align-items-center"><i
@@ -325,7 +289,7 @@
                                                     <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
-                                        @if (in_array($quote->status, ['sent', 'accepted']))
+                                        @if (in_array($quote->normalizedStatus(), ['active', 'accepted']))
                                             <li>
                                                 <form method="POST"
                                                     action="{{ route($documentRouteBase . '.convert', $quote) }}">

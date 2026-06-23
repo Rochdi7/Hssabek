@@ -65,9 +65,11 @@ class PaymentService
                     throw new \DomainException("Chaque facture allouée doit appartenir au même client que le paiement.");
                 }
 
-                if (!in_array($invoice->status, ['sent', 'partial', 'overdue'], true)) {
+                // Any non-paid, non-void invoice can receive a payment. Legacy
+                // draft/sent rows normalize to unpaid.
+                if (in_array($invoice->normalizedStatus(), ['paid', 'void'], true)) {
                     throw new \DomainException(
-                        "La facture {$invoice->number} doit Ãªtre envoyÃ©e avant de pouvoir recevoir un paiement."
+                        "La facture {$invoice->number} ne peut pas recevoir de paiement (déjà payée ou annulée)."
                     );
                 }
 

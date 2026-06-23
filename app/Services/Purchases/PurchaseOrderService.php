@@ -40,7 +40,7 @@ class PurchaseOrderService
                 'number'         => $this->docService->next('purchase_order'),
                 'order_date'     => $validated['order_date'],
                 'expected_date'  => $validated['expected_date'] ?? null,
-                'status'         => 'draft',
+                'status'         => PurchaseOrder::STATUS_ACTIVE,
                 'subtotal'       => $totals['subtotal'],
                 'discount_total' => $totals['discount_total'],
                 'tax_total'      => $totals['tax_total'],
@@ -74,8 +74,8 @@ class PurchaseOrderService
 
     public function update(PurchaseOrder $po, array $validated): PurchaseOrder
     {
-        if ($po->status !== 'draft') {
-            throw new \DomainException('Seuls les bons de commande en brouillon peuvent être modifiés.');
+        if ($po->normalizedStatus() !== PurchaseOrder::STATUS_ACTIVE) {
+            throw new \DomainException('Seuls les bons de commande actifs peuvent être modifiés.');
         }
 
         return DB::transaction(function () use ($po, $validated) {
@@ -128,7 +128,9 @@ class PurchaseOrderService
     public function transition(PurchaseOrder $po, string $newStatus): void
     {
         $allowed = [
-            'draft'              => ['sent', 'confirmed', 'cancelled'],
+            'active'             => ['confirmed', 'partially_received', 'received', 'cancelled'],
+            // Legacy states kept for backward compatibility.
+            'draft'              => ['active', 'sent', 'confirmed', 'cancelled'],
             'sent'               => ['confirmed', 'cancelled'],
             'confirmed'          => ['partially_received', 'received', 'cancelled'],
             'partially_received' => ['received'],

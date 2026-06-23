@@ -152,20 +152,16 @@
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>{{ __('Statut') }} : <span class="fw-normal ms-1">
                                     @switch(request('status'))
-                                        @case('draft')
-                                            {{ __('Brouillon') }}
-                                        @break
-
-                                        @case('sent')
-                                            {{ __('Envoyée') }}
+                                        @case('unpaid')
+                                            {{ __('Non payé') }}
                                         @break
 
                                         @case('partial')
-                                            {{ __('Partielle') }}
+                                            {{ __('Partiellement payé') }}
                                         @break
 
                                         @case('paid')
-                                            {{ __('Payée') }}
+                                            {{ __('Payé') }}
                                         @break
 
                                         @case('overdue')
@@ -173,7 +169,7 @@
                                         @break
 
                                         @case('void')
-                                            {{ __('Annulée') }}
+                                            {{ __('Annulé') }}
                                         @break
 
                                         @default
@@ -187,20 +183,16 @@
                                         class="dropdown-item">{{ __('Tous') }}</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">{{ __('Brouillon') }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
-                                        class="dropdown-item">{{ __('Envoyée') }}</a>
+                                    <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'unpaid'])) }}"
+                                        class="dropdown-item">{{ __('Non payé') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'partial'])) }}"
-                                        class="dropdown-item">{{ __('Partiellement payée') }}</a>
+                                        class="dropdown-item">{{ __('Partiellement payé') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'paid'])) }}"
-                                        class="dropdown-item">{{ __('Payée') }}</a>
+                                        class="dropdown-item">{{ __('Payé') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'overdue'])) }}"
@@ -208,7 +200,7 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('bo.sales.invoices.index', array_merge(request()->except('page'), ['status' => 'void'])) }}"
-                                        class="dropdown-item">{{ __('Annulée') }}</a>
+                                        class="dropdown-item">{{ __('Annulé') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -269,37 +261,7 @@
                                     {{ $invoice->currency }}</td>
                                 <td>{{ number_format($invoice->amount_paid, 2, ',', ' ') }} {{ $invoice->currency }}</td>
                                 <td>
-                                    @switch($invoice->status)
-                                        @case('draft')
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
-                                        @break
-
-                                        @case('sent')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Envoyée') }} <i
-                                                    class="isax isax-send-2 ms-1"></i></span>
-                                        @break
-
-                                        @case('partial')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('Partielle') }} <i
-                                                    class="isax isax-money-3 ms-1"></i></span>
-                                        @break
-
-                                        @case('paid')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Payée') }} <i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
-                                        @break
-
-                                        @case('overdue')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('En retard') }} <i
-                                                    class="isax isax-information ms-1"></i></span>
-                                        @break
-
-                                        @case('void')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulée') }} <i
-                                                    class="isax isax-close-circle ms-1"></i></span>
-                                        @break
-                                    @endswitch
+                                    <span class="badge {{ $invoice->statusBadgeClass() }} d-inline-flex align-items-center">{{ __($invoice->statusLabel()) }}</span>
                                 </td>
                                 <td class="action-item">
                                     <a href="javascript:void(0);" data-bs-toggle="dropdown">
