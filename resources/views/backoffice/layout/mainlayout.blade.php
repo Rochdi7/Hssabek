@@ -158,40 +158,39 @@
     <i class="isax isax-mobile" style="font-size:22px;"></i>
 </button>
 
-<!-- iOS Safari install tooltip -->
+<!-- iOS Safari install banner (bottom, full-width, does not overlap content) -->
 <div id="ios-install-tooltip" style="
     display: none;
     position: fixed;
-    bottom: 88px;
-    right: 12px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 10000;
     background: #fff;
     color: #333;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-    padding: 14px 16px;
-    max-width: 240px;
-    font-size: 13px;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.13);
+    padding: 14px 20px 20px;
+    font-size: 14px;
     line-height: 1.5;
     text-align: center;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 ">
-    <div style="font-weight:600;margin-bottom:6px;">Installer l'application</div>
-    <div>Appuyez sur <strong>Partager</strong> <span style="font-size:16px;">⬆️</span> puis <strong>« Sur l'écran d'accueil »</strong></div>
-    <button onclick="document.getElementById('ios-install-tooltip').style.display='none'" style="
-        margin-top:10px;border:none;background:#4361ee;color:#fff;
-        border-radius:8px;padding:5px 16px;cursor:pointer;font-size:12px;
-    ">OK</button>
-    <!-- Arrow pointing down-right toward the button -->
-    <div style="
-        position:absolute;bottom:-10px;right:24px;
-        width:0;height:0;
-        border-left:10px solid transparent;
-        border-right:10px solid transparent;
-        border-top:10px solid #fff;
-    "></div>
+    <div style="font-weight:700;margin-bottom:6px;font-size:15px;">Installer Hssabek</div>
+    <div>Appuyez sur <strong>Partager</strong> <span style="font-size:17px;">⬆️</span> puis <strong>« Sur l'écran d'accueil »</strong></div>
+    <button onclick="dismissIosBanner()" style="
+        margin-top:12px;border:none;background:#4361ee;color:#fff;
+        border-radius:10px;padding:8px 28px;cursor:pointer;font-size:14px;font-weight:600;
+    ">Compris</button>
 </div>
 
 <script>
+function dismissIosBanner() {
+    var el = document.getElementById('ios-install-tooltip');
+    if (el) el.style.display = 'none';
+    try { sessionStorage.setItem('pwa-ios-dismissed', '1'); } catch(e) {}
+}
+
 (function () {
     // Register service worker
     if ('serviceWorker' in navigator) {
@@ -201,22 +200,28 @@
     }
 
     var installBtn = document.getElementById('pwa-install-btn');
-    var iosTooltip  = document.getElementById('ios-install-tooltip');
+    var iosBanner  = document.getElementById('ios-install-tooltip');
 
-    // Detect iOS Safari (not Chrome/Firefox on iOS which also have /iPhone|iPad/)
     var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
     var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
     var isInStandaloneMode = ('standalone' in navigator) && navigator.standalone;
 
     if (isIos && isSafari && !isInStandaloneMode) {
-        // Show button immediately on iOS Safari — beforeinstallprompt never fires here
+        // Show the floating button
         if (installBtn) installBtn.style.display = 'flex';
 
+        // Auto-show the banner once per session (after 1.5s so page settles)
+        var alreadyDismissed = false;
+        try { alreadyDismissed = !!sessionStorage.getItem('pwa-ios-dismissed'); } catch(e) {}
+        if (!alreadyDismissed && iosBanner) {
+            setTimeout(function () { iosBanner.style.display = 'block'; }, 1500);
+        }
+
+        // Toggle banner on button tap
         if (installBtn) {
             installBtn.addEventListener('click', function () {
-                if (iosTooltip) {
-                    iosTooltip.style.display = iosTooltip.style.display === 'none' ? 'block' : 'none';
-                }
+                if (!iosBanner) return;
+                iosBanner.style.display = iosBanner.style.display === 'none' ? 'block' : 'none';
             });
         }
     } else {
