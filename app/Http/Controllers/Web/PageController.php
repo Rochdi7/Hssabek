@@ -169,10 +169,22 @@ class PageController extends Controller
     {
         $data = $request->validated();
 
-        AccountRequest::create([
-            ...$data,
-            'ip_address' => $request->ip(),
-        ]);
+        try {
+            AccountRequest::create([
+                ...$data,
+                'ip_address' => $request->ip(),
+            ]);
+        } catch (\Throwable $e) {
+            Log::error('Account request creation failed', [
+                'error' => $e->getMessage(),
+                'ip'    => $request->ip(),
+            ]);
+
+            return redirect()
+                ->route('request-account')
+                ->withInput()
+                ->with('error', 'Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer dans quelques instants.');
+        }
 
         return redirect()
             ->route('request-account')

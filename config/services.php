@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    // Public support contact (used by frontoffice WhatsApp help links)
+    'whatsapp' => [
+        'number' => env('SUPPORT_WHATSAPP_NUMBER', '212632582096'),
+    ],
+
 ];

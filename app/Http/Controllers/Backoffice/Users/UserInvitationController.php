@@ -74,7 +74,7 @@ class UserInvitationController extends Controller
             }
         }
 
-        // Send credentials via email
+        // Track the credentials e-mail so it can be re-sent if delivery fails.
         $invitation = UserInvitation::create([
             'email' => $request->email,
             'role_id' => $request->role_id,
@@ -82,12 +82,46 @@ class UserInvitationController extends Controller
             'expires_at' => now(),
             'accepted_at' => now(),
             'created_by' => auth()->id(),
+            'mail_status' => UserInvitation::MAIL_PENDING,
+            'generated_password' => $generatedPassword,
         ]);
 
         dispatch(new SendUserInvitationJob($invitation, $generatedPassword));
 
+        $invitation->refresh();
+
+        if ($invitation->mail_status === UserInvitation::MAIL_FAILED) {
+            return redirect()->route('bo.users.index')
+                ->with('error', __("Le compte de {$request->email} a été créé, mais l'e-mail n'a pas pu être envoyé. Vous pouvez le renvoyer depuis la liste."));
+        }
+
         return redirect()->route('bo.users.index')
             ->with('success', __("Le compte a été créé et les identifiants ont été envoyés à {$request->email}."));
+    }
+
+    /**
+     * Re-send the credentials e-mail for an invitation whose mail previously failed.
+     */
+    public function resend(UserInvitation $invitation)
+    {
+        abort_unless($invitation->tenant_id === TenantContext::id(), 403);
+
+        if (! $invitation->generated_password) {
+            return redirect()->route('bo.users.index')
+                ->with('error', __("Impossible de renvoyer l'e-mail : aucun mot de passe enregistré pour cette invitation."));
+        }
+
+        dispatch(new SendUserInvitationJob($invitation, $invitation->generated_password));
+
+        $invitation->refresh();
+
+        if ($invitation->mail_status === UserInvitation::MAIL_FAILED) {
+            return redirect()->route('bo.users.index')
+                ->with('error', __("L'e-mail n'a toujours pas pu être envoyé à {$invitation->email}."));
+        }
+
+        return redirect()->route('bo.users.index')
+            ->with('success', __("L'e-mail a été renvoyé à {$invitation->email}."));
     }
 
     public function destroy(UserInvitation $invitation)

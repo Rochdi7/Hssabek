@@ -1979,14 +1979,7 @@
                                             id="locale-form-{{ $code }}" class="locale-switch-form">
                                             @csrf
                                             <input type="hidden" name="locale" value="{{ $code }}">
-                                            @if ($code === 'ar' && $currentLocale !== 'ar')
-                                                <button type="button" class="dropdown-item d-flex align-items-center"
-                                                    data-bs-toggle="modal" data-bs-target="#arabicLanguageWarningModal">
-                                                    <img src="{{ URL::asset('build/img/flags/' . $locale['flag']) }}"
-                                                        alt="{{ $locale['name'] }}" class="me-2"
-                                                        width="22">{{ $locale['name'] }}
-                                                </button>
-                                            @elseif ($code === 'en')
+                                            @if ($code === 'en')
                                                 <button type="button" class="dropdown-item d-flex align-items-center"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#englishLanguageComingSoonModal">
@@ -2006,38 +1999,6 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div>
-
-                        <!-- Arabic Language Warning Modal -->
-                        <div class="modal fade" id="arabicLanguageWarningModal" tabindex="-1"
-                            data-bs-backdrop="false" aria-labelledby="arabicLanguageWarningModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content border shadow">
-                                    <div class="modal-header bg-warning-subtle">
-                                        <h5 class="modal-title" id="arabicLanguageWarningModalLabel">
-                                            <i
-                                                class="isax isax-warning-2 text-warning me-2"></i>{{ __('Avertissement') }}
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class="mb-2">
-                                            <strong>{{ __('La version arabe n\'est pas encore complète.') }}</strong>
-                                        </p>
-                                        <p class="text-muted mb-0">
-                                            {{ __('Certaines parties de l\'interface peuvent encore s\'afficher en français. Nous travaillons activement sur la traduction complète.') }}
-                                        </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">{{ __('Annuler') }}</button>
-                                        <button type="button" class="btn btn-warning"
-                                            id="confirmArabicSwitch">{{ __('Continuer quand même') }}</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- English Language Coming Soon Modal -->
@@ -2069,17 +2030,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const confirmBtn = document.getElementById('confirmArabicSwitch');
-                                if (confirmBtn) {
-                                    confirmBtn.addEventListener('click', function() {
-                                        document.getElementById('locale-form-ar').submit();
-                                    });
-                                }
-                            });
-                        </script>
 
                         <!-- Notification -->
                         @php

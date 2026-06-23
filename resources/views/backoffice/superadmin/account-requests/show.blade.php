@@ -228,9 +228,13 @@
                             <div class="mb-3">
                                 <label class="form-label fw-medium">{{ __('Mot de passe') }} <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="password" id="password_field_show"
-                                        value="{{ \Illuminate\Support\Str::random(12) }}" required minlength="8">
-                                    <button type="button" class="btn btn-outline-secondary"
+                                    <input type="password" class="form-control" name="password" id="password_field_show"
+                                        autocomplete="new-password" required minlength="8">
+                                    <button type="button" class="btn btn-outline-secondary" title="{{ __('Afficher/Masquer') }}"
+                                        onclick="(function(i){i.type=i.type==='password'?'text':'password'})(document.getElementById('password_field_show'))">
+                                        <i class="isax isax-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" title="{{ __('Générer un mot de passe') }}"
                                         onclick="document.getElementById('password_field_show').value = generatePassword()">
                                         <i class="isax isax-refresh"></i>
                                     </button>
@@ -268,11 +272,16 @@
     <script>
         function generatePassword() {
             const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$%';
-            let password = '';
-            for (let i = 0; i < 12; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return password;
+            const array = new Uint32Array(12);
+            crypto.getRandomValues(array);
+            return Array.from(array, v => chars[v % chars.length]).join('');
         }
+        // Pre-fill on page load with a secure password
+        document.addEventListener('DOMContentLoaded', function () {
+            const field = document.getElementById('password_field_show');
+            if (field && !field.value) {
+                field.value = generatePassword();
+            }
+        });
     </script>
 @endsection

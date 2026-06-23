@@ -26,7 +26,20 @@ class SendUserInvitationJob implements ShouldQueue
         // Set tenant context for any model queries inside the notification
         TenantContext::set($this->invitation->tenant);
 
-        Notification::route('mail', $this->invitation->email)
-            ->notify(new UserInvitationNotification($this->invitation, $this->generatedPassword));
+        try {
+            Notification::route('mail', $this->invitation->email)
+                ->notify(new UserInvitationNotification($this->invitation, $this->generatedPassword));
+
+            $this->invitation->markMailSent();
+        } catch (\Throwable $e) {
+            $this->invitation->markMailFailed($e->getMessage());
+
+            throw $e;
+        }
+    }
+
+    public function failed(\Throwable $exception): void
+    {
+        $this->invitation->markMailFailed($exception->getMessage());
     }
 }

@@ -218,9 +218,12 @@
                             <div class="mb-3">
                                 <label class="form-label fw-medium">{{ __('Mot de passe') }} <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="password"
-                                        value="{{ \Illuminate\Support\Str::random(12) }}" required minlength="8">
-                                    <button type="button" class="btn btn-outline-secondary" onclick="this.previousElementSibling.value = '{{ \Illuminate\Support\Str::random(12) }}'">
+                                    <input type="password" class="form-control approve-password-field" name="password"
+                                        autocomplete="new-password" required minlength="8">
+                                    <button type="button" class="btn btn-outline-secondary toggle-password-btn" title="{{ __('Afficher/Masquer') }}">
+                                        <i class="isax isax-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary regen-password-btn" title="{{ __('Générer un mot de passe') }}">
                                         <i class="isax isax-refresh"></i>
                                     </button>
                                 </div>
@@ -257,4 +260,42 @@
     <!-- ========================
                    End Page Content
                   ========================= -->
+
+    <script>
+        (function () {
+            function generatePassword() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$%';
+                const array = new Uint32Array(12);
+                crypto.getRandomValues(array);
+                return Array.from(array, v => chars[v % chars.length]).join('');
+            }
+
+            // Initialise password fields and wire up buttons when a modal is shown
+            document.addEventListener('show.bs.modal', function (e) {
+                const modal = e.target;
+                const pwField = modal.querySelector('.approve-password-field');
+                if (pwField && !pwField.value) {
+                    pwField.value = generatePassword();
+                }
+            });
+
+            // Toggle visibility
+            document.addEventListener('click', function (e) {
+                const btn = e.target.closest('.toggle-password-btn');
+                if (!btn) return;
+                const input = btn.closest('.input-group').querySelector('.approve-password-field');
+                if (!input) return;
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+
+            // Regenerate
+            document.addEventListener('click', function (e) {
+                const btn = e.target.closest('.regen-password-btn');
+                if (!btn) return;
+                const input = btn.closest('.input-group').querySelector('.approve-password-field');
+                if (!input) return;
+                input.value = generatePassword();
+            });
+        })();
+    </script>
 @endsection

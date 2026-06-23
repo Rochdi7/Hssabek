@@ -33,9 +33,11 @@ Route::middleware(['setFrontofficeLocale'])->group(function () {
     Route::get('/contact', [PageController::class, 'contact'])->name('contact');
     Route::post('/contact', [PageController::class, 'contactSend'])->name('contact.send');
 
-    // Account Request
+    // Account Request — throttled to 5 submissions per 10 minutes per IP
     Route::get('/demande-compte', [PageController::class, 'requestAccount'])->name('request-account');
-    Route::post('/demande-compte', [PageController::class, 'requestAccountSend'])->name('request-account.send');
+    Route::post('/demande-compte', [PageController::class, 'requestAccountSend'])
+        ->middleware('throttle:5,10')
+        ->name('request-account.send');
 
     // Newsletter
     Route::post('/newsletter/subscribe', [PageController::class, 'newsletterSubscribe'])->name('newsletter.subscribe');
