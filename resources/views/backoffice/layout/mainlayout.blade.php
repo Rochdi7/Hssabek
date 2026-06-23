@@ -134,165 +134,151 @@
 
 @include('backoffice.layout.partials.footer-scripts')
 
-<!-- PWA Install Button -->
-<button id="pwa-install-btn" title="Installer l'application" style="
+<!-- PWA floating install button -->
+<button id="pwa-install-btn" onclick="pwaInstallClick()" title="Installer l'application" style="
     display: none;
     position: fixed;
     bottom: 24px;
     right: 24px;
     z-index: 9999;
-    width: 52px;
-    height: 52px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     border: none;
     background: #4361ee;
     color: #fff;
-    font-size: 22px;
-    box-shadow: 0 4px 18px rgba(67,97,238,0.45);
+    box-shadow: 0 4px 18px rgba(67,97,238,0.5);
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 24px rgba(67,97,238,0.6)'"
-   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 18px rgba(67,97,238,0.45)'">
-    <i class="isax isax-mobile" style="font-size:22px;"></i>
+    transition: transform 0.15s, box-shadow 0.15s;
+">
+    <i class="isax isax-mobile" style="font-size:24px;pointer-events:none;"></i>
 </button>
 
-<!-- iOS Safari install guide banner -->
-<div id="ios-install-tooltip" style="
+<!-- Backdrop -->
+<div id="pwa-backdrop" onclick="pwaCloseBanner()" style="
+    display:none;position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,0.4);
+"></div>
+
+<!-- Bottom sheet (iOS guide OR already-installed message) -->
+<div id="pwa-banner" style="
     display: none;
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 10000;
+    bottom: 0; left: 0; right: 0;
+    z-index: 10002;
     background: #fff;
-    color: #333;
-    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
-    padding: 20px 24px 32px;
+    color: #222;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    box-shadow: 0 -4px 30px rgba(0,0,0,0.18);
+    padding: 16px 20px 36px;
     font-size: 14px;
     line-height: 1.6;
-    text-align: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
 ">
     <!-- drag handle -->
-    <div style="width:36px;height:4px;background:#ddd;border-radius:4px;margin:0 auto 16px;"></div>
+    <div style="width:40px;height:4px;background:#ddd;border-radius:4px;margin:0 auto 18px;"></div>
 
-    <div style="font-weight:700;font-size:17px;margin-bottom:16px;">📲 Installer Hssabek</div>
-
-    <!-- iOS guide steps -->
-    <div class="ios-guide-steps">
-        <!-- Step 1 -->
-        <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:10px;text-align:left;">
-            <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">1</div>
-            <div>Appuyez sur l'icône <strong>Partager</strong>
-                <svg style="vertical-align:middle;margin-left:4px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-                en bas de Safari
+    <!-- iOS steps -->
+    <div id="pwa-ios-steps">
+        <div style="font-weight:700;font-size:17px;margin-bottom:18px;text-align:center;">📲 Installer Hssabek</div>
+        <div style="display:flex;align-items:flex-start;background:#f0f3ff;border-radius:14px;padding:14px;margin-bottom:10px;">
+            <div style="min-width:28px;height:28px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-right:12px;margin-top:1px;">1</div>
+            <div>Appuyez sur le bouton <strong>Partager</strong>
+                <svg style="vertical-align:middle;margin:0 2px;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                en bas de l'écran Safari
             </div>
         </div>
-        <!-- Step 2 -->
-        <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:20px;text-align:left;">
-            <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">2</div>
-            <div>Faites défiler et appuyez sur <strong>« Sur l'écran d'accueil »</strong> ➕</div>
+        <div style="display:flex;align-items:flex-start;background:#f0f3ff;border-radius:14px;padding:14px;margin-bottom:22px;">
+            <div style="min-width:28px;height:28px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-right:12px;margin-top:1px;">2</div>
+            <div>Faites défiler vers le bas et appuyez sur <strong>« Sur l'écran d'accueil »</strong> ➕</div>
         </div>
+        <button onclick="pwaCloseBanner()" style="width:100%;border:none;background:#4361ee;color:#fff;border-radius:13px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;">Compris</button>
     </div>
 
-    <!-- Shown on Chrome/Android when already installed -->
-    <div class="already-installed-msg" style="display:none;background:#f4f6ff;border-radius:12px;padding:16px;margin-bottom:20px;">
-        ✅ L'application est déjà installée sur votre appareil.
+    <!-- Already installed message (Chrome/Android fallback) -->
+    <div id="pwa-installed-msg" style="display:none;text-align:center;">
+        <div style="font-size:40px;margin-bottom:12px;">✅</div>
+        <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Application déjà installée</div>
+        <div style="color:#666;margin-bottom:22px;">Ouvrez Hssabek depuis votre écran d'accueil.</div>
+        <button onclick="pwaCloseBanner()" style="width:100%;border:none;background:#4361ee;color:#fff;border-radius:13px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;">OK</button>
     </div>
-
-    <button onclick="dismissIosBanner()" style="
-        width:100%;border:none;background:#4361ee;color:#fff;
-        border-radius:12px;padding:13px;cursor:pointer;font-size:15px;font-weight:600;
-    ">Compris</button>
 </div>
 
 <script>
-function dismissIosBanner() {
-    var el = document.getElementById('ios-install-tooltip');
-    if (el) {
-        el.style.display = 'none';
-        // Reset state for next open
-        var steps = el.querySelector('.ios-guide-steps');
-        var msg   = el.querySelector('.already-installed-msg');
-        if (steps) steps.style.display = '';
-        if (msg)   msg.style.display   = 'none';
+var _pwaDeferred = null;
+var _pwaIsIos    = /iphone|ipad|ipod/i.test(navigator.userAgent) &&
+                   /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent) &&
+                   !navigator.standalone;
+
+function pwaOpenBanner(mode) {
+    var banner   = document.getElementById('pwa-banner');
+    var backdrop = document.getElementById('pwa-backdrop');
+    var iosSteps = document.getElementById('pwa-ios-steps');
+    var installed= document.getElementById('pwa-installed-msg');
+    if (!banner) return;
+    iosSteps.style.display  = (mode === 'ios')       ? '' : 'none';
+    installed.style.display = (mode === 'installed') ? '' : 'none';
+    backdrop.style.display  = 'block';
+    banner.style.display    = 'block';
+    requestAnimationFrame(function () {
+        banner.style.transform = 'translateY(0)';
+    });
+}
+
+function pwaCloseBanner() {
+    var banner   = document.getElementById('pwa-banner');
+    var backdrop = document.getElementById('pwa-backdrop');
+    if (!banner) return;
+    banner.style.transform = 'translateY(100%)';
+    setTimeout(function () {
+        banner.style.display   = 'none';
+        backdrop.style.display = 'none';
+    }, 300);
+}
+
+function pwaInstallClick() {
+    if (_pwaDeferred) {
+        // Chrome/Android: trigger native install dialog
+        _pwaDeferred.prompt();
+        _pwaDeferred.userChoice.then(function (c) {
+            _pwaDeferred = null;
+            if (c.outcome === 'accepted') {
+                document.getElementById('pwa-install-btn').style.display = 'none';
+            }
+        });
+    } else if (_pwaIsIos) {
+        // iOS Safari: show step-by-step guide
+        pwaOpenBanner('ios');
+    } else {
+        // Already installed or unsupported
+        pwaOpenBanner('installed');
     }
-    try { sessionStorage.setItem('pwa-ios-dismissed', '1'); } catch(e) {}
 }
 
 (function () {
-    // Register service worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
             navigator.serviceWorker.register('/sw.js').catch(function () {});
         });
     }
 
-    var installBtn = document.getElementById('pwa-install-btn');
-    var iosBanner  = document.getElementById('ios-install-tooltip');
+    var btn = document.getElementById('pwa-install-btn');
 
-    var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
-    var isInStandaloneMode = ('standalone' in navigator) && navigator.standalone;
-
-    if (isIos && isSafari && !isInStandaloneMode) {
-        // Show the floating button
-        if (installBtn) installBtn.style.display = 'flex';
-
-        // Auto-show the banner once per session (after 1.5s so page settles)
-        var alreadyDismissed = false;
-        try { alreadyDismissed = !!sessionStorage.getItem('pwa-ios-dismissed'); } catch(e) {}
-        if (!alreadyDismissed && iosBanner) {
-            setTimeout(function () { iosBanner.style.display = 'block'; }, 1500);
-        }
-
-        // Toggle banner on button tap
-        if (installBtn) {
-            installBtn.addEventListener('click', function () {
-                if (!iosBanner) return;
-                iosBanner.style.display = iosBanner.style.display === 'none' ? 'block' : 'none';
-            });
-        }
+    if (_pwaIsIos) {
+        // Always show button on iOS Safari (beforeinstallprompt never fires there)
+        if (btn) btn.style.display = 'flex';
     } else {
-        // Chrome / Android / Desktop — use native install prompt
-        var deferredPrompt = null;
-
         window.addEventListener('beforeinstallprompt', function (e) {
             e.preventDefault();
-            deferredPrompt = e;
-            // Show button as soon as the browser signals it can be installed
-            if (installBtn) installBtn.style.display = 'flex';
+            _pwaDeferred = e;
+            if (btn) btn.style.display = 'flex';
         });
-
-        if (installBtn) {
-            installBtn.addEventListener('click', function () {
-                if (deferredPrompt) {
-                    // Trigger the native "Installer l'appli" dialog
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then(function (choice) {
-                        deferredPrompt = null;
-                        if (choice.outcome === 'accepted') {
-                            installBtn.style.display = 'none';
-                        }
-                    });
-                } else {
-                    // Already installed or prompt not available — show info
-                    if (iosBanner) {
-                        iosBanner.querySelector('.ios-guide-steps').style.display = 'none';
-                        var msg = iosBanner.querySelector('.already-installed-msg');
-                        if (msg) msg.style.display = 'block';
-                        iosBanner.style.display = 'block';
-                    }
-                }
-            });
-        }
-
         window.addEventListener('appinstalled', function () {
-            if (installBtn) installBtn.style.display = 'none';
-            deferredPrompt = null;
+            _pwaDeferred = null;
+            if (btn) btn.style.display = 'none';
         });
     }
 })();
