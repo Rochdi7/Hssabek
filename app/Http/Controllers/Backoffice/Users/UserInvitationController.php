@@ -143,6 +143,27 @@ class UserInvitationController extends Controller
             ->with('success', __("L'e-mail a été renvoyé à {$invitation->email}."));
     }
 
+    /**
+     * Re-send the credentials e-mail to an existing user from the users list.
+     */
+    public function resendUser(User $user)
+    {
+        abort_unless($user->tenant_id === TenantContext::id(), 403);
+
+        $invitation = UserInvitation::where('tenant_id', TenantContext::id())
+            ->where('email', $user->email)
+            ->whereNotNull('generated_password')
+            ->latest()
+            ->first();
+
+        if (! $invitation) {
+            return redirect()->route('bo.users.index')
+                ->with('error', __("Impossible de renvoyer l'e-mail : aucun mot de passe enregistré pour {$user->email}."));
+        }
+
+        return $this->resend($invitation);
+    }
+
     public function destroy(UserInvitation $invitation)
     {
         abort_unless($invitation->tenant_id === TenantContext::id(), 403);

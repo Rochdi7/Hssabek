@@ -48,7 +48,16 @@ class UserController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('backoffice.users.index', compact('users', 'pendingInvitations', 'failedInvitations', 'roles'));
+        // Map each listed user's email to their latest invitation so the row's
+        // action menu can offer "Renvoyer l'e-mail" (auto-mode invites only).
+        $invitationsByEmail = UserInvitation::where('tenant_id', TenantContext::id())
+            ->whereIn('email', $users->pluck('email'))
+            ->whereNotNull('generated_password')
+            ->latest()
+            ->get()
+            ->keyBy('email');
+
+        return view('backoffice.users.index', compact('users', 'pendingInvitations', 'failedInvitations', 'roles', 'invitationsByEmail'));
     }
 
     public function edit(User $user)

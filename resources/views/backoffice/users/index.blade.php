@@ -233,6 +233,17 @@
                                                 <i class="isax isax-edit me-2"></i>{{ __('Modifier') }}
                                             </a>
                                         </li>
+                                        @if (isset($invitationsByEmail[$user->email]))
+                                            <li>
+                                                <form method="POST" action="{{ route('bo.users.resend', $user) }}">
+                                                    @csrf
+                                                    <button class="dropdown-item d-flex align-items-center text-primary"
+                                                        type="submit">
+                                                        <i class="isax isax-sms me-2"></i>{{ __("Renvoyer l'e-mail") }}
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endif
                                         @if ($user->status === 'active' && $user->id !== auth()->id())
                                             <li>
                                                 <form method="POST" action="{{ route('bo.users.deactivate', $user) }}">

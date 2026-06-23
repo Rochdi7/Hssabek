@@ -31,6 +31,10 @@ Route::prefix('users')->as('users.')->group(function () {
         ->middleware('permission:access.users.edit')
         ->name('deactivate');
 
+    Route::post('/{user}/resend', [UserInvitationController::class, 'resendUser'])
+        ->middleware(['permission:access.users.create', 'throttle:user-invitation'])
+        ->name('resend');
+
     Route::delete('/{user}', [UserController::class, 'destroy'])
         ->middleware('permission:access.users.delete')
         ->name('destroy');
