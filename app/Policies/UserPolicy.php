@@ -40,4 +40,11 @@ class UserPolicy extends TenantPolicy
             && $this->belongsToTenant($user)
             && $authUser->id !== $user->id;
     }
+
+    public function delete(User $authUser, User $user): bool
+    {
+        return $authUser->can('access.users.delete')
+            && $this->belongsToTenant($user)
+            && $authUser->id !== $user->id;
+    }
 }

@@ -84,20 +84,36 @@ class AccountRequestFormRequest extends FormRequest
      */
     public function withValidator($validator): void
     {
-        $validator->after(function ($validator) {
+        $validator->after(function () {
             $email = $this->input('company_email');
 
-            if (! $email) {
-                return;
-            }
-
-            $existing = \App\Models\System\AccountRequest::where('company_email', $email)
-                ->orderByRaw("FIELD(status, 'approved', 'pending', 'rejected')")
-                ->first();
-
-            if ($existing && $existing->status === 'rejected') {
+            if ($email && self::existingRequestStatus($email) === 'rejected') {
                 session()->flash('show_whatsapp_help', true);
             }
         });
+    }
+
+    /**
+     * Resolve the most relevant status for an existing request with this email.
+     * Priority: approved > pending > rejected. Database-agnostic (works on
+     * MySQL in production and SQLite in tests). Returns null when none exists.
+     */
+    private static function existingRequestStatus(string $email): ?string
+    {
+        $statuses = \App\Models\System\AccountRequest::where('company_email', $email)
+            ->pluck('status')
+            ->all();
+
+        if (empty($statuses)) {
+            return null;
+        }
+
+        foreach (['approved', 'pending', 'rejected'] as $priority) {
+            if (in_array($priority, $statuses, true)) {
+                return $priority;
+            }
+        }
+
+        return $statuses[0];
     }
 }

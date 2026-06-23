@@ -202,3 +202,150 @@ Every time you generate a new Blade file you must:
 ---
 
 > Full template listing and domain mapping: see [UI_UX_TEMPLATE_REFERENCE.md](UI_UX_TEMPLATE_REFERENCE.md)
+
+---
+
+## Mandatory Rules for Claude (START HERE EVERY SESSION)
+
+```
+1.  Read CLAUDE.md first — you are reading it now. ✓
+2.  Read docs/project-understanding/update-log.md before editing ANYTHING.
+3.  Read the specific module doc before touching that module:
+      models.md, routes.md, controllers.md, database.md, permissions.md
+4.  Respect the existing backoffice theme — DO NOT redesign UI.
+5.  Do not redesign UI unless explicitly requested by the user.
+6.  Keep frontoffice and backoffice design consistent with the current project.
+7.  Use existing components, CSS classes, layout patterns, toastr/alert system,
+    buttons, cards, tables, modals, and form styles.
+8.  NEVER expose raw SQL errors, Laravel exceptions, or stack traces in production.
+9.  Always validate requests server-side via Form Request classes.
+10. Keep changes small and safe — one thing at a time.
+11. Append an entry to docs/project-understanding/update-log.md after every change.
+12. List all changed files at the end of your response.
+```
+
+---
+
+## Project Overview
+
+**Name:** Facturation SaaS
+**Type:** Multi-tenant SaaS invoicing & financial management platform
+**Framework:** Laravel 12.20+ (PHP 8.2+)
+**Default locale:** French (`fr`)
+**Architecture:** Multi-tenant with backoffice (tenant area) + superadmin panel
+
+### Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Laravel 12 |
+| Auth | Laravel Sanctum + session guard |
+| Roles/Permissions | Spatie Permission 6.24 |
+| File uploads | Spatie Media Library 11 |
+| Audit logging | Spatie Activity Log 4.12 |
+| PDF generation | barryvdh/laravel-dompdf 3.1 |
+| Excel export | maatwebsite/excel 3.1 |
+| Word documents | phpoffice/phpword 1.4 |
+| Testing | PHPUnit 11 |
+| Database | MySQL (production), SQLite in-memory (tests) |
+
+---
+
+## Architecture Overview
+
+```
+Three separate areas:
+┌─────────────────────────────────────┐
+│  PUBLIC / FRONTOFFICE               │  No auth required
+│  routes/frontoffice.php             │  Blog, contact, invoice share links
+├─────────────────────────────────────┤
+│  BACKOFFICE (Tenant Area)           │  Tenant users, auth + subscription
+│  routes/backoffice/*.php (17 files) │  Invoicing, CRM, inventory, finance
+│  Prefix: bo.*                       │
+├─────────────────────────────────────┤
+│  SUPERADMIN                         │  tenant_id = null users only
+│  routes/superadmin/*.php (11 files) │  Tenant management, billing, blog
+│  Prefix: sa.*                       │
+└─────────────────────────────────────┘
+```
+
+### Multi-Tenancy
+- Tenant identified from request domain via `IdentifyTenantByDomain` middleware
+- `BelongsToTenant` trait adds global query scope to all domain models
+- `tenant_id` is auto-assigned on model creation — never in `$fillable` on domain models
+- `TenantContext` service (singleton) provides `tenant()` helper
+
+### Authentication
+- Single user table across all tenants
+- `tenant_id = null` → super admin
+- `tenant_id` set → regular tenant user
+- `Gate::before` bypasses all policies for super admins and tenant admins/owners
+
+---
+
+## Key Paths Quick Reference
+
+| What | Where |
+|------|-------|
+| Static UI reference templates | `resources/views/*.blade.php` (root level) |
+| Dynamic backoffice views | `resources/views/backoffice/` |
+| Master layout | `resources/views/backoffice/layout/mainlayout.blade.php` |
+| Backoffice routes | `routes/backoffice/` (17 files) |
+| SuperAdmin routes | `routes/superadmin/` (11 files) |
+| Backoffice controllers | `app/Http/Controllers/Backoffice/` |
+| SuperAdmin controllers | `app/Http/Controllers/SuperAdmin/` |
+| Models (by domain) | `app/Models/` |
+| Form requests | `app/Http/Requests/` |
+| Services | `app/Services/` |
+| Middleware | `app/Http/Middleware/` |
+| Policies | `app/Policies/` |
+| Factories | `database/factories/` (flat directory) |
+| Full documentation | `docs/project-understanding/` |
+| Change history | `docs/project-understanding/update-log.md` |
+
+---
+
+## Critical Schema Rules
+
+**Always verify against the actual migration before writing model/controller code.**
+These columns differ from naive assumptions:
+
+| Model | WRONG | CORRECT |
+|-------|-------|---------|
+| Customer | `customer_type` | `type` |
+| Customer | `currency_id` | `currency` |
+| CustomerAddress | `address_type` | `type` |
+| CustomerAddress | `address_line1` | `line1` |
+| CustomerAddress | `state` | `region` |
+| CustomerContact | `contact_name` | `name` |
+| DebitNote | `debit_note_number` | `number` |
+| DocumentNumberSequence | `document_type` | `key` |
+| DocumentNumberSequence | `current_number` | `next_number` |
+| BankAccount type | `checking` | `current` |
+| StockTransfer status | `pending` | `draft` |
+| Plan interval | `monthly`/`yearly` | `month`/`year` |
+| SubscriptionInvoice payment_status | `completed` | `succeeded` |
+
+Full details: `docs/project-understanding/known-issues.md`
+
+---
+
+## Production Safety Rules
+
+- `APP_DEBUG` must be `false` in production `.env`
+- Never expose `$exception->getMessage()` in Blade error views
+- Never commit `.env` to git
+- Run `php artisan config:cache && route:cache && view:cache` after deploy
+- Soft deletes protect financial records — do NOT force-delete invoices, payments, etc.
+- `DocumentNumberService` uses `lockForUpdate()` — do NOT change this logic
+
+---
+
+## Completed Phases
+
+| Phase | Status | Summary |
+|-------|--------|---------|
+| Phase 0 | ✅ Done | Foundation hardening — tenant scoping, soft deletes, document numbering |
+| Phase 2 | ✅ Done | CRM — Customers, Addresses, Contacts |
+| Phase 3 | ✅ Done | Testing foundation — 90 passed, 1 skipped |
+| Phase 4 | 🔄 Next | See `tasks/roadmap/` |

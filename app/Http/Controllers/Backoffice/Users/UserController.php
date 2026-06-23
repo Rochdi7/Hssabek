@@ -99,4 +99,16 @@ class UserController extends Controller
         return redirect()->route('bo.users.index')
             ->with('success', __("L'utilisateur « {$user->name} » a été désactivé."));
     }
+
+    public function destroy(User $user)
+    {
+        $this->authorize('delete', $user);
+
+        $name = $user->name;
+
+        $user->delete();
+
+        return redirect()->route('bo.users.index')
+            ->with('success', __("L'utilisateur « {$name} » a été supprimé."));
+    }
 }

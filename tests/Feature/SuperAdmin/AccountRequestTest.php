@@ -80,6 +80,61 @@ class AccountRequestTest extends TestCase
         $this->assertDatabaseCount('account_requests', 1);
     }
 
+    public function test_pending_duplicate_shows_in_progress_message(): void
+    {
+        $this->makePendingRequest(['company_email' => 'pending-dup@example.com', 'contact_email' => 'cp@example.com']);
+
+        $response = $this->post(route('request-account.send'), [
+            'company_name'  => 'X',
+            'company_email' => 'pending-dup@example.com',
+            'contact_name'  => 'Y',
+            'contact_email' => 'new@example.com',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'company_email' => 'Une demande avec cet email est déjà en cours de traitement. Nous vous contacterons prochainement.',
+        ]);
+        // No WhatsApp help for pending
+        $response->assertSessionMissing('show_whatsapp_help');
+    }
+
+    public function test_approved_duplicate_shows_account_exists_message(): void
+    {
+        $req = $this->makePendingRequest(['company_email' => 'approved-dup@example.com', 'contact_email' => 'ca@example.com']);
+        $req->update(['status' => 'approved', 'handled_at' => now()]);
+
+        $response = $this->post(route('request-account.send'), [
+            'company_name'  => 'X',
+            'company_email' => 'approved-dup@example.com',
+            'contact_name'  => 'Y',
+            'contact_email' => 'new2@example.com',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'company_email' => 'Un compte existe déjà pour cette adresse email. Veuillez vous connecter ou nous contacter.',
+        ]);
+        $response->assertSessionMissing('show_whatsapp_help');
+    }
+
+    public function test_rejected_duplicate_shows_whatsapp_help(): void
+    {
+        $req = $this->makePendingRequest(['company_email' => 'rejected-dup@example.com', 'contact_email' => 'cr@example.com']);
+        $req->update(['status' => 'rejected', 'handled_at' => now()]);
+
+        $response = $this->post(route('request-account.send'), [
+            'company_name'  => 'X',
+            'company_email' => 'rejected-dup@example.com',
+            'contact_name'  => 'Y',
+            'contact_email' => 'new3@example.com',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'company_email' => 'Une demande précédente avec cet email a été rejetée. Veuillez nous contacter sur WhatsApp pour résoudre votre problème.',
+        ]);
+        // WhatsApp help flag must be flashed for rejected duplicates
+        $response->assertSessionHas('show_whatsapp_help', true);
+    }
+
     public function test_contact_email_already_used_by_tenant_user_is_rejected(): void
     {
         // Create a real tenant user

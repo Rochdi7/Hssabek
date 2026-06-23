@@ -254,6 +254,19 @@
                                                 </form>
                                             </li>
                                         @endif
+                                        @if ($user->id !== auth()->id())
+                                            <li>
+                                                <form method="POST" action="{{ route('bo.users.destroy', $user) }}"
+                                                    onsubmit="return confirm('{{ __('Supprimer cet utilisateur ?') }}')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="dropdown-item d-flex align-items-center text-danger"
+                                                        type="submit">
+                                                        <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </td>
                             </tr>
