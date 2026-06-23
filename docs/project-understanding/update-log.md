@@ -37,6 +37,30 @@ Anything important to remember about this change.
 
 ---
 
+## 2026-06-23 — Token Efficiency & Model Selection Rules Added to CLAUDE.md
+
+### Summary
+Added two new mandatory sections to `CLAUDE.md` at the very top (before all other rules):
+1. **TOKEN EFFICIENCY — CAVEMAN SKILL**: instructs Claude to read minimum files, write minimum code, say minimum words. No extras, no fluff.
+2. **MODEL & EFFORT SELECTION**: tells Claude when to switch to `claude-opus-4-8` (auth, payments, multi-tenancy, migrations) and defines effort levels by task type. Includes 5 hard rules before touching production-risk areas.
+
+### Files changed
+- `CLAUDE.md` — added TOKEN EFFICIENCY and MODEL & EFFORT SELECTION sections at the top
+
+### Database impact
+None.
+
+### UI impact
+None.
+
+### Security impact
+Positive — Claude is now explicitly instructed to use maximum effort and a stronger model before touching auth, payments, tenant isolation, and live migrations.
+
+### Notes for future Claude sessions
+These two sections come FIRST in CLAUDE.md so they load into context before any other instruction. The caveman rule: do only what is asked, read only what you need. The model rule: when in doubt on production-risk tasks, switch to Opus and confirm with the user.
+
+---
+
 ## 2026-06-23 — Full Project Documentation Created
 
 ### Summary
