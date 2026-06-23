@@ -181,19 +181,26 @@
 
     <div style="font-weight:700;font-size:17px;margin-bottom:16px;">📲 Installer Hssabek</div>
 
-    <!-- Step 1 -->
-    <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:10px;text-align:left;">
-        <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">1</div>
-        <div>Appuyez sur l'icône <strong>Partager</strong>
-            <svg style="vertical-align:middle;margin-left:4px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-            en bas de Safari
+    <!-- iOS guide steps -->
+    <div class="ios-guide-steps">
+        <!-- Step 1 -->
+        <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:10px;text-align:left;">
+            <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">1</div>
+            <div>Appuyez sur l'icône <strong>Partager</strong>
+                <svg style="vertical-align:middle;margin-left:4px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                en bas de Safari
+            </div>
+        </div>
+        <!-- Step 2 -->
+        <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:20px;text-align:left;">
+            <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">2</div>
+            <div>Faites défiler et appuyez sur <strong>« Sur l'écran d'accueil »</strong> ➕</div>
         </div>
     </div>
 
-    <!-- Step 2 -->
-    <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:20px;text-align:left;">
-        <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">2</div>
-        <div>Faites défiler et appuyez sur <strong>« Sur l'écran d'accueil »</strong> ➕</div>
+    <!-- Shown on Chrome/Android when already installed -->
+    <div class="already-installed-msg" style="display:none;background:#f4f6ff;border-radius:12px;padding:16px;margin-bottom:20px;">
+        ✅ L'application est déjà installée sur votre appareil.
     </div>
 
     <button onclick="dismissIosBanner()" style="
@@ -205,7 +212,14 @@
 <script>
 function dismissIosBanner() {
     var el = document.getElementById('ios-install-tooltip');
-    if (el) el.style.display = 'none';
+    if (el) {
+        el.style.display = 'none';
+        // Reset state for next open
+        var steps = el.querySelector('.ios-guide-steps');
+        var msg   = el.querySelector('.already-installed-msg');
+        if (steps) steps.style.display = '';
+        if (msg)   msg.style.display   = 'none';
+    }
     try { sessionStorage.setItem('pwa-ios-dismissed', '1'); } catch(e) {}
 }
 
@@ -243,23 +257,36 @@ function dismissIosBanner() {
             });
         }
     } else {
-        // Android / Desktop Chrome — use native install prompt
+        // Chrome / Android / Desktop — use native install prompt
         var deferredPrompt = null;
 
         window.addEventListener('beforeinstallprompt', function (e) {
             e.preventDefault();
             deferredPrompt = e;
+            // Show button as soon as the browser signals it can be installed
             if (installBtn) installBtn.style.display = 'flex';
         });
 
         if (installBtn) {
             installBtn.addEventListener('click', function () {
-                if (!deferredPrompt) return;
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(function () {
-                    deferredPrompt = null;
-                    installBtn.style.display = 'none';
-                });
+                if (deferredPrompt) {
+                    // Trigger the native "Installer l'appli" dialog
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(function (choice) {
+                        deferredPrompt = null;
+                        if (choice.outcome === 'accepted') {
+                            installBtn.style.display = 'none';
+                        }
+                    });
+                } else {
+                    // Already installed or prompt not available — show info
+                    if (iosBanner) {
+                        iosBanner.querySelector('.ios-guide-steps').style.display = 'none';
+                        var msg = iosBanner.querySelector('.already-installed-msg');
+                        if (msg) msg.style.display = 'block';
+                        iosBanner.style.display = 'block';
+                    }
+                }
             });
         }
 
