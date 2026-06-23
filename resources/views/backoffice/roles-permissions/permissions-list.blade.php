@@ -1,33 +1,24 @@
 <?php $page = 'roles-permissions'; ?>
 @extends('backoffice.layout.mainlayout')
-@section('title', 'Liste des Permissions')
-@section('description', 'Consulter la liste des permissions')
+@section('title', __('permissions.ui.permissions_catalog_title'))
+@section('description', __('permissions.ui.permissions_catalog_description'))
 @section('content')
-    <!-- ========================
-               Start Page Content
-              ========================= -->
-
     <div class="page-wrapper">
-        <!-- Start Conatiner -->
         <div class="content content-two">
-
-            <!-- Start Breadcrumb -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
                     <h6>
                         <a href="{{ route('bo.access.roles.index') }}">
                             <i class="isax isax-arrow-left me-1"></i>
-                            {{ __('Rôles & Permissions') }}
+                            {{ __('permissions.ui.roles_permissions_title') }}
                         </a>
                     </h6>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap gap-2">
-                    <span class="badge bg-info">{{ __('Lecture seule — Les permissions sont gérées par le Super Admin') }}</span>
+                    <span class="badge bg-info">{{ __('permissions.ui.read_only_super_admin') }}</span>
                 </div>
             </div>
-            <!-- End Breadcrumb -->
 
-            <!-- Start Table List -->
             <div class="">
                 <div class="accordion" id="accordionExample">
                     @php $index = 0; @endphp
@@ -40,22 +31,21 @@
                                     type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}"
                                     aria-expanded="{{ $index === 1 ? 'true' : 'false' }}"
                                     aria-controls="collapse{{ $index }}">
-                                    <span class="fs-18 fw-bold">{{ ucfirst($groupName) }}</span>
+                                    <span class="fs-18 fw-bold">{{ $groupLabels[$groupName] ?? $groupName }}</span>
                                 </button>
                             </h2>
                             <div id="collapse{{ $index }}"
                                 class="accordion-collapse collapse {{ $index === 1 ? 'show' : '' }}"
                                 aria-labelledby="heading{{ $index }}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <!-- Table List -->
                                     <div class="table-responsive table-nowrap">
                                         <table class="table border mb-0">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th class="w-50">{{ __('Permission') }}</th>
-                                                    <th>{{ __('Groupe') }}</th>
-                                                    <th>{{ __('Module') }}</th>
-                                                    <th>{{ __('Action') }}</th>
+                                                    <th class="w-50">{{ __('permissions.ui.permission') }}</th>
+                                                    <th>{{ __('permissions.ui.group') }}</th>
+                                                    <th>{{ __('permissions.ui.module') }}</th>
+                                                    <th>{{ __('permissions.ui.action') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -63,11 +53,12 @@
                                                     @foreach ($actions as $actionName => $permission)
                                                         <tr>
                                                             <td><code>{{ $permission->name }}</code></td>
-                                                            <td>{{ ucfirst($groupName) }}</td>
-                                                            <td>{{ ucfirst(str_replace('_', ' ', $moduleName)) }}</td>
+                                                            <td>{{ $groupLabels[$groupName] ?? $groupName }}</td>
+                                                            <td>{{ $moduleLabels[$moduleName] ?? ucfirst(str_replace('_', ' ', $moduleName)) }}</td>
                                                             <td>
-                                                                <span
-                                                                    class="badge bg-secondary">{{ ucfirst($actionName) }}</span>
+                                                                <span class="badge bg-secondary">
+                                                                    {{ $actionLabels[$actionName] ?? $actionName }}
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -75,24 +66,15 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- /Table List -->
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-            <!-- End Table List -->
-
         </div>
-        <!-- End Conatiner -->
 
         @component('backoffice.components.footer')
         @endcomponent
-
     </div>
-
-    <!-- ========================
-               End Page Content
-              ========================= -->
 @endsection

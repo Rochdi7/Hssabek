@@ -236,6 +236,57 @@
                     {{-- 🏢 TENANT BACKOFFICE SIDEBAR (regular tenant users)           --}}
                     {{-- ============================================================ --}}
                     @if (auth()->check() && auth()->user()->tenant_id !== null)
+                        @php
+                            $sidebarUser = auth()->user();
+                            $can    = fn(string $p): bool => $sidebarUser->can($p);
+                            $canAny = fn(array $p): bool  => $sidebarUser->canAny($p);
+
+                            $salesMenuPermissions = [
+                                'crm.customers.view',
+                                'sales.quotes.view',
+                                'sales.invoices.view',
+                                'sales.delivery_challans.view',
+                                'sales.credit_notes.view',
+                                'sales.refunds.view',
+                                'sales.payments.view',
+                            ];
+                            $purchaseMenuPermissions = [
+                                'purchases.suppliers.view',
+                                'purchases.purchase-orders.view',
+                                'purchases.goods_receipts.view',
+                                'purchases.vendor-bills.view',
+                                'purchases.debit_notes.view',
+                                'purchases.supplier_payments.view',
+                            ];
+                            $catalogMenuPermissions = [
+                                'inventory.products.view',
+                                'catalog.categories.view',
+                                'catalog.units.view',
+                            ];
+                            $inventoryMenuPermissions = [
+                                'inventory.warehouses.view',
+                                'inventory.stock_movements.view',
+                                'inventory.stock_transfers.view',
+                            ];
+                            $financeMenuPermissions = [
+                                'finance.expenses.view',
+                                'finance.incomes.view',
+                                'finance.categories.view',
+                                'finance.loans.view',
+                            ];
+                            $reportsMenuPermissions = [
+                                'pro.rapports.view',
+                                'reports.sales.view',
+                                'reports.customers.view',
+                                'reports.purchases.view',
+                                'reports.finance.view',
+                                'reports.inventory.view',
+                            ];
+                            $adminMenuPermissions = [
+                                'access.users.view',
+                                'access.roles.view',
+                            ];
+                        @endphp
                         <ul>
                             {{-- ─── PRINCIPAL ─── --}}
                             <li class="menu-title"><span>{{ __('Principal') }}</span></li>
@@ -243,14 +294,14 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('bo.dashboard') ? 'active' : '' }}">
                                         <a href="{{ route('bo.dashboard') }}">
-                                            <i
-                                                class="isax isax-element-45"></i><span>{{ __('Tableau de bord') }}</span>
+                                            <i class="isax isax-element-45"></i><span>{{ __('Tableau de bord') }}</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
 
                             {{-- ─── VENTES ─── --}}
+                            @if ($canAny($salesMenuPermissions))
                             <li class="menu-title"><span>{{ __('Ventes') }}</span></li>
                             <li>
                                 <ul>
@@ -261,9 +312,12 @@
                                             <span class="menu-arrow"></span>
                                         </a>
                                         <ul>
+                                            @if ($can('crm.customers.view'))
                                             <li><a href="{{ route('bo.crm.customers.index') }}"
                                                     class="{{ request()->routeIs('bo.crm.customers.*') ? 'active' : '' }}">{{ __('Clients') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('sales.quotes.view'))
                                             <li><a href="{{ route('bo.sales.quotes.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.quotes.*') ? 'active' : '' }}">{{ __('Devis') }}</a>
                                             </li>
@@ -276,27 +330,40 @@
                                             <li><a href="{{ route('bo.sales.recaps.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.recaps.*') ? 'active' : '' }}">{{ __('Récap') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('sales.invoices.view'))
                                             <li><a href="{{ route('bo.sales.invoices.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.invoices.*') ? 'active' : '' }}">{{ __('Factures') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('sales.delivery_challans.view'))
                                             <li><a href="{{ route('bo.sales.delivery-challans.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.delivery-challans.*') ? 'active' : '' }}">{{ __('Bons de livraison') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('sales.credit_notes.view'))
                                             <li><a href="{{ route('bo.sales.credit-notes.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.credit-notes.*') ? 'active' : '' }}">{{ __('Avoirs') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('sales.refunds.view'))
                                             <li><a href="{{ route('bo.sales.refunds.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.refunds.*') ? 'active' : '' }}">{{ __('Remboursements') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('sales.payments.view'))
                                             <li><a href="{{ route('bo.sales.payments.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.payments.*') ? 'active' : '' }}">{{ __('Paiements clients') }}</a>
                                             </li>
+                                            @endif
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
+                            @endif
 
                             {{-- ─── ACHATS ─── --}}
+                            @if ($canAny($purchaseMenuPermissions))
                             <li class="menu-title"><span>{{ __('Achats') }}</span></li>
                             <li>
                                 <ul>
@@ -307,34 +374,49 @@
                                             <span class="menu-arrow"></span>
                                         </a>
                                         <ul>
+                                            @if ($can('purchases.suppliers.view'))
                                             <li><a href="{{ route('bo.purchases.suppliers.index') }}"
                                                     class="{{ request()->routeIs('bo.purchases.suppliers.*') ? 'active' : '' }}">{{ __('Fournisseurs') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('purchases.purchase-orders.view'))
                                             <li><a href="{{ route('bo.purchases.purchase-orders.index') }}"
                                                     class="{{ request()->routeIs('bo.purchases.purchase-orders.*') ? 'active' : '' }}">{{ __('Bons de commande') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('purchases.goods_receipts.view'))
                                             <li><a href="{{ route('bo.purchases.goods-receipts.index') }}"
                                                     class="{{ request()->routeIs('bo.purchases.goods-receipts.*') ? 'active' : '' }}">{{ __('Réceptions') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('purchases.vendor-bills.view'))
                                             <li><a href="{{ route('bo.purchases.vendor-bills.index') }}"
                                                     class="{{ request()->routeIs('bo.purchases.vendor-bills.*') ? 'active' : '' }}">{{ __('Factures fournisseurs') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('purchases.debit_notes.view'))
                                             <li><a href="{{ route('bo.purchases.debit-notes.index') }}"
                                                     class="{{ request()->routeIs('bo.purchases.debit-notes.*') ? 'active' : '' }}">{{ __('Notes de débit') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('purchases.supplier_payments.view'))
                                             <li><a href="{{ route('bo.purchases.supplier-payments.index') }}"
                                                     class="{{ request()->routeIs('bo.purchases.supplier-payments.*') ? 'active' : '' }}">{{ __('Paiements fournisseurs') }}</a>
                                             </li>
+                                            @endif
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
+                            @endif
 
                             {{-- ─── PRODUITS & STOCK ─── --}}
+                            @if ($canAny(array_merge($catalogMenuPermissions, $inventoryMenuPermissions)))
                             <li class="menu-title"><span>{{ __('Produits & Stock') }}</span></li>
                             <li>
                                 <ul>
                                     {{-- Catalogue --}}
+                                    @if ($canAny($catalogMenuPermissions))
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
                                             class="{{ request()->routeIs('bo.catalog.*') ? 'active subdrop' : '' }}">
@@ -342,19 +424,27 @@
                                             <span class="menu-arrow"></span>
                                         </a>
                                         <ul>
+                                            @if ($can('inventory.products.view'))
                                             <li><a href="{{ route('bo.catalog.products.index') }}"
                                                     class="{{ request()->routeIs('bo.catalog.products.*') ? 'active' : '' }}">{{ __('Produits') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('catalog.categories.view'))
                                             <li><a href="{{ route('bo.catalog.categories.index') }}"
                                                     class="{{ request()->routeIs('bo.catalog.categories.*') ? 'active' : '' }}">{{ __('Catégories') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('catalog.units.view'))
                                             <li><a href="{{ route('bo.catalog.units.index') }}"
                                                     class="{{ request()->routeIs('bo.catalog.units.*') ? 'active' : '' }}">{{ __('Unités') }}</a>
                                             </li>
+                                            @endif
                                         </ul>
                                     </li>
+                                    @endif
 
                                     {{-- Inventaire --}}
+                                    @if ($canAny($inventoryMenuPermissions))
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
                                             class="{{ request()->routeIs('bo.inventory.*') ? 'active subdrop' : '' }}">
@@ -362,61 +452,81 @@
                                             <span class="menu-arrow"></span>
                                         </a>
                                         <ul>
+                                            @if ($can('inventory.warehouses.view'))
                                             <li><a href="{{ route('bo.inventory.warehouses.index') }}"
                                                     class="{{ request()->routeIs('bo.inventory.warehouses.*') ? 'active' : '' }}">{{ __('Entrepôts') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('inventory.stock_movements.view'))
                                             <li><a href="{{ route('bo.inventory.stock.index') }}"
                                                     class="{{ request()->routeIs('bo.inventory.stock.*') ? 'active' : '' }}">{{ __('Niveaux de stock') }}</a>
                                             </li>
                                             <li><a href="{{ route('bo.inventory.movements.index') }}"
                                                     class="{{ request()->routeIs('bo.inventory.movements.*') ? 'active' : '' }}">{{ __('Mouvements') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('inventory.stock_transfers.view'))
                                             <li><a href="{{ route('bo.inventory.transfers.index') }}"
                                                     class="{{ request()->routeIs('bo.inventory.transfers.*') ? 'active' : '' }}">{{ __('Transferts') }}</a>
                                             </li>
+                                            @endif
                                         </ul>
                                     </li>
+                                    @endif
                                 </ul>
                             </li>
+                            @endif
 
                             {{-- ─── FINANCE ─── --}}
+                            @if ($canAny($financeMenuPermissions))
                             <li class="menu-title"><span>{{ __('Finance') }}</span></li>
                             <li>
                                 <ul>
+                                    @if ($can('finance.expenses.view'))
                                     <li class="{{ request()->routeIs('bo.finance.expenses.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.finance.expenses.index') }}">
                                             <i class="isax isax-money-send5"></i><span>{{ __('Dépenses') }}</span>
                                         </a>
                                     </li>
+                                    @endif
+                                    @if ($can('finance.incomes.view'))
                                     <li class="{{ request()->routeIs('bo.finance.incomes.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.finance.incomes.index') }}">
                                             <i class="isax isax-money-recive5"></i><span>{{ __('Revenus') }}</span>
                                         </a>
                                     </li>
+                                    @endif
+                                    @if ($can('finance.categories.view'))
                                     <li class="{{ request()->routeIs('bo.finance.categories.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.finance.categories.index') }}">
                                             <i class="isax isax-category-25"></i><span>{{ __('Catégories') }}</span>
                                         </a>
                                     </li>
+                                    @endif
+                                    @if ($can('finance.loans.view'))
                                     <li class="{{ request()->routeIs('bo.finance.loans.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.finance.loans.index') }}">
-                                            <i
-                                                class="isax isax-percentage-square5"></i><span>{{ __('Prêts') }}</span>
+                                            <i class="isax isax-percentage-square5"></i><span>{{ __('Prêts') }}</span>
                                         </a>
                                     </li>
+                                    @endif
                                 </ul>
                             </li>
+                            @endif
 
                             {{-- ─── RAPPORTS ─── --}}
+                            @if ($canAny($reportsMenuPermissions))
                             <li class="menu-title"><span>{{ __('Rapports') }}</span></li>
                             <li>
                                 <ul>
+                                    @if ($can('pro.rapports.view'))
                                     <li class="{{ request()->routeIs('bo.pro.rapports.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.pro.rapports.index') }}">
-                                            <i
-                                                class="isax isax-document-text5"></i><span>{{ __('Générer un rapport') }}</span>
+                                            <i class="isax isax-document-text5"></i><span>{{ __('Générer un rapport') }}</span>
                                         </a>
                                     </li>
+                                    @endif
+                                    @if ($canAny(['reports.sales.view','reports.customers.view','reports.purchases.view','reports.finance.view','reports.inventory.view']))
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
                                             class="{{ request()->routeIs('bo.reports.*') ? 'active subdrop' : '' }}">
@@ -424,25 +534,37 @@
                                             <span class="menu-arrow"></span>
                                         </a>
                                         <ul>
+                                            @if ($can('reports.sales.view'))
                                             <li><a href="{{ route('bo.reports.sales') }}"
                                                     class="{{ request()->routeIs('bo.reports.sales') ? 'active' : '' }}">{{ __('Ventes') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('reports.customers.view'))
                                             <li><a href="{{ route('bo.reports.customers') }}"
                                                     class="{{ request()->routeIs('bo.reports.customers') ? 'active' : '' }}">{{ __('Clients') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('reports.purchases.view'))
                                             <li><a href="{{ route('bo.reports.purchases') }}"
                                                     class="{{ request()->routeIs('bo.reports.purchases') ? 'active' : '' }}">{{ __('Achats') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('reports.finance.view'))
                                             <li><a href="{{ route('bo.reports.finance') }}"
                                                     class="{{ request()->routeIs('bo.reports.finance') ? 'active' : '' }}">{{ __('Finance') }}</a>
                                             </li>
+                                            @endif
+                                            @if ($can('reports.inventory.view'))
                                             <li><a href="{{ route('bo.reports.inventory') }}"
                                                     class="{{ request()->routeIs('bo.reports.inventory') ? 'active' : '' }}">{{ __('Inventaire') }}</a>
                                             </li>
+                                            @endif
                                         </ul>
                                     </li>
+                                    @endif
                                 </ul>
                             </li>
+                            @endif
 
                             {{-- ─── SUPPORT ─── --}}
                             <li class="menu-title"><span>{{ __('Support') }}</span></li>
@@ -450,41 +572,42 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('bo.support.tickets.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.support.tickets.index') }}">
-                                            <i
-                                                class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
+                                            <i class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
 
                             {{-- ─── ADMINISTRATION ─── --}}
+                            @if ($canAny($adminMenuPermissions))
                             <li class="menu-title"><span>{{ __('Administration') }}</span></li>
                             <li>
                                 <ul>
-                                    {{-- Utilisateurs --}}
+                                    @if ($can('access.users.view'))
                                     <li class="{{ request()->routeIs('bo.users.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.users.index') }}">
-                                            <i
-                                                class="isax isax-profile-2user5"></i><span>{{ __('Utilisateurs') }}</span>
+                                            <i class="isax isax-profile-2user5"></i><span>{{ __('Utilisateurs') }}</span>
                                         </a>
                                     </li>
-
-                                    {{-- Rôles & Permissions --}}
+                                    @endif
+                                    @if ($can('access.roles.view'))
                                     <li class="{{ request()->routeIs('bo.access.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.access.roles.index') }}">
-                                            <i
-                                                class="isax isax-shield-tick5"></i><span>{{ __('Rôles & Permissions') }}</span>
+                                            <i class="isax isax-shield-tick5"></i><span>{{ __('Rôles & Permissions') }}</span>
                                         </a>
                                     </li>
-
-                                    {{-- Corbeille --}}
+                                    @endif
+                                    {{-- Corbeille — visible to admin/owner only (no dedicated permission slug) --}}
+                                    @if ($sidebarUser->hasRole('admin') || $sidebarUser->hasRole('owner') || $sidebarUser->tenant_id === null)
                                     <li class="{{ request()->routeIs('bo.trash.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.trash.index') }}">
                                             <i class="ti ti-trash"></i><span>{{ __('Corbeille') }}</span>
                                         </a>
                                     </li>
+                                    @endif
                                 </ul>
                             </li>
+                            @endif
 
                             {{-- ─── PARAMÈTRES ─── --}}
                             <li class="menu-title"><span>{{ __('Paramètres') }}</span></li>
@@ -495,15 +618,13 @@
                                             <i class="ti ti-user-circle"></i><span>{{ __('Mon compte') }}</span>
                                         </a>
                                     </li>
-
-                                    <li
-                                        class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">
+                                    @if ($can('pro.recurring_invoices.view'))
+                                    <li class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.pro.recurring-invoices.index') }}">
-                                            <i
-                                                class="isax isax-repeat5"></i><span>{{ __('Factures récurrentes') }}</span>
+                                            <i class="isax isax-repeat5"></i><span>{{ __('Factures récurrentes') }}</span>
                                         </a>
                                     </li>
-
+                                    @endif
                                 </ul>
                             </li>
                         </ul>

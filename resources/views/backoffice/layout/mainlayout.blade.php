@@ -134,7 +134,7 @@
 
 @include('backoffice.layout.partials.footer-scripts')
 
-<!-- PWA Install Button (shown on all pages including login) -->
+<!-- PWA Install Button -->
 <button id="pwa-install-btn" title="Installer l'application" style="
     display: none;
     position: fixed;
@@ -158,6 +158,39 @@
     <i class="isax isax-mobile" style="font-size:22px;"></i>
 </button>
 
+<!-- iOS Safari install tooltip -->
+<div id="ios-install-tooltip" style="
+    display: none;
+    position: fixed;
+    bottom: 88px;
+    right: 12px;
+    z-index: 10000;
+    background: #fff;
+    color: #333;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    padding: 14px 16px;
+    max-width: 240px;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+">
+    <div style="font-weight:600;margin-bottom:6px;">Installer l'application</div>
+    <div>Appuyez sur <strong>Partager</strong> <span style="font-size:16px;">⬆️</span> puis <strong>« Sur l'écran d'accueil »</strong></div>
+    <button onclick="document.getElementById('ios-install-tooltip').style.display='none'" style="
+        margin-top:10px;border:none;background:#4361ee;color:#fff;
+        border-radius:8px;padding:5px 16px;cursor:pointer;font-size:12px;
+    ">OK</button>
+    <!-- Arrow pointing down-right toward the button -->
+    <div style="
+        position:absolute;bottom:-10px;right:24px;
+        width:0;height:0;
+        border-left:10px solid transparent;
+        border-right:10px solid transparent;
+        border-top:10px solid #fff;
+    "></div>
+</div>
+
 <script>
 (function () {
     // Register service worker
@@ -167,32 +200,51 @@
         });
     }
 
-    // PWA install prompt
-    let deferredPrompt = null;
-    const installBtn = document.getElementById('pwa-install-btn');
+    var installBtn = document.getElementById('pwa-install-btn');
+    var iosTooltip  = document.getElementById('ios-install-tooltip');
 
-    window.addEventListener('beforeinstallprompt', function (e) {
-        e.preventDefault();
-        deferredPrompt = e;
+    // Detect iOS Safari (not Chrome/Firefox on iOS which also have /iPhone|iPad/)
+    var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+    var isInStandaloneMode = ('standalone' in navigator) && navigator.standalone;
+
+    if (isIos && isSafari && !isInStandaloneMode) {
+        // Show button immediately on iOS Safari — beforeinstallprompt never fires here
         if (installBtn) installBtn.style.display = 'flex';
-    });
 
-    if (installBtn) {
-        installBtn.addEventListener('click', function () {
-            if (!deferredPrompt) return;
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(function (choice) {
-                deferredPrompt = null;
-                installBtn.style.display = 'none';
+        if (installBtn) {
+            installBtn.addEventListener('click', function () {
+                if (iosTooltip) {
+                    iosTooltip.style.display = iosTooltip.style.display === 'none' ? 'block' : 'none';
+                }
             });
+        }
+    } else {
+        // Android / Desktop Chrome — use native install prompt
+        var deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', function (e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (installBtn) installBtn.style.display = 'flex';
+        });
+
+        if (installBtn) {
+            installBtn.addEventListener('click', function () {
+                if (!deferredPrompt) return;
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function () {
+                    deferredPrompt = null;
+                    installBtn.style.display = 'none';
+                });
+            });
+        }
+
+        window.addEventListener('appinstalled', function () {
+            if (installBtn) installBtn.style.display = 'none';
+            deferredPrompt = null;
         });
     }
-
-    // Hide button if already installed
-    window.addEventListener('appinstalled', function () {
-        if (installBtn) installBtn.style.display = 'none';
-        deferredPrompt = null;
-    });
 })();
 </script>
 

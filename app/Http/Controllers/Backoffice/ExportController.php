@@ -400,7 +400,7 @@ class ExportController extends Controller
 
             'purchase-orders' => [
                 'model'      => PurchaseOrder::class,
-                'permission' => 'purchases.purchase_orders.view',
+                'permission' => 'purchases.purchase-orders.view',
                 'title'      => 'Liste des Bons de Commande',
                 'filename'   => 'bons-commande',
                 'with'       => ['supplier'],
@@ -418,7 +418,7 @@ class ExportController extends Controller
 
             'vendor-bills' => [
                 'model'      => VendorBill::class,
-                'permission' => 'purchases.vendor_bills.view',
+                'permission' => 'purchases.vendor-bills.view',
                 'title'      => 'Liste des Factures Fournisseur',
                 'filename'   => 'factures-fournisseur',
                 'with'       => ['supplier'],
@@ -608,7 +608,7 @@ class ExportController extends Controller
             // ─── Users ───────────────────────────────────────────
             'users' => [
                 'model'      => User::class,
-                'permission' => 'users.view',
+                'permission' => 'access.users.view',
                 'title'      => 'Liste des Utilisateurs',
                 'filename'   => 'utilisateurs',
                 'with'       => ['roles'],
