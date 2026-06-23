@@ -201,7 +201,7 @@
                                                         @if($currentForme === 'sarl')
                                                             {{ __('Minimum légal : 10 000 DH pour une SARL') }}
                                                         @elseif($currentForme === 'sarl_au')
-                                                            {{ __('Minimum légal : 1 DH pour une SARL AU') }}
+                                                            {{ __('Minimum légal : 100 000 DH pour une SARL AU') }}
                                                         @endif
                                                     </small>
                                                 </div>
@@ -453,7 +453,7 @@
                     if (val === 'sarl') {
                         capitalHint.textContent = {!! json_encode(__('Minimum légal : 10 000 DH pour une SARL')) !!};
                     } else if (val === 'sarl_au') {
-                        capitalHint.textContent = {!! json_encode(__('Minimum légal : 1 DH pour une SARL AU')) !!};
+                        capitalHint.textContent = {!! json_encode(__('Minimum légal : 100 000 DH pour une SARL AU')) !!};
                     } else if (val === 'sa') {
                         capitalHint.textContent = {!! json_encode(__('Minimum légal : 300 000 DH pour une SA')) !!};
                     } else {
