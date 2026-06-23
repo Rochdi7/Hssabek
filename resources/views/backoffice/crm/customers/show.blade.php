@@ -184,7 +184,7 @@
                                             <th>{{ __('E-mail') }}</th>
                                             <th>{{ __('Téléphone') }}</th>
                                             <th>{{ __('Poste') }}</th>
-                                            <th>{{ __('Principal') }}</th>
+                                            <th>{{ __('Contact principal') }}</th>
                                             <th class="no-sort"></th>
                                         </tr>
                                     </thead>

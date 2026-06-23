@@ -53,9 +53,9 @@
                     <li class="nav-item"><a href="{{ route('features') }}"
                             class="nav-link {{ request()->routeIs('features') ? 'active' : '' }}">{{ __('Fonctionnalités') }}</a>
                     </li>
-                    <li class="nav-item"><a href="{{ route('pricing') }}"
+                    {{-- <li class="nav-item"><a href="{{ route('pricing') }}"
                             class="nav-link {{ request()->routeIs('pricing') ? 'active' : '' }}">{{ __('Tarifs') }}</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item"><a href="{{ route('blog.index') }}"
                             class="nav-link {{ request()->routeIs('blog.*') ? 'active' : '' }}">{{ __('Blog') }}</a>
                     </li>

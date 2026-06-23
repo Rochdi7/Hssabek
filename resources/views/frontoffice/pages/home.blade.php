@@ -1088,8 +1088,9 @@
 </section>
 <!-- /Advanced Module Section -->
 
-<!-- Pricing & Plans Section -->
-<section class="pricing-section" id="pricing">
+{{-- Pricing section hidden temporarily --}}
+{{-- <section class="pricing-section" id="pricing"> --}}
+@if(false)
 	<div class="container">
 		<div class="sec-bg-img">
 			<img src="{{ url('build/img/icons/pricing-bg-01.svg') }}" class="pricing-bg-one d-none d-lg-flex" alt="Bg" loading="lazy" width="162" height="285">
@@ -1161,7 +1162,8 @@
 		</div>
 	</div>
 </section>
-<!-- /Pricing & Plans Section -->
+@endif
+{{-- /Pricing & Plans Section --}}
 
 <!-- Faq Section -->
 <section class="faq-section bg-white" id="faq">

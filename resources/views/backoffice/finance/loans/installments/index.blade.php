@@ -66,7 +66,7 @@
                                             <tr>
                                                 <th>{{ __('N°') }}</th>
                                                 <th>{{ __('Date d\'échéance') }}</th>
-                                                <th>{{ __('Principal') }}</th>
+                                                <th>{{ __('Montant principal') }}</th>
                                                 <th>{{ __('Intérêts') }}</th>
                                                 <th>{{ __('Total') }}</th>
                                                 <th>{{ __('Payé') }}</th>

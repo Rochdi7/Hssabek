@@ -212,7 +212,7 @@
 							<a data-bs-toggle="collapse" href="#bFaq1" aria-expanded="false">{{ __('Combien de factures puis-je créer ?') }}</a>
 						</h4>
 						<div id="bFaq1" class="card-collapse collapse show" data-bs-parent="#accordionBilling">
-							<p>{!! __('Cela dépend de votre plan. Le plan gratuit inclut un nombre limité de factures par mois, tandis que les plans Premium et Entreprise offrent des factures illimitées. Consultez notre <a href=":url" class="text-primary">page tarifs</a> pour les détails.', ['url' => route('pricing')]) !!}</p>
+							<p>{{ __('Vous pouvez créer des factures illimitées. Toutes les fonctionnalités sont incluses dès le départ.') }}</p>
 						</div>
 					</div>
 					<div class="faq-card aos" data-aos="fade-up">
