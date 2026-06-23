@@ -34,7 +34,7 @@ class UserInvitationNotification extends Notification
                 ->line('Voici vos identifiants de connexion :')
                 ->line("E-mail : {$this->invitation->email}")
                 ->line("Mot de passe : {$this->generatedPassword}")
-                ->action('Se connecter', url('/backoffice/login'))
+                ->action('Se connecter', url('/hssabek-portal'))
                 ->line('Nous vous recommandons de changer votre mot de passe après votre première connexion.')
                 ->salutation('Cordialement');
         }
