@@ -1,0 +1,150 @@
+ : comptes bancaires, depenses, revenus
+&nbsp;
+Activer
+                                                                            la
+                                                                            taxe
+Activer
+                                                                            la taxe
+Activer la
+                                                                            taxe
+Ajouter
+                                                        des frais supplémentaires
+Ajouter un
+                                            article
+Archivés
+Attachement
+Aucun article trouvé.
+Aucune catégorie.
+Badge
+Blog — Articles
+Catalogue & Finance
+Catégories du blog
+Changer le statut de la facture
+Changer le statut de la facture fournisseur
+Changer le statut de la note de débit
+Changer le statut du bon de commande
+Changer le statut du bon de livraison
+Changer le statut du paiement
+Classification
+Conditions
+                                                                générales
+Configurer les paramètres de facturation
+Confirmez le mot de passe
+Couleur
+Couleur du badge
+Créer le premier article
+Date de fin
+                                                                                    (optionnel)
+Date de fin
+                                                                            (optionnel)
+Date de première
+                                                                                    exécution
+Date de première
+                                                                            exécution
+Définir manuellement
+En
+                                                attente
+Enregistrer les
+                                            modifications
+Erreur de validation
+Ex: Facturation, Gestion...
+Export en cours...
+Exporter mes données
+Feuilles formatées, en-têtes en couleur
+Gestion des données
+Générer
+                                                                            automatiquement
+Générer
+                                                                automatiquement
+Générer
+                                                            automatiquement
+Générer et envoyer par e-mail
+Gérer les modèles de documents
+Image actuelle
+Image de couverture
+JPG, PNG ou WebP — max 2 Mo. Taille recommandée : 1200×630px.
+Max 500 caractères
+Meta description
+Meta titre
+Mode clair
+Mode de mot de passe
+Modifier la devise
+Modules à exporter
+Mots-clés
+Notes
+                                                                additionnelles
+Nouvel article
+Paiements clients
+Pour intégrations & API
+Publication
+Publiée
+Publiés
+Rechercher un article...
+Retour aux articles
+Récap
+Résumé court (affiché dans les listes)...
+Résumé pour Google (160 caractères max)
+SEO — Référencement
+Saisie
+                                                                manuelle
+Saisie
+                                                            manuelle
+Sans catégorie
+Situation
+Supprimer cet article ?
+Supprimer cette catégorie ?
+Supprimer définitivement cet article ?
+Surface m²
+Séparés par des virgules
+Tags
+Temps de lecture
+Texte alternatif (alt)
+Ticket
+Tickets support
+Tout désélectionner
+Toutes catégories
+Téléchargez toutes les données de votre entreprise dans le format de votre choix.
+Une erreur inattendue est survenue. Veuillez reessayer.
+Vide = maintenant si publié
+Voir sur le site
+Volume m³
+Votre fichier CSV est en cours de préparation.
+Vues
+brouillons
+de lecture
+enregistrements
+facturation maroc, logiciel devis...
+facturation, maroc, devis...
+max 160 car.
+max 70 car.
+permissions.ui.action
+permissions.ui.allow_all
+permissions.ui.cancel
+permissions.ui.create
+permissions.ui.created_at
+permissions.ui.delete
+permissions.ui.delete_role
+permissions.ui.edit
+permissions.ui.edit_role
+permissions.ui.group
+permissions.ui.module
+permissions.ui.new_role
+permissions.ui.no_roles_found
+permissions.ui.permission
+permissions.ui.permissions
+permissions.ui.permissions_catalog_description
+permissions.ui.permissions_catalog_title
+permissions.ui.permissions_page_description
+permissions.ui.permissions_page_title
+permissions.ui.read_only_super_admin
+permissions.ui.role
+permissions.ui.role_name
+permissions.ui.role_name_placeholder
+permissions.ui.roles
+permissions.ui.roles_permissions_description
+permissions.ui.roles_permissions_title
+permissions.ui.save_permissions
+permissions.ui.search_placeholder
+permissions.ui.update
+publiés
+Étape 1 sur 8

@@ -36,7 +36,7 @@
 						<ul>
 							<li><a href="{{ route('request-account') }}">{{ __('Essai gratuit') }}</a></li>
 							<li><a href="{{ route('features') }}">{{ __('Fonctionnalités') }}</a></li>
-							<li><a href="{{ route('pricing') }}">{{ __('Tarifs') }}</a></li>
+							{{-- <li><a href="{{ route('pricing') }}">{{ __('Tarifs') }}</a></li> --}}
 						</ul>
 					</div>
 				</div>
