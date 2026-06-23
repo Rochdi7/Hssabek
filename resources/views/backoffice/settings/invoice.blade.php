@@ -25,18 +25,51 @@
                                 <form action="{{ route('bo.settings.invoice.update') }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            @include('backoffice.components.avatar-cropper', [
-                                                'currentUrl'  => $tenant->invoice_image_url ?? asset('build/img/icons/company-logo-01.svg'),
-                                                'defaultUrl'  => asset('build/img/icons/company-logo-01.svg'),
-                                                'inputName'   => 'cropped_invoice_image',
-                                                'previewId'   => 'invoice-image-preview',
-                                                'hasImage'    => $tenant->hasMedia('invoice_image'),
-                                                'label'       => __('Image de facture'),
-                                                'required'    => false,
-                                            ])
+                                    {{-- Invoice image --}}
+                                    <div class="border-bottom mb-4 pb-3">
+                                        <div class="card-title-head">
+                                            <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
+                                                <span class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i class="isax isax-image"></i></span>
+                                                {{ __("Images de l'entreprise") }}
+                                            </h6>
                                         </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-xl-9">
+                                                <div class="row gy-3 align-items-center">
+                                                    <div class="col-lg-6">
+                                                        <div class="logo-info">
+                                                            <h6 class="fs-14 fw-medium mb-1">{{ __('Image de facture') }}</h6>
+                                                            <p class="fs-12">{{ __("Téléchargez l'image affichée sur vos factures") }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="profile-pic-upload mb-0 justify-content-lg-end">
+                                                            <div class="new-employee-field">
+                                                                <div class="mb-0">
+                                                                    <div class="image-upload mb-1">
+                                                                        <input type="file" id="invoice-image-file" accept="image/jpeg,image/png,image/webp">
+                                                                        <div class="image-uploads">
+                                                                            <h4><i class="ti ti-upload me-1"></i>{{ __('Changer la photo') }}</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="fs-12">{{ __('Format JPG ou PNG, 5 Mo maximum.') }}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3">
+                                                <div class="new-logo ms-xl-auto bg-light border">
+                                                    <img src="{{ $tenant->invoice_image_url ?? asset('build/img/icons/company-logo-01.svg') }}" alt="{{ __('Image de facture') }}" id="invoice-image-preview">
+                                                    <a href="javascript:void(0);" id="invoice-image-trash" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                        style="{{ $tenant->hasMedia('invoice_image') ? '' : 'display:none !important;' }}"><i class="isax isax-trash"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="cropped_invoice_image" id="cropped_invoice_image" value="">
+                                        <input type="hidden" name="cropped_invoice_image_deleted" id="cropped_invoice_image_deleted" value="0">
+                                        @error('cropped_invoice_image')<div class="text-danger fs-12 mt-1">{{ $message }}</div>@enderror
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-md-8 col-sm-12">
@@ -117,3 +150,50 @@
            End Page Content
           ========================= -->
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileInput = document.getElementById('invoice-image-file');
+            var preview = document.getElementById('invoice-image-preview');
+            var trash = document.getElementById('invoice-image-trash');
+            var croppedData = document.getElementById('cropped_invoice_image');
+            var deletedFlag = document.getElementById('cropped_invoice_image_deleted');
+            var defaultUrl = @json(asset('build/img/icons/company-logo-01.svg'));
+            if (!fileInput) return;
+
+            fileInput.addEventListener('change', function() {
+                var file = this.files[0];
+                if (!file) return;
+                var validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+                if (validTypes.indexOf(file.type) === -1) {
+                    alert({!! json_encode(__('Seuls les formats JPG, PNG et WEBP sont acceptés.')) !!});
+                    this.value = '';
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    alert({!! json_encode(__("L'image ne doit pas dépasser 5 Mo.")) !!});
+                    this.value = '';
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    croppedData.value = e.target.result;
+                    deletedFlag.value = '0';
+                    preview.src = e.target.result;
+                    trash.style.display = '';
+                };
+                reader.readAsDataURL(file);
+                this.value = '';
+            });
+
+            trash.addEventListener('click', function(e) {
+                e.preventDefault();
+                preview.src = defaultUrl;
+                croppedData.value = '';
+                deletedFlag.value = '1';
+                trash.style.display = 'none';
+            });
+        });
+    </script>
+@endpush

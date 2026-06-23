@@ -13,6 +13,13 @@ class ActivityLog extends Model
 
     public $timestamps = false;
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $log): void {
+            $log->created_at ??= now();
+        });
+    }
+
     protected $fillable = [
         'tenant_id',
         'user_id',
