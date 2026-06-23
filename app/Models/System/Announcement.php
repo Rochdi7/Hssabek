@@ -13,11 +13,18 @@ class Announcement extends Model
 
     protected $fillable = [
         'title',
+        'title_fr',
+        'title_ar',
+        'title_en',
         'content',
+        'content_fr',
+        'content_ar',
+        'content_en',
         'type',
         'is_active',
         'published_at',
         'expires_at',
+        'attachment',
         'created_by',
     ];
 
@@ -26,6 +33,26 @@ class Announcement extends Model
         'published_at' => 'datetime',
         'expires_at' => 'datetime',
     ];
+
+    public function localizedTitle(string $locale = null): string
+    {
+        $locale = $locale ?? app()->getLocale();
+        return match($locale) {
+            'ar' => $this->title_ar ?: $this->title_fr ?: $this->title,
+            'en' => $this->title_en ?: $this->title_fr ?: $this->title,
+            default => $this->title_fr ?: $this->title,
+        };
+    }
+
+    public function localizedContent(string $locale = null): string
+    {
+        $locale = $locale ?? app()->getLocale();
+        return match($locale) {
+            'ar' => $this->content_ar ?: $this->content_fr ?: $this->content,
+            'en' => $this->content_en ?: $this->content_fr ?: $this->content,
+            default => $this->content_fr ?: $this->content,
+        };
+    }
 
     public function author(): BelongsTo
     {

@@ -2150,13 +2150,29 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    @if (!empty($notification->data['title']))
-                                                        <p class="mb-0 fw-semibold text-dark">
-                                                            {{ $notification->data['title'] }}</p>
+                                                    @php
+                                                        $notifLocale = app()->getLocale();
+                                                        $notifTitle = match($notifLocale) {
+                                                            'ar' => $notification->data['title_ar'] ?? $notification->data['title_fr'] ?? $notification->data['title'] ?? '',
+                                                            'en' => $notification->data['title_en'] ?? $notification->data['title_fr'] ?? $notification->data['title'] ?? '',
+                                                            default => $notification->data['title_fr'] ?? $notification->data['title'] ?? '',
+                                                        };
+                                                        $notifMessage = match($notifLocale) {
+                                                            'ar' => $notification->data['content_ar'] ?? $notification->data['message'] ?? '',
+                                                            'en' => $notification->data['content_en'] ?? $notification->data['message'] ?? '',
+                                                            default => $notification->data['content_fr'] ?? $notification->data['message'] ?? '',
+                                                        };
+                                                    @endphp
+                                                    @if (!empty($notifTitle))
+                                                        <p class="mb-0 fw-semibold text-dark">{{ $notifTitle }}</p>
                                                     @endif
-                                                    <p class="mb-0 text-wrap fs-14">
-                                                        {{ $notification->data['message'] ?? '' }}
-                                                    </p>
+                                                    <p class="mb-0 text-wrap fs-14">{{ $notifMessage }}</p>
+                                                    @if (!empty($notification->data['attachment']))
+                                                        <a href="{{ Storage::url($notification->data['attachment']) }}"
+                                                            target="_blank" class="fs-11 text-muted d-inline-flex align-items-center mt-1">
+                                                            <i class="isax isax-document-text me-1"></i>{{ __('Pièce jointe') }}
+                                                        </a>
+                                                    @endif
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <span class="fs-12"><i
                                                                 class="isax isax-clock me-1"></i>{{ $notification->created_at->diffForHumans() }}</span>
