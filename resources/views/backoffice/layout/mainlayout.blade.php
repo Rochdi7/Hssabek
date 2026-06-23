@@ -158,7 +158,7 @@
     <i class="isax isax-mobile" style="font-size:22px;"></i>
 </button>
 
-<!-- iOS Safari install banner (bottom, full-width, does not overlap content) -->
+<!-- iOS Safari install guide banner -->
 <div id="ios-install-tooltip" style="
     display: none;
     position: fixed;
@@ -168,19 +168,37 @@
     z-index: 10000;
     background: #fff;
     color: #333;
-    box-shadow: 0 -2px 16px rgba(0,0,0,0.13);
-    padding: 14px 20px 20px;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+    padding: 20px 24px 32px;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
     text-align: center;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 ">
-    <div style="font-weight:700;margin-bottom:6px;font-size:15px;">Installer Hssabek</div>
-    <div>Appuyez sur <strong>Partager</strong> <span style="font-size:17px;">⬆️</span> puis <strong>« Sur l'écran d'accueil »</strong></div>
+    <!-- drag handle -->
+    <div style="width:36px;height:4px;background:#ddd;border-radius:4px;margin:0 auto 16px;"></div>
+
+    <div style="font-weight:700;font-size:17px;margin-bottom:16px;">📲 Installer Hssabek</div>
+
+    <!-- Step 1 -->
+    <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:10px;text-align:left;">
+        <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">1</div>
+        <div>Appuyez sur l'icône <strong>Partager</strong>
+            <svg style="vertical-align:middle;margin-left:4px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            en bas de Safari
+        </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="display:flex;align-items:center;background:#f4f6ff;border-radius:12px;padding:12px 14px;margin-bottom:20px;text-align:left;">
+        <div style="width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px;">2</div>
+        <div>Faites défiler et appuyez sur <strong>« Sur l'écran d'accueil »</strong> ➕</div>
+    </div>
+
     <button onclick="dismissIosBanner()" style="
-        margin-top:12px;border:none;background:#4361ee;color:#fff;
-        border-radius:10px;padding:8px 28px;cursor:pointer;font-size:14px;font-weight:600;
+        width:100%;border:none;background:#4361ee;color:#fff;
+        border-radius:12px;padding:13px;cursor:pointer;font-size:15px;font-weight:600;
     ">Compris</button>
 </div>
 
