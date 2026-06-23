@@ -29,9 +29,17 @@ class UserController extends Controller
 
         $users = $query->latest()->paginate(request()->input('per_page', 15))->withQueryString();
 
+        // Link-based invitations still awaiting acceptance.
         $pendingInvitations = UserInvitation::where('tenant_id', TenantContext::id())
             ->whereNull('accepted_at')
             ->where('expires_at', '>', now())
+            ->with('role')
+            ->latest()
+            ->get();
+
+        // Credential e-mails (auto mode) whose delivery failed and can be re-sent.
+        $failedInvitations = UserInvitation::where('tenant_id', TenantContext::id())
+            ->where('mail_status', UserInvitation::MAIL_FAILED)
             ->with('role')
             ->latest()
             ->get();
@@ -40,7 +48,7 @@ class UserController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('backoffice.users.index', compact('users', 'pendingInvitations', 'roles'));
+        return view('backoffice.users.index', compact('users', 'pendingInvitations', 'failedInvitations', 'roles'));
     }
 
     public function edit(User $user)

@@ -10,14 +10,36 @@
                         <i class="isax isax-add"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-start">
-                        @if (Route::has('bo.users.invite'))
-                            <li>
-                                <a href="{{ route('bo.users.invite') }}"
-                                    class="dropdown-item d-flex align-items-center">
-                                    <i class="isax isax-sms me-2"></i>{{ __('Inviter un utilisateur') }}
-                                </a>
-                            </li>
-                        @endif
+                        <li>
+                            <a href="{{ route('bo.sales.invoices.create') }}"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="isax isax-document-text-1 me-2"></i>{{ __('Facture') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('bo.sales.quotes.create') }}"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="isax isax-document-download me-2"></i>{{ __('Devis') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('bo.finance.expenses.create') }}"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="isax isax-money-send me-2"></i>{{ __('Dépense') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('bo.crm.customers.create') }}"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="isax isax-user-add me-2"></i>{{ __('Client') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('bo.catalog.products.create') }}"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="isax isax-box-add me-2"></i>{{ __('Produit') }}
+                            </a>
+                        </li>
                     </ul>
                 </div>
             @endif

@@ -117,6 +117,54 @@
                 </div>
             @endif
 
+            {{-- Invitations dont l'e-mail a échoué --}}
+            @if ($failedInvitations->count() > 0)
+                <div class="card mb-3 border-danger">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h6 class="fs-14 fw-semibold mb-0 text-danger">
+                            <i class="isax isax-warning-2 me-1"></i>{{ __("Échec d'envoi de l'e-mail") }} ({{ $failedInvitations->count() }})
+                        </h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>{{ __('E-mail') }}</th>
+                                        <th>{{ __('Rôle') }}</th>
+                                        <th>{{ __('Statut e-mail') }}</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($failedInvitations as $invitation)
+                                        <tr>
+                                            <td>{{ $invitation->email }}</td>
+                                            <td>{{ $invitation->role?->name ?? '—' }}</td>
+                                            <td>
+                                                <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Échec') }}
+                                                    <i class="isax isax-close-circle ms-1"></i>
+                                                </span>
+                                            </td>
+                                            <td class="action-item">
+                                                <form method="POST"
+                                                    action="{{ route('bo.users.invite.resend', $invitation) }}"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="isax isax-sms me-1"></i>{{ __('Renvoyer') }}
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             {{-- Users Table --}}
             <div class="table-responsive">
                 <table class="table table-nowrap table-hover">
@@ -228,7 +276,7 @@
 
     {{-- Invite User Modal --}}
     <div class="modal fade" id="inviteUserModal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title">{{ __('Inviter un utilisateur') }}</h6>
@@ -260,21 +308,19 @@
                         <div class="mb-3">
                             <label class="form-label">{{ __('Mode de mot de passe') }} <span class="text-danger">*</span></label>
                             @error('password_mode')<div class="text-danger fs-12 mb-2">{{ $message }}</div>@enderror
-                            <div class="d-flex gap-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="password_mode" id="pw_mode_auto"
-                                        value="auto" {{ old('password_mode', 'auto') === 'auto' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="pw_mode_auto">
-                                        <i class="isax isax-sms me-1"></i>{{ __('Générer et envoyer par e-mail') }}
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="password_mode" id="pw_mode_manual"
-                                        value="manual" {{ old('password_mode') === 'manual' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="pw_mode_manual">
-                                        <i class="isax isax-lock me-1"></i>{{ __('Définir manuellement') }}
-                                    </label>
-                                </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="password_mode" id="pw_mode_auto"
+                                    value="auto" {{ old('password_mode', 'auto') === 'auto' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="pw_mode_auto">
+                                    <i class="isax isax-sms me-1"></i>{{ __('Générer et envoyer par e-mail') }}
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="password_mode" id="pw_mode_manual"
+                                    value="manual" {{ old('password_mode') === 'manual' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="pw_mode_manual">
+                                    <i class="isax isax-lock me-1"></i>{{ __('Définir manuellement') }}
+                                </label>
                             </div>
                         </div>
 

@@ -25,6 +25,7 @@ class AccountRequest extends Model
         'contact_phone',
         'message',
         'ip_address',
+        // Workflow fields — set only by controllers, never from public form (enforced by Form Request)
         'status',
         'handled_by',
         'handled_at',
@@ -40,7 +41,7 @@ class AccountRequest extends Model
         return $this->belongsTo(User::class, 'handled_by');
     }
 
-    public function scopePending($query)
+    public function scopePending(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
     {
         return $query->where('status', 'pending');
     }
