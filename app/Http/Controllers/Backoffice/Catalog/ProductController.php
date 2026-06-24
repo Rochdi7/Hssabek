@@ -115,6 +115,17 @@ class ProductController extends Controller
         // Load product with relationships
         $product->load(['category', 'unit', 'taxCategory', 'stocks.warehouse']);
 
+        // Compute total reserved from active delivery challans (draft/issued).
+        // Delivery challans have no warehouse_id so reserved is a product-level total.
+        $totalReserved = (float) \App\Models\Sales\DeliveryChallanItem::query()
+            ->whereHas('deliveryChallan', fn($q) => $q->whereIn('status', ['draft', 'issued']))
+            ->where('product_id', $product->id)
+            ->sum('quantity');
+
+        foreach ($product->stocks as $stock) {
+            $stock->quantity_reserved = 0;
+        }
+
         // Get invoices through invoice items
         $invoices = \App\Models\Sales\Invoice::whereHas('items', function ($q) use ($product) {
             $q->where('product_id', $product->id);
@@ -160,7 +171,8 @@ class ProductController extends Controller
             'purchaseOrders',
             'debitNotes',
             'goodsReceipts',
-            'stockMovements'
+            'stockMovements',
+            'totalReserved'
         ));
     }
 

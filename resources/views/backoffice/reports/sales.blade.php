@@ -385,18 +385,16 @@
                 if (statusEl) {
                     var breakdown = @json($statusBreakdown->map(fn($s) => (int) $s->count));
                     var statusLabels = {
-                        unpaid: {!! json_encode(__('Non payé')) !!},
-                        draft: {!! json_encode(__('Non payé')) !!},
-                        sent: {!! json_encode(__('Non payé')) !!},
-                        partial: {!! json_encode(__('Partiellement payé')) !!},
-                        paid: {!! json_encode(__('Payé')) !!},
+                        unpaid: {!! json_encode(__('Non payée')) !!},
+                        draft: {!! json_encode(__('Brouillon')) !!},
+                        partial: {!! json_encode(__('Partiellement payée')) !!},
+                        paid: {!! json_encode(__('Payée')) !!},
                         overdue: {!! json_encode(__('En retard')) !!},
-                        void: {!! json_encode(__('Annulé')) !!}
+                        void: {!! json_encode(__('Annulée')) !!}
                     };
                     var statusColors = {
-                        unpaid: '#0dcaf0',
-                        draft: '#0dcaf0',
-                        sent: '#0dcaf0',
+                        unpaid: '#0d6efd',
+                        draft: '#6c757d',
                         partial: '#ffc107',
                         paid: '#198754',
                         overdue: '#dc3545',

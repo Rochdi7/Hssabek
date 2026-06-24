@@ -119,8 +119,8 @@
                                                     <h6 class="fs-14 fw-medium mb-0">{{ $stock->product->name ?? '—' }}</h6>
                                                     <span class="fs-12 text-muted">{{ $stock->product->code ?? '' }}</span>
                                                 </td>
-                                                <td>{{ number_format($stock->quantity_on_hand, 2, ',', ' ') }}</td>
-                                                <td>{{ number_format($stock->quantity_reserved, 2, ',', ' ') }}</td>
+                                                <td>{{ rtrim(rtrim(number_format($stock->quantity_on_hand, 3, ',', ''), '0'), ',') }}</td>
+                                                <td>{{ rtrim(rtrim(number_format($stock->quantity_reserved, 3, ',', ''), '0'), ',') }}</td>
                                                 <td>{{ $stock->reorder_point ? number_format($stock->reorder_point, 2, ',', ' ') : '—' }}</td>
                                                 <td>
                                                     @if($stock->reorder_point && $stock->quantity_on_hand <= $stock->reorder_point)
@@ -158,9 +158,9 @@
                                     </div>
                                     <div>
                                         @if(str_contains($movement->movement_type, 'in'))
-                                            <span class="badge badge-soft-success">+{{ number_format($movement->quantity, 2, ',', ' ') }}</span>
+                                            <span class="badge badge-soft-success">+{{ rtrim(rtrim(number_format($movement->quantity, 3, ',', ''), '0'), ',') }}</span>
                                         @else
-                                            <span class="badge badge-soft-danger">-{{ number_format($movement->quantity, 2, ',', ' ') }}</span>
+                                            <span class="badge badge-soft-danger">-{{ rtrim(rtrim(number_format($movement->quantity, 3, ',', ''), '0'), ',') }}</span>
                                         @endif
                                     </div>
                                 </div>

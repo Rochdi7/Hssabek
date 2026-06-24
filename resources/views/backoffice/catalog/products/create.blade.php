@@ -380,17 +380,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Code-barres') }}</label>
-                                                <input type="text"
-                                                    class="form-control @error('barcode') is-invalid @enderror"
-                                                    name="barcode" value="{{ old('barcode') }}" placeholder="EAN / UPC">
-                                                @error('barcode')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        {{-- Barcode field hidden — feature not yet completed --}}
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3 d-flex flex-column justify-content-end h-100">
                                                 <div class="form-check form-switch">

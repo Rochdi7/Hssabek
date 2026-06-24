@@ -86,7 +86,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('En attente') }}</p>
                                     <h6 class="fs-16 fw-semibold text-warning">
-                                        {{ \App\Models\Sales\Invoice::whereIn('status', ['sent', 'partial'])->count() }}
+                                        {{ \App\Models\Sales\Invoice::whereIn('status', ['unpaid', 'partial', 'overdue'])->count() }}
                                     </h6>
                                 </div>
                                 <div>
@@ -273,7 +273,7 @@
                                                 class="dropdown-item d-flex align-items-center"><i
                                                     class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
-                                        @if ($invoice->status === 'draft')
+                                        @if ($invoice->status === 'unpaid')
                                             <li>
                                                 <a href="{{ route('bo.sales.invoices.edit', $invoice) }}"
                                                     class="dropdown-item d-flex align-items-center"><i
@@ -290,7 +290,7 @@
                                                     <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>
                                         </li>
-                                        @if ($invoice->status === 'draft')
+                                        @if ($invoice->status === 'unpaid')
                                             <li>
                                                 <button type="button" class="dropdown-item d-flex align-items-center"
                                                     data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
@@ -303,7 +303,7 @@
                                                 </button>
                                             </li>
                                         @endif
-                                        @if (in_array($invoice->status, ['draft', 'sent', 'partial', 'overdue']))
+                                        @if (in_array($invoice->status, ['unpaid', 'partial', 'overdue']))
                                             <li>
                                                 <form method="POST"
                                                     action="{{ route('bo.sales.invoices.void', $invoice) }}">

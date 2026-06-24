@@ -9,7 +9,6 @@
 
     @php
         $tenant = App\Services\Tenancy\TenantContext::get();
-        $currencyCode = $tenant->default_currency ?? 'MAD'; $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
     @endphp
 
     <div class="page-wrapper">
@@ -195,13 +194,11 @@
                                                     <div class="p-3 bg-light rounded border">
                                                         <div class="d-flex">
                                                             <div class="me-3">
-                                                                <span class="p-2 rounded border"><img
+                                                                <span class="p-2 rounded border d-inline-block"><img
                                                                         src="{{ $tenant->logo_url ?? URL::asset('assets/images/logo/favicon.svg') }}"
-                                                                        alt="image" class="img-fluid"></span>
+                                                                        alt="image" class="img-fluid" style="max-height: 48px; width: auto;"></span>
                                                             </div>
                                                             <div>
-                                                                <h6 class="fs-14 mb-1 fw-semibold">
-                                                                    {{ $tenant->name }}</h6>
                                                                 @if ($tenant->address)
                                                                     <p class="mb-0">{{ $tenant->address }}</p>
                                                                 @endif

@@ -31,7 +31,7 @@ class InvoiceReminderController extends Controller
     {
         $this->authorize('create', InvoiceReminder::class);
 
-        $invoices = Invoice::whereIn('status', ['sent', 'partial', 'overdue'])
+        $invoices = Invoice::whereIn('status', ['unpaid', 'partial', 'overdue'])
             ->with('customer')
             ->orderBy('due_date')
             ->get();

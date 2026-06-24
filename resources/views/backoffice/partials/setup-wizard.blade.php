@@ -84,7 +84,7 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">{{ __('Identifiant Fiscal (IF)') }}</label>
-                                        <input type="text" class="form-control" name="tax_id" placeholder="{{ __('Facultatif') }}" value="{{ $prefill['tax_id'] ?? '' }}">
+                                        <input type="text" class="form-control" name="tax_id" value="{{ $prefill['tax_id'] ?? ('IF' . rand(100000, 999999)) }}">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">{{ __('N° Registre de Commerce (RC)') }}</label>

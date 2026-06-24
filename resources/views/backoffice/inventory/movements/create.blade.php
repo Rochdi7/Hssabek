@@ -81,6 +81,12 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="col-12" id="stock-hint-wrap" style="display:none;">
+                                            <div class="alert alert-info py-2 mb-2">
+                                                <i class="isax isax-info-circle me-1"></i>
+                                                {{ __('Stock actuel dans cet entrepôt :') }} <strong id="stock-hint-qty">—</strong>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-6 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('Type de mouvement') }} <span class="text-danger ms-1">*</span></label>
@@ -131,4 +137,32 @@
     <!-- ========================
             End Page Content
         ========================= -->
+
+<script>
+(function () {
+    const productSel   = document.querySelector('select[name="product_id"]');
+    const warehouseSel = document.querySelector('select[name="warehouse_id"]');
+    const hintWrap     = document.getElementById('stock-hint-wrap');
+    const hintQty      = document.getElementById('stock-hint-qty');
+    const stockLevelUrl = '{{ route('bo.inventory.movements.stock-level') }}';
+
+    function fetchStock() {
+        const productId   = productSel.value;
+        const warehouseId = warehouseSel.value;
+        if (!productId || !warehouseId) { hintWrap.style.display = 'none'; return; }
+
+        fetch(stockLevelUrl + '?product_id=' + productId + '&warehouse_id=' + warehouseId, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(r => r.json())
+        .then(data => {
+            hintQty.textContent = data.quantity_on_hand;
+            hintWrap.style.display = '';
+        });
+    }
+
+    productSel.addEventListener('change', fetchStock);
+    warehouseSel.addEventListener('change', fetchStock);
+})();
+</script>
 @endsection

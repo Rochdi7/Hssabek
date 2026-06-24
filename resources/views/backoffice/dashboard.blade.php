@@ -562,15 +562,15 @@
                                     <tbody>
                                         @php
                                             $invoiceStatusLabels = [
-                                                'draft' => __('Brouillon'), 'sent' => __('Envoyée'), 'partial' => __('Partielle'),
+                                                'unpaid' => __('Non payée'), 'draft' => __('Brouillon'), 'partial' => __('Partielle'),
                                                 'paid' => __('Payée'), 'overdue' => __('En retard'), 'void' => __('Annulée'),
                                             ];
                                             $invoiceStatusColors = [
-                                                'draft' => 'secondary', 'sent' => 'info', 'partial' => 'warning',
+                                                'unpaid' => 'info', 'draft' => 'secondary', 'partial' => 'warning',
                                                 'paid' => 'success', 'overdue' => 'danger', 'void' => 'dark',
                                             ];
                                             $invoiceStatusIcons = [
-                                                'draft' => 'isax-edit-2', 'sent' => 'isax-timer', 'partial' => 'isax-slash',
+                                                'unpaid' => 'isax-timer', 'draft' => 'isax-edit-2', 'partial' => 'isax-slash',
                                                 'paid' => 'isax-tick-circle', 'overdue' => 'isax-close-circle', 'void' => 'isax-close-circle',
                                             ];
                                         @endphp
@@ -821,16 +821,16 @@ document.addEventListener('DOMContentLoaded', function () {
     if (invoiceStatusEl) {
         var breakdown = @json($statusBreakdown->map(fn($s) => (int)$s->count));
         var statusLabels = {
+            unpaid: {!! json_encode(__('Non payée')) !!},
             draft: {!! json_encode(__('Brouillon')) !!},
-            sent: {!! json_encode(__('Envoyée')) !!},
             partial: {!! json_encode(__('Partielle')) !!},
             paid: {!! json_encode(__('Payée')) !!},
             overdue: {!! json_encode(__('En retard')) !!},
             void: {!! json_encode(__('Annulée')) !!}
         };
         var statusColors = {
+            unpaid: '#0d6efd',
             draft: '#6c757d',
-            sent: '#0d6efd',
             partial: '#ffc107',
             paid: '#198754',
             overdue: '#dc3545',
@@ -961,7 +961,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var totalInv = {{ $totalInvoiceCount }};
         var paidPct = Math.round(({{ $paidCount }} / totalInv) * 100);
         var partialPct = Math.round(({{ $partialCount }} / totalInv) * 100);
-        var sentPct = Math.round(({{ $sentCount }} / totalInv) * 100);
+        var unpaidPct = Math.round(({{ $sentCount }} / totalInv) * 100);
         var overduePct = Math.round(({{ $overdueCount }} / totalInv) * 100);
 
         new ApexCharts(invoiceAnalyticsEl, {
@@ -970,10 +970,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 height: 280,
                 fontFamily: 'inherit'
             },
-            series: [paidPct, sentPct, partialPct, overduePct],
+            series: [paidPct, unpaidPct, partialPct, overduePct],
             labels: [
                 {!! json_encode(__('Payées')) !!},
-                {!! json_encode(__('Envoyées')) !!},
+                {!! json_encode(__('Non payées')) !!},
                 {!! json_encode(__('Partielles')) !!},
                 {!! json_encode(__('En retard')) !!}
             ],

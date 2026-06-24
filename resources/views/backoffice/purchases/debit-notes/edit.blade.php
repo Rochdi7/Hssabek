@@ -66,8 +66,8 @@
                                                     name="status">
                                                     <option value="draft"
                                                         {{ old('status', $debitNote->status) === 'draft' ? 'selected' : '' }}>{{ __('Brouillon') }}</option>
-                                                    <option value="sent"
-                                                        {{ old('status', $debitNote->status) === 'sent' ? 'selected' : '' }}>{{ __('Envoyée') }}</option>
+                                                    <option value="issued"
+                                                        {{ old('status', $debitNote->status) === 'issued' ? 'selected' : '' }}>{{ __('Émise') }}</option>
                                                     <option value="applied"
                                                         {{ old('status', $debitNote->status) === 'applied' ? 'selected' : '' }}>{{ __('Appliquée') }}</option>
                                                 </select>

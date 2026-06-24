@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Finance\Currency;
 use App\Models\Pro\InvoiceReminder;
 use App\Models\Sales\Invoice;
 use App\Models\System\EmailLog;
@@ -122,7 +123,7 @@ class SendInvoiceRemindersCommand extends Command
 
         // Get unpaid invoices
         $invoices = Invoice::where('tenant_id', $tenant->id)
-            ->whereIn('status', ['unpaid', 'sent', 'partial', 'overdue'])
+            ->whereNotIn('status', ['paid', 'void'])
             ->where('amount_due', '>', 0)
             ->whereNotNull('due_date')
             ->with('customer')
@@ -189,7 +190,7 @@ class SendInvoiceRemindersCommand extends Command
                 'invoice'  => $invoice->load(['items.product', 'items.unit', 'items.taxGroup', 'charges']),
                 'settings' => $tenantSettings,
                 'tenant'   => $tenant,
-                'currency' => $tenant->default_currency ?? 'MAD',
+                'currency' => Currency::where('code', $tenant->default_currency ?? 'MAD')->value('symbol') ?? ($tenant->default_currency ?? 'MAD'),
             ])->setPaper('a4', 'portrait')->output();
 
             $pdfPath = sys_get_temp_dir() . '/facture-' . $invoice->number . '-' . uniqid() . '.pdf';
@@ -255,7 +256,7 @@ class SendInvoiceRemindersCommand extends Command
                 'invoice'  => $invoice->load(['items.product', 'items.unit', 'items.taxGroup', 'charges']),
                 'settings' => $tenantSettings,
                 'tenant'   => $tenant,
-                'currency' => $tenant->default_currency ?? 'MAD',
+                'currency' => Currency::where('code', $tenant->default_currency ?? 'MAD')->value('symbol') ?? ($tenant->default_currency ?? 'MAD'),
             ])->setPaper('a4', 'portrait')->output();
 
             $pdfPath = sys_get_temp_dir() . '/facture-' . $invoice->number . '-' . uniqid() . '.pdf';

@@ -12,7 +12,6 @@
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
         $paymentDays = (int) ($invoiceSettings['payment_terms_days'] ?? 30);
         $showCompany = $invoiceSettings['show_company_details'] ?? true;
-        $currencyCode = $tenant->default_currency ?? 'MAD'; $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
     @endphp
 
     <div class="page-wrapper">

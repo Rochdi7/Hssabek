@@ -257,7 +257,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">{{ __('&nbsp;') }}</label>
+                                                        <label class="form-label">&nbsp;</label>
                                                         <div>
                                                             <button type="submit" class="btn btn-primary">
                                                                 <i class="isax isax-money-send me-1"></i>{{ __('Enregistrer le paiement') }}

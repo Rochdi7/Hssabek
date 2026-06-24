@@ -17,25 +17,37 @@ class SetTenantContext
             $settings = $tenant->settings;
 
             if ($settings) {
-                // Set timezone
-                if (isset($settings->localization_settings['timezone'])) {
-                    config(['app.timezone' => $settings->localization_settings['timezone']]);
-                    date_default_timezone_set($settings->localization_settings['timezone']);
+                $loc = $settings->localization_settings ?? [];
+
+                // Timezone
+                if (!empty($loc['timezone'])) {
+                    config(['app.timezone' => $loc['timezone']]);
+                    date_default_timezone_set($loc['timezone']);
                 } elseif ($tenant->timezone) {
                     config(['app.timezone' => $tenant->timezone]);
                     date_default_timezone_set($tenant->timezone);
                 }
 
-                // Set locale/language
-                if (isset($settings->localization_settings['language'])) {
-                    app()->setLocale($settings->localization_settings['language']);
+                // Locale / language
+                if (!empty($loc['language'])) {
+                    app()->setLocale($loc['language']);
                 }
 
-                // Set currency
-                if (isset($settings->account_settings['default_currency'])) {
+                // Currency — check localization_settings first, then account_settings, then tenant column
+                if (!empty($loc['currency'])) {
+                    config(['app.currency' => $loc['currency']]);
+                } elseif (!empty($settings->account_settings['default_currency'])) {
                     config(['app.currency' => $settings->account_settings['default_currency']]);
                 } elseif ($tenant->default_currency) {
                     config(['app.currency' => $tenant->default_currency]);
+                }
+
+                // Date and time format
+                if (!empty($loc['date_format'])) {
+                    config(['app.date_format' => $loc['date_format']]);
+                }
+                if (!empty($loc['time_format'])) {
+                    config(['app.time_format' => $loc['time_format']]);
                 }
             } else {
                 // Fallback to tenant-level defaults

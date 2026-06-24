@@ -12,7 +12,7 @@ class NotificationSettingsController extends Controller
     public function edit()
     {
         $tenant = TenantContext::require();
-        $settings = $tenant->settings;
+        $settings = $tenant->settings ?? new TenantSetting();
 
         return view('backoffice.settings.notifications', compact('settings'));
     }

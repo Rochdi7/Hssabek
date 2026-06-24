@@ -23,8 +23,8 @@ class ReportService
      * Invoice/vendor-bill statuses that represent an open (owing) document.
      * Includes legacy 'sent'/'posted' so pre-migration rows still count.
      */
-    private const OPEN_INVOICE_STATUSES = ['unpaid', 'sent', 'partial', 'overdue'];
-    private const OPEN_BILL_STATUSES = ['unpaid', 'posted', 'partial', 'overdue'];
+    private const OPEN_INVOICE_STATUSES = ['unpaid', 'partial', 'overdue'];
+    private const OPEN_BILL_STATUSES = ['unpaid', 'partial', 'overdue'];
 
     private function monthGroupExpression(string $column): string
     {
@@ -343,7 +343,7 @@ class ReportService
                 ->sum('amount_due');
 
             // Overdue count
-            $overdueCount = Invoice::whereIn('status', ['unpaid', 'sent', 'partial', 'overdue'])
+            $overdueCount = Invoice::whereIn('status', ['unpaid', 'partial', 'overdue'])
                 ->where('due_date', '<', $today)
                 ->count();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backoffice\Inventory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Store\StoreStockMovementRequest;
 use App\Models\Catalog\Product;
+use App\Models\Inventory\ProductStock;
 use App\Models\Inventory\StockMovement;
 use App\Models\Inventory\Warehouse;
 use App\Services\Inventory\StockService;
@@ -46,6 +47,17 @@ class StockMovementController extends Controller
         $products = Product::where('is_active', true)->where('item_type', 'product')->orderBy('name')->get();
 
         return view('backoffice.inventory.movements.create', compact('warehouses', 'products'));
+    }
+
+    public function stockLevel(Request $request)
+    {
+        $stock = ProductStock::where('product_id', $request->product_id)
+            ->where('warehouse_id', $request->warehouse_id)
+            ->first();
+
+        return response()->json([
+            'quantity_on_hand' => $stock ? (float) $stock->quantity_on_hand : 0,
+        ]);
     }
 
     public function store(StoreStockMovementRequest $request)

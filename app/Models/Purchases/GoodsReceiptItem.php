@@ -27,7 +27,7 @@ class GoodsReceiptItem extends Model
     ];
 
     protected $casts = [
-        'quantity'   => 'decimal:3',
+        'quantity'   => 'float',
         'unit_cost'  => 'decimal:2',
         'tax_rate'   => 'decimal:4',
         'line_total' => 'decimal:2',

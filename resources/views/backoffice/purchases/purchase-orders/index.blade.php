@@ -85,9 +85,9 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">{{ __('Envoyés') }}</p>
+                                    <p class="mb-1">{{ __('Actifs') }}</p>
                                     <h6 class="fs-16 fw-semibold text-warning">
-                                        {{ \App\Models\Purchases\PurchaseOrder::where('status', 'sent')->count() }}
+                                        {{ \App\Models\Purchases\PurchaseOrder::where('status', 'active')->count() }}
                                     </h6>
                                 </div>
                                 <div>

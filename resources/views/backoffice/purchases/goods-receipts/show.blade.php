@@ -89,7 +89,7 @@
                                                 @foreach ($goodsReceipt->items as $item)
                                                     <tr>
                                                         <td>{{ $item->product->name ?? '—' }}</td>
-                                                        <td>{{ number_format($item->quantity, 3) }}</td>
+                                                        <td>{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ''), '0'), ',') }}</td>
                                                         <td>{{ number_format($item->unit_cost, 2) }}</td>
                                                         <td>{{ number_format($item->line_total, 2) }}</td>
                                                     </tr>

@@ -145,7 +145,7 @@
                                                     <h6 class="fs-14 fw-medium mb-0">{{ $item->product->name ?? '—' }}</h6>
                                                     <span class="fs-12 text-muted">{{ $item->product->code ?? '' }}</span>
                                                 </td>
-                                                <td>{{ number_format($item->quantity, 3, ',', ' ') }}</td>
+                                                <td>{{ rtrim(rtrim(number_format($item->quantity, 3, ',', ''), '0'), ',') }}</td>
                                             </tr>
                                         @empty
                                             <tr>

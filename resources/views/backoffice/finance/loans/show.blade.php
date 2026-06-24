@@ -112,25 +112,35 @@
                                 </div>
 
                                 <!-- Payment Summary -->
+                                @php
+                                    $isGiven = $loan->loan_type === 'given';
+                                    // given = you lent money → payments = money you RECEIVE back
+                                    // received = you borrowed → payments = money you GIVE back
+                                    $labelTotal    = $isGiven ? __('Montant prêté') : __('Montant emprunté');
+                                    $labelPaid     = $isGiven ? __('Montant récupéré') : __('Montant remboursé');
+                                    $labelRemain   = $isGiven ? __('Reste à récupérer') : __('Reste à rembourser');
+                                    $labelAddPmt   = $isGiven ? __('Enregistrer un encaissement') : __('Enregistrer un remboursement');
+                                    $labelHistory  = $isGiven ? __('Historique des encaissements') : __('Historique des remboursements');
+                                @endphp
                                 <div class="row gx-3 mb-4">
                                     <div class="col-12">
                                         <div class="card bg-light border-0">
                                             <div class="card-body py-3">
                                                 <div class="row text-center">
                                                     <div class="col-md-4">
-                                                        <label class="form-label text-muted mb-1">{{ __('Montant total') }}</label>
+                                                        <label class="form-label text-muted mb-1">{{ $labelTotal }}</label>
                                                         <p class="fw-bold fs-5 mb-0">
                                                             {{ number_format($loan->total_amount, 2, ',', ' ') }}
                                                         </p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="form-label text-muted mb-1">{{ __('Montant remboursé') }}</label>
+                                                        <label class="form-label text-muted mb-1">{{ $labelPaid }}</label>
                                                         <p class="fw-bold fs-5 mb-0 text-success">
                                                             {{ number_format($loan->paid_amount, 2, ',', ' ') }}
                                                         </p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="form-label text-muted mb-1">{{ __('Reste à payer') }}</label>
+                                                        <label class="form-label text-muted mb-1">{{ $labelRemain }}</label>
                                                         <p class="fw-bold fs-5 mb-0 {{ $loan->remaining_amount > 0 ? 'text-danger' : 'text-success' }}">
                                                             {{ number_format($loan->remaining_amount, 2, ',', ' ') }}
                                                         </p>
@@ -151,7 +161,7 @@
                                 <!-- Payment History -->
                                 @if ($loan->payments->count())
                                     <div class="d-flex align-items-center justify-content-between mb-3">
-                                        <h6 class="mb-0">{{ __('Historique des remboursements') }}</h6>
+                                        <h6 class="mb-0">{{ $labelHistory }}</h6>
                                     </div>
                                     <div class="table-responsive mb-4">
                                         <table class="table table-nowrap">
@@ -161,7 +171,6 @@
                                                     <th>{{ __('Date') }}</th>
                                                     <th>{{ __('Montant') }}</th>
                                                     <th>{{ __('Mode') }}</th>
-                                                    <th>{{ __('Compte bancaire') }}</th>
                                                     <th>{{ __('Note') }}</th>
                                                     <th class="no-sort"></th>
                                                 </tr>
@@ -183,7 +192,6 @@
                                                                 @default {{ __('Autre') }}
                                                             @endswitch
                                                         </td>
-                                                        <td>—</td>
                                                         <td>{{ $payment->note ?? '—' }}</td>
                                                         <td>
                                                             <form method="POST"
@@ -207,7 +215,7 @@
                                 <!-- Add Payment Form (only if remaining > 0) -->
                                 @if ($loan->remaining_amount > 0)
                                     <div class="border-top pt-4">
-                                        <h6 class="mb-3">{{ __('Ajouter un remboursement') }}</h6>
+                                        <h6 class="mb-3">{{ $labelAddPmt }}</h6>
 
                                         @if ($errors->any())
                                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -286,7 +294,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label">{{ __('&nbsp;') }}</label>
+                                                        <label class="form-label">&nbsp;</label>
                                                         <div>
                                                             <button type="submit" class="btn btn-primary">
                                                                 <i class="isax isax-money-send me-1"></i>{{ __('Enregistrer le remboursement') }}

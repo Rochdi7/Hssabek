@@ -224,10 +224,10 @@
                                 <td>
                                     @if (str_contains($movement->movement_type, 'in') || $movement->movement_type === 'unreserve')
                                         <span
-                                            class="text-success fw-semibold">+{{ number_format($movement->quantity, 2, ',', ' ') }}</span>
+                                            class="text-success fw-semibold">+{{ rtrim(rtrim(number_format($movement->quantity, 3, ',', ''), '0'), ',') }}</span>
                                     @else
                                         <span
-                                            class="text-danger fw-semibold">-{{ number_format($movement->quantity, 2, ',', ' ') }}</span>
+                                            class="text-danger fw-semibold">-{{ rtrim(rtrim(number_format($movement->quantity, 3, ',', ''), '0'), ',') }}</span>
                                     @endif
                                 </td>
                                 <td>{{ \Illuminate\Support\Str::limit($movement->note, 30) ?? '—' }}</td>

@@ -329,12 +329,10 @@
                                         </div>
                                         <div class="col-xl-3">
                                             <div class="new-logo ms-xl-auto bg-light border">
-                                                <img src="{{ $tenant->logo_url }}" alt="{{ __('Logo') }}">
-                                                @if($tenant->hasMedia('logo'))
-                                                    <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
-                                                        onclick="document.getElementById('delete_logo').value='1'"><i class="isax isax-trash"></i></a>
-                                                    <input type="hidden" name="delete_logo" id="delete_logo" value="0">
-                                                @endif
+                                                <img src="{{ $tenant->logo_url }}" alt="{{ __('Logo') }}" id="logo-preview">
+                                                <a href="javascript:void(0);" id="logo-trash" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                    style="{{ $tenant->hasMedia('logo') ? '' : 'display:none !important;' }}"><i class="isax isax-trash"></i></a>
+                                                <input type="hidden" name="delete_logo" id="delete_logo" value="0">
                                             </div>
                                         </div>
                                     </div>
@@ -473,17 +471,14 @@
                 });
             }
 
-            // Live preview for all company image uploads
-            var imageFields = ['logo'];
-            imageFields.forEach(function(fieldName) {
-                var input = document.querySelector('input[name="' + fieldName + '"]');
-                if (!input) return;
-
-                var previewContainer = input.closest('.row.align-items-center');
-                if (!previewContainer) return;
-
-                var previewImg = previewContainer.querySelector('.new-logo img');
-                if (!previewImg) return;
+            // Logo upload preview + delete
+            (function() {
+                var input = document.querySelector('input[name="logo"]');
+                var previewImg = document.getElementById('logo-preview');
+                var trash = document.getElementById('logo-trash');
+                var deleteFlag = document.getElementById('delete_logo');
+                var defaultUrl = @json(asset('build/img/icons/company-logo-01.svg'));
+                if (!input || !previewImg) return;
 
                 input.addEventListener('change', function() {
                     var file = this.files[0];
@@ -496,10 +491,22 @@
                     var reader = new FileReader();
                     reader.onload = function(e) {
                         previewImg.src = e.target.result;
+                        if (deleteFlag) deleteFlag.value = '0';
+                        if (trash) trash.style.display = '';
                     };
                     reader.readAsDataURL(file);
                 });
-            });
+
+                if (trash) {
+                    trash.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        previewImg.src = defaultUrl;
+                        if (deleteFlag) deleteFlag.value = '1';
+                        if (input) input.value = '';
+                        trash.style.display = 'none';
+                    });
+                }
+            })();
         });
     </script>
 @endpush

@@ -19,7 +19,7 @@ class StockTransferItem extends Model
     ];
 
     protected $casts = [
-        'quantity' => 'decimal:3',
+        'quantity' => 'float',
     ];
 
     public function stockTransfer(): BelongsTo

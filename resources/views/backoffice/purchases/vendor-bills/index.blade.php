@@ -87,7 +87,7 @@
                                 <div>
                                     <p class="mb-1">{{ __('Non payées') }}</p>
                                     <h6 class="fs-16 fw-semibold text-warning">
-                                        {{ \App\Models\Purchases\VendorBill::whereIn('status', ['unpaid', 'posted', 'partial', 'overdue'])->count() }}
+                                        {{ \App\Models\Purchases\VendorBill::whereIn('status', ['unpaid', 'partial', 'overdue'])->count() }}
                                     </h6>
                                 </div>
                                 <div>

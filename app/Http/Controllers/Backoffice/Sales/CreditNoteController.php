@@ -60,7 +60,7 @@ class CreditNoteController extends Controller
 
         $customers = Customer::orderBy('name')->get();
         $invoices = Invoice::with('customer')
-            ->whereIn('status', ['sent', 'partial', 'paid', 'overdue'])
+            ->whereIn('status', ['unpaid', 'partial', 'paid', 'overdue'])
             ->orderBy('issue_date', 'desc')
             ->get();
 
@@ -118,7 +118,7 @@ class CreditNoteController extends Controller
 
         $customers = Customer::orderBy('name')->get();
         $invoices = Invoice::with('customer')
-            ->whereIn('status', ['sent', 'partial', 'paid', 'overdue'])
+            ->whereIn('status', ['unpaid', 'partial', 'paid', 'overdue'])
             ->orderBy('issue_date', 'desc')
             ->get();
 

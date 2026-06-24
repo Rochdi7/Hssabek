@@ -25,10 +25,10 @@ class ProductStock extends Model
     ];
 
     protected $casts = [
-        'quantity_on_hand'  => 'decimal:3',
-        'quantity_reserved' => 'decimal:3',
-        'reorder_point'     => 'decimal:3',
-        'reorder_quantity'  => 'decimal:3',
+        'quantity_on_hand'  => 'float',
+        'quantity_reserved' => 'float',
+        'reorder_point'     => 'float',
+        'reorder_quantity'  => 'float',
     ];
 
     public function warehouse(): BelongsTo
