@@ -155,7 +155,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('Impayés') }}</p>
-                                            <h6 class="fs-16 fw-semibold mb-0 text-truncate">{{ number_format($outstanding, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($outstanding, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('Ventes totales') }}</p>
-                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalSalesYtd, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalSalesYtd, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('Achats') }}</p>
-                                            <h6 class="fs-16 fw-semibold mb-0 text-truncate">{{ number_format($totalPurchasesYtd, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($totalPurchasesYtd, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +217,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 mb-0">{{ __('Dépenses') }}</p>
-                                            <h6 class="fs-16 fw-semibold text-truncate">{{ number_format($expensesMtd, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($expensesMtd, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -229,7 +229,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('Avoirs') }}</p>
-                                            <h6 class="fs-16 fw-semibold mb-0 text-truncate">{{ number_format($creditNotesTotal, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($creditNotesTotal, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +255,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('Facturé') }}</p>
-                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($invoicedTotal, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($invoicedTotal, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -267,7 +267,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('Encaissé') }}</p>
-                                            <h6 class="fs-16 fw-semibold mb-0 text-truncate">{{ number_format($receivedTotal, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($receivedTotal, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +279,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('Impayé') }}</p>
-                                            <h6 class="fs-16 fw-semibold mb-0 text-truncate">{{ number_format($outstandingTotal, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($outstandingTotal, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +291,7 @@
                                         </span>
                                         <div>
                                             <p class="mb-1 text-truncate">{{ __('En retard') }}</p>
-                                            <h6 class="fs-16 fw-semibold text-truncate mb-0">{{ number_format($overdueTotal, 2, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold mb-0">{{ number_format($overdueTotal, 2, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -437,19 +437,19 @@
                                     <div class="col d-flex border-end">
                                         <div class="text-center flex-fill">
                                             <p class="fs-13 mb-1">{{ __('Facturé') }}</p>
-                                            <h6 class="fs-16 fw-semibold">{{ number_format($invoicedTotal, 0, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($invoicedTotal, 0, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                     <div class="col d-flex border-end">
                                         <div class="text-center flex-fill">
                                             <p class="fs-13 mb-1">{{ __('Encaissé') }}</p>
-                                            <h6 class="fs-16 fw-semibold">{{ number_format($receivedTotal, 0, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($receivedTotal, 0, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                     <div class="col d-flex">
                                         <div class="text-center flex-fill">
                                             <p class="fs-13 mb-1">{{ __('Impayé') }}</p>
-                                            <h6 class="fs-16 fw-semibold">{{ number_format($outstandingTotal, 0, ',', ' ') }}</h6>
+                                            <h6 class="fs-16 fw-semibold">{{ number_format($outstandingTotal, 0, ',', ' ') }} {{ $currency }}</h6>
                                         </div>
                                     </div>
                                 </div>
