@@ -73,7 +73,12 @@ class PurchaseOrderController extends Controller
     {
         $this->authorize('create', PurchaseOrder::class);
 
-        $po = $this->purchaseOrderService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('purchase_order_ref');
+        }
+
+        $po = $this->purchaseOrderService->create($validated);
 
         return redirect()->route('bo.purchases.purchase-orders.show', $po)
             ->with('success', __('Bon de commande créé avec succès.'));
@@ -190,9 +195,14 @@ class PurchaseOrderController extends Controller
     {
         $this->authorize('update', $purchaseOrder);
 
-        // Simplified workflow: draft/sent are no longer user-selectable.
-        $statuses = ['active', 'confirmed', 'partially_received', 'received', 'cancelled'];
+        // 'received'/'partially_received' are derived from quantities, never set
+        // by hand — only manual transitions remain user-selectable here.
+        $statuses = ['active', 'confirmed', 'cancelled'];
         $new = $request->input('status');
+
+        if (in_array($new, ['received', 'partially_received'])) {
+            return back()->with('error', __('Le statut de réception est calculé automatiquement à partir des quantités reçues.'));
+        }
 
         abort_unless(in_array($new, $statuses), 422);
 

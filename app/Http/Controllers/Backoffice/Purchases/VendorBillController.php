@@ -79,11 +79,12 @@ class VendorBillController extends Controller
         $validated = $request->validated();
 
         $bill = VendorBill::create(array_merge($validated, [
-            'number'      => $this->docNumberService->next('vendor_bill'),
-            'status'      => VendorBill::STATUS_UNPAID,
-            'tax_total'   => $validated['tax_total'] ?? 0,
-            'amount_paid' => 0,
-            'amount_due'  => $validated['total'],
+            'number'           => $this->docNumberService->next('vendor_bill'),
+            'reference_number' => empty($validated['reference_number']) ? $this->docNumberService->next('vendor_bill_ref') : $validated['reference_number'],
+            'status'           => VendorBill::STATUS_UNPAID,
+            'tax_total'        => $validated['tax_total'] ?? 0,
+            'amount_paid'      => 0,
+            'amount_due'       => $validated['total'],
         ]));
 
         return redirect()->route('bo.purchases.vendor-bills.show', $bill)

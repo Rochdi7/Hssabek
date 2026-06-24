@@ -69,34 +69,8 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Réf. fournisseur de paiement') }}</label>
-                                                <div class="mb-2">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="ref_mode"
-                                                            id="ref_mode_manual" value="manual" checked
-                                                            onchange="document.getElementById('provider_refund_id').readOnly=false; document.getElementById('provider_refund_id').focus();">
-                                                        <label class="form-check-label" for="ref_mode_manual">{{ __('Saisie
-                                                            manuelle') }}</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="ref_mode"
-                                                            id="ref_mode_auto" value="auto"
-                                                            onchange="document.getElementById('provider_refund_id').value='{{ $nextReference }}'; document.getElementById('provider_refund_id').readOnly=true;">
-                                                        <label class="form-check-label" for="ref_mode_auto">{{ __('Générer
-                                                            automatiquement') }}</label>
-                                                    </div>
-                                                </div>
-                                                <input type="text" id="provider_refund_id"
-                                                    class="form-control @error('provider_refund_id') is-invalid @enderror"
-                                                    name="provider_refund_id"
-                                                    value="{{ old('provider_refund_id', $refund->provider_refund_id) }}">
-                                                @error('provider_refund_id')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        <input type="hidden" name="provider_refund_id"
+                                            value="{{ old('provider_refund_id', $refund->provider_refund_id) }}">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('Date de remboursement') }}</label>

@@ -57,7 +57,12 @@ class IncomeController extends Controller
     {
         $this->authorize('create', Income::class);
 
-        $this->incomeService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('income_ref');
+        }
+
+        $this->incomeService->create($validated);
 
         ReportService::flushTenantCache();
 

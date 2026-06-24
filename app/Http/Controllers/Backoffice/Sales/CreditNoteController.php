@@ -81,7 +81,12 @@ class CreditNoteController extends Controller
     {
         $this->authorize('create', CreditNote::class);
 
-        $this->creditNoteService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('credit_note_ref');
+        }
+
+        $this->creditNoteService->create($validated);
 
         \App\Services\Reports\ReportService::flushTenantCache();
 

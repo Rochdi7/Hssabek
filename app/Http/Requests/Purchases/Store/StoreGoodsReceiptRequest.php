@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Purchases\Store;
 
 use App\Http\Requests\TenantFormRequest;
+use App\Models\Purchases\PurchaseOrderItem;
+use Illuminate\Validation\Validator;
 
 class StoreGoodsReceiptRequest extends TenantFormRequest
 {
@@ -20,11 +22,46 @@ class StoreGoodsReceiptRequest extends TenantFormRequest
             'reference_number'  => ['nullable', 'string', 'max:120'],
             'notes'             => ['nullable', 'string', 'max:2000'],
 
-            'items'                  => ['required', 'array', 'min:1'],
-            'items.*.product_id'     => ['required', 'uuid', $this->tenantExists('products')],
-            'items.*.quantity'       => ['required', 'numeric', 'min:0.001'],
-            'items.*.note'           => ['nullable', 'string', 'max:500'],
+            'items'                            => ['required', 'array', 'min:1'],
+            'items.*.product_id'               => ['required', 'uuid', $this->tenantExists('products')],
+            'items.*.quantity'                 => ['required', 'numeric', 'min:0.001'],
+            'items.*.purchase_order_item_id'   => ['nullable', 'uuid', $this->tenantExists('purchase_order_items')],
+            'items.*.note'                     => ['nullable', 'string', 'max:500'],
         ];
+    }
+
+    /**
+     * Block over-receiving: a line's quantity may never exceed the linked PO
+     * item's remaining quantity (ordered − already received).
+     */
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator) {
+            foreach ($this->input('items', []) as $i => $item) {
+                $poItemId = $item['purchase_order_item_id'] ?? null;
+                if (!$poItemId) {
+                    continue;
+                }
+
+                $poItem = PurchaseOrderItem::find($poItemId);
+                if (!$poItem) {
+                    continue;
+                }
+
+                $remaining = (float) $poItem->quantity - (float) $poItem->received_quantity;
+                $qty = (float) ($item['quantity'] ?? 0);
+
+                if ($qty > $remaining + 0.0001) {
+                    $validator->errors()->add(
+                        "items.{$i}.quantity",
+                        __('La quantité reçue (:qty) dépasse la quantité restante à recevoir (:remaining).', [
+                            'qty'       => rtrim(rtrim(number_format($qty, 3, '.', ''), '0'), '.'),
+                            'remaining' => rtrim(rtrim(number_format(max($remaining, 0), 3, '.', ''), '0'), '.'),
+                        ])
+                    );
+                }
+            }
+        });
     }
 
     public function messages(): array

@@ -156,6 +156,10 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->middleware('permission:purchases.goods_receipts.create')
             ->name('create');
 
+        Route::get('/po-lines/{purchaseOrder}', [GoodsReceiptController::class, 'purchaseOrderLines'])
+            ->middleware('permission:purchases.goods_receipts.create')
+            ->name('po-lines');
+
         Route::post('/', [GoodsReceiptController::class, 'store'])
             ->middleware('permission:purchases.goods_receipts.create')
             ->name('store');

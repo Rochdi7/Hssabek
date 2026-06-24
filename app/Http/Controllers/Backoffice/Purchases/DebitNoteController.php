@@ -66,7 +66,12 @@ class DebitNoteController extends Controller
     {
         $this->authorize('create', DebitNote::class);
 
-        $debitNote = $this->debitNoteService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('debit_note_ref');
+        }
+
+        $debitNote = $this->debitNoteService->create($validated);
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
             ->with('success', __('Note de débit créée avec succès.'));

@@ -2,12 +2,12 @@
 
 namespace App\Services\Purchases;
 
-use App\Models\Inventory\ProductStock;
 use App\Models\Inventory\StockMovement;
 use App\Models\Purchases\GoodsReceipt;
 use App\Models\Purchases\GoodsReceiptItem;
 use App\Models\Purchases\PurchaseOrder;
 use App\Models\Purchases\PurchaseOrderItem;
+use App\Services\Inventory\StockService;
 use App\Services\System\DocumentNumberService;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +15,7 @@ class GoodsReceiptService
 {
     public function __construct(
         private readonly DocumentNumberService $docService,
+        private readonly StockService $stockService,
     ) {}
 
     public function create(array $validated): GoodsReceipt
@@ -33,18 +34,7 @@ class GoodsReceiptService
                 'created_by' => auth()->id(),
             ]);
 
-            foreach ($items as $i => $item) {
-                GoodsReceiptItem::create([
-                    'goods_receipt_id' => $receipt->id,
-                    'product_id'       => $item['product_id'],
-                    'quantity'         => $item['quantity'],
-                    'unit_cost'        => $item['unit_cost'] ?? 0,
-                    'tax_rate'         => $item['tax_rate'] ?? 0,
-                    'tax_group_id'     => $item['tax_group_id'] ?? null,
-                    'line_total'       => $item['line_total'] ?? 0,
-                    'position'         => $i,
-                ]);
-            }
+            $this->syncItems($receipt, $items);
 
             return $receipt->load('items');
         });
@@ -52,6 +42,10 @@ class GoodsReceiptService
 
     public function update(GoodsReceipt $receipt, array $validated): GoodsReceipt
     {
+        if ($receipt->status !== 'draft') {
+            throw new \LogicException('Seules les réceptions en brouillon peuvent être modifiées.');
+        }
+
         return DB::transaction(function () use ($receipt, $validated) {
             $items = $validated['items'] ?? [];
 
@@ -64,28 +58,54 @@ class GoodsReceiptService
             ]);
 
             $receipt->items()->delete();
-            foreach ($items as $i => $item) {
-                GoodsReceiptItem::create([
-                    'goods_receipt_id' => $receipt->id,
-                    'product_id'       => $item['product_id'],
-                    'quantity'         => $item['quantity'],
-                    'unit_cost'        => $item['unit_cost'] ?? 0,
-                    'tax_rate'         => $item['tax_rate'] ?? 0,
-                    'tax_group_id'     => $item['tax_group_id'] ?? null,
-                    'line_total'       => $item['line_total'] ?? 0,
-                    'position'         => $i,
-                ]);
-            }
+            $this->syncItems($receipt, $items);
 
             return $receipt->fresh('items');
         });
     }
 
     /**
-     * Confirm a draft goods receipt: update stock, create movements, update PO status.
+     * Persist receipt lines, resolving each line back to its PO item (when the
+     * receipt is linked to a PO) so received-quantity tracking works on confirm.
+     */
+    private function syncItems(GoodsReceipt $receipt, array $items): void
+    {
+        $poItemsByProduct = collect();
+        if ($receipt->purchase_order_id) {
+            $poItemsByProduct = PurchaseOrderItem::where('purchase_order_id', $receipt->purchase_order_id)
+                ->get()
+                ->keyBy('product_id');
+        }
+
+        foreach ($items as $i => $item) {
+            $poItemId = $item['purchase_order_item_id']
+                ?? optional($poItemsByProduct->get($item['product_id']))->id;
+
+            GoodsReceiptItem::create([
+                'goods_receipt_id'       => $receipt->id,
+                'purchase_order_item_id' => $poItemId,
+                'product_id'             => $item['product_id'],
+                'quantity'               => $item['quantity'],
+                'unit_cost'              => $item['unit_cost'] ?? 0,
+                'tax_rate'               => $item['tax_rate'] ?? 0,
+                'tax_group_id'           => $item['tax_group_id'] ?? null,
+                'line_total'             => $item['line_total'] ?? 0,
+                'position'               => $i,
+            ]);
+        }
+    }
+
+    /**
+     * Confirm a draft goods receipt: move stock, create movements, update PO status.
+     * Idempotent — a receipt that is already 'received' is returned untouched, and
+     * a per-line movement guard prevents double stock additions.
      */
     public function confirm(GoodsReceipt $receipt): GoodsReceipt
     {
+        if ($receipt->status === 'received') {
+            return $receipt->fresh('items');
+        }
+
         if ($receipt->status !== 'draft') {
             throw new \LogicException('Seules les réceptions en brouillon peuvent être confirmées.');
         }
@@ -94,30 +114,29 @@ class GoodsReceiptService
             $receipt->load('items');
 
             foreach ($receipt->items as $item) {
-                // Increment product stock in the warehouse
-                $stock = ProductStock::firstOrNew([
-                    'tenant_id'    => $receipt->tenant_id,
-                    'warehouse_id' => $receipt->warehouse_id,
-                    'product_id'   => $item->product_id,
-                ]);
-                $stock->quantity_on_hand = ($stock->quantity_on_hand ?? 0) + $item->quantity;
-                $stock->save();
+                // Guard against double stock additions if confirm runs twice.
+                $alreadyMoved = StockMovement::where('reference_type', GoodsReceipt::class)
+                    ->where('reference_id', $receipt->id)
+                    ->where('product_id', $item->product_id)
+                    ->where('movement_type', 'purchase_in')
+                    ->exists();
 
-                // Create stock movement (audit trail)
-                StockMovement::create([
-                    'warehouse_id'   => $receipt->warehouse_id,
-                    'product_id'     => $item->product_id,
-                    'movement_type'  => 'purchase_in',
-                    'quantity'       => $item->quantity,
-                    'unit_cost'      => $item->unit_cost,
-                    'reference_type' => GoodsReceipt::class,
-                    'reference_id'   => $receipt->id,
-                    'note'           => 'Réception confirmée : ' . $receipt->number,
-                    'moved_at'       => $receipt->received_at ?? now(),
-                    'created_by'     => auth()->id(),
-                ]);
+                if ($alreadyMoved) {
+                    continue;
+                }
 
-                // Update PO item received_quantity if linked
+                // Single source of truth for stock: locks the row, syncs the
+                // product's total quantity, and writes the StockMovement.
+                $this->stockService->adjust(
+                    $item->product_id,
+                    (float) $item->quantity,
+                    'purchase_in',
+                    'Réception confirmée : ' . $receipt->number,
+                    $receipt->warehouse_id,
+                    GoodsReceipt::class,
+                    $receipt->id,
+                );
+
                 if ($item->purchase_order_item_id) {
                     $poItem = PurchaseOrderItem::find($item->purchase_order_item_id);
                     if ($poItem) {
@@ -126,43 +145,15 @@ class GoodsReceiptService
                 }
             }
 
-            // Update purchase order status if linked
+            // Auto-derive PO status from quantities — never set manually.
             if ($receipt->purchase_order_id) {
-                $this->updatePurchaseOrderStatus($receipt->purchase_order_id);
+                $po = PurchaseOrder::with('items')->find($receipt->purchase_order_id);
+                $po?->recalculateStatus();
             }
 
-            // Mark receipt as received
             $receipt->update(['status' => 'received']);
 
             return $receipt->fresh('items');
         });
-    }
-
-    private function updatePurchaseOrderStatus(string $purchaseOrderId): void
-    {
-        $po = PurchaseOrder::with('items')->find($purchaseOrderId);
-        if (!$po || $po->items->isEmpty()) {
-            return;
-        }
-
-        $allReceived = true;
-        $anyReceived = false;
-
-        foreach ($po->items as $poItem) {
-            if ($poItem->received_quantity >= $poItem->quantity) {
-                $anyReceived = true;
-            } else {
-                $allReceived = false;
-                if ($poItem->received_quantity > 0) {
-                    $anyReceived = true;
-                }
-            }
-        }
-
-        if ($allReceived) {
-            $po->update(['status' => 'received']);
-        } elseif ($anyReceived) {
-            $po->update(['status' => 'partially_received']);
-        }
     }
 }

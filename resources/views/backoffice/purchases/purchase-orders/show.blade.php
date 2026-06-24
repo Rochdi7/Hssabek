@@ -266,10 +266,9 @@
                         <select name="status" class="form-select" required>
                             <option value="active" @selected($purchaseOrder->normalizedStatus() === 'active')>{{ __('Actif') }}</option>
                             <option value="confirmed" @selected($purchaseOrder->status === 'confirmed')>{{ __('Confirmé') }}</option>
-                            <option value="partially_received" @selected($purchaseOrder->status === 'partially_received')>{{ __('Partiellement reçu') }}</option>
-                            <option value="received" @selected($purchaseOrder->status === 'received')>{{ __('Reçu') }}</option>
                             <option value="cancelled" @selected($purchaseOrder->status === 'cancelled')>{{ __('Annulé') }}</option>
                         </select>
+                        <small class="text-muted d-block mt-2"><i class="isax isax-info-circle me-1"></i>{{ __('Les statuts « Partiellement reçu » et « Reçu » sont calculés automatiquement à partir des quantités reçues.') }}</small>
                     </div>
                 </div>
                 <div class="modal-footer">

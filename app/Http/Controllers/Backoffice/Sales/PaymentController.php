@@ -85,8 +85,13 @@ class PaymentController extends Controller
     {
         $this->authorize('create', Payment::class);
 
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('payment_ref');
+        }
+
         try {
-            $this->paymentService->create($request->validated());
+            $this->paymentService->create($validated);
         } catch (\DomainException $e) {
             return redirect()->back()->withInput()->withErrors(['allocations' => $e->getMessage()]);
         }

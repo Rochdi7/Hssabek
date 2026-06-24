@@ -84,31 +84,8 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ __('Réf. fournisseur') }}</label>
-                                                                <div class="mb-2">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
-                                                                            onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').focus();">
-                                                                        <label class="form-check-label" for="ref_mode_manual">{{ __('Saisie manuelle') }}</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
-                                                                            onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                                        <label class="form-check-label" for="ref_mode_auto">{{ __('Générer automatiquement') }}</label>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" id="reference_number"
-                                                                    class="form-control @error('reference_number') is-invalid @enderror"
-                                                                    name="reference_number"
-                                                                    value="{{ old('reference_number', $purchaseOrder->reference_number) }}"
-                                                                    placeholder="{{ __('Référence fournisseur') }}">
-                                                                @error('reference_number')
-                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
+                                                        <input type="hidden" name="reference_number"
+                                                            value="{{ old('reference_number', $purchaseOrder->reference_number) }}">
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">{{ __('Date de commande') }}<span
@@ -303,19 +280,22 @@
                                                 @foreach ($purchaseOrder->items as $idx => $item)
                                                     <tr class="item-row">
                                                         <td>
-                                                            <input type="text" class="form-control"
-                                                                name="items[{{ $idx }}][label]"
-                                                                value="{{ old("items.{$idx}.label", $item->label) }}"
-                                                                required>
-                                                            <select class="form-select form-select-sm mt-1"
+                                                            <select class="form-select form-select-sm mb-1 item-product-select"
                                                                 name="items[{{ $idx }}][product_id]">
                                                                 <option value="">{{ __('-- Produit (optionnel) --') }}</option>
                                                                 @foreach ($products as $product)
                                                                     <option value="{{ $product->id }}"
+                                                                        data-name="{{ $product->name }}"
+                                                                        data-cost="{{ $product->purchase_price ?? 0 }}"
                                                                         {{ old("items.{$idx}.product_id", $item->product_id) == $product->id ? 'selected' : '' }}>
                                                                         {{ $product->name }}</option>
                                                                 @endforeach
                                                             </select>
+                                                            <input type="text" class="form-control item-label"
+                                                                name="items[{{ $idx }}][label]"
+                                                                value="{{ old("items.{$idx}.label", $item->label) }}"
+                                                                required
+                                                                @if(old("items.{$idx}.product_id", $item->product_id)) readonly @endif>
                                                         </td>
                                                         <td><input type="number" class="form-control item-qty"
                                                                 name="items[{{ $idx }}][quantity]"
@@ -496,7 +476,7 @@
             document.getElementById('add-item-btn').addEventListener('click', function() {
                 let productOptions = '<option value="">{{ __('-- Produit (optionnel) --') }}</option>';
                 productsJson.forEach(p => {
-                    productOptions += `<option value="${p.id}">${p.name}</option>`;
+                    productOptions += `<option value="${p.id}" data-name="${p.name}" data-cost="${p.purchase_price ?? 0}">${p.name}</option>`;
                 });
 
                 const taxOpts = buildTaxOptions();
@@ -504,8 +484,8 @@
                 row.classList.add('item-row');
                 row.innerHTML = `
             <td>
-                <input type="text" class="form-control" name="items[${itemIndex}][label]" placeholder="{{ __('Libellé de l\'article') }}" required>
-                <select class="form-select form-select-sm mt-1" name="items[${itemIndex}][product_id]">${productOptions}</select>
+                <select class="form-select form-select-sm mb-1 item-product-select" name="items[${itemIndex}][product_id]">${productOptions}</select>
+                <input type="text" class="form-control item-label" name="items[${itemIndex}][label]" placeholder="{{ __('Libellé de l\'article') }}" required>
             </td>
             <td><input type="number" class="form-control item-qty" name="items[${itemIndex}][quantity]" value="1" min="0.001" step="0.001" required></td>
             <td><input type="number" class="form-control item-cost" name="items[${itemIndex}][unit_cost]" value="0" min="0" step="0.01" required></td>
@@ -535,7 +515,9 @@
                 recalc();
             });
 
-            document.getElementById('items-body').addEventListener('change', function() {
+            document.getElementById('items-body').addEventListener('change', function(e) {
+                const sel = e.target.closest('.item-product-select');
+                if (sel) applyProductToRow(sel.closest('.item-row'));
                 recalc();
             });
 
@@ -593,6 +575,38 @@
             }
 
             recalc();
+
+            // Auto-fill label + cost when a product is selected; clear readonly when deselected.
+            function applyProductToRow(row) {
+                const sel = row.querySelector('.item-product-select');
+                const labelInput = row.querySelector('.item-label');
+                const costInput = row.querySelector('.item-cost');
+                const opt = sel.options[sel.selectedIndex];
+                if (sel.value && opt) {
+                    labelInput.value = opt.dataset.name || '';
+                    labelInput.setAttribute('readonly', 'readonly');
+                    labelInput.classList.add('bg-light');
+                    if (costInput && (!costInput.value || parseFloat(costInput.value) === 0)) {
+                        costInput.value = opt.dataset.cost || 0;
+                    }
+                } else {
+                    labelInput.removeAttribute('readonly');
+                    labelInput.classList.remove('bg-light');
+                }
+                recalc();
+            }
+
+            // Apply to existing rows on load (product already selected).
+            document.querySelectorAll('.item-row').forEach(row => {
+                const sel = row.querySelector('.item-product-select');
+                if (sel && sel.value) {
+                    const labelInput = row.querySelector('.item-label');
+                    if (labelInput) {
+                        labelInput.setAttribute('readonly', 'readonly');
+                        labelInput.classList.add('bg-light');
+                    }
+                }
+            });
         });
     </script>
 @endpush

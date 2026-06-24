@@ -97,7 +97,12 @@ class InvoiceController extends Controller
     {
         $this->authorize('create', Invoice::class);
 
-        $this->invoiceService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('invoice_ref');
+        }
+
+        $this->invoiceService->create($validated);
 
         \App\Services\Reports\ReportService::flushTenantCache();
 

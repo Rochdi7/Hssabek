@@ -85,7 +85,12 @@ class QuoteController extends Controller
 
         $this->authorize('create', Quote::class);
 
-        $this->quoteService->create($request->validated(), $documentConfig['type']);
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('quote_ref');
+        }
+
+        $this->quoteService->create($validated, $documentConfig['type']);
 
         \App\Services\Reports\ReportService::flushTenantCache();
 
