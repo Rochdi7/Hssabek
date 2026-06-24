@@ -1,4 +1,4 @@
-?<?php $page = 'add-quotation'; ?>
+<?php $page = 'add-quotation'; ?>
 @extends('backoffice.layout.mainlayout')
 @section('title', $documentConfig['create_title'])
 @section('description', $documentConfig['create_title'])

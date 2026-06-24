@@ -1,4 +1,4 @@
-c<?php $page = 'plugin-manager'; ?>
+<?php $page = 'plugin-manager'; ?>
 @extends('layout.mainlayout')
 @section('content')
  
