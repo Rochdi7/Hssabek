@@ -38,24 +38,74 @@ class GoodsReceiptController extends Controller
         return view('backoffice.purchases.goods-receipts.index', compact('goodsReceipts'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $this->authorize('create', GoodsReceipt::class);
 
-        $purchaseOrders = PurchaseOrder::whereIn('status', ['draft', 'confirmed', 'partially_received'])->with('supplier')->orderBy('order_date', 'desc')->get();
+        $purchaseOrders = PurchaseOrder::receivable()->with('supplier')->orderBy('order_date', 'desc')->get();
         $warehouses = Warehouse::where('is_active', true)->orderBy('name')->get();
         $products = Product::where('item_type', 'product')->orderBy('name')->get();
 
+        // Pre-selected PO (e.g. from the PO show page): expose its remaining lines.
+        $selectedPurchaseOrder = null;
+        if ($request->filled('purchase_order_id')) {
+            $selectedPurchaseOrder = PurchaseOrder::with('items.product')->find($request->purchase_order_id);
+        }
+
         $nextReference = app(DocumentNumberService::class)->preview('receipt_ref');
 
-        return view('backoffice.purchases.goods-receipts.create', compact('purchaseOrders', 'warehouses', 'products', 'nextReference'));
+        return view('backoffice.purchases.goods-receipts.create', compact('purchaseOrders', 'warehouses', 'products', 'nextReference', 'selectedPurchaseOrder'));
+    }
+
+    /**
+     * JSON: receivable lines of a purchase order (ordered / received / remaining)
+     * for the receipt form to load when a PO is selected.
+     */
+    public function purchaseOrderLines(PurchaseOrder $purchaseOrder)
+    {
+        $this->authorize('create', GoodsReceipt::class);
+
+        $purchaseOrder->load('items.product');
+
+        // Only catalog-product lines are receivable: a receipt moves stock, and
+        // label-only PO lines (product_id = null) have no product to stock.
+        $lines = $purchaseOrder->items
+            ->filter(fn ($item) => !is_null($item->product_id))
+            ->map(function ($item) {
+                $ordered = (float) $item->quantity;
+                $received = (float) $item->received_quantity;
+                $remaining = max($ordered - $received, 0);
+
+                return [
+                    'purchase_order_item_id' => $item->id,
+                    'product_id'             => $item->product_id,
+                    'product_name'           => $item->product->name ?? $item->label,
+                    'unit_cost'              => (float) $item->unit_cost,
+                    'tax_rate'               => (float) $item->tax_rate,
+                    'tax_group_id'           => $item->tax_group_id,
+                    'ordered'                => $ordered,
+                    'received'               => $received,
+                    'remaining'              => $remaining,
+                ];
+            })->values();
+
+        return response()->json([
+            'warehouse_id'      => $purchaseOrder->warehouse_id,
+            'lines'             => $lines,
+            'has_product_lines' => $lines->isNotEmpty(),
+        ]);
     }
 
     public function store(StoreGoodsReceiptRequest $request)
     {
         $this->authorize('create', GoodsReceipt::class);
 
-        $receipt = $this->goodsReceiptService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('receipt_ref');
+        }
+
+        $receipt = $this->goodsReceiptService->create($validated);
 
         return redirect()->route('bo.purchases.goods-receipts.show', $receipt)
             ->with('success', __('Réception de marchandises enregistrée avec succès.'));

@@ -16,6 +16,7 @@ class PurchaseOrderService
     public function __construct(
         private readonly TaxCalculationService $taxService,
         private readonly DocumentNumberService $docService,
+        private readonly GoodsReceiptService $goodsReceiptService,
     ) {}
 
     public function create(array $validated): PurchaseOrder
@@ -38,6 +39,7 @@ class PurchaseOrderService
                 'supplier_id'    => $validated['supplier_id'],
                 'warehouse_id'   => $warehouseId,
                 'number'         => $this->docService->next('purchase_order'),
+                'reference_number' => $validated['reference_number'] ?? null,
                 'order_date'     => $validated['order_date'],
                 'expected_date'  => $validated['expected_date'] ?? null,
                 'status'         => PurchaseOrder::STATUS_ACTIVE,
@@ -148,20 +150,32 @@ class PurchaseOrderService
         $po->update(['status' => $newStatus]);
     }
 
+    /**
+     * One-click receive: build a draft receipt for every remaining quantity,
+     * then confirm it through GoodsReceiptService so stock, movements and PO
+     * status all go through the single stock engine (no duplicated logic).
+     */
     public function receive(PurchaseOrder $po): GoodsReceipt
     {
         return DB::transaction(function () use ($po) {
+            $po->loadMissing('items');
+
             $receipt = GoodsReceipt::create([
                 'purchase_order_id' => $po->id,
                 'warehouse_id'      => $po->warehouse_id,
                 'number'            => $this->docService->next('goods_receipt'),
-                'status'            => 'received',
+                'status'            => 'draft',
                 'received_at'       => now(),
                 'created_by'        => auth()->id(),
             ]);
 
             foreach ($po->items as $item) {
-                $qtyToReceive = $item->quantity - $item->received_quantity;
+                // Label-only lines (no catalog product) cannot be stocked — skip.
+                if (is_null($item->product_id)) {
+                    continue;
+                }
+
+                $qtyToReceive = (float) $item->quantity - (float) $item->received_quantity;
                 if ($qtyToReceive <= 0) {
                     continue;
                 }
@@ -176,13 +190,9 @@ class PurchaseOrderService
                     'tax_group_id'           => $item->tax_group_id,
                     'line_total'             => $item->line_total,
                 ]);
-
-                $item->update(['received_quantity' => $item->quantity]);
             }
 
-            $po->update(['status' => 'received']);
-
-            return $receipt;
+            return $this->goodsReceiptService->confirm($receipt->load('items'));
         });
     }
 }

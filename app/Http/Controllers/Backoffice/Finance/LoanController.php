@@ -53,6 +53,9 @@ class LoanController extends Controller
 
         $data = $request->validated();
         $data['created_by'] = auth()->id();
+        if (empty($data['reference_number'])) {
+            $data['reference_number'] = app(DocumentNumberService::class)->next('loan_ref');
+        }
 
         $this->loanService->create($data);
 

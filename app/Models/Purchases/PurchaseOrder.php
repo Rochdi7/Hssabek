@@ -31,6 +31,73 @@ class PurchaseOrder extends Model
         };
     }
 
+    /**
+     * Purchase orders that can still receive goods: anything not fully
+     * received and not cancelled. Includes legacy 'draft'/'sent' (now 'active').
+     */
+    public function scopeReceivable($query)
+    {
+        return $query->whereNotIn('status', [self::STATUS_RECEIVED, self::STATUS_CANCELLED]);
+    }
+
+    /**
+     * Single source of truth for received status: derive it purely from line
+     * quantities (ordered vs received) and persist it. Never trust the stored
+     * status alone — always recompute after any receiving process.
+     *
+     * - all lines fully received        → received
+     * - some quantity received          → partially_received
+     * - nothing received yet            → active (unless confirmed/cancelled)
+     *
+     * Cancelled orders are left untouched (a dead PO is never reopened).
+     */
+    public function recalculateStatus(): string
+    {
+        if ($this->status === self::STATUS_CANCELLED) {
+            return $this->status;
+        }
+
+        $this->loadMissing('items');
+
+        if ($this->items->isEmpty()) {
+            return $this->status;
+        }
+
+        $allReceived = true;
+        $anyReceived = false;
+
+        foreach ($this->items as $item) {
+            $ordered  = (float) $item->quantity;
+            $received = (float) $item->received_quantity;
+
+            if ($received >= $ordered) {
+                $anyReceived = true;
+            } else {
+                $allReceived = false;
+                if ($received > 0) {
+                    $anyReceived = true;
+                }
+            }
+        }
+
+        if ($allReceived) {
+            $derived = self::STATUS_RECEIVED;
+        } elseif ($anyReceived) {
+            $derived = self::STATUS_PARTIALLY_RECEIVED;
+        } else {
+            // Nothing received: keep a manual 'confirmed', otherwise normalize to active.
+            $derived = $this->status === self::STATUS_CONFIRMED
+                ? self::STATUS_CONFIRMED
+                : self::STATUS_ACTIVE;
+        }
+
+        if ($this->status !== $derived) {
+            $this->update(['status' => $derived]);
+        }
+
+        return $derived;
+    }
+
     public function statusLabel(): string
     {
         return match ($this->normalizedStatus()) {

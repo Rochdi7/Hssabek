@@ -65,31 +65,6 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">{{ __('Réf. fournisseur') }}</label>
-                                                                <div class="mb-2">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_manual" value="manual" checked
-                                                                            onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').value=''; document.getElementById('reference_number').focus();">
-                                                                        <label class="form-check-label" for="ref_mode_manual">{{ __('Saisie manuelle') }}</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_mode" id="ref_mode_auto" value="auto"
-                                                                            onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                                        <label class="form-check-label" for="ref_mode_auto">{{ __('Générer automatiquement') }}</label>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" id="reference_number"
-                                                                    class="form-control @error('reference_number') is-invalid @enderror"
-                                                                    name="reference_number"
-                                                                    value="{{ old('reference_number') }}"
-                                                                    placeholder="{{ __('Référence fournisseur (optionnel)') }}">
-                                                                @error('reference_number')
-                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
                                                                 <label class="form-label">{{ __('Date de commande') }}<span
                                                                         class="text-danger">*</span></label>
                                                                 <div class="input-group position-relative">
@@ -197,13 +172,11 @@
                                                     <div class="p-3 bg-light rounded border">
                                                         <div class="d-flex">
                                                             <div class="me-3">
-                                                                <span class="p-2 rounded border"><img
+                                                                <span class="p-2 rounded border d-inline-block"><img
                                                                         src="{{ $tenant->logo_url ?? URL::asset('assets/images/logo/favicon.svg') }}"
-                                                                        alt="image" class="img-fluid"></span>
+                                                                        alt="image" class="img-fluid" style="max-height: 48px; width: auto;"></span>
                                                             </div>
                                                             <div>
-                                                                <h6 class="fs-14 mb-1 fw-semibold">
-                                                                    {{ $tenant->name }}</h6>
                                                                 @if ($tenant->address)
                                                                     <p class="mb-0">{{ $tenant->address }}</p>
                                                                 @endif
@@ -232,12 +205,16 @@
                                                     <div class="mb-3">
                                                         <label class="form-label">{{ __('Fournisseur') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <select name="supplier_id"
+                                                        <select name="supplier_id" id="supplier-select"
                                                             class="select @error('supplier_id') is-invalid @enderror"
                                                             required>
                                                             <option value="">{{ __('Sélectionner un fournisseur') }}</option>
                                                             @foreach ($suppliers as $supplier)
                                                                 <option value="{{ $supplier->id }}"
+                                                                    data-name="{{ $supplier->name }}"
+                                                                    data-email="{{ $supplier->email }}"
+                                                                    data-phone="{{ $supplier->phone }}"
+                                                                    data-tax-id="{{ $supplier->tax_id }}"
                                                                     {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
                                                                     {{ $supplier->name }}</option>
                                                             @endforeach
@@ -304,19 +281,20 @@
                                             <tbody class="add-tbody" id="items-body">
                                                 <tr class="item-row">
                                                     <td>
-                                                        <input type="text" class="form-control" name="items[0][label]"
-                                                            placeholder="{{ __('Libellé de l\'article') }}"
-                                                            value="{{ old('items.0.label') }}" required
-                                                           >
-                                                        <select class="form-select form-select-sm mt-1"
+                                                        <select class="form-select form-select-sm mb-1 item-product-select"
                                                             name="items[0][product_id]">
                                                             <option value="">{{ __('-- Produit (optionnel) --') }}</option>
                                                             @foreach ($products as $product)
                                                                 <option value="{{ $product->id }}"
+                                                                    data-name="{{ $product->name }}"
+                                                                    data-cost="{{ $product->purchase_price ?? 0 }}"
                                                                     {{ old('items.0.product_id') == $product->id ? 'selected' : '' }}>
                                                                     {{ $product->name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        <input type="text" class="form-control item-label" name="items[0][label]"
+                                                            placeholder="{{ __('Libellé de l\'article') }}"
+                                                            value="{{ old('items.0.label') }}" required>
                                                     </td>
                                                     <td>
                                                         <input type="number" class="form-control item-qty"
@@ -462,6 +440,28 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Supplier info panel — fill from the selected option's data attributes
+            const billToInfo = document.getElementById('bill-to-info');
+            const supplierPlaceholder = '<p class="mb-0">{{ __('Sélectionnez un fournisseur pour afficher ses informations') }}</p>';
+
+            function renderSupplierInfo() {
+                const opt = document.querySelector('#supplier-select option:checked');
+                if (!opt || !opt.value) {
+                    billToInfo.classList.add('text-muted');
+                    billToInfo.innerHTML = supplierPlaceholder;
+                    return;
+                }
+                billToInfo.classList.remove('text-muted');
+                let html = '<h6 class="fs-14 mb-1 fw-semibold">' + (opt.dataset.name || '') + '</h6>';
+                if (opt.dataset.phone) html += '<p class="mb-0">{{ __('Tél') }} : ' + opt.dataset.phone + '</p>';
+                if (opt.dataset.email) html += '<p class="mb-0">{{ __('Email') }} : ' + opt.dataset.email + '</p>';
+                if (opt.dataset.taxId) html += '<p class="text-dark mb-0">{{ __('ICE') }} : ' + opt.dataset.taxId + '</p>';
+                billToInfo.innerHTML = html;
+            }
+
+            $('#supplier-select').on('change', renderSupplierInfo);
+            renderSupplierInfo();
+
             let itemIndex = 1;
             const productsJson = @json($products);
             const taxCategories = @json($taxCategories);
@@ -494,7 +494,7 @@
             document.getElementById('add-item-btn').addEventListener('click', function() {
                 let productOptions = '<option value="">{{ __('-- Produit (optionnel) --') }}</option>';
                 productsJson.forEach(p => {
-                    productOptions += `<option value="${p.id}">${p.name}</option>`;
+                    productOptions += `<option value="${p.id}" data-name="${p.name}" data-cost="${p.purchase_price ?? 0}">${p.name}</option>`;
                 });
 
                 const taxOpts = buildTaxOptions();
@@ -502,8 +502,8 @@
                 row.classList.add('item-row');
                 row.innerHTML = `
             <td>
-                <input type="text" class="form-control" name="items[${itemIndex}][label]" placeholder="{{ __('Libellé de l\'article') }}" required>
-                <select class="form-select form-select-sm mt-1" name="items[${itemIndex}][product_id]">${productOptions}</select>
+                <select class="form-select form-select-sm mb-1 item-product-select" name="items[${itemIndex}][product_id]">${productOptions}</select>
+                <input type="text" class="form-control item-label" name="items[${itemIndex}][label]" placeholder="{{ __('Libellé de l\'article') }}" required>
             </td>
             <td><input type="number" class="form-control item-qty" name="items[${itemIndex}][quantity]" value="1" min="0.001" step="0.001" required></td>
             <td><input type="number" class="form-control item-cost" name="items[${itemIndex}][unit_cost]" value="0" min="0" step="0.01" required></td>
@@ -591,6 +591,38 @@
             }
 
             recalc();
+
+            // Auto-fill label + cost when a product is selected; clear readonly when deselected.
+            function applyProductToRow(row) {
+                const sel = row.querySelector('.item-product-select');
+                const labelInput = row.querySelector('.item-label');
+                const costInput = row.querySelector('.item-cost');
+                const opt = sel.options[sel.selectedIndex];
+                if (sel.value && opt) {
+                    labelInput.value = opt.dataset.name || '';
+                    labelInput.setAttribute('readonly', 'readonly');
+                    labelInput.classList.add('bg-light');
+                    if (costInput && (!costInput.value || parseFloat(costInput.value) === 0)) {
+                        costInput.value = opt.dataset.cost || 0;
+                    }
+                } else {
+                    labelInput.removeAttribute('readonly');
+                    labelInput.classList.remove('bg-light');
+                }
+                recalc();
+            }
+
+            // Delegate product-select change for all rows (including dynamically added ones).
+            document.getElementById('items-body').addEventListener('change', function(e) {
+                const sel = e.target.closest('.item-product-select');
+                if (sel) applyProductToRow(sel.closest('.item-row'));
+            });
+
+            // Apply to the first row on load (in case old() restored a product selection).
+            document.querySelectorAll('.item-row').forEach(row => {
+                const sel = row.querySelector('.item-product-select');
+                if (sel && sel.value) applyProductToRow(row);
+            });
         });
     </script>
 @endpush

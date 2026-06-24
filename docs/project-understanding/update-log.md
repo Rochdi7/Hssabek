@@ -3,6 +3,37 @@
 > **Rule:** Append a new entry to this file after EVERY change to the project.
 > This file is the first thing to check before editing any module.
 
+## 2026-06-24 — PO create/edit: product auto-fills label (matching invoice behavior)
+
+### Change
+Purchase Order create and edit forms now behave like the invoice form for line items:
+- Product dropdown is shown **above** the label input (product first, label second).
+- Selecting a product auto-fills the label with the product name and sets the field `readonly` (greyed out).
+- Selecting a product also auto-fills the unit cost from `purchase_price` when the cost field is 0.
+- Clearing the product dropdown removes `readonly` so the user can type a free-text label.
+- On edit page load, rows that already have a product selected are immediately set `readonly`.
+- Dynamic rows added via "Ajouter un article" follow the same behavior.
+
+### Files changed
+- `resources/views/backoffice/purchases/purchase-orders/create.blade.php`
+- `resources/views/backoffice/purchases/purchase-orders/edit.blade.php`
+
+## 2026-06-24 — Fix "Ajouter un article" button (invoices + quotes create/edit)
+
+### Root cause
+`buildTaxOptions()` in invoices/create, invoices/edit, quotes/create, quotes/edit called `tg.rates.reduce(...)` unconditionally. The `$taxGroupsJson` PHP block serializes only `{id, name, rate}` — no `rates` array. This threw `TypeError: Cannot read properties of undefined (reading 'reduce')` inside `DOMContentLoaded`, crashing the entire script before `addBtn.addEventListener` could register — making the button dead.
+
+The other forms (credit-notes, debit-notes, purchase-orders, delivery-challans) already used the safe `tg.rates ? tg.rates.reduce(...) : 0` guard and were unaffected.
+
+### Files changed
+- `resources/views/backoffice/sales/invoices/create.blade.php` — safe guard in `buildTaxOptions()`
+- `resources/views/backoffice/sales/invoices/edit.blade.php` — same
+- `resources/views/backoffice/sales/quotes/create.blade.php` — same
+- `resources/views/backoffice/sales/quotes/edit.blade.php` — same
+
+### Notes for future Claude sessions
+Whenever `$taxGroupsJson` is serialized in a `@php` block without including the `rates` sub-array, any JS that calls `tg.rates.reduce(...)` will crash. Always use `tg.rates ? tg.rates.reduce(...) : (tg.rate ?? 0)` as the safe pattern, matching what the other forms already use.
+
 ---
 
 ## Template — Copy this for each update
@@ -36,6 +67,151 @@ Anything important to remember about this change.
 ```
 
 ---
+
+## 2026-06-24 — Fix: receipt rejects label-only PO lines ("product_id must be a valid UUID")
+
+### Summary
+Saving a receipt for a PO whose line is a free-text label (no catalog product, `product_id = null` — e.g. line "gg") failed with "The items.0.product_id field must be a valid UUID": the hidden product_id input rendered empty. A receipt moves stock, and stock needs a real product, so label-only lines are not receivable. Fix: the `po-lines` endpoint now excludes lines with null `product_id` and returns `has_product_lines`; the form shows a dedicated warning ("Ce bon de commande ne contient aucun produit du catalogue à réceptionner.") and disables save when a PO has no product lines. Found and fixed the same latent crash in one-click `PurchaseOrderService::receive()` — it would have passed a null product_id into `GoodsReceiptItem`/`StockService::adjust` (Product::findOrFail(null)); it now skips label lines.
+
+### Files changed
+- `app/Http/Controllers/Backoffice/Purchases/GoodsReceiptController.php` — `purchaseOrderLines()` filters null-product lines; adds `has_product_lines`.
+- `app/Services/Purchases/PurchaseOrderService.php` — `receive()` skips label-only lines.
+- `resources/views/backoffice/purchases/goods-receipts/create.blade.php` — new no-product-lines notice; JS branches on `has_product_lines`.
+- `tests/Feature/Purchases/GoodsReceiptStockTest.php` — +2 tests (endpoint excludes label lines; one-click receive skips them).
+
+### Database impact
+None.
+
+### UI impact
+Receipt form shows a clear warning for label-only POs instead of erroring on submit.
+
+### Security impact
+None.
+
+### Tests/checks done
+- [x] 22 tests pass
+
+### Notes for future Claude sessions
+PO items allow `product_id = null` (free-text label lines via TaxCalculationService). Any receiving/stock path MUST skip null-product lines — they cannot be stocked. Both the manual receipt endpoint and one-click receive now do.
+
+---
+
+## 2026-06-24 — Fix: receipt form PO lines 404 (wrong po-lines URL)
+
+### Summary
+Selecting a PO on the goods-receipt form raised "La ressource demandée est introuvable" (404) and falsely showed "Toutes les lignes … déjà été reçues" even though nothing was received. Cause: the view built the lines URL with `url('purchases/goods-receipts/po-lines')`, which omits the route group's `backoffice` prefix, so the fetch 404'd. The `.then(r => r.json())` then parsed the 404 page → empty `lines` → "all received". Fixed by generating the URL from the named route (`bo.purchases.goods-receipts.po-lines`) with a `__POID__` placeholder substituted in JS, and by throwing on non-OK responses so a failed fetch falls back to manual entry instead of a misleading "all received". Also fixed the to-receive default value to use the raw number (was a `fr-FR` localized string whose non-breaking thousand separators broke the numeric input).
+
+### Files changed
+- `resources/views/backoffice/purchases/goods-receipts/create.blade.php` — named-route URL + `__POID__` substitution; `!r.ok` guard; raw numeric default.
+- `tests/Feature/Purchases/GoodsReceiptStockTest.php` — +1 test asserting the po-lines endpoint returns product_id/ordered/received/remaining.
+
+### Database impact
+None.
+
+### UI impact
+Receipt form now correctly lists the PO's products with Commandé / Déjà reçu / Restant / À recevoir. No layout change.
+
+### Security impact
+None.
+
+### Tests/checks done
+- [x] 20 tests pass (incl. new HTTP endpoint test)
+- [x] Named route verified to include `/backoffice` prefix
+
+### Notes for future Claude sessions
+For backoffice AJAX URLs, ALWAYS use `route('bo.*', ['param' => '__PLACEHOLDER__'])` + JS substitution, never `url('relative/path')` — the latter drops the `backoffice` group prefix and 404s.
+
+---
+
+## 2026-06-24 — Automatic Purchase Order completion (status derived from quantities)
+
+### Summary
+Users must no longer manually mark a PO "Reçu"/"Partiellement reçu" — the system derives it from line quantities. Added `PurchaseOrder::recalculateStatus()` as the single source of truth: for every line `remaining = ordered − received`; all lines complete → `received`, any received → `partially_received`, nothing received → `active` (a manual `confirmed` is preserved; `cancelled` is never reopened). It persists the derived status and is called at every receiving point (`confirm()`, one-click `receive()`). The controller's `changeStatus()` now rejects manual `received`/`partially_received`, and those two options were removed from the status modal (replaced by an info note). Status is always recomputed from quantities, never trusted from storage alone.
+
+### Files changed
+- `app/Models/Purchases/PurchaseOrder.php` — new `recalculateStatus()` (canonical derive-and-persist).
+- `app/Services/Purchases/GoodsReceiptService.php` — confirm() now calls `recalculateStatus()`; removed the duplicated private status method.
+- `app/Http/Controllers/Backoffice/Purchases/PurchaseOrderController.php` — `changeStatus()` blocks the two auto-derived statuses (manual set list is now active/confirmed/cancelled).
+- `resources/views/backoffice/purchases/purchase-orders/show.blade.php` — status modal drops received/partially_received options + adds explanatory note. Receive button already hidden once `received`.
+- `tests/Feature/Purchases/GoodsReceiptStockTest.php` — +5 tests (multi-line partial→partially_received, multi-line full→received auto, derive-from-quantities ignores stale stored status, one-click auto-close, manual `received` rejected).
+
+### Database impact
+None.
+
+### UI impact
+PO show page only: status modal no longer lets you pick the two received states; an info note explains they are automatic. No redesign.
+
+### Security impact
+None negative — removes a way to put a PO in an inconsistent state vs its actual received quantities.
+
+### Tests/checks done
+- [x] 19 tests pass in GoodsReceiptStockTest (14 prior + 5 new)
+- [x] Full purchases suite green (28 passed)
+- [x] Manual received/partially_received now server-rejected
+
+### Notes for future Claude sessions
+PO received status is OWNED by `PurchaseOrder::recalculateStatus()`. Call it after anything that changes `received_quantity`. Do not `update(['status' => 'received'])` by hand anywhere — confirm()/receive() already route through it. `active`/`confirmed`/`cancelled` remain manual via changeStatus().
+
+---
+
+## 2026-06-24 — Goods Receipt receiving workflow + stock engine fixes
+
+### Summary
+The goods receipt form was a blank manual form: it never loaded PO lines, never tracked ordered/received/remaining, and never persisted `purchase_order_item_id`, so the PO received-quantity tracking and status progression were dead code. Two stock bugs were also found and fixed:
+- **`PurchaseOrderService::receive()` (one-click receive) never moved stock** — it created a `received` receipt and bumped `received_quantity` but never touched `ProductStock` and never wrote a `StockMovement`. Inventory silently never increased.
+- **`GoodsReceiptService::confirm()`** did a raw, unlocked read-modify-write on `ProductStock` and never synced `Product.quantity` (the cross-warehouse total `StockService` maintains), so product totals/history drifted.
+
+Both paths now go through the single stock engine `StockService::adjust()` (row lock, product-total sync, movement write). Confirm is now idempotent (no-op when already `received`, plus a per-line `purchase_in` movement guard) so a double click can't double-add stock. The create form now loads PO lines on selection with Ordered / Déjà reçu / Restant / Quantité à recevoir, hides fully-received lines, shows "Toutes les lignes … déjà reçues", and over-receiving is blocked both client-side (clamp) and server-side (request rule against remaining qty).
+
+### Files changed
+- `app/Services/Purchases/GoodsReceiptService.php` — confirm() routes stock through StockService + idempotency guard; create()/update() persist `purchase_order_item_id` via `syncItems()`; update() blocked once received.
+- `app/Services/Purchases/PurchaseOrderService.php` — receive() now builds a draft and delegates to `GoodsReceiptService::confirm()` so it actually moves stock; injected GoodsReceiptService.
+- `app/Http/Controllers/Backoffice/Purchases/GoodsReceiptController.php` — create() exposes a pre-selected PO; new `purchaseOrderLines()` JSON endpoint (ordered/received/remaining).
+- `app/Http/Requests/Purchases/Store/StoreGoodsReceiptRequest.php` — accepts `purchase_order_item_id`; `withValidator()` blocks over-receiving against remaining qty.
+- `resources/views/backoffice/purchases/goods-receipts/create.blade.php` — PO-line table (ordered/received/remaining/to-receive), all-received notice, JS line loader + qty clamp. Manual table kept for PO-less receipts.
+- `routes/backoffice/purchases.php` — `goods-receipts/po-lines/{purchaseOrder}` route (placed before `{goodsReceipt}` to avoid param collision).
+- `tests/Feature/Purchases/GoodsReceiptStockTest.php` — NEW, 14 tests.
+
+### Database impact
+None. No migrations. `purchase_order_item_id` column already existed on `goods_receipt_items` (migration 2026_02_01_000043) — it was simply never populated.
+
+### UI impact
+Create form only. Same theme/classes; adds a PO-line table and an all-received info alert. No redesign. All strings French.
+
+### Security impact
+None negative. Stock now goes through the tenant-scoped, row-locking `StockService` (safer than the previous raw increment). Over-receive validated server-side.
+
+### Tests/checks done
+- [x] 14 new tests pass (draft no-stock, confirm +stock, movement created, received_quantity, remaining math, over-receive blocked, accumulation, partial/received status, double-confirm idempotency, warehouse + product history, one-click receive)
+- [x] Existing purchases + model suites still green (24 passed)
+- [x] Routes resolve (po-lines before {goodsReceipt})
+- [x] No design change beyond the requested receiving UI
+- [x] No accounting/payment/invoice logic touched
+
+### Notes for future Claude sessions
+The one-click `PurchaseOrderService::receive()` and the manual confirm flow now share ONE stock engine (`GoodsReceiptService::confirm()` → `StockService::adjust()`). If you change how purchase stock is applied, change it there only. Confirm is idempotent via status + a `purchase_in` movement existence guard on `(reference_type, reference_id, product_id)`.
+
+---
+
+## 2026-06-23 — Fix Goods Receipt PO Dropdown (Active POs Missing)
+
+### Summary
+The "Nouvelle réception de marchandises" form showed an empty "Bon de commande" dropdown even with open POs. `GoodsReceiptController::create()` filtered `whereIn('status', ['draft','confirmed','partially_received'])`, but the status-enum migration (2026_03_07_000004) remaps legacy `draft`/`sent` → `active`, so active POs were excluded. Added a `receivable()` scope (not received, not cancelled) on `PurchaseOrder` and used it.
+
+### Files changed
+- `app/Models/Purchases/PurchaseOrder.php` — added `scopeReceivable()`
+- `app/Http/Controllers/Backoffice/Purchases/GoodsReceiptController.php` — `create()` uses `receivable()`
+- `tests/Unit/Models/PurchaseOrderReceivableScopeTest.php` — NEW
+
+### Database impact / UI impact / Security impact
+None — design unchanged; active POs now correctly listed.
+
+### Tests/checks done
+- `PurchaseOrderReceivableScopeTest` passes (6 assertions).
+- Audited other "create-from-related-document" dropdowns: QuoteController already includes `active`; VendorBill PO dropdown intentionally `received` only (bill after receipt) — both correct, left alone.
+
+### Notes for future Claude sessions
+Same class of bug as the payment allocation fix: a hardcoded status list excludes the legacy-remapped value. Reuse `PurchaseOrder::receivable()`. When migrations remap `draft`/`sent` to `active`/`unpaid`, audit every dropdown query that filters by status list.
 
 ## 2026-06-23 — Fix ActivityLog Insert (created_at default + nullable subject)
 

@@ -59,7 +59,12 @@ class ExpenseController extends Controller
     {
         $this->authorize('create', Expense::class);
 
-        $this->expenseService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('expense_ref');
+        }
+
+        $this->expenseService->create($validated);
 
         ReportService::flushTenantCache();
 

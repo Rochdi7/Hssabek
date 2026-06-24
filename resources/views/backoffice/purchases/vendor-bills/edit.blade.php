@@ -111,31 +111,8 @@
                                                                     readonly disabled>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ __('Référence externe') }}</label>
-                                                                <div class="mb-2">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_ext_mode" id="ref_ext_manual" value="manual" checked
-                                                                            onchange="document.getElementById('reference_number').readOnly=false; document.getElementById('reference_number').focus();">
-                                                                        <label class="form-check-label" for="ref_ext_manual">{{ __('Saisie manuelle') }}</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="ref_ext_mode" id="ref_ext_auto" value="auto"
-                                                                            onchange="document.getElementById('reference_number').value='{{ $nextReference }}'; document.getElementById('reference_number').readOnly=true;">
-                                                                        <label class="form-check-label" for="ref_ext_auto">{{ __('Générer automatiquement') }}</label>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" id="reference_number"
-                                                                    class="form-control @error('reference_number') is-invalid @enderror"
-                                                                    name="reference_number"
-                                                                    value="{{ old('reference_number', $vendorBill->reference_number) }}"
-                                                                    maxlength="100">
-                                                                @error('reference_number')
-                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
+                                                        <input type="hidden" name="reference_number"
+                                                            value="{{ old('reference_number', $vendorBill->reference_number) }}">
                                                     </div>
                                                 </div>
                                             </div>

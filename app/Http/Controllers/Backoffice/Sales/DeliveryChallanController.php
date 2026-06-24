@@ -69,7 +69,12 @@ class DeliveryChallanController extends Controller
     {
         $this->authorize('create', DeliveryChallan::class);
 
-        $challan = $this->deliveryChallanService->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('challan_ref');
+        }
+
+        $challan = $this->deliveryChallanService->create($validated);
 
         return redirect()->route('bo.sales.delivery-challans.show', $challan)
             ->with('success', __('Bon de livraison créé avec succès.'));

@@ -60,7 +60,12 @@ class SupplierPaymentController extends Controller
     {
         $this->authorize('create', SupplierPayment::class);
 
-        $this->service->create($request->validated());
+        $validated = $request->validated();
+        if (empty($validated['reference_number'])) {
+            $validated['reference_number'] = app(DocumentNumberService::class)->next('supplier_payment_ref');
+        }
+
+        $this->service->create($validated);
 
         return redirect()->route('bo.purchases.supplier-payments.index')
             ->with('success', __('Paiement fournisseur enregistré avec succès.'));

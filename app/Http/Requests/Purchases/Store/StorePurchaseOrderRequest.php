@@ -22,6 +22,7 @@ class StorePurchaseOrderRequest extends FormRequest
         return [
             'supplier_id'              => ['required', 'uuid', Rule::exists('suppliers', 'id')->where('tenant_id', $tenantId)],
             'warehouse_id'             => ['required', 'uuid', Rule::exists('warehouses', 'id')->where('tenant_id', $tenantId)],
+            'reference_number'         => 'nullable|string|max:100',
             'order_date'               => 'required|date',
             'expected_date'            => 'nullable|date|after_or_equal:order_date',
             'notes'                    => 'nullable|string|max:2000',
