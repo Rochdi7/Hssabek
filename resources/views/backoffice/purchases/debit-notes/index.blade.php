@@ -168,8 +168,8 @@
                                         class="dropdown-item">{{ __('Tous') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.debit-notes.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
                                         class="dropdown-item">{{ __('Brouillon') }}</a></li>
-                                <li><a href="{{ route('bo.purchases.debit-notes.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
-                                        class="dropdown-item">{{ __('Envoyée') }}</a></li>
+                                <li><a href="{{ route('bo.purchases.debit-notes.index', array_merge(request()->except('page'), ['status' => 'issued'])) }}"
+                                        class="dropdown-item">{{ __('Émise') }}</a></li>
                                 <li><a href="{{ route('bo.purchases.debit-notes.index', array_merge(request()->except('page'), ['status' => 'applied'])) }}"
                                         class="dropdown-item">{{ __('Appliquée') }}</a></li>
                             </ul>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Store\StoreWarehouseRequest;
 use App\Http\Requests\Inventory\Update\UpdateWarehouseRequest;
 use App\Models\Inventory\Warehouse;
+use App\Models\Sales\DeliveryChallanItem;
 use Illuminate\Http\Request;
 
 class WarehouseController extends Controller
@@ -56,6 +57,17 @@ class WarehouseController extends Controller
         $warehouse->load(['productStocks.product', 'stockMovements' => function ($q) {
             $q->with('product')->latest('moved_at')->limit(20);
         }]);
+
+        $reserved = DeliveryChallanItem::query()
+            ->whereHas('deliveryChallan', fn($q) => $q->whereIn('status', ['draft', 'issued']))
+            ->whereNotNull('product_id')
+            ->selectRaw('product_id, SUM(quantity) as total_reserved')
+            ->groupBy('product_id')
+            ->pluck('total_reserved', 'product_id');
+
+        foreach ($warehouse->productStocks as $stock) {
+            $stock->quantity_reserved = (float) ($reserved[$stock->product_id] ?? 0);
+        }
 
         return view('backoffice.inventory.warehouses.show', compact('warehouse'));
     }

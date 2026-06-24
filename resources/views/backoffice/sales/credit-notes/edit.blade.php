@@ -9,7 +9,6 @@
 
     @php
         $tenant = App\Services\Tenancy\TenantContext::get();
-        $currencyCode = $tenant->default_currency ?? 'MAD'; $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
     @endphp
 
     <div class="page-wrapper">

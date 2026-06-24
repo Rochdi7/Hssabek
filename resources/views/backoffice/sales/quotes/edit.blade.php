@@ -8,7 +8,6 @@
                     ========================= -->
 
     @php
-        $currencyCode = $quote->currency ?? (App\Services\Tenancy\TenantContext::get()?->default_currency ?? 'MAD'); $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
         $tenant = App\Services\Tenancy\TenantContext::get();
         $documentRouteBase = $documentConfig['route_base'];
     @endphp

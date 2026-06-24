@@ -19,7 +19,7 @@
                                 @if($debitNote->status === 'draft')
                                     <a href="{{ route('bo.purchases.debit-notes.edit', $debitNote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
                                 @endif
-                                @if(in_array($debitNote->status, ['draft', 'sent']))
+                                @if(in_array($debitNote->status, ['draft', 'issued']))
                                     <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
                                         data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
                                         data-send-url="{{ route('bo.purchases.debit-notes.send', $debitNote) }}"
@@ -178,7 +178,7 @@
                                     </div>
                                 @endif
 
-                                @if(in_array($debitNote->status, ['draft', 'sent']))
+                                @if(in_array($debitNote->status, ['draft', 'issued']))
                                     <div class="border-top pt-3">
                                         <h6 class="mb-3">{{ __('Appliquer la note de débit à une facture fournisseur') }}</h6>
                                         <form action="{{ route('bo.purchases.debit-notes.apply', $debitNote) }}" method="POST">

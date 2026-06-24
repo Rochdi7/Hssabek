@@ -553,14 +553,11 @@
                                                 <tbody>
                                                     @forelse($product->stocks as $stock)
                                                         <tr>
-                                                            <td class="fw-medium">{{ $stock->warehouse?->name ?? '—' }}
-                                                            </td>
-                                                            <td>{{ number_format($stock->quantity ?? 0, 2, ',', ' ') }}
-                                                            </td>
-                                                            <td>{{ number_format($stock->reserved ?? 0, 2, ',', ' ') }}
-                                                            </td>
+                                                            <td class="fw-medium">{{ $stock->warehouse?->name ?? '—' }}</td>
+                                                            <td>{{ rtrim(rtrim(number_format($stock->quantity_on_hand ?? 0, 3, ',', ''), '0'), ',') }}</td>
+                                                            <td>—</td>
                                                             <td class="fw-semibold text-success">
-                                                                {{ number_format(($stock->quantity ?? 0) - ($stock->reserved ?? 0), 2, ',', ' ') }}
+                                                                {{ rtrim(rtrim(number_format(($stock->quantity_on_hand ?? 0), 3, ',', ''), '0'), ',') }}
                                                             </td>
                                                         </tr>
                                                     @empty
@@ -570,6 +567,19 @@
                                                             </td>
                                                         </tr>
                                                     @endforelse
+                                                    @if($totalReserved > 0)
+                                                        <tr class="table-warning">
+                                                            <td class="fw-semibold text-warning" colspan="2">
+                                                                <i class="isax isax-clock me-1"></i>{{ __('Total réservé (bons de livraison actifs)') }}
+                                                            </td>
+                                                            <td class="fw-bold text-warning">
+                                                                {{ rtrim(rtrim(number_format($totalReserved, 3, ',', ''), '0'), ',') }}
+                                                            </td>
+                                                            <td class="fw-bold text-danger">
+                                                                {{ rtrim(rtrim(number_format(($product->quantity ?? 0) - $totalReserved, 3, ',', ''), '0'), ',') }}
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -640,7 +650,7 @@
                                                             <td>{{ $movement->warehouse?->name ?? '—' }}</td>
                                                             <td
                                                                 class="fw-medium {{ in_array($movement->movement_type, ['stock_in', 'transfer_in', 'unreserve']) ? 'text-success' : 'text-danger' }}">
-                                                                {{ in_array($movement->movement_type, ['stock_in', 'transfer_in', 'unreserve']) ? '+' : '-' }}{{ number_format($movement->quantity, 2, ',', ' ') }}
+                                                                {{ in_array($movement->movement_type, ['stock_in', 'transfer_in', 'unreserve']) ? '+' : '-' }}{{ rtrim(rtrim(number_format($movement->quantity, 3, ',', ''), '0'), ',') }}
                                                             </td>
                                                             <td>{{ $movement->note ?? '—' }}</td>
                                                         </tr>
@@ -681,13 +691,13 @@
                                     <li class="d-flex align-items-center justify-content-between mb-3">
                                         <span class="text-muted">{{ __('Quantité totale') }}</span>
                                         <span
-                                            class="fw-semibold">{{ number_format($product->quantity ?? 0, 2, ',', ' ') }}
+                                            class="fw-semibold">{{ rtrim(rtrim(number_format($product->quantity ?? 0, 3, ',', ''), '0'), ',') }}
                                             {{ $product->unit?->abbreviation ?? '' }}</span>
                                     </li>
                                     <li class="d-flex align-items-center justify-content-between mb-3">
                                         <span class="text-muted">{{ __('Alerte stock') }}</span>
                                         <span
-                                            class="fw-semibold">{{ $product->alert_quantity ? number_format($product->alert_quantity, 2, ',', ' ') : '—' }}</span>
+                                            class="fw-semibold">{{ $product->alert_quantity ? rtrim(rtrim(number_format($product->alert_quantity, 3, ',', ''), '0'), ',') : '—' }}</span>
                                     </li>
                                 @endif
                                 @if ($product->item_type === 'service')
@@ -730,16 +740,7 @@
                     </div><!-- end card -->
                     <!-- End Info -->
 
-                    @if ($product->barcode)
-                        <!-- Start Barcode -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h6 class="pb-3 mb-3 border-1 border-bottom border-gray">{{ __('Code-barres') }}</h6>
-                                <p class="text-center fs-18 fw-medium font-monospace">{{ $product->barcode }}</p>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
-                        <!-- End Barcode -->
-                    @endif
+                    {{-- Barcode section hidden — feature not yet completed --}}
                 </div>
             </div>
             <!-- end row -->

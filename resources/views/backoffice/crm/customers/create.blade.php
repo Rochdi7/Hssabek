@@ -96,10 +96,10 @@
                                                 <div class="input-group">
                                                     <input type="text" id="tax_id"
                                                         class="form-control @error('tax_id') is-invalid @enderror"
-                                                        name="tax_id" value="{{ old('tax_id') }}">
+                                                        name="tax_id" value="{{ old('tax_id', 'IF' . rand(100000, 999999)) }}">
                                                     <button class="btn btn-outline-primary" type="button"
                                                         onclick="document.getElementById('tax_id').value = 'IF' + Math.floor(100000 + Math.random() * 900000)"
-                                                        title="{{ __('Générer automatiquement') }}">
+                                                        title="{{ __('Régénérer') }}">
                                                         <i class="isax isax-refresh"></i>
                                                     </button>
                                                     @error('tax_id')

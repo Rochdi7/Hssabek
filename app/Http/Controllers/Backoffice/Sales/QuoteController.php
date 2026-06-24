@@ -60,7 +60,7 @@ class QuoteController extends Controller
         $summary = [
             'total' => $this->quoteQuery($documentConfig['type'])->count(),
             'accepted' => $this->quoteQuery($documentConfig['type'])->where('status', 'accepted')->count(),
-            'active' => $this->quoteQuery($documentConfig['type'])->whereIn('status', ['active', 'draft', 'sent'])->count(),
+            'active' => $this->quoteQuery($documentConfig['type'])->where('status', 'active')->count(),
             'expired' => $this->quoteQuery($documentConfig['type'])->where('status', 'expired')->count(),
         ];
 

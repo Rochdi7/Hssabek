@@ -98,7 +98,8 @@ class AppServiceProvider extends ServiceProvider
                 $code = TenantContext::check()
                     ? (TenantContext::get()->default_currency ?? 'MAD')
                     : 'MAD';
-                $view->with('currency', $code === 'MAD' ? 'DH' : $code);
+                $symbol = \App\Models\Finance\Currency::where('code', $code)->value('symbol') ?? $code;
+                $view->with('currency', $symbol);
             }
         });
 

@@ -12,6 +12,7 @@ use App\Models\Sales\DeliveryChallan;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Models\Sales\Quote;
+use App\Models\Finance\Currency;
 use App\Models\Templates\TemplateCatalog;
 use App\Models\Tenancy\Signature;
 use App\Services\Tenancy\TenantContext;
@@ -335,7 +336,7 @@ class PdfService
         return [
             'tenant'    => $tenant,
             'settings'  => $settings,
-            'currency'  => $tenant?->default_currency ?? 'MAD',
+            'currency'  => Currency::where('code', $tenant?->default_currency ?? 'MAD')->value('symbol') ?? ($tenant?->default_currency ?? 'MAD'),
             'signature' => $this->getDefaultSignature(),
             $varName    => $model,
         ];

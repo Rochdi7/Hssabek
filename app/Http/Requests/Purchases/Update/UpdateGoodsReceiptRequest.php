@@ -23,6 +23,8 @@ class UpdateGoodsReceiptRequest extends TenantFormRequest
             'items'                  => ['sometimes', 'array', 'min:1'],
             'items.*.product_id'     => ['required_with:items', 'uuid', $this->tenantExists('products')],
             'items.*.quantity'       => ['required_with:items', 'numeric', 'min:0.001'],
+            'items.*.unit_cost'      => ['nullable', 'numeric', 'min:0'],
+            'items.*.tax_rate'       => ['nullable', 'numeric', 'min:0'],
             'items.*.note'           => ['nullable', 'string', 'max:500'],
         ];
     }

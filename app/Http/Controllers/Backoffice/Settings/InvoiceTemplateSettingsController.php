@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backoffice\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Models\Finance\Currency;
 use App\Models\Templates\TemplateCatalog;
 use App\Models\Tenancy\TenantSetting;
 use App\Services\Sales\PdfService;
@@ -361,7 +362,8 @@ class InvoiceTemplateSettingsController extends Controller
     {
         $tenant = TenantContext::get();
         $settings = $tenant?->settings;
-        $currency = $tenant?->default_currency ?? 'MAD';
+        $code = $tenant?->default_currency ?? 'MAD';
+        $currency = Currency::where('code', $code)->value('symbol') ?? $code;
 
         $view = $this->callResolveView($pdfService, $docType);
 

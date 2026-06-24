@@ -97,7 +97,7 @@ class PurchaseOrderController extends Controller
     {
         $this->authorize('update', $purchaseOrder);
 
-        abort_unless(in_array($purchaseOrder->status, ['draft']), 403, 'Seuls les bons de commande en brouillon peuvent être modifiés.');
+        abort_unless($purchaseOrder->normalizedStatus() === 'active', 403, 'Seuls les bons de commande actifs peuvent être modifiés.');
 
         $purchaseOrder->load('items');
         $suppliers = Supplier::where('status', 'active')->orderBy('name')->get();

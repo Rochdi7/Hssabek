@@ -118,7 +118,7 @@ class DebitNoteController extends Controller
     public function apply(Request $request, DebitNote $debitNote)
     {
         $this->authorize('update', $debitNote);
-        abort_unless(in_array($debitNote->status, ['draft', 'sent']), 403, 'Seules les notes de débit en brouillon ou envoyées peuvent être appliquées.');
+        abort_unless(in_array($debitNote->status, ['draft', 'issued']), 403, 'Seules les notes de débit en brouillon ou émises peuvent être appliquées.');
 
         $validated = $request->validate([
             'allocations' => ['required', 'array', 'min:1'],
@@ -159,7 +159,7 @@ class DebitNoteController extends Controller
         $this->authorize('update', $debitNote);
 
         abort_unless(
-            in_array($debitNote->status, ['draft', 'sent', 'issued']),
+            in_array($debitNote->status, ['draft', 'issued']),
             403,
             'Cette note de débit ne peut pas être envoyée.'
         );

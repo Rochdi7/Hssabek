@@ -171,8 +171,8 @@
                                         class="dropdown-item">{{ __('Tous') }}</a></li>
                                 <li><a href="{{ route('bo.sales.delivery-challans.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
                                         class="dropdown-item">{{ __('Brouillon') }}</a></li>
-                                <li><a href="{{ route('bo.sales.delivery-challans.index', array_merge(request()->except('page'), ['status' => 'sent'])) }}"
-                                        class="dropdown-item">{{ __('Envoyé') }}</a></li>
+                                <li><a href="{{ route('bo.sales.delivery-challans.index', array_merge(request()->except('page'), ['status' => 'issued'])) }}"
+                                        class="dropdown-item">{{ __('Émis') }}</a></li>
                                 <li><a href="{{ route('bo.sales.delivery-challans.index', array_merge(request()->except('page'), ['status' => 'delivered'])) }}"
                                         class="dropdown-item">{{ __('Livré') }}</a></li>
                             </ul>

@@ -3,6 +3,68 @@
 > **Rule:** Append a new entry to this file after EVERY change to the project.
 > This file is the first thing to check before editing any module.
 
+## 2026-06-24 — Notification system bugs fixed
+
+### Bugs fixed
+1. **Reminder command never ran on new invoices** — `whereIn('status', ['unpaid','sent','partial','overdue'])` excluded `'active'` (the current default status for all created invoices). Fixed to `whereNotIn('status', ['paid','void'])`.
+2. **`new_invoice` in-app notification never fired** — `LogInvoiceCreatedActivity` only logged; never checked `notification_settings['invoices']['new_invoice']['in_app']` or dispatched a notification. Fixed: now dispatches `InvoiceCreatedNotification` (new) to owner/admin when setting is enabled.
+3. **`transactions` email/in_app notification ignored settings** — `SendPaymentConfirmationListener` always sent email regardless of `notification_settings['sales']['transactions']`. Fixed: respects `email` and `in_app` channel settings.
+4. **`$settings` null crash** — `NotificationSettingsController::edit()` passed null `$settings` to view when no TenantSetting row exists, causing blade null-access errors. Fixed: falls back to `new TenantSetting()`.
+5. **`reminder_settings` fields not validated** — `UpdateNotificationSettingsRequest` had no rules for `reminder_settings.*`. Added proper rules with French error messages.
+6. **Currency code in PDF reminders** — `SendInvoiceRemindersCommand` passed `'MAD'` (code) to PDF templates. Fixed to look up symbol from DB.
+
+### New file
+- `app/Notifications/InvoiceCreatedNotification.php` — database-only notification for new invoice event
+
+### Files changed
+- `app/Console/Commands/SendInvoiceRemindersCommand.php`
+- `app/Listeners/LogInvoiceCreatedActivity.php`
+- `app/Listeners/SendPaymentConfirmationListener.php`
+- `app/Http/Controllers/Backoffice/Settings/NotificationSettingsController.php`
+- `app/Http/Requests/Settings/UpdateNotificationSettingsRequest.php`
+- `app/Notifications/InvoiceCreatedNotification.php` (new)
+
+## 2026-06-24 — Currency symbol display fixed system-wide (EUR→€, USD→$, MAD→DH)
+
+### Problem
+Currency was stored as code (`EUR`, `MAD`) but displayed as code in all views. EUR showed as "EUR" instead of "€". The `MAD→DH` mapping was hardcoded in 10+ places; all other currencies got no symbol lookup.
+
+### Fix
+- `AppServiceProvider` view composer: now queries `currencies.symbol` from DB instead of hardcoding `MAD→DH`.
+- `UsesTenantCurrency` trait: now returns the currency **symbol** (looked up from DB).
+- `PdfService`: passes symbol to all PDF templates.
+- `InvoiceTemplateSettingsController`: uses symbol for preview PDFs.
+- `DashboardController`: uses symbol from DB.
+- Removed inline `$currencyCode = ...; $currency = ... MAD → DH` override block from 10 blade views (invoices, quotes, credit notes, delivery challans, purchase orders create/edit).
+
+### Files changed
+- `app/Providers/AppServiceProvider.php`
+- `app/Traits/UsesTenantCurrency.php`
+- `app/Services/Sales/PdfService.php`
+- `app/Http/Controllers/Backoffice/Settings/InvoiceTemplateSettingsController.php`
+- `app/Http/Controllers/Backoffice/DashboardController.php`
+- `resources/views/backoffice/sales/invoices/create.blade.php`
+- `resources/views/backoffice/sales/invoices/edit.blade.php`
+- `resources/views/backoffice/sales/quotes/create.blade.php`
+- `resources/views/backoffice/sales/quotes/edit.blade.php`
+- `resources/views/backoffice/sales/credit-notes/create.blade.php`
+- `resources/views/backoffice/sales/credit-notes/edit.blade.php`
+- `resources/views/backoffice/sales/delivery-challans/create.blade.php`
+- `resources/views/backoffice/sales/delivery-challans/edit.blade.php`
+- `resources/views/backoffice/purchases/purchase-orders/create.blade.php`
+- `resources/views/backoffice/purchases/purchase-orders/edit.blade.php`
+
+## 2026-06-24 — Localization settings now fully applied system-wide
+
+### Change
+Saving localization settings (langue, fuseau horaire, devise, format de date, format d'heure) now correctly propagates to all parts of the system:
+- `LocalizationSettingsController::update` syncs currency to both `localization_settings['currency']` AND `account_settings['default_currency']`, and also updates `tenants.timezone` / `tenants.default_currency` columns.
+- `SetTenantContext` middleware now reads currency from `localization_settings['currency']` first (then falls back to `account_settings`, then tenant column); also applies `date_format` and `time_format` as `config('app.date_format')` / `config('app.time_format')` on every request.
+
+### Files changed
+- `app/Http/Controllers/Backoffice/Settings/LocalizationSettingsController.php`
+- `app/Http/Middleware/SetTenantContext.php`
+
 ## 2026-06-24 — PO create/edit: product auto-fills label (matching invoice behavior)
 
 ### Change
@@ -65,6 +127,29 @@ None / Describe security implications if applicable
 ### Notes for future Claude sessions
 Anything important to remember about this change.
 ```
+
+---
+
+## 2026-06-24 — Company Logo Delete Feedback + PO Edit Logo Size
+
+### Summary
+(1) Company-settings logo trash button gave no visual feedback (only set `delete_logo=1` server-side); now clicking it swaps the preview to the placeholder, sets the flag, clears the file input, and hides itself — and uploading shows the trash + resets the flag. (2) On the Bon de commande EDIT form, the "Commandé par" logo `<img>` had no size constraint and rendered huge; matched it to the create form (`max-height: 48px; width: auto;` + `d-inline-block`).
+
+### Files changed
+- `resources/views/backoffice/settings/company.blade.php` — logo preview/delete JS + markup
+- `resources/views/backoffice/purchases/purchase-orders/edit.blade.php` — "Commandé par" logo size
+
+### Database impact
+None
+
+### UI impact
+Logo delete now reacts instantly; PO edit logo no longer oversized.
+
+### Security impact
+None
+
+### Notes for future Claude sessions
+Backend logo delete still keys off `delete_logo` (file collection) — JS only adds feedback.
 
 ---
 

@@ -33,14 +33,14 @@ class PurchaseOrderItem extends Model
     ];
 
     protected $casts = [
-        'quantity'          => 'decimal:3',
+        'quantity'          => 'float',
         'unit_cost'         => 'decimal:2',
         'discount_value'    => 'decimal:4',
         'tax_rate'          => 'decimal:4',
         'line_subtotal'     => 'decimal:2',
         'line_tax'          => 'decimal:2',
         'line_total'        => 'decimal:2',
-        'received_quantity' => 'decimal:3',
+        'received_quantity' => 'float',
         'position'          => 'integer',
     ];
 

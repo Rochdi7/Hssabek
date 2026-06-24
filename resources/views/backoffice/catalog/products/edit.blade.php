@@ -385,21 +385,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Code-barres') }}</label>
-                                                <div class="position-relative">
-                                                    <input type="text"
-                                                        class="form-control @error('barcode') is-invalid @enderror"
-                                                        name="barcode" value="{{ old('barcode', $product->barcode) }}">
-                                                    <a href="javascript:void(0);"
-                                                        class="btn btn-sm btn-dark position-absolute end-0 top-0 bottom-0 mx-2 my-1 d-inline-flex align-items-center btn-generate-barcode">{{ __('Générer') }}</a>
-                                                </div>
-                                                @error('barcode')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        {{-- Barcode field hidden — feature not yet completed --}}
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('Suivi de stock') }}</label>

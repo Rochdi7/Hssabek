@@ -81,15 +81,20 @@ class GoodsReceiptService
             $poItemId = $item['purchase_order_item_id']
                 ?? optional($poItemsByProduct->get($item['product_id']))->id;
 
+            $unitCost  = (float) ($item['unit_cost'] ?? 0);
+            $quantity  = (float) $item['quantity'];
+            $taxRate   = (float) ($item['tax_rate'] ?? 0);
+            $lineTotal = round($quantity * $unitCost * (1 + $taxRate / 100), 2);
+
             GoodsReceiptItem::create([
                 'goods_receipt_id'       => $receipt->id,
                 'purchase_order_item_id' => $poItemId,
                 'product_id'             => $item['product_id'],
-                'quantity'               => $item['quantity'],
-                'unit_cost'              => $item['unit_cost'] ?? 0,
-                'tax_rate'               => $item['tax_rate'] ?? 0,
+                'quantity'               => $quantity,
+                'unit_cost'              => $unitCost,
+                'tax_rate'               => $taxRate,
                 'tax_group_id'           => $item['tax_group_id'] ?? null,
-                'line_total'             => $item['line_total'] ?? 0,
+                'line_total'             => $lineTotal,
                 'position'               => $i,
             ]);
         }

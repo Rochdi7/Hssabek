@@ -254,7 +254,7 @@
                                                 data-history-url="{{ route('bo.catalog.products.stock-history', $product->id) }}"
                                                 data-product-name="{{ $product->name }}"
                                                 data-product-code="{{ $product->code ?? '' }}"
-                                                data-product-quantity="{{ number_format($product->stocks_sum_quantity_on_hand ?? $product->quantity, 2, ',', ' ') }}"
+                                                data-product-quantity="{{ rtrim(rtrim(number_format($product->stocks_sum_quantity_on_hand ?? $product->quantity, 3, ',', ''), '0'), ',') }}"
                                                 data-product-unit="{{ $product->unit?->abbreviation ?? ($product->unit?->name ?? '—') }}">
                                                 <i class="isax isax-document-sketch5 me-1"></i>{{ __('Historique') }}</a>
                                             <a href="#"

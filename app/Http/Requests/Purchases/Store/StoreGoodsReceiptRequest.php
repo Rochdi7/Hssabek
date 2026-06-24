@@ -25,6 +25,8 @@ class StoreGoodsReceiptRequest extends TenantFormRequest
             'items'                            => ['required', 'array', 'min:1'],
             'items.*.product_id'               => ['required', 'uuid', $this->tenantExists('products')],
             'items.*.quantity'                 => ['required', 'numeric', 'min:0.001'],
+            'items.*.unit_cost'                => ['nullable', 'numeric', 'min:0'],
+            'items.*.tax_rate'                 => ['nullable', 'numeric', 'min:0'],
             'items.*.purchase_order_item_id'   => ['nullable', 'uuid', $this->tenantExists('purchase_order_items')],
             'items.*.note'                     => ['nullable', 'string', 'max:500'],
         ];

@@ -9,7 +9,6 @@
 
     @php
         $tenant = App\Services\Tenancy\TenantContext::get();
-        $currencyCode = $tenant->default_currency ?? 'MAD'; $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
     @endphp
 
     <div class="page-wrapper">
@@ -129,9 +128,9 @@
                                                                             <option value="draft"
                                                                                 {{ old('status') === 'draft' ? 'selected' : '' }}>
                                                                                 {{ __('Brouillon') }}</option>
-                                                                            <option value="sent"
-                                                                                {{ old('status') === 'sent' ? 'selected' : '' }}>
-                                                                                {{ __('Envoyé') }}</option>
+                                                                            <option value="issued"
+                                                                                {{ old('status') === 'issued' ? 'selected' : '' }}>
+                                                                                {{ __('Émis') }}</option>
                                                                             <option value="delivered"
                                                                                 {{ old('status') === 'delivered' ? 'selected' : '' }}>
                                                                                 {{ __('Livré') }}</option>

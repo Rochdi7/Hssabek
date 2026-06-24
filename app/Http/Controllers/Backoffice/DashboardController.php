@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $tenant = TenantContext::get();
         $kpis     = $this->reportService->dashboardKpis();
         $currencyCode = $tenant?->default_currency ?? 'MAD';
-        $currency = $currencyCode === 'MAD' ? 'DH' : $currencyCode;
+        $currency = Currency::where('code', $currencyCode)->value('symbol') ?? $currencyCode;
         $announcements = Announcement::active()->orderByDesc('published_at')->limit(5)->get();
 
         // Show setup wizard for admin users on tenants that haven't completed setup
@@ -76,7 +76,7 @@ class DashboardController extends Controller
         $invoiceCount      = Invoice::count();
         $quoteCount        = Quote::ofDocumentType('quote')->count();
         $productCount      = Product::count();
-        $draftInvoiceCount = Invoice::where('status', 'draft')->count();
+        $draftInvoiceCount = Invoice::where('status', 'unpaid')->count();
         $totalSalesYtd     = $kpis['revenueYtd'];
         $totalPurchasesYtd = VendorBill::whereBetween('issue_date', [$now->copy()->startOfYear()->toDateString(), $today])
             ->where('status', '!=', 'void')
@@ -89,11 +89,11 @@ class DashboardController extends Controller
         // Invoice statistics — real DB aggregations
         $invoicedTotal    = Invoice::where('status', '!=', 'void')->sum('total');
         $receivedTotal    = Invoice::where('status', '!=', 'void')->sum('amount_paid');
-        $outstandingTotal = Invoice::whereIn('status', ['unpaid', 'sent', 'partial', 'overdue'])->sum('amount_due');
+        $outstandingTotal = Invoice::whereIn('status', ['unpaid', 'partial', 'overdue'])->sum('amount_due');
         $overdueTotal     = Invoice::where(function ($q) use ($today) {
             $q->where('status', 'overdue')
               ->orWhere(function ($q2) use ($today) {
-                  $q2->whereIn('status', ['unpaid', 'sent', 'partial'])->where('due_date', '<', $today);
+                  $q2->whereIn('status', ['unpaid', 'partial'])->where('due_date', '<', $today);
               });
         })->sum('amount_due');
 
@@ -147,15 +147,15 @@ class DashboardController extends Controller
         $overdueCount = Invoice::where(function ($q) use ($today) {
             $q->where('status', 'overdue')
               ->orWhere(function ($q2) use ($today) {
-                  $q2->whereIn('status', ['unpaid', 'sent', 'partial'])->where('due_date', '<', $today);
+                  $q2->whereIn('status', ['unpaid', 'partial'])->where('due_date', '<', $today);
               });
         })->count();
-        // Unpaid (not yet overdue). Legacy 'sent' rows count here too.
-        $sentCount    = Invoice::whereIn('status', ['unpaid', 'sent'])
+        // Unpaid (not yet overdue).
+        $sentCount    = Invoice::where('status', 'unpaid')
             ->where(function ($q) use ($today) {
                 $q->whereNull('due_date')->orWhere('due_date', '>=', $today);
             })->count();
-        $draftCount   = Invoice::where('status', 'draft')->count();
+        $draftCount   = Invoice::where('status', 'unpaid')->count();
         $totalInvoiceCount = max($invoiceCount, 1); // avoid division by zero
 
         return view('backoffice.dashboard', array_merge($kpis, compact(

@@ -143,6 +143,7 @@
                             <th>{{ __('Quantité réservée') }}</th>
                             <th>{{ __('Seuil de réappro.') }}</th>
                             <th class="no-sort">{{ __('État') }}</th>
+                            <th class="no-sort"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -168,19 +169,27 @@
                                 <td class="text-dark">{{ $stock->warehouse->name ?? '—' }}</td>
                                 <td>
                                     <span
-                                        class="fw-semibold">{{ number_format($stock->quantity_on_hand, 2, ',', ' ') }}</span>
+                                        class="fw-semibold">{{ rtrim(rtrim(number_format($stock->quantity_on_hand, 3, ',', ''), '0'), ',') }}</span>
                                 </td>
-                                <td>{{ number_format($stock->quantity_reserved, 2, ',', ' ') }}</td>
-                                <td>{{ $stock->reorder_point ? number_format($stock->reorder_point, 2, ',', ' ') : '—' }}
-                                </td>
+                                <td>{{ rtrim(rtrim(number_format($stock->quantity_reserved, 3, ',', ''), '0'), ',') }}</td>
+                                <td>{{ $stock->reorder_point ? rtrim(rtrim(number_format($stock->reorder_point, 3, ',', ''), '0'), ',') : '—' }}</td>
                                 <td>
                                     @if ($stock->reorder_point && $stock->quantity_on_hand <= $stock->reorder_point)
-                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Stock bas') }} <i
-                                                class="isax isax-warning-2 ms-1"></i></span>
+                                        <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Stock bas') }} <i class="isax isax-warning-2 ms-1"></i></span>
                                     @else
-                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('OK') }} <i
-                                                class="isax isax-tick-circle ms-1"></i></span>
+                                        <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('OK') }} <i class="isax isax-tick-circle ms-1"></i></span>
                                     @endif
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm dark-transparent"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#reorderModal"
+                                        data-action="{{ route('bo.inventory.stock.reorder', $stock) }}"
+                                        data-reorder-point="{{ $stock->reorder_point }}"
+                                        data-reorder-quantity="{{ $stock->reorder_quantity }}"
+                                        data-product="{{ $stock->product->name ?? '' }}">
+                                        <i class="isax isax-edit-2"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -201,4 +210,44 @@
     <!-- ========================
                   End Page Content
                  ========================= -->
+
+<!-- Reorder Modal -->
+<div class="modal fade" id="reorderModal" tabindex="-1" aria-labelledby="reorderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reorderModalLabel">{{ __('Seuil de réapprovisionnement') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="reorderForm" method="POST">
+                @csrf @method('PATCH')
+                <div class="modal-body">
+                    <p class="text-muted mb-3" id="reorderProductName"></p>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Seuil de réappro. (alerte quand stock ≤)') }}</label>
+                        <input type="number" name="reorder_point" id="reorderPoint" class="form-control" min="0" step="0.001" placeholder="ex: 10">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Quantité à recommander') }}</label>
+                        <input type="number" name="reorder_quantity" id="reorderQty" class="form-control" min="0" step="0.001" placeholder="ex: 50">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('reorderModal').addEventListener('show.bs.modal', function(e) {
+    const btn = e.relatedTarget;
+    document.getElementById('reorderForm').action = btn.dataset.action;
+    document.getElementById('reorderProductName').textContent = btn.dataset.product;
+    document.getElementById('reorderPoint').value = btn.dataset.reorderPoint || '';
+    document.getElementById('reorderQty').value = btn.dataset.reorderQuantity || '';
+});
+</script>
 @endsection

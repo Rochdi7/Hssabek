@@ -45,10 +45,13 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             ->name('destroy');
     });
 
-    // Stock Levels (read-only)
+    // Stock Levels
     Route::get('stock', [ProductStockController::class, 'index'])
         ->middleware('permission:inventory.stock_movements.view')
         ->name('stock.index');
+    Route::patch('stock/{productStock}/reorder', [ProductStockController::class, 'updateReorder'])
+        ->middleware('permission:inventory.stock_movements.create')
+        ->name('stock.reorder');
 
     // Stock Movements
     Route::prefix('movements')->as('movements.')->group(function () {
@@ -59,6 +62,10 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
         Route::get('/create', [StockMovementController::class, 'create'])
             ->middleware('permission:inventory.stock_movements.create')
             ->name('create');
+
+        Route::get('/stock-level', [StockMovementController::class, 'stockLevel'])
+            ->middleware('permission:inventory.stock_movements.view')
+            ->name('stock-level');
 
         Route::post('/', [StockMovementController::class, 'store'])
             ->middleware('permission:inventory.stock_movements.create')
