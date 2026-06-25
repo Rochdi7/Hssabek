@@ -67,18 +67,12 @@
                 @endphp
                 <div class="company-name">{{ $company['company_name'] ?? $tenant?->name ?? '' }}</div>
                 <div class="company-detail">
-                    @if(!empty($company['forme_juridique'])) @php $formeLabels = ['sarl'=>'SARL','sarl_au'=>'SARL AU','sa'=>'SA','snc'=>'SNC','scs'=>'SCS','sca'=>'SCA','auto_entrepreneur'=>'Auto-Entrepreneur','ei'=>'Entreprise Individuelle','cooperative'=>'Coopérative']; @endphp {{ $formeLabels[$company['forme_juridique']] ?? strtoupper($company['forme_juridique']) }}@if(!empty($company['capital_social'])) au capital de {{ number_format($company['capital_social'], 2, ',', ' ') }} DH @endif<br>@endif
                     @if(!empty($company['address'])) {{ $company['address'] }}<br> @endif
                     @if(!empty($company['city'])) {{ $company['city'] }} @endif
                     @if(!empty($company['postal_code'])) {{ $company['postal_code'] }} @endif
                     @if(!empty($company['country'])) {{ $company['country'] }} @endif
                     @if(!empty($company['phone'])) <br>Tél : {{ $company['phone'] }} @endif
                     @if(!empty($company['email'])) <br>Email : {{ $company['email'] }} @endif
-                    @if(!empty($company['tax_id'])) <br>IF : {{ $company['tax_id'] }} @endif
-                    @if(!empty($company['ice'])) <br>ICE : {{ $company['ice'] }} @endif
-                    @if(!empty($company['rc'])) <br>RC : {{ $company['rc'] }} @endif
-                    @if(!empty($company['cnss'])) <br>CNSS : {{ $company['cnss'] }} @endif
-                    @if(!empty($company['patente'])) <br>Patente : {{ $company['patente'] }} @endif
                     @if(!empty($company['numero_ae'])) <br>N° AE : {{ $company['numero_ae'] }} @endif
                     @if(!empty($company['cin'])) <br>CIN : {{ $company['cin'] }} @endif
                 </div>
@@ -196,6 +190,30 @@
     {{-- ─── Signature ────────────────────────────────────────────── --}}
     @include('pdf.partials.signature')
 
+
+    {{-- ─── Legal info footer ────────────────────────────────────── --}}
+    @php
+        $company = $company ?? ($settings?->company_settings ?? []);
+        $siegeParts = array_filter([
+            $company['address'] ?? null,
+            $company['city'] ?? null,
+            $company['country'] ?? null,
+        ]);
+        $legalParts = array_filter([
+            !empty($company['ice']) ? 'ICE : ' . $company['ice'] : null,
+            !empty($company['patente']) ? 'TP : ' . $company['patente'] : null,
+            !empty($company['tax_id']) ? 'IF : ' . $company['tax_id'] : null,
+            !empty($company['rc']) ? 'RC : ' . $company['rc'] : null,
+            !empty($company['cnss']) ? 'CNSS : ' . $company['cnss'] : null,
+        ]);
+    @endphp
+    @if(!empty($siegeParts) || !empty($legalParts))
+    <div style="margin-top: 15px; font-size: 8px; color: #888; text-align: center; border-top: 1px solid #e9ecef; padding-top: 8px;">
+        @if(!empty($siegeParts))Siège Social : {{ implode(' - ', $siegeParts) }}@endif
+        @if(!empty($siegeParts) && !empty($legalParts))<br>@endif
+        @if(!empty($legalParts)){{ implode(' - ', $legalParts) }}@endif
+    </div>
+    @endif
 </div>
 </body>
 </html>
