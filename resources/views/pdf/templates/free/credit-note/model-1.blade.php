@@ -211,16 +211,26 @@
     </div>
 
     {{-- ─── Legal info footer ────────────────────────────────────── --}}
-    @if(!empty($company['forme_juridique']) || !empty($company['tax_id']) || !empty($company['ice']) || !empty($company['rc']))
+    @php
+        $company = $company ?? ($settings?->company_settings ?? []);
+        $siegeParts = array_filter([
+            $company['address'] ?? null,
+            $company['city'] ?? null,
+            $company['country'] ?? null,
+        ]);
+        $legalParts = array_filter([
+            !empty($company['ice']) ? 'ICE : ' . $company['ice'] : null,
+            !empty($company['patente']) ? 'TP : ' . $company['patente'] : null,
+            !empty($company['tax_id']) ? 'IF : ' . $company['tax_id'] : null,
+            !empty($company['rc']) ? 'RC : ' . $company['rc'] : null,
+            !empty($company['cnss']) ? 'CNSS : ' . $company['cnss'] : null,
+        ]);
+    @endphp
+    @if(!empty($siegeParts) || !empty($legalParts))
     <div style="margin-top: 15px; font-size: 8px; color: #888; text-align: center; border-top: 1px solid #e9ecef; padding-top: 8px;">
-        @php $formeLabels = ['sarl'=>'SARL','sarl_au'=>'SARL AU','sa'=>'SA','snc'=>'SNC','scs'=>'SCS','sca'=>'SCA','auto_entrepreneur'=>'Auto-Entrepreneur','ei'=>'Entreprise Individuelle','cooperative'=>'Coopérative']; @endphp
-        @if(!empty($company['forme_juridique'])) {{ $formeLabels[$company['forme_juridique']] ?? strtoupper($company['forme_juridique']) }} @endif
-        @if(!empty($company['capital_social'])) au capital de {{ number_format($company['capital_social'], 2, ',', ' ') }} DH @endif
-        @if(!empty($company['tax_id'])) — IF : {{ $company['tax_id'] }} @endif
-        @if(!empty($company['ice'])) — ICE : {{ $company['ice'] }} @endif
-        @if(!empty($company['rc'])) — RC : {{ $company['rc'] }} @endif
-        @if(!empty($company['cnss'])) — CNSS : {{ $company['cnss'] }} @endif
-        @if(!empty($company['patente'])) — Patente : {{ $company['patente'] }} @endif
+        @if(!empty($siegeParts))Siège Social : {{ implode(' - ', $siegeParts) }}@endif
+        @if(!empty($siegeParts) && !empty($legalParts))<br>@endif
+        @if(!empty($legalParts)){{ implode(' - ', $legalParts) }}@endif
     </div>
     @endif
 
