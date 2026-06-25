@@ -37,7 +37,7 @@
             overflow: hidden;
         }
         .logo-circle img {
-            height: 40px;
+            max-height: 70px; max-width: 180px; width: auto; height: auto;
             vertical-align: middle;
         }
         .logo-placeholder {
@@ -239,7 +239,23 @@
     </table>
 
     @php $hasMeasurement = $invoice->items->whereIn('calculation_mode', ['surface', 'volume'])->count() > 0; @endphp
-    {{-- ─── Items table ──────────────────────────────────────────── --}}
+    
+    {-- ─── Chantier block (optional) ──────────────────────────── --}
+    @if($invoice->chantier_name || $invoice->chantier_location)
+    <div class="chantier-block">
+        <strong>Chantier :</strong>
+        @if($invoice->chantier_name) {{ $invoice->chantier_name }} @endif
+        @if($invoice->chantier_name && $invoice->chantier_location) &mdash; @endif
+        @if($invoice->chantier_location) {{ $invoice->chantier_location }} @endif
+    </div>
+    @endif
+
+    {-- ─── Addition line ──────────────────────────────────── --}
+    @php $billToSnap = $invoice->bill_to_snapshot ?? []; @endphp
+    @if(!empty($billToSnap['addition']))
+    <p style="font-size:10px; font-weight:bold; margin-bottom:12px;">{{ $billToSnap['addition'] }}</p>
+    @endif
+{{-- ─── Items table ──────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>
             <tr>

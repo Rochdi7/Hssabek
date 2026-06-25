@@ -94,7 +94,7 @@
                         $logoPath = $tenant->getFirstMediaPath('logo');
                     @endphp
                     @if($logoPath && file_exists($logoPath))
-                        <img src="{{ $logoPath }}" height="50" alt="logo" style="margin-bottom: 8px;"><br>
+                        <img src="{{ $logoPath }}" alt="logo" style="max-height:70px;max-width:180px;width:auto;height:auto;margin-bottom:8px;"><br>
                     @endif
                 @endif
                 @php
@@ -145,7 +145,7 @@
             <td style="width: 40%;">
                 <table class="meta-table">
                     <tr>
-                        <td>{{ $pdfDocumentNumberLabel ?? 'Devis n�' }}</td>
+                        <td>{{ $pdfDocumentNumberLabel ?? 'N° Devis' }}</td>
                         <td>{{ $quote->number }}</td>
                     </tr>
                     <tr>
@@ -167,6 +167,11 @@
         </tr>
     </table>
 
+
+    {-- ─── Addition line (Chantier, etc.) ──────────────────────── --}
+    @if(!empty(($billTo = $quote->bill_to_snapshot ?? []))  && !empty($billTo['addition']))
+    <p style="font-size:10px; margin: -10px 0 16px; font-weight:bold;">{{ $billTo['addition'] }}</p>
+    @endif
     {{-- ─── Items table ──────────────────────────────────────────── --}}
     @php
         $hasMeasurement = $quote->items->whereIn('calculation_mode', ['surface', 'volume'])->count() > 0;
@@ -291,13 +296,13 @@
 
     @if($quote->total_in_words)
     <p style="font-size: 10px; color: #555; font-style: italic; margin: 10px 0 15px;">
-        Arr�t� le pr�sent document � la somme de : <strong>{{ $quote->total_in_words }}</strong>
+        Arrêté le présent document à la somme de : <strong>{{ $quote->total_in_words }}</strong>
     </p>
     @endif
 
     {{-- ─── Validity block ─────────────────────────────────────────── --}}
     <div class="validity-block">
-        Validit� jusqu'au <strong>{{ $quote->expiry_date?->format('d/m/Y') }}</strong>.
+        Validité jusqu'au <strong>{{ $quote->expiry_date?->format('d/m/Y') }}</strong>.
         Passé cette date, il devra faire l'objet d'une nouvelle offre.
     </div>
 

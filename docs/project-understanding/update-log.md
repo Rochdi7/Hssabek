@@ -656,3 +656,29 @@ None — documentation only.
 - `resources/views/backoffice/superadmin/campaign/compose.blade.php` — page de campagne avec sélection des destinataires, éditeur Summernote, export CSV
 - `routes/web.php` — ajout `require campaign.php`
 - Sidebar : lien "Campagne Email" ajouté dans section Communication
+
+## 2026-06-25 — Fix logo PDF + Chantier field sur devis/factures
+
+### Logo fix (tous les templates PDF)
+- Remplacé `height="50"` par `max-height:70px; max-width:180px; width:auto; height:auto` sur tous les templates free (model-1 à model-4, ~35 fichiers)
+- Corrigé `.logo-circle img` et `.logo-box img` CSS dans model-2/3/4 (même règle responsive)
+
+### Chantier field (sans migration)
+- `app/Traits/HasChantierField.php` — trait qui pack/unpack `chantier_name` + `chantier_location` dans le champ `notes` existant (format JSON `{"__c":{"n":"...","l":"..."},"__notes":"..."}`)
+- Trait ajouté à `Quote` et `Invoice` models
+- `QuoteService::create/update` et `InvoiceService::create/update` — appellent `packNotes()` pour stocker les données chantier
+- Inputs "Chantier" ajoutés dans les 4 vues : quotes/create, quotes/edit, invoices/create, invoices/edit
+- Bloc chantier conditionnel ajouté dans tous les templates PDF quote/invoice (model-1 à model-4)
+
+## 2026-06-25 — Fix encodage PDF + champ Addition (Chantier)
+
+### Fix encodage UTF-8
+- Corrigé tous les caractères `\xef\xbf\xbd` (U+FFFD) dans les 4 templates quote (model-1 à 4)
+- Textes corrigés : `Validité jusqu'au`, `Arrêté le présent document à la somme de :`, `N° Devis`, `Passé cette date`
+
+### Champ Addition (remplace Chantier dans notes)
+- Supprimé `HasChantierField` trait + packing dans `notes` (approche précédente annulée)
+- Nouveau champ `addition` (input texte libre) dans les 4 formulaires create/edit (quotes + invoices)
+- Stocké dans `bill_to_snapshot['addition']` (colonne JSON déjà existante, sans migration)
+- Affiché en gras sous le bloc client dans tous les templates PDF (model-1 à 4, quotes + invoices + credit-note + debit-note)
+- Exemple d'utilisation : `Chantier : villa riad al menzeh meknes`

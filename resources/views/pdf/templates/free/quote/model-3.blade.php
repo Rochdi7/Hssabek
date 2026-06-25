@@ -43,7 +43,7 @@
             overflow: hidden;
         }
         .logo-circle img {
-            height: 38px;
+            max-height: 70px; max-width: 180px; width: auto; height: auto;
             vertical-align: middle;
         }
         .logo-placeholder {
@@ -228,7 +228,7 @@
             <td style="width: 50%;">
                 <table class="meta-table">
                     <tr>
-                        <td class="meta-label">{{ $pdfDocumentNumberLabel ?? 'Devis n�' }}</td>
+                        <td class="meta-label">{{ $pdfDocumentNumberLabel ?? 'N° Devis' }}</td>
                         <td class="meta-value">{{ $quote->number }}</td>
                     </tr>
                     <tr>
@@ -282,7 +282,23 @@
     </table>
 
     @php $hasMeasurement = $quote->items->whereIn('calculation_mode', ['surface', 'volume'])->count() > 0; @endphp
-    {{-- ─── Items table ──────────────────────────────────────────── --}}
+    
+    {-- ─── Chantier block (optional) ──────────────────────────── --}
+    @if($quote->chantier_name || $quote->chantier_location)
+    <div class="chantier-block">
+        <strong>Chantier :</strong>
+        @if($quote->chantier_name) {{ $quote->chantier_name }} @endif
+        @if($quote->chantier_name && $quote->chantier_location) &mdash; @endif
+        @if($quote->chantier_location) {{ $quote->chantier_location }} @endif
+    </div>
+    @endif
+
+    {-- ─── Addition line ──────────────────────────────────── --}
+    @php $billToSnap = $quote->bill_to_snapshot ?? []; @endphp
+    @if(!empty($billToSnap['addition']))
+    <p style="font-size:10px; font-weight:bold; margin-bottom:12px;">{{ $billToSnap['addition'] }}</p>
+    @endif
+{{-- ─── Items table ──────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>
             <tr>
@@ -397,13 +413,13 @@
 
     @if($quote->total_in_words)
     <p style="font-size: 10px; color: #444; font-style: italic; margin-bottom: 15px;">
-        Arr�t� le pr�sent document � la somme de : <strong>{{ $quote->total_in_words }}</strong>
+        Arrêté le présent document à la somme de : <strong>{{ $quote->total_in_words }}</strong>
     </p>
     @endif
 
     {{-- ─── Validity block ─────────────────────────────────────────── --}}
     <div class="validity-block">
-        Validit� jusqu'au <strong>{{ $quote->expiry_date?->format('d/m/Y') }}</strong>.
+        Validité jusqu'au <strong>{{ $quote->expiry_date?->format('d/m/Y') }}</strong>.
         Passé cette date, il devra faire l'objet d'une nouvelle offre.
     </div>
 
