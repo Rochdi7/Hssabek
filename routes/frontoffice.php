@@ -31,7 +31,9 @@ Route::middleware(['setFrontofficeLocale'])->group(function () {
     Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
     Route::get('/features', [PageController::class, 'features'])->name('features');
     Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-    Route::post('/contact', [PageController::class, 'contactSend'])->name('contact.send');
+    Route::post('/contact', [PageController::class, 'contactSend'])
+        ->middleware('throttle:3,5')
+        ->name('contact.send');
 
     // Account Request — throttled to 5 submissions per 10 minutes per IP
     Route::get('/demande-compte', [PageController::class, 'requestAccount'])->name('request-account');

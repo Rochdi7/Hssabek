@@ -3,6 +3,11 @@
 > **Rule:** Append a new entry to this file after EVERY change to the project.
 > This file is the first thing to check before editing any module.
 
+## 2026-06-25 — Fix contact form duplicate submissions
+
+- `routes/frontoffice.php` — added `throttle:3,5` middleware to `POST /contact` (max 3 submissions per 5 minutes per IP)
+- `resources/views/frontoffice/pages/contact.blade.php` — disable submit button + show "Envoi en cours…" on form submit to prevent double-click; re-enables after 8s as safety net
+
 ## 2026-06-25 — Stock movements linked to Credit Notes & Debit Notes + movements index reference column
 
 - `app/Services/Purchases/DebitNoteService.php` — added `StockService` dependency; `create()` calls `deductStockOnce()` (return_out = goods leave to supplier); `update()` reverses then re-deducts; `void()` reverses via `reverseStockMovements()` (return_in to restore stock)
