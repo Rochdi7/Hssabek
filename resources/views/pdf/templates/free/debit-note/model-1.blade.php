@@ -115,17 +115,13 @@
         <div class="detail">
             @if(!empty($billTo['address'])) {{ $billTo['address'] }}<br> @endif
             @if(!empty($billTo['city'])) {{ $billTo['city'] }} @endif
+                @if(!empty($billTo['addition']))<br><strong>{{ $billTo['addition'] }}</strong>@endif
+
             @if(!empty($billTo['email'])) <br>{{ $billTo['email'] }} @endif
             @if(!empty($billTo['phone'])) <br>{{ $billTo['phone'] }} @endif
             @if(!empty($billTo['tax_id'])) <br>IF : {{ $billTo['tax_id'] }} @endif
         </div>
     </div>
-
-
-    {-- ─── Addition line (Chantier, etc.) ──────────────────────── --}
-    @if(!empty(($billTo = $debitNote->bill_to_snapshot ?? []))  && !empty($billTo['addition']))
-    <p style="font-size:10px; margin: -10px 0 16px; font-weight:bold;">{{ $billTo['addition'] }}</p>
-    @endif
     {{-- ─── Items table ────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>

@@ -267,6 +267,8 @@
                     @if(!empty($billTo['address'])) {{ $billTo['address'] }}<br> @endif
                     @if(!empty($billTo['postal_code'])) {{ $billTo['postal_code'] }} @endif
                     @if(!empty($billTo['city'])) {{ $billTo['city'] }} @endif
+                @if(!empty($billTo['addition']))<br><strong>{{ $billTo['addition'] }}</strong>@endif
+
                     @if(!empty($billTo['email'])) <br>{{ $billTo['email'] }} @endif
                     @if(!empty($billTo['phone'])) <br>{{ $billTo['phone'] }} @endif
                     @if(!empty($billTo['tax_id'])) <br>IF : {{ $billTo['tax_id'] }} @endif
@@ -289,22 +291,11 @@
         </table>
 
         @php $hasMeasurement = $invoice->items->whereIn('calculation_mode', ['surface', 'volume'])->count() > 0; @endphp
-        
-    {-- ─── Chantier block (optional) ──────────────────────────── --}
-    @if($invoice->chantier_name || $invoice->chantier_location)
-    <div class="chantier-block">
-        <strong>Chantier :</strong>
-        @if($invoice->chantier_name) {{ $invoice->chantier_name }} @endif
-        @if($invoice->chantier_name && $invoice->chantier_location) &mdash; @endif
+
         @if($invoice->chantier_location) {{ $invoice->chantier_location }} @endif
     </div>
     @endif
 
-    {-- ─── Addition line ──────────────────────────────────── --}
-    @php $billToSnap = $invoice->bill_to_snapshot ?? []; @endphp
-    @if(!empty($billToSnap['addition']))
-    <p style="font-size:10px; font-weight:bold; margin-bottom:12px;">{{ $billToSnap['addition'] }}</p>
-    @endif
 {{-- ─── Items table ──────────────────────────────────────── --}}
         <table class="items-table">
             <thead>
