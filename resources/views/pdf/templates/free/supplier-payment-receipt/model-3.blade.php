@@ -52,7 +52,7 @@
             overflow: hidden;
         }
         .logo-circle img {
-            height: 38px;
+            max-height: 70px; max-width: 180px; width: auto; height: auto;
             vertical-align: middle;
         }
         .logo-placeholder {

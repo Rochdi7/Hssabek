@@ -470,6 +470,15 @@
                                     <div class="row">
                                         <div class="col-12 col-md-7">
                                             <div class="mb-3">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control" name="chantier_location" value="{{ old('chantier_location') }}" placeholder="{{ __('Localisation du chantier') }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">{{ __('Addition') }} <small class="text-muted fw-normal">({{ __('ex: Chantier : villa riad al menzeh meknes') }})</small></label>
+                                                    <input type="text" class="form-control" name="addition" value="{{ old('addition') }}" placeholder="{{ __('Chantier, référence projet, etc.') }}">
+                                                </div>
                                                 <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
                                                 <div>
                                                     <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">

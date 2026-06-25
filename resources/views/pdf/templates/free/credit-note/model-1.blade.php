@@ -83,7 +83,7 @@
                         $logoPath = $tenant->getFirstMediaPath('logo');
                     @endphp
                     @if($logoPath && file_exists($logoPath))
-                        <img src="{{ $logoPath }}" height="50" alt="logo" style="margin-bottom: 8px;"><br>
+                        <img src="{{ $logoPath }}" alt="logo" style="max-height:70px;max-width:180px;width:auto;height:auto;margin-bottom:8px;"><br>
                     @endif
                 @endif
                 @php
@@ -141,6 +141,11 @@
         </tr>
     </table>
 
+
+    {-- ─── Addition line (Chantier, etc.) ──────────────────────── --}
+    @if(!empty(($billTo = $creditNote->bill_to_snapshot ?? []))  && !empty($billTo['addition']))
+    <p style="font-size:10px; margin: -10px 0 16px; font-weight:bold;">{{ $billTo['addition'] }}</p>
+    @endif
     {{-- ─── Items table ──────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>

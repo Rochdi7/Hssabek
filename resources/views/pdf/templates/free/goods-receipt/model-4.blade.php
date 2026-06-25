@@ -38,7 +38,7 @@
             text-align: right;
         }
         .logo-box img {
-            height: 45px;
+            max-height: 70px; max-width: 180px; width: auto; height: auto;
         }
         .logo-box .logo-text {
             color: #ffffff;

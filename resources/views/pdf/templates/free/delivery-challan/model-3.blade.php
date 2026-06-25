@@ -117,7 +117,7 @@
                         $logoPath = $tenant->getFirstMediaPath('logo');
                     @endphp
                     @if($logoPath && file_exists($logoPath))
-                        <img src="{{ $logoPath }}" height="50" alt="logo" style="margin-bottom: 8px;">
+                        <img src="{{ $logoPath }}" alt="logo" style="max-height:70px;max-width:180px;width:auto;height:auto;margin-bottom:8px;">
                     @endif
                 @endif
                 @php

@@ -41,7 +41,10 @@ class InvoiceService
                 'due_date' => $validated['due_date'] ?? null,
                 'enable_tax' => $validated['enable_tax'] ?? true,
                 'bill_from_snapshot' => $validated['bill_from_snapshot'] ?? null,
-                'bill_to_snapshot' => $validated['bill_to_snapshot'] ?? null,
+                'bill_to_snapshot' => array_merge(
+                    is_array($validated['bill_to_snapshot'] ?? null) ? $validated['bill_to_snapshot'] : (json_decode($validated['bill_to_snapshot'] ?? 'null', true) ?? []),
+                    ['addition' => $validated['addition'] ?? '']
+                ),
                 'subtotal' => $totals['subtotal'],
                 'discount_total' => $totals['discount_total'],
                 'tax_total' => $totals['tax_total'],
@@ -142,6 +145,10 @@ class InvoiceService
                 'tax_total' => $totals['tax_total'],
                 'total' => $totals['total'],
                 'amount_due' => $totals['total'] - (float) $invoice->amount_paid,
+                'bill_to_snapshot' => array_merge(
+                    is_array($invoice->bill_to_snapshot) ? $invoice->bill_to_snapshot : [],
+                    ['addition' => $validated['addition'] ?? '']
+                ),
                 'notes' => $validated['notes'] ?? $invoice->notes,
                 'terms' => $validated['terms'] ?? $invoice->terms,
             ]);
