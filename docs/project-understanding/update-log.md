@@ -3,6 +3,35 @@
 > **Rule:** Append a new entry to this file after EVERY change to the project.
 > This file is the first thing to check before editing any module.
 
+## 2026-06-24 — Hide tax/frais section; fix oversized logo in document forms
+- `resources/views/backoffice/sales/invoices/create.blade.php` — hide Taxe row + frais supplémentaires (d-none)
+- `resources/views/backoffice/sales/invoices/edit.blade.php` — same
+- `resources/views/backoffice/sales/credit-notes/create.blade.php` — logo: bigger (max-height 100px), removed company name text
+- `resources/views/backoffice/sales/credit-notes/edit.blade.php` — same
+- `resources/views/backoffice/purchases/purchase-orders/create.blade.php` — logo: bigger, removed address/contact info block
+- `resources/views/backoffice/purchases/purchase-orders/edit.blade.php` — same
+
+## 2026-06-24 — Fix MAD currency symbol (د.م. → DH)
+- Updated `currencies` table directly (no migration): MAD symbol set to `DH`
+
+## 2026-06-24 — HTML minification for backoffice and frontoffice
+
+### Package added
+- `renatomarinho/laravel-page-speed` v4.4 — minifies HTML responses via middleware
+
+### What was done
+- Installed package via `composer require renatomarinho/laravel-page-speed`
+- Registered `RemoveComments` and `CollapseWhitespace` middlewares in the `web` group inside `bootstrap/app.php`
+- Both middlewares apply to **all** web routes (backoffice + frontoffice) automatically
+- Vite already minifies JS/CSS via esbuild during `npm run build` — no change needed there
+- Cleared config, view, and cache after change
+
+### Files changed
+- `bootstrap/app.php` — added 2 middleware to `web` group
+- `composer.json` / `composer.lock` — new package
+
+---
+
 ## 2026-06-24 — Notification system bugs fixed
 
 ### Bugs fixed

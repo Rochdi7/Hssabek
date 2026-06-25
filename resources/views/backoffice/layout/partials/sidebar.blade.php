@@ -368,11 +368,11 @@
                                                     class="{{ request()->routeIs('bo.sales.credit-notes.*') ? 'active' : '' }}">{{ __('Avoirs') }}</a>
                                             </li>
                                             @endif
-                                            @if ($can('sales.refunds.view'))
+                                            {{-- @if ($can('sales.refunds.view'))
                                             <li><a href="{{ route('bo.sales.refunds.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.refunds.*') ? 'active' : '' }}">{{ __('Remboursements') }}</a>
                                             </li>
-                                            @endif
+                                            @endif --}}
                                             @if ($can('sales.payments.view'))
                                             <li><a href="{{ route('bo.sales.payments.index') }}"
                                                     class="{{ request()->routeIs('bo.sales.payments.*') ? 'active' : '' }}">{{ __('Paiements clients') }}</a>
@@ -456,11 +456,7 @@
                                                     class="{{ request()->routeIs('bo.catalog.categories.*') ? 'active' : '' }}">{{ __('Catégories') }}</a>
                                             </li>
                                             @endif
-                                            @if ($can('catalog.units.view'))
-                                            <li><a href="{{ route('bo.catalog.units.index') }}"
-                                                    class="{{ request()->routeIs('bo.catalog.units.*') ? 'active' : '' }}">{{ __('Unités') }}</a>
-                                            </li>
-                                            @endif
+                                            {{-- Units moved to Settings --}}
                                         </ul>
                                     </li>
                                     @endif
@@ -480,9 +476,9 @@
                                             </li>
                                             @endif
                                             @if ($can('inventory.stock_movements.view'))
-                                            <li><a href="{{ route('bo.inventory.stock.index') }}"
+                                            {{-- <li><a href="{{ route('bo.inventory.stock.index') }}"
                                                     class="{{ request()->routeIs('bo.inventory.stock.*') ? 'active' : '' }}">{{ __('Niveaux de stock') }}</a>
-                                            </li>
+                                            </li> --}}
                                             <li><a href="{{ route('bo.inventory.movements.index') }}"
                                                     class="{{ request()->routeIs('bo.inventory.movements.*') ? 'active' : '' }}">{{ __('Mouvements') }}</a>
                                             </li>
@@ -504,34 +500,35 @@
                             <li class="menu-title"><span>{{ __('Finance') }}</span></li>
                             <li>
                                 <ul>
-                                    @if ($can('finance.expenses.view'))
-                                    <li class="{{ request()->routeIs('bo.finance.expenses.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.finance.expenses.index') }}">
-                                            <i class="isax isax-money-send5"></i><span>{{ __('Dépenses') }}</span>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);"
+                                            class="{{ request()->routeIs('bo.finance.*') ? 'active subdrop' : '' }}">
+                                            <i class="isax isax-wallet-35"></i><span>{{ __('Finance') }}</span>
+                                            <span class="menu-arrow"></span>
                                         </a>
+                                        <ul>
+                                            @if ($can('finance.expenses.view'))
+                                            <li><a href="{{ route('bo.finance.expenses.index') }}"
+                                                    class="{{ request()->routeIs('bo.finance.expenses.*') ? 'active' : '' }}">{{ __('Dépenses') }}</a>
+                                            </li>
+                                            @endif
+                                            @if ($can('finance.incomes.view'))
+                                            <li><a href="{{ route('bo.finance.incomes.index') }}"
+                                                    class="{{ request()->routeIs('bo.finance.incomes.*') ? 'active' : '' }}">{{ __('Revenus') }}</a>
+                                            </li>
+                                            @endif
+                                            @if ($can('finance.categories.view'))
+                                            <li><a href="{{ route('bo.finance.categories.index') }}"
+                                                    class="{{ request()->routeIs('bo.finance.categories.*') ? 'active' : '' }}">{{ __('Catégories') }}</a>
+                                            </li>
+                                            @endif
+                                            @if ($can('finance.loans.view'))
+                                            <li><a href="{{ route('bo.finance.loans.index') }}"
+                                                    class="{{ request()->routeIs('bo.finance.loans.*') ? 'active' : '' }}">{{ __('Prêts') }}</a>
+                                            </li>
+                                            @endif
+                                        </ul>
                                     </li>
-                                    @endif
-                                    @if ($can('finance.incomes.view'))
-                                    <li class="{{ request()->routeIs('bo.finance.incomes.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.finance.incomes.index') }}">
-                                            <i class="isax isax-money-recive5"></i><span>{{ __('Revenus') }}</span>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if ($can('finance.categories.view'))
-                                    <li class="{{ request()->routeIs('bo.finance.categories.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.finance.categories.index') }}">
-                                            <i class="isax isax-category-25"></i><span>{{ __('Catégories') }}</span>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if ($can('finance.loans.view'))
-                                    <li class="{{ request()->routeIs('bo.finance.loans.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.finance.loans.index') }}">
-                                            <i class="isax isax-percentage-square5"></i><span>{{ __('Prêts') }}</span>
-                                        </a>
-                                    </li>
-                                    @endif
                                 </ul>
                             </li>
                             @endif
@@ -541,13 +538,13 @@
                             <li class="menu-title"><span>{{ __('Rapports') }}</span></li>
                             <li>
                                 <ul>
-                                    @if ($can('pro.rapports.view'))
+                                    {{-- @if ($can('pro.rapports.view'))
                                     <li class="{{ request()->routeIs('bo.pro.rapports.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.pro.rapports.index') }}">
                                             <i class="isax isax-document-text5"></i><span>{{ __('Générer un rapport') }}</span>
                                         </a>
                                     </li>
-                                    @endif
+                                    @endif --}}
                                     @if ($canAny(['reports.sales.view','reports.customers.view','reports.purchases.view','reports.finance.view','reports.inventory.view']))
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
@@ -592,11 +589,11 @@
                             <li class="menu-title"><span>{{ __('Support') }}</span></li>
                             <li>
                                 <ul>
-                                    <li class="{{ request()->routeIs('bo.support.tickets.*') ? 'active' : '' }}">
+                                    {{-- <li class="{{ request()->routeIs('bo.support.tickets.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.support.tickets.index') }}">
                                             <i class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
 
@@ -640,13 +637,20 @@
                                             <i class="ti ti-user-circle"></i><span>{{ __('Mon compte') }}</span>
                                         </a>
                                     </li>
-                                    @if ($can('pro.recurring_invoices.view'))
+                                    @if ($can('catalog.units.view'))
+                                    <li class="{{ request()->routeIs('bo.catalog.units.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.catalog.units.index') }}">
+                                            <i class="isax isax-ruler5"></i><span>{{ __('Unités') }}</span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    {{-- @if ($can('pro.recurring_invoices.view'))
                                     <li class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">
                                         <a href="{{ route('bo.pro.recurring-invoices.index') }}">
                                             <i class="isax isax-repeat5"></i><span>{{ __('Factures récurrentes') }}</span>
                                         </a>
                                     </li>
-                                    @endif
+                                    @endif --}}
                                 </ul>
                             </li>
                         </ul>

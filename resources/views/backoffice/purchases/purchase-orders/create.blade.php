@@ -168,29 +168,9 @@
                                                         <input type="text" class="form-control"
                                                             value="{{ $tenant->name ?? '' }}" readonly disabled>
                                                     </div>
-                                                    <div class="p-3 bg-light rounded border">
-                                                        <div class="d-flex">
-                                                            <div class="me-3">
-                                                                <span class="p-2 rounded border d-inline-block"><img
-                                                                        src="{{ $tenant->logo_url ?? URL::asset('assets/images/logo/favicon.svg') }}"
-                                                                        alt="image" class="img-fluid" style="max-height: 48px; width: auto;"></span>
-                                                            </div>
-                                                            <div>
-                                                                @if ($tenant->address)
-                                                                    <p class="mb-0">{{ $tenant->address }}</p>
-                                                                @endif
-                                                                @if ($tenant->phone)
-                                                                    <p class="mb-0">{{ __('Tél') }} : {{ $tenant->phone }}</p>
-                                                                @endif
-                                                                @if ($tenant->email)
-                                                                    <p class="mb-0">{{ __('Email') }} : {{ $tenant->email }}</p>
-                                                                @endif
-                                                                @if ($tenant->tax_id)
-                                                                    <p class="text-dark mb-0">{{ __('ICE') }} : {{ $tenant->tax_id }}
-                                                                    </p>
-                                                                @endif
-                                                            </div>
-                                                        </div>
+                                                    <div class="p-3 bg-light rounded border text-center">
+                                                        <img src="{{ $tenant->logo_url ?? URL::asset('assets/images/logo/favicon.svg') }}"
+                                                            alt="image" class="img-fluid" style="max-height: 100px; width: auto;">
                                                     </div>
                                                 </div>
                                             </div>
