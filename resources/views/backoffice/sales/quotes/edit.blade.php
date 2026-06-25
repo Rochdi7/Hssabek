@@ -368,53 +368,11 @@
 
                                     <!-- start row -->
                                     <div class="row">
-                                        <div class="col-12 col-md-7">
-                                            <div class="mb-3">
-                                                <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
-                                                <div>
-                                                    <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">
-                                                        <li class="nav-item me-2" role="presentation">
-                                                            <a class="nav-link active border fs-12 fw-semibold rounded"
-                                                                data-bs-toggle="tab" data-bs-target="#notes"
-                                                                aria-current="page" href="javascript:void(0);"><i
-                                                                    class="isax isax-document-text me-1"></i>{{ __('Notes') }}</a>
-                                                        </li>
-                                                        <li class="nav-item me-2" role="presentation">
-                                                            <a class="nav-link border fs-12 fw-semibold rounded"
-                                                                data-bs-toggle="tab" data-bs-target="#terms"
-                                                                href="javascript:void(0);"><i
-                                                                    class="isax isax-document me-1"></i>{{ __('Conditions') }}</a>
-                                                        </li>
-                                                        <li class="nav-item me-2" role="presentation">
-                                                            <a class="nav-link border fs-12 fw-semibold rounded"
-                                                                data-bs-toggle="tab" data-bs-target="#addition-tab"
-                                                                href="javascript:void(0);"><i
-                                                                    class="isax isax-building me-1"></i>{{ __('Addition') }}</a>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="tab-content">
-                                                        <div class="tab-pane active show" id="notes" role="tabpanel">
-                                                            <label class="form-label">{{ __('Notes additionnelles') }}</label>
-                                                            <textarea name="notes" class="form-control bg-light" rows="3" readonly>{{ $defaultFooter }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i
-                                                                    class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
-                                                        </div>
-                                                        <div class="tab-pane fade" id="terms" role="tabpanel">
-                                                            <label class="form-label">{{ __('Conditions générales') }}</label>
-                                                            <textarea name="terms" class="form-control bg-light" rows="3" readonly>{{ $defaultTerms }}</textarea>
-                                                            <small class="text-muted mt-1 d-block"><i
-                                                                    class="isax isax-setting-2 me-1"></i>{{ __('Modifiable depuis') }}
-                                                                <a href="{{ route('bo.settings.invoice.edit') }}">{{ __('Paramètres de facturation') }}</a></small>
-                                                        </div>
-                                                        <div class="tab-pane fade" id="addition-tab" role="tabpanel">
-                                                            <label class="form-label">{{ __('Addition') }} <small class="text-muted fw-normal">({{ __('Chantier, référence projet...') }})</small></label>
-                                                            <input type="text" class="form-control" name="addition" value="{{ old('addition', ($quote->bill_to_snapshot['addition'] ?? '')) }}" placeholder="{{ __('ex: Chantier villa riad al menzeh meknes') }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><!-- end col -->
+                                        {{-- Notes, Conditions & Addition hidden but still submitted with defaults from settings --}}
+                                        <textarea name="notes" class="d-none" readonly>{{ $defaultFooter }}</textarea>
+                                        <textarea name="terms" class="d-none" readonly>{{ $defaultTerms }}</textarea>
+                                        <input type="hidden" name="addition" value="{{ old('addition', ($quote->bill_to_snapshot['addition'] ?? '')) }}">
+                                        <div class="col-12 col-md-7 d-none"></div><!-- end col -->
                                         <div class="col-12 col-md-5">
                                             <ul class="mb-0 ps-0 list-unstyled">
                                                 <li class="mb-3">
