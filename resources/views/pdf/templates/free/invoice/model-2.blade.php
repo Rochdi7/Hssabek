@@ -231,10 +231,12 @@
                         <td class="meta-value">{{ $invoice->reference_number }}</td>
                     </tr>
                     @endif
+                    @if($invoice->due_date)
                     <tr>
                         <td class="meta-label">Échéance</td>
                         <td class="meta-value">{{ $invoice->due_date?->format('d/m/Y') }}</td>
                     </tr>
+                    @endif
                 </table>
             </td>
         </tr>
