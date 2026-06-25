@@ -112,6 +112,8 @@
                 @if($creditNote->customer?->email) {{ $creditNote->customer->email }}<br> @endif
                 @if($creditNote->customer?->phone) {{ $creditNote->customer->phone }}<br> @endif
                 @if($creditNote->customer?->tax_id) IF : {{ $creditNote->customer->tax_id }} @endif
+                @php $cnBillTo = $creditNote->bill_to_snapshot ?? []; @endphp
+                @if(!empty($cnBillTo['addition']))<br><strong>{{ $cnBillTo['addition'] }}</strong>@endif
             </td>
             <td style="width: 30%;"></td>
             <td style="width: 40%;">
@@ -140,12 +142,6 @@
             </td>
         </tr>
     </table>
-
-
-    {-- ─── Addition line (Chantier, etc.) ──────────────────────── --}
-    @if(!empty(($billTo = $creditNote->bill_to_snapshot ?? []))  && !empty($billTo['addition']))
-    <p style="font-size:10px; margin: -10px 0 16px; font-weight:bold;">{{ $billTo['addition'] }}</p>
-    @endif
     {{-- ─── Items table ──────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>

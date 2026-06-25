@@ -116,6 +116,8 @@
                 @if(!empty($billTo['address'])) {{ $billTo['address'] }}<br> @endif
                 @if(!empty($billTo['postal_code'])) {{ $billTo['postal_code'] }} @endif
                 @if(!empty($billTo['city'])) {{ $billTo['city'] }} @endif
+                @if(!empty($billTo['addition']))<br><strong>{{ $billTo['addition'] }}</strong>@endif
+
             </td>
             <td style="width: 30%;">
                 <div class="info-label">Envoyé à</div>
@@ -157,11 +159,6 @@
     </table>
 
     @php $hasMeasurement = $invoice->items->whereIn('calculation_mode', ['surface', 'volume'])->count() > 0; @endphp
-
-    {-- ─── Addition line (Chantier, etc.) ──────────────────────── --}
-    @if(!empty(($billTo = $invoice->bill_to_snapshot ?? []))  && !empty($billTo['addition']))
-    <p style="font-size:10px; margin: -10px 0 16px; font-weight:bold;">{{ $billTo['addition'] }}</p>
-    @endif
     {{-- ─── Items table ──────────────────────────────────────────── --}}
     <table class="items-table">
         <thead>
