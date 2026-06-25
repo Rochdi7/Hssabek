@@ -350,14 +350,17 @@
 
                                 <div class="extra-info">
 
-                                    {{-- Notes, Conditions & Addition hidden but still submitted with defaults from settings --}}
+                                    {{-- Notes & Conditions hidden but still submitted with defaults from settings --}}
                                     <textarea name="notes" class="d-none" readonly>{{ $defaultFooter }}</textarea>
                                     <textarea name="terms" class="d-none" readonly>{{ $defaultTerms }}</textarea>
-                                    <input type="hidden" name="addition" value="{{ old('addition') }}">
 
                                     <!-- start row -->
                                     <div class="row">
-                                        <div class="col-12 col-md-7 d-none">
+                                        <div class="col-12 col-md-7">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ __('Addition') }} <small class="text-muted fw-normal">({{ __('Chantier, référence projet...') }})</small></label>
+                                                <input type="text" class="form-control" name="addition" value="{{ old('addition') }}" placeholder="{{ __('ex: Chantier villa riad al menzeh meknes') }}">
+                                            </div>
                                         </div><!-- end col -->
                                         <div class="col-12 col-md-5">
                                             <ul class="mb-0 ps-0 list-unstyled">
