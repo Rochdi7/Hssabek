@@ -258,6 +258,10 @@
                                                                 </div>
                                                             @endif
                                                         </div>
+                                                        <div class="tab-pane fade" id="addition-tab" role="tabpanel">
+                                                            <label class="form-label">{{ __('Addition') }} <small class="text-muted fw-normal">({{ __('ex: Chantier, référence projet...') }})</small></label>
+                                                            <input type="text" class="form-control" name="addition" value="{{ old('addition', ($invoice->bill_to_snapshot['addition'] ?? '')) }}" placeholder="{{ __('Chantier : villa riad al menzeh meknes') }}">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div><!-- end col -->
@@ -526,16 +530,6 @@
                                     <!-- start row -->
                                     <div class="row">
                                         <div class="col-12 col-md-7">
-                                            <div class="mb-3">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control" name="chantier_location" value="{{ old('chantier_location', $invoice->chantier_location) }}" placeholder="{{ __('Localisation du chantier') }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">{{ __('Addition') }} <small class="text-muted fw-normal">({{ __('ex: Chantier : villa riad al menzeh meknes') }})</small></label>
-                                                    <input type="text" class="form-control" name="addition" value="{{ old('addition', ($invoice->bill_to_snapshot['addition'] ?? '')) }}" placeholder="{{ __('Chantier, référence projet, etc.') }}">
-                                                </div>
                                                 <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
                                                 <div>
                                                     <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">
@@ -550,6 +544,12 @@
                                                                 data-bs-toggle="tab" data-bs-target="#terms"
                                                                 href="javascript:void(0);"><i
                                                                     class="isax isax-document me-1"></i>{{ __('Conditions') }}</a>
+                                                        </li>
+                                                        <li class="nav-item me-2" role="presentation">
+                                                            <a class="nav-link border fs-12 fw-semibold rounded"
+                                                                data-bs-toggle="tab" data-bs-target="#addition-tab"
+                                                                href="javascript:void(0);"><i
+                                                                    class="isax isax-building me-1"></i>{{ __('Addition') }}</a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
