@@ -123,6 +123,19 @@ class TemplateCatalogSeeder extends Seeder
                 'sort_order' => 4,
                 'preview_image' => 'assets/images/templates/quote/model-4.png',
             ],
+            [
+                'code' => 'quote-megamar',
+                'name' => 'Megamar',
+                'slug' => 'quote-megamar',
+                'document_type' => 'quote',
+                'category' => 'general',
+                'description' => 'Modèle de devis épuré pour travaux et chantiers (style Megamar).',
+                'view_path' => 'pdf.templates.free.quote.model-megamar',
+                'price' => 0,
+                'is_free' => true,
+                'sort_order' => 5,
+                'preview_image' => 'assets/images/templates/quote/model-megamar.png',
+            ],
 
             // ─── Credit Note Templates ─────────────────────────────────
             [

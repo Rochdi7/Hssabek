@@ -29,6 +29,7 @@ class PdfService
         'modern'  => ['name' => 'Modèle 2', 'paid' => false],
         'classic' => ['name' => 'Modèle 3', 'paid' => false],
         'elegant' => ['name' => 'Modèle 4', 'paid' => false],
+        'megamar' => ['name' => 'Megamar', 'paid' => false],
     ];
 
     /**
@@ -292,6 +293,7 @@ class PdfService
         'modern'  => ['folder' => 'free', 'model' => 'model-2'],
         'classic' => ['folder' => 'free', 'model' => 'model-3'],
         'elegant' => ['folder' => 'free', 'model' => 'model-4'],
+        'megamar' => ['folder' => 'free', 'model' => 'model-megamar'],
     ];
 
     private function resolveVariantOrDefault(string $docType, string $template): string
