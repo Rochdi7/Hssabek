@@ -38,7 +38,7 @@
             text-align: right;
         }
         .logo-box img {
-            max-height: 70px; max-width: 180px; width: auto; height: auto;
+            max-height: 120px; max-width: 250px; width: auto; height: auto;
         }
         .logo-box .logo-text {
             color: #ffffff;
@@ -249,9 +249,9 @@
                                 <td class="m-value">{{ $quote->issue_date?->format('d/m/Y') }}</td>
                             </tr>
                             <tr>
-                                <td class="m-label">Validité</td>
-                                <td class="m-value">{{ $quote->expiry_date?->format('d/m/Y') }}</td>
-                            </tr>
+                        <td class="m-label">Validité</td>
+                        <td class="m-value">{{ $quote->expiry_date?->format('d/m/Y') }}</td>
+                    </tr>
                             @if($quote->reference_number)
                             <tr>
                                 <td class="m-label">Référence</td>
