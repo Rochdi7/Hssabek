@@ -160,7 +160,6 @@
                                 __('Type'),
                                 __('Catégorie'),
                                 __('Unité'),
-                                __('Quantité'),
                                 __('Prix de vente'),
                                 __('Statut'),
                             ],
@@ -185,7 +184,6 @@
                             <th>{{ __('Type') }}</th>
                             <th>{{ __('Catégorie') }}</th>
                             <th>{{ __('Unité') }}</th>
-                            <th>{{ __('Quantité') }}</th>
                             <th>{{ __('Prix de vente') }}</th>
                             <th class="no-sort">{{ __('Statut') }}</th>
                             <th class="no-sort"></th>
@@ -234,7 +232,6 @@
                                 </td>
                                 <td>{{ $product->category?->name ?? '—' }}</td>
                                 <td class="text-dark">{{ $product->unit?->name ?? '—' }}</td>
-                                <td>{{ $product->item_type === 'service' ? '—' : ($product->stocks_sum_quantity_on_hand ?? $product->quantity ?? 0) }}</td>
                                 <td class="text-dark">{{ number_format($product->selling_price, 2, ',', ' ') }}</td>
                                 <td>
                                     @if ($product->is_active)

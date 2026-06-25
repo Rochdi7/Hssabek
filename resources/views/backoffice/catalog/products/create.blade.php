@@ -332,19 +332,6 @@
                                         </div>
 
                                         {{-- Service-only: SAC Code --}}
-                                        <div class="col-lg-4 col-md-6 service-field"
-                                            style="{{ old('item_type', 'product') === 'product' ? 'display:none' : '' }}">
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Code SAC') }}</label>
-                                                <input type="text"
-                                                    class="form-control @error('sac_code') is-invalid @enderror"
-                                                    name="sac_code" value="{{ old('sac_code') }}"
-                                                    placeholder="{{ __('Code comptable service') }}">
-                                                @error('sac_code')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -357,17 +344,7 @@
                                 <div class="card-body">
                                     <h6 class="mb-3"><i class="isax isax-building-45 me-1"></i>{{ __('Inventaire') }}</h6>
                                     <div class="row gx-3">
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Quantité') }}</label>
-                                                <input type="number" step="1" min="0"
-                                                    class="form-control @error('quantity') is-invalid @enderror"
-                                                    name="quantity" value="{{ old('quantity') }}" placeholder="0">
-                                                @error('quantity')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        <input type="hidden" name="quantity" value="0">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('Quantité d\'alerte') }}</label>

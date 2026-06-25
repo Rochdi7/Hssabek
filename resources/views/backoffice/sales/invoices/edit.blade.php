@@ -124,7 +124,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-12" style="display:none">
                                                             @php
                                                                 $existingRecurring = $invoice->recurringInvoice;
                                                                 $hasRecurrence = $existingRecurring !== null;
@@ -570,16 +570,16 @@
                                                         <h6 class="fs-14" id="display-subtotal">0,00</h6>
                                                     </div>
                                                 </li>
-                                                <li class="mb-3" id="tax-total-row">
+                                                <li class="mb-3 d-none" id="tax-total-row">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <p class="fw-semibold fs-14 text-gray-9 mb-0">{{ __('Taxe') }}</p>
                                                         <h6 class="fs-14" id="display-tax">0,00</h6>
                                                     </div>
                                                 </li>
-                                                <li class="mb-3" id="charges-container">
+                                                <li class="mb-3 d-none" id="charges-container">
                                                     {{-- Existing charges rendered by JS on init --}}
                                                 </li>
-                                                <li class="mb-3">
+                                                <li class="mb-3 d-none">
                                                     <a href="javascript:void(0);" class="d-inline-flex align-items-center"
                                                         id="add-charge-btn">
                                                         <i class="isax isax-add-circle5 text-primary me-1"></i>{{ __('Ajouter

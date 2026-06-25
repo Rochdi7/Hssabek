@@ -108,7 +108,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-12" style="display:none">
                                                             <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
                                                                 <div class="form-check form-switch me-4">
                                                                     <input class="form-check-input" type="checkbox"
@@ -161,7 +161,7 @@
                                                             </div>
                                                         </div>
                                                         {{-- Recurring date fields --}}
-                                                        <div class="col-md-12 {{ old('is_recurring') ? '' : 'd-none' }}"
+                                                        <div class="col-md-12 d-none"
                                                             id="recurring-date-fields">
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -513,16 +513,16 @@
                                                         <h6 class="fs-14" id="display-subtotal">0,00</h6>
                                                     </div>
                                                 </li>
-                                                <li class="mb-3" id="tax-total-row">
+                                                <li class="mb-3 d-none" id="tax-total-row">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <p class="fw-semibold fs-14 text-gray-9 mb-0">{{ __('Taxe') }}</p>
                                                         <h6 class="fs-14" id="display-tax">0,00</h6>
                                                     </div>
                                                 </li>
-                                                <li class="mb-3" id="charges-container">
+                                                <li class="mb-3 d-none" id="charges-container">
                                                     {{-- Additional charges injected by JS --}}
                                                 </li>
-                                                <li class="mb-3">
+                                                <li class="mb-3 d-none">
                                                     <a href="javascript:void(0);" class="d-inline-flex align-items-center"
                                                         id="add-charge-btn">
                                                         <i class="isax isax-add-circle5 text-primary me-1"></i>{{ __('Ajouter
