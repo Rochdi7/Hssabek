@@ -16,8 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('web', \App\Http\Middleware\ContentSecurityPolicy::class);
-        $middleware->appendToGroup('web', \VinkiusLabs\LaravelPageSpeed\Middleware\RemoveComments::class);
-        $middleware->appendToGroup('web', \VinkiusLabs\LaravelPageSpeed\Middleware\CollapseWhitespace::class);
+        // $middleware->appendToGroup('web', \VinkiusLabs\LaravelPageSpeed\Middleware\RemoveComments::class);
+        // $middleware->appendToGroup('web', \VinkiusLabs\LaravelPageSpeed\Middleware\CollapseWhitespace::class);
 
         $middleware->alias([
             'identifyTenant' => \App\Http\Middleware\IdentifyTenantByDomain::class,
