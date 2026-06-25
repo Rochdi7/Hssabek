@@ -81,7 +81,7 @@ class DashboardController extends Controller
         $totalPurchasesYtd = VendorBill::whereBetween('issue_date', [$now->copy()->startOfYear()->toDateString(), $today])
             ->where('status', '!=', 'void')
             ->sum('total');
-        $creditNotesTotal  = CreditNote::sum('total');
+        $creditNotesTotal  = CreditNote::where('status', '!=', 'void')->sum('total');
         $expensesYtd       = Expense::whereBetween('expense_date', [$now->copy()->startOfYear()->toDateString(), $today])
             ->sum('amount');
         $totalDepensesYtd  = $totalPurchasesYtd + $expensesYtd;

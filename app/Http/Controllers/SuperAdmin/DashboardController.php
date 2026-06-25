@@ -7,6 +7,7 @@ use App\Models\Billing\Plan;
 use App\Models\Billing\Subscription;
 use App\Models\Billing\SubscriptionInvoice;
 use App\Models\Tenancy\Tenant;
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -23,6 +24,7 @@ class DashboardController extends Controller
             $activeTenants   = Tenant::where('status', 'active')->count();
             $suspendedTenants = Tenant::where('status', 'suspended')->count();
             $activePlans     = Plan::where('is_active', true)->count();
+            $totalUsers      = User::whereNotNull('tenant_id')->count();
 
             // ─── Most ordered plan ───
             $mostOrderedPlan = Plan::withCount('subscriptions')
@@ -108,7 +110,7 @@ class DashboardController extends Controller
                 ->get();
 
             return compact(
-                'totalTenants', 'activeTenants', 'suspendedTenants', 'activePlans',
+                'totalTenants', 'activeTenants', 'suspendedTenants', 'activePlans', 'totalUsers',
                 'mostOrderedPlan', 'topTenant',
                 'latestTenants', 'earningsTrend',
                 'expiredSubscriptions', 'recentInvoices',

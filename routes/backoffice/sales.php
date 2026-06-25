@@ -182,6 +182,14 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->middleware('permission:sales.credit_notes.create')
             ->name('create');
 
+        Route::get('/invoice-summary/{invoice}', [CreditNoteController::class, 'invoiceSummary'])
+            ->middleware('permission:sales.credit_notes.create')
+            ->name('invoice-summary');
+
+        Route::get('/invoice-items/{invoice}', [CreditNoteController::class, 'invoiceItems'])
+            ->middleware('permission:sales.credit_notes.create')
+            ->name('invoice-items');
+
         Route::post('/', [CreditNoteController::class, 'store'])
             ->middleware('permission:sales.credit_notes.create')
             ->name('store');
@@ -202,9 +210,9 @@ Route::prefix('sales')->as('sales.')->group(function () {
             ->middleware('permission:sales.credit_notes.delete')
             ->name('destroy');
 
-        Route::post('/{creditNote}/apply', [CreditNoteController::class, 'apply'])
+        Route::post('/{creditNote}/void', [CreditNoteController::class, 'void'])
             ->middleware('permission:sales.credit_notes.edit')
-            ->name('apply');
+            ->name('void');
 
         Route::get('/{creditNote}/download', [CreditNoteController::class, 'download'])
             ->middleware(['permission:sales.credit_notes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
@@ -213,10 +221,6 @@ Route::prefix('sales')->as('sales.')->group(function () {
         Route::post('/{creditNote}/send', [CreditNoteController::class, 'send'])
             ->middleware('permission:sales.credit_notes.edit')
             ->name('send');
-
-        Route::post('/{creditNote}/change-status', [CreditNoteController::class, 'changeStatus'])
-            ->middleware('permission:sales.credit_notes.edit')
-            ->name('change-status');
     });
 
     Route::prefix('delivery-challans')->as('delivery-challans.')->group(function () {

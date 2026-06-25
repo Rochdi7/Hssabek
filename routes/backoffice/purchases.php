@@ -219,9 +219,9 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
             ->middleware('permission:purchases.debit_notes.delete')
             ->name('destroy');
 
-        Route::post('/{debitNote}/apply', [DebitNoteController::class, 'apply'])
+        Route::post('/{debitNote}/void', [DebitNoteController::class, 'void'])
             ->middleware('permission:purchases.debit_notes.edit')
-            ->name('apply');
+            ->name('void');
 
         Route::get('/{debitNote}/download', [DebitNoteController::class, 'download'])
             ->middleware(['permission:purchases.debit_notes.view', 'plan.limit:exports_per_month', 'throttle:pdf-download'])
@@ -230,10 +230,6 @@ Route::prefix('purchases')->as('purchases.')->group(function () {
         Route::post('/{debitNote}/send', [DebitNoteController::class, 'send'])
             ->middleware('permission:purchases.debit_notes.edit')
             ->name('send');
-
-        Route::post('/{debitNote}/change-status', [DebitNoteController::class, 'changeStatus'])
-            ->middleware('permission:purchases.debit_notes.edit')
-            ->name('change-status');
     });
 
     // Supplier Payments

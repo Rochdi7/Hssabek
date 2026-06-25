@@ -8,8 +8,10 @@ use App\Models\Finance\Expense;
 use App\Models\Finance\Income;
 use App\Models\Inventory\ProductStock;
 use App\Models\Inventory\StockMovement;
+use App\Models\Purchases\DebitNote;
 use App\Models\Purchases\PurchaseOrder;
 use App\Models\Purchases\VendorBill;
+use App\Models\Sales\CreditNote;
 use App\Models\Sales\Invoice;
 use App\Models\Sales\Payment;
 use App\Services\Tenancy\TenantContext;
@@ -103,6 +105,10 @@ class ReportService
         [$page, $perPage] = $this->resolvePagination();
         return Cache::remember($this->cacheKey('sales', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
+            $creditNotesTotal = CreditNote::whereBetween('issue_date', [$from, $to])
+                ->where('status', '!=', 'void')
+                ->sum('total');
+
             $summary = Invoice::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'void')
                 ->selectRaw("
@@ -113,13 +119,36 @@ class ReportService
                 ")
                 ->first();
 
+            // Subtract credit notes from gross revenue
+            if ($summary) {
+                $summary->total_revenue = max(0, (float) $summary->total_revenue - (float) $creditNotesTotal);
+            }
+
             $monthExpr = $this->monthGroupExpression('issue_date');
-            $byMonth = Invoice::whereBetween('issue_date', [$from, $to])
+
+            // Gross invoice revenue by month
+            $byMonthRaw = Invoice::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'void')
                 ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as revenue")
                 ->groupBy('month')
                 ->orderBy('month')
-                ->get();
+                ->get()
+                ->keyBy('month');
+
+            // Credit notes by month to offset
+            $creditByMonth = CreditNote::whereBetween('issue_date', [$from, $to])
+                ->where('status', '!=', 'void')
+                ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as total")
+                ->groupBy('month')
+                ->get()
+                ->keyBy('month');
+
+            // Merge: net revenue per month
+            $byMonth = $byMonthRaw->map(function ($row) use ($creditByMonth) {
+                $credit = (float) ($creditByMonth->get($row->month)?->total ?? 0);
+                $row->revenue = max(0, (float) $row->revenue - $credit);
+                return $row;
+            })->values();
 
             $topCustomers = Invoice::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'void')
@@ -160,9 +189,15 @@ class ReportService
 
             $newCustomers = Customer::whereBetween('created_at', [$from, $to . ' 23:59:59'])->count();
 
-            $totalRevenue = Invoice::whereBetween('issue_date', [$from, $to])
+            $grossRevenue = (float) Invoice::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'void')
                 ->sum('total');
+
+            $creditNotesDeducted = (float) CreditNote::whereBetween('issue_date', [$from, $to])
+                ->where('status', '!=', 'void')
+                ->sum('total');
+
+            $totalRevenue = max(0, $grossRevenue - $creditNotesDeducted);
 
             $avgRevenue = $totalCustomers > 0
                 ? round($totalRevenue / $totalCustomers, 2)
@@ -213,9 +248,15 @@ class ReportService
 
         return Cache::remember($this->cacheKey('purchases', $from, $to, $page, $perPage), 300, function () use ($from, $to, $perPage) {
 
-            $totalPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
+            $grossPurchases = (float) VendorBill::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'void')
                 ->sum('total');
+
+            $debitNotesTotal = (float) DebitNote::whereBetween('debit_note_date', [$from, $to])
+                ->where('status', '!=', 'void')
+                ->sum('total');
+
+            $totalPurchases = max(0, $grossPurchases - $debitNotesTotal);
 
             $paidPurchases = VendorBill::whereBetween('issue_date', [$from, $to])
                 ->where('status', 'paid')
@@ -231,12 +272,28 @@ class ReportService
                 ->sum('total');
 
             $monthExpr = $this->monthGroupExpression('issue_date');
-            $purchasesByMonth = VendorBill::whereBetween('issue_date', [$from, $to])
+            $debitMonthExpr = $this->monthGroupExpression('debit_note_date');
+
+            $purchasesByMonthRaw = VendorBill::whereBetween('issue_date', [$from, $to])
                 ->where('status', '!=', 'void')
                 ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as total")
                 ->groupBy('month')
                 ->orderBy('month')
-                ->get();
+                ->get()
+                ->keyBy('month');
+
+            $debitByMonth = DebitNote::whereBetween('debit_note_date', [$from, $to])
+                ->where('status', '!=', 'void')
+                ->selectRaw("{$debitMonthExpr} as month, COALESCE(SUM(total), 0) as total")
+                ->groupBy('month')
+                ->get()
+                ->keyBy('month');
+
+            $purchasesByMonth = $purchasesByMonthRaw->map(function ($row) use ($debitByMonth) {
+                $debit = (float) ($debitByMonth->get($row->month)?->total ?? 0);
+                $row->total = max(0, (float) $row->total - $debit);
+                return $row;
+            })->values();
 
             $purchaseStatusBreakdown = VendorBill::whereBetween('issue_date', [$from, $to])
                 ->selectRaw("status, COUNT(*) as count")
@@ -328,15 +385,23 @@ class ReportService
             $ytdFrom = $now->copy()->startOfYear()->toDateString();
             $today   = $now->toDateString();
 
-            // Revenue MTD (non-void invoices)
-            $revenueMtd = Invoice::whereBetween('issue_date', [$mtdFrom, $today])
+            // Revenue MTD (non-void invoices minus non-void credit notes)
+            $revenueMtd = (float) Invoice::whereBetween('issue_date', [$mtdFrom, $today])
+                ->where('status', '!=', 'void')
+                ->sum('total')
+                - (float) CreditNote::whereBetween('issue_date', [$mtdFrom, $today])
                 ->where('status', '!=', 'void')
                 ->sum('total');
+            $revenueMtd = max(0, $revenueMtd);
 
             // Revenue YTD
-            $revenueYtd = Invoice::whereBetween('issue_date', [$ytdFrom, $today])
+            $revenueYtd = (float) Invoice::whereBetween('issue_date', [$ytdFrom, $today])
+                ->where('status', '!=', 'void')
+                ->sum('total')
+                - (float) CreditNote::whereBetween('issue_date', [$ytdFrom, $today])
                 ->where('status', '!=', 'void')
                 ->sum('total');
+            $revenueYtd = max(0, $revenueYtd);
 
             // Outstanding (unpaid invoices)
             $outstanding = Invoice::whereIn('status', self::OPEN_INVOICE_STATUSES)
@@ -384,13 +449,31 @@ class ReportService
                 ->get();
 
             $monthExpr = $this->monthGroupExpression('issue_date');
-            // Revenue last 12 months (line chart)
-            $revenueTrend = Invoice::where('issue_date', '>=', $now->copy()->subMonths(11)->startOfMonth())
+            $trendFrom = $now->copy()->subMonths(11)->startOfMonth();
+
+            // Revenue last 12 months (gross invoices)
+            $revenueTrendRaw = Invoice::where('issue_date', '>=', $trendFrom)
                 ->where('status', '!=', 'void')
                 ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as revenue")
                 ->groupBy('month')
                 ->orderBy('month')
-                ->get();
+                ->get()
+                ->keyBy('month');
+
+            // Credit notes last 12 months to offset
+            $creditTrend = CreditNote::where('issue_date', '>=', $trendFrom)
+                ->where('status', '!=', 'void')
+                ->selectRaw("{$monthExpr} as month, COALESCE(SUM(total), 0) as total")
+                ->groupBy('month')
+                ->get()
+                ->keyBy('month');
+
+            // Net revenue per month
+            $revenueTrend = $revenueTrendRaw->map(function ($row) use ($creditTrend) {
+                $credit = (float) ($creditTrend->get($row->month)?->total ?? 0);
+                $row->revenue = max(0, (float) $row->revenue - $credit);
+                return $row;
+            })->values();
 
             // Low stock alerts
             $lowStockCount = ProductStock::whereNotNull('reorder_point')

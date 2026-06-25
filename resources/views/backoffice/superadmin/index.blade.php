@@ -103,6 +103,22 @@
                             </div>
                         </div>
                     </div>
+                    <!-- row start (users) -->
+                    <div class="row mt-0">
+                        <div class="col-md-12 d-flex">
+                            <div class="card bg-light shadow-none flex-fill w-100 rounded-3">
+                                <div class="card-body p-3 d-flex align-items-center gap-3">
+                                    <div class="avatar avatar-xl bg-white rounded-3 flex-shrink-0">
+                                        <i class="isax isax-profile-2user fs-24 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1 text-gray-9">{{ __('Utilisateurs sur la plateforme') }}</p>
+                                        <h6 class="mb-0 fs-20 fw-semibold">{{ number_format($totalUsers) }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- row end -->
                 </div>
                 <!-- widget -->

@@ -45,7 +45,7 @@
 						<p class="h6 text-white mb-3">{{ __('Ressources') }}</p>
 						<ul>
 							<li><a href="{{ route('help-center') }}">{{ __("Centre d'aide") }}</a></li>
-							<li><a href="{{ route('support') }}">{{ __('Support') }}</a></li>
+							{{-- <li><a href="{{ route('support') }}">{{ __('Support') }}</a></li> --}}
 							<li><a href="{{ route('faq') }}">{{ __('FAQ') }}</a></li>
 						</ul>
 					</div>

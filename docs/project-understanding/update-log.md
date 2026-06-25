@@ -3,6 +3,23 @@
 > **Rule:** Append a new entry to this file after EVERY change to the project.
 > This file is the first thing to check before editing any module.
 
+## 2026-06-25 — Stock movements linked to Credit Notes & Debit Notes + movements index reference column
+
+- `app/Services/Purchases/DebitNoteService.php` — added `StockService` dependency; `create()` calls `deductStockOnce()` (return_out = goods leave to supplier); `update()` reverses then re-deducts; `void()` reverses via `reverseStockMovements()` (return_in to restore stock)
+- `resources/views/backoffice/inventory/movements/index.blade.php` — added "Référence" column with clickable badge linking to Invoice/CreditNote/DebitNote/VendorBill/StockTransfer; added `return_in`/`return_out` to filter dropdown and label switch
+
+## 2026-06-25 — Credit Note form: auto-fill from linked invoice + stock return on CN create/update/void
+
+- `database/migrations/2026_06_25_100001_add_product_fields_to_credit_note_items.php` — NEW: adds `product_id` (FK→products, nullOnDelete) and `invoice_item_id` (FK→invoice_items, nullOnDelete) to `credit_note_items`
+- `app/Models/Sales/CreditNoteItem.php` — added `product_id`, `invoice_item_id` to `$fillable`; added `product()` and `invoiceItem()` relationships
+- `app/Services/Sales/CreditNoteService.php` — `create()`/`update()` now persist `product_id`/`invoice_item_id` per item and call `returnStockOnce()`; `void()` calls `reverseStockMovements()`; added `StockService` constructor dependency
+- `app/Http/Controllers/Backoffice/Sales/CreditNoteController.php` — added `invoiceItems()` endpoint: returns invoice lines with per-item credited qty, remaining returnable qty, product info, for AJAX auto-populate
+- `routes/backoffice/sales.php` — added `GET /credit-notes/invoice-items/{invoice}` route (before wildcard)
+- `app/Http/Requests/Sales/Store/StoreCreditNoteRequest.php` — added `items.*.product_id` and `items.*.invoice_item_id` validation rules
+- `app/Http/Requests/Sales/Update/UpdateCreditNoteRequest.php` — same
+- `resources/views/backoffice/sales/credit-notes/create.blade.php` — added `fetchInvoiceItems()` JS: on invoice select, fetches lines, auto-fills customer, populates items table with original/credited/remaining qty per line, stock badge for tracked products; "add item" rows include hidden `product_id`/`invoice_item_id` inputs
+- `resources/views/backoffice/sales/credit-notes/edit.blade.php` — added `product_id`/`invoice_item_id` hidden inputs to existing item rows; added `fetchInvoiceItems()` JS (only fires on invoice change, not on page load — existing DB items already pre-filled); "add item" rows include hidden inputs
+
 ## 2026-06-24 — Hide tax/frais section; fix oversized logo in document forms
 - `resources/views/backoffice/sales/invoices/create.blade.php` — hide Taxe row + frais supplémentaires (d-none)
 - `resources/views/backoffice/sales/invoices/edit.blade.php` — same
@@ -525,3 +542,100 @@ None — documentation only.
 ### Feature — Measurement Line Items (2026-06-21)
 - Added `length`, `width`, `height`, `thickness` columns to `invoice_items` and `quote_items`
 - Supports `calculation_mode = measurement` for area/volume billing
+
+### Refactor — Credit Notes & Debit Notes: No-Draft Workflow (2026-06-25)
+
+**Goal:** Align Credit Notes (Avoirs) and Debit Notes with the same no-draft philosophy as invoices.
+
+**New status enum:** `active | applied | void` (removed `draft` and `issued`)
+
+**Business behaviour:**
+- Document created → immediately `active`, immediately applied to linked invoice/vendor bill
+- `void` action reverses all applications and restores linked document balances
+- Edit is allowed on `active` and `applied` notes; re-applies with new total
+- No manual "Issue" or "Apply" step required
+
+**Files changed:**
+- `database/migrations/2026_06_25_000001_simplify_credit_debit_note_statuses.php` — migrates existing `draft`/`issued` rows to `active`
+- `app/Services/Sales/CreditNoteService.php` — rewritten: create → active + auto-apply; update reverses & re-applies; void reverses
+- `app/Services/Purchases/DebitNoteService.php` — same pattern for purchase side
+- `app/Http/Controllers/Backoffice/Sales/CreditNoteController.php` — removed apply/changeStatus, added void action
+- `app/Http/Controllers/Backoffice/Purchases/DebitNoteController.php` — same
+- `routes/backoffice/sales.php` — removed apply/change-status routes, added void route
+- `routes/backoffice/purchases.php` — same
+- `app/Services/Reports/ReportService.php` — salesSummary and dashboardKpis now subtract non-void credit notes from revenue (revenueMtd, revenueYtd, total_revenue)
+- `resources/views/backoffice/sales/credit-notes/index.blade.php` — new badges (Actif/Appliqué/Annulé), updated filter dropdown
+- `resources/views/backoffice/sales/credit-notes/show.blade.php` — removed change-status modal & apply form; added Void button
+- `resources/views/backoffice/purchases/debit-notes/index.blade.php` — new badges, updated filter dropdown, fixed `total_amount` → `total`
+- `resources/views/backoffice/purchases/debit-notes/show.blade.php` — removed change-status modal & apply form; added Void button
+
+### Audit & Fix — Dashboard & Report Calculations After Credit Note / Debit Note Workflow Change (2026-06-25)
+
+**Audit scope:** All controllers, services, views, and exports that calculate revenue, purchases, or reference credit notes / debit notes.
+
+**Issues found and fixed:**
+
+1. **`DashboardController` — `$creditNotesTotal` widget (line 84)**
+   - Bug: `CreditNote::sum('total')` — no void filter, included cancelled notes
+   - Fix: Added `->where('status', '!=', 'void')` filter
+   - Impact: "Total Avoirs" card on dashboard now shows only effective credit notes
+
+2. **`ReportService::salesSummary()` — monthly revenue chart (`$byMonth`)**
+   - Bug: Showed gross invoice totals per month; credit notes not offset per-month
+   - Fix: Fetch credit notes grouped by month and subtract from each month's invoice total
+   - Impact: Sales report revenue chart now shows net revenue per month
+
+3. **`ReportService::customerSummary()` — total revenue KPI**
+   - Bug: `$totalRevenue` was gross invoice sum, not net of credit notes
+   - Fix: Compute `$grossRevenue - $creditNotesDeducted` (both with `status != void` filter)
+   - Impact: Customer report revenue summary now reflects credit notes
+
+4. **`ReportService::dashboardKpis()` — revenue trend chart (`$revenueTrend`)**
+   - Bug: 12-month revenue line chart used gross invoice totals without credit note offsets
+   - Fix: Fetch credit notes for last 12 months grouped by month; subtract per-month from invoice totals
+   - Impact: Dashboard revenue trend chart now shows net monthly revenue
+
+5. **`ReportService::purchaseSummary()` — total purchases KPI and monthly chart**
+   - Bug: `$totalPurchases` and `$purchasesByMonth` showed gross vendor bill totals without deducting debit notes
+   - Fix: Compute `grossPurchases - debitNotesTotal` (both non-void); same monthly offset for `purchasesByMonth`
+   - Import added: `use App\Models\Purchases\DebitNote;`
+   - Impact: Purchase report now shows net purchase costs after debit note adjustments
+
+**Calculations NOT changed (already correct):**
+- `dashboardKpis()` MTD/YTD revenue — already subtracts credit notes ✓
+- `salesSummary()` `total_revenue` summary card — already subtracts credit notes ✓
+- `InvoiceService::updatePaymentTotals()` — correctly sums `paymentAllocations + creditNoteApplications` ✓
+- `VendorBillService::updatePaymentTotals()` — correctly sums `supplierPaymentAllocations + debitNoteApplications` ✓
+- `financeSummary()` — uses `Income`/`Expense` models, not invoices; unaffected ✓
+- Export CSVs — export raw invoice/bill rows; per-row `amount_paid` and `amount_due` are already correct ✓
+- `outstandingTotal`, `overdueTotal`, `receivedTotal` — use `amount_due`/`amount_paid` columns which are kept up-to-date by service layer ✓
+
+**Files changed:**
+- `app/Http/Controllers/Backoffice/DashboardController.php`
+- `app/Services/Reports/ReportService.php`
+
+### Feature — Credit Note Form: Invoice Summary Panel & Over-Credit Validation (2026-06-25)
+
+**Goal:** When a user selects a linked invoice on the Credit Note create/edit form, show a live summary panel with invoice totals and prevent over-crediting.
+
+**Changes:**
+
+**Route added — `routes/backoffice/sales.php`**
+- `GET /credit-notes/invoice-summary/{invoice}` → `CreditNoteController::invoiceSummary()` (placed before `/{creditNote}` wildcard to avoid conflict)
+
+**Controller — `app/Http/Controllers/Backoffice/Sales/CreditNoteController.php`**
+- Added `invoiceSummary(Invoice $invoice)` method: returns JSON with `invoice_number`, `customer_name`, `total`, `amount_paid` (payments only), `amount_credited` (non-void credit note applications), `amount_due`, `currency`
+- Added `use App\Models\Finance\Currency;` import
+- Edit action: added `applications` to eager load (`$creditNote->load(['items', 'applications'])`) so edit view can compute own prior application amount
+
+**Form Requests — server-side over-credit guard**
+- `app/Http/Requests/Sales/Store/StoreCreditNoteRequest.php`: added closure validator on `items` that computes credit total from submitted line items and rejects if `creditTotal > invoice.amount_due + 0.01`
+- `app/Http/Requests/Sales/Update/UpdateCreditNoteRequest.php`: same guard, but adds back the credit note's own prior application to `amount_due` before comparing (so editing within original allocation is allowed)
+
+**Views — `resources/views/backoffice/sales/credit-notes/create.blade.php` and `edit.blade.php`**
+- Helper text updated: "Optionnel. Si vous liez cet avoir à une facture, le montant de l'avoir sera appliqué automatiquement et réduira le reste à payer de cette facture."
+- Invoice summary panel added (hidden by default, shown on invoice select): Total facture / Déjà payé / Déjà crédité / Reste à payer / Cet avoir / Reste après avoir
+- Over-credit warning alert added (shown when credit note total > invoice amount_due)
+- Submit button disabled client-side when over-credit detected
+- JS: `fetchInvoiceSummary()` fetches from new endpoint on invoice change; `recalcWithSummary()` wraps existing `recalc()` to update panel live on any item/tax/discount change
+- Edit view: `ownCreditApplication` computed from `$creditNote->applications` to correctly show effective remaining due (restores own prior application before comparing)

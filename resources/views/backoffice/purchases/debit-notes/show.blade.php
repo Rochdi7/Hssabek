@@ -11,15 +11,17 @@
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
                             <h6><a href="{{ route('bo.purchases.debit-notes.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Notes de débit') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('bo.purchases.debit-notes.download', $debitNote) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
-                                <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
-                                    data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
-                                    <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
-                                </button>
-                                @if($debitNote->status === 'draft')
-                                    <a href="{{ route('bo.purchases.debit-notes.edit', $debitNote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
-                                @endif
-                                @if(in_array($debitNote->status, ['draft', 'issued']))
+                                <a href="{{ route('bo.purchases.debit-notes.download', $debitNote) }}" target="_blank"
+                                    class="btn btn-outline-white d-inline-flex align-items-center me-3">
+                                    <i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}
+                                </a>
+
+                                @if($debitNote->status !== 'void')
+                                    <a href="{{ route('bo.purchases.debit-notes.edit', $debitNote) }}"
+                                        class="btn btn-outline-white d-inline-flex align-items-center me-3">
+                                        <i class="isax isax-edit me-1"></i>{{ __('Modifier') }}
+                                    </a>
+
                                     <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
                                         data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
                                         data-send-url="{{ route('bo.purchases.debit-notes.send', $debitNote) }}"
@@ -29,13 +31,35 @@
                                         data-download-url="{{ route('bo.purchases.debit-notes.download', $debitNote) }}">
                                         <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}
                                     </button>
+
+                                    <form method="POST" action="{{ route('bo.purchases.debit-notes.void', $debitNote) }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-warning d-inline-flex align-items-center me-3"
+                                            onclick="return confirm('{{ __("Annuler cette note de débit ? Cette action rétablit le solde de la facture fournisseur liée.") }}')">
+                                            <i class="isax isax-close-circle me-1"></i>{{ __('Annuler la note') }}
+                                        </button>
+                                    </form>
                                 @endif
+
+                                <form method="POST" action="{{ route('bo.purchases.debit-notes.destroy', $debitNote) }}">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
+                                        onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer cette note de débit ?") }}')">
+                                        <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}
+                                    </button>
+                                </form>
                             </div>
                         </div>
 
                         @if(session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         @endif
@@ -51,10 +75,9 @@
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $debitNote->number }}</h6>
                                                     <p>
                                                         @switch($debitNote->status)
-                                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
-                                                            @case('sent') <span class="badge badge-soft-info">{{ __('Envoyée') }}</span> @break
+                                                            @case('active')  <span class="badge badge-soft-info">{{ __('Active') }}</span>     @break
                                                             @case('applied') <span class="badge badge-soft-success">{{ __('Appliquée') }}</span> @break
-                                                            @case('void') <span class="badge badge-soft-danger">{{ __('Annulée') }}</span> @break
+                                                            @case('void')    <span class="badge badge-soft-danger">{{ __('Annulée') }}</span>    @break
                                                         @endswitch
                                                     </p>
                                                 </div>
@@ -65,10 +88,10 @@
                                         <div class="col-lg-4">
                                             <div>
                                                 <h6 class="mb-2 fs-16 fw-semibold">{{ __('Détails') }}</h6>
-                                                <p class="mb-1">{{ __('N° Note :') }}<span class="text-dark">{{ $debitNote->number }}</span></p>
-                                                <p class="mb-1">{{ __('Date :') }}<span class="text-dark">{{ $debitNote->debit_note_date?->format('d/m/Y') }}</span></p>
+                                                <p class="mb-1">{{ __('N° Note :') }} <span class="text-dark">{{ $debitNote->number }}</span></p>
+                                                <p class="mb-1">{{ __('Date :') }} <span class="text-dark">{{ $debitNote->debit_note_date?->format('d/m/Y') }}</span></p>
                                                 @if($debitNote->vendorBill)
-                                                    <p class="mb-1">{{ __('Facture fournisseur :') }}<span class="text-dark">{{ $debitNote->vendorBill->number }}</span></p>
+                                                    <p class="mb-1">{{ __('Facture fournisseur :') }} <span class="text-dark">{{ $debitNote->vendorBill->number }}</span></p>
                                                 @endif
                                             </div>
                                         </div>
@@ -81,7 +104,7 @@
                                         <div class="col-lg-4">
                                             <div>
                                                 <h6 class="mb-2 fs-16 fw-semibold">{{ __('Total') }}</h6>
-                                                <p class="mb-1">{{ __('Total :') }}<span class="text-dark fw-semibold">{{ number_format($debitNote->total, 2, ',', ' ') }} {{ $debitNote->currency }}</span></p>
+                                                <p class="mb-1">{{ __('Total :') }} <span class="text-dark fw-semibold">{{ number_format($debitNote->total, 2, ',', ' ') }} {{ $debitNote->currency }}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +130,7 @@
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $item->label ?? $item->product?->name ?? '—' }}</td>
                                                             <td>{{ $item->quantity }}</td>
-                                                            <td>{{ number_format($item->unit_price ?? 0, 2, ',', ' ') }}</td>
+                                                            <td>{{ number_format($item->unit_cost ?? 0, 2, ',', ' ') }}</td>
                                                             <td class="fw-semibold">{{ number_format($item->line_total ?? 0, 2, ',', ' ') }}</td>
                                                         </tr>
                                                     @endforeach
@@ -156,52 +179,25 @@
 
                                 @if($debitNote->applications->count() > 0)
                                     <div class="mb-3">
-                                        <h6 class="mb-3">{{ __('Applications') }}</h6>
+                                        <h6 class="mb-3">{{ __('Imputation sur factures fournisseur') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                             <table class="table m-0">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
                                                         <th>{{ __('Facture fournisseur') }}</th>
-                                                        <th>{{ __('Montant appliqué') }}</th>
+                                                        <th>{{ __('Montant imputé') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach($debitNote->applications as $app)
                                                         <tr>
                                                             <td>{{ $app->vendorBill->number ?? '—' }}</td>
-                                                            <td class="text-success">{{ number_format($app->amount_applied, 2, ',', ' ') }}</td>
+                                                            <td class="text-success fw-semibold">-{{ number_format($app->amount_applied, 2, ',', ' ') }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                @endif
-
-                                @if(in_array($debitNote->status, ['draft', 'issued']))
-                                    <div class="border-top pt-3">
-                                        <h6 class="mb-3">{{ __('Appliquer la note de débit à une facture fournisseur') }}</h6>
-                                        <form action="{{ route('bo.purchases.debit-notes.apply', $debitNote) }}" method="POST">
-                                            @csrf
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">{{ __('Facture fournisseur') }}</label>
-                                                    <select name="allocations[0][vendor_bill_id]" class="form-select" required>
-                                                        <option value="">{{ __('Sélectionner une facture') }}</option>
-                                                        @foreach(\App\Models\Purchases\VendorBill::where('supplier_id', $debitNote->supplier_id)->where('amount_due', '>', 0)->get() as $bill)
-                                                            <option value="{{ $bill->id }}">{{ $bill->number }} — {{ __('Restant') }} : {{ number_format($bill->amount_due, 2, ',', ' ') }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="form-label">{{ __('Montant à appliquer') }}</label>
-                                                    <input type="number" name="allocations[0][amount_applied]" class="form-control" min="0.01" step="0.01" max="{{ $debitNote->total - $debitNote->applications->sum('amount_applied') }}" required>
-                                                </div>
-                                                <div class="col-md-2 d-flex align-items-end">
-                                                    <button type="submit" class="btn btn-primary w-100">{{ __('Appliquer') }}</button>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </div>
                                 @endif
 
@@ -216,72 +212,31 @@
         </div>
     </div>
 
-    {{-- Modal Changer Statut --}}
-    <div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut de la note de débit') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
-                </div>
-                <form method="POST" action="{{ route('bo.purchases.debit-notes.change-status', $debitNote) }}">
-                    @csrf
-                    <div class="modal-body">
-                        <p class="text-muted mb-3">{{ __('Statut actuel :') }}
-                            <strong>
-                                @switch($debitNote->status)
-                                    @case('draft') {{ __('Brouillon') }} @break
-                                    @case('issued') {{ __('Émis') }} @break
-                                    @case('applied') {{ __('Appliqué') }} @break
-                                    @case('void') {{ __('Annulé') }} @break
-                                @endswitch
-                            </strong>
-                        </p>
-                        <div class="mb-3">
-                            <label class="form-label">{{ __('Nouveau statut') }}</label>
-                            <select name="status" class="form-select" required>
-                                <option value="draft" @selected($debitNote->status === 'draft')>{{ __('Brouillon') }}</option>
-                                <option value="issued" @selected($debitNote->status === 'issued')>{{ __('Émis') }}</option>
-                                <option value="applied" @selected($debitNote->status === 'applied')>{{ __('Appliqué') }}</option>
-                                <option value="void" @selected($debitNote->status === 'void')>{{ __('Annulé') }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
-                    </div>
-                </form>
+{{-- Modal Envoyer --}}
+<div class="modal fade" id="modalEnvoyer" tabindex="-1" aria-labelledby="modalEnvoyerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEnvoyerLabel">{{ __('Envoyer le document') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
             </div>
-        </div>
-    </div>
-
-    {{-- Modal Envoyer --}}
-    <div class="modal fade" id="modalEnvoyer" tabindex="-1" aria-labelledby="modalEnvoyerLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalEnvoyerLabel">{{ __('Envoyer le document') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-muted mb-4">{{ __('Choisissez le moyen d\'envoi :') }}</p>
-                    <div class="d-grid gap-3">
-                        <form id="formEnvoyerEmail" method="POST" action="">
-                            @csrf
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="isax isax-sms me-2"></i>{{ __('Envoyer par Email') }}
-                            </button>
-                        </form>
-                        <a id="btnWhatsApp" href="#" target="_blank" rel="noopener noreferrer"
-                            class="btn btn-success w-100">
-                            <i class="isax isax-message me-2"></i>{{ __('Envoyer par WhatsApp') }}
-                        </a>
-                    </div>
+            <div class="modal-body">
+                <p class="text-muted mb-4">{{ __('Choisissez le moyen d\'envoi :') }}</p>
+                <div class="d-grid gap-3">
+                    <form id="formEnvoyerEmail" method="POST" action="">
+                        @csrf
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="isax isax-sms me-2"></i>{{ __('Envoyer par Email') }}
+                        </button>
+                    </form>
+                    <a id="btnWhatsApp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-success w-100">
+                        <i class="isax isax-message me-2"></i>{{ __('Envoyer par WhatsApp') }}
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 @push('scripts')
 <script>
