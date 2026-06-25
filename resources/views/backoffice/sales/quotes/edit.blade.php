@@ -373,8 +373,23 @@
                                         <textarea name="terms" class="d-none" readonly>{{ $defaultTerms }}</textarea>
                                         <div class="col-12 col-md-7">
                                             <div class="mb-3">
-                                                <label class="form-label">{{ __('Addition') }} <small class="text-muted fw-normal">({{ __('Chantier, référence projet...') }})</small></label>
-                                                <input type="text" class="form-control" name="addition" value="{{ old('addition', ($quote->bill_to_snapshot['addition'] ?? '')) }}" placeholder="{{ __('ex: Chantier villa riad al menzeh meknes') }}">
+                                                <h6 class="mb-3">{{ __('Informations supplémentaires') }}</h6>
+                                                <div>
+                                                    <ul class="nav nav-tabs nav-solid-primary mb-3" role="tablist">
+                                                        <li class="nav-item me-2" role="presentation">
+                                                            <a class="nav-link active border fs-12 fw-semibold rounded"
+                                                                data-bs-toggle="tab" data-bs-target="#addition-tab"
+                                                                aria-current="page" href="javascript:void(0);"><i
+                                                                    class="isax isax-building me-1"></i>{{ __('Addition') }}</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active show" id="addition-tab" role="tabpanel">
+                                                            <label class="form-label">{{ __('Addition') }} <small class="text-muted fw-normal">({{ __('Chantier, référence projet...') }})</small></label>
+                                                            <input type="text" class="form-control" name="addition" value="{{ old('addition', ($quote->bill_to_snapshot['addition'] ?? '')) }}" placeholder="{{ __('ex: Chantier villa riad al menzeh meknes') }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div><!-- end col -->
                                         <div class="col-12 col-md-5">
