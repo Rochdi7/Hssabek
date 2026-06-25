@@ -76,8 +76,8 @@
                     <div class="alert {{ $alertClass }} alert-dismissible fade show d-flex align-items-start" role="alert">
                         <i class="isax {{ $iconClass }} fs-20 me-2 mt-1 flex-shrink-0"></i>
                         <div>
-                            <strong>{{ $announcement->title }}</strong>
-                            <p class="mb-0 mt-1">{{ $announcement->content }}</p>
+                            <strong>{{ $announcement->localizedTitle() }}</strong>
+                            <div class="mb-0 mt-1">{!! $announcement->localizedContent() !!}</div>
                             <small class="text-muted">{{ $announcement->published_at?->translatedFormat('d M Y') }}</small>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
