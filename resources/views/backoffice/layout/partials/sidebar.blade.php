@@ -217,6 +217,11 @@
                                                 class="isax isax-directbox-notif"></i><span>{{ __('Newsletter') }}</span>
                                         </a>
                                     </li>
+                                    <li class="{{ request()->routeIs('sa.campaign.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.campaign.compose') }}">
+                                            <i class="isax isax-send-2"></i><span>{{ __('Campagne Email') }}</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

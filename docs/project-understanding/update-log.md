@@ -644,3 +644,15 @@ None — documentation only.
 - Submit button disabled client-side when over-credit detected
 - JS: `fetchInvoiceSummary()` fetches from new endpoint on invoice change; `recalcWithSummary()` wraps existing `recalc()` to update panel live on any item/tax/discount change
 - Edit view: `ownCreditApplication` computed from `$creditNote->applications` to correctly show effective remaining due (restores own prior application before comparing)
+
+
+## 2026-06-25 — SuperAdmin: Créer compte + Campagne Email tenants
+
+### Nouvelles fonctionnalités
+- `app/Console/Commands/CreateSuperAdminCommand.php` — commande `superadmin:create <email>` pour créer/promouvoir un utilisateur super admin (tenant_id=null + rôle super_admin)
+- Compte `rochdi.karouali1234@gmail.com` créé et promu super admin via la commande
+- `app/Http/Controllers/SuperAdmin/CampaignEmailController.php` — compose + send + export CSV des emails tenant
+- `routes/superadmin/campaign.php` — routes `sa.campaign.compose / send / export`
+- `resources/views/backoffice/superadmin/campaign/compose.blade.php` — page de campagne avec sélection des destinataires, éditeur Summernote, export CSV
+- `routes/web.php` — ajout `require campaign.php`
+- Sidebar : lien "Campagne Email" ajouté dans section Communication
