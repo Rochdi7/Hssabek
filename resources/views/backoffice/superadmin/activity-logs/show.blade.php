@@ -109,14 +109,40 @@
                             <h6 class="card-title mb-0">{{ __('Propriétés') }}</h6>
                         </div>
                         <div class="card-body">
-                            @if ($activityLog->properties && count($activityLog->properties) > 0)
+                            @php
+                                $props = $activityLog->properties ?? [];
+                                // Flatten: if properties has an 'attributes' key, show its contents directly
+                                $displayProps = (isset($props['attributes']) && is_array($props['attributes']))
+                                    ? $props['attributes']
+                                    : $props;
+                                // Also collect any other top-level keys besides 'attributes'/'old'
+                                $extraProps = array_filter($props, fn($k) => !in_array($k, ['attributes', 'old']), ARRAY_FILTER_USE_KEY);
+                                $oldProps = $props['old'] ?? null;
+                            @endphp
+                            @if (count($displayProps) > 0 || count($extraProps) > 0)
                                 <div class="table-responsive">
                                     <table class="table table-sm table-borderless mb-0">
                                         <tbody>
-                                            @foreach ($activityLog->properties as $key => $value)
+                                            @foreach ($displayProps as $key => $value)
                                                 <tr>
-                                                    <td class="fw-medium text-muted" style="width: 40%;">{{ $key }}</td>
-                                                    <td>
+                                                    <td class="fw-medium text-muted" style="width: 40%; vertical-align: top;">{{ $key }}</td>
+                                                    <td class="fs-13">
+                                                        @if (is_array($value) || is_object($value))
+                                                            <pre class="mb-0 fs-12 bg-light p-2 rounded">{{ json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+                                                        @elseif (is_null($value))
+                                                            <span class="text-muted">null</span>
+                                                        @elseif (is_bool($value))
+                                                            <span class="badge badge-soft-{{ $value ? 'success' : 'secondary' }}">{{ $value ? 'true' : 'false' }}</span>
+                                                        @else
+                                                            {{ $value }}
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            @foreach ($extraProps as $key => $value)
+                                                <tr>
+                                                    <td class="fw-medium text-muted" style="width: 40%; vertical-align: top;">{{ $key }}</td>
+                                                    <td class="fs-13">
                                                         @if (is_array($value) || is_object($value))
                                                             <pre class="mb-0 fs-12 bg-light p-2 rounded">{{ json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
                                                         @else
@@ -128,6 +154,29 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @if ($oldProps && is_array($oldProps) && count($oldProps) > 0)
+                                    <div class="mt-3">
+                                        <p class="fw-medium text-muted mb-2 fs-13">{{ __('Valeurs précédentes') }}</p>
+                                        <table class="table table-sm table-borderless mb-0">
+                                            <tbody>
+                                                @foreach ($oldProps as $key => $value)
+                                                    <tr>
+                                                        <td class="fw-medium text-muted" style="width: 40%; vertical-align: top;">{{ $key }}</td>
+                                                        <td class="fs-13 text-danger">
+                                                            @if (is_array($value) || is_object($value))
+                                                                <pre class="mb-0 fs-12 bg-light p-2 rounded">{{ json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+                                                            @elseif (is_null($value))
+                                                                <span class="text-muted">null</span>
+                                                            @else
+                                                                {{ $value }}
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
                             @else
                                 <p class="text-muted text-center mb-0">{{ __('Aucune propriété enregistrée.') }}</p>
                             @endif

@@ -79,7 +79,37 @@
                                                                 @error('invoice_id')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
-                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>{{ __('Optionnel. Pour lier cet avoir à une facture,') }} <a href="{{ route('bo.sales.invoices.create') }}">{{ __('créez d\'abord une facture') }}</a>.</small>
+                                                                <small class="text-muted d-block mt-1"><i class="isax isax-info-circle me-1"></i>{{ __('Optionnel. Si vous liez cet avoir à une facture, le montant de l\'avoir sera appliqué automatiquement et réduira le reste à payer de cette facture.') }}</small>
+                                                                <!-- Invoice summary panel -->
+                                                                <div id="invoice-summary-panel" class="d-none mt-2 p-3 border rounded bg-light">
+                                                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                                                        <small class="text-muted fw-semibold">{{ __('Total facture') }}</small>
+                                                                        <small class="fw-semibold" id="inv-total">—</small>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                                                        <small class="text-muted">{{ __('Déjà payé') }}</small>
+                                                                        <small class="text-success" id="inv-paid">—</small>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                                                        <small class="text-muted">{{ __('Déjà crédité') }}</small>
+                                                                        <small class="text-info" id="inv-credited">—</small>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center justify-content-between border-top pt-1 mt-1">
+                                                                        <small class="fw-semibold">{{ __('Reste à payer') }}</small>
+                                                                        <small class="fw-semibold text-danger" id="inv-due">—</small>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center justify-content-between mt-1">
+                                                                        <small class="fw-semibold">{{ __('Cet avoir') }}</small>
+                                                                        <small class="fw-semibold text-primary" id="inv-this-credit">0,00</small>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center justify-content-between border-top pt-1 mt-1">
+                                                                        <small class="fw-semibold">{{ __('Reste après avoir') }}</small>
+                                                                        <small class="fw-semibold" id="inv-after">—</small>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="over-credit-warning" class="d-none alert alert-warning py-1 px-2 mt-2 mb-0 fs-12">
+                                                                    <i class="isax isax-warning-2 me-1"></i>{{ __('Le montant de l\'avoir dépasse le reste à payer. Veuillez réduire le montant.') }}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -263,6 +293,8 @@
                                             </thead>
                                             <tbody class="add-tbody">
                                                 <tr class="item-row">
+                                                    <input type="hidden" name="items[0][product_id]" value="{{ old('items.0.product_id') }}">
+                                                    <input type="hidden" name="items[0][invoice_item_id]" value="{{ old('items.0.invoice_item_id') }}">
                                                     <td>
                                                         <input type="text" name="items[0][label]"
                                                             class="form-control item-label"
@@ -460,6 +492,8 @@
                 }
 
                 row.innerHTML = `
+                    <input type="hidden" name="items[${itemIndex}][product_id]" value="">
+                    <input type="hidden" name="items[${itemIndex}][invoice_item_id]" value="">
                     <td><input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Libellé') }}" required></td>
                     <td><input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" required></td>
                     <td><input type="number" name="items[${itemIndex}][unit_price]" class="form-control item-price" value="0" min="0" step="0.01" required></td>
@@ -570,6 +604,268 @@
 
             /* ---- Initial calc ---- */
             recalc();
+
+            /* ================================================================
+             * Invoice Summary — fetch on invoice select, live update on recalc
+             * ================================================================ */
+            const invoiceSelect   = document.querySelector('select[name="invoice_id"]');
+            const summaryPanel    = document.getElementById('invoice-summary-panel');
+            const overCreditWarn  = document.getElementById('over-credit-warning');
+            const submitBtn       = document.querySelector('#credit-note-form button[type="submit"]');
+
+            let invoiceData = null; // cached data from server
+
+            const summaryFields = {
+                total:    document.getElementById('inv-total'),
+                paid:     document.getElementById('inv-paid'),
+                credited: document.getElementById('inv-credited'),
+                due:      document.getElementById('inv-due'),
+                thisCredit: document.getElementById('inv-this-credit'),
+                after:    document.getElementById('inv-after'),
+            };
+
+            function fmtCur(n, currency) {
+                return n.toFixed(2).replace('.', ',') + ' ' + (currency || '');
+            }
+
+            function updateSummaryPanel(creditTotal) {
+                if (!invoiceData) return;
+
+                const due   = invoiceData.amount_due;
+                const after = Math.max(0, due - creditTotal);
+                const over  = creditTotal > due + 0.01;
+
+                summaryFields.total.textContent    = fmtCur(invoiceData.total, invoiceData.currency);
+                summaryFields.paid.textContent     = fmtCur(invoiceData.amount_paid, invoiceData.currency);
+                summaryFields.credited.textContent = fmtCur(invoiceData.amount_credited, invoiceData.currency);
+                summaryFields.due.textContent      = fmtCur(due, invoiceData.currency);
+                summaryFields.thisCredit.textContent = fmtCur(creditTotal, invoiceData.currency);
+                summaryFields.after.textContent    = fmtCur(after, invoiceData.currency);
+
+                summaryFields.after.className = over ? 'fw-semibold text-danger' : 'fw-semibold text-success';
+                overCreditWarn.classList.toggle('d-none', !over);
+                if (submitBtn) submitBtn.disabled = over;
+            }
+
+            function fetchInvoiceSummary(invoiceId) {
+                if (!invoiceId) {
+                    invoiceData = null;
+                    summaryPanel.classList.add('d-none');
+                    overCreditWarn.classList.add('d-none');
+                    if (submitBtn) submitBtn.disabled = false;
+                    return;
+                }
+
+                const url = '{{ route("bo.sales.credit-notes.invoice-summary", ":id") }}'.replace(':id', invoiceId);
+                fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' } })
+                    .then(r => r.ok ? r.json() : null)
+                    .then(data => {
+                        if (!data) return;
+                        invoiceData = data;
+                        summaryPanel.classList.remove('d-none');
+                        // Compute current credit total from form
+                        let subtotal = 0, taxTotal = 0;
+                        const enableTax = document.getElementById('enable_tax')?.checked;
+                        document.querySelectorAll('#items-table .item-row').forEach(function(row) {
+                            const qty   = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+                            const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+                            const rate  = enableTax ? (parseFloat(row.querySelector('.item-tax')?.selectedOptions[0]?.dataset.rate) || 0) : 0;
+                            const line  = qty * price;
+                            subtotal += line;
+                            taxTotal += line * rate / 100;
+                        });
+                        const discount = parseFloat(document.getElementById('global-discount')?.value) || 0;
+                        updateSummaryPanel(Math.max(0, subtotal + taxTotal - discount));
+                    })
+                    .catch(() => {});
+            }
+
+            // Patch recalc to also update the panel
+            const origRecalc = recalc;
+            function recalcWithSummary() {
+                let subtotal = 0, taxTotal = 0;
+                const enableTax = document.getElementById('enable_tax')?.checked;
+                document.querySelectorAll('#items-table .item-row').forEach(function(row) {
+                    const qty   = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+                    const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+                    const rate  = enableTax ? (parseFloat(row.querySelector('.item-tax')?.selectedOptions[0]?.dataset.rate) || 0) : 0;
+                    const line  = qty * price;
+                    subtotal += line;
+                    taxTotal += line * rate / 100;
+                });
+                const discount = parseFloat(document.getElementById('global-discount')?.value) || 0;
+                const total = Math.max(0, subtotal + taxTotal - discount);
+                origRecalc();
+                if (invoiceData) updateSummaryPanel(total);
+            }
+
+            // Override all recalc triggers to use the enhanced version
+            tbody.removeEventListener('input', recalc);
+            tbody.removeEventListener('change', recalc);
+            document.getElementById('global-discount')?.removeEventListener('input', recalc);
+            document.getElementById('enable_tax')?.removeEventListener('change', recalc);
+
+            tbody.addEventListener('input', recalcWithSummary);
+            tbody.addEventListener('change', recalcWithSummary);
+            document.getElementById('global-discount')?.addEventListener('input', recalcWithSummary);
+            document.getElementById('enable_tax')?.addEventListener('change', recalcWithSummary);
+
+            /* ================================================================
+             * Invoice Items — auto-populate the lines table when invoice is picked
+             * ================================================================ */
+            const invoiceItemsUrlTemplate = '{{ route("bo.sales.credit-notes.invoice-items", ":id") }}';
+            const customerSelect = document.querySelector('select[name="customer_id"]');
+
+            function buildTaxOptions() {
+                let opts = '<option value="" data-rate="0" data-type="">0%</option>';
+                if (taxCategories.length) {
+                    opts += '<optgroup label="{{ __('Taux de taxes') }}">';
+                    taxCategories.forEach(tc => {
+                        opts += `<option value="cat_${tc.id}" data-rate="${tc.rate}" data-type="category">${tc.name} (${tc.rate}%)</option>`;
+                    });
+                    opts += '</optgroup>';
+                }
+                if (taxGroups.length) {
+                    opts += '<optgroup label="{{ __('Groupes de taxes') }}">';
+                    taxGroups.forEach(tg => {
+                        const rate = tg.rates ? tg.rates.reduce((sum, r) => sum + parseFloat(r.rate), 0) : 0;
+                        opts += `<option value="${tg.id}" data-rate="${rate}" data-type="group">${tg.name} (${rate}%)</option>`;
+                    });
+                    opts += '</optgroup>';
+                }
+                return opts;
+            }
+
+            function buildInvoiceItemRow(item, idx) {
+                const taxOpts = buildTaxOptions();
+                const taxRate = item.tax_rate || 0;
+                const isTaxEnabled = document.getElementById('enable_tax')?.checked;
+
+                // Find the tax option that matches item.tax_rate (by data-rate) — select closest
+                const trackedBadge = item.is_tracked
+                    ? `<span class="badge badge-soft-success ms-1" title="{{ __('Stock géré') }}"><i class="isax isax-box-1"></i></span>`
+                    : '';
+
+                const qtyInfo = item.remaining_qty <= 0
+                    ? `<div class="text-danger fs-11">{{ __('Tout crédité') }}</div>`
+                    : `<div class="text-muted fs-11">{{ __('Max') }}: ${item.remaining_qty}</div>`;
+
+                return `
+                <tr class="item-row">
+                    <input type="hidden" name="items[${idx}][product_id]" value="${item.product_id || ''}">
+                    <input type="hidden" name="items[${idx}][invoice_item_id]" value="${item.invoice_item_id || ''}">
+                    <td>
+                        <input type="text" name="items[${idx}][label]" class="form-control item-label"
+                            value="${escHtml(item.label)}" placeholder="{{ __('Libellé') }}" required>
+                        ${trackedBadge}
+                        ${qtyInfo}
+                    </td>
+                    <td>
+                        <input type="number" name="items[${idx}][quantity]"
+                            class="form-control item-qty"
+                            value="${item.remaining_qty > 0 ? item.remaining_qty : 0}"
+                            max="${item.remaining_qty}"
+                            min="0" step="0.001"
+                            ${item.remaining_qty <= 0 ? 'disabled' : ''}>
+                    </td>
+                    <td>
+                        <input type="number" name="items[${idx}][unit_price]" class="form-control item-price"
+                            value="${item.unit_price}" min="0" step="0.01">
+                    </td>
+                    <td class="tax-col" style="${isTaxEnabled ? '' : 'display:none'}">
+                        <select name="items[${idx}][tax_group_id]" class="form-select item-tax"
+                            data-prefill-rate="${taxRate}">
+                            ${taxOpts}
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control item-total" value="0,00" readonly></td>
+                    <td><a href="javascript:void(0);" class="text-danger remove-item"><i class="isax isax-close-circle"></i></a></td>
+                </tr>`;
+            }
+
+            function escHtml(str) {
+                const d = document.createElement('div');
+                d.textContent = str || '';
+                return d.innerHTML;
+            }
+
+            function selectTaxByRate(select, rate) {
+                // Try to find an option whose data-rate matches
+                for (const opt of select.options) {
+                    if (Math.abs(parseFloat(opt.dataset.rate || 0) - rate) < 0.01) {
+                        select.value = opt.value;
+                        return;
+                    }
+                }
+                // Fallback: pick the first (0%)
+                select.selectedIndex = 0;
+            }
+
+            function fetchInvoiceItems(invoiceId) {
+                if (!invoiceId) return;
+
+                const url = invoiceItemsUrlTemplate.replace(':id', invoiceId);
+                fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' } })
+                    .then(r => r.ok ? r.json() : null)
+                    .then(data => {
+                        if (!data) return;
+
+                        // Auto-fill customer (must use jQuery trigger so Select2 updates its display)
+                        if (customerSelect && data.customer_id) {
+                            if (window.jQuery) {
+                                jQuery(customerSelect).val(data.customer_id).trigger('change');
+                            } else {
+                                customerSelect.value = data.customer_id;
+                            }
+                        }
+
+                        // Replace items table rows with invoice lines
+                        if (!data.items || !data.items.length) return;
+
+                        tbody.innerHTML = '';
+                        itemIndex = 0;
+                        data.items.forEach(item => {
+                            tbody.insertAdjacentHTML('beforeend', buildInvoiceItemRow(item, itemIndex));
+                            itemIndex++;
+                        });
+
+                        // Set tax rate selections after DOM is ready
+                        tbody.querySelectorAll('.item-tax[data-prefill-rate]').forEach(sel => {
+                            const rate = parseFloat(sel.dataset.prefillRate || 0);
+                            selectTaxByRate(sel, rate);
+                        });
+
+                        // Ensure tax column visibility is consistent
+                        const isTaxEnabled = document.getElementById('enable_tax')?.checked;
+                        tbody.querySelectorAll('.tax-col').forEach(el => {
+                            el.style.display = isTaxEnabled ? '' : 'none';
+                        });
+
+                        recalcWithSummary();
+                    })
+                    .catch(() => {});
+            }
+
+            if (invoiceSelect) {
+                // Select2 does not fire native change — use jQuery select2:select + change
+                if (window.jQuery) {
+                    jQuery(invoiceSelect).on('select2:select select2:unselect change', function() {
+                        const val = jQuery(this).val();
+                        fetchInvoiceSummary(val);
+                        fetchInvoiceItems(val);
+                    });
+                } else {
+                    invoiceSelect.addEventListener('change', function() {
+                        fetchInvoiceSummary(this.value);
+                        fetchInvoiceItems(this.value);
+                    });
+                }
+                // Load on page load if invoice already selected (e.g. old() after validation failure)
+                if (invoiceSelect.value) {
+                    fetchInvoiceSummary(invoiceSelect.value);
+                    fetchInvoiceItems(invoiceSelect.value);
+                }
+            }
         });
     </script>
 @endpush

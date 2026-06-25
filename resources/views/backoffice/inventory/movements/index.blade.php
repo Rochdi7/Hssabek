@@ -125,6 +125,14 @@
                                             {{ __('Vente') }}
                                         @break
 
+                                        @case('return_in')
+                                            {{ __('Retour +') }}
+                                        @break
+
+                                        @case('return_out')
+                                            {{ __('Retour -') }}
+                                        @break
+
                                         @default
                                             {{ __('Tous') }}
                                     @endswitch
@@ -151,10 +159,14 @@
                                         class="dropdown-item">{{ __('Achat') }}</a></li>
                                 <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'sale_out'])) }}"
                                         class="dropdown-item">{{ __('Vente') }}</a></li>
+                                <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'return_in'])) }}"
+                                        class="dropdown-item">{{ __('Retour +') }}</a></li>
+                                <li><a href="{{ route('bo.inventory.movements.index', array_merge(request()->except('page'), ['movement_type' => 'return_out'])) }}"
+                                        class="dropdown-item">{{ __('Retour -') }}</a></li>
                             </ul>
                         </div>
                         @include('backoffice.components.column-toggle', [
-                            'columns' => [__('Produit'), __('Entrepôt'), __('Type'), __('Quantité'), __('Note'), __('Par'), __('Date')],
+                            'columns' => [__('Produit'), __('Entrepôt'), __('Type'), __('Quantité'), __('Référence'), __('Note'), __('Par'), __('Date')],
                         ])
                     </div>
                 </div>
@@ -175,6 +187,7 @@
                             <th>{{ __('Entrepôt') }}</th>
                             <th>{{ __('Type') }}</th>
                             <th>{{ __('Quantité') }}</th>
+                            <th>{{ __('Référence') }}</th>
                             <th>{{ __('Note') }}</th>
                             <th>{{ __('Par') }}</th>
                             <th>{{ __('Date') }}</th>
@@ -228,6 +241,48 @@
                                     @else
                                         <span
                                             class="text-danger fw-semibold">-{{ rtrim(rtrim(number_format($movement->quantity, 3, ',', ''), '0'), ',') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @php
+                                        $refLink = null;
+                                        $refLabel = null;
+                                        if ($movement->reference_type && $movement->reference_id) {
+                                            $shortType = class_basename($movement->reference_type);
+                                            switch ($shortType) {
+                                                case 'Invoice':
+                                                    $refLabel = 'Facture';
+                                                    try { $refLink = route('bo.sales.invoices.show', $movement->reference_id); } catch (\Exception $e) {}
+                                                    break;
+                                                case 'CreditNote':
+                                                    $refLabel = 'Avoir';
+                                                    try { $refLink = route('bo.sales.credit-notes.show', $movement->reference_id); } catch (\Exception $e) {}
+                                                    break;
+                                                case 'DebitNote':
+                                                    $refLabel = 'Note débit';
+                                                    try { $refLink = route('bo.purchases.debit-notes.show', $movement->reference_id); } catch (\Exception $e) {}
+                                                    break;
+                                                case 'VendorBill':
+                                                    $refLabel = 'Facture fournisseur';
+                                                    try { $refLink = route('bo.purchases.vendor-bills.show', $movement->reference_id); } catch (\Exception $e) {}
+                                                    break;
+                                                case 'StockTransfer':
+                                                    $refLabel = 'Transfert';
+                                                    try { $refLink = route('bo.inventory.transfers.show', $movement->reference_id); } catch (\Exception $e) {}
+                                                    break;
+                                                default:
+                                                    $refLabel = $shortType;
+                                            }
+                                        }
+                                    @endphp
+                                    @if ($refLink && $refLabel)
+                                        <a href="{{ $refLink }}" class="badge badge-soft-primary text-decoration-none">
+                                            {{ $refLabel }}
+                                        </a>
+                                    @elseif ($refLabel)
+                                        <span class="text-muted fs-12">{{ $refLabel }}</span>
+                                    @else
+                                        <span class="text-muted">—</span>
                                     @endif
                                 </td>
                                 <td>{{ \Illuminate\Support\Str::limit($movement->note, 30) ?? '—' }}</td>

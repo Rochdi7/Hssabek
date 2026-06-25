@@ -10,6 +10,7 @@ use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\TaxGroup;
 use App\Models\CRM\Customer;
 use App\Models\Finance\BankAccount;
+use App\Models\Finance\Currency;
 use App\Models\Sales\CreditNote;
 use App\Models\Sales\Invoice;
 use App\Services\Sales\CreditNoteService;
@@ -74,7 +75,10 @@ class CreditNoteController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.sales.credit-notes.create', compact('customers', 'invoices', 'bankAccounts', 'taxGroups', 'taxCategories', 'nextReference', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.sales.credit-notes.create', compact(
+            'customers', 'invoices', 'bankAccounts', 'taxGroups', 'taxCategories',
+            'nextReference', 'defaultTerms', 'defaultFooter'
+        ));
     }
 
     public function store(StoreCreditNoteRequest $request)
@@ -86,11 +90,11 @@ class CreditNoteController extends Controller
             $validated['reference_number'] = app(DocumentNumberService::class)->next('credit_note_ref');
         }
 
-        $this->creditNoteService->create($validated);
+        $creditNote = $this->creditNoteService->create($validated);
 
         \App\Services\Reports\ReportService::flushTenantCache();
 
-        return redirect()->route('bo.sales.credit-notes.index')
+        return redirect()->route('bo.sales.credit-notes.show', $creditNote)
             ->with('success', __('Avoir créé avec succès.'));
     }
 
@@ -112,9 +116,9 @@ class CreditNoteController extends Controller
     {
         $this->authorize('update', $creditNote);
 
-        abort_unless($creditNote->status === 'draft', 403, 'Seuls les avoirs en brouillon peuvent être modifiés.');
+        abort_if($creditNote->status === 'void', 403, 'Un avoir annulé ne peut pas être modifié.');
 
-        $creditNote->load(['items']);
+        $creditNote->load(['items', 'applications']);
 
         $customers = Customer::orderBy('name')->get();
         $invoices = Invoice::with('customer')
@@ -132,14 +136,17 @@ class CreditNoteController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.sales.credit-notes.edit', compact('creditNote', 'customers', 'invoices', 'bankAccounts', 'taxGroups', 'taxCategories', 'nextReference', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.sales.credit-notes.edit', compact(
+            'creditNote', 'customers', 'invoices', 'bankAccounts', 'taxGroups', 'taxCategories',
+            'nextReference', 'defaultTerms', 'defaultFooter'
+        ));
     }
 
     public function update(UpdateCreditNoteRequest $request, CreditNote $creditNote)
     {
         $this->authorize('update', $creditNote);
 
-        abort_unless($creditNote->status === 'draft', 403, 'Seuls les avoirs en brouillon peuvent être modifiés.');
+        abort_if($creditNote->status === 'void', 403, 'Un avoir annulé ne peut pas être modifié.');
 
         $this->creditNoteService->update($creditNote, $request->validated());
 
@@ -147,6 +154,18 @@ class CreditNoteController extends Controller
 
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
             ->with('success', __('Avoir mis à jour avec succès.'));
+    }
+
+    public function void(CreditNote $creditNote)
+    {
+        $this->authorize('update', $creditNote);
+
+        $this->creditNoteService->void($creditNote);
+
+        \App\Services\Reports\ReportService::flushTenantCache();
+
+        return redirect()->route('bo.sales.credit-notes.show', $creditNote)
+            ->with('success', __('Avoir annulé avec succès.'));
     }
 
     public function destroy(CreditNote $creditNote)
@@ -162,32 +181,74 @@ class CreditNoteController extends Controller
             ->with('success', __('Avoir supprimé avec succès.'));
     }
 
-    public function apply(Request $request, CreditNote $creditNote)
+    /**
+     * Return invoice line items with already-credited quantities per item.
+     * Used by the CN create/edit form to auto-populate lines.
+     */
+    public function invoiceItems(Invoice $invoice)
     {
-        $this->authorize('update', $creditNote);
+        $this->authorize('viewAny', CreditNote::class);
 
-        abort_unless(
-            in_array($creditNote->status, ['issued']),
-            403,
-            'Seuls les avoirs émis peuvent être appliqués.'
-        );
+        $invoice->load(['customer', 'items.product', 'items.taxGroup']);
 
-        $validated = $request->validate([
-            'allocations' => ['required', 'array', 'min:1'],
-            'allocations.*.invoice_id' => ['required', 'uuid', 'exists:invoices,id'],
-            'allocations.*.amount_applied' => ['required', 'numeric', 'min:0.01'],
-        ], [
-            'allocations.required' => 'Au moins une allocation est obligatoire.',
-            'allocations.*.invoice_id.required' => 'La facture est obligatoire.',
-            'allocations.*.amount_applied.required' => 'Le montant est obligatoire.',
+        // Per invoice_item_id: sum of quantity credited by non-void credit notes
+        $creditedQtyMap = \App\Models\Sales\CreditNoteItem::whereIn(
+                'invoice_item_id', $invoice->items->pluck('id')
+            )
+            ->whereHas('creditNote', fn($q) => $q->where('status', '!=', 'void'))
+            ->selectRaw('invoice_item_id, SUM(quantity) as credited_qty')
+            ->groupBy('invoice_item_id')
+            ->pluck('credited_qty', 'invoice_item_id');
+
+        $lines = $invoice->items->map(function ($item) use ($creditedQtyMap) {
+            $credited   = (float) ($creditedQtyMap[$item->id] ?? 0);
+            $remaining  = max(0, (float) $item->quantity - $credited);
+
+            return [
+                'invoice_item_id'    => $item->id,
+                'product_id'         => $item->product_id,
+                'product_name'       => $item->product?->name,
+                'is_tracked'         => $item->product?->track_inventory && $item->product?->item_type === 'product',
+                'label'              => $item->label,
+                'description'        => $item->description,
+                'original_qty'       => (float) $item->quantity,
+                'credited_qty'       => $credited,
+                'remaining_qty'      => $remaining,
+                'unit_price'         => (float) $item->unit_price,
+                'tax_rate'           => (float) $item->tax_rate,
+                'tax_group_name'     => $item->taxGroup?->name,
+                'line_total'         => (float) $item->line_total,
+            ];
+        });
+
+        return response()->json([
+            'customer_id'   => $invoice->customer_id,
+            'customer_name' => $invoice->customer?->name,
+            'currency'      => $invoice->currency ?? TenantContext::get()?->default_currency ?? 'MAD',
+            'items'         => $lines,
         ]);
+    }
 
-        $this->creditNoteService->apply($creditNote, $validated['allocations']);
+    public function invoiceSummary(Invoice $invoice)
+    {
+        $this->authorize('viewAny', CreditNote::class);
 
-        \App\Services\Reports\ReportService::flushTenantCache();
+        $invoice->load(['customer']);
 
-        return redirect()->route('bo.sales.credit-notes.show', $creditNote)
-            ->with('success', __('Avoir appliqué avec succès.'));
+        $amountPaidByPayments = (float) $invoice->paymentAllocations()->sum('amount_applied');
+        $amountCredited       = (float) $invoice->creditNoteApplications()->whereHas('creditNote', fn($q) => $q->where('status', '!=', 'void'))->sum('amount_applied');
+
+        $currencyCode = $invoice->currency ?? TenantContext::get()?->default_currency ?? 'MAD';
+
+        return response()->json([
+            'invoice_number'       => $invoice->number,
+            'customer_name'        => $invoice->customer?->name ?? '',
+            'total'                => (float) $invoice->total,
+            'amount_paid'          => $amountPaidByPayments,
+            'amount_credited'      => $amountCredited,
+            'amount_due'           => (float) $invoice->amount_due,
+            'currency'             => $currencyCode,
+        ]);
     }
 
     public function download(CreditNote $creditNote, PdfService $pdfService)
@@ -201,11 +262,7 @@ class CreditNoteController extends Controller
     {
         $this->authorize('update', $creditNote);
 
-        abort_unless(
-            in_array($creditNote->status, ['issued']),
-            403,
-            'Seuls les avoirs émis peuvent être envoyés par email.'
-        );
+        abort_if($creditNote->status === 'void', 403, 'Un avoir annulé ne peut pas être envoyé.');
 
         $creditNote->update(['sent_at' => now()]);
 
@@ -216,20 +273,5 @@ class CreditNoteController extends Controller
 
         return redirect()->route('bo.sales.credit-notes.show', $creditNote)
             ->with('success', __('Avoir envoyé au client par email.'));
-    }
-
-    public function changeStatus(CreditNote $creditNote, \Illuminate\Http\Request $request)
-    {
-        $this->authorize('update', $creditNote);
-
-        $statuses = ['draft', 'issued', 'applied', 'void'];
-        $new = $request->input('status');
-
-        abort_unless(in_array($new, $statuses), 422);
-
-        $creditNote->update(['status' => $new]);
-
-        return redirect()->route('bo.sales.credit-notes.show', $creditNote)
-            ->with('success', __('Statut de l\'avoir mis à jour avec succès.'));
     }
 }

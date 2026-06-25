@@ -16,6 +16,8 @@ class CreditNoteItem extends Model
 
     protected $fillable = [
         'credit_note_id',
+        'product_id',
+        'invoice_item_id',
         'label',
         'description',
         'quantity',
@@ -36,5 +38,15 @@ class CreditNoteItem extends Model
     public function creditNote(): BelongsTo
     {
         return $this->belongsTo(CreditNote::class);
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Catalog\Product::class);
+    }
+
+    public function invoiceItem(): BelongsTo
+    {
+        return $this->belongsTo(InvoiceItem::class);
     }
 }

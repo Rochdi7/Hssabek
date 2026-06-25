@@ -59,7 +59,10 @@ class DebitNoteController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.purchases.debit-notes.create', compact('suppliers', 'vendorBills', 'nextReference', 'bankAccounts', 'taxGroups', 'taxCategories', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.purchases.debit-notes.create', compact(
+            'suppliers', 'vendorBills', 'nextReference', 'bankAccounts',
+            'taxGroups', 'taxCategories', 'defaultTerms', 'defaultFooter'
+        ));
     }
 
     public function store(StoreDebitNoteRequest $request)
@@ -72,6 +75,8 @@ class DebitNoteController extends Controller
         }
 
         $debitNote = $this->debitNoteService->create($validated);
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
             ->with('success', __('Note de débit créée avec succès.'));
@@ -90,6 +95,8 @@ class DebitNoteController extends Controller
     {
         $this->authorize('update', $debitNote);
 
+        abort_if($debitNote->status === 'void', 403, 'Une note de débit annulée ne peut pas être modifiée.');
+
         $suppliers = Supplier::orderBy('name')->get();
         $vendorBills = VendorBill::with('supplier')->orderBy('issue_date', 'desc')->limit(50)->get();
 
@@ -102,38 +109,36 @@ class DebitNoteController extends Controller
         $defaultTerms = $invoiceSettings['invoice_terms'] ?? '';
         $defaultFooter = $invoiceSettings['invoice_footer'] ?? '';
 
-        return view('backoffice.purchases.debit-notes.edit', compact('debitNote', 'suppliers', 'vendorBills', 'nextReference', 'bankAccounts', 'taxGroups', 'taxCategories', 'defaultTerms', 'defaultFooter'));
+        return view('backoffice.purchases.debit-notes.edit', compact(
+            'debitNote', 'suppliers', 'vendorBills', 'nextReference', 'bankAccounts',
+            'taxGroups', 'taxCategories', 'defaultTerms', 'defaultFooter'
+        ));
     }
 
     public function update(UpdateDebitNoteRequest $request, DebitNote $debitNote)
     {
         $this->authorize('update', $debitNote);
 
+        abort_if($debitNote->status === 'void', 403, 'Une note de débit annulée ne peut pas être modifiée.');
+
         $this->debitNoteService->update($debitNote, $request->validated());
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
             ->with('success', __('Note de débit mise à jour avec succès.'));
     }
 
-    public function apply(Request $request, DebitNote $debitNote)
+    public function void(DebitNote $debitNote)
     {
         $this->authorize('update', $debitNote);
-        abort_unless(in_array($debitNote->status, ['draft', 'issued']), 403, 'Seules les notes de débit en brouillon ou émises peuvent être appliquées.');
 
-        $validated = $request->validate([
-            'allocations' => ['required', 'array', 'min:1'],
-            'allocations.*.vendor_bill_id' => ['required', 'uuid', 'exists:vendor_bills,id'],
-            'allocations.*.amount_applied' => ['required', 'numeric', 'min:0.01'],
-        ], [
-            'allocations.required' => 'Au moins une allocation est obligatoire.',
-            'allocations.*.vendor_bill_id.required' => 'La facture fournisseur est obligatoire.',
-            'allocations.*.amount_applied.required' => 'Le montant est obligatoire.',
-        ]);
+        $this->debitNoteService->void($debitNote);
 
-        $this->debitNoteService->apply($debitNote, $validated['allocations']);
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
-            ->with('success', __('Note de débit appliquée avec succès.'));
+            ->with('success', __('Note de débit annulée avec succès.'));
     }
 
     public function destroy(DebitNote $debitNote)
@@ -142,6 +147,8 @@ class DebitNoteController extends Controller
 
         $debitNote->items()->delete();
         $debitNote->delete();
+
+        \App\Services\Reports\ReportService::flushTenantCache();
 
         return redirect()->route('bo.purchases.debit-notes.index')
             ->with('success', __('Note de débit supprimée avec succès.'));
@@ -158,11 +165,7 @@ class DebitNoteController extends Controller
     {
         $this->authorize('update', $debitNote);
 
-        abort_unless(
-            in_array($debitNote->status, ['draft', 'issued']),
-            403,
-            'Cette note de débit ne peut pas être envoyée.'
-        );
+        abort_if($debitNote->status === 'void', 403, 'Une note de débit annulée ne peut pas être envoyée.');
 
         $debitNote->update(['sent_at' => now()]);
 
@@ -173,20 +176,5 @@ class DebitNoteController extends Controller
 
         return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
             ->with('success', __('Note de débit envoyée au fournisseur par email.'));
-    }
-
-    public function changeStatus(DebitNote $debitNote, \Illuminate\Http\Request $request)
-    {
-        $this->authorize('update', $debitNote);
-
-        $statuses = ['draft', 'issued', 'applied', 'void'];
-        $new = $request->input('status');
-
-        abort_unless(in_array($new, $statuses), 422);
-
-        $debitNote->update(['status' => $new]);
-
-        return redirect()->route('bo.purchases.debit-notes.show', $debitNote)
-            ->with('success', __('Statut de la note de débit mis à jour avec succès.'));
     }
 }

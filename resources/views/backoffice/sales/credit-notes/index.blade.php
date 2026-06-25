@@ -38,16 +38,10 @@
                                     <p class="mb-1">{{ __('Total avoirs') }}</p>
                                     <h6 class="fs-16 fw-semibold">{{ number_format($creditNotes->total(), 0, ',', ' ') }}</h6>
                                 </div>
-                                <div>
-                                    <span class="avatar bg-primary rounded-circle">
-                                        <i class="isax isax-receipt-disscount"></i>
-                                    </span>
-                                </div>
+                                <div><span class="avatar bg-primary rounded-circle"><i class="isax isax-receipt-disscount"></i></span></div>
                             </div>
                             <p class="fs-13 mb-0">{{ __('Tous les avoirs') }}</p>
-                            <span class="position-absolute end-0 bottom-0">
-                                <img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img">
-                            </span>
+                            <span class="position-absolute end-0 bottom-0"><img src="{{ URL::asset('build/img/bg/card-overlay-01.svg') }}" alt="img"></span>
                         </div>
                     </div>
                 </div>
@@ -56,20 +50,13 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
-                                    <p class="mb-1">{{ __('Émis') }}</p>
-                                    <h6 class="fs-16 fw-semibold text-success">
-                                        {{ \App\Models\Sales\CreditNote::where('status', 'issued')->count() }}</h6>
+                                    <p class="mb-1">{{ __('Actifs') }}</p>
+                                    <h6 class="fs-16 fw-semibold text-info">{{ \App\Models\Sales\CreditNote::where('status', 'active')->count() }}</h6>
                                 </div>
-                                <div>
-                                    <span class="avatar bg-success rounded-circle">
-                                        <i class="isax isax-tick-circle"></i>
-                                    </span>
-                                </div>
+                                <div><span class="avatar bg-info rounded-circle"><i class="isax isax-tick-circle"></i></span></div>
                             </div>
-                            <p class="fs-13 mb-0">{{ __('Avoirs émis') }}</p>
-                            <span class="position-absolute end-0 bottom-0">
-                                <img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img">
-                            </span>
+                            <p class="fs-13 mb-0">{{ __('Avoirs actifs') }}</p>
+                            <span class="position-absolute end-0 bottom-0"><img src="{{ URL::asset('build/img/bg/card-overlay-02.svg') }}" alt="img"></span>
                         </div>
                     </div>
                 </div>
@@ -79,20 +66,12 @@
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
                                     <p class="mb-1">{{ __('Appliqués') }}</p>
-                                    <h6 class="fs-16 fw-semibold text-warning">
-                                        {{ \App\Models\Sales\CreditNote::where('status', 'applied')->count() }}
-                                    </h6>
+                                    <h6 class="fs-16 fw-semibold text-success">{{ \App\Models\Sales\CreditNote::where('status', 'applied')->count() }}</h6>
                                 </div>
-                                <div>
-                                    <span class="avatar bg-warning rounded-circle">
-                                        <i class="isax isax-timer"></i>
-                                    </span>
-                                </div>
+                                <div><span class="avatar bg-success rounded-circle"><i class="isax isax-timer"></i></span></div>
                             </div>
                             <p class="fs-13 mb-0">{{ __('Avoirs appliqués') }}</p>
-                            <span class="position-absolute end-0 bottom-0">
-                                <img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img">
-                            </span>
+                            <span class="position-absolute end-0 bottom-0"><img src="{{ URL::asset('build/img/bg/card-overlay-03.svg') }}" alt="img"></span>
                         </div>
                     </div>
                 </div>
@@ -102,19 +81,12 @@
                             <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                 <div>
                                     <p class="mb-1">{{ __('Annulés') }}</p>
-                                    <h6 class="fs-16 fw-semibold text-danger">
-                                        {{ \App\Models\Sales\CreditNote::where('status', 'void')->count() }}</h6>
+                                    <h6 class="fs-16 fw-semibold text-danger">{{ \App\Models\Sales\CreditNote::where('status', 'void')->count() }}</h6>
                                 </div>
-                                <div>
-                                    <span class="avatar bg-danger rounded-circle">
-                                        <i class="isax isax-information"></i>
-                                    </span>
-                                </div>
+                                <div><span class="avatar bg-danger rounded-circle"><i class="isax isax-information"></i></span></div>
                             </div>
                             <p class="fs-13 mb-0">{{ __('Avoirs annulés') }}</p>
-                            <span class="position-absolute end-0 bottom-0">
-                                <img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img">
-                            </span>
+                            <span class="position-absolute end-0 bottom-0"><img src="{{ URL::asset('build/img/bg/card-overlay-04.svg') }}" alt="img"></span>
                         </div>
                     </div>
                 </div>
@@ -143,12 +115,8 @@
                                 data-bs-toggle="dropdown">
                                 <i class="isax isax-filter me-1"></i>{{ __('Statut') }} : <span class="fw-normal ms-1">
                                     @switch(request('status'))
-                                        @case('draft')
-                                            {{ __('Brouillon') }}
-                                        @break
-
-                                        @case('issued')
-                                            {{ __('Émis') }}
+                                        @case('active')
+                                            {{ __('Actif') }}
                                         @break
 
                                         @case('applied')
@@ -167,10 +135,8 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a href="{{ route('bo.sales.credit-notes.index', request()->except('status', 'page')) }}"
                                         class="dropdown-item">{{ __('Tous') }}</a></li>
-                                <li><a href="{{ route('bo.sales.credit-notes.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}"
-                                        class="dropdown-item">{{ __('Brouillon') }}</a></li>
-                                <li><a href="{{ route('bo.sales.credit-notes.index', array_merge(request()->except('page'), ['status' => 'issued'])) }}"
-                                        class="dropdown-item">{{ __('Émis') }}</a></li>
+                                <li><a href="{{ route('bo.sales.credit-notes.index', array_merge(request()->except('page'), ['status' => 'active'])) }}"
+                                        class="dropdown-item">{{ __('Actif') }}</a></li>
                                 <li><a href="{{ route('bo.sales.credit-notes.index', array_merge(request()->except('page'), ['status' => 'applied'])) }}"
                                         class="dropdown-item">{{ __('Appliqué') }}</a></li>
                                 <li><a href="{{ route('bo.sales.credit-notes.index', array_merge(request()->except('page'), ['status' => 'void'])) }}"
@@ -230,24 +196,16 @@
                                     {{ $creditNote->currency }}</td>
                                 <td>
                                     @switch($creditNote->status)
-                                        @case('draft')
-                                            <span
-                                                class="badge badge-soft-secondary d-inline-flex align-items-center">{{ __('Brouillon') }}</span>
-                                        @break
-
-                                        @case('issued')
-                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Émis') }} <i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
+                                        @case('active')
+                                            <span class="badge badge-soft-info d-inline-flex align-items-center">{{ __('Actif') }}</span>
                                         @break
 
                                         @case('applied')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Appliqué') }} <i
-                                                    class="isax isax-tick-circle ms-1"></i></span>
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Appliqué') }} <i class="isax isax-tick-circle ms-1"></i></span>
                                         @break
 
                                         @case('void')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulé') }} <i
-                                                    class="isax isax-close-circle ms-1"></i></span>
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Annulé') }} <i class="isax isax-close-circle ms-1"></i></span>
                                         @break
                                     @endswitch
                                 </td>
@@ -258,17 +216,13 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="{{ route('bo.sales.credit-notes.show', $creditNote) }}"
-                                                class="dropdown-item d-flex align-items-center"><i
-                                                    class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
+                                                class="dropdown-item d-flex align-items-center"><i class="isax isax-eye me-2"></i>{{ __('Voir') }}</a>
                                         </li>
-                                        @if ($creditNote->status === 'draft')
+                                        @if ($creditNote->status !== 'void')
                                             <li>
                                                 <a href="{{ route('bo.sales.credit-notes.edit', $creditNote) }}"
-                                                    class="dropdown-item d-flex align-items-center"><i
-                                                        class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
+                                                    class="dropdown-item d-flex align-items-center"><i class="isax isax-edit me-2"></i>{{ __('Modifier') }}</a>
                                             </li>
-                                        @endif
-                                        @if ($creditNote->status === 'draft' || $creditNote->status === 'issued')
                                             <li>
                                                 <button type="button" class="dropdown-item d-flex align-items-center"
                                                     data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
@@ -282,11 +236,9 @@
                                             </li>
                                         @endif
                                         <li>
-                                            <form method="POST"
-                                                action="{{ route('bo.sales.credit-notes.destroy', $creditNote) }}">
+                                            <form method="POST" action="{{ route('bo.sales.credit-notes.destroy', $creditNote) }}">
                                                 @csrf @method('DELETE')
-                                                <button class="dropdown-item d-flex align-items-center text-danger"
-                                                    type="submit"
+                                                <button class="dropdown-item d-flex align-items-center text-danger" type="submit"
                                                     onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer cet avoir ?") }}')">
                                                     <i class="isax isax-trash me-2"></i>{{ __('Supprimer') }}</button>
                                             </form>

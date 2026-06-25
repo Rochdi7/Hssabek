@@ -11,16 +11,18 @@
                         <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-3">
                             <h6><a href="{{ route('bo.sales.credit-notes.index') }}"><i class="isax isax-arrow-left me-2"></i>{{ __('Avoirs') }}</a></h6>
                             <div class="d-flex align-items-center flex-wrap row-gap-3">
-                                <a href="{{ route('bo.sales.credit-notes.download', $creditNote) }}" target="_blank" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}</a>
-                                <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
-                                    data-bs-toggle="modal" data-bs-target="#modalChangerStatut">
-                                    <i class="isax isax-edit-2 me-1"></i>{{ __('Changer statut') }}
-                                </button>
-                                @if($creditNote->status === 'draft')
-                                    <a href="{{ route('bo.sales.credit-notes.edit', $creditNote) }}" class="btn btn-outline-white d-inline-flex align-items-center me-3"><i class="isax isax-edit me-1"></i>{{ __('Modifier') }}</a>
-                                @endif
-                                @if($creditNote->status === 'draft' || $creditNote->status === 'issued')
-                                    <button type="button" class="btn btn-primary d-inline-flex align-items-center me-3"
+                                <a href="{{ route('bo.sales.credit-notes.download', $creditNote) }}" target="_blank"
+                                    class="btn btn-outline-white d-inline-flex align-items-center me-3">
+                                    <i class="isax isax-document-download me-1"></i>{{ __('Télécharger PDF') }}
+                                </a>
+
+                                @if($creditNote->status !== 'void')
+                                    <a href="{{ route('bo.sales.credit-notes.edit', $creditNote) }}"
+                                        class="btn btn-outline-white d-inline-flex align-items-center me-3">
+                                        <i class="isax isax-edit me-1"></i>{{ __('Modifier') }}
+                                    </a>
+
+                                    <button type="button" class="btn btn-outline-white d-inline-flex align-items-center me-3"
                                         data-bs-toggle="modal" data-bs-target="#modalEnvoyer"
                                         data-send-url="{{ route('bo.sales.credit-notes.send', $creditNote) }}"
                                         data-phone="{{ optional($creditNote->customer)->phone ?? '' }}"
@@ -29,12 +31,22 @@
                                         data-download-url="{{ route('bo.sales.credit-notes.download', $creditNote) }}">
                                         <i class="isax isax-send-2 me-1"></i>{{ __('Envoyer') }}
                                     </button>
+
+                                    <form method="POST" action="{{ route('bo.sales.credit-notes.void', $creditNote) }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-warning d-inline-flex align-items-center me-3"
+                                            onclick="return confirm('{{ __("Annuler cet avoir ? Cette action rétablit le solde de la facture liée.") }}')">
+                                            <i class="isax isax-close-circle me-1"></i>{{ __('Annuler l\'avoir') }}
+                                        </button>
+                                    </form>
                                 @endif
+
                                 <form method="POST" action="{{ route('bo.sales.credit-notes.destroy', $creditNote) }}">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center"
                                         onclick="return confirm('{{ __("Êtes-vous sûr de vouloir supprimer cet avoir ?") }}')">
-                                        <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}</button>
+                                        <i class="isax isax-trash me-1"></i>{{ __('Supprimer') }}
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -42,6 +54,12 @@
                         @if(session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         @endif
@@ -60,10 +78,9 @@
                                                     <h6 class="fs-14 fw-semibold mb-1">{{ $creditNote->number }}</h6>
                                                     <p>
                                                         @switch($creditNote->status)
-                                                            @case('draft') <span class="badge badge-soft-secondary">{{ __('Brouillon') }}</span> @break
-                                                            @case('issued') <span class="badge badge-soft-info">{{ __('Émis') }}</span> @break
-                                                            @case('applied') <span class="badge badge-soft-success">{{ __('Appliqué') }}</span> @break
-                                                            @case('void') <span class="badge badge-soft-danger">{{ __('Annulé') }}</span> @break
+                                                            @case('active')   <span class="badge badge-soft-info">{{ __('Actif') }}</span>    @break
+                                                            @case('applied')  <span class="badge badge-soft-success">{{ __('Appliqué') }}</span> @break
+                                                            @case('void')     <span class="badge badge-soft-danger">{{ __('Annulé') }}</span>   @break
                                                         @endswitch
                                                     </p>
                                                 </div>
@@ -158,7 +175,7 @@
                                                     </div>
                                                 @endif
                                                 <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
-                                                    <h6>Total ({{ $creditNote->currency }})</h6>
+                                                    <h6>{{ __('Total') }} ({{ $creditNote->currency }})</h6>
                                                     <h6>{{ number_format($creditNote->total, 2, ',', ' ') }}</h6>
                                                 </div>
                                             </div>
@@ -168,14 +185,14 @@
 
                                 @if($creditNote->applications->count() > 0)
                                     <div class="mb-3">
-                                        <h6 class="mb-3">{{ __('Applications') }}</h6>
+                                        <h6 class="mb-3">{{ __('Imputation sur factures') }}</h6>
                                         <div class="table-responsive rounded border-bottom-0 border table-nowrap">
                                             <table class="table m-0">
                                                 <thead style="background-color: #1B2850; color: #fff;">
                                                     <tr>
                                                         <th>{{ __('Facture') }}</th>
                                                         <th>{{ __('Date') }}</th>
-                                                        <th>{{ __('Montant appliqué') }}</th>
+                                                        <th>{{ __('Montant imputé') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -183,39 +200,12 @@
                                                         <tr>
                                                             <td><a href="{{ route('bo.sales.invoices.show', $app->invoice) }}">{{ $app->invoice->number }}</a></td>
                                                             <td>{{ $app->applied_at?->format('d/m/Y') ?? '—' }}</td>
-                                                            <td class="text-success">{{ number_format($app->amount_applied, 2, ',', ' ') }}</td>
+                                                            <td class="text-success fw-semibold">-{{ number_format($app->amount_applied, 2, ',', ' ') }} {{ $creditNote->currency }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                @endif
-
-                                @if($creditNote->status === 'issued')
-                                    <div class="border-top pt-3">
-                                        <h6 class="mb-3">{{ __('Appliquer l\'avoir à une facture') }}</h6>
-                                        <form action="{{ route('bo.sales.credit-notes.apply', $creditNote) }}" method="POST">
-                                            @csrf
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">{{ __('Facture') }}</label>
-                                                    <select name="allocations[0][invoice_id]" class="select" required>
-                                                        <option value="">{{ __('Sélectionner une facture') }}</option>
-                                                        @foreach(\App\Models\Sales\Invoice::where('customer_id', $creditNote->customer_id)->where('amount_due', '>', 0)->get() as $inv)
-                                                            <option value="{{ $inv->id }}">{{ $inv->number }} — {{ __('Restant') }} : {{ number_format($inv->amount_due, 2, ',', ' ') }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="form-label">{{ __('Montant à appliquer') }}</label>
-                                                    <input type="number" name="allocations[0][amount_applied]" class="form-control" min="0.01" step="0.01" max="{{ $creditNote->total - $creditNote->applications->sum('amount_applied') }}" required>
-                                                </div>
-                                                <div class="col-md-2 d-flex align-items-end">
-                                                    <button type="submit" class="btn btn-primary w-100">{{ __('Appliquer') }}</button>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </div>
                                 @endif
 
@@ -229,46 +219,6 @@
             @endcomponent
         </div>
     </div>
-
-{{-- Modal Changer Statut --}}
-<div class="modal fade" id="modalChangerStatut" tabindex="-1" aria-labelledby="modalChangerStatutLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalChangerStatutLabel">{{ __('Changer le statut de l\'avoir') }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
-            </div>
-            <form method="POST" action="{{ route('bo.sales.credit-notes.change-status', $creditNote) }}">
-                @csrf
-                <div class="modal-body">
-                    <p class="text-muted mb-3">{{ __('Statut actuel :') }}
-                        <strong>
-                            @switch($creditNote->status)
-                                @case('draft') {{ __('Brouillon') }} @break
-                                @case('issued') {{ __('Émis') }} @break
-                                @case('applied') {{ __('Appliqué') }} @break
-                                @case('void') {{ __('Annulé') }} @break
-                            @endswitch
-                        </strong>
-                    </p>
-                    <div class="mb-3">
-                        <label class="form-label">{{ __('Nouveau statut') }}</label>
-                        <select name="status" class="form-select" required>
-                            <option value="draft" @selected($creditNote->status === 'draft')>{{ __('Brouillon') }}</option>
-                            <option value="issued" @selected($creditNote->status === 'issued')>{{ __('Émis') }}</option>
-                            <option value="applied" @selected($creditNote->status === 'applied')>{{ __('Appliqué') }}</option>
-                            <option value="void" @selected($creditNote->status === 'void')>{{ __('Annulé') }}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
-                    <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 {{-- Modal Envoyer --}}
 <div class="modal fade" id="modalEnvoyer" tabindex="-1" aria-labelledby="modalEnvoyerLabel" aria-hidden="true">
@@ -287,8 +237,7 @@
                             <i class="isax isax-sms me-2"></i>{{ __('Envoyer par Email') }}
                         </button>
                     </form>
-                    <a id="btnWhatsApp" href="#" target="_blank" rel="noopener noreferrer"
-                        class="btn btn-success w-100">
+                    <a id="btnWhatsApp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-success w-100">
                         <i class="isax isax-message me-2"></i>{{ __('Envoyer par WhatsApp') }}
                     </a>
                 </div>
