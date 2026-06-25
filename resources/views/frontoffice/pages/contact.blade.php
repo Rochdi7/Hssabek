@@ -105,7 +105,7 @@
 				@endif
 
 				<div class="packages-card">
-					<form method="POST" action="{{ route('contact.send') }}">
+					<form method="POST" action="{{ route('contact.send') }}" id="contact-form">
 						@csrf
 						<div class="row">
 							<div class="col-md-6 mb-3">
@@ -152,11 +152,24 @@
 							@error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
 						</div>
 						<div class="package-btn">
-							<button type="submit" class="btn btn-dark btn-lg d-inline-flex align-items-center justify-content-center">
-								<i class="isax isax-send-2 me-2"></i> {{ __('Envoyer le message') }}
+							<button type="submit" id="contact-submit-btn" class="btn btn-dark btn-lg d-inline-flex align-items-center justify-content-center">
+								<i class="isax isax-send-2 me-2" id="contact-submit-icon"></i>
+								<span id="contact-submit-text">{{ __('Envoyer le message') }}</span>
 							</button>
 						</div>
 					</form>
+					<script>
+						document.getElementById('contact-form').addEventListener('submit', function () {
+							const btn  = document.getElementById('contact-submit-btn');
+							const icon = document.getElementById('contact-submit-icon');
+							const text = document.getElementById('contact-submit-text');
+							btn.disabled = true;
+							icon.className = '';
+							text.textContent = '{{ __('Envoi en cours…') }}';
+							// Re-enable after 8s as safety net (throttle will block server-side anyway)
+							setTimeout(() => { btn.disabled = false; icon.className = 'isax isax-send-2 me-2'; text.textContent = '{{ __('Envoyer le message') }}'; }, 8000);
+						});
+					</script>
 				</div>
 			</div>
 		</div>
