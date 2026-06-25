@@ -242,10 +242,12 @@
                                 <td class="m-value">{{ $invoice->reference_number }}</td>
                             </tr>
                             @endif
+                    @if($invoice->due_date)
                             <tr>
                         <td class="m-label">Échéance</td>
                         <td class="m-value">{{ $invoice->due_date?->format('d/m/Y') }}</td>
                     </tr>
+                    @endif
                         </table>
                     </div>
                 </td>

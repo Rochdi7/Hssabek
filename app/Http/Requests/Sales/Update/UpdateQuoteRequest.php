@@ -30,6 +30,7 @@ class UpdateQuoteRequest extends FormRequest
             'reference_number' => ['nullable', 'string', 'max:100'],
             'notes' => ['nullable', 'string', 'max:2000'],
             'terms' => ['nullable', 'string', 'max:2000'],
+            'addition' => ['nullable', 'string', 'max:500'],
 
             'items' => ['sometimes', 'required', 'array', 'min:1'],
             'items.*.label' => ['required_with:items', 'string', 'max:255'],

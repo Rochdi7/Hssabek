@@ -248,10 +248,12 @@
                                 <td class="m-label">Date</td>
                                 <td class="m-value">{{ $quote->issue_date?->format('d/m/Y') }}</td>
                             </tr>
+                    @if($quote->expiry_date)
                             <tr>
                         <td class="m-label">Validité</td>
                         <td class="m-value">{{ $quote->expiry_date?->format('d/m/Y') }}</td>
                     </tr>
+                    @endif
                             @if($quote->reference_number)
                             <tr>
                                 <td class="m-label">Référence</td>
