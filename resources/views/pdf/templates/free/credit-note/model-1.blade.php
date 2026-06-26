@@ -170,16 +170,10 @@
             {{-- ─── Totals rows ──────────────────────────────────── --}}
             <tr class="totals-row">
                 <td colspan="2"></td>
-                <td class="label-cell">Total HT</td>
+                <td class="label-cell">T.H.T</td>
                 <td class="value-cell">{{ number_format($creditNote->subtotal, 2, ',', ' ') }}</td>
             </tr>
-            @if($creditNote->enable_tax)
-            <tr class="totals-row">
-                <td colspan="2"></td>
-                <td class="label-cell">TVA {{ number_format($creditNote->items->first()?->tax_rate ?? 20, 1) }}%</td>
-                <td class="value-cell">{{ number_format($creditNote->tax_total, 2, ',', ' ') }}</td>
-            </tr>
-            @endif
+            @include('pdf.partials.tax-breakdown', ['doc' => $creditNote, 'colspan' => 2, 'cellStyle' => 'totals-row', 'currency' => $currency])
             @if($creditNote->round_off != 0)
             <tr class="totals-row">
                 <td colspan="2"></td>
@@ -189,7 +183,7 @@
             @endif
             <tr class="totals-row grand-total">
                 <td colspan="2"></td>
-                <td class="label-cell">TOTAL AVOIR</td>
+                <td class="label-cell">TOTAL TTC</td>
                 <td class="value-cell">{{ number_format($creditNote->total, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
         </tbody>
