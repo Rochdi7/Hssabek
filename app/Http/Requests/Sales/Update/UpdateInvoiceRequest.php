@@ -22,6 +22,8 @@ class UpdateInvoiceRequest extends FormRequest
         $tenantId = TenantContext::id();
 
         return [
+            'number_mode' => ['nullable', 'in:manuel,auto'],
+            'number'      => ['required_if:number_mode,manuel', 'nullable', 'string', 'max:100'],
             'customer_id' => ['sometimes', 'required', 'uuid', Rule::exists('customers', 'id')->where('tenant_id', $tenantId)],
             'issue_date' => ['sometimes', 'required', 'date'],
             'due_date' => ['nullable', 'date', 'after_or_equal:issue_date'],

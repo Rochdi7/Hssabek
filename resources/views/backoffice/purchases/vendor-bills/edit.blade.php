@@ -52,6 +52,14 @@
                                             <div class="col-xl-5">
                                                 <div class="purchase-top-content">
                                                     <div class="row">
+                                                        <div class="col-md-6">
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => 'N° Facture fournisseur',
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => $vendorBill->number,
+                                                                'autoValue'    => null,
+                                                            ])
+                                                        </div>
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
                                                                 <label class="form-label">{{ __('Fournisseur') }}<span

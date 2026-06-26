@@ -65,11 +65,12 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ __('N° Avoir') }}</label>
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $creditNote->number }}" readonly>
-                                                            </div>
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => 'N° Avoir',
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => $creditNote->number,
+                                                                'autoValue'    => null,
+                                                            ])
                                                         </div>
                                                         <input type="hidden" name="reference_number"
                                                             value="{{ old('reference_number', $creditNote->reference_number) }}">

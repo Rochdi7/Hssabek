@@ -31,7 +31,9 @@ class QuoteService
 
             $quote = Quote::create([
                 'customer_id' => $validated['customer_id'],
-                'number' => $this->docService->next('quote'),
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $this->docService->next('quote'),
                 'document_type' => $documentType,
                 'reference_number' => $validated['reference_number'] ?? null,
                 'status' => Quote::STATUS_ACTIVE,
@@ -113,6 +115,9 @@ class QuoteService
 
             $quote->update([
                 'customer_id' => $validated['customer_id'] ?? $quote->customer_id,
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $quote->number,
                 'reference_number' => $validated['reference_number'] ?? $quote->reference_number,
                 'issue_date' => $validated['issue_date'] ?? $quote->issue_date,
                 'due_date' => $validated['due_date'] ?? $quote->due_date,

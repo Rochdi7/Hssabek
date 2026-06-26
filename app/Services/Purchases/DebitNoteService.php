@@ -35,7 +35,9 @@ class DebitNoteService
                 'supplier_id'       => $validated['supplier_id'],
                 'purchase_order_id' => $validated['purchase_order_id'] ?? null,
                 'vendor_bill_id'    => $validated['vendor_bill_id'] ?? null,
-                'number'            => $this->docService->next('debit_note'),
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $this->docService->next('debit_note'),
                 'reference_number'  => $validated['reference_number'] ?? null,
                 'status'            => 'active',
                 'debit_note_date'   => $validated['debit_note_date'],
@@ -105,6 +107,9 @@ class DebitNoteService
             $debitNote->update([
                 'supplier_id'      => $validated['supplier_id'] ?? $debitNote->supplier_id,
                 'vendor_bill_id'   => $validated['vendor_bill_id'] ?? $debitNote->vendor_bill_id,
+                'number'           => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $debitNote->number,
                 'debit_note_date'  => $validated['debit_note_date'] ?? $debitNote->debit_note_date,
                 'due_date'         => $validated['due_date'] ?? $debitNote->due_date,
                 'reference_number' => $validated['reference_number'] ?? $debitNote->reference_number,

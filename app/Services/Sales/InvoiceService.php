@@ -34,7 +34,9 @@ class InvoiceService
 
             $invoice = Invoice::create([
                 'customer_id' => $validated['customer_id'],
-                'number' => $this->docService->next('invoice'),
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $this->docService->next('invoice'),
                 'reference_number' => $validated['reference_number'] ?? null,
                 'status' => Invoice::STATUS_UNPAID,
                 'issue_date' => $validated['issue_date'],
@@ -136,6 +138,9 @@ class InvoiceService
 
             $invoice->update([
                 'customer_id' => $validated['customer_id'] ?? $invoice->customer_id,
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $invoice->number,
                 'reference_number' => $validated['reference_number'] ?? $invoice->reference_number,
                 'issue_date' => $validated['issue_date'] ?? $invoice->issue_date,
                 'due_date' => $validated['due_date'] ?? $invoice->due_date,

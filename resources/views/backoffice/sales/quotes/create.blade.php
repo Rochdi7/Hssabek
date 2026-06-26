@@ -57,11 +57,12 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-6 col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ $documentConfig['number_label'] }}</label>
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="{{ __('Généré automatiquement') }}" readonly>
-                                                            </div>
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => $documentConfig['number_label'],
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => null,
+                                                                'autoValue'    => null,
+                                                            ])
                                                         </div>
                                                         <div class="col-6 col-md-6">
                                                             <div class="mb-3">

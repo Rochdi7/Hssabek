@@ -55,12 +55,12 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ __('N° du bon de commande') }}</label>
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $nextNumber }}" readonly disabled>
-                                                                <small class="text-muted">{{ __('Généré automatiquement') }}</small>
-                                                            </div>
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => 'N° Bon de commande',
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => null,
+                                                                'autoValue'    => $nextNumber ?? null,
+                                                            ])
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">

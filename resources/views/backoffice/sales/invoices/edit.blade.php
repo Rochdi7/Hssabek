@@ -65,11 +65,12 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ __('N° Facture') }}</label>
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $invoice->number }}" readonly>
-                                                            </div>
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => 'N° Facture',
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => $invoice->number,
+                                                                'autoValue'    => null,
+                                                            ])
                                                         </div>
                                                         <input type="hidden" name="reference_number"
                                                             value="{{ old('reference_number', $invoice->reference_number) }}">

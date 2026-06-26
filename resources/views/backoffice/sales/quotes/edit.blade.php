@@ -62,11 +62,12 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-6 col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ $documentConfig['number_label'] }}</label>
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $quote->number }}" readonly>
-                                                            </div>
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => $documentConfig['number_label'],
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => $quote->number,
+                                                                'autoValue'    => null,
+                                                            ])
                                                         </div>
                                                         <input type="hidden" name="reference_number"
                                                             value="{{ old('reference_number', $quote->reference_number) }}">
