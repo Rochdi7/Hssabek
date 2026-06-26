@@ -38,7 +38,9 @@ class PurchaseOrderService
             $po = PurchaseOrder::create([
                 'supplier_id'    => $validated['supplier_id'],
                 'warehouse_id'   => $warehouseId,
-                'number'         => $this->docService->next('purchase_order'),
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $this->docService->next('purchase_order'),
                 'reference_number' => $validated['reference_number'] ?? null,
                 'order_date'     => $validated['order_date'],
                 'expected_date'  => $validated['expected_date'] ?? null,
@@ -113,6 +115,9 @@ class PurchaseOrderService
             $po->update([
                 'supplier_id'    => $validated['supplier_id'],
                 'warehouse_id'   => $validated['warehouse_id'] ?? $po->warehouse_id,
+                'number'         => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $po->number,
                 'order_date'     => $validated['order_date'],
                 'expected_date'  => $validated['expected_date'] ?? null,
                 'subtotal'       => $totals['subtotal'],

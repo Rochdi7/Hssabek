@@ -14,6 +14,8 @@ class StoreDeliveryChallanRequest extends TenantFormRequest
     public function rules(): array
     {
         return [
+            'number_mode'  => ['nullable', 'in:manuel,auto'],
+            'number'       => ['required_if:number_mode,manuel', 'nullable', 'string', 'max:100'],
             'customer_id'  => ['required', 'uuid', $this->tenantExists('customers')],
             'quote_id'     => ['nullable', 'uuid', $this->tenantExists('quotes')],
             'invoice_id'   => ['nullable', 'uuid', $this->tenantExists('invoices')],

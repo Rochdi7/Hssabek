@@ -24,7 +24,9 @@ class DeliveryChallanService
                 'customer_id' => $validated['customer_id'],
                 'invoice_id' => $validated['invoice_id'] ?? null,
                 'quote_id' => $validated['quote_id'] ?? null,
-                'number' => $this->docService->next('delivery_challan'),
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $this->docService->next('delivery_challan'),
                 'status' => 'draft',
                 'challan_date' => $validated['challan_date'],
                 'due_date' => $validated['due_date'] ?? null,
@@ -65,6 +67,9 @@ class DeliveryChallanService
 
             $challan->update([
                 'customer_id' => $validated['customer_id'] ?? $challan->customer_id,
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $challan->number,
                 'invoice_id' => $validated['invoice_id'] ?? $challan->invoice_id,
                 'challan_date' => $validated['challan_date'] ?? $challan->challan_date,
                 'reference_number' => $validated['reference_number'] ?? $challan->reference_number,

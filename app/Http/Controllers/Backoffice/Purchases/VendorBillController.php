@@ -79,7 +79,9 @@ class VendorBillController extends Controller
         $validated = $request->validated();
 
         $bill = VendorBill::create(array_merge($validated, [
-            'number'           => $this->docNumberService->next('vendor_bill'),
+            'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                ? $validated['number']
+                : $this->docNumberService->next('vendor_bill'),
             'reference_number' => empty($validated['reference_number']) ? $this->docNumberService->next('vendor_bill_ref') : $validated['reference_number'],
             'status'           => VendorBill::STATUS_UNPAID,
             'tax_total'        => $validated['tax_total'] ?? 0,
@@ -125,6 +127,9 @@ class VendorBillController extends Controller
         $validated = $request->validated();
 
         $vendorBill->update(array_merge($validated, [
+            'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                ? $validated['number']
+                : $vendorBill->number,
             'tax_total'  => $validated['tax_total'] ?? 0,
             'amount_due' => $validated['total'] - $vendorBill->amount_paid,
         ]));

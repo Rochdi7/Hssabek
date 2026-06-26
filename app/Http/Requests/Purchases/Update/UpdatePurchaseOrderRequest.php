@@ -20,6 +20,8 @@ class UpdatePurchaseOrderRequest extends FormRequest
         $tenantId = TenantContext::id();
 
         return [
+            'number_mode'              => ['nullable', 'in:manuel,auto'],
+            'number'                   => ['required_if:number_mode,manuel', 'nullable', 'string', 'max:100'],
             'supplier_id'              => ['required', 'uuid', Rule::exists('suppliers', 'id')->where('tenant_id', $tenantId)],
             'warehouse_id'             => ['required', 'uuid', Rule::exists('warehouses', 'id')->where('tenant_id', $tenantId)],
             'order_date'               => 'required|date',

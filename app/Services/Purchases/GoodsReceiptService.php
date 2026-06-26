@@ -26,7 +26,9 @@ class GoodsReceiptService
             $receipt = GoodsReceipt::create([
                 'purchase_order_id' => $validated['purchase_order_id'] ?? null,
                 'warehouse_id' => $validated['warehouse_id'],
-                'number' => $this->docService->next('goods_receipt'),
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $this->docService->next('goods_receipt'),
                 'status' => 'draft',
                 'received_at' => $validated['received_at'] ?? now(),
                 'reference_number' => $validated['reference_number'] ?? null,
@@ -52,6 +54,9 @@ class GoodsReceiptService
             $receipt->update([
                 'purchase_order_id' => $validated['purchase_order_id'] ?? $receipt->purchase_order_id,
                 'warehouse_id' => $validated['warehouse_id'] ?? $receipt->warehouse_id,
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $receipt->number,
                 'received_at' => $validated['received_at'] ?? $receipt->received_at,
                 'reference_number' => $validated['reference_number'] ?? $receipt->reference_number,
                 'notes' => $validated['notes'] ?? $receipt->notes,

@@ -29,6 +29,14 @@
                                     @csrf
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
+                                            @include('backoffice.components._number-field', [
+                                                'label'        => 'N° Note de débit',
+                                                'fieldName'    => 'number',
+                                                'currentValue' => null,
+                                                'autoValue'    => null,
+                                            ])
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('Fournisseur') }}<span
                                                         class="text-danger ms-1">*</span></label>

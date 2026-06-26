@@ -18,6 +18,8 @@ class StoreVendorBillRequest extends FormRequest
         $tenantId = TenantContext::id();
 
         return [
+            'number_mode'       => ['nullable', 'in:manuel,auto'],
+            'number'            => ['required_if:number_mode,manuel', 'nullable', 'string', 'max:100'],
             'supplier_id'       => ['required', 'uuid', Rule::exists('suppliers', 'id')->where('tenant_id', $tenantId)],
             'purchase_order_id' => ['nullable', 'uuid', Rule::exists('purchase_orders', 'id')->where('tenant_id', $tenantId)],
             'reference_number'  => 'nullable|string|max:100',

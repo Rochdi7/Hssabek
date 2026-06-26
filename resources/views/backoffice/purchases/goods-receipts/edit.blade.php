@@ -32,6 +32,14 @@
                                     @method('PUT')
                                     <div class="row gx-3">
                                         <div class="col-lg-4 col-md-6">
+                                            @include('backoffice.components._number-field', [
+                                                'label'        => 'N° Bon de réception',
+                                                'fieldName'    => 'number',
+                                                'currentValue' => $goodsReceipt->number,
+                                                'autoValue'    => null,
+                                            ])
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('Bon de commande') }}<span
                                                         class="text-danger ms-1">*</span></label>

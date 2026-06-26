@@ -64,6 +64,14 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-6">
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => 'N° Bon de commande',
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => $purchaseOrder->number,
+                                                                'autoValue'    => null,
+                                                            ])
+                                                        </div>
+                                                        <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label class="form-label">{{ __('Fournisseur') }}<span
                                                                         class="text-danger">*</span></label>

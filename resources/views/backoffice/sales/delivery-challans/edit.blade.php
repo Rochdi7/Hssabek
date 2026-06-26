@@ -63,11 +63,12 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ __('N° Bon de livraison') }}</label>
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $deliveryChallan->number }}" readonly>
-                                                            </div>
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => 'N° Bon de livraison',
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => $deliveryChallan->number,
+                                                                'autoValue'    => null,
+                                                            ])
                                                         </div>
                                                         <input type="hidden" name="reference_number"
                                                             value="{{ old('reference_number', $deliveryChallan->reference_number) }}">

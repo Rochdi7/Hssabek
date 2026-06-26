@@ -14,6 +14,8 @@ class StoreDebitNoteRequest extends TenantFormRequest
     public function rules(): array
     {
         return [
+            'number_mode'       => ['nullable', 'in:manuel,auto'],
+            'number'            => ['required_if:number_mode,manuel', 'nullable', 'string', 'max:100'],
             'supplier_id'       => ['required', 'uuid', $this->tenantExists('suppliers')],
             'purchase_order_id' => ['nullable', 'uuid', $this->tenantExists('purchase_orders')],
             'vendor_bill_id'    => ['nullable', 'uuid', $this->tenantExists('vendor_bills')],

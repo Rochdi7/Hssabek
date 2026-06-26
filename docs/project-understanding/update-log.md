@@ -3,6 +3,44 @@
 > **Rule:** Append a new entry to this file after EVERY change to the project.
 > This file is the first thing to check before editing any module.
 
+## 2026-06-26 — N° Document : choix Manuel / Automatique sur tous les formulaires ventes & achats
+
+**Objectif :** Sur tous les formulaires create/edit des documents (factures, devis, avoirs, bons de livraison, bons de commande, factures fournisseurs, notes de débit, bons de réception), remplacer le champ numéro en lecture seule par un toggle radio **Manuel** (défaut) / **Automatique** avec validation JS + serveur.
+
+**Fichiers créés :**
+- `resources/views/backoffice/components/_number-field.blade.php` — partial réutilisable (radio + input + validation JS inline)
+
+**Vues modifiées (create + edit) :**
+- `resources/views/backoffice/sales/invoices/create.blade.php` + `edit.blade.php`
+- `resources/views/backoffice/sales/quotes/create.blade.php` + `edit.blade.php`
+- `resources/views/backoffice/sales/credit-notes/create.blade.php` + `edit.blade.php`
+- `resources/views/backoffice/sales/delivery-challans/create.blade.php` + `edit.blade.php`
+- `resources/views/backoffice/purchases/purchase-orders/create.blade.php` + `edit.blade.php`
+- `resources/views/backoffice/purchases/vendor-bills/create.blade.php` + `edit.blade.php`
+- `resources/views/backoffice/purchases/debit-notes/create.blade.php` + `edit.blade.php`
+- `resources/views/backoffice/purchases/goods-receipts/create.blade.php` + `edit.blade.php`
+
+**Form Requests modifiés (ajout `number_mode` + `number` conditionnels) :**
+- `Sales/Store/StoreInvoiceRequest`, `StoreQuoteRequest`, `StoreCreditNoteRequest`, `StoreDeliveryChallanRequest`
+- `Sales/Update/UpdateInvoiceRequest`, `UpdateQuoteRequest`, `UpdateCreditNoteRequest`, `UpdateDeliveryChallanRequest`
+- `Purchases/Store/StorePurchaseOrderRequest`, `StoreVendorBillRequest`, `StoreDebitNoteRequest`, `StoreGoodsReceiptRequest`
+- `Purchases/Update/UpdatePurchaseOrderRequest`, `UpdateVendorBillRequest`, `UpdateDebitNoteRequest`, `UpdateGoodsReceiptRequest`
+
+**Services & Controllers modifiés (logique number_mode) :**
+- `Services/Sales/InvoiceService.php` (create + update)
+- `Services/Sales/QuoteService.php` (create + update)
+- `Services/Sales/DeliveryChallanService.php` (create + update)
+- `Services/Sales/CreditNoteService.php` (create + update)
+- `Services/Purchases/PurchaseOrderService.php` (create + update)
+- `Services/Purchases/DebitNoteService.php` (create + update)
+- `Services/Purchases/GoodsReceiptService.php` (create + update)
+- `Controllers/Backoffice/Purchases/VendorBillController.php` (store + update)
+
+**Comportement :**
+- Défaut = Manuel → input texte éditable, soumission bloquée si vide (JS + `required_if:number_mode,manuel` serveur)
+- Auto → input readonly/vide, génération via `DocumentNumberService::next()`
+- Sur edit : si Manuel, le numéro existant est pré-rempli et modifiable
+
 ## 2026-06-25 — Fix contact form duplicate submissions
 
 - `routes/frontoffice.php` — added `throttle:3,5` middleware to `POST /contact` (max 3 submissions per 5 minutes per IP)

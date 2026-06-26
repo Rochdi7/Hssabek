@@ -16,6 +16,8 @@ class StoreGoodsReceiptRequest extends TenantFormRequest
     public function rules(): array
     {
         return [
+            'number_mode'       => ['nullable', 'in:manuel,auto'],
+            'number'            => ['required_if:number_mode,manuel', 'nullable', 'string', 'max:100'],
             'purchase_order_id' => ['nullable', 'uuid', $this->tenantExists('purchase_orders')],
             'warehouse_id'      => ['required', 'uuid', $this->tenantExists('warehouses')],
             'received_at'       => ['nullable', 'date'],

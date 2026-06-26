@@ -34,7 +34,9 @@ class CreditNoteService
             $creditNote = CreditNote::create([
                 'customer_id'      => $validated['customer_id'],
                 'invoice_id'       => $validated['invoice_id'] ?? null,
-                'number'           => $this->docService->next('credit_note'),
+                'number' => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $this->docService->next('credit_note'),
                 'reference_number' => $validated['reference_number'] ?? null,
                 'status'           => 'active',
                 'issue_date'       => $validated['issue_date'],
@@ -101,6 +103,9 @@ class CreditNoteService
             $creditNote->update([
                 'customer_id'      => $validated['customer_id'] ?? $creditNote->customer_id,
                 'invoice_id'       => $validated['invoice_id'] ?? $creditNote->invoice_id,
+                'number'           => ($validated['number_mode'] ?? 'auto') === 'manuel' && !empty($validated['number'])
+                    ? $validated['number']
+                    : $creditNote->number,
                 'reference_number' => $validated['reference_number'] ?? $creditNote->reference_number,
                 'issue_date'       => $validated['issue_date'] ?? $creditNote->issue_date,
                 'enable_tax'       => $validated['enable_tax'] ?? $creditNote->enable_tax,

@@ -59,11 +59,12 @@
                                                 <div class="purchase-top-content">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">{{ __('N° Facture') }}</label>
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="{{ __('Généré automatiquement') }}" readonly>
-                                                            </div>
+                                                            @include('backoffice.components._number-field', [
+                                                                'label'        => 'N° Facture',
+                                                                'fieldName'    => 'number',
+                                                                'currentValue' => null,
+                                                                'autoValue'    => null,
+                                                            ])
                                                         </div>
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
