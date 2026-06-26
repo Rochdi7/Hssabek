@@ -260,7 +260,7 @@
             {{-- ─── Totals rows ──────────────────────────────────── --}}
             <tr class="totals-row">
                 <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
-                <td class="label-cell">Total HT</td>
+                <td class="label-cell">T.H.T</td>
                 <td class="value-cell">{{ number_format($quote->subtotal, 2, ',', ' ') }}</td>
             </tr>
             @if($quote->discount_total > 0)
@@ -270,13 +270,7 @@
                 <td class="value-cell">-{{ number_format($quote->discount_total, 2, ',', ' ') }}</td>
             </tr>
             @endif
-            @if($quote->enable_tax)
-            <tr class="totals-row">
-                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
-                <td class="label-cell">TVA {{ number_format($quote->items->first()?->tax_rate ?? 20, 1) }}%</td>
-                <td class="value-cell">{{ number_format($quote->tax_total, 2, ',', ' ') }}</td>
-            </tr>
-            @endif
+            @include('pdf.partials.tax-breakdown', ['doc' => $quote, 'colspan' => $hasMeasurement ? 5 : 2, 'cellStyle' => 'totals-row', 'currency' => $currency])
             @if($quote->round_off != 0)
             <tr class="totals-row">
                 <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
@@ -286,7 +280,7 @@
             @endif
             <tr class="totals-row grand-total">
                 <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
-                <td class="label-cell">Total TTC</td>
+                <td class="label-cell">TOTAL TTC</td>
                 <td class="value-cell">{{ number_format($quote->total, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
         </tbody>
