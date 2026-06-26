@@ -352,7 +352,7 @@
     <table style="width: 100%; margin-bottom: 0;">
         <tr class="totals-row">
             <td style="width: 50%;"></td>
-            <td class="label-cell">T.H.T</td>
+            <td class="label-cell">Total HT</td>
             <td class="value-cell">{{ number_format($invoice->subtotal, 2, ',', ' ') }}</td>
         </tr>
         @if($invoice->discount_total > 0)
@@ -362,7 +362,13 @@
             <td class="value-cell">-{{ number_format($invoice->discount_total, 2, ',', ' ') }}</td>
         </tr>
         @endif
-        @include('pdf.partials.tax-breakdown', ['doc' => $invoice, 'colspan' => 1, 'cellStyle' => 'totals-row', 'currency' => $currency])
+        @if($invoice->enable_tax)
+        <tr class="totals-row">
+            <td></td>
+            <td class="label-cell">TVA {{ number_format($invoice->items->first()?->tax_rate ?? 20, 1) }}%</td>
+            <td class="value-cell">{{ number_format($invoice->tax_total, 2, ',', ' ') }}</td>
+        </tr>
+        @endif
         @if($invoice->round_off != 0)
         <tr class="totals-row">
             <td></td>
@@ -378,7 +384,7 @@
             <table class="total-bar-table">
                 <tr>
                     <td style="width: 50%;">
-                        <span class="total-label">TOTAL TTC</span>
+                        <span class="total-label">TOTAL</span>
                     </td>
                     <td style="width: 50%;">
                         <span class="total-value">{{ number_format($invoice->total, 2, ',', ' ') }} {{ $currency }}</span>

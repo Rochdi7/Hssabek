@@ -362,7 +362,7 @@
     <table style="width: 100%; margin-bottom: 0;">
         <tr class="totals-row">
             <td style="width: 50%;"></td>
-            <td class="label-cell">T.H.T</td>
+            <td class="label-cell">Total HT</td>
             <td class="value-cell">{{ number_format($quote->subtotal, 2, ',', ' ') }}</td>
         </tr>
         @if($quote->discount_total > 0)
@@ -372,7 +372,13 @@
             <td class="value-cell">-{{ number_format($quote->discount_total, 2, ',', ' ') }}</td>
         </tr>
         @endif
-        @include('pdf.partials.tax-breakdown', ['doc' => $quote, 'colspan' => 1, 'cellStyle' => 'totals-row', 'currency' => $currency])
+        @if($quote->enable_tax)
+        <tr class="totals-row">
+            <td></td>
+            <td class="label-cell">TVA {{ number_format($quote->items->first()?->tax_rate ?? 20, 1) }}%</td>
+            <td class="value-cell">{{ number_format($quote->tax_total, 2, ',', ' ') }}</td>
+        </tr>
+        @endif
         @if($quote->round_off != 0)
         <tr class="totals-row">
             <td></td>

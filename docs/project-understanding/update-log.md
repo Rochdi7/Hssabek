@@ -3,38 +3,6 @@
 > **Rule:** Append a new entry to this file after EVERY change to the project.
 > This file is the first thing to check before editing any module.
 
-## 2026-06-26 — PDF : affichage T.H.T / T.V.A xx% / TOTAL TTC avec ventilation multi-taux
-
-**Objectif :** Remplacer la ligne TVA mono-taux (basée uniquement sur le premier item) par un affichage correct T.H.T / T.V.A xx% / TOTAL TTC avec ventilation par taux si plusieurs taux coexistent.
-
-**Fichier créé :**
-- `resources/views/pdf/partials/tax-breakdown.blade.php` — partial réutilisable, 3 styles (totals-row / t-label / debit), gère 0 taux, 1 taux, et multi-taux
-
-**Templates PDF modifiés :**
-- `resources/views/pdf/templates/free/invoice/model-1.blade.php`
-- `resources/views/pdf/templates/free/invoice/model-2.blade.php`
-- `resources/views/pdf/templates/free/invoice/model-3.blade.php`
-- `resources/views/pdf/templates/free/invoice/model-4.blade.php`
-- `resources/views/pdf/templates/free/quote/model-1.blade.php`
-- `resources/views/pdf/templates/free/quote/model-2.blade.php`
-- `resources/views/pdf/templates/free/quote/model-3.blade.php`
-- `resources/views/pdf/templates/free/quote/model-4.blade.php`
-- `resources/views/pdf/templates/free/quote/model-megamar.blade.php` (inline, structure unique)
-- `resources/views/pdf/templates/free/credit-note/model-1.blade.php`
-- `resources/views/pdf/templates/free/credit-note/model-2.blade.php`
-- `resources/views/pdf/templates/free/credit-note/model-3.blade.php`
-- `resources/views/pdf/templates/free/credit-note/model-4.blade.php`
-- `resources/views/pdf/templates/free/debit-note/model-1.blade.php`
-
-**Comportement :**
-- Libellé HT : `T.H.T` (anciennement `Total HT` / `Sous-total`)
-- Libellé TVA : `T.V.A 10%` (taux dynamique, un par taux distinct) — si > 1 taux, ligne `T.V.A TOTAL` ajoutée
-- Libellé TTC : `TOTAL TTC` (anciennement `TOTAL` / `Total TTC` / `Total Avoir` / `Total Note de débit`)
-- Calcul depuis `line_tax` si disponible, sinon `line_subtotal × rate`, sinon `qty × price × rate`
-- Aucune modification du moteur de calcul
-
----
-
 ## 2026-06-26 — N° Document : choix Manuel / Automatique sur tous les formulaires ventes & achats
 
 **Objectif :** Sur tous les formulaires create/edit des documents (factures, devis, avoirs, bons de livraison, bons de commande, factures fournisseurs, notes de débit, bons de réception), remplacer le champ numéro en lecture seule par un toggle radio **Manuel** (défaut) / **Automatique** avec validation JS + serveur.

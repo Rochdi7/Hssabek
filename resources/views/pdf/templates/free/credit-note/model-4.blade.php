@@ -301,10 +301,15 @@
         <div class="totals-wrapper">
             <table class="totals-table">
                 <tr>
-                    <td class="t-label">T.H.T</td>
+                    <td class="t-label">Total HT</td>
                     <td class="t-value">{{ number_format($creditNote->subtotal, 2, ',', ' ') }}</td>
                 </tr>
-                @include('pdf.partials.tax-breakdown', ['doc' => $creditNote, 'colspan' => 0, 'cellStyle' => 't-label', 'currency' => $currency])
+                @if($creditNote->enable_tax)
+                <tr>
+                    <td class="t-label">TVA {{ number_format($creditNote->items->first()?->tax_rate ?? 20, 1) }}%</td>
+                    <td class="t-value">{{ number_format($creditNote->tax_total, 2, ',', ' ') }}</td>
+                </tr>
+                @endif
                 @if($creditNote->round_off != 0)
                 <tr>
                     <td class="t-label">Arrondi</td>
@@ -319,7 +324,7 @@
             <table>
                 <tr>
                     <td style="width: 50%;">
-                        <span class="gt-label">TOTAL TTC</span>
+                        <span class="gt-label">Total Avoir</span>
                     </td>
                     <td style="width: 50%;">
                         <span class="gt-value">{{ number_format($creditNote->total, 2, ',', ' ') }} {{ $currency }}</span>

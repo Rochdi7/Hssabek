@@ -155,7 +155,7 @@
     <div class="totals-wrapper">
         <table class="totals-table">
             <tr>
-                <td>T.H.T</td>
+                <td>Sous-total</td>
                 <td class="text-right">{{ number_format($debitNote->subtotal, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
             @if($debitNote->discount_total > 0)
@@ -164,7 +164,12 @@
                 <td class="text-right">-{{ number_format($debitNote->discount_total, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
             @endif
-            @include('pdf.partials.tax-breakdown', ['doc' => $debitNote, 'colspan' => 0, 'cellStyle' => 'debit', 'currency' => $currency])
+            @if($debitNote->enable_tax)
+            <tr>
+                <td>TVA</td>
+                <td class="text-right">{{ number_format($debitNote->tax_total, 2, ',', ' ') }} {{ $currency }}</td>
+            </tr>
+            @endif
             @if($debitNote->round_off != 0)
             <tr>
                 <td>Arrondi</td>
@@ -172,7 +177,7 @@
             </tr>
             @endif
             <tr class="total-row">
-                <td>TOTAL TTC</td>
+                <td>Total Note de débit</td>
                 <td class="text-right">{{ number_format($debitNote->total, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
         </table>

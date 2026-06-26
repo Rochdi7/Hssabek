@@ -229,7 +229,7 @@
             {{-- ─── Totals rows ──────────────────────────────────── --}}
             <tr class="totals-row">
                 <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
-                <td class="label-cell">T.H.T</td>
+                <td class="label-cell">Total HT</td>
                 <td class="value-cell">{{ number_format($invoice->subtotal, 2, ',', ' ') }}</td>
             </tr>
             @if($invoice->discount_total > 0)
@@ -239,7 +239,13 @@
                 <td class="value-cell">-{{ number_format($invoice->discount_total, 2, ',', ' ') }}</td>
             </tr>
             @endif
-            @include('pdf.partials.tax-breakdown', ['doc' => $invoice, 'colspan' => $hasMeasurement ? 5 : 2, 'cellStyle' => 'totals-row', 'currency' => $currency])
+            @if($invoice->enable_tax)
+            <tr class="totals-row">
+                <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
+                <td class="label-cell">TVA {{ number_format($invoice->items->first()?->tax_rate ?? 20, 1) }}%</td>
+                <td class="value-cell">{{ number_format($invoice->tax_total, 2, ',', ' ') }}</td>
+            </tr>
+            @endif
             @if($invoice->round_off != 0)
             <tr class="totals-row">
                 <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
@@ -249,7 +255,7 @@
             @endif
             <tr class="totals-row grand-total">
                 <td colspan="{{ $hasMeasurement ? 5 : 2 }}"></td>
-                <td class="label-cell">TOTAL TTC</td>
+                <td class="label-cell">TOTAL</td>
                 <td class="value-cell">{{ number_format($invoice->total, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
             @if($invoice->amount_paid > 0)

@@ -136,7 +136,7 @@
                 <td class="no-border"></td>
                 <td class="no-border"></td>
                 <td class="no-border"></td>
-                <td class="totals-label">T.H.T</td>
+                <td class="totals-label">Total HT</td>
                 <td class="text-right">{{ number_format($quote->subtotal, 2, ',', ' ') }}</td>
             </tr>
             @if($quote->discount_total > 0)
@@ -150,49 +150,21 @@
             </tr>
             @endif
             @if($quote->enable_tax)
-            @php
-                $__taxByRate = [];
-                foreach ($quote->items ?? [] as $__item) {
-                    $__rate = round((float)($__item->tax_rate ?? 0), 4);
-                    if ($__rate <= 0) continue;
-                    $__tax = isset($__item->line_tax) ? (float)$__item->line_tax : round((float)($__item->line_subtotal ?? 0) * ($__rate / 100), 2);
-                    $__key = number_format($__rate, 10, '.', '');
-                    $__taxByRate[$__key] = ($__taxByRate[$__key] ?? ['rate' => $__rate, 'amount' => 0.0]);
-                    $__taxByRate[$__key]['amount'] += $__tax;
-                }
-                foreach ($__taxByRate as $__k => $__v) { $__taxByRate[$__k]['amount'] = round($__v['amount'], 2); }
-                uasort($__taxByRate, fn($a, $b) => $a['rate'] <=> $b['rate']);
-                $__multiRate = count($__taxByRate) > 1;
-            @endphp
-            @if(count($__taxByRate) === 0)
             <tr>
-                <td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td>
-                <td class="totals-label">T.V.A 0%</td>
-                <td class="text-right">0,00</td>
-            </tr>
-            @else
-            @foreach($__taxByRate as $__bucket)
-            <tr>
-                <td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td>
-                <td class="totals-label">T.V.A {{ rtrim(rtrim(number_format($__bucket['rate'], 2, ',', ''), '0'), ',') }}%</td>
-                <td class="text-right">{{ number_format($__bucket['amount'], 2, ',', ' ') }}</td>
-            </tr>
-            @endforeach
-            @if($__multiRate)
-            <tr>
-                <td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td>
-                <td class="totals-label" style="border-top:1px solid #ccc;">T.V.A TOTAL</td>
-                <td class="text-right" style="border-top:1px solid #ccc;">{{ number_format($quote->tax_total, 2, ',', ' ') }}</td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <td class="totals-label">TVA {{ number_format($quote->items->first()?->tax_rate ?? 20, 1) }}%</td>
+                <td class="text-right">{{ number_format($quote->tax_total, 2, ',', ' ') }}</td>
             </tr>
             @endif
-            @endif
-            @endif
             <tr>
                 <td class="no-border"></td>
                 <td class="no-border"></td>
                 <td class="no-border"></td>
                 <td class="no-border"></td>
-                <td class="totals-label">TOTAL TTC</td>
+                <td class="totals-label">Total TTC</td>
                 <td class="text-right">{{ number_format($quote->total, 2, ',', ' ') }} {{ $currency }}</td>
             </tr>
         </tbody>
