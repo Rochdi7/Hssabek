@@ -590,18 +590,6 @@
                             </li>
                             @endif
 
-                            {{-- ─── SUPPORT ─── --}}
-                            <li class="menu-title"><span>{{ __('Support') }}</span></li>
-                            <li>
-                                <ul>
-                                    {{-- <li class="{{ request()->routeIs('bo.support.tickets.*') ? 'active' : '' }}">
-                                        <a href="{{ route('bo.support.tickets.index') }}">
-                                            <i class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
-                                        </a>
-                                    </li> --}}
-                                </ul>
-                            </li>
-
                             {{-- ─── ADMINISTRATION ─── --}}
                             @if ($canAny($adminMenuPermissions))
                             <li class="menu-title"><span>{{ __('Administration') }}</span></li>

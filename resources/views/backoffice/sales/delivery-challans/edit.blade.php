@@ -163,10 +163,10 @@
                                                                 <div class="d-flex align-items-center">
                                                                     <div class="form-check form-switch me-4">
                                                                         <input class="form-check-input" type="checkbox"
-                                                                            role="switch" id="enabe_tax"
+                                                                            role="switch" id="enable_tax"
                                                                             {{ old('enable_tax', '1') == '1' ? 'checked' : '' }}>
                                                                         <label class="form-check-label"
-                                                                            for="enabe_tax">{{ __('Activer
+                                                                            for="enable_tax">{{ __('Activer
                                                                             la taxe') }}</label>
                                                                     </div>
                                                                 </div>
@@ -246,47 +246,6 @@
                                         <h6>{{ __('Articles & Détails') }}</h6>
                                     </div>
 
-                                    <!-- start row -->
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="mb-3">
-                                                <h6 class="fs-14 mb-1">{{ __('Type d\'article') }}</h6>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="item_type_filter" id="Radio-sm-3" value="product"
-                                                            checked>
-                                                        <label class="form-check-label" for="Radio-sm-3">
-                                                            {{ __('Produit') }}
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="item_type_filter" id="Radio-sm-4" value="service">
-                                                        <label class="form-check-label" for="Radio-sm-4">
-                                                            {{ __('Service') }}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">{{ __('Produits/Services') }}</label>
-                                                <select class="select" id="product-select">
-                                                    <option value="">{{ __('Sélectionner') }}</option>
-                                                    @foreach ($products as $product)
-                                                        <option value="{{ $product->id }}"
-                                                            data-name="{{ $product->name }}"
-                                                            data-price="{{ $product->selling_price }}"
-                                                            data-type="{{ $product->item_type }}">
-                                                            {{ $product->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div><!-- end col -->
-                                    </div>
-                                    <!-- end row -->
-
                                     <!-- Table List start -->
                                     <div class="table-responsive table-nowrap rounded border-bottom-0 border mb-3">
                                         <table class="table mb-0 add-table" id="items-table" style="min-width: 550px;">
@@ -308,9 +267,15 @@
                                                                 name="items[{{ $i }}][product_id]"
                                                                 class="item-product-id"
                                                                 value="{{ $item['product_id'] ?? '' }}">
+                                                            <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">
+                                                                <option value="">— {{ __('Rechercher un produit…') }} —</option>
+                                                                @foreach ($products as $p)
+                                                                    <option value="{{ $p->id }}" {{ ($item['product_id'] ?? null) == $p->id ? 'selected' : '' }}>{{ $p->name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                             <input type="text"
                                                                 name="items[{{ $i }}][label]"
-                                                                class="form-control item-label"
+                                                                class="form-control form-control-sm item-label"
                                                                 value="{{ $item['label'] ?? '' }}"
                                                                 placeholder="{{ __('Nom de l\'article') }}">
                                                         </td>
@@ -487,32 +452,50 @@
             let itemIndex = {{ count(old('items', $deliveryChallan->items->toArray())) }};
             const tbody = document.querySelector('#items-table .add-tbody');
             const addBtn = document.getElementById('add-item-btn');
-            const productSelect = document.getElementById('product-select');
             const taxGroups = @json($taxGroups);
             const taxCategories = @json($taxCategories);
+            const products = @json($products);
+
+            const enableTaxCheck = document.getElementById('enable_tax');
+            const defaultTaxGroup = taxGroups.length > 0 ? taxGroups[0] : (taxCategories.length > 0 ? taxCategories[0] : null);
+            const defaultTaxValue = defaultTaxGroup ? (defaultTaxGroup.rates ? String(defaultTaxGroup.id) : 'cat_' + defaultTaxGroup.id) : '';
+
+            function buildProductOptions() {
+                let s = '<option value="">— {{ __('Rechercher un produit…') }} —</option>';
+                products.forEach(p => s += `<option value="${p.id}">${p.name}</option>`);
+                return s;
+            }
 
             /* =========================================================
-             * Item type filter — show/hide product options based on type
+             * Per-row product select — apply catalogue product to row
              * ========================================================= */
-            const itemTypeRadios = document.querySelectorAll('[name="item_type_filter"]');
-            itemTypeRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    const type = this.value;
-                    Array.from(productSelect.options).forEach(opt => {
-                        if (!opt.value) return;
-                        opt.style.display = (opt.dataset.type === type) ? '' : 'none';
-                        if (opt.style.display === 'none' && opt.selected) opt.selected =
-                            false;
-                    });
+            function applyProductToRow(row, product) {
+                row.querySelector('.item-product-id').value = product.id;
+                row.querySelector('.item-label').value = product.name;
+                row.querySelector('.item-price').value = product.selling_price;
+                recalcAll();
+            }
+
+            function initRowSelect2(row) {
+                $(row).find('.item-product-select').select2({
+                    placeholder: '— {{ __('Rechercher un produit…') }} —',
+                    allowClear: true,
+                    width: '100%',
+                    dropdownParent: $(row).find('.item-product-select').parent()
+                }).on('change', function() {
+                    const pid = $(this).val();
+                    if (!pid) return;
+                    const product = products.find(p => p.id == pid);
+                    if (product) applyProductToRow(row, product);
+                    $(this).val(null).trigger('change');
                 });
-            });
-            const checkedRadio = document.querySelector('[name="item_type_filter"]:checked');
-            if (checkedRadio) checkedRadio.dispatchEvent(new Event('change'));
+            }
 
             /* =========================================================
              * Add new item row
              * ========================================================= */
             addBtn.addEventListener('click', function() {
+                const productOptions = buildProductOptions();
                 let taxOpts = '<option value="" data-rate="0" data-type="">0%</option>';
                 if (taxCategories.length) {
                     taxOpts += '<optgroup label="{{ __('Taux de taxes') }}">';
@@ -535,7 +518,8 @@
                 row.innerHTML = `
                     <td>
                         <input type="hidden" name="items[${itemIndex}][product_id]" class="item-product-id" value="">
-                        <input type="text" name="items[${itemIndex}][label]" class="form-control item-label" placeholder="{{ __('Nom de l\'article') }}">
+                        <select class="form-select form-select-sm item-product-select w-100" style="margin-bottom:3px;">${productOptions}</select>
+                        <input type="text" name="items[${itemIndex}][label]" class="form-control form-control-sm item-label" placeholder="{{ __('Nom de l\'article') }}">
                     </td>
                     <td>
                         <input type="number" name="items[${itemIndex}][quantity]" class="form-control item-qty" value="1" min="0.001" step="0.001" required>
@@ -557,6 +541,7 @@
                 `;
                 tbody.appendChild(row);
                 itemIndex++;
+                initRowSelect2(row);
                 if (enableTaxCheck.checked && defaultTaxValue) {
                     row.querySelector('.item-tax').value = defaultTaxValue;
                 }
@@ -577,40 +562,8 @@
                 }
             });
 
-            /* =========================================================
-             * Product select → populate first empty row or add new
-             * ========================================================= */
-            if (productSelect) {
-                productSelect.addEventListener('change', function() {
-                    const opt = this.options[this.selectedIndex];
-                    if (!opt || !opt.value) return;
-
-                    const name = opt.dataset.name || opt.textContent.trim();
-                    const price = parseFloat(opt.dataset.price) || 0;
-
-                    // Find first empty row or add new one
-                    const lastRow = tbody.querySelector('.item-row:last-child');
-                    const labelInput = lastRow ? lastRow.querySelector('.item-label') : null;
-                    let targetRow = lastRow;
-
-                    if (labelInput && labelInput.value && labelInput.value.trim() !== '') {
-                        addBtn.click();
-                        targetRow = tbody.querySelector('.item-row:last-child');
-                    }
-
-                    if (targetRow) {
-                        const pid = targetRow.querySelector('.item-product-id');
-                        const lbl = targetRow.querySelector('.item-label');
-                        const prc = targetRow.querySelector('.item-price');
-                        if (pid) pid.value = opt.value;
-                        if (lbl) lbl.value = name;
-                        if (prc) prc.value = price.toFixed(2);
-                        recalcAll();
-                    }
-
-                    this.value = '';
-                });
-            }
+            // Init select2 on initial row(s)
+            document.querySelectorAll('.item-row').forEach(row => initRowSelect2(row));
 
             /* =========================================================
              * Live calculation
@@ -664,10 +617,7 @@
             /* =========================================================
              * Tax toggle — show/hide tax column & auto-select default
              * ========================================================= */
-            const enableTaxCheck = document.getElementById('enable_tax');
             const taxTotalRow = document.getElementById('tax-total-row');
-            const defaultTaxGroup = taxGroups.length > 0 ? taxGroups[0] : (taxCategories.length > 0 ? taxCategories[0] : null);
-            const defaultTaxValue = defaultTaxGroup ? (defaultTaxGroup.rates ? String(defaultTaxGroup.id) : 'cat_' + defaultTaxGroup.id) : '';
 
             function toggleTax() {
                 const enabled = enableTaxCheck.checked;
