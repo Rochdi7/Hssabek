@@ -164,9 +164,8 @@ class TenantManagementController extends Controller
      */
     public function show(Tenant $tenant)
     {
-        $tenant->load('users', 'settings');
-
-        return view('backoffice.tenants.show', compact('tenant'));
+        // Tenant view/edit is handled via modals on the index page.
+        return redirect()->route('sa.tenants.index');
     }
 
     /**
@@ -174,7 +173,8 @@ class TenantManagementController extends Controller
      */
     public function edit(Tenant $tenant)
     {
-        return view('backoffice.tenants.edit', compact('tenant'));
+        // Tenant view/edit is handled via modals on the index page.
+        return redirect()->route('sa.tenants.index');
     }
 
     /**
