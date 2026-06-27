@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('tenants')->as('tenants.')->group(function () {
     Route::get('/', [TenantManagementController::class, 'index'])->name('index');
+    Route::get('/free-trials', [TenantManagementController::class, 'freeTrials'])->name('free-trials');
     Route::get('/create', [TenantManagementController::class, 'create'])->name('create');
     Route::post('/', [TenantManagementController::class, 'store'])->name('store');
     Route::get('/{tenant}', [TenantManagementController::class, 'show'])->name('show');

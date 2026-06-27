@@ -28,9 +28,8 @@ class EnsureTenantIsActive
             && $tenant->trial_ends_at !== null
             && $tenant->trial_ends_at->isPast()
         ) {
-            return response()->view('errors.tenant-suspended', [
+            return response()->view('errors.trial-expired', [
                 'tenant' => $tenant,
-                'status' => 'trial_expired',
             ], 403);
         }
 
