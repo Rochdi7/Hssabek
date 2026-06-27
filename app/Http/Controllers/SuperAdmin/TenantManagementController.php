@@ -49,6 +49,7 @@ class TenantManagementController extends Controller
         $tenants = Tenant::where('has_free_trial', true)
             ->whereNotNull('trial_ends_at')
             ->withCount('users')
+            ->with(['users' => fn ($q) => $q->oldest()->limit(1)])
             ->orderBy('trial_ends_at')
             ->paginate(20);
 

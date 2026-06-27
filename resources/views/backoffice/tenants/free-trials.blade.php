@@ -86,6 +86,7 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('Tenant') }}</th>
+                                    <th>{{ __('Email') }}</th>
                                     <th>{{ __('Utilisateurs') }}</th>
                                     <th>{{ __('Fin d\'essai') }}</th>
                                     <th>{{ __('Jours restants') }}</th>
@@ -104,6 +105,7 @@
                                             <span class="fw-medium">{{ $tenant->name }}</span>
                                             <p class="mb-0 text-muted fs-12">{{ $tenant->slug }}</p>
                                         </td>
+                                        <td>{{ optional($tenant->users->first())->email ?? '—' }}</td>
                                         <td>{{ $tenant->users_count }}</td>
                                         <td>{{ $tenant->trial_ends_at->format('d/m/Y') }}</td>
                                         <td>
@@ -130,7 +132,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center text-muted py-4">{{ __('Aucun locataire en période d\'essai.') }}</td>
+                                        <td colspan="7" class="text-center text-muted py-4">{{ __('Aucun locataire en période d\'essai.') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
