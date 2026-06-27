@@ -128,9 +128,14 @@
                             <li class="menu-title"><span>{{ __('Gestion') }}</span></li>
                             <li>
                                 <ul>
-                                    <li class="{{ request()->routeIs('sa.tenants.*') ? 'active' : '' }}">
+                                    <li class="{{ request()->routeIs('sa.tenants.index') || request()->routeIs('sa.tenants.create') || request()->routeIs('sa.tenants.show') || request()->routeIs('sa.tenants.edit') ? 'active' : '' }}">
                                         <a href="{{ route('sa.tenants.index') }}">
                                             <i class="isax isax-buildings-25"></i><span>{{ __('Tenants') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('sa.tenants.free-trials') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.tenants.free-trials') }}">
+                                            <i class="isax isax-timer-1"></i><span>{{ __('Essais gratuits') }}</span>
                                         </a>
                                     </li>
                                     <li class="submenu">

@@ -41,6 +41,33 @@ class TenantManagementController extends Controller
     }
 
     /**
+     * List tenants on a free trial — expired ones and those still running
+     * with their remaining days.
+     */
+    public function freeTrials(Request $request)
+    {
+        $tenants = Tenant::where('has_free_trial', true)
+            ->whereNotNull('trial_ends_at')
+            ->withCount('users')
+            ->orderBy('trial_ends_at')
+            ->paginate(20);
+
+        $activeTrials = Tenant::where('has_free_trial', true)
+            ->where('trial_ends_at', '>', now())
+            ->count();
+        $expiredTrials = Tenant::where('has_free_trial', true)
+            ->whereNotNull('trial_ends_at')
+            ->where('trial_ends_at', '<=', now())
+            ->count();
+
+        return view('backoffice.tenants.free-trials', compact(
+            'tenants',
+            'activeTrials',
+            'expiredTrials'
+        ));
+    }
+
+    /**
      * Show form to create a new tenant.
      */
     public function create()
