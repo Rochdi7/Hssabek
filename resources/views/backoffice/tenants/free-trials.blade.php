@@ -101,7 +101,7 @@
                                     @endphp
                                     <tr>
                                         <td>
-                                            <a href="{{ route('sa.tenants.show', $tenant) }}" class="fw-medium">{{ $tenant->name }}</a>
+                                            <span class="fw-medium">{{ $tenant->name }}</span>
                                             <p class="mb-0 text-muted fs-12">{{ $tenant->slug }}</p>
                                         </td>
                                         <td>{{ $tenant->users_count }}</td>
@@ -123,8 +123,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('sa.tenants.show', $tenant) }}" class="btn btn-sm btn-outline-white">
-                                                <i class="isax isax-eye me-1"></i>{{ __('Voir') }}
+                                            <a href="{{ route('sa.tenants.index') }}" class="btn btn-sm btn-outline-white">
+                                                <i class="isax isax-eye me-1"></i>{{ __('Gérer') }}
                                             </a>
                                         </td>
                                     </tr>
