@@ -33,8 +33,8 @@
 
                                     <div class="alert alert-warning" role="alert">
                                         <i class="isax isax-info-circle me-2"></i>
-                                        <strong>Besoin d'aide?</strong> Contactez notre équipe d'assistance à
-                                        support@facturation.local
+                                        <strong>Besoin d'aide?</strong> Contactez notre équipe d'assistance au
+                                        0632582096
                                     </div>
 
                                     <div class="text-center">
