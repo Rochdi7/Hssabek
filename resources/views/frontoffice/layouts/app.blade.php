@@ -378,6 +378,31 @@
             .counter {
                 direction: ltr;
             }
+
+            /* --- Footer bottom bar (RTL) --- */
+            .footer-bottom .copy-right,
+            .footer-bottom .site-credit {
+                direction: rtl;
+                text-align: right;
+            }
+
+            .footer-bottom-widget ul {
+                justify-content: flex-start;
+                padding-right: 0;
+            }
+
+            @media (max-width: 767.98px) {
+
+                .footer-bottom .copy-right,
+                .footer-bottom .site-credit {
+                    text-align: center;
+                }
+
+                .footer-bottom-widget ul {
+                    justify-content: center;
+                }
+            }
+
         </style>
     @endif
 
@@ -621,6 +646,55 @@
                 display: inline-block !important;
             }
         }
+
+        /* ===== Footer bottom bar ===== */
+        .footer-bottom .row {
+            align-items: center;
+            row-gap: 12px;
+        }
+
+        .copy-right p {
+            margin-bottom: 0;
+        }
+
+        .site-credit {
+            margin-top: 6px;
+            font-size: 14px;
+            opacity: .85;
+        }
+
+        .site-credit a {
+            color: #7f56ff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: opacity .2s ease;
+        }
+
+        .site-credit a:hover,
+        .site-credit a:focus {
+            color: #7f56ff;
+            text-decoration: underline;
+            opacity: .8;
+        }
+
+        .footer-bottom-widget ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            justify-content: flex-end;
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        @media (max-width: 767.98px) {
+            .footer-bottom .copy-right,
+            .footer-bottom-widget ul {
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
     </style>
 
     @stack('styles')

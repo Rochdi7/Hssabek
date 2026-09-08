@@ -80,7 +80,7 @@
 				<div class="col-md-6">
 					<div class="copy-right">
 						<p>Copyright {{ date('Y') }} &copy; {{ config('app.name') }}. {{ __('Tous droits réservés.') }}</p>
-						<p>{{ __('Site web conçu et développé par') }} <a href="https://codesommet.com/" target="_blank" rel="noopener" title="CodeSommet - Agence de développement web">CodeSommet</a></p>
+						<p class="site-credit">{{ __('Site web conçu et développé par') }} <a href="https://codesommet.com/" target="_blank" rel="noopener" title="CodeSommet - Agence de développement web">CodeSommet</a></p>
 					</div>
 				</div>
 				<div class="col-md-6">
